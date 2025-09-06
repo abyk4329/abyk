@@ -80,7 +80,7 @@ export default function Header() {
   )
 
   return (
-    <header className="w-full fixed top-0 inset-x-0 bg-ivory/90 backdrop-blur-md border-b border-gold/20 z-40 shadow-sm">
+    <header className="w-full fixed top-0 inset-x-0 bg-header backdrop-blur-md border-b border-gold/20 z-40 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <button aria-label="תפריט" className="md:hidden p-2" onClick={() => setOpen(!open)}>
           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">

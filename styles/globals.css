@@ -5,6 +5,7 @@
 :root {
   /* Unified palette */
   --ivory: #fffdfa; /* Updated to requested color */
+  --ivory-soft: #f9f6f6; /* New soft ivory to blend with --ivory */
   --sand-50: #F1E3D7; /* milky beige */
   --sand-100: #E8D7C6; /* light sand */
   --stone-soft: #E6D7C5; /* soft stone */
@@ -45,7 +46,9 @@
 
 body {
   font-family: 'Assistant', sans-serif;
+  /* Gentle vertical blend between the two ivories */
   background-color: var(--ivory);
+  background-image: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-soft) 55%, var(--ivory) 100%);
   color: var(--charcoal);
   text-align: center;
 }
@@ -147,11 +150,12 @@ strong {
   text-align: center;
 }
 
-/* Background: Subtle floating light points on #fffdfa */
+/* Background: Subtle floating light points over blended ivory */
 .bg-bokeh {
   position: relative;
   min-height: 100vh;
-  background: var(--ivory);
+  background:
+    linear-gradient(180deg, var(--ivory) 0%, var(--ivory-soft) 60%, var(--ivory) 100%);
   overflow: hidden;
 }
 .bg-bokeh::before,
@@ -183,6 +187,14 @@ strong {
 @keyframes lightPointsFade {
   0%, 100% { opacity: 0.1; }
   50% { opacity: 0.8; }
+}
+
+/* Header/Footer backgrounds using both ivories */
+.bg-header {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--ivory) 88%, transparent) 0%, color-mix(in oklab, var(--ivory-soft) 88%, transparent) 100%);
+}
+.bg-footer {
+  background: linear-gradient(180deg, var(--ivory-soft) 0%, var(--ivory) 100%);
 }
 
 /* Page fade transition */
