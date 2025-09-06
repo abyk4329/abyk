@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import TypewriterText from '@/components/TypewriterText'
 
 export default function Home() {
   return (
@@ -16,9 +17,14 @@ export default function Home() {
           />
         </div>
 
-        {/* סיסמה באנגלית */}
-        <h2 className="text-gold text-xl md:text-3xl font-light animate-fade-in italic tracking-wide energy-pulse" style={{ fontFamily: 'var(--font-slogan), serif' }}>
-          Unlock Your Inner Light
+        {/* סיסמה באנגלית עם אפקט הקלדה */}
+        <h2 className="text-gold text-xl md:text-3xl font-light italic tracking-wide min-h-[3rem] md:min-h-[4rem]" style={{ fontFamily: 'var(--font-slogan), serif' }}>
+          <TypewriterText 
+            text="Unlock Your Inner Light" 
+            speed={120}
+            startDelay={800}
+            className="inline-block"
+          />
         </h2>
 
         {/* כפתור */}

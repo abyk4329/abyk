@@ -1,6 +1,5 @@
 "use client"
 import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 
 export default function Header() {
   const [open, setOpen] = useState(false)
