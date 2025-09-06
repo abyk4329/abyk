@@ -1,18 +1,47 @@
 "use client"
-import { useState } from 'react'
-import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 
 export default function Header() {
   const [open, setOpen] = useState(false)
 
   const [soonOpen, setSoonOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
+  const soonRef = useRef<HTMLDivElement | null>(null)
+  const contactRef = useRef<HTMLDivElement | null>(null)
+
+  // סגירת תפריטים בלחיצה מחוץ או ESC
+  useEffect(() => {
+    const onDocClick = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node
+      if (
+        soonRef.current && !soonRef.current.contains(target) &&
+        contactRef.current && !contactRef.current.contains(target)
+      ) {
+        setSoonOpen(false)
+        setContactOpen(false)
+      }
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSoonOpen(false)
+        setContactOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onDocClick)
+    document.addEventListener('touchstart', onDocClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDocClick)
+      document.removeEventListener('touchstart', onDocClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [])
 
   const nav = (
     <nav className="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-charcoal relative">
-      <a href="/" className="hover:text-gold-deep font-medium">בית</a>
-      <a href="/money-code" className="hover:text-gold-deep font-medium">מחשבון קוד הכסף</a>
-      <div className="relative">
+      <a href="/" className="hover:text-gold-deep font-medium" onClick={() => { setSoonOpen(false); setContactOpen(false) }}>בית</a>
+      <a href="/money-code" className="hover:text-gold-deep font-medium" onClick={() => { setSoonOpen(false); setContactOpen(false) }}>מחשבון קוד הכסף</a>
+      <div className="relative" ref={soonRef}>
         <button
           className="font-medium text-charcoal hover:text-gold-deep"
           onClick={() => setSoonOpen((v) => !v)}
@@ -27,7 +56,7 @@ export default function Header() {
           </div>
         )}
       </div>
-      <div className="relative">
+      <div className="relative" ref={contactRef}>
         <button
           className="font-medium text-charcoal hover:text-gold-deep"
           onClick={() => setContactOpen((v) => !v)}
@@ -37,8 +66,8 @@ export default function Header() {
         </button>
         {contactOpen && (
           <div className="absolute right-0 mt-2 w-56 bg-ivory border border-gold/20 rounded-lg shadow-lg p-2 z-50">
-            <a className="block px-3 py-2 hover:bg-gold/10 rounded" href="https://wa.me/972524616121" target="_blank" rel="noreferrer">שלח וואטסאפ</a>
-            <a className="block px-3 py-2 hover:bg-gold/10 rounded" href="mailto:awakening.by.ksenia@gmail.com">שלח מייל</a>
+            <a className="block px-3 py-2 hover:bg-gold/10 rounded" href="https://wa.me/972524616121" target="_blank" rel="noreferrer" onClick={() => setContactOpen(false)}>שלח וואטסאפ</a>
+            <a className="block px-3 py-2 hover:bg-gold/10 rounded" href="mailto:awakening.by.ksenia@gmail.com" onClick={() => setContactOpen(false)}>שלח מייל</a>
           </div>
         )}
       </div>
