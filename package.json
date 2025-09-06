@@ -8,15 +8,18 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "engines": {
+    "node": ">=18.18 <23"
+  },
   "dependencies": {
-    "@types/nodemailer": "^7.0.1",
     "next": "^14.0.0",
     "nodemailer": "^7.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
+  "@types/node": "^20",
+  "@types/nodemailer": "^7.0.1",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
