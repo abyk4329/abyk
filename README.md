@@ -1,5 +1,8 @@
 # Awakening by Ksenia - התעוררות על ידי קסניה
 
+![CI](https://github.com/abyk4329/abyk/actions/workflows/ci.yml/badge.svg)
+![Deploy to Vercel](https://github.com/abyk4329/abyk/actions/workflows/deploy-vercel.yml/badge.svg)
+
 ## 🎯 **סקירה כללית**
 **Awakening by Ksenia** הוא **מרחב אפליקטיבי להרחבת התודעה** – פלטפורמת ווב/PWA מתקדמת שתכלול מגוון שירותים וכלים רוחניים ומדעיים-אינטואיטיביים.
 
