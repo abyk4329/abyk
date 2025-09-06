@@ -65,7 +65,7 @@ export default function MoneyCode() {
   // כתובת החזרה לאחר תשלום מוצלח
   return_url: `${window.location.origin}/thank-you?bd=${result.bd}&bm=${result.bm}&by=${result.by}&lp=${result.lp}`,
   business_name: 'Awakening by Ksenia',
-  business_tagline: 'Personal Space for Growth. Unlock Your Inner Light.',
+  business_tagline: 'Personal Space for Growht. Unlock Your Inner Light.',
   logo_url: `${window.location.origin}/icon.svg`
     })
     
