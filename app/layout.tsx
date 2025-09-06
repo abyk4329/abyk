@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="he" dir="rtl">
       <head />
   <body className={`${assistant.className} ${slogan.variable} bg-ivory text-charcoal`} suppressHydrationWarning>
-        <div className="relative min-h-screen bg-bokeh">
+  <div className="relative min-h-screen bg-bokeh" style={{ backgroundColor: 'var(--ivory)' }}>
       <Header />
           <div className="pt-20">{children}</div>
           <Footer />

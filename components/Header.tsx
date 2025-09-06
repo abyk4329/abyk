@@ -88,8 +88,11 @@ export default function Header() {
           </svg>
         </button>
         <a href="/" className="flex items-center gap-3">
-          {/* לוגו ליד הכותרת הוסר לפי בקשה; נשאיר רק שם דק ואלגנטי */}
-          <span className="text-cacao font-light tracking-wide text-lg">Awakening by Ksenia</span>
+          {/* Brand + tagline */}
+          <div className="leading-tight">
+            <span className="block text-espresso tracking-wide uppercase text-sm md:text-base font-medium">AWAKENING BY KSENIA - Personal Space For Growth</span>
+            <span className="block text-gold text-xs md:text-sm energy-pulse">Unlock Your Inner Ligt</span>
+          </div>
         </a>
         <div className="hidden md:block">{nav}</div>
       </div>
