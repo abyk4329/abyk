@@ -1,6 +1,36 @@
+"use client"
 import Image from 'next/image'
+import React, { Suspense, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 
-export default function ThankYou() {
+export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
+
+function ThankYouContent() {
+  const searchParams = useSearchParams()
+  const [htmlPreview, setHtmlPreview] = useState<string>('')
+  const [uniqueNumbers, setUniqueNumbers] = useState<number[]>([])
+
+  const code = useMemo(() => {
+    const bd = Number(searchParams.get('bd') || '0')
+    const bm = Number(searchParams.get('bm') || '0')
+    const by = Number(searchParams.get('by') || '0')
+    const lp = Number(searchParams.get('lp') || '0')
+    return { bd, bm, by, lp }
+  }, [searchParams])
+
+  useEffect(() => {
+    if (!code.bd || !code.bm || !code.by || !code.lp) return
+    const url = `/api/interpretation?bd=${code.bd}&bm=${code.bm}&by=${code.by}&lp=${code.lp}`
+    fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.html) setHtmlPreview(data.html)
+        if (Array.isArray(data?.uniqueNumbers)) setUniqueNumbers(data.uniqueNumbers)
+      })
+      .catch(() => {})
+  }, [code])
+
   return (
     <main className="container min-h-screen flex flex-col items-center justify-center py-8">
       <div className="text-center space-y-8 max-w-2xl">
@@ -33,7 +63,7 @@ export default function ThankYou() {
               <ul className="text-right space-y-2">
                 <li>אנחנו יוצרים עבורך פירוש מותאם אישית</li>
                 <li>הפירוש יישלח למייל תוך 5-10 דקות</li>
-                <li>תקבלי קובץ HTML עם כל הפירושים שלך</li>
+                <li>תקבלי קובץ HTML/‏PDF עם הפירושים למספרים שלך</li>
                 <li>הפירוש נשמר אצלך לתמיד</li>
               </ul>
             </div>
@@ -44,7 +74,26 @@ export default function ThankYou() {
           </div>
         </div>
 
-        {/* חתימה */}
+        {/* תצוגת פירוש מקומי לפי המספרים הייחודיים */}
+        {htmlPreview && (
+          <div className="max-w-3xl w-full bg-white/15 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gold/30 text-right">
+            <h2 className="text-gold-deep text-2xl font-bold mb-4">תקציר הפירוש שלך</h2>
+            <div className="text-sm text-text-secondary mb-2">
+              מספרים ייחודיים: {uniqueNumbers.join(', ')}
+            </div>
+            <div dangerouslySetInnerHTML={{ __html: htmlPreview }} />
+            <div className="mt-6 flex gap-3">
+              <a
+                className="btn bg-gold hover:bg-gold-deep px-6 py-3 font-bold"
+                href={`/api/interpretation?bd=${code.bd}&bm=${code.bm}&by=${code.by}&lp=${code.lp}&download=1`}
+              >
+                הורדת המסמך (HTML)
+              </a>
+            </div>
+          </div>
+        )}
+
+  {/* חתימה */}
         <div className="signature">
           <Image
             src="/signature.svg"
@@ -77,5 +126,13 @@ export default function ThankYou() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function ThankYou() {
+  return (
+    <Suspense fallback={<main className="container min-h-screen flex items-center justify-center"><div className="text-text-secondary">טוען...</div></main>}>
+      <ThankYouContent />
+    </Suspense>
   )
 }
