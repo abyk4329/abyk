@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --gold: #D4B896;
+  --gold-deep: #C6A170;
+  --ivory: #FEFEFE;
+  --charcoal: #1F2024;
+  --text-secondary: #6B6F76;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Assistant', sans-serif;
+  background-color: var(--ivory);
+  color: var(--charcoal);
+  text-align: center;
+}
+
+html {
+  direction: rtl;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--gold-deep);
+  text-align: center;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+p {
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+strong {
+  color: var(--charcoal);
+  font-weight: 700;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+}
+
+.logo {
+  max-width: 200px;
+  height: auto;
+  margin: 2rem auto;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    max-width: 150px;
+  }
+}
+
+.signature {
+  max-width: 150px;
+  height: auto;
+  margin: 2rem auto;
+}
+
+.btn {
+  background-color: var(--gold);
+  color: var(--charcoal);
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Assistant', sans-serif;
+}
+
+.btn:hover {
+  background-color: var(--gold-deep);
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 1rem;
+  }
+}
+
+/* אנימציות */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.animate-logo-entrance {
+  animation: logoEntrance 1.2s ease-out forwards;
+}
+
+/* כפתורי אינטראקציה */
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 184, 150, 0.4);
+}
+
+/* עיצוב לקלטים */
+input[type="date"] {
+  font-family: 'Assistant', sans-serif;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7) sepia(1) saturate(5) hue-rotate(30deg);
+  cursor: pointer;
+}
+
+/* רספונסיביות משופרת */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .container {
+    padding: 1rem 0.75rem;
+  }
+}
