@@ -7,8 +7,13 @@ import Footer from '@/components/Footer'
 const assistant = Assistant({ subsets: ['latin'], weight: ['300','400','500','600','700','800'] })
 
 export const metadata: Metadata = {
-  title: 'Awakening by Ksenia - התעוררות על ידי קסניה',
-  description: 'חישוב קוד נומרולוגי אישי',
+  title: 'Awakening by Ksenia',
+  description: 'Personal Space for Growth — Unlock Your Inner Light',
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
 }
 
 export default function RootLayout({

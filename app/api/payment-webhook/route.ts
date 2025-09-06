@@ -49,6 +49,17 @@ type MoneyCode = { bd: number; bm: number; by: number; lp: number }
 
 const createPersonalInterpretation = (code: MoneyCode): string => {
   const interpretations = getInterpretations()
+  const uniques = Array.from(new Set([code.bd, code.bm, code.by, code.lp].filter(Boolean)))
+  const blocks = uniques.map((n) => {
+    const key = String(n)
+    const html = interpretations[key] || 'פירוש לא נמצא'
+    return `
+      <div class="interpretation">
+        <h2>פירוש למספר ${key}</h2>
+        ${html}
+      </div>
+    `
+  }).join('\n')
   
   return `
 <!DOCTYPE html>
@@ -147,25 +158,7 @@ const createPersonalInterpretation = (code: MoneyCode): string => {
         </div>
     </div>
 
-    <div class="interpretation">
-        <h2>פירוש יום הלידה (${code.bd})</h2>
-        ${interpretations[code.bd.toString()] || 'פירוש לא נמצא'}
-    </div>
-
-    <div class="interpretation">
-        <h2>פירוש חודש הלידה (${code.bm})</h2>
-        ${interpretations[code.bm.toString()] || 'פירוש לא נמצא'}
-    </div>
-
-    <div class="interpretation">
-        <h2>פירוש שנת הלידה (${code.by})</h2>
-        ${interpretations[code.by.toString()] || 'פירוש לא נמצא'}
-    </div>
-
-    <div class="interpretation">
-        <h2>פירוש נתיב החיים (${code.lp})</h2>
-        ${interpretations[code.lp.toString()] || 'פירוש לא נמצא'}
-    </div>
+  ${blocks}
 
     <div class="footer">
         <p><strong>Awakening by Ksenia</strong></p>

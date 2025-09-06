@@ -2,7 +2,7 @@
 export default function Footer() {
   return (
     <footer className="mt-16 border-t border-gold/20 bg-ivory/80">
-      <div className="max-w-6xl mx-auto px-4 py-8 grid gap-6 md:grid-cols-3 text-center md:text-right">
+      <div className="max-w-6xl mx-auto px-6 py-10 grid gap-8 md:grid-cols-3 items-start text-center md:text-right">
         <div>
           <h3 className="text-gold-deep font-semibold mb-3">שתף עם חבר</h3>
           <button
@@ -18,14 +18,14 @@ export default function Footer() {
             }}
           >שיתוף</button>
         </div>
-        <div>
+        <div className="md:justify-self-center">
           <h3 className="text-gold-deep font-semibold mb-3">רשתות חברתיות</h3>
           <div className="flex gap-4 justify-center md:justify-end">
             <a className="hover:text-gold-deep" href="https://www.instagram.com/awakening.by.ksenia?igsh=MTZwOWljN2dsOXZzbQ%3D%3D&utm_source=qr" target="_blank" rel="noreferrer">Instagram</a>
             <a className="hover:text-gold-deep" href="https://www.tiktok.com/@awakening.by.ksenia" target="_blank" rel="noreferrer">TikTok</a>
           </div>
         </div>
-        <div>
+        <div className="md:justify-self-end">
           <h3 className="text-gold-deep font-semibold mb-3">מדיניות</h3>
           <div className="flex gap-4 justify-center md:justify-end">
             <a className="hover:text-gold-deep" href="/privacy">מדיניות פרטיות</a>
@@ -33,7 +33,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="text-text-secondary text-sm py-4">2025 © Awakening by Ksenia</div>
+      <div className="text-text-secondary text-sm py-4 text-center">2025 © Awakening by Ksenia</div>
     </footer>
   )
 }

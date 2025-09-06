@@ -5,15 +5,43 @@ import Image from 'next/image'
 export default function Header() {
   const [open, setOpen] = useState(false)
 
+  const [soonOpen, setSoonOpen] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
+
   const nav = (
-    <nav className="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-charcoal">
+    <nav className="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-charcoal relative">
       <a href="/" className="hover:text-gold-deep font-medium">בית</a>
       <a href="/money-code" className="hover:text-gold-deep font-medium">מחשבון קוד הכסף</a>
-      <div className="font-medium text-text-secondary">בקרוב</div>
-      <a className="text-text-secondary font-normal cursor-default">מצפן פנג שאוי</a>
-      <a className="text-text-secondary font-normal cursor-default">אנרגיה של היום</a>
-      <a href="mailto:awakening.by.ksenia@gmail.com" className="hover:text-gold-deep font-medium">צור קשר</a>
-      <a href="https://wa.me/972524616121" target="_blank" className="hover:text-gold-deep font-medium" rel="noreferrer">וואטסאפ</a>
+      <div className="relative">
+        <button
+          className="font-medium text-charcoal hover:text-gold-deep"
+          onClick={() => setSoonOpen((v) => !v)}
+          aria-expanded={soonOpen}
+        >
+          בקרוב
+        </button>
+        {soonOpen && (
+          <div className="absolute right-0 mt-2 w-56 bg-ivory border border-gold/20 rounded-lg shadow-lg p-2 z-50">
+            <div className="px-3 py-2 text-text-secondary cursor-default">מצפן פנג שואי</div>
+            <div className="px-3 py-2 text-text-secondary cursor-default">אנרגיה של היום</div>
+          </div>
+        )}
+      </div>
+      <div className="relative">
+        <button
+          className="font-medium text-charcoal hover:text-gold-deep"
+          onClick={() => setContactOpen((v) => !v)}
+          aria-expanded={contactOpen}
+        >
+          צור קשר
+        </button>
+        {contactOpen && (
+          <div className="absolute right-0 mt-2 w-56 bg-ivory border border-gold/20 rounded-lg shadow-lg p-2 z-50">
+            <a className="block px-3 py-2 hover:bg-gold/10 rounded" href="https://wa.me/972524616121" target="_blank" rel="noreferrer">שלח וואטסאפ</a>
+            <a className="block px-3 py-2 hover:bg-gold/10 rounded" href="mailto:awakening.by.ksenia@gmail.com">שלח מייל</a>
+          </div>
+        )}
+      </div>
       <div className="flex items-center gap-2">
         <a className="px-2 py-1 rounded border border-gold/50 text-sm hover:bg-gold/10" href="#" onClick={(e)=>e.preventDefault()}>HE</a>
         <a className="px-2 py-1 rounded border border-gold/50 text-sm hover:bg-gold/10" href="#" onClick={(e)=>e.preventDefault()}>EN</a>
@@ -31,8 +59,8 @@ export default function Header() {
           </svg>
         </button>
         <a href="/" className="flex items-center gap-3">
-          <Image src="/iconvector.svg" alt="ABYK" width={28} height={28} />
-          <span className="text-gold-deep font-bold">Awakening by Ksenia</span>
+          {/* לוגו ליד הכותרת הוסר לפי בקשה; נשאיר רק שם דק ואלגנטי */}
+          <span className="text-gold-deep font-light tracking-wide text-lg">Awakening by Ksenia</span>
         </a>
         <div className="hidden md:block">{nav}</div>
       </div>
