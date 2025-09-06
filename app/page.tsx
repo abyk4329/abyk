@@ -23,7 +23,7 @@ export default function Home() {
             alt="Unlock Your Inner Light"
             width={820}
             height={180}
-            className="mx-auto opacity-95 drop-shadow-[0_8px_24px_rgba(167,131,90,0.20)]"
+            className="mx-auto opacity-95 drop-shadow-[0_8px_24px_rgba(167,131,90,0.20)] slogan-shadow float-y"
             priority
           />
         </div>
@@ -35,7 +35,6 @@ export default function Home() {
         >
           <span className="relative z-10">מחשבון קוד הכסף</span>
         </a>
-
       </div>
     </main>
   )

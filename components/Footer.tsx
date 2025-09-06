@@ -1,7 +1,7 @@
 "use client"
 export default function Footer() {
   return (
-    <footer className="mt-10 md:mt-12 border-t border-gold/25 bg-footer/90 backdrop-blur-sm">
+    <footer className="mt-8 md:mt-10 border-t border-gold/25 bg-footer/90 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto px-6 py-8 md:py-10 grid gap-6 md:grid-cols-3 items-start text-center md:text-right">
         <div>
           <h3 className="text-cacao font-semibold mb-3">שתף עם חבר</h3>
@@ -17,7 +17,7 @@ export default function Footer() {
               }
             }}
           >שיתוף</button>
-        </div>
+    </div>
   <div className="md:justify-self-center">
           <h3 className="text-cacao font-semibold mb-3">רשתות חברתיות</h3>
           <div className="flex gap-4 justify-center md:justify-end">

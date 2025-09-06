@@ -322,6 +322,19 @@ strong { color: var(--dark-choco); font-weight: 700; }
   animation: logoEntrance 1.2s ease-out forwards;
 }
 
+/* Slogan legibility + gentle motion */
+.slogan-shadow {
+  /* subtle white edge + soft depth shadow for crispness on bright ivory */
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85))
+          drop-shadow(0 3px 10px rgba(31, 32, 36, 0.12));
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.float-y { animation: floatY 6s ease-in-out infinite; }
+
 /* כפתורי אינטראקציה */
 .btn:active {
   transform: scale(0.98);
