@@ -147,14 +147,14 @@ strong {
   text-align: center;
 }
 
-/* Background: Elegant gold-dust on soft cream */
+/* Background: Ultra-elegant gold-dust on soft cream */
 .bg-bokeh {
   position: relative;
   min-height: 100vh;
   background:
-    radial-gradient(1400px 700px at 80% -10%, rgba(190,157,118,0.12), transparent 60%),
-    radial-gradient(1000px 520px at 10% -20%, rgba(167,131,90,0.10), transparent 60%),
-    radial-gradient(900px 460px at 50% 110%, rgba(225,198,171,0.14), transparent 60%),
+    radial-gradient(1600px 800px at 85% -15%, rgba(190,157,118,0.08), transparent 65%),
+    radial-gradient(1200px 600px at 5% -25%, rgba(167,131,90,0.06), transparent 65%),
+    radial-gradient(1000px 500px at 50% 115%, rgba(225,198,171,0.09), transparent 65%),
     var(--ivory);
 }
 .bg-bokeh::before,
@@ -166,24 +166,26 @@ strong {
 }
 .bg-bokeh::before {
   background-image:
-    radial-gradient(rgba(190,157,118,0.22) 1.2px, transparent 1.2px),
-    radial-gradient(rgba(167,131,90,0.18) 0.8px, transparent 0.8px);
-  background-size: 34px 34px, 22px 22px;
-  background-position: 0 0, 10px 10px;
-  opacity: 0.28;
-  filter: blur(0.3px);
+    radial-gradient(rgba(190,157,118,0.15) 0.8px, transparent 0.8px),
+    radial-gradient(rgba(167,131,90,0.12) 0.5px, transparent 0.5px),
+    radial-gradient(rgba(225,198,171,0.18) 0.6px, transparent 0.6px);
+  background-size: 28px 28px, 18px 18px, 35px 35px;
+  background-position: 0 0, 8px 8px, 15px 15px;
+  opacity: 0.2;
+  filter: blur(0.2px);
 }
 .bg-bokeh::after {
   background-image:
-    radial-gradient(rgba(225,198,171,0.55) 0.9px, transparent 0.9px),
-    radial-gradient(rgba(167,131,90,0.45) 0.6px, transparent 0.6px);
-  background-size: 26px 26px, 18px 18px;
-  animation: goldDustDrift 8s linear infinite;
-  opacity: 0.22;
+    radial-gradient(rgba(225,198,171,0.45) 0.4px, transparent 0.4px),
+    radial-gradient(rgba(167,131,90,0.35) 0.3px, transparent 0.3px);
+  background-size: 22px 22px, 16px 16px;
+  background-position: 5px 5px, 12px 12px;
+  animation: goldDustFloat 12s linear infinite;
+  opacity: 0.15;
 }
-@keyframes goldDustDrift {
-  from { transform: translateY(0); }
-  to { transform: translateY(-18px); }
+@keyframes goldDustFloat {
+  from { transform: translateY(0) rotate(0deg); }
+  to { transform: translateY(-20px) rotate(3deg); }
 }
 
 /* Page fade transition */
@@ -198,12 +200,28 @@ strong {
 }
 
 /* EnergyPulse for slogan */
+/* EnergyPulse for slogan - enhanced shimmer */
 @keyframes energyPulse {
-  0% { text-shadow: 0 0 0 rgba(92,68,48,0.0); }
-  50% { text-shadow: 0 0 18px rgba(167,131,90,0.35); }
-  100% { text-shadow: 0 0 0 rgba(92,68,48,0.0); }
+  0% { 
+    text-shadow: 0 0 0 rgba(190,157,118,0.0);
+    transform: scale(1);
+  }
+  50% { 
+    text-shadow: 
+      0 0 12px rgba(190,157,118,0.6),
+      0 0 20px rgba(167,131,90,0.4),
+      0 0 30px rgba(225,198,171,0.3);
+    transform: scale(1.02);
+  }
+  100% { 
+    text-shadow: 0 0 0 rgba(190,157,118,0.0);
+    transform: scale(1);
+  }
 }
-.energy-pulse { animation: energyPulse 2.6s ease-in-out infinite; }
+.energy-pulse { 
+  animation: energyPulse 3.5s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
 
 /* Typing caret */
 .typing-caret::after {

@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 
 export default function Header() {
   const [open, setOpen] = useState(false)
@@ -80,18 +81,26 @@ export default function Header() {
   )
 
   return (
-    <header className="w-full fixed top-0 inset-x-0 bg-ivory/85 backdrop-blur border-b border-gold/25 z-40">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <header className="w-full fixed top-0 inset-x-0 bg-ivory/90 backdrop-blur-md border-b border-gold/20 z-40 shadow-sm">
+      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <button aria-label="תפריט" className="md:hidden p-2" onClick={() => setOpen(!open)}>
           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <a href="/" className="flex items-center gap-3">
+        <a href="/" className="flex flex-col items-center gap-2 md:gap-3">
+          {/* Logo */}
+          <Image
+            src="/logo.svg"
+            alt="Awakening by Ksenia Logo"
+            width={120}
+            height={60}
+            className="shrink-0"
+          />
           {/* Brand + tagline */}
-          <div className="leading-tight">
-            <span className="block text-espresso tracking-wide uppercase text-sm md:text-base font-medium">AWAKENING BY KSENIA - Personal Space For Growth</span>
-            <span className="block text-gold text-xs md:text-sm energy-pulse">Unlock Your Inner Ligt</span>
+          <div className="text-center leading-tight">
+            <span className="block text-gold text-xs md:text-sm font-medium tracking-wider energy-pulse">AWAKENING BY KSENIA - Personal Space For Growth</span>
+            <span className="block text-gold text-xs italic font-light energy-pulse mt-1" style={{ fontFamily: 'var(--font-slogan), serif' }}>Unlock Your Inner Light</span>
           </div>
         </a>
         <div className="hidden md:block">{nav}</div>

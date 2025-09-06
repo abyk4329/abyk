@@ -74,8 +74,8 @@ export default function MoneyCode() {
   }
 
   return (
-    <main className="container min-h-screen py-8">
-      <div className="text-center space-y-8">
+    <main className="container min-h-screen py-8 px-4">
+      <div className="text-center space-y-10 max-w-4xl mx-auto">
         {/* לוגו */}
         <div className="logo">
           <Image
@@ -89,23 +89,29 @@ export default function MoneyCode() {
         </div>
 
         {/* תווית SVG לכותרת */}
-        <div className="mt-2">
-          <Image src="/moneycodelable.svg" alt="Money Code" width={560} height={140} className="mx-auto" />
+        <div className="mt-4 mb-8">
+          <Image 
+            src="/moneycodelable.svg" 
+            alt="Money Code Calculator" 
+            width={480} 
+            height={120} 
+            className="mx-auto drop-shadow-[0_4px_20px_rgba(167,131,90,0.2)]" 
+          />
         </div>
 
         {/* כרטיס המחשבון */}
-  <div className="max-w-md mx-auto bg-ivory/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/20">
-          <div className="space-y-6">
+        <div className="max-w-md mx-auto bg-ivory/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-gold/15">
+          <div className="space-y-8">
             {/* קלט תאריך לידה */}
             <div>
-              <label className="block text-cacao text-lg font-semibold mb-3">
+              <label className="block text-espresso text-lg font-semibold mb-4">
                 תאריך לידה
               </label>
               <input
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-gold/20 bg-ivory text-espresso text-center font-medium focus:outline-none focus:ring-2 focus:ring-gold"
+                className="w-full px-5 py-4 rounded-xl border border-gold/25 bg-ivory text-espresso text-center font-medium focus:outline-none focus:ring-2 focus:ring-gold/40 focus:border-gold/40 transition-all shadow-sm"
                 dir="ltr"
               />
             </div>
@@ -115,58 +121,56 @@ export default function MoneyCode() {
               <button
                 onClick={calculateMoneyCode}
                 disabled={!birthDate || isLoading}
-                className="w-full btn bg-ivory hover:bg-gold/30 disabled:opacity-50 disabled:cursor-not-allowed py-4 text-lg font-semibold transition-all duration-300"
+                className="w-full bg-ivory hover:bg-gold/25 disabled:opacity-50 disabled:cursor-not-allowed py-4 px-6 text-lg font-semibold transition-all duration-300 border border-gold/25 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] text-espresso"
               >
                 {isLoading ? 'מחשב...' : 'חשב קוד כסף'}
               </button>
               
               <button
                 onClick={clearData}
-                className="w-full bg-ivory hover:bg-gold/30 text-espresso py-3 rounded-lg font-medium transition-colors duration-300 border border-gold/20"
+                className="w-full bg-ivory hover:bg-gold/20 text-espresso py-3 px-6 rounded-xl font-medium transition-all duration-300 border border-gold/20 shadow-md hover:shadow-lg"
               >
                 נקה נתונים
               </button>
             </div>
           </div>
-        </div>
-
-        {/* תוצאה */}
+        </div>        {/* תוצאה */}
         {result && (
-          <div className="max-w-lg mx-auto bg-ivory/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/20 animate-fade-in">
-            <h2 className="text-espresso text-2xl font-semibold mb-6">הקוד שלך</h2>
+          <div className="max-w-lg mx-auto bg-ivory/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-gold/15 animate-fade-in">
+            <h2 className="text-espresso text-2xl font-semibold mb-8">הקוד שלך</h2>
             
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="bg-ivory rounded-xl p-4 border border-gold/20">
-                <div className="text-espresso font-semibold text-sm">BD (יום)</div>
-                <div className="text-3xl font-bold text-espresso">{result.bd}</div>
+            <div className="grid grid-cols-2 gap-6 mb-10">
+              <div className="bg-ivory rounded-2xl p-6 border border-gold/20 shadow-md">
+                <div className="text-espresso font-semibold text-sm mb-2">BD (יום)</div>
+                <div className="text-4xl font-bold text-espresso">{result.bd}</div>
               </div>
-              <div className="bg-ivory rounded-xl p-4 border border-gold/20">
-                <div className="text-espresso font-semibold text-sm">BM (חודש)</div>
-                <div className="text-3xl font-bold text-espresso">{result.bm}</div>
+              <div className="bg-ivory rounded-2xl p-6 border border-gold/20 shadow-md">
+                <div className="text-espresso font-semibold text-sm mb-2">BM (חודש)</div>
+                <div className="text-4xl font-bold text-espresso">{result.bm}</div>
               </div>
-              <div className="bg-ivory rounded-xl p-4 border border-gold/20">
-                <div className="text-espresso font-semibold text-sm">BY (שנה)</div>
-                <div className="text-3xl font-bold text-espresso">{result.by}</div>
+              <div className="bg-ivory rounded-2xl p-6 border border-gold/20 shadow-md">
+                <div className="text-espresso font-semibold text-sm mb-2">BY (שנה)</div>
+                <div className="text-4xl font-bold text-espresso">{result.by}</div>
               </div>
-              <div className="bg-ivory rounded-xl p-4 border border-gold/20">
-                <div className="text-espresso font-semibold text-sm">LP (נתיב חיים)</div>
-                <div className="text-3xl font-bold text-espresso">{result.lp}</div>
+              <div className="bg-ivory rounded-2xl p-6 border border-gold/20 shadow-md">
+                <div className="text-espresso font-semibold text-sm mb-2">LP (נתיב חיים)</div>
+                <div className="text-4xl font-bold text-espresso">{result.lp}</div>
               </div>
             </div>
 
             <div className="text-center">
-              <p className="text-text-secondary mb-6 text-lg">
+              <p className="text-text-secondary mb-8 text-lg leading-relaxed">
                 רוצה לקבל פירוש מלא ואישי של הקוד שלך?
               </p>
               
               <button
                 onClick={handlePayment}
-                className="btn bg-ivory hover:bg-gold/30 text-espresso border border-gold/20 px-8 py-4 text-lg font-bold transition-all duration-300 hover:scale-105"
+                className="bg-ivory hover:bg-gold/25 text-espresso border border-gold/25 px-10 py-5 text-xl font-bold transition-all duration-300 hover:scale-105 rounded-2xl shadow-lg hover:shadow-xl"
               >
                 קבל פירוש מלא - 97₪
               </button>
               
-              <p className="text-text-secondary text-sm mt-4">
+              <p className="text-text-secondary text-sm mt-6 leading-relaxed">
                 הפירוש יישלח אליך למייל תוך דקות ספורות
               </p>
             </div>
@@ -174,10 +178,10 @@ export default function MoneyCode() {
         )}
 
         {/* כפתור חזרה */}
-        <div className="pt-8">
+        <div className="pt-12">
           <a
             href="/"
-            className="inline-block ripple font-bold bg-ivory hover:bg-gold/30 text-espresso border border-gold/20 px-6 py-3 rounded-lg transition-colors duration-300"
+            className="inline-block font-bold bg-ivory hover:bg-gold/25 text-espresso border border-gold/20 px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
           >
             ← חזרה לעמוד הבית
           </a>

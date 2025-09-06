@@ -2,8 +2,8 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="container min-h-[calc(100vh-6rem)] flex flex-col items-center justify-center text-center py-16">
-  <div className="space-y-8 slide-up">
+    <main className="container min-h-[calc(100vh-8rem)] flex flex-col items-center justify-center text-center py-12 px-4">
+      <div className="space-y-12 slide-up max-w-4xl mx-auto">
         {/* לוגו גדול יותר */}
         <div className="logo animate-logo-entrance">
           <Image
@@ -17,10 +17,7 @@ export default function Home() {
         </div>
 
         {/* סיסמה באנגלית */}
-  <h1 className="text-cacao text-3xl md:text-5xl font-light animate-fade-in italic tracking-wide" style={{ fontFamily: 'var(--font-slogan), serif' }}>
-          Personal Space for Growth
-        </h1>
-  <h2 className="text-smoky-brown text-lg md:text-2xl font-light animate-fade-in" style={{ fontFamily: 'var(--font-slogan), serif' }}>
+        <h2 className="text-gold text-xl md:text-3xl font-light animate-fade-in italic tracking-wide energy-pulse" style={{ fontFamily: 'var(--font-slogan), serif' }}>
           Unlock Your Inner Light
         </h2>
 
