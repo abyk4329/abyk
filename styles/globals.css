@@ -3,12 +3,38 @@
 @tailwind utilities;
 
 :root {
-  --gold: #D4B896;
-  --gold-deep: #C6A170;
-  --ivory: #FEFEFE;
-  --charcoal: #1F2024;
-  --text-secondary: #6B6F76;
-  --champagne: #F7E7CE;
+  /* Unified palette */
+  --ivory: #EFEAE4; /* soft cream */
+  --sand-50: #F1E3D7; /* milky beige */
+  --sand-100: #E8D7C6; /* light sand */
+  --stone-soft: #E6D7C5; /* soft stone */
+  --pearl-sand: #E2D8CB; /* pearly sand */
+
+  --peach-beige: #E1C6AB;
+  --nude-beige: #DDC5B0;
+  --desert-sand: #DFCBB3;
+  --peach-gold: #CDA991;
+  --caramel: #C29E7E;
+  --light-coffee: #BB8E73;
+  --warm-beige: #BBA18A;
+  --sandy-gold: #BE9D76;
+
+  --copper-brown: #A8795B;
+  --golden-brown: #A7835A;
+  --medium-brown: #A48569;
+  --smoky-brown: #84705C;
+
+  /* Accent text */
+  --cacao: #5C4430;
+  --espresso: #3F3226;
+  --dark-choco: #2B2622;
+
+  /* Legacy tokens mapped for compatibility */
+  --gold: var(--sandy-gold);
+  --gold-deep: var(--golden-brown);
+  --charcoal: var(--espresso);
+  --text-secondary: var(--smoky-brown);
+  --champagne: var(--peach-beige);
 }
 
 * {
@@ -29,7 +55,7 @@ html {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--gold-deep);
+  color: var(--cacao);
   text-align: center;
   font-weight: 600;
 }
@@ -63,7 +89,7 @@ p {
 }
 
 strong {
-  color: var(--charcoal);
+  color: var(--dark-choco);
   font-weight: 700;
 }
 
@@ -80,14 +106,14 @@ strong {
 }
 
 .logo {
-  max-width: 200px;
+  max-width: 420px; /* bigger logo */
   height: auto;
   margin: 2rem auto;
 }
 
 @media (max-width: 768px) {
   .logo {
-    max-width: 150px;
+    max-width: 300px;
   }
 }
 
@@ -121,14 +147,14 @@ strong {
   text-align: center;
 }
 
-/* Background: BokehLights + Gold Sparkle */
+/* Background: Elegant gold-dust on soft cream */
 .bg-bokeh {
   position: relative;
   min-height: 100vh;
   background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(198,161,112,0.15), transparent 60%),
-    radial-gradient(900px 500px at 10% -20%, rgba(212,184,150,0.12), transparent 60%),
-    radial-gradient(800px 400px at 50% 110%, rgba(212,184,150,0.15), transparent 60%),
+    radial-gradient(1400px 700px at 80% -10%, rgba(190,157,118,0.12), transparent 60%),
+    radial-gradient(1000px 520px at 10% -20%, rgba(167,131,90,0.10), transparent 60%),
+    radial-gradient(900px 460px at 50% 110%, rgba(225,198,171,0.14), transparent 60%),
     var(--ivory);
 }
 .bg-bokeh::before,
@@ -139,20 +165,25 @@ strong {
   pointer-events: none;
 }
 .bg-bokeh::before {
-  background-image: radial-gradient(rgba(198,161,112,0.25) 2px, transparent 2px);
-  background-size: 40px 40px;
-  opacity: 0.35;
-  filter: blur(0.5px);
+  background-image:
+    radial-gradient(rgba(190,157,118,0.22) 1.2px, transparent 1.2px),
+    radial-gradient(rgba(167,131,90,0.18) 0.8px, transparent 0.8px);
+  background-size: 34px 34px, 22px 22px;
+  background-position: 0 0, 10px 10px;
+  opacity: 0.28;
+  filter: blur(0.3px);
 }
 .bg-bokeh::after {
-  background-image: radial-gradient(rgba(212,184,150,0.5) 1.2px, transparent 1.2px);
-  background-size: 26px 26px;
-  animation: sparkle 5s linear infinite;
-  opacity: 0.25;
+  background-image:
+    radial-gradient(rgba(225,198,171,0.55) 0.9px, transparent 0.9px),
+    radial-gradient(rgba(167,131,90,0.45) 0.6px, transparent 0.6px);
+  background-size: 26px 26px, 18px 18px;
+  animation: goldDustDrift 8s linear infinite;
+  opacity: 0.22;
 }
-@keyframes sparkle {
+@keyframes goldDustDrift {
   from { transform: translateY(0); }
-  to { transform: translateY(-20px); }
+  to { transform: translateY(-18px); }
 }
 
 /* Page fade transition */
@@ -168,9 +199,9 @@ strong {
 
 /* EnergyPulse for slogan */
 @keyframes energyPulse {
-  0% { text-shadow: 0 0 0 rgba(198,161,112,0.0); }
-  50% { text-shadow: 0 0 18px rgba(198,161,112,0.45); }
-  100% { text-shadow: 0 0 0 rgba(198,161,112,0.0); }
+  0% { text-shadow: 0 0 0 rgba(92,68,48,0.0); }
+  50% { text-shadow: 0 0 18px rgba(167,131,90,0.35); }
+  100% { text-shadow: 0 0 0 rgba(92,68,48,0.0); }
 }
 .energy-pulse { animation: energyPulse 2.6s ease-in-out infinite; }
 
@@ -178,7 +209,7 @@ strong {
 .typing-caret::after {
   content: "|";
   margin-left: 4px;
-  color: var(--gold-deep);
+  color: var(--cacao);
   animation: caretBlink 1s step-end infinite;
 }
 @keyframes caretBlink { 50% { opacity: 0; } }
@@ -271,7 +302,7 @@ strong { color: var(--charcoal); font-weight: 700; }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(212, 184, 150, 0.4);
+  box-shadow: 0 8px 25px rgba(167, 131, 90, 0.35);
 }
 
 /* עיצוב לקלטים */

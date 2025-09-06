@@ -46,19 +46,19 @@ function ThankYouContent() {
         </div>
 
         {/* הודעת תודה */}
-        <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/30">
+  <div className="bg-ivory/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/30">
           <div className="mb-6">
-            <h1 className="text-gold-deep text-3xl font-bold mb-4">תודה על הרכישה!</h1>
+            <h1 className="text-cacao text-3xl font-bold mb-4" style={{ fontFamily: 'var(--font-slogan), serif' }}>תודה על הרכישה!</h1>
           </div>
 
           <div className="space-y-6 text-lg">
-            <p className="text-charcoal font-bold">התשלום התקבל בהצלחה</p>
+            <p className="text-espresso font-bold">התשלום התקבל בהצלחה</p>
             
             <p className="text-text-secondary">
               הפירוש הנומרולוגי האישי שלך כבר בדרך אליך למייל.
             </p>
             
-            <div className="bg-gold/10 rounded-xl p-6 text-charcoal">
+            <div className="bg-gold/10 rounded-xl p-6 text-espresso">
               <h2 className="font-bold mb-3">מה קורה עכשיו?</h2>
               <ul className="text-right space-y-2">
                 <li>אנחנו יוצרים עבורך פירוש מותאם אישית</li>
@@ -76,8 +76,8 @@ function ThankYouContent() {
 
         {/* תצוגת פירוש מקומי לפי המספרים הייחודיים */}
         {htmlPreview && (
-          <div className="max-w-3xl w-full bg-white/15 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gold/30 text-right">
-            <h2 className="text-gold-deep text-2xl font-bold mb-4">תקציר הפירוש שלך</h2>
+          <div className="max-w-3xl w-full bg-ivory/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gold/30 text-right">
+            <h2 className="text-cacao text-2xl font-bold mb-4" style={{ fontFamily: 'var(--font-slogan), serif' }}>תקציר הפירוש שלך</h2>
             <div className="text-sm text-text-secondary mb-2">
               מספרים ייחודיים: {uniqueNumbers.join(', ')}
             </div>
@@ -108,14 +108,14 @@ function ThankYouContent() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="/"
-            className="ripple bg-charcoal hover:bg-gold-deep text-ivory px-6 py-3 rounded-lg font-bold transition-colors duration-300 text-center"
+            className="ripple bg-espresso hover:bg-gold-deep text-ivory px-6 py-3 rounded-lg font-bold transition-colors duration-300 text-center"
           >
             חזרה לעמוד הבית
           </a>
           
           <a
             href="/numbersmeaning"
-            className="bg-text-secondary hover:bg-charcoal text-ivory px-6 py-3 rounded-lg font-medium transition-colors duration-300"
+            className="bg-text-secondary hover:bg-espresso text-ivory px-6 py-3 rounded-lg font-medium transition-colors duration-300"
           >
             קראי על פירוש המספרים
           </a>

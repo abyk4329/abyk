@@ -1,10 +1,10 @@
 "use client"
 export default function Footer() {
   return (
-    <footer className="mt-16 border-t border-gold/20 bg-ivory/80">
+    <footer className="mt-16 border-t border-gold/25 bg-ivory/80">
       <div className="max-w-6xl mx-auto px-6 py-10 grid gap-8 md:grid-cols-3 items-start text-center md:text-right">
         <div>
-          <h3 className="text-gold-deep font-semibold mb-3">שתף עם חבר</h3>
+          <h3 className="text-cacao font-semibold mb-3">שתף עם חבר</h3>
           <button
             className="btn ripple"
             onClick={async () => {
@@ -19,17 +19,17 @@ export default function Footer() {
           >שיתוף</button>
         </div>
         <div className="md:justify-self-center">
-          <h3 className="text-gold-deep font-semibold mb-3">רשתות חברתיות</h3>
+          <h3 className="text-cacao font-semibold mb-3">רשתות חברתיות</h3>
           <div className="flex gap-4 justify-center md:justify-end">
-            <a className="hover:text-gold-deep" href="https://www.instagram.com/awakening.by.ksenia?igsh=MTZwOWljN2dsOXZzbQ%3D%3D&utm_source=qr" target="_blank" rel="noreferrer">Instagram</a>
-            <a className="hover:text-gold-deep" href="https://www.tiktok.com/@awakening.by.ksenia" target="_blank" rel="noreferrer">TikTok</a>
+            <a className="hover:text-gold-deep text-espresso" href="https://www.instagram.com/awakening.by.ksenia?igsh=MTZwOWljN2dsOXZzbQ%3D%3D&utm_source=qr" target="_blank" rel="noreferrer">Instagram</a>
+            <a className="hover:text-gold-deep text-espresso" href="https://www.tiktok.com/@awakening.by.ksenia" target="_blank" rel="noreferrer">TikTok</a>
           </div>
         </div>
         <div className="md:justify-self-end">
-          <h3 className="text-gold-deep font-semibold mb-3">מדיניות</h3>
+          <h3 className="text-cacao font-semibold mb-3">מדיניות</h3>
           <div className="flex gap-4 justify-center md:justify-end">
-            <a className="hover:text-gold-deep" href="/privacy">מדיניות פרטיות</a>
-            <a className="hover:text-gold-deep" href="/terms">תנאי שימוש</a>
+            <a className="hover:text-gold-deep text-espresso" href="/privacy">מדיניות פרטיות</a>
+            <a className="hover:text-gold-deep text-espresso" href="/terms">תנאי שימוש</a>
           </div>
         </div>
       </div>

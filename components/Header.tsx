@@ -38,19 +38,19 @@ export default function Header() {
   }, [])
 
   const nav = (
-    <nav className="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-charcoal relative">
+    <nav className="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-espresso relative">
       <a href="/" className="hover:text-gold-deep font-medium" onClick={() => { setSoonOpen(false); setContactOpen(false) }}>בית</a>
       <a href="/money-code" className="hover:text-gold-deep font-medium" onClick={() => { setSoonOpen(false); setContactOpen(false) }}>מחשבון קוד הכסף</a>
       <div className="relative" ref={soonRef}>
         <button
-          className="font-medium text-charcoal hover:text-gold-deep"
+          className="font-medium text-espresso hover:text-gold-deep"
           onClick={() => setSoonOpen((v) => !v)}
           aria-expanded={soonOpen}
         >
           בקרוב
         </button>
         {soonOpen && (
-          <div className="absolute right-0 mt-2 w-56 bg-ivory border border-gold/20 rounded-lg shadow-lg p-2 z-50">
+          <div className="absolute right-0 mt-2 w-56 bg-ivory border border-gold/25 rounded-lg shadow-lg p-2 z-50">
             <div className="px-3 py-2 text-text-secondary cursor-default">מצפן פנג שואי</div>
             <div className="px-3 py-2 text-text-secondary cursor-default">אנרגיה של היום</div>
           </div>
@@ -58,14 +58,14 @@ export default function Header() {
       </div>
       <div className="relative" ref={contactRef}>
         <button
-          className="font-medium text-charcoal hover:text-gold-deep"
+          className="font-medium text-espresso hover:text-gold-deep"
           onClick={() => setContactOpen((v) => !v)}
           aria-expanded={contactOpen}
         >
           צור קשר
         </button>
         {contactOpen && (
-          <div className="absolute right-0 mt-2 w-56 bg-ivory border border-gold/20 rounded-lg shadow-lg p-2 z-50">
+          <div className="absolute right-0 mt-2 w-56 bg-ivory border border-gold/25 rounded-lg shadow-lg p-2 z-50">
             <a className="block px-3 py-2 hover:bg-gold/10 rounded" href="https://wa.me/972524616121" target="_blank" rel="noreferrer" onClick={() => setContactOpen(false)}>שלח וואטסאפ</a>
             <a className="block px-3 py-2 hover:bg-gold/10 rounded" href="mailto:awakening.by.ksenia@gmail.com" onClick={() => setContactOpen(false)}>שלח מייל</a>
           </div>
@@ -80,7 +80,7 @@ export default function Header() {
   )
 
   return (
-    <header className="w-full fixed top-0 inset-x-0 bg-ivory/85 backdrop-blur border-b border-gold/20 z-40">
+    <header className="w-full fixed top-0 inset-x-0 bg-ivory/85 backdrop-blur border-b border-gold/25 z-40">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <button aria-label="תפריט" className="md:hidden p-2" onClick={() => setOpen(!open)}>
           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -89,13 +89,13 @@ export default function Header() {
         </button>
         <a href="/" className="flex items-center gap-3">
           {/* לוגו ליד הכותרת הוסר לפי בקשה; נשאיר רק שם דק ואלגנטי */}
-          <span className="text-gold-deep font-light tracking-wide text-lg">Awakening by Ksenia</span>
+          <span className="text-cacao font-light tracking-wide text-lg">Awakening by Ksenia</span>
         </a>
         <div className="hidden md:block">{nav}</div>
       </div>
 
       {open && (
-        <div className="md:hidden bg-ivory border-t border-gold/20 px-4 py-4">
+        <div className="md:hidden bg-ivory border-t border-gold/25 px-4 py-4">
           {nav}
         </div>
       )}

@@ -89,7 +89,7 @@ export default function MoneyCode() {
         </div>
 
         {/* כותרת */}
-        <h1 className="text-gold-deep text-3xl md:text-4xl font-bold">
+  <h1 className="text-cacao text-3xl md:text-4xl font-bold" style={{ fontFamily: 'var(--font-slogan), serif' }}>
           מחשבון קוד הכסף
         </h1>
 
@@ -105,18 +105,18 @@ export default function MoneyCode() {
         </div>
 
         {/* כרטיס המחשבון */}
-        <div className="max-w-md mx-auto bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/20">
+  <div className="max-w-md mx-auto bg-ivory/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/25">
           <div className="space-y-6">
             {/* קלט תאריך לידה */}
             <div>
-              <label className="block text-gold-deep text-lg font-semibold mb-3">
+              <label className="block text-cacao text-lg font-semibold mb-3">
                 תאריך לידה
               </label>
               <input
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-gold/30 bg-ivory/90 text-charcoal text-center font-medium focus:outline-none focus:ring-2 focus:ring-gold"
+                className="w-full px-4 py-3 rounded-lg border border-gold/30 bg-ivory/90 text-espresso text-center font-medium focus:outline-none focus:ring-2 focus:ring-gold"
                 dir="ltr"
               />
             </div>
@@ -133,7 +133,7 @@ export default function MoneyCode() {
               
               <button
                 onClick={clearData}
-                className="w-full bg-text-secondary hover:bg-charcoal text-ivory py-3 rounded-lg font-medium transition-colors duration-300"
+                className="w-full bg-text-secondary hover:bg-espresso text-ivory py-3 rounded-lg font-medium transition-colors duration-300"
               >
                 נקה נתונים
               </button>
@@ -143,25 +143,25 @@ export default function MoneyCode() {
 
         {/* תוצאה */}
         {result && (
-          <div className="max-w-lg mx-auto bg-white/15 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/30 animate-fade-in">
-            <h2 className="text-gold-deep text-2xl font-bold mb-6">הקוד שלך</h2>
+          <div className="max-w-lg mx-auto bg-ivory/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/30 animate-fade-in">
+            <h2 className="text-cacao text-2xl font-bold mb-6">הקוד שלך</h2>
             
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="bg-gold/10 rounded-xl p-4">
-                <div className="text-gold-deep font-bold text-sm">BD (יום)</div>
-                <div className="text-3xl font-bold text-charcoal">{result.bd}</div>
+                <div className="text-cacao font-bold text-sm">BD (יום)</div>
+                <div className="text-3xl font-bold text-espresso">{result.bd}</div>
               </div>
               <div className="bg-gold/10 rounded-xl p-4">
-                <div className="text-gold-deep font-bold text-sm">BM (חודש)</div>
-                <div className="text-3xl font-bold text-charcoal">{result.bm}</div>
+                <div className="text-cacao font-bold text-sm">BM (חודש)</div>
+                <div className="text-3xl font-bold text-espresso">{result.bm}</div>
               </div>
               <div className="bg-gold/10 rounded-xl p-4">
-                <div className="text-gold-deep font-bold text-sm">BY (שנה)</div>
-                <div className="text-3xl font-bold text-charcoal">{result.by}</div>
+                <div className="text-cacao font-bold text-sm">BY (שנה)</div>
+                <div className="text-3xl font-bold text-espresso">{result.by}</div>
               </div>
               <div className="bg-gold/10 rounded-xl p-4">
-                <div className="text-gold-deep font-bold text-sm">LP (נתיב חיים)</div>
-                <div className="text-3xl font-bold text-charcoal">{result.lp}</div>
+                <div className="text-cacao font-bold text-sm">LP (נתיב חיים)</div>
+                <div className="text-3xl font-bold text-espresso">{result.lp}</div>
               </div>
             </div>
 
@@ -188,7 +188,7 @@ export default function MoneyCode() {
         <div className="pt-8">
           <a
             href="/"
-            className="inline-block ripple font-bold bg-charcoal hover:bg-gold-deep text-ivory px-6 py-3 rounded-lg transition-colors duration-300"
+            className="inline-block ripple font-bold bg-espresso hover:bg-gold-deep text-ivory px-6 py-3 rounded-lg transition-colors duration-300"
           >
             ← חזרה לעמוד הבית
           </a>
