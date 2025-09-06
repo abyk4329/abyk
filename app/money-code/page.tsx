@@ -183,7 +183,7 @@ export default function MoneyCode() {
         <div className="pt-8">
           <a
             href="/"
-            className="inline-block bg-text-secondary hover:bg-charcoal text-ivory px-6 py-3 rounded-lg font-medium transition-colors duration-300"
+            className="inline-block ripple font-bold bg-charcoal hover:bg-gold-deep text-ivory px-6 py-3 rounded-lg transition-colors duration-300"
           >
             ← חזרה לעמוד הבית
           </a>

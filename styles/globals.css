@@ -2,14 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap');
-
 :root {
   --gold: #D4B896;
   --gold-deep: #C6A170;
   --ivory: #FEFEFE;
   --charcoal: #1F2024;
   --text-secondary: #6B6F76;
+  --champagne: #F7E7CE;
 }
 
 * {
@@ -121,6 +120,93 @@ strong {
   padding: 2rem;
   text-align: center;
 }
+
+/* Background: BokehLights + Gold Sparkle */
+.bg-bokeh {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(198,161,112,0.15), transparent 60%),
+    radial-gradient(900px 500px at 10% -20%, rgba(212,184,150,0.12), transparent 60%),
+    radial-gradient(800px 400px at 50% 110%, rgba(212,184,150,0.15), transparent 60%),
+    var(--ivory);
+}
+.bg-bokeh::before,
+.bg-bokeh::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.bg-bokeh::before {
+  background-image: radial-gradient(rgba(198,161,112,0.25) 2px, transparent 2px);
+  background-size: 40px 40px;
+  opacity: 0.35;
+  filter: blur(0.5px);
+}
+.bg-bokeh::after {
+  background-image: radial-gradient(rgba(212,184,150,0.5) 1.2px, transparent 1.2px);
+  background-size: 26px 26px;
+  animation: sparkle 5s linear infinite;
+  opacity: 0.25;
+}
+@keyframes sparkle {
+  from { transform: translateY(0); }
+  to { transform: translateY(-20px); }
+}
+
+/* Page fade transition */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+/* EnergyPulse for slogan */
+@keyframes energyPulse {
+  0% { text-shadow: 0 0 0 rgba(198,161,112,0.0); }
+  50% { text-shadow: 0 0 18px rgba(198,161,112,0.45); }
+  100% { text-shadow: 0 0 0 rgba(198,161,112,0.0); }
+}
+.energy-pulse { animation: energyPulse 2.6s ease-in-out infinite; }
+
+/* Typing caret */
+.typing-caret::after {
+  content: "|";
+  margin-left: 4px;
+  color: var(--gold-deep);
+  animation: caretBlink 1s step-end infinite;
+}
+@keyframes caretBlink { 50% { opacity: 0; } }
+
+/* Ripple click effect */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+.ripple:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.35) 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  transform: scale(10,10);
+  opacity: 0;
+  transition: transform .4s, opacity .6s;
+}
+.ripple:active:after {
+  transform: scale(0,0);
+  opacity: .5;
+  transition: 0s;
+}
+
+/* Utility: neutral emphasis */
+strong { color: var(--charcoal); font-weight: 700; }
 
 @media (max-width: 768px) {
   .content {

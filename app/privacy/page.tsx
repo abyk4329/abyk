@@ -20,6 +20,14 @@ export default function Privacy() {
           className="text-charcoal leading-relaxed"
           dangerouslySetInnerHTML={{ __html: privacyContent }}
         />
+        <div className="mt-10">
+          <a
+            href="/"
+            className="inline-block ripple font-bold bg-charcoal hover:bg-gold-deep text-ivory px-6 py-3 rounded-lg transition-colors duration-300"
+          >
+            חזרה לעמוד הבית
+          </a>
+        </div>
       </div>
     </main>
   )

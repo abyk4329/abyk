@@ -2,8 +2,8 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="container min-h-screen flex flex-col items-center justify-center">
-      <div className="text-center space-y-8 slide-up">
+    <main className="container min-h-[calc(100vh-6rem)] flex flex-col items-center justify-center text-center py-16">
+      <div className="space-y-8 slide-up">
         {/* לוגו */}
         <div className="logo animate-logo-entrance">
           <Image
@@ -16,27 +16,27 @@ export default function Home() {
           />
         </div>
 
-        {/* כותרת ראשית */}
-        <h1 className="text-gold-deep text-4xl md:text-5xl font-bold animate-fade-in">
-          התעוררות
+        {/* סיסמה ראשית */}
+        <h1 className="text-gold-deep text-4xl md:text-5xl font-bold animate-fade-in energy-pulse">
+          המרחב האישי לצמיחה
         </h1>
 
-        {/* תת כותרת */}
-        <h2 className="text-gold text-xl md:text-2xl font-medium animate-fade-in">
-          חישוב קוד נומרולוגי אישי
+        {/* תת סיסמה */}
+        <h2 className="text-text-secondary text-xl md:text-2xl font-medium animate-fade-in typing-caret">
+          כלים עדינים ומדויקים להתחברות פנימה
         </h2>
 
         {/* תיאור */}
         <p className="text-text-secondary text-lg max-w-2xl mx-auto px-4 animate-fade-in">
-          גלי את המשמעות הנומרולוגית שלך ופתחי שער להבנה עמוקה יותר של עצמך
+          גלו את המשמעות הנומרולוגית שלכם ופתחו שער להבנה עמוקה יותר של עצמכם
         </p>
 
         {/* כפתור */}
         <a
           href="/money-code"
-          className="inline-block btn bg-gold hover:bg-gold-deep text-charcoal px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105 animate-fade-in"
+          className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-b from-champagne to-gold text-charcoal px-10 py-3 text-lg font-semibold shadow-[0_8px_30px_rgba(198,161,112,0.25)] hover:from-gold hover:to-gold-deep hover:text-ivory transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold ring-offset-2 ring-offset-ivory active:translate-y-[1px] animate-fade-in ripple"
         >
-          חשבי קוד כסף ✨
+          <span className="relative z-10">חשב קוד</span>
         </a>
 
         <p className="text-text-secondary text-sm animate-fade-in">

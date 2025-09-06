@@ -18,18 +18,11 @@ export default function ThankYou() {
         {/* הודעת תודה */}
         <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/30">
           <div className="mb-6">
-            <div className="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
             <h1 className="text-gold-deep text-3xl font-bold mb-4">תודה על הרכישה!</h1>
           </div>
 
           <div className="space-y-6 text-lg">
-            <p className="text-charcoal">
-              <strong>התשלום התקבל בהצלחה! 🎉</strong>
-            </p>
+            <p className="text-charcoal font-bold">התשלום התקבל בהצלחה</p>
             
             <p className="text-text-secondary">
               הפירוש הנומרולוגי האישי שלך כבר בדרך אליך למייל.
@@ -38,10 +31,10 @@ export default function ThankYou() {
             <div className="bg-gold/10 rounded-xl p-6 text-charcoal">
               <h2 className="font-bold mb-3">מה קורה עכשיו?</h2>
               <ul className="text-right space-y-2">
-                <li>✨ אנחנו יוצרים עבורך פירוש מותאם אישית</li>
-                <li>📧 הפירוש יישלח למייל תוך 5-10 דקות</li>
-                <li>📄 תקבלי קובץ HTML עם כל הפירושים שלך</li>
-                <li>💎 הפירוש נשמר אצלך לתמיד</li>
+                <li>אנחנו יוצרים עבורך פירוש מותאם אישית</li>
+                <li>הפירוש יישלח למייל תוך 5-10 דקות</li>
+                <li>תקבלי קובץ HTML עם כל הפירושים שלך</li>
+                <li>הפירוש נשמר אצלך לתמיד</li>
               </ul>
             </div>
 
@@ -66,7 +59,7 @@ export default function ThankYou() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="/"
-            className="btn bg-gold hover:bg-gold-deep text-charcoal px-6 py-3 rounded-lg font-medium transition-all duration-300"
+            className="ripple bg-charcoal hover:bg-gold-deep text-ivory px-6 py-3 rounded-lg font-bold transition-colors duration-300 text-center"
           >
             חזרה לעמוד הבית
           </a>

@@ -45,7 +45,9 @@ const getInterpretations = (): { [key: string]: string } => {
 }
 
 // יצירת HTML לפירוש אישי
-const createPersonalInterpretation = (code: any, customerEmail: string): string => {
+type MoneyCode = { bd: number; bm: number; by: number; lp: number }
+
+const createPersonalInterpretation = (code: MoneyCode): string => {
   const interpretations = getInterpretations()
   
   return `
@@ -204,8 +206,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Invalid or missing code values' }, { status: 400 })
     }
 
-    // יצירת הפירוש האישי
-    const personalInterpretation = createPersonalInterpretation(code, customerEmail)
+  // יצירת הפירוש האישי
+  const personalInterpretation = createPersonalInterpretation(code)
 
     // שליחת המייל
   const transporter = createTransporter()
