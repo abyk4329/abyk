@@ -237,7 +237,7 @@ strong {
 }
 
 /* Utility: neutral emphasis */
-strong { color: var(--charcoal); font-weight: 700; }
+strong { color: var(--dark-choco); font-weight: 700; }
 
 @media (max-width: 768px) {
   .content {
