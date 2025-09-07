@@ -174,10 +174,10 @@ strong {
 
 /* Clean backgrounds for header and footer */
 .bg-header {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--pearl);
 }
 .bg-footer {
-  background: rgba(255, 255, 255, 0.98);
+  background: var(--pearl);
 }
 
 /* Page fade transition */

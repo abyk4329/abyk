@@ -101,61 +101,61 @@ export default function MoneyCode() {
   }
 
   return (
-    <main className="container min-h-screen px-4 py-8">
-      <div className="max-w-4xl mx-auto space-y-10 text-center">
+    <main className="container min-h-screen px-4 py-6">
+      <div className="max-w-3xl mx-auto space-y-8 text-center">
         {/* לוגו */}
         <div className="logo">
           <Image
             src="/logo.svg"
             alt="Awakening by Ksenia Logo"
-            width={300}
-            height={150}
+            width={250}
+            height={125}
             className="mx-auto"
             priority
           />
         </div>
 
         {/* תווית SVG לכותרת */}
-        <div className="mt-4 mb-8 animate-gleam-fade-in">
+        <div className="mt-3 mb-6 animate-gleam-fade-in">
           <Image 
             src="/moneycodelable.svg" 
             alt="Money Code Calculator" 
-            width={480} 
-            height={120} 
-            className="mx-auto drop-shadow-[0_4px_20px_rgba(167,131,90,0.2)]" 
+            width={400} 
+            height={100} 
+            className="mx-auto drop-shadow-[0_3px_10px_rgba(167,131,90,0.15)]" 
           />
         </div>
 
         {/* כרטיס המחשבון */}
-        <div className="max-w-md p-8 mx-auto border shadow-xl bg-pearl/95 backdrop-blur-sm rounded-3xl border-pearl-soft">
-          <div className="space-y-8">
+        <div className="max-w-md p-8 mx-auto border shadow-md bg-pearl/98 backdrop-blur-sm rounded-2xl border-pearl-soft">
+          <div className="space-y-6">
             {/* קלט תאריך לידה */}
             <div>
-              <label className="block mb-4 text-lg font-semibold text-espresso">
+              <label className="block mb-3 text-sm font-normal text-espresso/80">
                 תאריך לידה
               </label>
               <input
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full px-5 py-4 font-medium text-center transition-all border shadow-sm rounded-xl border-pearl bg-pearl text-espresso focus:outline-none focus:ring-2 focus:ring-pearl-soft focus:border-pearl-soft"
+                className="w-full px-4 py-3 font-normal text-center transition-all border shadow-sm rounded-lg border-pearl-soft bg-pearl text-espresso focus:outline-none focus:ring-1 focus:ring-pearl-soft focus:border-pearl-soft"
                 dir="ltr"
               />
             </div>
 
             {/* כפתורים */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <button
                 onClick={calculateMoneyCode}
                 disabled={!birthDate || isLoading}
-                className="btn-shine w-full bg-pearl hover:bg-pearl-soft disabled:opacity-50 disabled:cursor-not-allowed py-4 px-6 text-lg font-semibold transition-all duration-300 border border-pearl-soft rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] text-dark-choco"
+                className="btn-shine w-full bg-pearl hover:bg-pearl-soft disabled:opacity-50 disabled:cursor-not-allowed py-3 px-5 text-sm font-normal transition-all duration-300 border border-pearl-soft rounded-lg shadow-sm hover:shadow-md text-espresso"
               >
                 {isLoading ? 'מחשב...' : 'חשב קוד כסף'}
               </button>
               
               <button
                 onClick={clearData}
-                className="w-full px-6 py-3 font-medium transition-all duration-300 border shadow-md btn-shine bg-pearl hover:bg-pearl-soft text-espresso rounded-xl border-pearl-soft hover:shadow-lg"
+                className="w-full px-5 py-2 text-xs font-normal transition-all duration-300 border shadow-sm btn-shine bg-pearl hover:bg-pearl-soft text-espresso/70 rounded-lg border-pearl-soft hover:shadow-md hover:text-espresso"
               >
                 נקה נתונים
               </button>
@@ -163,78 +163,78 @@ export default function MoneyCode() {
           </div>
         </div>        {/* תוצאה */}
         {result && (
-          <div className="max-w-lg p-8 mx-auto border shadow-xl bg-pearl/95 backdrop-blur-sm rounded-3xl border-pearl-soft animate-fade-in">
-            <h2 className="mb-6 text-2xl font-semibold text-espresso animate-gleam-fade-in">הקוד שלך</h2>
+          <div className="max-w-lg p-6 mx-auto border shadow-md bg-pearl/98 backdrop-blur-sm rounded-xl border-pearl-soft animate-fade-in">
+            <h2 className="mb-5 text-lg font-normal text-espresso/90 animate-gleam-fade-in">הקוד שלך</h2>
             
             {/* תצוגת הקוד בשורה אחת */}
-            <div className="p-6 mb-10 text-center border shadow-lg bg-pearl/80 backdrop-blur-sm rounded-2xl border-pearl-soft">
-              <div className="font-mono text-6xl font-bold tracking-wider text-espresso">
+            <div className="p-4 mb-8 text-center border shadow-md bg-pearl/95 backdrop-blur-sm rounded-lg border-pearl-soft">
+              <div className="font-mono text-5xl font-light tracking-wider text-espresso">
                 {result.bd}{result.bm}{result.by}{result.lp}
               </div>
             </div>
 
             {/* הסבר איך להשתמש בקוד */}
-            <div className="p-8 mb-10 border shadow-md bg-pearl/70 backdrop-blur-sm rounded-2xl border-pearl-soft">
-              <h3 className="mb-6 text-xl font-bold text-center text-espresso">איך להשתמש בקוד שלך</h3>
+            <div className="p-6 mb-8 border shadow-sm bg-pearl/90 backdrop-blur-sm rounded-lg border-pearl-soft">
+              <h3 className="mb-5 text-base font-normal text-center text-espresso/90">איך להשתמש בקוד שלך</h3>
               
-              <div className="mb-8 space-y-4 text-right">
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-espresso/10 border border-espresso/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <div className="w-2 h-2 rounded-full bg-espresso/60"></div>
+              <div className="mb-6 space-y-3 text-right">
+                <div className="flex items-start gap-2">
+                  <div className="w-4 h-4 rounded-full bg-espresso/5 border border-espresso/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-espresso/50"></div>
                   </div>
-                  <div className="text-sm leading-relaxed text-text-secondary">
-                    <strong className="text-espresso">קוד סודי:</strong> השתמש במספרים כקוד סודי לכרטיסים, סיסמאות או נעילת מכשירים
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-espresso/10 border border-espresso/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <div className="w-2 h-2 rounded-full bg-espresso/60"></div>
-                  </div>
-                  <div className="text-sm leading-relaxed text-text-secondary">
-                    <strong className="text-espresso">בארנק:</strong> כתוב את הקוד על פתק קטן ושים בארנק לאנרגיית שפע
+                  <div className="text-xs leading-relaxed text-text-secondary">
+                    <span className="text-espresso/80">קוד סודי:</span> השתמש במספרים כקוד סודי לכרטיסים, סיסמאות או נעילת מכשירים
                   </div>
                 </div>
                 
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-espresso/10 border border-espresso/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <div className="w-2 h-2 rounded-full bg-espresso/60"></div>
+                <div className="flex items-start gap-2">
+                  <div className="w-4 h-4 rounded-full bg-espresso/5 border border-espresso/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-espresso/50"></div>
                   </div>
-                  <div className="text-sm leading-relaxed text-text-secondary">
-                    <strong className="text-espresso">מדיטציה יומית:</strong> חזור על הקוד בראש כמנטרה אישית לעוצמה פנימית
+                  <div className="text-xs leading-relaxed text-text-secondary">
+                    <span className="text-espresso/80">בארנק:</span> כתוב את הקוד על פתק קטן ושים בארנק לאנרגיית שפע
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-2">
+                  <div className="w-4 h-4 rounded-full bg-espresso/5 border border-espresso/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-espresso/50"></div>
+                  </div>
+                  <div className="text-xs leading-relaxed text-text-secondary">
+                    <span className="text-espresso/80">מדיטציה יומית:</span> חזור על הקוד בראש כמנטרה אישית לעוצמה פנימית
                   </div>
                 </div>
               </div>
               
-              <div className="pt-6 text-center border-t border-pearl-soft">
-                <h4 className="mb-4 text-lg font-semibold text-espresso">למה הפירוש המלא חשוב?</h4>
-                <div className="space-y-3 text-sm leading-relaxed text-text-secondary">
+              <div className="pt-5 text-center border-t border-pearl-soft">
+                <h4 className="mb-3 text-sm font-normal text-espresso/80">למה הפירוש המלא חשוב?</h4>
+                <div className="space-y-2 text-xs leading-relaxed text-text-secondary">
                   <p>
-                    <strong className="text-espresso">הקוד הוא רק ההתחלה.</strong> הפירוש המלא חושף את המשמעות הנומרולוגית העמוקה של כל מספר באופן אישי ומותאם.
+                    <span className="text-espresso/80">הקוד הוא רק ההתחלה.</span> הפירוש המלא חושף את המשמעות הנומרולוגית העמוקה של כל מספר באופן אישי ומותאם.
                   </p>
                   <p>
-                    גלה את <strong className="text-espresso">הכוחות הפנימיים</strong> שלך, את <strong className="text-espresso">האתגרים הייחודיים</strong> שאתה מתמודד איתם, ואת <strong className="text-espresso">הדרך המושלמת</strong> להשתמש באנרגיה שלך למשיכת שפע ופרנסה.
+                    גלה את <span className="text-espresso/80">הכוחות הפנימיים</span> שלך, את <span className="text-espresso/80">האתגרים הייחודיים</span> שאתה מתמודד איתם, ואת <span className="text-espresso/80">הדרך המושלמת</span> להשתמש באנרגיה שלך למשיכת שפע ופרנסה.
                   </p>
                   <p>
-                    זה לא סתם מספרים - זה <strong className="text-espresso">מפת דרכים אישית</strong> להתפתחות רוחנית וחומרית.
+                    זה לא סתם מספרים - זה <span className="text-espresso/80">מפת דרכים אישית</span> להתפתחות רוחנית וחומרית.
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="text-center">
-              <p className="mb-8 text-lg leading-relaxed text-text-secondary animate-gleam-fade-in">
+              <p className="mb-6 text-sm leading-relaxed text-text-secondary animate-gleam-fade-in">
                 רוצה לקבל פירוש מלא ואישי של הקוד שלך?
               </p>
               
               <button
                 onClick={handlePayment}
-                className="px-10 py-5 text-xl font-bold transition-all duration-300 border shadow-lg btn-shine bg-pearl hover:bg-pearl-soft text-espresso border-pearl-soft hover:scale-105 rounded-2xl hover:shadow-xl"
+                className="px-8 py-3 text-base font-normal transition-all duration-300 border shadow-md btn-shine bg-pearl hover:bg-pearl-soft text-espresso border-pearl-soft hover:scale-[1.02] rounded-lg hover:shadow-lg"
               >
                 קבל פירוש מלא - 36.9₪
               </button>
               
-              <p className="mt-6 text-sm leading-relaxed text-text-secondary animate-gleam-fade-in">
+              <p className="mt-4 text-xs leading-relaxed text-text-secondary animate-gleam-fade-in">
                 הפירוש יישלח אליך למייל תוך דקות ספורות
               </p>
             </div>
@@ -242,10 +242,10 @@ export default function MoneyCode() {
         )}
 
         {/* כפתור חזרה */}
-        <div className="pt-12">
+        <div className="pt-8">
           <a
             href="/"
-            className="inline-block px-8 py-4 font-bold transition-all duration-300 border shadow-lg btn-shine bg-pearl hover:bg-pearl-soft text-espresso border-pearl-soft rounded-2xl hover:shadow-xl hover:scale-105"
+            className="inline-block px-6 py-2 text-sm font-normal transition-all duration-300 border shadow-sm btn-shine bg-pearl hover:bg-pearl-soft text-espresso/80 hover:text-espresso border-pearl-soft rounded-lg hover:shadow-md"
           >
             ← חזרה לעמוד הבית
           </a>
