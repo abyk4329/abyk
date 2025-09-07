@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function Home() {
   return (
     <main className="container min-h-[calc(100vh-10rem)] flex flex-col items-center justify-center text-center py-4 px-4">
-      <div className="max-w-4xl mx-auto space-y-4 md:space-y-5 slide-up">
+      <div className="max-w-4xl mx-auto space-y-2 md:space-y-3 slide-up">
         {/* לוגו */}
         <div className="mb-0 logo animate-logo-entrance">
           <Image
@@ -17,7 +17,7 @@ export default function Home() {
         </div>
 
         {/* סלוגן כ-SVG במקום טקסט */}
-        <div className="max-w-[700px] md:max-w-[820px] mx-auto px-2">
+        <div className="max-w-[700px] md:max-w-[820px] mx-auto px-2 -mt-2">
           <Image
             src="/slogan.svg"
             alt="Unlock Your Inner Light"
