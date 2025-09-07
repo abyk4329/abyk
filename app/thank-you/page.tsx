@@ -46,9 +46,9 @@ function ThankYouContent() {
         </div>
 
         {/* הודעת תודה */}
-  <div className="bg-ivory/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/30">
+        <div className="bg-pearl/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-pearl-soft">
           <div className="mb-6">
-            <h1 className="text-cacao text-3xl font-bold mb-4" style={{ fontFamily: 'var(--font-slogan), serif' }}>תודה על הרכישה!</h1>
+            <h1 className="text-espresso text-3xl font-bold mb-4" style={{ fontFamily: 'var(--font-slogan), serif' }}>תודה על הרכישה!</h1>
           </div>
 
           <div className="space-y-6 text-lg">
@@ -58,7 +58,7 @@ function ThankYouContent() {
               הפירוש הנומרולוגי האישי שלך כבר בדרך אליך למייל.
             </p>
             
-            <div className="bg-gold/10 rounded-xl p-6 text-espresso">
+            <div className="bg-pearl/50 rounded-xl p-6 text-espresso border border-pearl-soft">
               <h2 className="font-bold mb-3">מה קורה עכשיו?</h2>
               <ul className="text-right space-y-2">
                 <li>אנחנו יוצרים עבורך פירוש מותאם אישית</li>
@@ -76,15 +76,15 @@ function ThankYouContent() {
 
         {/* תצוגת פירוש מקומי לפי המספרים הייחודיים */}
         {htmlPreview && (
-          <div className="max-w-3xl w-full bg-ivory/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gold/30 text-right">
-            <h2 className="text-cacao text-2xl font-bold mb-4" style={{ fontFamily: 'var(--font-slogan), serif' }}>תקציר הפירוש שלך</h2>
+          <div className="max-w-3xl w-full bg-pearl/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-pearl-soft text-right">
+            <h2 className="text-espresso text-2xl font-bold mb-4" style={{ fontFamily: 'var(--font-slogan), serif' }}>תקציר הפירוש שלך</h2>
             <div className="text-sm text-text-secondary mb-2">
               מספרים ייחודיים: {uniqueNumbers.join(', ')}
             </div>
             <div dangerouslySetInnerHTML={{ __html: htmlPreview }} />
             <div className="mt-6 flex gap-3">
               <a
-                className="btn bg-gold hover:bg-gold-deep px-6 py-3 font-bold"
+                className="bg-pearl hover:bg-pearl-soft border border-pearl-soft px-6 py-3 font-bold text-espresso rounded-lg transition-all duration-300"
                 href={`/api/interpretation?bd=${code.bd}&bm=${code.bm}&by=${code.by}&lp=${code.lp}&download=1`}
               >
                 הורדת המסמך (HTML)
@@ -108,14 +108,14 @@ function ThankYouContent() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="/"
-            className="ripple bg-espresso hover:bg-gold-deep text-ivory px-6 py-3 rounded-lg font-bold transition-colors duration-300 text-center"
+            className="bg-espresso hover:bg-espresso/90 text-pearl px-6 py-3 rounded-lg font-bold transition-all duration-300 text-center border border-espresso/20 shadow-md"
           >
             חזרה לעמוד הבית
           </a>
           
           <a
             href="/numbersmeaning"
-            className="bg-text-secondary hover:bg-espresso text-ivory px-6 py-3 rounded-lg font-medium transition-colors duration-300"
+            className="bg-pearl hover:bg-pearl-soft text-espresso px-6 py-3 rounded-lg font-medium transition-all duration-300 border border-pearl-soft shadow-md"
           >
             קראי על פירוש המספרים
           </a>
