@@ -11,8 +11,8 @@
   --stone-soft: #E6D7C5; /* soft stone */
   --pearl-sand: #E2D8CB; /* pearly sand */
 
-  --peach-beige: #E1C6AB;
-  --nude-beige: #DDC5B0;
+  --pearl: #f8f8f8; /* Bright pearl white */
+  --pearl-soft: #f0f0f0; /* Soft pearl */
   --desert-sand: #DFCBB3;
   --peach-gold: #CDA991;
   --caramel: #C29E7E;
@@ -46,27 +46,24 @@
 
 body {
   font-family: 'Assistant', sans-serif;
-  /* Elegant gradient background */
-  background-color: var(--ivory);
-  background-image: radial-gradient(ellipse at top, var(--ivory-soft) 0%, var(--ivory) 70%);
+  /* Brightest possible background - pure white */
+  background-color: #ffffff;
+  background-image: none; /* Remove gradient for pure brightness */
   color: var(--charcoal);
   text-align: center;
   min-height: 100vh;
   position: relative;
 }
 
-/* Add a container for the breathing shadows to sit behind the content */
+/* Remove golden dust effects - keep minimal if any */
 body::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1; /* Place it behind the main content */
-  background: 
-    radial-gradient(ellipse at 20% 30%, var(--pearl-sand) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 60%, var(--gold) 0%, transparent 45%);
-  animation: breathingShadows 15s ease-in-out infinite alternate;
-  will-change: transform, opacity;
-  opacity: 0; /* Start transparent, fade in with animation */
+  z-index: -1;
+  background: none; /* Remove all golden gradients */
+  animation: none; /* Remove breathing animation */
+  opacity: 0;
 }
 
 @keyframes breathingShadows {

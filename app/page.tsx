@@ -9,8 +9,8 @@ export default function Home() {
           <Image
             src="/logo.svg"
             alt="Awakening by Ksenia Logo"
-            width={520}
-            height={240}
+            width={600}
+            height={280}
             className="mx-auto drop-shadow-[0_6px_30px_rgba(167,131,90,0.25)]"
             priority
           />
