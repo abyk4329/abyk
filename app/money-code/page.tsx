@@ -194,7 +194,7 @@ export default function MoneyCode() {
                 onClick={handlePayment}
                 className="px-10 py-5 text-xl font-bold transition-all duration-300 border shadow-lg btn-shine bg-pearl hover:bg-pearl-soft text-espresso border-pearl-soft hover:scale-105 rounded-2xl hover:shadow-xl"
               >
-                קבל פירוש מלא - 97₪
+                קבל פירוש מלא - 36.9₪
               </button>
               
               <p className="mt-6 text-sm leading-relaxed text-text-secondary animate-gleam-fade-in">
