@@ -11,8 +11,9 @@ const getInterpretations = (): Record<string, string> => {
   try {
     const filePath = path.join(process.cwd(), 'public', 'numbersmeaning.html')
     const htmlContent = fs.readFileSync(filePath, 'utf8')
-    const interpretations: Record<string, string> = {}
-    const numbers = ['1','2','3','4','5','6','7','8','9','11','22','33']
+  const interpretations: Record<string, string> = {}
+  // Restrict to single-digit 1–9 only
+  const numbers = ['1','2','3','4','5','6','7','8','9']
 
     numbers.forEach((num) => {
       const regex = new RegExp(`<h[2-3][^>]*?>\\s*${num}\\s*<\\/h[2-3]>\\s*([\\s\\S]*?)(?=<h[2-3][^>]*?>|$)`, 'i')
@@ -85,8 +86,9 @@ export async function GET(req: NextRequest) {
   const lp = Number(searchParams.get('lp') || '0')
   const download = searchParams.get('download') === '1'
 
-  if (!bd || !bm || !by || !lp) {
-    return NextResponse.json({ message: 'Missing or invalid code numbers' }, { status: 400 })
+  const isValidDigit = (n: number) => Number.isInteger(n) && n >= 1 && n <= 9
+  if (!isValidDigit(bd) || !isValidDigit(bm) || !isValidDigit(by) || !isValidDigit(lp)) {
+    return NextResponse.json({ message: 'Invalid code numbers. Only 1–9 are allowed.' }, { status: 400 })
   }
 
   const code: Code = { bd, bm, by, lp }

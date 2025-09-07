@@ -89,7 +89,7 @@ export default function Header() {
         </button>
         <a href="/" className="flex items-center">
           {/* Brand text only - elegant and thin */}
-          <span className="text-gold text-sm md:text-base font-light tracking-wider">
+          <span className="text-gold text-xs sm:text-sm md:text-base font-light tracking-wider whitespace-nowrap">
             AWAKENING BY KSENIA ⎮ PERSONAL SPACE FOR GROWTH
           </span>
         </a>

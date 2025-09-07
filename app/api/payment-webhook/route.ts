@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import crypto from 'crypto'
 import nodemailer from 'nodemailer'
 import fs from 'fs'
 import path from 'path'
@@ -172,7 +173,23 @@ const createPersonalInterpretation = (code: MoneyCode): string => {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json()
+    // Read raw text for signature verification
+    const raw = await req.text()
+    const signature = req.headers.get('x-webhook-signature') || req.headers.get('x-signature') || ''
+    const secret = process.env.WEBHOOK_SECRET || ''
+
+    if (!secret) {
+      console.error('WEBHOOK_SECRET is not set')
+      return NextResponse.json({ message: 'Server misconfiguration' }, { status: 500 })
+    }
+
+    // HMAC-SHA256 verification
+    const expected = crypto.createHmac('sha256', secret).update(raw, 'utf8').digest('hex')
+    if (!signature || signature !== expected) {
+      return NextResponse.json({ message: 'Invalid signature' }, { status: 401 })
+    }
+
+    const body = JSON.parse(raw)
 
     // כאן תצטרכי להתאים לפורמט של מערכת התשלומים שלך
     const customerEmail: string | undefined = body?.customerEmail
@@ -195,7 +212,8 @@ export async function POST(req: NextRequest) {
       lp: Number.parseInt(String(customData.lp ?? '')) || 0,
     }
 
-    if (!code.bd || !code.bm || !code.by || !code.lp) {
+  const isValidDigit = (n: number) => Number.isInteger(n) && n >= 1 && n <= 9
+  if (!isValidDigit(code.bd) || !isValidDigit(code.bm) || !isValidDigit(code.by) || !isValidDigit(code.lp)) {
       return NextResponse.json({ message: 'Invalid or missing code values' }, { status: 400 })
     }
 

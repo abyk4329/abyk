@@ -13,10 +13,22 @@ export default function MoneyCode() {
   } | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  // פונקציה לצמצום מספר לספרה אחת
+  // ISO-only date parsing (YYYY-MM-DD). Throws on invalid input.
+  const parseISODate = (iso: string) => {
+  const m = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/.exec(iso)
+    if (!m) throw new Error('Invalid date format. Use YYYY-MM-DD')
+  const y = m[1], mo = m[2], d = m[3]
+    const year = Number(y), month = Number(mo), day = Number(d)
+    // Basic validity
+    if (month < 1 || month > 12 || day < 1 || day > 31) throw new Error('Invalid date values')
+    return { year, month, day }
+  }
+
+  // Reduce to single digit 1–9 only
   const reduceToSingleDigit = (num: number): number => {
-    while (num >= 10 && num !== 11 && num !== 22 && num !== 33) {
-      num = num.toString().split('').reduce((sum, digit) => sum + parseInt(digit), 0)
+    num = Math.abs(num)
+    while (num >= 10) {
+      num = num.toString().split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0)
     }
     return num
   }
@@ -27,19 +39,32 @@ export default function MoneyCode() {
 
     setIsLoading(true)
     
-    const date = new Date(birthDate)
-    const day = date.getDate()
-    const month = date.getMonth() + 1
-    const year = date.getFullYear()
+    let year = 0, month = 0, day = 0
+    try {
+      const d = parseISODate(birthDate)
+      year = d.year; month = d.month; day = d.day
+  } catch {
+      setIsLoading(false)
+      alert('תאריך לא תקין. פורמט נדרש YYYY-MM-DD')
+      return
+    }
 
     // חישוב הקודים
-    const bd = reduceToSingleDigit(day)
-    const bm = reduceToSingleDigit(month)
-    const by = reduceToSingleDigit(year)
+  const bd = reduceToSingleDigit(day)
+  const bm = reduceToSingleDigit(month)
+  const by = reduceToSingleDigit(year)
     
     // Life Path - צמצום כל התאריך
-    const allDigits = (day + month + year).toString().split('').reduce((sum, digit) => sum + parseInt(digit), 0)
+    const allDigits = (day + month + year).toString().split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0)
     const lp = reduceToSingleDigit(allDigits)
+
+    // Validate results 1–9 only
+    const isValid = (...vals: number[]) => vals.every(v => Number.isInteger(v) && v >= 1 && v <= 9)
+    if (!isValid(bd, bm, by, lp)) {
+      setIsLoading(false)
+      alert('רק מספרים 1–9 מותרים. אנא בדוק את התאריך שהוזן.')
+      return
+    }
 
     setTimeout(() => {
       setResult({ bd, bm, by, lp })
@@ -65,7 +90,7 @@ export default function MoneyCode() {
   // כתובת החזרה לאחר תשלום מוצלח
   return_url: `${window.location.origin}/thank-you?bd=${result.bd}&bm=${result.bm}&by=${result.by}&lp=${result.lp}`,
   business_name: 'Awakening by Ksenia',
-  business_tagline: 'Personal Space for Growht. Unlock Your Inner Light.',
+  business_tagline: 'Personal Space for Growth. Unlock Your Inner Light.',
   logo_url: `${window.location.origin}/icon.svg`
     })
     
