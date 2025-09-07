@@ -4,7 +4,6 @@ import { Assistant, Cormorant_Garamond } from 'next/font/google'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CursorTrail from '@/components/CursorTrail'
-import PWARegister from '@/components/PWARegister'
 
 const assistant = Assistant({ subsets: ['latin'], weight: ['300','400','500','600','700','800'], display: 'swap' })
 const slogan = Cormorant_Garamond({ subsets: ['latin'], weight: ['300','400','500','600','700'], style: ['normal','italic'], display: 'swap', variable: '--font-slogan' })
@@ -36,7 +35,6 @@ export default function RootLayout({
       <CursorTrail />
       <Header />
   {/* PWA register */}
-  <PWARegister />
           <div className="pt-20">{children}</div>
           <Footer />
         </div>
