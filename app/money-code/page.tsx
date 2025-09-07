@@ -138,7 +138,7 @@ export default function MoneyCode() {
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full px-4 py-3 font-normal text-center transition-all border shadow-sm rounded-lg border-pearl-soft bg-pearl text-espresso focus:outline-none focus:ring-1 focus:ring-pearl-soft focus:border-pearl-soft"
+                className="w-full px-4 py-3 font-normal text-center transition-all border rounded-lg shadow-sm border-pearl-soft bg-pearl text-espresso focus:outline-none focus:ring-1 focus:ring-pearl-soft focus:border-pearl-soft"
                 dir="ltr"
               />
             </div>
@@ -148,14 +148,14 @@ export default function MoneyCode() {
               <button
                 onClick={calculateMoneyCode}
                 disabled={!birthDate || isLoading}
-                className="btn-shine w-full bg-pearl hover:bg-pearl-soft disabled:opacity-50 disabled:cursor-not-allowed py-3 px-5 text-sm font-normal transition-all duration-300 border border-pearl-soft rounded-lg shadow-sm hover:shadow-md text-espresso"
+                className="w-full px-5 py-3 text-sm font-normal transition-all duration-300 border rounded-lg shadow-sm btn-shine bg-pearl hover:bg-pearl-soft disabled:opacity-50 disabled:cursor-not-allowed border-pearl-soft hover:shadow-md text-espresso"
               >
                 {isLoading ? 'מחשב...' : 'חשב קוד כסף'}
               </button>
               
               <button
                 onClick={clearData}
-                className="w-full px-5 py-2 text-xs font-normal transition-all duration-300 border shadow-sm btn-shine bg-pearl hover:bg-pearl-soft text-espresso/70 rounded-lg border-pearl-soft hover:shadow-md hover:text-espresso"
+                className="w-full px-5 py-2 text-xs font-normal transition-all duration-300 border rounded-lg shadow-sm btn-shine bg-pearl hover:bg-pearl-soft text-espresso/70 border-pearl-soft hover:shadow-md hover:text-espresso"
               >
                 נקה נתונים
               </button>
@@ -167,14 +167,14 @@ export default function MoneyCode() {
             <h2 className="mb-5 text-lg font-normal text-espresso/90 animate-gleam-fade-in">הקוד שלך</h2>
             
             {/* תצוגת הקוד בשורה אחת */}
-            <div className="p-4 mb-8 text-center border shadow-md bg-pearl/95 backdrop-blur-sm rounded-lg border-pearl-soft">
+            <div className="p-4 mb-8 text-center border rounded-lg shadow-md bg-pearl/95 backdrop-blur-sm border-pearl-soft">
               <div className="font-mono text-5xl font-light tracking-wider text-espresso">
                 {result.bd}{result.bm}{result.by}{result.lp}
               </div>
             </div>
 
             {/* הסבר איך להשתמש בקוד */}
-            <div className="p-6 mb-8 border shadow-sm bg-pearl/90 backdrop-blur-sm rounded-lg border-pearl-soft">
+            <div className="p-6 mb-8 border rounded-lg shadow-sm bg-pearl/90 backdrop-blur-sm border-pearl-soft">
               <h3 className="mb-5 text-base font-normal text-center text-espresso/90">איך להשתמש בקוד שלך</h3>
               
               <div className="mb-6 space-y-3 text-right">
@@ -245,7 +245,7 @@ export default function MoneyCode() {
         <div className="pt-8">
           <a
             href="/"
-            className="inline-block px-6 py-2 text-sm font-normal transition-all duration-300 border shadow-sm btn-shine bg-pearl hover:bg-pearl-soft text-espresso/80 hover:text-espresso border-pearl-soft rounded-lg hover:shadow-md"
+            className="inline-block px-6 py-2 text-sm font-normal transition-all duration-300 border rounded-lg shadow-sm btn-shine bg-pearl hover:bg-pearl-soft text-espresso/80 hover:text-espresso border-pearl-soft hover:shadow-md"
           >
             ← חזרה לעמוד הבית
           </a>

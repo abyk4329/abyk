@@ -1,0 +1,12 @@
+{
+  "name": "Awakening by Ksenia",
+  "short_name": "ABK",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#EFEAE4",
+  "lang": "he",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

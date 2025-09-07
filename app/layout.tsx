@@ -4,6 +4,7 @@ import { Assistant, Cormorant_Garamond } from 'next/font/google'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CursorTrail from '@/components/CursorTrail'
+import PWARegister from '@/components/PWARegister'
 
 const assistant = Assistant({ subsets: ['latin'], weight: ['300','400','500','600','700','800'], display: 'swap' })
 const slogan = Cormorant_Garamond({ subsets: ['latin'], weight: ['300','400','500','600','700'], style: ['normal','italic'], display: 'swap', variable: '--font-slogan' })
@@ -25,11 +26,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="he" dir="rtl">
-      <head />
+  <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#EFEAE4" />
+        <link rel="apple-touch-icon" href="/icon.svg" />
+      </head>
   <body className={`${assistant.className} ${slogan.variable} bg-ivory text-charcoal`} suppressHydrationWarning>
   <div className="relative min-h-screen bg-bokeh" style={{ backgroundColor: 'var(--ivory)' }}>
       <CursorTrail />
       <Header />
+  {/* PWA register */}
+  <PWARegister />
           <div className="pt-20">{children}</div>
           <Footer />
         </div>
