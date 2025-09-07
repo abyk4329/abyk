@@ -89,7 +89,7 @@ export default function Header() {
         </button>
         <a href="/" className="flex items-center">
           {/* Brand text only - elegant and thin */}
-          <span className="text-gold text-xs sm:text-sm md:text-base font-light tracking-wider whitespace-nowrap">
+          <span className="text-gold text-[10px] sm:text-xs md:text-sm font-light tracking-wider whitespace-nowrap animate-gleam-fade-in">
             AWAKENING BY KSENIA ⎮ PERSONAL SPACE FOR GROWTH
           </span>
         </a>

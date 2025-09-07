@@ -116,7 +116,7 @@ export default function MoneyCode() {
         </div>
 
         {/* תווית SVG לכותרת */}
-        <div className="mt-4 mb-8">
+        <div className="mt-4 mb-8 animate-gleam-fade-in">
           <Image 
             src="/moneycodelable.svg" 
             alt="Money Code Calculator" 
@@ -148,14 +148,14 @@ export default function MoneyCode() {
               <button
                 onClick={calculateMoneyCode}
                 disabled={!birthDate || isLoading}
-                className="w-full bg-ivory hover:bg-gold/25 disabled:opacity-50 disabled:cursor-not-allowed py-4 px-6 text-lg font-semibold transition-all duration-300 border border-gold/25 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] text-espresso"
+                className="btn-shine w-full bg-ivory hover:bg-gold/25 disabled:opacity-50 disabled:cursor-not-allowed py-4 px-6 text-lg font-semibold transition-all duration-300 border border-gold/25 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] text-espresso"
               >
                 {isLoading ? 'מחשב...' : 'חשב קוד כסף'}
               </button>
               
               <button
                 onClick={clearData}
-                className="w-full bg-ivory hover:bg-gold/20 text-espresso py-3 px-6 rounded-xl font-medium transition-all duration-300 border border-gold/20 shadow-md hover:shadow-lg"
+                className="btn-shine w-full bg-ivory hover:bg-gold/20 text-espresso py-3 px-6 rounded-xl font-medium transition-all duration-300 border border-gold/20 shadow-md hover:shadow-lg"
               >
                 נקה נתונים
               </button>
@@ -164,7 +164,7 @@ export default function MoneyCode() {
         </div>        {/* תוצאה */}
         {result && (
           <div className="max-w-lg mx-auto bg-ivory/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-gold/15 animate-fade-in">
-            <h2 className="text-espresso text-2xl font-semibold mb-8">הקוד שלך</h2>
+            <h2 className="text-espresso text-2xl font-semibold mb-8 animate-gleam-fade-in">הקוד שלך</h2>
             
             <div className="grid grid-cols-2 gap-6 mb-10">
               <div className="bg-ivory rounded-2xl p-6 border border-gold/20 shadow-md">
@@ -186,18 +186,18 @@ export default function MoneyCode() {
             </div>
 
             <div className="text-center">
-              <p className="text-text-secondary mb-8 text-lg leading-relaxed">
+              <p className="text-text-secondary mb-8 text-lg leading-relaxed animate-gleam-fade-in">
                 רוצה לקבל פירוש מלא ואישי של הקוד שלך?
               </p>
               
               <button
                 onClick={handlePayment}
-                className="bg-ivory hover:bg-gold/25 text-espresso border border-gold/25 px-10 py-5 text-xl font-bold transition-all duration-300 hover:scale-105 rounded-2xl shadow-lg hover:shadow-xl"
+                className="btn-shine bg-ivory hover:bg-gold/25 text-espresso border border-gold/25 px-10 py-5 text-xl font-bold transition-all duration-300 hover:scale-105 rounded-2xl shadow-lg hover:shadow-xl"
               >
                 קבל פירוש מלא - 97₪
               </button>
               
-              <p className="text-text-secondary text-sm mt-6 leading-relaxed">
+              <p className="text-text-secondary text-sm mt-6 leading-relaxed animate-gleam-fade-in">
                 הפירוש יישלח אליך למייל תוך דקות ספורות
               </p>
             </div>
@@ -208,7 +208,7 @@ export default function MoneyCode() {
         <div className="pt-12">
           <a
             href="/"
-            className="inline-block font-bold bg-ivory hover:bg-gold/25 text-espresso border border-gold/20 px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+            className="btn-shine inline-block font-bold bg-ivory hover:bg-gold/25 text-espresso border border-gold/20 px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
           >
             ← חזרה לעמוד הבית
           </a>

@@ -335,6 +335,82 @@ strong { color: var(--dark-choco); font-weight: 700; }
 }
 .float-y { animation: floatY 6s ease-in-out infinite; }
 
+/* --- New Animations (Sept 2025) --- */
+
+/* 1. Breathing Background Shadows */
+@keyframes breathingShadows {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.5) rotate(10deg);
+    opacity: 0.4;
+  }
+}
+
+.bg-bokeh::after {
+  content: "";
+  position: absolute;
+  inset: -50%; /* Make it larger to avoid hard edges */
+  background: 
+    radial-gradient(ellipse at 20% 30%, var(--pearl-sand) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 60%, var(--gold) 0%, transparent 45%);
+  animation: breathingShadows 15s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+
+/* 2. Text Fade-in with Gleam */
+@keyframes textGleam {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-gleam-fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+  background: linear-gradient(to right, 
+    var(--charcoal) 20%, 
+    var(--cacao) 40%, 
+    var(--gold) 50%, 
+    var(--cacao) 60%, 
+    var(--charcoal) 80%);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: fadeIn 1s ease-out 0.2s forwards, textGleam 2s ease-in-out 0.5s forwards;
+}
+
+
+/* 3. Button Shine on Hover */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 75%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-25deg);
+  transition: left 0.7s ease-in-out;
+}
+
+.btn-shine:hover::before {
+  left: 150%;
+}
+
+
 /* כפתורי אינטראקציה */
 .btn:active {
   transform: scale(0.98);

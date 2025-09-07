@@ -2,10 +2,10 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="container min-h-[calc(100vh-10rem)] flex flex-col items-center justify-center text-center py-8 px-4">
-  <div className="space-y-6 md:space-y-8 slide-up max-w-4xl mx-auto">
-        {/* לוגו גדול יותר */}
-  <div className="logo animate-logo-entrance mb-0">
+    <main className="container min-h-[calc(100vh-10rem)] flex flex-col items-center justify-center text-center py-4 px-4">
+      <div className="max-w-4xl mx-auto space-y-4 md:space-y-5 slide-up">
+        {/* לוגו */}
+        <div className="mb-0 logo animate-logo-entrance">
           <Image
             src="/logo.svg"
             alt="Awakening by Ksenia Logo"
@@ -17,24 +17,21 @@ export default function Home() {
         </div>
 
         {/* סלוגן כ-SVG במקום טקסט */}
-  <div className="max-w-[700px] md:max-w-[820px] mx-auto px-2">
-          <Image
-            src="/slogan.svg"
-            alt="Unlock Your Inner Light"
-            width={820}
-            height={180}
-            className="mx-auto opacity-95 drop-shadow-[0_8px_24px_rgba(167,131,90,0.20)] slogan-shadow float-y"
-            priority
-          />
+        <div className="max-w-[700px] md:max-w-[820px] mx-auto px-2">
+          <h1 className="text-3xl font-medium md:text-4xl text-cacao animate-gleam-fade-in" style={{ fontFamily: 'var(--font-slogan)' }}>
+            Unlock Your Inner Light
+          </h1>
         </div>
 
         {/* כפתור */}
-        <a
-          href="/money-code"
-          className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-b from-champagne to-gold text-espresso px-8 py-3 text-base md:text-lg font-semibold shadow-[0_6px_22px_rgba(167,131,90,0.22)] hover:from-gold hover:to-gold-deep hover:text-ivory transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold ring-offset-2 ring-offset-ivory active:translate-y-[1px] animate-fade-in ripple mt-1"
-        >
-          <span className="relative z-10">מחשבון קוד הכסף</span>
-        </a>
+        <div className="pt-2">
+          <a
+            href="/money-code"
+            className="btn-shine group relative inline-flex items-center justify-center rounded-full bg-gradient-to-b from-champagne to-gold text-espresso px-8 py-3 text-base md:text-lg font-semibold shadow-[0_6px_22px_rgba(167,131,90,0.22)] hover:from-gold hover:to-gold-deep hover:text-ivory transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold ring-offset-2 ring-offset-ivory active:translate-y-[1px] animate-fade-in ripple"
+          >
+            <span className="relative z-10">מחשבון קוד הכסף</span>
+          </a>
+        </div>
       </div>
     </main>
   )
