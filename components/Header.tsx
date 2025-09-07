@@ -88,8 +88,8 @@ export default function Header() {
   }, [])
   
   return (
-    <header className="w-full fixed top-0 inset-x-0 bg-pearl shadow-sm border-b border-pearl-soft z-40 backdrop-blur-md">
-      <div className="max-w-6xl mx-auto px-4 py-2 flex items-center gap-4">
+    <header className="w-full fixed top-0 inset-x-0 bg-pearl shadow-sm z-40 backdrop-blur-md md:border-b md:border-pearl-soft">
+      <div className="px-4 py-2 flex items-center gap-4">
         <a href="/" className="flex items-center shrink-0">
           {/* Brand text only - elegant and thin */}
           <span className="text-espresso text-xs sm:text-sm font-light tracking-wider whitespace-nowrap">
