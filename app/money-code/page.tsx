@@ -174,15 +174,15 @@ export default function MoneyCode() {
             </div>
 
             {/* הסבר איך להשתמש בקוד */}
-            <div className="mb-10 p-8 bg-pearl/70 backdrop-blur-sm rounded-2xl border border-pearl-soft shadow-md">
-              <h3 className="mb-6 text-xl font-bold text-espresso text-center">איך להשתמש בקוד שלך</h3>
+            <div className="p-8 mb-10 border shadow-md bg-pearl/70 backdrop-blur-sm rounded-2xl border-pearl-soft">
+              <h3 className="mb-6 text-xl font-bold text-center text-espresso">איך להשתמש בקוד שלך</h3>
               
-              <div className="text-right space-y-4 mb-8">
+              <div className="mb-8 space-y-4 text-right">
                 <div className="flex items-start gap-3">
                   <div className="w-6 h-6 rounded-full bg-espresso/10 border border-espresso/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <div className="w-2 h-2 rounded-full bg-espresso/60"></div>
                   </div>
-                  <div className="text-sm text-text-secondary leading-relaxed">
+                  <div className="text-sm leading-relaxed text-text-secondary">
                     <strong className="text-espresso">קוד סודי:</strong> השתמש במספרים כקוד סודי לכרטיסים, סיסמאות או נעילת מכשירים
                   </div>
                 </div>
@@ -191,7 +191,7 @@ export default function MoneyCode() {
                   <div className="w-6 h-6 rounded-full bg-espresso/10 border border-espresso/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <div className="w-2 h-2 rounded-full bg-espresso/60"></div>
                   </div>
-                  <div className="text-sm text-text-secondary leading-relaxed">
+                  <div className="text-sm leading-relaxed text-text-secondary">
                     <strong className="text-espresso">בארנק:</strong> כתוב את הקוד על פתק קטן ושים בארנק לאנרגיית שפע
                   </div>
                 </div>
@@ -200,15 +200,15 @@ export default function MoneyCode() {
                   <div className="w-6 h-6 rounded-full bg-espresso/10 border border-espresso/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <div className="w-2 h-2 rounded-full bg-espresso/60"></div>
                   </div>
-                  <div className="text-sm text-text-secondary leading-relaxed">
+                  <div className="text-sm leading-relaxed text-text-secondary">
                     <strong className="text-espresso">מדיטציה יומית:</strong> חזור על הקוד בראש כמנטרה אישית לעוצמה פנימית
                   </div>
                 </div>
               </div>
               
-              <div className="border-t border-pearl-soft pt-6 text-center">
+              <div className="pt-6 text-center border-t border-pearl-soft">
                 <h4 className="mb-4 text-lg font-semibold text-espresso">למה הפירוש המלא חשוב?</h4>
-                <div className="text-sm text-text-secondary leading-relaxed space-y-3">
+                <div className="space-y-3 text-sm leading-relaxed text-text-secondary">
                   <p>
                     <strong className="text-espresso">הקוד הוא רק ההתחלה.</strong> הפירוש המלא חושף את המשמעות הנומרולוגית העמוקה של כל מספר באופן אישי ומותאם.
                   </p>
