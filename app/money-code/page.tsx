@@ -15,12 +15,14 @@ export default function MoneyCode() {
 
   // ISO-only date parsing (YYYY-MM-DD). Throws on invalid input.
   const parseISODate = (iso: string) => {
-  const m = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/.exec(iso)
+    const m = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/.exec(iso)
     if (!m) throw new Error('Invalid date format. Use YYYY-MM-DD')
-  const y = m[1], mo = m[2], d = m[3]
+    const y = m[1], mo = m[2], d = m[3]
     const year = Number(y), month = Number(mo), day = Number(d)
-    // Basic validity
-    if (month < 1 || month > 12 || day < 1 || day > 31) throw new Error('Invalid date values')
+    // Validate using JS Date to catch impossible dates (e.g., 2025-02-30)
+    const dt = new Date(Date.UTC(year, month - 1, day))
+    const valid = dt.getUTCFullYear() === year && dt.getUTCMonth() === (month - 1) && dt.getUTCDate() === day
+    if (!valid) throw new Error('Invalid date values')
     return { year, month, day }
   }
 

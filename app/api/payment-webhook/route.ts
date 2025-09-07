@@ -174,9 +174,9 @@ const createPersonalInterpretation = (code: MoneyCode): string => {
 export async function POST(req: NextRequest) {
   try {
     // Read raw text for signature verification
-    const raw = await req.text()
-    const signature = req.headers.get('x-webhook-signature') || req.headers.get('x-signature') || ''
-    const secret = process.env.WEBHOOK_SECRET || ''
+  const raw = await req.text()
+  const signature = (req.headers.get('x-webhook-signature') || req.headers.get('x-signature') || '').trim()
+  const secret = (process.env.WEBHOOK_SECRET || '').trim()
 
     if (!secret) {
       console.error('WEBHOOK_SECRET is not set')
@@ -184,7 +184,7 @@ export async function POST(req: NextRequest) {
     }
 
     // HMAC-SHA256 verification
-    const expected = crypto.createHmac('sha256', secret).update(raw, 'utf8').digest('hex')
+  const expected = crypto.createHmac('sha256', secret).update(raw, 'utf8').digest('hex')
     if (!signature || signature !== expected) {
       return NextResponse.json({ message: 'Invalid signature' }, { status: 401 })
     }
