@@ -301,6 +301,10 @@ strong { color: var(--dark-choco); font-weight: 700; }
   animation: slideUp 0.6s ease-out forwards;
 }
 
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
 .animate-logo-entrance {
   animation: logoEntrance 1.2s ease-out forwards;
 }

@@ -12,6 +12,7 @@ export default function MoneyCode() {
     lp: number;
   } | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   // ISO-only date parsing (YYYY-MM-DD). Throws on invalid input.
   const parseISODate = (iso: string) => {
@@ -40,21 +41,22 @@ export default function MoneyCode() {
     if (!birthDate) return
 
     setIsLoading(true)
+    setError(null)
     
     let year = 0, month = 0, day = 0
     try {
       const d = parseISODate(birthDate)
       year = d.year; month = d.month; day = d.day
-  } catch {
+    } catch {
       setIsLoading(false)
-      alert('תאריך לא תקין. פורמט נדרש YYYY-MM-DD')
+      setError('תאריך לא תקין. פורמט נדרש YYYY-MM-DD')
       return
     }
 
     // חישוב הקודים
-  const bd = reduceToSingleDigit(day)
-  const bm = reduceToSingleDigit(month)
-  const by = reduceToSingleDigit(year)
+    const bd = reduceToSingleDigit(day)
+    const bm = reduceToSingleDigit(month)
+    const by = reduceToSingleDigit(year)
     
     // Life Path - צמצום כל התאריך
     const allDigits = (day + month + year).toString().split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0)
@@ -64,7 +66,7 @@ export default function MoneyCode() {
     const isValid = (...vals: number[]) => vals.every(v => Number.isInteger(v) && v >= 1 && v <= 9)
     if (!isValid(bd, bm, by, lp)) {
       setIsLoading(false)
-      alert('רק מספרים 1–9 מותרים. אנא בדוק את התאריך שהוזן.')
+      setError('רק מספרים 1–9 מותרים. אנא בדוק את התאריך שהוזן.')
       return
     }
 
@@ -77,6 +79,7 @@ export default function MoneyCode() {
   const clearData = () => {
     setBirthDate('')
     setResult(null)
+    setError(null)
   }
 
   const handlePayment = () => {
@@ -140,8 +143,16 @@ export default function MoneyCode() {
                 onChange={(e) => setBirthDate(e.target.value)}
                 className="w-full px-4 py-3 font-normal text-center transition-all border rounded-lg shadow-sm border-pearl-soft bg-pearl text-espresso focus:outline-none focus:ring-1 focus:ring-pearl-soft focus:border-pearl-soft"
                 dir="ltr"
+                aria-label="תאריך לידה"
               />
             </div>
+
+            {/* הודעת שגיאה */}
+            {error && (
+              <div className="p-3 text-center border rounded-lg bg-red-50 border-red-200 text-red-700 text-sm">
+                {error}
+              </div>
+            )}
 
             {/* כפתורים */}
             <div className="space-y-3">
@@ -149,13 +160,22 @@ export default function MoneyCode() {
                 onClick={calculateMoneyCode}
                 disabled={!birthDate || isLoading}
                 className="w-full px-5 py-3 text-sm font-normal transition-all duration-300 border rounded-lg shadow-sm btn-shine bg-pearl hover:bg-pearl-soft disabled:opacity-50 disabled:cursor-not-allowed border-pearl-soft hover:shadow-md text-espresso"
+                aria-label="חשב קוד כסף"
               >
-                {isLoading ? 'מחשב...' : 'חשב קוד כסף'}
+                {isLoading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-4 h-4 border-2 border-espresso/30 border-t-espresso rounded-full animate-spin"></div>
+                    מחשב...
+                  </div>
+                ) : (
+                  'חשב קוד כסף'
+                )}
               </button>
               
               <button
                 onClick={clearData}
                 className="w-full px-5 py-2 text-xs font-normal transition-all duration-300 border rounded-lg shadow-sm btn-shine bg-pearl hover:bg-pearl-soft text-espresso/70 border-pearl-soft hover:shadow-md hover:text-espresso"
+                aria-label="נקה נתונים"
               >
                 נקה נתונים
               </button>
@@ -167,18 +187,18 @@ export default function MoneyCode() {
             <h2 className="mb-5 text-lg font-normal text-espresso/90 animate-gleam-fade-in">הקוד שלך</h2>
             
             {/* תצוגת הקוד בשורה אחת */}
-            <div className="p-4 mb-8 text-center border rounded-lg shadow-md bg-pearl/95 backdrop-blur-sm border-pearl-soft">
-              <div className="font-mono text-5xl font-light tracking-wider text-espresso">
+            <div className="p-4 mb-8 text-center border rounded-lg shadow-md bg-pearl/95 backdrop-blur-sm border-pearl-soft animate-slide-up">
+              <div className="font-mono text-5xl font-light tracking-wider text-espresso animate-pulse">
                 {result.bd}{result.bm}{result.by}{result.lp}
               </div>
             </div>
 
             {/* הסבר איך להשתמש בקוד */}
-            <div className="p-6 mb-8 border rounded-lg shadow-sm bg-pearl/90 backdrop-blur-sm border-pearl-soft">
+            <div className="p-6 mb-8 border rounded-lg shadow-sm bg-pearl/90 backdrop-blur-sm border-pearl-soft animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <h3 className="mb-5 text-base font-normal text-center text-espresso/90">איך להשתמש בקוד שלך</h3>
               
               <div className="mb-6 space-y-3 text-right">
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.4s' }}>
                   <div className="w-4 h-4 rounded-full bg-espresso/5 border border-espresso/15 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <div className="w-1.5 h-1.5 rounded-full bg-espresso/50"></div>
                   </div>
@@ -187,7 +207,7 @@ export default function MoneyCode() {
                   </div>
                 </div>
                 
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.6s' }}>
                   <div className="w-4 h-4 rounded-full bg-espresso/5 border border-espresso/15 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <div className="w-1.5 h-1.5 rounded-full bg-espresso/50"></div>
                   </div>
@@ -196,7 +216,7 @@ export default function MoneyCode() {
                   </div>
                 </div>
                 
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.8s' }}>
                   <div className="w-4 h-4 rounded-full bg-espresso/5 border border-espresso/15 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <div className="w-1.5 h-1.5 rounded-full bg-espresso/50"></div>
                   </div>
@@ -206,7 +226,7 @@ export default function MoneyCode() {
                 </div>
               </div>
               
-              <div className="pt-5 text-center border-t border-pearl-soft">
+              <div className="pt-5 text-center border-t border-pearl-soft animate-fade-in" style={{ animationDelay: '1s' }}>
                 <h4 className="mb-3 text-sm font-normal text-espresso/80">למה הפירוש המלא חשוב?</h4>
                 <div className="space-y-2 text-xs leading-relaxed text-text-secondary">
                   <p>
@@ -222,7 +242,7 @@ export default function MoneyCode() {
               </div>
             </div>
 
-            <div className="text-center">
+            <div className="text-center animate-fade-in" style={{ animationDelay: '1.2s' }}>
               <p className="mb-6 text-sm leading-relaxed text-text-secondary animate-gleam-fade-in">
                 רוצה לקבל פירוש מלא ואישי של הקוד שלך?
               </p>
@@ -230,6 +250,7 @@ export default function MoneyCode() {
               <button
                 onClick={handlePayment}
                 className="px-8 py-3 text-base font-normal transition-all duration-300 border shadow-md btn-shine bg-pearl hover:bg-pearl-soft text-espresso border-pearl-soft hover:scale-[1.02] rounded-lg hover:shadow-lg"
+                aria-label="קבל פירוש מלא"
               >
                 קבל פירוש מלא - 36.9₪
               </button>
