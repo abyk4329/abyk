@@ -167,45 +167,42 @@ export default function MoneyCode() {
             <h2 className="mb-6 text-2xl font-semibold text-espresso animate-gleam-fade-in">הקוד שלך</h2>
             
             {/* תצוגת הקוד בשורה אחת */}
-            <div className="mb-10 p-6 bg-pearl/80 backdrop-blur-sm rounded-2xl border border-pearl-soft shadow-lg text-center">
-              <div className="text-6xl font-bold text-espresso tracking-wider mb-2 font-mono">
+            <div className="p-6 mb-10 text-center border shadow-lg bg-pearl/80 backdrop-blur-sm rounded-2xl border-pearl-soft">
+              <div className="font-mono text-6xl font-bold tracking-wider text-espresso">
                 {result.bd}{result.bm}{result.by}{result.lp}
-              </div>
-              <div className="text-sm text-text-secondary">
-                BD: {result.bd} | BM: {result.bm} | BY: {result.by} | LP: {result.lp}
               </div>
             </div>
 
             {/* הסבר איך להשתמש בקוד */}
-            <div className="mb-10 p-8 bg-pearl/70 backdrop-blur-sm rounded-2xl border border-pearl-soft shadow-md">
-              <h3 className="mb-6 text-xl font-bold text-espresso text-center">💫 איך להשתמש בקוד שלך</h3>
+            <div className="p-8 mb-10 border shadow-md bg-pearl/70 backdrop-blur-sm rounded-2xl border-pearl-soft">
+              <h3 className="mb-6 text-xl font-bold text-center text-espresso">💫 איך להשתמש בקוד שלך</h3>
               
-              <div className="text-right space-y-4 mb-8">
+              <div className="mb-8 space-y-4 text-right">
                 <div className="flex items-start gap-3">
                   <span className="text-2xl">🔐</span>
-                  <div className="text-sm text-text-secondary leading-relaxed">
+                  <div className="text-sm leading-relaxed text-text-secondary">
                     <strong className="text-espresso">קוד סודי:</strong> השתמשי במספרים כקוד סודי לכרטיסים, סיסמאות או נעילת מכשירים
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-3">
                   <span className="text-2xl">💰</span>
-                  <div className="text-sm text-text-secondary leading-relaxed">
+                  <div className="text-sm leading-relaxed text-text-secondary">
                     <strong className="text-espresso">בארנק:</strong> כתבי את הקוד על פתק קטן ושימי בארנק לאנרגיית שפע
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-3">
                   <span className="text-2xl">🧘</span>
-                  <div className="text-sm text-text-secondary leading-relaxed">
+                  <div className="text-sm leading-relaxed text-text-secondary">
                     <strong className="text-espresso">מדיטציה יומית:</strong> חזרי על הקוד בראש כמנטרה אישית לעוצמה פנימית
                   </div>
                 </div>
               </div>
               
-              <div className="border-t border-pearl-soft pt-6 text-center">
+              <div className="pt-6 text-center border-t border-pearl-soft">
                 <h4 className="mb-4 text-lg font-semibold text-espresso">✨ למה הפירוש המלא חשוב?</h4>
-                <div className="text-sm text-text-secondary leading-relaxed space-y-3">
+                <div className="space-y-3 text-sm leading-relaxed text-text-secondary">
                   <p>
                     <strong className="text-espresso">הקוד הוא רק ההתחלה.</strong> הפירוש המלא חושף את המשמעות הנומרולוגית העמוקה של כל מספר באופן אישי ומותאם לך.
                   </p>
@@ -217,35 +214,35 @@ export default function MoneyCode() {
             </div>
 
             {/* הסבר איך להשתמש בקוד */}
-            <div className="mb-10 p-8 bg-pearl/70 backdrop-blur-sm rounded-2xl border border-pearl-soft shadow-md text-center">
+            <div className="p-8 mb-10 text-center border shadow-md bg-pearl/70 backdrop-blur-sm rounded-2xl border-pearl-soft">
               <h3 className="mb-6 text-xl font-bold text-espresso">איך להשתמש בקוד שלך</h3>
               
-              <div className="text-right space-y-4 mb-8">
+              <div className="mb-8 space-y-4 text-right">
                 <div className="flex items-start gap-3">
                   <span className="text-2xl">🔐</span>
-                  <div className="text-sm text-text-secondary leading-relaxed">
+                  <div className="text-sm leading-relaxed text-text-secondary">
                     <strong className="text-espresso">קוד סודי:</strong> השתמשי במספרים כקוד סודי לכרטיסים, סיסמאות או נעילת מכשירים
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-3">
                   <span className="text-2xl">💰</span>
-                  <div className="text-sm text-text-secondary leading-relaxed">
+                  <div className="text-sm leading-relaxed text-text-secondary">
                     <strong className="text-espresso">בארנק:</strong> כתבי את הקוד על פתק קטן ושימי בארנק לאנרגיית שפע
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-3">
                   <span className="text-2xl">📱</span>
-                  <div className="text-sm text-text-secondary leading-relaxed">
+                  <div className="text-sm leading-relaxed text-text-secondary">
                     <strong className="text-espresso">מדיטציה יומית:</strong> חזרי על הקוד בראש כמנטרה אישית לעוצמה פנימית
                   </div>
                 </div>
               </div>
               
-              <div className="border-t border-pearl-soft pt-6">
+              <div className="pt-6 border-t border-pearl-soft">
                 <h4 className="mb-4 text-lg font-semibold text-espresso">למה הפירוש המלא חשוב?</h4>
-                <div className="text-sm text-text-secondary leading-relaxed space-y-3 text-right">
+                <div className="space-y-3 text-sm leading-relaxed text-right text-text-secondary">
                   <p>
                     <strong className="text-espresso">הקוד הוא רק ההתחלה.</strong> הפירוש המלא חושף את המשמעות הנומרולוגית העמוקה של כל מספר באופן אישי ומותאם לך.
                   </p>
