@@ -97,7 +97,7 @@ export default function MoneyCode() {
     })
     
     // מעבר לקישור התשלום
-    window.open(`https://pay.grow.link/d278d4faa8ef9bcc3fe4620f98116c2a-MjQ1OTk5NA?${params.toString()}`, '_blank')
+    window.open(`https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw?${params.toString()}`, '_blank')
   }
 
   return (
