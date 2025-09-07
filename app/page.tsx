@@ -18,9 +18,14 @@ export default function Home() {
 
         {/* סלוגן כ-SVG במקום טקסט */}
         <div className="max-w-[700px] md:max-w-[820px] mx-auto px-2">
-          <h1 className="text-3xl font-medium md:text-4xl text-cacao animate-gleam-fade-in" style={{ fontFamily: 'var(--font-slogan)' }}>
-            Unlock Your Inner Light
-          </h1>
+          <Image
+            src="/slogan.svg"
+            alt="Unlock Your Inner Light"
+            width={700}
+            height={100}
+            className="mx-auto slogan-shadow float-y energy-pulse"
+            priority
+          />
         </div>
 
         {/* כפתור */}

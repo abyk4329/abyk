@@ -46,11 +46,42 @@
 
 body {
   font-family: 'Assistant', sans-serif;
-  /* Gentle vertical blend between the two ivories */
+  /* Elegant gradient background */
   background-color: var(--ivory);
-  background-image: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-soft) 55%, var(--ivory) 100%);
+  background-image: radial-gradient(ellipse at top, var(--ivory-soft) 0%, var(--ivory) 70%);
   color: var(--charcoal);
   text-align: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Add a container for the breathing shadows to sit behind the content */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* Place it behind the main content */
+  background: 
+    radial-gradient(ellipse at 20% 30%, var(--pearl-sand) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 60%, var(--gold) 0%, transparent 45%);
+  animation: breathingShadows 15s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+  opacity: 0; /* Start transparent, fade in with animation */
+}
+
+@keyframes breathingShadows {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.5) rotate(10deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.15;
+  }
 }
 
 html {
@@ -336,30 +367,6 @@ strong { color: var(--dark-choco); font-weight: 700; }
 .float-y { animation: floatY 6s ease-in-out infinite; }
 
 /* --- New Animations (Sept 2025) --- */
-
-/* 1. Breathing Background Shadows */
-@keyframes breathingShadows {
-  0%, 100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 0.2;
-  }
-  50% {
-    transform: scale(1.5) rotate(10deg);
-    opacity: 0.4;
-  }
-}
-
-.bg-bokeh::after {
-  content: "";
-  position: absolute;
-  inset: -50%; /* Make it larger to avoid hard edges */
-  background: 
-    radial-gradient(ellipse at 20% 30%, var(--pearl-sand) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 60%, var(--gold) 0%, transparent 45%);
-  animation: breathingShadows 15s ease-in-out infinite alternate;
-  will-change: transform, opacity;
-}
-
 
 /* 2. Text Fade-in with Gleam */
 @keyframes textGleam {
