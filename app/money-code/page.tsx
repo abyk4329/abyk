@@ -174,7 +174,6 @@ export default function MoneyCode() {
             </div>
 
             {/* הסבר איך להשתמש בקוד */}
-                        {/* הסבר איך להשתמש בקוד */}
             <div className="mb-10 p-8 bg-pearl/70 backdrop-blur-sm rounded-2xl border border-pearl-soft shadow-md">
               <h3 className="mb-6 text-xl font-bold text-espresso text-center">איך להשתמש בקוד שלך</h3>
               
@@ -184,7 +183,7 @@ export default function MoneyCode() {
                     <div className="w-2 h-2 rounded-full bg-espresso/60"></div>
                   </div>
                   <div className="text-sm text-text-secondary leading-relaxed">
-                    <strong className="text-espresso">קוד סודי:</strong> השתמשי במספרים כקוד סודי לכרטיסים, סיסמאות או נעילת מכשירים
+                    <strong className="text-espresso">קוד סודי:</strong> השתמש במספרים כקוד סודי לכרטיסים, סיסמאות או נעילת מכשירים
                   </div>
                 </div>
                 
@@ -193,7 +192,7 @@ export default function MoneyCode() {
                     <div className="w-2 h-2 rounded-full bg-espresso/60"></div>
                   </div>
                   <div className="text-sm text-text-secondary leading-relaxed">
-                    <strong className="text-espresso">בארנק:</strong> כתבי את הקוד על פתק קטן ושימי בארנק לאנרגיית שפע
+                    <strong className="text-espresso">בארנק:</strong> כתוב את הקוד על פתק קטן ושים בארנק לאנרגיית שפע
                   </div>
                 </div>
                 
@@ -202,7 +201,7 @@ export default function MoneyCode() {
                     <div className="w-2 h-2 rounded-full bg-espresso/60"></div>
                   </div>
                   <div className="text-sm text-text-secondary leading-relaxed">
-                    <strong className="text-espresso">מדיטציה יומית:</strong> חזרי על הקוד בראש כמנטרה אישית לעוצמה פנימית
+                    <strong className="text-espresso">מדיטציה יומית:</strong> חזור על הקוד בראש כמנטרה אישית לעוצמה פנימית
                   </div>
                 </div>
               </div>
@@ -211,51 +210,10 @@ export default function MoneyCode() {
                 <h4 className="mb-4 text-lg font-semibold text-espresso">למה הפירוש המלא חשוב?</h4>
                 <div className="text-sm text-text-secondary leading-relaxed space-y-3">
                   <p>
-                    <strong className="text-espresso">הקוד הוא רק ההתחלה.</strong> הפירוש המלא חושף את המשמעות הנומרולוגית העמוקה של כל מספר באופן אישי ומותאם לך.
+                    <strong className="text-espresso">הקוד הוא רק ההתחלה.</strong> הפירוש המלא חושף את המשמעות הנומרולוגית העמוקה של כל מספר באופן אישי ומותאם.
                   </p>
                   <p>
-                    תגלי את <strong className="text-espresso">הכוחות הנסתרים</strong> שלך, את <strong className="text-espresso">האתגרים הייחודיים</strong> שאת נתקלת בהם, ואת <strong className="text-espresso">הדרך המושלמת</strong> להשתמש באנרגיה שלך למשיכת שפע ופרנסה.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* הסבר איך להשתמש בקוד */}
-            <div className="p-8 mb-10 text-center border shadow-md bg-pearl/70 backdrop-blur-sm rounded-2xl border-pearl-soft">
-              <h3 className="mb-6 text-xl font-bold text-espresso">איך להשתמש בקוד שלך</h3>
-              
-              <div className="mb-8 space-y-4 text-right">
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">🔐</span>
-                  <div className="text-sm leading-relaxed text-text-secondary">
-                    <strong className="text-espresso">קוד סודי:</strong> השתמשי במספרים כקוד סודי לכרטיסים, סיסמאות או נעילת מכשירים
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">💰</span>
-                  <div className="text-sm leading-relaxed text-text-secondary">
-                    <strong className="text-espresso">בארנק:</strong> כתבי את הקוד על פתק קטן ושימי בארנק לאנרגיית שפע
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">📱</span>
-                  <div className="text-sm leading-relaxed text-text-secondary">
-                    <strong className="text-espresso">מדיטציה יומית:</strong> חזרי על הקוד בראש כמנטרה אישית לעוצמה פנימית
-                  </div>
-                </div>
-              </div>
-              
-              <div className="pt-6 border-t border-pearl-soft">
-                <h4 className="mb-4 text-lg font-semibold text-espresso">למה הפירוש המלא חשוב?</h4>
-                <div className="space-y-3 text-sm leading-relaxed text-right text-text-secondary">
-                  <p>
-                    <strong className="text-espresso">הקוד הוא רק ההתחלה.</strong> הפירוש המלא חושף את המשמעות הנומרולוגית העמוקה של כל מספר באופן אישי ומותאם לך.
-                  </p>
-                  <p>
-                    תגלי את <strong className="text-espresso">הכוחות הפנימיים שלך</strong>, את <strong className="text-espresso">האתגרים שלך</strong>, 
-                    ואת <strong className="text-espresso">הדרך הייחודית שלך להצלחה ושפע</strong>.
+                    גלה את <strong className="text-espresso">הכוחות הפנימיים</strong> שלך, את <strong className="text-espresso">האתגרים הייחודיים</strong> שאתה מתמודד איתם, ואת <strong className="text-espresso">הדרך המושלמת</strong> להשתמש באנרגיה שלך למשיכת שפע ופרנסה.
                   </p>
                   <p>
                     זה לא סתם מספרים - זה <strong className="text-espresso">מפת דרכים אישית</strong> להתפתחות רוחנית וחומרית.
