@@ -89,17 +89,17 @@ export default function Header() {
   
   return (
     <header className="w-full fixed top-0 inset-x-0 bg-pearl shadow-sm z-40 backdrop-blur-md md:border-b md:border-pearl-soft">
-      <div className="px-4 py-2 flex items-center gap-4">
-        <a href="/" className="flex items-center shrink-0">
-          {/* Brand text only - elegant and thin */}
+      <div className="flex items-center justify-between px-4 py-2">
+        {/* Navigation on the left */}
+        <div className="flex-1 overflow-x-auto">
+          {nav}
+        </div>
+        {/* Brand text on the right */}
+        <a href="/" className="flex items-center shrink-0 ml-4">
           <span className="text-espresso text-xs sm:text-sm font-light tracking-wider whitespace-nowrap">
             AWAKENING BY KSENIA ⎮ PERSONAL SPACE FOR GROWTH
           </span>
         </a>
-        {/* Horizontal scrollable nav that never wraps */}
-        <div className="flex-1 overflow-x-auto">
-          {nav}
-        </div>
       </div>
     </header>
   )
