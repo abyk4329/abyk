@@ -10,7 +10,7 @@ const assistantLatin = Assistant({ subsets: ['latin'], weight: ['200','300'], di
 const assistantHeadings = Assistant({ subsets: ['latin', 'hebrew'], weight: ['600','700','800'], display: 'swap', variable: '--font-headings' })
 
 export const metadata: Metadata = {
-  title: 'ABYK - Awakening by Ksenia',
+  title: 'Awakening by Ksenia',
   description: 'Personal Space for Growth — Unlock Your Inner Light',
   applicationName: 'ABYK',
   appleWebApp: {
@@ -24,15 +24,15 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: {
     icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/icon.svg', sizes: '192x192', type: 'image/svg+xml' },
-      { url: '/icon.svg', sizes: '512x512', type: 'image/svg+xml' }
+      { url: '/abyk-icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-192.svg', sizes: '192x192', type: 'image/svg+xml' },
+      { url: '/abyk-icon.svg', sizes: '512x512', type: 'image/svg+xml' }
     ],
-    shortcut: '/icon.svg',
+    shortcut: '/abyk-icon.svg',
     apple: [
-      { url: '/icon.svg', sizes: '180x180', type: 'image/svg+xml' },
-      { url: '/icon.svg', sizes: '152x152', type: 'image/svg+xml' },
-      { url: '/icon.svg', sizes: '120x120', type: 'image/svg+xml' }
+      { url: '/abyk-icon.svg', sizes: '180x180', type: 'image/svg+xml' },
+      { url: '/icon-192.svg', sizes: '152x152', type: 'image/svg+xml' },
+      { url: '/icon-192.svg', sizes: '120x120', type: 'image/svg+xml' }
     ],
   },
 }
@@ -53,13 +53,13 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="application-name" content="ABYK" />
         
-        <link rel="apple-touch-icon" href="/icon.svg" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icon.svg" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/icon.svg" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/icon.svg" />
+        <link rel="apple-touch-icon" href="/abyk-icon.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/abyk-icon.svg" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/icon-192.svg" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/icon-192.svg" />
         
-        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-        <link rel="shortcut icon" href="/icon.svg" />
+        <link rel="icon" type="image/svg+xml" href="/abyk-icon.svg" />
+        <link rel="shortcut icon" href="/abyk-icon.svg" />
         
         <script
           dangerouslySetInnerHTML={{
