@@ -184,7 +184,7 @@ export default function MoneyCode() {
         </div>        {/* תוצאה */}
         {result && (
           <div className="max-w-lg p-6 mx-auto border-2 shadow-md bg-ivory/90 backdrop-blur-sm rounded-xl border-sand-100/60 animate-fade-in">
-            <h2 className="mb-5 text-lg font-medium text-cacao animate-gleam-fade-in">קוד העושר האישי שלך</h2>
+            <h2 className="text-title text-depth-medium emphasis-strong animate-gleam-fade-in">קוד העושר האישי שלך</h2>
             
             {/* תצוגת הקוד בשורה אחת */}
             <div className="p-5 mb-8 text-center border-2 rounded-lg shadow-md bg-ivory-soft/95 backdrop-blur-sm border-sand-100/60 animate-slide-up">
@@ -195,7 +195,7 @@ export default function MoneyCode() {
 
             {/* הסבר איך להשתמש בקוד */}
             <div className="p-6 mb-8 border rounded-lg shadow-sm bg-ivory-soft/80 backdrop-blur-sm border-sand-100/40 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              <h3 className="mb-5 text-base font-medium text-center text-cacao">איך להשתמש בקוד שלכם</h3>
+              <h3 className="text-subtitle text-depth-light emphasis-gold text-center">איך להשתמש בקוד שלכם</h3>
               
               <div className="mb-6 space-y-3 text-right">
                 <div className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.4s' }}>

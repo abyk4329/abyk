@@ -73,43 +73,169 @@ html {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-headings), 'Heebo', sans-serif;
+  font-family: var(--font-headings), 'Assistant', sans-serif;
   color: var(--cacao);
   text-align: center;
-  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: var(--dark-choco);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 @media (max-width: 768px) {
   h1 {
-    font-size: 2rem;
+    font-size: 2.4rem;
+    margin-bottom: 1.2rem;
   }
 }
 
 h2 {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--cacao);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.03);
 }
 
 @media (max-width: 768px) {
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
   }
+}
+
+h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: var(--copper-brown);
+}
+
+@media (max-width: 768px) {
+  h3 {
+    font-size: 1.4rem;
+  }
+}
+
+h4 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  color: var(--golden-brown);
+}
+
+h5 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--smoky-brown);
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: var(--smoky-brown);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 p {
   text-align: center;
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  font-weight: 400;
+  color: var(--espresso);
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 500;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  color: var(--cacao);
+  margin-bottom: 1.5rem;
+}
+
+.body-large {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.body-small {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--smoky-brown);
+  font-weight: 400;
 }
 
 strong {
   color: var(--dark-choco);
   font-weight: 700;
+}
+
+/* הדגשות ועומק טיפוגרפי */
+.emphasis-gold {
+  color: var(--sandy-gold);
+  font-weight: 600;
+}
+
+.emphasis-strong {
+  color: var(--dark-choco);
+  font-weight: 700;
+  text-shadow: 0 0.5px 1px rgba(0,0,0,0.1);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--cacao) 0%, var(--sandy-gold) 50%, var(--copper-brown) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+
+/* אפקטי עומק */
+.text-depth-light {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.text-depth-medium {
+  text-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.text-depth-strong {
+  text-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 6px 12px rgba(0,0,0,0.08);
+}
+
+/* גדלים דינמיים */
+.text-hero {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.text-display {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.text-title {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.text-subtitle {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .container {

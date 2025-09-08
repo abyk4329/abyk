@@ -30,7 +30,7 @@ export default function Home() {
 
         {/* טקסט הזמנה */}
         <div className="pt-8 pb-4">
-          <p className="text-base md:text-lg font-light text-cacao/90 tracking-wide animate-fade-in">
+          <p className="text-subtitle text-depth-light emphasis-gold tracking-wide animate-fade-in">
             גלו את קוד העושר האישי שלכם
           </p>
         </div>

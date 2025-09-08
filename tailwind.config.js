@@ -46,7 +46,13 @@ module.exports = {
       },
       fontFamily: {
         'assistant': ['Assistant', 'sans-serif'],
-        'headings': ['var(--font-headings)', 'Heebo', 'sans-serif'],
+        'headings': ['var(--font-headings)', 'Assistant', 'sans-serif'],
+      },
+      fontSize: {
+        'hero': 'clamp(2.5rem, 5vw, 4rem)',
+        'display': 'clamp(2rem, 4vw, 3rem)',
+        'title': 'clamp(1.5rem, 3vw, 2.2rem)',
+        'subtitle': 'clamp(1.2rem, 2.5vw, 1.6rem)',
       },
     },
   },
