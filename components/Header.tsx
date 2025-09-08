@@ -88,7 +88,7 @@ export default function Header() {
   }, [])
   
   return (
-    <header className="w-full fixed top-0 inset-x-0 bg-pearl shadow-sm z-40 backdrop-blur-md md:border-b md:border-pearl-soft">
+    <header className="w-full fixed top-0 inset-x-0 bg-ivory/80 shadow-sm z-40 backdrop-blur-md border-b border-sand-100/60">
       <div className="flex items-center justify-between px-4 py-2">
         {/* Navigation on the left */}
         <div className="flex-1 overflow-x-auto">
@@ -96,7 +96,7 @@ export default function Header() {
         </div>
         {/* Brand text on the right */}
         <a href="/" className="flex items-center shrink-0 ml-4">
-          <span className="text-espresso text-xs sm:text-sm font-light tracking-wider whitespace-nowrap">
+          <span className="text-cacao text-xs sm:text-sm font-light tracking-wider whitespace-nowrap">
             AWAKENING BY KSENIA ⎮ PERSONAL SPACE FOR GROWTH
           </span>
         </a>

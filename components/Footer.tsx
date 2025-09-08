@@ -1,12 +1,12 @@
 "use client"
 export default function Footer() {
   return (
-    <footer className="mt-1 bg-footer/80 backdrop-blur-sm">
+    <footer className="mt-1 bg-ivory-soft/80 backdrop-blur-sm border-t border-sand-100/60">
       <div className="grid items-center gap-2 px-4 py-2 mx-auto text-center max-w-6xl">
         {/* Share button centered */}
         <div className="flex justify-center w-full">
           <button
-            className="px-3 py-1.5 text-xs font-medium transition-all duration-300 border rounded-lg text-espresso bg-pearl hover:bg-pearl-soft border-pearl-soft hover:shadow-sm"
+            className="px-3 py-1.5 text-xs font-medium transition-all duration-300 border rounded-lg text-espresso bg-sand-100/50 hover:bg-sand-100 border-sand-100/80 hover:shadow-sm"
             onClick={async () => {
               const data = { title: 'Awakening by Ksenia', text: 'Personal Space for Growth – Unlock Your Inner Light', url: typeof window !== 'undefined' ? window.location.href : '/' }
               if (navigator.share) {
