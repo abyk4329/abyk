@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
   const by = Number(searchParams.get('by') || '0')
   const lp = Number(searchParams.get('lp') || '0')
   const download = searchParams.get('download') === '1'
+  const inline = searchParams.get('inline') === '1'
 
   if (!isValidDigit(bd) || !isValidDigit(bm) || !isValidDigit(by) || !isValidDigit(lp)) {
     return NextResponse.json({ message: 'Invalid code numbers. Only 1–9 are allowed.' }, { status: 400 })
@@ -17,6 +18,11 @@ export async function GET(req: NextRequest) {
 
   const code: Code = { bd, bm, by, lp }
   const html = buildPersonalHtml(code)
+  if (inline && !download) {
+    const m = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i)
+    const inner = m ? m[1] : html
+    return NextResponse.json({ html: inner, code, uniqueNumbers: uniqueNumbersFromCode(code) })
+  }
   if (download) {
     return new NextResponse(html, {
       status: 200,

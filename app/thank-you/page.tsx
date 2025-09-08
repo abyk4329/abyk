@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React, { Suspense, useEffect, useMemo, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
@@ -10,18 +10,36 @@ function ThankYouContent() {
   const searchParams = useSearchParams()
   const [htmlPreview, setHtmlPreview] = useState<string>('')
   const [uniqueNumbers, setUniqueNumbers] = useState<number[]>([])
+  const [code, setCode] = useState<{ bd: number; bm: number; by: number; lp: number }>({ bd: 0, bm: 0, by: 0, lp: 0 })
 
-  const code = useMemo(() => {
+  // 1) Try to read code from URL
+  useEffect(() => {
     const bd = Number(searchParams.get('bd') || '0')
     const bm = Number(searchParams.get('bm') || '0')
     const by = Number(searchParams.get('by') || '0')
     const lp = Number(searchParams.get('lp') || '0')
-    return { bd, bm, by, lp }
+    if (bd && bm && by && lp) setCode({ bd, bm, by, lp })
   }, [searchParams])
+
+  // 2) Fallback: try to read from localStorage if URL missing
+  useEffect(() => {
+    if (code.bd && code.bm && code.by && code.lp) return
+    try {
+      const raw = localStorage.getItem('abyk_money_code')
+      if (raw) {
+        const saved = JSON.parse(raw)
+        const bd = Number(saved?.bd || 0)
+        const bm = Number(saved?.bm || 0)
+        const by = Number(saved?.by || 0)
+        const lp = Number(saved?.lp || 0)
+        if (bd && bm && by && lp) setCode({ bd, bm, by, lp })
+      }
+    } catch {}
+  }, [code])
 
   useEffect(() => {
     if (!code.bd || !code.bm || !code.by || !code.lp) return
-    const url = `/api/interpretation?bd=${code.bd}&bm=${code.bm}&by=${code.by}&lp=${code.lp}`
+    const url = `/api/interpretation?inline=1&bd=${code.bd}&bm=${code.bm}&by=${code.by}&lp=${code.lp}`
     fetch(url)
       .then((r) => r.json())
       .then((data) => {

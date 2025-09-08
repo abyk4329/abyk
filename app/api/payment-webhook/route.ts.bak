@@ -30,13 +30,13 @@ export async function POST(req: NextRequest) {
     let verified = false
     if (secret) {
       const expected = crypto.createHmac('sha256', secret).update(raw, 'utf8').digest('hex')
-      verified = !!(signature && signature === expected)
+      verified = signature && signature === expected
     }
     if (!verified && !allowInsecure) {
       return NextResponse.json({ message: 'Invalid signature' }, { status: 401 })
     }
 
-    let body: { customerEmail?: string; paymentStatus?: string; customData?: { bd?: string; bm?: string; by?: string; lp?: string }; metadata?: { bd?: string; bm?: string; by?: string; lp?: string } }
+    let body: any
     try {
       body = JSON.parse(raw)
     } catch (e) {
@@ -45,9 +45,9 @@ export async function POST(req: NextRequest) {
     }
 
     // כאן תצטרכי להתאים לפורמט של מערכת התשלומים שלך
-    const customerEmail: string | undefined = body?.customerEmail
-    const paymentStatus: string | undefined = body?.paymentStatus
-    const customData = body?.customData ?? {}
+    const customerEmail: string | undefined = body?.customerEmail || body?.email || body?.customer?.email || body?.data?.customer?.email || body?.data?.customerEmail
+    const paymentStatus: string | undefined = body?.paymentStatus || body?.status || body?.event || body?.data?.status
+    const customData = body?.customData ?? body?.metadata ?? body?.data?.metadata ?? body?.data?.customData ?? {}
     
     const okStatuses = new Set(['completed','paid','succeeded','success'])
     if (!paymentStatus || !okStatuses.has(String(paymentStatus).toLowerCase())) {

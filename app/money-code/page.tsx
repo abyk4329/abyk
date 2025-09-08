@@ -85,6 +85,11 @@ export default function MoneyCode() {
   const handlePayment = () => {
     if (!result || !birthDate) return
     
+    // Persist code locally to allow thank-you page fallback
+    try {
+      localStorage.setItem('abyk_money_code', JSON.stringify({ ...result, birthDate, ts: Date.now() }))
+    } catch {}
+
     // יצירת URL עם הפרמטרים לתשלום
     const params = new URLSearchParams({
       bd: result.bd.toString(),

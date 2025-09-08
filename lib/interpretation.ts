@@ -19,7 +19,7 @@ export const getInterpretations = (): Record<string, string> => {
 
     numbers.forEach((num) => {
       const regex = new RegExp(
-        `<h[2-3][^>]*?>\\s*${num}\\s*<\\/h[2-3]>\\s*([\\s\\S]*?)(?=<h[2-3][^>]*?>|$)`,
+        `<h2>${num}</h2>\\s*<div>([\\s\\S]*?)</div>`,
         'i'
       )
       const match = htmlContent.match(regex)
