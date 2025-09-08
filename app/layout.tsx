@@ -10,12 +10,30 @@ const assistantLatin = Assistant({ subsets: ['latin'], weight: ['200','300'], di
 const assistantHeadings = Assistant({ subsets: ['latin', 'hebrew'], weight: ['600','700','800'], display: 'swap', variable: '--font-headings' })
 
 export const metadata: Metadata = {
-  title: 'Awakening by Ksenia',
+  title: 'ABYK - Awakening by Ksenia',
   description: 'Personal Space for Growth — Unlock Your Inner Light',
+  applicationName: 'ABYK',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'ABYK',
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  manifest: '/manifest.json',
   icons: {
-    icon: '/icon.svg',
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon.svg', sizes: '192x192', type: 'image/svg+xml' },
+      { url: '/icon.svg', sizes: '512x512', type: 'image/svg+xml' }
+    ],
     shortcut: '/icon.svg',
-    apple: '/icon.svg',
+    apple: [
+      { url: '/icon.svg', sizes: '180x180', type: 'image/svg+xml' },
+      { url: '/icon.svg', sizes: '152x152', type: 'image/svg+xml' },
+      { url: '/icon.svg', sizes: '120x120', type: 'image/svg+xml' }
+    ],
   },
 }
 
@@ -28,8 +46,32 @@ export default function RootLayout({
     <html lang="he" dir="rtl">
   <head>
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#EFEAE4" />
+        <meta name="theme-color" content="#fdfcfa" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="ABYK" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="ABYK" />
+        
         <link rel="apple-touch-icon" href="/icon.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icon.svg" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/icon.svg" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/icon.svg" />
+        
+        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+        <link rel="shortcut icon" href="/icon.svg" />
+        
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js');
+                });
+              }
+            `,
+          }}
+        />
       </head>
   <body className={`${assistant.className} ${assistantLatin.className} ${assistantHeadings.variable} bg-ivory text-charcoal`} suppressHydrationWarning>
   <div className="relative min-h-screen bg-bokeh" style={{ backgroundColor: 'var(--ivory)' }}>

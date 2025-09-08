@@ -15,7 +15,7 @@ self.addEventListener('fetch', (event) => {
     )
   } else {
     event.respondWith(
-      caches.open('abk-static-v1').then(async (cache) => {
+      caches.open('abyk-static-v1').then(async (cache) => {
         const cached = await cache.match(req)
         if (cached) return cached
         try {
