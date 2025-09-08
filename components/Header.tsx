@@ -38,7 +38,7 @@ export default function Header() {
   const nav = (
     <nav className="flex flex-row items-center gap-5 text-espresso relative whitespace-nowrap overflow-x-auto">
       <a href="/" className="hover:text-espresso text-espresso/80 font-normal text-xs shrink-0" onClick={() => { setSoonOpen(false); setContactOpen(false) }}>בית</a>
-      <a href="/money-code" className="hover:text-espresso text-espresso/80 font-normal text-xs shrink-0" onClick={() => { setSoonOpen(false); setContactOpen(false) }}>מחשבון קוד הכסף</a>
+      <a href="/money-code" className="hover:text-espresso text-espresso/80 font-normal text-xs shrink-0" onClick={() => { setSoonOpen(false); setContactOpen(false) }}>מחשבון קוד העושר</a>
       <div className="relative" ref={soonRef}>
         <button
           className="font-normal text-xs text-espresso/80 hover:text-espresso shrink-0"

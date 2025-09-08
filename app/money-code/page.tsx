@@ -36,7 +36,7 @@ export default function MoneyCode() {
     return num
   }
 
-  // חישוב קוד הכסף
+  // חישוב קוד העושר
   const calculateMoneyCode = () => {
     if (!birthDate) return
 
@@ -122,7 +122,7 @@ export default function MoneyCode() {
         <div className="mt-3 mb-6 animate-gleam-fade-in">
           <Image 
             src="/moneycodelable.svg" 
-            alt="Money Code Calculator" 
+            alt="Wealth Code Calculator" 
             width={400} 
             height={100} 
             className="mx-auto drop-shadow-[0_3px_10px_rgba(167,131,90,0.15)]" 
@@ -160,7 +160,7 @@ export default function MoneyCode() {
                 onClick={calculateMoneyCode}
                 disabled={!birthDate || isLoading}
                 className="w-full px-5 py-3 text-sm font-medium transition-all duration-300 border-2 rounded-lg shadow-sm btn-shine bg-sand-100/50 hover:bg-sand-100/80 disabled:opacity-50 disabled:cursor-not-allowed border-sand-100/80 hover:shadow-md text-espresso"
-                aria-label="חשב קוד כסף"
+                aria-label="חשב קוד עושר"
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center gap-2">
@@ -184,7 +184,7 @@ export default function MoneyCode() {
         </div>        {/* תוצאה */}
         {result && (
           <div className="max-w-lg p-6 mx-auto border-2 shadow-md bg-ivory/90 backdrop-blur-sm rounded-xl border-sand-100/60 animate-fade-in">
-            <h2 className="mb-5 text-lg font-medium text-cacao animate-gleam-fade-in">קוד הכסף האישי שלך</h2>
+            <h2 className="mb-5 text-lg font-medium text-cacao animate-gleam-fade-in">קוד העושר האישי שלך</h2>
             
             {/* תצוגת הקוד בשורה אחת */}
             <div className="p-5 mb-8 text-center border-2 rounded-lg shadow-md bg-ivory-soft/95 backdrop-blur-sm border-sand-100/60 animate-slide-up">

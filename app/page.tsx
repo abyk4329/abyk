@@ -31,7 +31,7 @@ export default function Home() {
         {/* טקסט הזמנה */}
         <div className="pt-8 pb-4">
           <p className="text-base md:text-lg font-light text-cacao/90 tracking-wide animate-fade-in">
-            גלו את קוד הכסף האישי שלכם
+            גלו את קוד העושר האישי שלכם
           </p>
         </div>
 
@@ -41,7 +41,7 @@ export default function Home() {
             href="/money-code"
             className="btn-shine group relative inline-flex items-center justify-center rounded-full bg-gradient-to-b from-sand-100 to-stone-soft text-espresso px-8 py-3 text-base md:text-lg font-semibold shadow-[0_4px_15px_rgba(0,0,0,0.05)] hover:from-stone-soft hover:to-stone-soft hover:text-cacao transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold ring-offset-2 ring-offset-ivory active:translate-y-[1px] animate-fade-in ripple"
           >
-            <span className="relative z-10">מחשבון קוד הכסף</span>
+            <span className="relative z-10">מחשבון קוד העושר</span>
           </a>
         </div>
       </div>
