@@ -73,7 +73,7 @@ html {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-headings), 'Poppins', sans-serif;
+  font-family: var(--font-headings), 'Heebo', sans-serif;
   color: var(--cacao);
   text-align: center;
   font-weight: 600;
