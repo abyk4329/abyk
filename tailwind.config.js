@@ -46,6 +46,7 @@ module.exports = {
       },
       fontFamily: {
         'assistant': ['Assistant', 'sans-serif'],
+        'quicksand': ['Quicksand', 'sans-serif'],
         'headings': ['var(--font-headings)', 'Assistant', 'sans-serif'],
       },
       fontSize: {
