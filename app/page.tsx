@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="container min-h-[calc(100vh-10rem)] flex flex-col items-center justify-center text-center py-4 px-4">
+    <main className="container min-h-[calc(100vh-8rem)] flex flex-col items-center justify-center text-center py-8 px-4">
       <div className="max-w-4xl mx-auto space-y-0 slide-up">
         {/* לוגו */}
         <div className="logo animate-logo-entrance">

@@ -1,7 +1,6 @@
 import '../styles/globals.css'
 import type { Metadata } from 'next'
 import { Assistant, Quicksand } from 'next/font/google'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CursorTrail from '@/components/CursorTrail'
 
@@ -34,9 +33,8 @@ export default function RootLayout({
   <body className={`${assistant.className} ${quicksand.className} ${assistantHeadings.variable} bg-ivory text-charcoal`} suppressHydrationWarning>
   <div className="relative min-h-screen bg-bokeh" style={{ backgroundColor: 'var(--ivory)' }}>
       <CursorTrail />
-      <Header />
   {/* PWA register */}
-          <div className="pt-20">{children}</div>
+          <div className="pt-8">{children}</div>
           <Footer />
         </div>
       </body>
