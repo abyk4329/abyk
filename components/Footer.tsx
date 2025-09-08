@@ -6,7 +6,7 @@ export default function Footer() {
         {/* Share button centered */}
         <div className="flex justify-center w-full">
           <button
-            className="px-3 py-1.5 text-xs font-medium transition-all duration-300 border rounded-lg text-espresso bg-sand-100/50 hover:bg-sand-100 border-sand-100/80 hover:shadow-sm"
+            className="px-4 py-1.5 text-xs font-medium transition-all duration-300 border rounded-lg text-espresso bg-sand-100/50 hover:bg-sand-100 border-sand-100/80 hover:shadow-sm flex items-center gap-1"
             onClick={async () => {
               const data = { title: 'Awakening by Ksenia', text: 'Personal Space for Growth – Unlock Your Inner Light', url: typeof window !== 'undefined' ? window.location.href : '/' }
               if (navigator.share) {
@@ -17,7 +17,7 @@ export default function Footer() {
               }
             }}
           >
-            שיתוף עם חברים
+            <span>✨</span> קיבלתם השראה? שתפו עם חברים
           </button>
         </div>
         
