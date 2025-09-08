@@ -1,12 +1,12 @@
 import '../styles/globals.css'
 import type { Metadata } from 'next'
-import { Assistant, Quicksand } from 'next/font/google'
+import { Assistant } from 'next/font/google'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CursorTrail from '@/components/CursorTrail'
 
-const assistant = Assistant({ subsets: ['hebrew'], weight: ['300','400','500','600','700','800'], display: 'swap' })
-const quicksand = Quicksand({ subsets: ['latin'], weight: ['300','400'], display: 'swap' })
+const assistant = Assistant({ subsets: ['hebrew'], weight: ['200','300','400','500','600','700','800'], display: 'swap' })
+const assistantLatin = Assistant({ subsets: ['latin'], weight: ['200','300'], display: 'swap' })
 const assistantHeadings = Assistant({ subsets: ['latin', 'hebrew'], weight: ['600','700','800'], display: 'swap', variable: '--font-headings' })
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#EFEAE4" />
         <link rel="apple-touch-icon" href="/icon.svg" />
       </head>
-  <body className={`${assistant.className} ${quicksand.className} ${assistantHeadings.variable} bg-ivory text-charcoal`} suppressHydrationWarning>
+  <body className={`${assistant.className} ${assistantLatin.className} ${assistantHeadings.variable} bg-ivory text-charcoal`} suppressHydrationWarning>
   <div className="relative min-h-screen bg-bokeh" style={{ backgroundColor: 'var(--ivory)' }}>
       <CursorTrail />
       <Header />
