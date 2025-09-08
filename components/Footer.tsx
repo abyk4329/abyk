@@ -17,7 +17,7 @@ export default function Footer() {
               }
             }}
           >
-            <span>✨</span> קיבלתם השראה? שתפו עם חברים
+            <span>אהבתם? שתפו עם חברים</span>
           </button>
         </div>
         
