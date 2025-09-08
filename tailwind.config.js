@@ -46,6 +46,7 @@ module.exports = {
       },
       fontFamily: {
         'assistant': ['Assistant', 'sans-serif'],
+        'headings': ['var(--font-headings)', 'Poppins', 'sans-serif'],
       },
     },
   },
