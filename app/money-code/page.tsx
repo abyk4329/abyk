@@ -184,7 +184,7 @@ export default function MoneyCode() {
         </div>        {/* תוצאה */}
         {result && (
           <div className="max-w-lg p-6 mx-auto border-2 shadow-md bg-ivory/90 backdrop-blur-sm rounded-xl border-sand-100/60 animate-fade-in">
-            <h2 className="mb-5 text-lg font-medium text-cacao animate-gleam-fade-in">הקוד האישי שלכם</h2>
+            <h2 className="mb-5 text-lg font-medium text-cacao animate-gleam-fade-in">קוד הכסף האישי שלך</h2>
             
             {/* תצוגת הקוד בשורה אחת */}
             <div className="p-5 mb-8 text-center border-2 rounded-lg shadow-md bg-ivory-soft/95 backdrop-blur-sm border-sand-100/60 animate-slide-up">
@@ -230,13 +230,13 @@ export default function MoneyCode() {
                 <h4 className="mb-3 text-sm font-medium text-cacao">למה הפירוש המלא חשוב?</h4>
                 <div className="space-y-2 text-xs leading-relaxed text-text-secondary">
                   <p>
-                    <span className="text-cacao font-medium">הקוד הוא רק ההתחלה.</span> הפירוש המלא חושף את המשמעות הנומרולוגית העמוקה של כל מספר באופן אישי ומותאם.
+                    <span className="text-cacao font-medium">הקוד הוא רק ההתחלה.</span> הפירוש המלא מסביר איך להשתמש בכל מספר בצורה מעשית ואפקטיבית.
                   </p>
                   <p>
-                    גלו את <span className="text-cacao font-medium">הכוחות הפנימיים</span> שלכם, את <span className="text-cacao font-medium">האתגרים הייחודיים</span> שאתם מתמודדים איתם, ואת <span className="text-cacao font-medium">הדרך המושלמת</span> להשתמש באנרגיה שלכם למשיכת שפע ופרנסה.
+                    תקבלו הסברים ברורים על <span className="text-cacao font-medium">החוזקות הטבעיות</span> שלכם, <span className="text-cacao font-medium">האזורים לשיפור</span>, ו<span className="text-cacao font-medium">אסטרטגיות קונקרטיות</span> למיקסום הפוטנציאל הכלכלי שלכם.
                   </p>
                   <p>
-                    זה לא סתם מספרים - זו <span className="text-cacao font-medium">מפת דרכים אישית</span> להתפתחות רוחנית וחומרית.
+                    פירוש מקצועי המבוסס על <span className="text-cacao font-medium">עקרונות נומרולוגיים מוכחים</span> ומותאם אישית לתאריך הלידה שלכם.
                   </p>
                 </div>
               </div>
