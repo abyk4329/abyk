@@ -4,8 +4,8 @@
 
 :root {
   /* Unified palette */
-  --ivory: #F6F2EB; /* Updated to new background color */
-  --ivory-soft: #F4F0EB; /* Updated to new soft background color */
+  --ivory: #f2f2f1; /* Updated to new background color */
+  --ivory-soft: #f2f2f1; /* Updated to new soft background color */
   --sand-50: #F1E3D7; /* milky beige */
   --sand-100: #E8D7C6; /* light sand */
   --stone-soft: #E6D7C5; /* soft stone */
@@ -47,7 +47,7 @@
 body {
   font-family: 'Assistant', sans-serif;
   /* Clean white background for all pages */
-  background-color: #F6F2EB;
+  background-color: #f2f2f1;
   background-image: none;
   color: var(--charcoal);
   text-align: center;
@@ -169,7 +169,7 @@ strong {
 .bg-bokeh {
   position: relative;
   min-height: 100vh;
-  background: #F6F2EB; /* Updated to new background color */
+  background: #f2f2f1; /* Updated to new background color */
 }
 
 /* Clean backgrounds for header and footer */

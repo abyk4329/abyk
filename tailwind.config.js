@@ -9,8 +9,8 @@ module.exports = {
     extend: {
       colors: {
   // Unified palette — Lights
-  'ivory': '#F6F2EB', // New background color
-  'ivory-soft': '#F4F0EB', // New soft background color
+  'ivory': '#f2f2f1', // New background color
+  'ivory-soft': '#f2f2f1', // New soft background color
   'sand-50': '#F1E3D7', // Milky beige
   'sand-100': '#E8D7C6', // Light sand
   'stone-soft': '#E6D7C5', // Soft stone
