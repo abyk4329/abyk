@@ -93,24 +93,28 @@ function ThankYouContent() {
                 <span className="font-medium"> ניתן לפנות אליי ואשמח לעזור</span>.
               </p>
               
-              {/* כפתורי קשר מינימליסטיים */}
-              <div className="flex justify-center gap-4">
+              {/* כפתורי קשר עם אייקונים */}
+              <div className="flex justify-center gap-6">
                 <a 
                   href="mailto:awakening.by.ksenia@gmail.com?subject=לא קיבלתי מייל עם הפירוש&body=שלום, הזמנתי פירוש נומרולוגי אבל לא קיבלתי מייל. אודה לעזרה."
-                  className="assistant-regular text-espresso/80 hover:text-espresso underline decoration-gold/50 hover:decoration-gold transition-colors"
+                  className="text-smoky-brown hover:text-cacao transition-colors duration-200"
+                  aria-label="דואל"
                 >
-                  דואל
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
                 </a>
-                
-                <span className="text-text-secondary">|</span>
                 
                 <a 
                   href="https://wa.me/972524616121?text=שלום, הזמנתי פירוש נומרולוגי אבל לא קיבלתי מייל. אודה לעזרה"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="assistant-regular text-espresso/80 hover:text-espresso underline decoration-gold/50 hover:decoration-gold transition-colors"
+                  className="text-smoky-brown hover:text-cacao transition-colors duration-200"
+                  aria-label="וואטסאפ"
                 >
-                  וואטסאפ
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
                 </a>
               </div>
             </div>
@@ -163,7 +167,7 @@ function ThankYouContent() {
         </div>
 
         <div className="text-text-secondary text-sm">
-          <p>שאלות? צור קשר במייל או בווטסאפ</p>
+          <p>יש שאלות? ניתן ליצור קשר</p>
         </div>
       </div>
     </main>
