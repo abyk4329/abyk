@@ -22,20 +22,44 @@ export default function Footer() {
         </div>
         
         {/* Social and Policy links in a single row for smaller screens */}
-        <div className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-2">
-          <div className="sm:justify-self-start">
-            <h3 className="mb-1 font-semibold text-cacao">רשתות חברתיות</h3>
-            <div className="flex justify-center gap-3 sm:justify-start">
-              <a className="hover:text-gold-deep text-espresso" href="https://www.instagram.com/awakening.by.ksenia?igsh=MTZwOWljN2dsOXZzbQ%3D%3D&utm_source=qr" target="_blank" rel="noreferrer">Instagram</a>
-              <a className="hover:text-gold-deep text-espresso" href="https://www.tiktok.com/@awakening.by.ksenia" target="_blank" rel="noreferrer">TikTok</a>
-            </div>
+        <div className="flex items-center justify-between w-full text-xs">
+          {/* Social Media Icons */}
+          <div className="flex items-center gap-4">
+            <a 
+              href="https://www.instagram.com/awakening.by.ksenia?igsh=MTZwOWljN2dsOXZzbQ%3D%3D&utm_source=qr" 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-smoky-brown hover:text-cacao transition-colors duration-200"
+              aria-label="Instagram"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="m16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            
+            <a 
+              href="https://www.tiktok.com/@awakening.by.ksenia" 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-smoky-brown hover:text-cacao transition-colors duration-200"
+              aria-label="TikTok"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+              </svg>
+            </a>
           </div>
-          <div className="sm:justify-self-end">
-            <h3 className="mb-1 font-semibold text-cacao">מדיניות</h3>
-            <div className="flex justify-center gap-3 sm:justify-end">
-              <a className="hover:text-gold-deep text-espresso" href="/privacy">מדיניות פרטיות</a>
-              <a className="hover:text-gold-deep text-espresso" href="/terms">תנאי שימוש</a>
-            </div>
+
+          {/* Policy Link */}
+          <div className="flex justify-center">
+            <a 
+              className="hover:text-cacao text-smoky-brown assistant-light transition-colors duration-200" 
+              href="/privacy"
+            >
+              מדיניות ופרטיות
+            </a>
           </div>
         </div>
       </div>

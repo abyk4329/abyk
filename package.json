@@ -13,13 +13,13 @@
   },
   "dependencies": {
     "next": "^14.0.0",
-    "nodemailer": "^7.0.6",
+    "nodemailer": "^6.9.14",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/nodemailer": "^7.0.1",
+    "@types/nodemailer": "^6.4.15",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",

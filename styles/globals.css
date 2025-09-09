@@ -578,3 +578,167 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     padding: 1rem 0.75rem;
   }
 }
+
+/* Interpretation Content Styling */
+.prose {
+  max-width: none;
+}
+
+.prose h1 {
+  color: var(--sandy-gold);
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 2.5rem 0 1.5rem 0;
+  text-align: center;
+  border-bottom: 2px solid var(--sand-100);
+  padding-bottom: 0.75rem;
+}
+
+.prose .code {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.prose .code .pill {
+  background: var(--espresso);
+  color: var(--ivory);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  min-width: 4rem;
+}
+
+.prose .code .pill div {
+  font-size: 0.75rem;
+  color: var(--sandy-gold);
+  margin-bottom: 0.25rem;
+}
+
+.prose .code .pill strong {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.prose .intro {
+  background: var(--ivory-soft);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--sand-100);
+  margin: 2rem 0;
+}
+
+.prose .intro h2 {
+  color: var(--sandy-gold);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+  text-align: right;
+}
+
+.prose .intro p {
+  color: var(--espresso);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  text-align: right;
+  margin: 0.75rem 0;
+}
+
+.prose .intro ul {
+  margin: 1rem 0;
+  padding-right: 1.5rem;
+}
+
+.prose .intro li {
+  color: var(--espresso);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0.5rem 0;
+  text-align: right;
+}
+
+.prose .interpretation {
+  background: var(--ivory);
+  border: 1px solid var(--sand-50);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  margin: 2.5rem 0;
+}
+
+.prose .interpretation h2 {
+  color: var(--sandy-gold);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--sand-100);
+}
+
+.prose .interpretation .p2 {
+  color: var(--sandy-gold);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 1.5rem 0 0.75rem 0;
+  text-align: right;
+}
+
+.prose .interpretation .p3,
+.prose .interpretation .p5 {
+  color: var(--espresso);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0.75rem 0;
+  text-align: right;
+}
+
+.prose .interpretation .p7 {
+  color: var(--golden-brown);
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin: 1.25rem 0 0.5rem 0;
+  text-align: right;
+}
+
+.prose .interpretation ul {
+  margin: 1rem 0;
+  padding-right: 1.5rem;
+}
+
+.prose .interpretation li {
+  color: var(--espresso);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0.6rem 0;
+  text-align: right;
+}
+
+.prose .interpretation .p6,
+.prose .interpretation .p8,
+.prose .interpretation .p9,
+.prose .interpretation .p10 {
+  margin: 1rem 0;
+}
+
+/* Mobile responsive adjustments for interpretations */
+@media (max-width: 768px) {
+  .prose .interpretation {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .prose .interpretation h2 {
+    font-size: 1.25rem;
+  }
+  
+  .prose .code {
+    gap: 0.5rem;
+  }
+  
+  .prose .code .pill {
+    padding: 0.5rem 0.75rem;
+    min-width: 3.5rem;
+  }
+}
