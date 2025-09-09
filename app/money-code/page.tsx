@@ -136,7 +136,7 @@ export default function MoneyCode() {
         </div>
 
         {/* כרטיס המחשבון */}
-  <div className="max-w-md p-8 mx-auto border-2 shadow-md bg-ivory/95 backdrop-blur-sm rounded-2xl border-beige-200">
+  <div className="max-w-md p-8 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-2xl border-beige-200">
           <div className="space-y-6">
             {/* קלט תאריך לידה */}
             <div>
@@ -165,7 +165,7 @@ export default function MoneyCode() {
               <button
                 onClick={calculateMoneyCode}
                 disabled={!birthDate || isLoading}
-                className="w-full px-5 py-3 text-sm font-medium transition-all duration-300 border-2 rounded-lg shadow-sm bg-gold-primary/20 hover:bg-gold-primary/30 disabled:opacity-50 disabled:cursor-not-allowed border-gold-primary/50 hover:shadow-md text-espresso"
+                className="w-full px-5 py-3 text-sm font-medium transition-all duration-300 border-2 rounded-lg shadow-warm-sm has-sheen bg-gold-primary/20 hover:bg-gold-primary/30 disabled:opacity-50 disabled:cursor-not-allowed border-gold-primary/50 hover:shadow-warm-md text-espresso"
                 aria-label="חשב קוד עושר"
               >
                 {isLoading ? (
@@ -189,11 +189,11 @@ export default function MoneyCode() {
           </div>
         </div>        {/* תוצאה */}
         {result && (
-          <div className="max-w-lg p-6 mx-auto border-2 shadow-md bg-ivory/95 backdrop-blur-sm rounded-xl border-beige-200 animate-fade-in">
+          <div className="max-w-lg p-6 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-xl border-beige-200 animate-fade-in">
             <h2 className="text-title text-depth-medium emphasis-strong animate-gleam-fade-in">קוד העושר האישי שלך</h2>
             
             {/* תצוגת הקוד בשורה אחת */}
-            <div className="p-5 mb-8 text-center border-2 rounded-lg shadow-md bg-ivory backdrop-blur-sm border-beige-200 animate-slide-up">
+            <div className="p-5 mb-8 text-center border-2 rounded-lg shadow-warm-sm bg-ivory backdrop-blur-sm border-beige-200 animate-slide-up">
               <div className="font-mono text-5xl font-light tracking-wider text-cacao">
                 {result.bd}{result.bm}{result.by}{result.lp}
               </div>

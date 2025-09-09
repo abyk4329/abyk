@@ -46,6 +46,13 @@
   --text-secondary: var(--smoky-brown);
   --champagne: var(--peach-beige);
 
+  /* Additional mid & deep hues from palette for depth */
+  --mid-700: #56443F;
+  --mid-800: #46342B;
+  --mid-850: #443A35;
+  --deep-800: #281E17;
+  --deep-900: #1D130B;
+
   /* New base 7-color palette */
   --beige-cream: #f7f3e8; /* base bg */
   --beige-100: #ede2cc;
@@ -72,6 +79,69 @@ body {
   min-height: 100vh;
   position: relative;
 }
+
+/* ---------- Elegant depth: shadows, text-depth, sheen ---------- */
+.shadow-warm-sm {
+  box-shadow:
+    0 1px 3px rgba(40, 30, 23, 0.06),
+    0 4px 12px rgba(132, 92, 46, 0.08);
+}
+
+.shadow-warm-md {
+  box-shadow:
+    0 2px 6px rgba(40, 30, 23, 0.10),
+    0 8px 20px rgba(185, 150, 104, 0.16);
+}
+
+.shadow-warm-lg {
+  box-shadow:
+    0 6px 14px rgba(40, 30, 23, 0.12),
+    0 14px 32px rgba(185, 150, 104, 0.20);
+}
+
+.text-depth-light {
+  text-shadow: 0 1px 1px rgba(255,255,255,0.4), 0 1px 2px rgba(40,30,23,0.18);
+}
+
+.text-depth-medium {
+  text-shadow: 0 1px 1px rgba(255,255,255,0.35), 0 2px 4px rgba(40,30,23,0.20);
+}
+
+.text-depth-strong {
+  text-shadow: 0 1px 1px rgba(255,255,255,0.3), 0 3px 8px rgba(29,19,11,0.25);
+}
+
+.bg-sheen-gold {
+  background: radial-gradient(120% 60% at 50% -10%, rgba(185,150,104,0.18), rgba(0,0,0,0) 60%);
+}
+
+.has-sheen { position: relative; overflow: hidden; }
+.has-sheen::after {
+  content: "";
+  position: absolute; inset: -20% -60% auto -60%; height: 180%;
+  background: linear-gradient(115deg, rgba(255,255,255,0) 45%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 55%);
+  transform: translateX(-100%);
+  pointer-events: none;
+  animation: sheen-sweep 2.4s linear infinite;
+  animation-play-state: paused;
+}
+.has-sheen:hover::after { animation-play-state: running; }
+
+@keyframes sheen-sweep { to { transform: translateX(140%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .has-sheen::after { display: none; }
+}
+
+/* Subtle fade/slide animations used across the app */
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translate3d(0, 8px, 0) }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) }
+}
+.animate-fade-in { animation: fadeIn 420ms ease-out both; }
+.animate-slide-up { animation: fadeInUp 480ms ease-out both; }
+.animate-gleam-fade-in { animation: fadeIn 600ms ease-out both; }
 
 /* עברית - Assistant */
 :lang(he), [lang="he"], .hebrew {

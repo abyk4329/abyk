@@ -36,7 +36,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="w-full fixed top-0 inset-x-0 bg-ivory/95 shadow-sm z-40 backdrop-blur-md border-b border-gold-primary/30">
+  <header className="w-full fixed top-0 inset-x-0 bg-ivory/95 shadow-sm shadow-warm-sm z-40 backdrop-blur-md border-b border-gold-primary/30">
         <div className="flex items-center justify-between px-4 py-3 md:py-4">
           {/* כפתור המבורגר למובייל */}
           <button
@@ -118,7 +118,7 @@ export default function Header() {
           {/* טקסט המותג */}
           <div className="flex items-center">
             <div className="text-right">
-              <div className="assistant-light text-[13px] md:text-sm text-accent-choco tracking-wider">
+              <div className="assistant-light text-[13px] md:text-sm text-accent-choco tracking-wider text-depth-light">
                 AWAKENING BY KSENIA <span className="text-gold-warm opacity-70 mx-1">◦</span> PERSONAL SPACE FOR GROWTH
               </div>
             </div>
