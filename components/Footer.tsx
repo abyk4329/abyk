@@ -8,7 +8,7 @@ export default function Footer() {
           <button
             className="px-5 py-2 text-sm font-medium transition-all duration-300 border-2 rounded-lg text-accent-choco bg-gold-primary/15 hover:bg-gold-primary/25 border-gold-primary/50 shadow-warm-sm hover:shadow-warm-md flex items-center gap-1.5"
             onClick={async () => {
-              const data = { title: 'Awakening by Ksenia', text: 'Personal Space for Growth – Unlock Your Inner Light', url: typeof window !== 'undefined' ? window.location.href : '/' }
+                const data = { title: 'Awakening by Ksenia', text: 'Your personal space for growth — Unlock the light within you', url: typeof window !== 'undefined' ? window.location.href : '/' }
               if (navigator.share) {
                 await navigator.share(data).catch(()=>{})
               } else {

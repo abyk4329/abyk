@@ -7,7 +7,7 @@ export default function Home() {
         {/* לוגו */}
         <div className="logo animate-logo-entrance">
           <Image
-            src="/logo.svg"
+            src="/newlogos/logo.png"
             alt="Awakening by Ksenia Logo"
             width={600}
             height={280}
@@ -19,7 +19,7 @@ export default function Home() {
         {/* סלוגן כ-SVG במקום טקסט */}
         <div className="max-w-[700px] md:max-w-[820px] mx-auto px-2 -mt-8 md:-mt-10">
           <Image
-            src="/slogan.svg"
+            src="/newlogos/slogangold.png"
             alt="Unlock Your Inner Light"
             width={700}
             height={100}

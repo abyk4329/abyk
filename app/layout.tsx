@@ -11,7 +11,7 @@ const assistantHeadings = Assistant({ subsets: ['latin', 'hebrew'], weight: ['60
 
 export const metadata: Metadata = {
   title: 'Awakening by Ksenia',
-  description: 'Personal Space for Growth — Unlock Your Inner Light',
+  description: 'Your Personal Space For Growth — Unlock Your Inner Light',
   applicationName: 'ABYK',
   appleWebApp: {
     capable: true,
@@ -24,15 +24,15 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: {
     icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/icon.svg', sizes: '192x192', type: 'image/svg+xml' },
-      { url: '/icon.svg', sizes: '512x512', type: 'image/svg+xml' }
+      { url: '/newlogos/iconfavicon.png', type: 'image/png' },
+      { url: '/newlogos/iconfavicon.png', sizes: '192x192', type: 'image/png' },
+      { url: '/newlogos/iconfavicon.png', sizes: '512x512', type: 'image/png' }
     ],
-    shortcut: '/icon.svg',
+    shortcut: '/newlogos/iconfavicon.png',
     apple: [
-      { url: '/icon.svg', sizes: '180x180', type: 'image/svg+xml' },
-      { url: '/icon.svg', sizes: '152x152', type: 'image/svg+xml' },
-      { url: '/icon.svg', sizes: '120x120', type: 'image/svg+xml' }
+      { url: '/newlogos/iconfavicon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/newlogos/iconfavicon.png', sizes: '152x152', type: 'image/png' },
+      { url: '/newlogos/iconfavicon.png', sizes: '120x120', type: 'image/png' }
     ],
   },
 }
@@ -53,13 +53,13 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="application-name" content="ABYK" />
         
-        <link rel="apple-touch-icon" href="/icon.svg" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icon.svg" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/icon.svg" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/icon.svg" />
+  <link rel="apple-touch-icon" href="/newlogos/iconfavicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/newlogos/iconfavicon.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/newlogos/iconfavicon.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/newlogos/iconfavicon.png" />
         
-        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-        <link rel="shortcut icon" href="/icon.svg" />
+  <link rel="icon" type="image/png" href="/newlogos/iconfavicon.png" />
+  <link rel="shortcut icon" href="/newlogos/iconfavicon.png" />
         
         <script
           dangerouslySetInnerHTML={{

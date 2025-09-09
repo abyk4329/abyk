@@ -36,11 +36,11 @@ export default function Header() {
 
   return (
     <>
-  <header className="w-full fixed top-0 inset-x-0 bg-ivory/95 shadow-sm shadow-warm-sm z-40 backdrop-blur-md border-b border-gold-primary/30">
+  <header className="fixed inset-x-0 top-0 z-40 w-full border-b shadow-sm bg-ivory/95 shadow-warm-sm backdrop-blur-md border-gold-primary/30">
         <div className="flex items-center justify-between px-4 py-3 md:py-4">
           {/* כפתור המבורגר למובייל */}
           <button
-            className="md:hidden flex items-center text-espresso hover:text-cacao transition-colors duration-200"
+            className="flex items-center transition-colors duration-200 md:hidden text-espresso hover:text-cacao"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="תפריט"
           >
@@ -50,17 +50,17 @@ export default function Header() {
           </button>
 
           {/* ניווט לדסקטופ */}
-      <nav className="hidden md:flex flex-row items-center gap-6 text-espresso">
+      <nav className="flex-row items-center hidden gap-6 md:flex text-espresso">
             <a 
               href="/" 
-        className="hover:text-cta-dark text-espresso assistant-light text-sm transition-colors duration-200"
+        className="text-sm transition-colors duration-200 hover:text-cta-dark text-espresso assistant-light"
             >
               בית
             </a>
             
             <a 
               href="/money-code" 
-        className="hover:text-cta-dark text-espresso assistant-light text-sm transition-colors duration-200"
+        className="text-sm transition-colors duration-200 hover:text-cta-dark text-espresso assistant-light"
             >
               מחשבון קוד העושר
             </a>
@@ -68,7 +68,7 @@ export default function Header() {
             {/* יצירת קשר עם תפריט נפתח */}
             <div className="relative" ref={contactRef}>
               <button
-                className="hover:text-cta-dark text-espresso assistant-light text-sm transition-colors duration-200 flex items-center gap-1"
+                className="flex items-center gap-1 text-sm transition-colors duration-200 hover:text-cta-dark text-espresso assistant-light"
                 onClick={() => setContactOpen(!contactOpen)}
                 aria-expanded={contactOpen}
               >
@@ -91,24 +91,24 @@ export default function Header() {
                     href="https://wa.me/972524616121"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-3 py-2 text-smoky-brown hover:text-cta-dark hover:bg-beige-100/50 transition-colors duration-200"
+                    className="flex items-center gap-2 px-3 py-2 transition-colors duration-200 text-smoky-brown hover:text-cta-dark hover:bg-beige-100/50"
                     onClick={() => setContactOpen(false)}
                   >
                     <svg className="w-4 h-4 text-smoky-brown" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
-                    <span className="assistant-light text-sm">WhatsApp</span>
+                    <span className="text-sm assistant-light">WhatsApp</span>
                   </a>
                   
                   <a
                     href="mailto:awakening.by.ksenia@gmail.com"
-                    className="flex items-center gap-2 px-3 py-2 text-smoky-brown hover:text-cta-dark hover:bg-beige-100/50 transition-colors duration-200"
+                    className="flex items-center gap-2 px-3 py-2 transition-colors duration-200 text-smoky-brown hover:text-cta-dark hover:bg-beige-100/50"
                     onClick={() => setContactOpen(false)}
                   >
                     <svg className="w-4 h-4 text-smoky-brown" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <span className="assistant-light text-sm">Email</span>
+                    <span className="text-sm assistant-light">Email</span>
                   </a>
                 </div>
               )}
@@ -118,10 +118,10 @@ export default function Header() {
           {/* טקסט המותג */}
           <div className="flex items-center">
             <div className="text-right">
-              <div className="assistant-light text-sm text-espresso tracking-wide">
+              <div className="text-sm tracking-wide assistant-light text-espresso">
                 <span className="assistant-medium">Awakening by Ksenia</span>
-                <span aria-hidden className="inline-block align-middle mx-1 md:mx-1.5 h-px w-6 md:w-8 bg-espresso/40"></span>
-                <span className="assistant-extralight">Personal Space for Growth</span>
+                <span className="mx-1 md:mx-1.5 text-espresso/60">|</span>
+                <span className="assistant-extralight">Your personal space for growth</span>
               </div>
             </div>
           </div>
@@ -132,20 +132,20 @@ export default function Header() {
 
       {/* תפריט צדדי למובייל */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-50 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)}>
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 md:hidden" onClick={() => setMobileMenuOpen(false)}>
           <div 
             ref={mobileMenuRef}
-            className="fixed top-0 right-0 h-full w-80 bg-ivory shadow-xl transform transition-transform duration-300 ease-in-out border-l border-beige-200/70"
+            className="fixed top-0 right-0 h-full transition-transform duration-300 ease-in-out transform border-l shadow-xl w-80 bg-ivory border-beige-200/70"
             onClick={(e) => e.stopPropagation()}
           >
             {/* כותרת התפריט */}
             <div className="flex items-center justify-between p-4 border-b border-sand-100">
-              <div className="english-light text-sm text-cacao">
-                PERSONAL SPACE FOR GROWTH
+              <div className="text-sm english-light text-cacao">
+                Awakening by Ksenia | Your personal space for growth
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-espresso hover:text-cacao transition-colors duration-200"
+                className="transition-colors duration-200 text-espresso hover:text-cacao"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
@@ -157,7 +157,7 @@ export default function Header() {
             <div className="p-4 space-y-4">
               <a
                 href="/"
-                className="block py-3 text-right text-espresso hover:text-cacao assistant-regular text-lg transition-colors duration-200 border-b border-sand-100/50"
+                className="block py-3 text-lg text-right transition-colors duration-200 border-b text-espresso hover:text-cacao assistant-regular border-sand-100/50"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 בית
@@ -165,7 +165,7 @@ export default function Header() {
 
               <a
                 href="/money-code"
-                className="block py-3 text-right text-espresso hover:text-cacao assistant-regular text-lg transition-colors duration-200 border-b border-sand-100/50"
+                className="block py-3 text-lg text-right transition-colors duration-200 border-b text-espresso hover:text-cacao assistant-regular border-sand-100/50"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 מחשבון קוד העושר
@@ -173,7 +173,7 @@ export default function Header() {
 
               {/* יצירת קשר במובייל */}
               <div className="py-3 border-b border-sand-100/50">
-                <div className="assistant-regular text-lg text-espresso mb-3 text-right">יצירת קשר</div>
+                <div className="mb-3 text-lg text-right assistant-regular text-espresso">יצירת קשר</div>
                 
                 <div className="space-y-1 text-right">
                   <div>
@@ -181,7 +181,7 @@ export default function Header() {
                       href="https://wa.me/972524616121"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block py-2 text-right text-smoky-brown hover:text-cacao assistant-light text-lg transition-colors duration-200"
+                      className="block py-2 text-lg text-right transition-colors duration-200 text-smoky-brown hover:text-cacao assistant-light"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       WhatsApp
@@ -191,7 +191,7 @@ export default function Header() {
                   <div>
                     <a
                       href="mailto:awakening.by.ksenia@gmail.com"
-                      className="block py-2 text-right text-smoky-brown hover:text-cacao assistant-light text-lg transition-colors duration-200"
+                      className="block py-2 text-lg text-right transition-colors duration-200 text-smoky-brown hover:text-cacao assistant-light"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Email

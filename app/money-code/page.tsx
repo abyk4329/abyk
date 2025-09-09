@@ -100,8 +100,8 @@ export default function MoneyCode() {
   // כתובת החזרה לאחר תשלום מוצלח
   return_url: `${window.location.origin}/thank-you?bd=${result.bd}&bm=${result.bm}&by=${result.by}&lp=${result.lp}`,
   business_name: 'Awakening by Ksenia',
-  business_tagline: 'Personal Space for Growth. Unlock Your Inner Light.',
-  logo_url: `${window.location.origin}/icon.svg`
+  business_tagline: 'Your personal space for growth. Unlock the light within you.',
+  logo_url: `${window.location.origin}/newlogos/iconfavicon.png`
     })
     
   // מעבר לקישור התשלום
@@ -115,7 +115,7 @@ export default function MoneyCode() {
         {/* לוגו */}
         <div className="logo">
           <Image
-            src="/logo.svg"
+            src="/newlogos/logo.png"
             alt="Awakening by Ksenia Logo"
             width={250}
             height={125}
@@ -127,7 +127,7 @@ export default function MoneyCode() {
         {/* תווית SVG לכותרת */}
         <div className="mt-1 mb-6 animate-gleam-fade-in">
           <Image 
-            src="/moneycodelable.svg" 
+            src="/newlogos/welthcode.png" 
             alt="Wealth Code Calculator" 
             width={400} 
             height={100} 

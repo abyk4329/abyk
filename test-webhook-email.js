@@ -151,7 +151,7 @@ async function testWebhookEmail() {
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://awakening-by-ksenia-app.vercel.app/logo.svg" alt="Awakening by Ksenia" class="logo">
+            <img src="https://awakening-by-ksenia-app.vercel.app/newlogos/logo.png" alt="Awakening by Ksenia" class="logo">
             <h1>הפירוש האישי לקוד העושר שלך מוכן</h1>
         </div>
         
@@ -176,7 +176,7 @@ async function testWebhookEmail() {
         </div>
         
         <div class="footer">
-            <img src="https://awakening-by-ksenia-app.vercel.app/logo.svg" alt="Awakening by Ksenia" class="footer-logo">
+            <img src="https://awakening-by-ksenia-app.vercel.app/newlogos/logo.png" alt="Awakening by Ksenia" class="footer-logo">
             <div class="footer-text">תודה שבחרת ב-Awakening by Ksenia<br/>נומרולוגיה אישית ומותאמת במיוחד עבורך</div>
         </div>
     </div>

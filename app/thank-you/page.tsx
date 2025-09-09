@@ -51,7 +51,7 @@ function ThankYouContent() {
         {/* לוגו */}
         <div className="logo">
           <Image
-            src="/logo.svg"
+            src="/newlogos/logo.png"
             alt="Awakening by Ksenia Logo"
             width={250}
             height={125}
@@ -184,7 +184,7 @@ function ThankYouContent() {
 
         {/* חתימה */}
         <div className="signature">
-          <Image src="/signature.svg" alt="Ksenia Signature" width={150} height={75} className="mx-auto" />
+          <Image src="/newlogos/sig.png" alt="Ksenia Signature" width={150} height={75} className="mx-auto" />
         </div>
 
         {/* כפתורי פעולה */}
