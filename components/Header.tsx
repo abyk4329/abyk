@@ -118,7 +118,7 @@ export default function Header() {
           {/* טקסט המותג */}
           <div className="flex items-center">
             <div className="text-right">
-              <div className="english-extralight text-sm md:text-base text-cacao">
+              <div className="english-extralight text-xs md:text-sm text-cacao">
                 <span className="hidden sm:inline">AWAKENING BY KSENIA ⌜</span>PERSONAL SPACE FOR GROWTH<span className="hidden sm:inline">⌝</span>
               </div>
             </div>
@@ -136,7 +136,7 @@ export default function Header() {
           >
             {/* כותרת התפריט */}
             <div className="flex items-center justify-between p-4 border-b border-sand-100">
-              <div className="english-light text-lg text-cacao">
+              <div className="english-light text-sm text-cacao">
                 PERSONAL SPACE FOR GROWTH
               </div>
               <button
@@ -168,32 +168,32 @@ export default function Header() {
               </a>
 
               {/* יצירת קשר במובייל */}
-              <div className="py-3 border-b border-sand-100/50">
-                <div className="assistant-regular text-lg text-espresso mb-3">יצירת קשר</div>
+              <div className="py-3 border-b border-sand-100/50 text-right">
+                <div className="assistant-regular text-lg text-espresso mb-3 text-right">יצירת קשר</div>
                 
-                <div className="space-y-2 pr-4">
+                <div className="space-y-2">
                   <a
                     href="https://wa.me/972524616121"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 py-2 text-smoky-brown hover:text-cacao transition-colors duration-200"
+                    className="flex items-center justify-end gap-3 py-2 text-smoky-brown hover:text-cacao transition-colors duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
+                    <span className="assistant-light">WhatsApp</span>
                     <svg className="w-5 h-5 text-smoky-brown" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
-                    <span className="assistant-light">WhatsApp</span>
                   </a>
                   
                   <a
                     href="mailto:awakening.by.ksenia@gmail.com"
-                    className="flex items-center gap-3 py-2 text-smoky-brown hover:text-cacao transition-colors duration-200"
+                    className="flex items-center justify-end gap-3 py-2 text-smoky-brown hover:text-cacao transition-colors duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
+                    <span className="assistant-light">Email</span>
                     <svg className="w-5 h-5 text-smoky-brown" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <span className="assistant-light">Email</span>
                   </a>
                 </div>
               </div>
