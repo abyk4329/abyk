@@ -199,59 +199,61 @@ export default function MoneyCode() {
               </div>
             </div>
 
-            {/* הסבר איך להשתמש בקוד */}
+            {/* הסבר על הקוד */}
             <div className="p-6 mb-8 border rounded-lg shadow-sm bg-ivory-soft/80 backdrop-blur-sm border-sand-100/40 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              <h3 className="text-subtitle text-depth-light emphasis-gold text-center">איך להשתמש בקוד שלכם</h3>
+              <h3 className="text-subtitle text-depth-light emphasis-gold text-center mb-6">קוד העושר האישי שלכם</h3>
               
               <div className="mb-6 space-y-3 text-right">
-                <div className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                  <div className="w-4 h-4 rounded-full bg-sand-100/30 border border-sand-100/40 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cacao/60"></div>
-                  </div>
-                  <div className="text-xs leading-relaxed text-text-secondary">
-                    <span className="text-cacao font-medium">קוד סודי:</span> השתמשו במספרים כקוד סודי לכרטיסים, סיסמאות או נעילת מכשירים
-                  </div>
+                <div className="text-sm leading-relaxed text-text-secondary animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                  הקוד שגיליתם הוא מפתח אנרגטי שמלווה אתכם מלידה.
                 </div>
-                
-                <div className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                  <div className="w-4 h-4 rounded-full bg-sand-100/30 border border-sand-100/40 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cacao/60"></div>
-                  </div>
-                  <div className="text-xs leading-relaxed text-text-secondary">
-                    <span className="text-cacao font-medium">בארנק:</span> כתבו את הקוד על פתק קטן ושימו בארנק לאנרגיית שפע
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-                  <div className="w-4 h-4 rounded-full bg-sand-100/30 border border-sand-100/40 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cacao/60"></div>
-                  </div>
-                  <div className="text-xs leading-relaxed text-text-secondary">
-                    <span className="text-cacao font-medium">מדיטציה יומית:</span> חזרו על הקוד בראש כמנטרה אישית לעוצמה פנימית
-                  </div>
+                <div className="text-sm leading-relaxed text-text-secondary animate-fade-in" style={{ animationDelay: '0.5s' }}>
+                  אפשר לשאת אותו כקמע אישי, להשתמש בו כקוד סמוי לכרטיסים או מכשירים, לכתוב אותו בארנק כמגנט לשפע – או לחזור עליו במדיטציה יומית כמנטרה שמחזקת מיקוד ועוצמה פנימית.
                 </div>
               </div>
               
-              <div className="pt-5 text-center border-t border-sand-100/40 animate-fade-in" style={{ animationDelay: '1s' }}>
-                <h4 className="mb-3 text-sm font-medium text-cacao">למה הפירוש המלא חשוב?</h4>
-                <div className="space-y-2 text-xs leading-relaxed text-text-secondary">
+              <div className="text-center mb-4">
+                <span className="text-gold-warm text-sm">⸻</span>
+              </div>
+              
+              <div className="pt-2 text-center border-t border-sand-100/40 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                <h4 className="mb-4 text-sm font-medium text-cacao">מה הקוד מגלה עליכם?</h4>
+                <div className="space-y-3 text-sm leading-relaxed text-text-secondary text-right">
                   <p>
-                    <span className="text-cacao font-medium">הקוד הוא רק ההתחלה.</span> הפירוש המלא מסביר איך להשתמש בכל מספר בצורה מעשית ואפקטיבית.
+                    המספרים שבקוד אינם מקריים – הם משקפים את המתנות, הכוחות והאתגרים שהנשמה שלכם בחרה לחיים האלה.
                   </p>
-                  <p>
-                    תקבלו הסברים ברורים על <span className="text-cacao font-medium">החוזקות הטבעיות</span> שלכם, <span className="text-cacao font-medium">האזורים לשיפור</span>, ו<span className="text-cacao font-medium">אסטרטגיות קונקרטיות</span> למיקסום הפוטנציאל הכלכלי שלכם.
+                  <div className="text-xs leading-relaxed text-text-secondary pr-2">
+                    <p className="mb-2">מתוך הפירוש המלא תגלו:</p>
+                    <div className="space-y-1">
+                      <div className="flex items-start gap-2">
+                        <span className="text-gold-warm">•</span>
+                        <span>אילו כוחות טבעיים בולטים אצלכם ואיך להעצים אותם.</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-gold-warm">•</span>
+                        <span>מהם המחסומים שמעכבים אתכם ואיך לפרוץ אותם.</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-gold-warm">•</span>
+                        <span>היכן מסתתר המפתח לשפע, הצלחה והגשמה אישית וכלכלית.</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="pt-2">
+                    הקוד פותח בפניכם דרך חדשה – סוף סוף לצאת ממעגלים חוזרים, להשתחרר מהגבולות שבלמו אתכם, ולממש את הפוטנציאל האמיתי שמחכה להתגלות.
                   </p>
-                  <p>
-                    פירוש מקצועי המבוסס על <span className="text-cacao font-medium">עקרונות נומרולוגיים מוכחים</span> ומותאם אישית לתאריך הלידה שלכם.
+                  <p className="font-medium text-cacao pt-2">
+                    רוצים סוף סוף לפרוץ קדימה?
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="text-center animate-fade-in" style={{ animationDelay: '1.2s' }}>
-              <p className="mb-6 text-sm leading-relaxed text-cacao/80 animate-gleam-fade-in">
-                רוצים לקבל פירוש מלא ואישי של הקוד שלכם?
-              </p>
+              <div className="mb-6 text-sm leading-relaxed text-cacao/80 animate-gleam-fade-in space-y-2">
+                <p>גלו מה המספרים מספרים עליכם – רק ב־36.9 ₪</p>
+                <p className="text-xs">ותוך דקות ספורות תקבלו למייל מפת דרכים אישית לשפע והצלחה.</p>
+              </div>
               
               <button
                 onClick={handlePayment}
