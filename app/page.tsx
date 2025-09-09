@@ -17,7 +17,7 @@ export default function Home() {
         </div>
 
         {/* סלוגן כ-SVG במקום טקסט */}
-        <div className="max-w-[700px] md:max-w-[820px] mx-auto px-2 -mt-12 md:-mt-16">
+        <div className="max-w-[700px] md:max-w-[820px] mx-auto px-2 -mt-8 md:-mt-10">
           <Image
             src="/slogan.svg"
             alt="Unlock Your Inner Light"

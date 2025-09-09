@@ -125,7 +125,7 @@ export default function MoneyCode() {
         </div>
 
         {/* תווית SVG לכותרת */}
-        <div className="mt-3 mb-6 animate-gleam-fade-in">
+        <div className="mt-1 mb-6 animate-gleam-fade-in">
           <Image 
             src="/moneycodelable.svg" 
             alt="Wealth Code Calculator" 
