@@ -4,8 +4,8 @@
 
 :root {
   /* Unified palette */
-  --ivory: #fdfcfa; /* Main warm background color */
-  --ivory-soft: #fdfcfa; /* Soft variant of the main background */
+  --ivory: #f7f3e8; /* Main warm background color */
+  --ivory-soft: #f7f3e8; /* Soft variant of the main background */
   /* Near-whites (very light) */
   --nearwhite-100: #FEFEFE;
   --nearwhite-150: #FAFAFA;
@@ -45,6 +45,15 @@
   --charcoal: var(--espresso);
   --text-secondary: var(--smoky-brown);
   --champagne: var(--peach-beige);
+
+  /* New base 7-color palette */
+  --beige-cream: #f7f3e8; /* base bg */
+  --beige-100: #ede2cc;
+  --beige-200: #dcc9a7;
+  --beige-300: #dcba8a;
+  --gold-primary: #b99668;
+  --gold-primary-dark: #8a724c;
+  --accent-choco: #845c2e;
 }
 
 * {
@@ -56,7 +65,7 @@
 body {
   font-family: 'Assistant', sans-serif;
   /* Clean warm background for all pages */
-  background-color: #fdfcfa;
+  background-color: #f7f3e8;
   background-image: none;
   color: var(--charcoal);
   text-align: center;

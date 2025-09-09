@@ -110,7 +110,7 @@ export default function MoneyCode() {
   }
 
   return (
-    <main className="container min-h-screen px-4 py-6">
+    <main className="container min-h-screen px-4 py-8">
       <div className="max-w-3xl mx-auto space-y-8 text-center">
         {/* לוגו */}
         <div className="logo">
@@ -136,7 +136,7 @@ export default function MoneyCode() {
         </div>
 
         {/* כרטיס המחשבון */}
-        <div className="max-w-md p-8 mx-auto border-2 shadow-md bg-ivory/90 backdrop-blur-sm rounded-2xl border-sand-100/60">
+  <div className="max-w-md p-8 mx-auto border-2 shadow-md bg-ivory/95 backdrop-blur-sm rounded-2xl border-beige-200">
           <div className="space-y-6">
             {/* קלט תאריך לידה */}
             <div>
@@ -147,7 +147,7 @@ export default function MoneyCode() {
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full px-4 py-3 font-normal text-center transition-all border-2 rounded-lg shadow-sm border-sand-100/50 bg-ivory-soft text-espresso focus:outline-none focus:ring-1 focus:ring-sand-100 focus:border-sand-100"
+                className="w-full px-4 py-3 font-normal text-center transition-all border-2 rounded-lg shadow-sm border-beige-200/70 bg-ivory text-espresso focus:outline-none focus:ring-2 focus:ring-gold-primary/40 focus:border-gold-primary"
                 dir="ltr"
                 aria-label="תאריך לידה"
               />
@@ -165,7 +165,7 @@ export default function MoneyCode() {
               <button
                 onClick={calculateMoneyCode}
                 disabled={!birthDate || isLoading}
-                className="w-full px-5 py-3 text-sm font-medium transition-all duration-300 border-2 rounded-lg shadow-sm btn-shine bg-sand-100/50 hover:bg-sand-100/80 disabled:opacity-50 disabled:cursor-not-allowed border-sand-100/80 hover:shadow-md text-espresso"
+                className="w-full px-5 py-3 text-sm font-medium transition-all duration-300 border-2 rounded-lg shadow-sm bg-gold-primary/20 hover:bg-gold-primary/30 disabled:opacity-50 disabled:cursor-not-allowed border-gold-primary/50 hover:shadow-md text-espresso"
                 aria-label="חשב קוד עושר"
               >
                 {isLoading ? (
@@ -180,7 +180,7 @@ export default function MoneyCode() {
               
               <button
                 onClick={clearData}
-                className="w-full px-5 py-2 text-xs font-normal transition-all duration-300 border rounded-lg shadow-sm bg-ivory/80 hover:bg-ivory text-espresso/70 border-sand-100/30 hover:border-sand-100/50 hover:shadow-md hover:text-espresso"
+                className="w-full px-5 py-2 text-xs font-normal transition-all duration-300 border rounded-lg shadow-sm bg-ivory hover:bg-beige-100/50 text-espresso/70 border-beige-200 hover:border-beige-200/80 hover:shadow-md hover:text-espresso"
                 aria-label="נקה נתונים"
               >
                 ניקוי שדות
@@ -189,18 +189,18 @@ export default function MoneyCode() {
           </div>
         </div>        {/* תוצאה */}
         {result && (
-          <div className="max-w-lg p-6 mx-auto border-2 shadow-md bg-ivory/90 backdrop-blur-sm rounded-xl border-sand-100/60 animate-fade-in">
+          <div className="max-w-lg p-6 mx-auto border-2 shadow-md bg-ivory/95 backdrop-blur-sm rounded-xl border-beige-200 animate-fade-in">
             <h2 className="text-title text-depth-medium emphasis-strong animate-gleam-fade-in">קוד העושר האישי שלך</h2>
             
             {/* תצוגת הקוד בשורה אחת */}
-            <div className="p-5 mb-8 text-center border-2 rounded-lg shadow-md bg-ivory-soft/95 backdrop-blur-sm border-sand-100/60 animate-slide-up">
+            <div className="p-5 mb-8 text-center border-2 rounded-lg shadow-md bg-ivory backdrop-blur-sm border-beige-200 animate-slide-up">
               <div className="font-mono text-5xl font-light tracking-wider text-cacao">
                 {result.bd}{result.bm}{result.by}{result.lp}
               </div>
             </div>
 
             {/* הסבר על הקוד */}
-            <div className="p-6 mb-8 border rounded-lg shadow-sm bg-ivory-soft/80 backdrop-blur-sm border-sand-100/40 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <div className="p-6 mb-8 border rounded-lg shadow-sm bg-ivory backdrop-blur-sm border-beige-200/80 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <h3 className="text-subtitle text-depth-light emphasis-gold text-center mb-6">קוד העושר האישי שלכם</h3>
               
               <div className="mb-6 space-y-3 text-right">
@@ -257,22 +257,22 @@ export default function MoneyCode() {
               
               <button
                 onClick={handlePayment}
-                className="px-8 py-3 text-base font-medium transition-all duration-300 border-2 shadow-md bg-sand-100/50 hover:bg-sand-100/80 text-espresso border-sand-100/80 hover:scale-[1.02] rounded-lg hover:shadow-lg"
+                className="px-8 py-3 text-base font-medium transition-all duration-300 border-2 shadow-md bg-gold-primary/20 hover:bg-gold-primary/30 text-espresso border-gold-primary/50 hover:scale-[1.02] rounded-lg hover:shadow-lg"
                 aria-label="קבל פירוש מלא"
               >
                 קבלו פירוש מלא - 36.9₪
               </button>
               
               {/* הסבר על התהליך */}
-              <div className="mt-6 p-4 bg-ivory/40 border border-gold/20 rounded-xl text-sm">
+              <div className="mt-6 p-4 bg-ivory border border-gold-primary/30 rounded-xl text-sm">
                 <div className="text-center mb-3">
-                  <span className="font-medium text-espresso assistant-light">מה קורה אחרי התשלום?</span>
+                  <span className="font-medium text-accent-choco assistant-light">מה קורה אחרי התשלום?</span>
                 </div>
                 <div className="space-y-2 text-espresso/80 text-xs assistant-regular">
                   <p><strong>מייל מעוצב</strong> עם הפירוש המלא יישלח תוך דקות ספורות</p>
                   <p><strong>צפייה ישירה</strong> באתר עם אפשרות הורדה</p>
                   <p><strong>נשמר לתמיד</strong> - תמיד תוכלו לחזור ולצפות</p>
-                  <p className="pt-2 border-t border-gold/20">בעיה? יש לנו <strong>מייל ווואטסאפ</strong> לתמיכה</p>
+                  <p className="pt-2 border-t border-gold-primary/30">בעיה? יש לנו <strong>מייל ווואטסאפ</strong> לתמיכה</p>
                 </div>
               </div>
             </div>

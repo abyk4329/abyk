@@ -36,8 +36,8 @@ export default function Header() {
 
   return (
     <>
-      <header className="w-full fixed top-0 inset-x-0 bg-ivory/90 shadow-sm z-40 backdrop-blur-md border-b border-sand-100/60">
-        <div className="flex items-center justify-between px-4 py-3">
+      <header className="w-full fixed top-0 inset-x-0 bg-ivory/95 shadow-sm z-40 backdrop-blur-md border-b border-gold-primary/30">
+        <div className="flex items-center justify-between px-4 py-3 md:py-4">
           {/* כפתור המבורגר למובייל */}
           <button
             className="md:hidden flex items-center text-espresso hover:text-cacao transition-colors duration-200"
@@ -50,17 +50,17 @@ export default function Header() {
           </button>
 
           {/* ניווט לדסקטופ */}
-          <nav className="hidden md:flex flex-row items-center gap-6 text-espresso">
+      <nav className="hidden md:flex flex-row items-center gap-6 text-espresso">
             <a 
               href="/" 
-              className="hover:text-cacao text-espresso assistant-light text-sm transition-colors duration-200"
+        className="hover:text-cta-dark text-espresso assistant-light text-sm transition-colors duration-200"
             >
               בית
             </a>
             
             <a 
               href="/money-code" 
-              className="hover:text-cacao text-espresso assistant-light text-sm transition-colors duration-200"
+        className="hover:text-cta-dark text-espresso assistant-light text-sm transition-colors duration-200"
             >
               מחשבון קוד העושר
             </a>
@@ -68,7 +68,7 @@ export default function Header() {
             {/* יצירת קשר עם תפריט נפתח */}
             <div className="relative" ref={contactRef}>
               <button
-                className="hover:text-cacao text-espresso assistant-light text-sm transition-colors duration-200 flex items-center gap-1"
+                className="hover:text-cta-dark text-espresso assistant-light text-sm transition-colors duration-200 flex items-center gap-1"
                 onClick={() => setContactOpen(!contactOpen)}
                 aria-expanded={contactOpen}
               >
@@ -86,12 +86,12 @@ export default function Header() {
               
               {/* תפריט יצירת קשר */}
               {contactOpen && (
-                <div className="absolute right-0 mt-2 bg-ivory border border-sand-100 rounded-lg shadow-lg py-2 min-w-[160px] z-50">
+                <div className="absolute right-0 mt-2 bg-ivory border border-beige-200 rounded-lg shadow-lg py-2 min-w-[160px] z-50">
                   <a
                     href="https://wa.me/972524616121"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-3 py-2 text-smoky-brown hover:text-cacao hover:bg-sand-50 transition-colors duration-200"
+                    className="flex items-center gap-2 px-3 py-2 text-smoky-brown hover:text-cta-dark hover:bg-beige-100/50 transition-colors duration-200"
                     onClick={() => setContactOpen(false)}
                   >
                     <svg className="w-4 h-4 text-smoky-brown" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@ export default function Header() {
                   
                   <a
                     href="mailto:awakening.by.ksenia@gmail.com"
-                    className="flex items-center gap-2 px-3 py-2 text-smoky-brown hover:text-cacao hover:bg-sand-50 transition-colors duration-200"
+                    className="flex items-center gap-2 px-3 py-2 text-smoky-brown hover:text-cta-dark hover:bg-beige-100/50 transition-colors duration-200"
                     onClick={() => setContactOpen(false)}
                   >
                     <svg className="w-4 h-4 text-smoky-brown" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
@@ -118,12 +118,14 @@ export default function Header() {
           {/* טקסט המותג */}
           <div className="flex items-center">
             <div className="text-right">
-              <div className="assistant-extralight text-xs md:text-sm text-cacao tracking-wider">
-                AWAKENING BY KSENIA <span className="text-gold-warm opacity-60 mx-1">◦</span> PERSONAL SPACE FOR GROWTH
+              <div className="assistant-light text-[13px] md:text-sm text-accent-choco tracking-wider">
+                AWAKENING BY KSENIA <span className="text-gold-warm opacity-70 mx-1">◦</span> PERSONAL SPACE FOR GROWTH
               </div>
             </div>
           </div>
         </div>
+        {/* thin gold divider for emphasis */}
+        <div className="h-[2px] bg-gradient-to-r from-transparent via-gold-primary/50 to-transparent" />
       </header>
 
       {/* תפריט צדדי למובייל */}
@@ -131,7 +133,7 @@ export default function Header() {
         <div className="md:hidden fixed inset-0 z-50 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)}>
           <div 
             ref={mobileMenuRef}
-            className="fixed top-0 right-0 h-full w-80 bg-ivory shadow-xl transform transition-transform duration-300 ease-in-out"
+            className="fixed top-0 right-0 h-full w-80 bg-ivory shadow-xl transform transition-transform duration-300 ease-in-out border-l border-beige-200/70"
             onClick={(e) => e.stopPropagation()}
           >
             {/* כותרת התפריט */}

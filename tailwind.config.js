@@ -7,10 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
+    colors: {
   // Unified palette — Lights
-  'ivory': '#fdfcfa', // Main warm background color (requested)
-  'ivory-soft': '#fdfcfa', // Soft variant of the main background
+  'ivory': '#f7f3e8', // Main warm background color (requested new base)
+  'ivory-soft': '#f7f3e8', // Soft variant of the main background
   // Near-whites (very light)
   'nearwhite-100': '#FEFEFE',
   'nearwhite-150': '#FAFAFA',
@@ -23,6 +23,15 @@ module.exports = {
   'sand-100': '#E8D7C6', // Light sand
   'stone-soft': '#E6D7C5', // Soft stone
   'pearl-sand': '#E2D8CB', // Pearly sand
+
+  // New base 7-color palette provided by client
+  'beige-cream': '#f7f3e8', // כמעט לבן-שמנתי (base background)
+  'beige-100': '#ede2cc', // בז' בהיר מאוד
+  'beige-200': '#dcc9a7', // בז' בהיר-חולי
+  'beige-300': '#dcba8a', // בז' זהוב רך
+  'gold-primary': '#b99668', // חום-זהוב בינוני (primary)
+  'gold-primary-dark': '#8a724c', // חום-זית כהה (hover / focus)
+  'accent-choco': '#845c2e', // חום כהה-שוקולד (active / emphasis)
 
   // Medium tones (nuance/texture)
   'peach-beige': '#E1C6AB',
@@ -49,6 +58,10 @@ module.exports = {
   'gold': '#BE9D76',
   'gold-deep': '#A7835A',
   'gold-warm': '#B9916D',
+  // Semantic aliases for CTAs
+  'cta': '#b99668',
+  'cta-dark': '#8a724c',
+  'cta-deep': '#845c2e',
   'charcoal': '#3F3226',
   'text-secondary': '#84705C',
   'champagne': '#E1C6AB',

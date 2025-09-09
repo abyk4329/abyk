@@ -60,7 +60,7 @@ function ThankYouContent() {
         </div>
 
         {/* הודעת תודה */}
-        <div className="bg-ivory/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gold/30">
+  <div className="bg-ivory/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-beige-200">
           <div className="mb-6">
             <h1 className="text-cacao text-3xl font-bold mb-4" style={{ fontFamily: 'var(--font-slogan), serif' }}>תודה על הרכישה</h1>
           </div>
@@ -87,7 +87,7 @@ function ThankYouContent() {
             ) : null}
 
             {/* הודעה מינימליסטית על המייל */}
-            <div className="bg-ivory/40 border border-gold/20 rounded-xl p-6 text-espresso">
+            <div className="bg-ivory border border-beige-200 rounded-xl p-6 text-espresso">
               <p className="text-center text-base leading-relaxed mb-4">
                 אם חלפו יותר מ־15 דקות והמייל עדיין לא התקבל, 
                 <span className="font-medium"> ניתן לפנות אליי ואשמח לעזור</span>.
@@ -125,7 +125,7 @@ function ThankYouContent() {
         {htmlPreview && (
           <div className="max-w-4xl w-full">
             {/* אזור הפירוש */}
-            <div className="bg-ivory/40 border border-gold/20 rounded-xl p-6 mb-6">
+            <div className="bg-ivory border border-beige-200 rounded-xl p-6 mb-6">
               <h2 className="text-cacao text-2xl font-medium mb-4 text-center assistant-light" style={{ fontFamily: 'var(--font-slogan), serif' }}>
                 הפירוש האישי שלך
               </h2>
@@ -137,7 +137,7 @@ function ThankYouContent() {
             </div>
 
             {/* תצוגת הפירוש */}
-            <div className="bg-ivory/60 backdrop-blur-sm rounded-xl p-6 border border-gold/20 text-right">
+            <div className="bg-ivory/95 backdrop-blur-sm rounded-xl p-6 border border-beige-200 text-right">
               <div className="prose prose-lg max-w-none" dir="rtl">
                 <div dangerouslySetInnerHTML={{ __html: htmlPreview }} />
               </div>
@@ -155,12 +155,12 @@ function ThankYouContent() {
         )}
 
         {/* כפתור שיתוף */}
-        <div className="bg-ivory/40 border border-gold/20 rounded-xl p-6 text-center">
+  <div className="bg-ivory border border-beige-200 rounded-xl p-6 text-center">
           <p className="text-espresso mb-4 text-lg font-medium">
             אהבתם את הפירוש וקיבלתם ערך?
           </p>
           <button
-            className="px-6 py-3 text-base font-medium transition-all duration-300 border-2 rounded-xl text-cacao bg-ivory/60 hover:bg-gold/20 border-gold/60 hover:border-gold hover:shadow-lg flex items-center gap-2 mx-auto"
+            className="px-6 py-3 text-base font-medium transition-all duration-300 border-2 rounded-xl text-accent-choco bg-gold-primary/20 hover:bg-gold-primary/30 border-gold-primary/50 hover:shadow-lg flex items-center gap-2 mx-auto"
             onClick={async () => {
               const data = { 
                 title: 'פירוש נומרולוגי מקצועי - Awakening by Ksenia', 
