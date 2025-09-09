@@ -28,7 +28,7 @@ export default function Home() {
 
         {/* תיאור */}
         <p className="text-text-secondary text-lg max-w-2xl mx-auto px-4 animate-fade-in">
-          גלי את המשמעות הנומרולוגית שלך ופתחי שער להבנה עמוקה יותר של עצמך
+          גלה את המשמעות הנומרולוגית שלך ופתח שער להבנה עמוקה יותר של עצמך
         </p>
 
         {/* כפתור */}

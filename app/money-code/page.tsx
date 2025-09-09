@@ -104,8 +104,9 @@ export default function MoneyCode() {
   logo_url: `${window.location.origin}/icon.svg`
     })
     
-    // מעבר לקישור התשלום
-    window.open(`https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw?${params.toString()}`, '_blank')
+  // מעבר לקישור התשלום
+  const base = process.env.NEXT_PUBLIC_PAYMENT_URL || 'https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw'
+  window.open(`${base}?${params.toString()}`, '_blank')
   }
 
   return (

@@ -6,8 +6,18 @@ export type Code = { bd: number; bm: number; by: number; lp: number }
 export const isValidDigit = (n: number) => Number.isInteger(n) && n >= 1 && n <= 9
 
 const readNumbersMeaningHtml = (): string => {
-  const filePath = path.join(process.cwd(), 'public', 'numbersmeaning.html')
-  return fs.readFileSync(filePath, 'utf8')
+  const candidates = ['numbersmeaninglast.html', 'numbersmeaning.html']
+  for (const name of candidates) {
+    const filePath = path.join(process.cwd(), 'public', name)
+    try {
+      const content = fs.readFileSync(filePath, 'utf8')
+      if (content && content.trim().length > 0) return content
+    } catch {
+      // continue to next candidate
+    }
+  }
+  console.warn('numbersmeaning*(last).html missing or unreadable; returning placeholder.')
+  return '<!-- numbersmeaning placeholder -->'
 }
 
 export const getInterpretations = (): Record<string, string> => {
@@ -18,12 +28,23 @@ export const getInterpretations = (): Record<string, string> => {
     const numbers = ['1','2','3','4','5','6','7','8','9']
 
     numbers.forEach((num) => {
-      const regex = new RegExp(
-        `<h2>${num}</h2>\\s*<div>([\\s\\S]*?)</div>`,
-        'i'
-      )
-      const match = htmlContent.match(regex)
-      if (match) interpretations[num] = match[1].trim()
+      // 1) Strict: <h2/h3>NUM</h2/h3> <div> ... </div>
+      const patterns = [
+        new RegExp(`<h[2-3][^>]*>\\s*${num}\\s*<\\/h[2-3]>\\s*<div[^>]*>([\\s\\S]*?)<\\/div>`, 'i'),
+        // 2) Fallback: content until next <h2>/<h3>
+        new RegExp(`<h[2-3][^>]*>\\s*${num}[^<]*<\\/h[2-3]>\\s*([\\s\\S]*?)(?=<h[2-3][^>]*>|$)`, 'i'),
+        // 3) Word-export style: a paragraph that only contains the number (possibly wrapped in spans/strong)
+        new RegExp(`<p[^>]*>\\s*(?:<[^>]+>\\s*)*${num}(?:\\s*<\\/[^>]+>)*\\s*<\\/p>\\s*([\\s\\S]*?)(?=<p[^>]*>\\s*(?:<[^>]+>\\s*)*[1-9](?:\\s*<\\/[^>]+>)*\\s*<\\/p>|<h[2-3][^>]*>|$)`, 'i'),
+        // 4) New Word format: <p class="p1">NUM – description</p>
+        new RegExp(`<p[^>]*class="p1"[^>]*>\\s*${num}\\s*[–-]\\s*[^<]*<\\/p>([\\s\\S]*?)(?=<p[^>]*class="p1"[^>]*>\\s*[1-9]\\s*[–-]|$)`, 'i'),
+      ]
+      for (const rx of patterns) {
+        const match = htmlContent.match(rx)
+        if (match) {
+          interpretations[num] = match[1].trim()
+          break
+        }
+      }
     })
     return interpretations
   } catch (e) {
@@ -37,13 +58,34 @@ export const uniqueNumbersFromCode = (code: Code): number[] => {
   return Array.from(new Set(all))
 }
 
+// Intro section shown before the interpretations list
+export const buildIntroHtml = () => {
+  return `
+  <section class="intro" style="margin: 12px 0 20px">
+    <h2 style="color:#C6A170; margin-bottom: 8px">מה זה אומר כשיש מספרים חוזרים או שונים בקוד האישי?</h2>
+    <p>בכל קוד אישי מופיעים ארבעה מספרים.</p>
+    <ul style="margin: 8px 0 0 0; padding-inline-start: 20px; list-style: disc;">
+      <li>
+        כאשר מספר מסוים חוזר פעמיים או יותר – המשמעות היא שהאנרגיה שלו חזקה במיוחד בחיים שלך. זהו תחום שבו יש לך יכולת טבעית, עוצמה ותשומת לב מוגברת. לעיתים זה גם מסמן שיעור חוזר או הזדמנות עמוקה להבנה.
+      </li>
+      <li>
+        כאשר כל ארבעת המספרים שונים – המשמעות היא איזון וגיוון. אתה מקבל חיבור לארבעה תחומים שונים, מה שמאפשר ראייה רחבה יותר אך גם דורש ממך לאחד כוחות מגוונים ולמצוא את הקו האישי שלך.
+      </li>
+    </ul>
+    <p style="margin-top: 8px;">
+      כך, צירוף המספרים הייחודי שלך מגלה לא רק את הפוטנציאל האישי אלא גם את הדרך לעבוד עם האנרגיות כדי למשוך שפע, הרמוניה והגשמה.
+    </p>
+  </section>
+  `
+}
+
 export const buildPersonalHtml = (code: Code) => {
   const interpretations = getInterpretations()
   const uniques = uniqueNumbersFromCode(code)
   const interpretationsHtml = uniques
     .map((n) => {
       const key = String(n)
-      const block = interpretations[key] || '<p>פירוש לא נמצא.</p>'
+  const block = interpretations[key] || '<p>פירוש זמני לא זמין. נעדכן בקרוב.</p>'
       return `
       <section class="interpretation">
         <h2>פירוש למספר ${key}</h2>
@@ -76,6 +118,7 @@ export const buildPersonalHtml = (code: Code) => {
       <div class="pill"><div>BY</div><strong>${code.by}</strong></div>
       <div class="pill"><div>LP</div><strong>${code.lp}</strong></div>
     </div>
+  ${buildIntroHtml()}
     ${interpretationsHtml}
     <footer>
       <div><strong>Awakening by Ksenia</strong> — מרחב לתודעה מתקדמת</div>
@@ -83,5 +126,22 @@ export const buildPersonalHtml = (code: Code) => {
     </footer>
   </body>
   </html>`
+}
+
+// Build exact original HTML blocks from numbersmeaning.html, without extra wrappers
+export const buildSourceHtml = (code: Code) => {
+  const interpretations = getInterpretations()
+  const uniques = uniqueNumbersFromCode(code)
+  return uniques
+    .map((n) => {
+      const key = String(n)
+  const block = interpretations[key] || '<p>פירוש זמני לא זמין. נעדכן בקרוב.</p>'
+      return `
+<h2>${key}</h2>
+<div>
+${block}
+</div>`
+    })
+    .join('\n')
 }
 
