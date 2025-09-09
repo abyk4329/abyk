@@ -118,8 +118,10 @@ export default function Header() {
           {/* טקסט המותג */}
           <div className="flex items-center">
             <div className="text-right">
-              <div className="assistant-medium text-sm md:text-[15px] text-espresso tracking-wider">
-                AWAKENING BY KSENIA <span className="text-gold-warm opacity-80 mx-1">◦</span> PERSONAL SPACE FOR GROWTH
+              <div className="assistant-light text-sm text-espresso tracking-wide">
+                <span className="assistant-medium">Awakening by Ksenia</span>
+                <span aria-hidden className="inline-block align-middle mx-1 md:mx-1.5 h-px w-6 md:w-8 bg-espresso/40"></span>
+                <span className="assistant-extralight">Personal Space for Growth</span>
               </div>
             </div>
           </div>
