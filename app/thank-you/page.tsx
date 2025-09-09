@@ -67,7 +67,7 @@ function ThankYouContent() {
 
           <div className="space-y-6 text-lg">
             <p className="text-espresso font-bold">התשלום נקלט בהצלחה, והפירוש האישי שלך כבר מוכן</p>
-            <p className="text-text-secondary">אפשר לעיין בו מיד כאן בעמוד, ובסוף הטקסט יופיע קישור נוח להורדה. במקביל נשלח אליך גם דואל.</p>
+            <p className="text-text-secondary">אפשר לעיין בו מיד כאן בעמוד, ובסוף הטקסט יופיע קישור נוח להורדה. במקביל נשלח אליך גם דוא״ל.</p>
 
             {/* קוד המספרים בפיל לבן */}
             {code.bd && code.bm && code.by && code.lp ? (
@@ -98,7 +98,7 @@ function ThankYouContent() {
                 <a 
                   href="mailto:awakening.by.ksenia@gmail.com?subject=לא קיבלתי מייל עם הפירוש&body=שלום, הזמנתי פירוש נומרולוגי אבל לא קיבלתי מייל. אודה לעזרה."
                   className="text-smoky-brown hover:text-cacao transition-colors duration-200"
-                  aria-label="דואל"
+                  aria-label="דוא״ל"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -153,6 +153,34 @@ function ThankYouContent() {
             </div>
           </div>
         )}
+
+        {/* כפתור שיתוף */}
+        <div className="bg-ivory/40 border border-gold/20 rounded-xl p-6 text-center">
+          <p className="text-espresso mb-4 text-lg font-medium">
+            אהבת את הפירוש וקיבלת ערך? שתף/י עם חברים!
+          </p>
+          <button
+            className="px-6 py-3 text-base font-medium transition-all duration-300 border-2 rounded-xl text-cacao bg-ivory/60 hover:bg-gold/20 border-gold/60 hover:border-gold hover:shadow-lg flex items-center gap-2 mx-auto"
+            onClick={async () => {
+              const data = { 
+                title: 'פירוש נומרולוגי מקצועי - Awakening by Ksenia', 
+                text: 'גיליתי את הפירוש הנומרולוגי האישי שלי! מדהים כמה זה מדויק ומעמיק 🌟', 
+                url: 'https://awakening-by-ksenia-app.vercel.app/money-code'
+              }
+              if (navigator.share) {
+                await navigator.share(data).catch(()=>{})
+              } else {
+                await navigator.clipboard.writeText(`${data.text} ${data.url}`)
+                alert('הטקסט והקישור הועתקו! עכשיו אפשר להדביק בכל מקום')
+              }
+            }}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.935-2.186 2.25 2.25 0 00-3.935 2.186z" />
+            </svg>
+            <span>שתף/י עם חברים</span>
+          </button>
+        </div>
 
         {/* חתימה */}
         <div className="signature">
