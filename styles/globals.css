@@ -4,8 +4,16 @@
 
 :root {
   /* Unified palette */
-  --ivory: #fdfcfa; /* New warm background color */
-  --ivory-soft: #fdfcfa; /* New warm soft background color */
+  --ivory: #fdfcfa; /* Main warm background color */
+  --ivory-soft: #fdfcfa; /* Soft variant of the main background */
+  /* Near-whites (very light) */
+  --nearwhite-100: #FEFEFE;
+  --nearwhite-150: #FAFAFA;
+  --nearwhite-200: #FEFAFA;
+  --nearwhite-250: #FDFCFA;
+  --nearwhite-300: #F9F5EF;
+  --nearwhite-350: #F8EFE5;
+  --nearwhite-400: #F4F1EA;
   --sand-50: #F1E3D7; /* milky beige */
   --sand-100: #E8D7C6; /* light sand */
   --stone-soft: #E6D7C5; /* soft stone */
@@ -33,6 +41,7 @@
   /* Legacy tokens mapped for compatibility */
   --gold: var(--sandy-gold);
   --gold-deep: var(--golden-brown);
+  --gold-warm: #B9916D;
   --charcoal: var(--espresso);
   --text-secondary: var(--smoky-brown);
   --champagne: var(--peach-beige);

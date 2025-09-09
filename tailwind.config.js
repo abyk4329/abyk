@@ -9,8 +9,16 @@ module.exports = {
     extend: {
       colors: {
   // Unified palette — Lights
-  'ivory': '#fdfcfa', // New warm background color
-  'ivory-soft': '#fdfcfa', // New warm soft background color
+  'ivory': '#fdfcfa', // Main warm background color (requested)
+  'ivory-soft': '#fdfcfa', // Soft variant of the main background
+  // Near-whites (very light)
+  'nearwhite-100': '#FEFEFE',
+  'nearwhite-150': '#FAFAFA',
+  'nearwhite-200': '#FEFAFA',
+  'nearwhite-250': '#FDFCFA',
+  'nearwhite-300': '#F9F5EF',
+  'nearwhite-350': '#F8EFE5',
+  'nearwhite-400': '#F4F1EA',
   'sand-50': '#F1E3D7', // Milky beige
   'sand-100': '#E8D7C6', // Light sand
   'stone-soft': '#E6D7C5', // Soft stone
@@ -40,6 +48,7 @@ module.exports = {
   // Legacy tokens remapped to the new palette
   'gold': '#BE9D76',
   'gold-deep': '#A7835A',
+  'gold-warm': '#B9916D',
   'charcoal': '#3F3226',
   'text-secondary': '#84705C',
   'champagne': '#E1C6AB',
