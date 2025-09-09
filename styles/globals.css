@@ -4,8 +4,8 @@
 
 :root {
   /* Unified palette */
-  --ivory: #f7f3e8; /* Main warm background color */
-  --ivory-soft: #f7f3e8; /* Soft variant of the main background */
+  --ivory: #FAFAFA; /* Main warm background color */
+  --ivory-soft: #FAFAFA; /* Soft variant of the main background */
   /* Near-whites (very light) */
   --nearwhite-100: #FEFEFE;
   --nearwhite-150: #FAFAFA;
@@ -72,7 +72,7 @@
 body {
   font-family: 'Assistant', sans-serif;
   /* Clean warm background for all pages */
-  background-color: #f7f3e8;
+  background-color: #FAFAFA;
   background-image: none;
   color: var(--charcoal);
   text-align: center;

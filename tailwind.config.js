@@ -9,8 +9,8 @@ module.exports = {
     extend: {
     colors: {
   // Unified palette — Lights
-  'ivory': '#f7f3e8', // Main warm background color (requested new base)
-  'ivory-soft': '#f7f3e8', // Soft variant of the main background
+  'ivory': '#FAFAFA', // Main warm background color (updated per request)
+  'ivory-soft': '#FAFAFA', // Soft variant of the main background
   // Near-whites (very light)
   'nearwhite-100': '#FEFEFE',
   'nearwhite-150': '#FAFAFA',
