@@ -62,7 +62,7 @@ function ThankYouContent() {
         {/* הודעת תודה */}
   <div className="bg-ivory/90 backdrop-blur-sm rounded-2xl p-8 shadow-warm-md border border-beige-200">
           <div className="mb-6">
-            <h1 className="text-cacao text-3xl font-bold mb-4" style={{ fontFamily: 'var(--font-slogan), serif' }}>תודה על הרכישה</h1>
+            <h1 className="text-cacao text-3xl font-bold mb-4">תודה על הרכישה</h1>
           </div>
 
           <div className="space-y-6 text-lg">
@@ -126,7 +126,7 @@ function ThankYouContent() {
           <div className="max-w-4xl w-full">
             {/* אזור הפירוש */}
             <div className="bg-ivory border border-beige-200 rounded-xl p-6 mb-6 shadow-warm-sm">
-              <h2 className="text-cacao text-2xl font-medium mb-4 text-center assistant-light" style={{ fontFamily: 'var(--font-slogan), serif' }}>
+              <h2 className="text-cacao text-2xl font-medium mb-4 text-center assistant-light">
                 הפירוש האישי שלך
               </h2>
               
@@ -154,33 +154,8 @@ function ThankYouContent() {
           </div>
         )}
 
-        {/* כפתור שיתוף */}
-  <div className="bg-ivory border border-beige-200 rounded-xl p-6 text-center shadow-warm-sm">
-          <p className="text-espresso mb-4 text-lg font-medium">
-            אהבתם את הפירוש וקיבלתם ערך?
-          </p>
-          <button
-            className="px-6 py-3 text-base font-medium transition-all duration-300 border-2 rounded-xl text-accent-choco bg-gold-primary/20 hover:bg-gold-primary/30 border-gold-primary/50 shadow-warm-sm hover:shadow-warm-md has-sheen flex items-center gap-2 mx-auto"
-            onClick={async () => {
-              const data = { 
-                title: 'פירוש נומרולוגי מקצועי - Awakening by Ksenia', 
-                text: 'גיליתי את הפירוש הנומרולוגי האישי שלי! מדהים כמה זה מדויק ומעמיק 🌟', 
-                url: 'https://awakening-by-ksenia-app.vercel.app/money-code'
-              }
-              if (navigator.share) {
-                await navigator.share(data).catch(()=>{})
-              } else {
-                await navigator.clipboard.writeText(`${data.text} ${data.url}`)
-                alert('הטקסט והקישור הועתקו! עכשיו אפשר להדביק בכל מקום')
-              }
-            }}
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.935-2.186 2.25 2.25 0 00-3.935 2.186z" />
-            </svg>
-            <span>שתפו עם חברים</span>
-          </button>
-        </div>
+  {/* כפתור שיתוף – בוטל לפי בקשה */}
+  {/* מוסתר */}
 
         {/* חתימה */}
         <div className="signature">
@@ -194,9 +169,7 @@ function ThankYouContent() {
           </a>
         </div>
 
-        <div className="text-text-secondary text-sm">
-          <p>יש שאלות? ניתן ליצור קשר</p>
-        </div>
+  {/* שורת קשר הוסרה לפי בקשה */}
       </div>
     </main>
   )

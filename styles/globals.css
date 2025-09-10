@@ -70,7 +70,7 @@
 }
 
 body {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
   /* Clean warm background for all pages */
   background-color: #FAFAFA;
   background-image: none;
@@ -145,43 +145,43 @@ body {
 
 /* עברית - Assistant */
 :lang(he), [lang="he"], .hebrew {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
 }
 
 /* אנגלית - Assistant */
 :lang(en), [lang="en"], .english {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
 }
 
 /* משקלי גופן ל-Assistant */
 .assistant-extralight {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
   font-weight: 200;
 }
 
 .assistant-light {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
   font-weight: 300;
 }
 
 .assistant-regular {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
   font-weight: 400;
 }
 
 .assistant-medium {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
   font-weight: 500;
 }
 
 /* גופן אנגלית - דק ואלגנטי */
 .english-extralight {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
   font-weight: 200;
 }
 
 .english-light {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
   font-weight: 300;
 }
 
@@ -203,7 +203,7 @@ html {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-headings), 'Assistant', sans-serif;
+  font-family: 'Assistant';
   color: var(--cacao);
   text-align: center;
   line-height: 1.3;
@@ -408,11 +408,11 @@ strong {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
 }
 
 .btn.hebrew {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
   font-weight: 400;
 }
 
@@ -638,7 +638,7 @@ strong { color: var(--dark-choco); font-weight: 700; }
 
 /* עיצוב לקלטים */
 input[type="date"] {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Assistant';
   font-weight: 300;
 }
 

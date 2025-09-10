@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 // A single dot in the trail
 const TrailDot = ({ x, y, isLast }: { x: number; y: number; isLast: boolean }) => (
   <div
-    className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-gold/60 to-transparent"
+    className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-gold/60 to-transparent"
     style={{
       left: x,
       top: y,

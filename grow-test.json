@@ -1,0 +1,34 @@
+{
+  "err": "",
+  "status": "1",
+  "data": {
+    "asmachta": "12345",
+    "status": "שולם",
+    "statusCode": "2",
+    "payerEmail": "test@example.com",
+    "fullName": "דוד דוד",
+    "dynamicFields": [
+      {
+        "key": "bd",
+        "label": "יום לידה",
+        "field_value": "3"
+      },
+      {
+        "key": "bm",
+        "label": "חודש לידה",
+        "field_value": "7"
+      },
+      {
+        "key": "by",
+        "label": "שנת לידה",
+        "field_value": "9"
+      },
+      {
+        "key": "lp",
+        "label": "מספר מסלול",
+        "field_value": "1"
+      }
+    ]
+  },
+  "webhook_key": "48b593bc-df4e-640d-80e8-977327bac47e"
+}

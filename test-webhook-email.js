@@ -1,21 +1,21 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 // הגדרת משתני סביבה ידנית
-process.env.EMAIL_USER = 'awakening.by.ksenia@gmail.com';
-process.env.EMAIL_PASSWORD = 'quowltyhgteybtue';
+process.env.EMAIL_USER = "awakening.by.ksenia@gmail.com";
+process.env.EMAIL_PASSWORD = "quowltyhgteybtue";
 
 async function testWebhookEmail() {
-  console.log('Testing final webhook email template...');
-  
+  console.log("Testing final webhook email template...");
+
   const testCode = { bd: 3, bm: 7, by: 9, lp: 1 };
 
   // Check for duplicate numbers
   const numbers = [testCode.bd, testCode.bm, testCode.by, testCode.lp];
   const uniqueNumbers = Array.from(new Set(numbers));
   const hasDuplicates = numbers.length !== uniqueNumbers.length;
-  
+
   // Generate URL for full interpretation
-  const baseUrl = 'https://awakening-by-ksenia-app.vercel.app';
+  const baseUrl = "https://awakening-by-ksenia-app.vercel.app";
   const interpretationUrl = `${baseUrl}/thank-you?bd=${testCode.bd}&bm=${testCode.bm}&by=${testCode.by}&lp=${testCode.lp}`;
 
   const emailHtml = `<!DOCTYPE html>
@@ -27,7 +27,7 @@ async function testWebhookEmail() {
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap');
         body {
-            font-family: 'Assistant', Arial, sans-serif;
+            font-family: 'Assistant';
             background: linear-gradient(135deg, #FEFEFE 0%, #F8F5F1 100%);
             color: #1F2024;
             line-height: 1.7;
@@ -160,9 +160,10 @@ async function testWebhookEmail() {
             <div class="number-sequence">${testCode.bd} ${testCode.bm} ${testCode.by} ${testCode.lp}</div>
             
             <div class="description">
-                ${hasDuplicates 
-                    ? 'בקוד העושר שלך יש מספרים כפולים, מה שמעצים את כוחם ומשפעתם על חייך. כל מספר מייצג היבט שונה באישיותך ובמסלול החיים שלך.'
-                    : 'כל מספר בקוד העושר שלך הוא ייחודי ומייצג היבט שונה באישיותך ובמסלול החיים שלך. השילוב הזה יוצר פרופיל אישיותי מורכב ועשיר.'
+                ${
+                  hasDuplicates
+                    ? "בקוד העושר שלך יש מספרים כפולים, מה שמעצים את כוחם ומשפעתם על חייך. כל מספר מייצג היבט שונה באישיותך ובמסלול החיים שלך."
+                    : "כל מספר בקוד העושר שלך הוא ייחודי ומייצג היבט שונה באישיותך ובמסלול החיים שלך. השילוב הזה יוצר פרופיל אישיותי מורכב ועשיר."
                 }
             </div>
             
@@ -185,7 +186,7 @@ async function testWebhookEmail() {
 
   try {
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
@@ -194,28 +195,33 @@ async function testWebhookEmail() {
 
     const mailOptions = {
       from: `"Awakening by Ksenia" <${process.env.EMAIL_USER}>`,
-      to: 'kseniachud@gmail.com',
-      subject: 'בדיקה סופית - הפירוש האישי לקוד העושר שלך מוכן - Awakening by Ksenia',
+      to: "kseniachud@gmail.com",
+      subject:
+        "בדיקה סופית - הפירוש האישי לקוד העושר שלך מוכן - Awakening by Ksenia",
       html: emailHtml,
     };
 
-    console.log('Sending webhook test email...');
-    console.log('Email subject:', mailOptions.subject);
-    console.log('Has duplicate numbers:', hasDuplicates);
-    console.log('Interpretation URL:', interpretationUrl);
+    console.log("Sending webhook test email...");
+    console.log("Email subject:", mailOptions.subject);
+    console.log("Has duplicate numbers:", hasDuplicates);
+    console.log("Interpretation URL:", interpretationUrl);
 
     const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Email sent successfully!');
-    console.log('Message ID:', info.messageId);
-    console.log('Preview URL (if available):', nodemailer.getTestMessageUrl(info));
-
+    console.log("✅ Email sent successfully!");
+    console.log("Message ID:", info.messageId);
+    console.log(
+      "Preview URL (if available):",
+      nodemailer.getTestMessageUrl(info)
+    );
   } catch (error) {
-    console.error('❌ Error sending email:', error);
+    console.error("❌ Error sending email:", error);
   }
 }
 
-testWebhookEmail().then(() => {
-  console.log('Test completed');
-}).catch(err => {
-  console.error('Test failed:', err);
-});
+testWebhookEmail()
+  .then(() => {
+    console.log("Test completed");
+  })
+  .catch((err) => {
+    console.error("Test failed:", err);
+  });

@@ -1,17 +1,20 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 // הגדרת משתני סביבה ידנית
-process.env.EMAIL_USER = 'awakening.by.ksenia@gmail.com';
-process.env.EMAIL_PASSWORD = 'quowltyhgteybtue';
+process.env.EMAIL_USER = "awakening.by.ksenia@gmail.com";
+process.env.EMAIL_PASSWORD = "quowltyhgteybtue";
 
 async function testEmail() {
-  console.log('Testing email configuration...');
-  console.log('EMAIL_USER:', process.env.EMAIL_USER);
-  console.log('EMAIL_PASSWORD length:', process.env.EMAIL_PASSWORD ? process.env.EMAIL_PASSWORD.length : 'undefined');
+  console.log("Testing email configuration...");
+  console.log("EMAIL_USER:", process.env.EMAIL_USER);
+  console.log(
+    "EMAIL_PASSWORD length:",
+    process.env.EMAIL_PASSWORD ? process.env.EMAIL_PASSWORD.length : "undefined"
+  );
 
   try {
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
@@ -19,12 +22,12 @@ async function testEmail() {
     });
 
     // בדיקת החיבור
-    console.log('Verifying connection...');
+    console.log("Verifying connection...");
     await transporter.verify();
-    console.log('✅ Connection verified successfully!');
+    console.log("✅ Connection verified successfully!");
 
     // שליחת מייל בדיקה עם תבנית החדשה
-    console.log('Sending test email...');
+    console.log("Sending test email...");
     const testEmailHtml = `<!DOCTYPE html>
   <html dir="rtl" lang="he">
   <head>
@@ -39,7 +42,7 @@ async function testEmail() {
       }
       
       body {
-        font-family: 'Assistant', Arial, sans-serif;
+        font-family: 'Assistant';
         background: linear-gradient(135deg, #FEFEFE 0%, #F8F5F1 100%);
         color: #1F2024;
         line-height: 1.7;
@@ -186,8 +189,6 @@ async function testEmail() {
   </head>
   <body>
     <div class="container">
-
-      
       <div class="content">
         <div style="text-align: center; margin: 25px 0;">
           <h3 style="color: #C6A170; margin: 0 0 15px 0; font-size: 24px; font-weight: 600; text-align: right;">הקוד העושר האישי שלך הוא</h3>
@@ -209,7 +210,7 @@ async function testEmail() {
         </div>
 
         <div style="text-align: center; margin: 30px 0;">
-          <a href="https://awakening-by-ksenia.vercel.app/thank-you?bd=3&bm=7&by=9&lp=1" class="cta-button">
+          <a href="https://awakening-by-ksenia-app.vercel.app/thank-you?bd=3&bm=7&by=9&lp=1" class="cta-button">
             צפייה בפירוש המלא באתר
           </a>
         </div>
@@ -235,19 +236,22 @@ async function testEmail() {
 
     const result = await transporter.sendMail({
       from: `"Awakening by Ksenia" <${process.env.EMAIL_USER}>`,
-      to: 'kseniachud@gmail.com',
-      subject: 'הפירוש האישי לקוד העושר שלך מוכן - Awakening by Ksenia',
+      to: "kseniachud@gmail.com",
+      subject: "הפירוש האישי לקוד העושר שלך מוכן - Awakening by Ksenia",
       html: testEmailHtml,
     });
 
-    console.log('✅ Email sent successfully!');
-    console.log('Message ID:', result.messageId);
-
+    console.log("✅ Email sent successfully!");
+    console.log("Message ID:", result.messageId);
   } catch (error) {
-    console.error('❌ Error:', error.message);
-    if (error.code === 'EAUTH') {
-      console.error('Authentication failed. Check your EMAIL_PASSWORD in .env.local');
-      console.error('Make sure you are using an App Password, not your regular Gmail password');
+    console.error("❌ Error:", error.message);
+    if (error.code === "EAUTH") {
+      console.error(
+        "Authentication failed. Check your EMAIL_PASSWORD in .env.local"
+      );
+      console.error(
+        "Make sure you are using an App Password, not your regular Gmail password"
+      );
     }
   }
 }

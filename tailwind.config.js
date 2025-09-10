@@ -67,8 +67,8 @@ module.exports = {
   'champagne': '#E1C6AB',
       },
       fontFamily: {
-        'assistant': ['Assistant', 'sans-serif'],
-        'headings': ['var(--font-headings)', 'Assistant', 'sans-serif'],
+        'assistant': ['Assistant'],
+        'headings': ['Assistant'],
       },
       fontSize: {
         'hero': 'clamp(2.5rem, 5vw, 4rem)',

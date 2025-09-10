@@ -37,6 +37,10 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport = {
+  themeColor: '#fdfcfa',
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -44,40 +48,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="he" dir="rtl">
-  <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#fdfcfa" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="ABYK" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="application-name" content="ABYK" />
-        
-  <link rel="apple-touch-icon" href="/newlogos/iconfavicon.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/newlogos/iconfavicon.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="/newlogos/iconfavicon.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="/newlogos/iconfavicon.png" />
-        
-  <link rel="icon" type="image/png" href="/newlogos/iconfavicon.png" />
-  <link rel="shortcut icon" href="/newlogos/iconfavicon.png" />
-        
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js');
-                });
-              }
-            `,
-          }}
-        />
-      </head>
-  <body className={`${assistant.className} ${assistantLatin.className} ${assistantHeadings.variable} bg-ivory text-charcoal`} suppressHydrationWarning>
-  <div className="relative min-h-screen bg-bokeh" style={{ backgroundColor: 'var(--ivory)' }}>
-      <CursorTrail />
-      <Header />
-  {/* PWA register */}
+      <body className={`${assistant.className} ${assistantLatin.className} ${assistantHeadings.variable} bg-ivory text-charcoal`} suppressHydrationWarning>
+        <div className="relative min-h-screen bg-bokeh" style={{ backgroundColor: 'var(--ivory)' }}>
+          <CursorTrail />
+          <Header />
+          {/* PWA register */}
           <div className="pt-20">{children}</div>
           <Footer />
         </div>

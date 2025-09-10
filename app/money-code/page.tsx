@@ -124,13 +124,13 @@ export default function MoneyCode() {
           />
         </div>
 
-        {/* תווית SVG לכותרת */}
+        {/* תווית חדשה לכותרת המחשבון */}
         <div className="mt-1 mb-6 animate-gleam-fade-in">
           <Image 
-            src="/newlogos/welthcode.png" 
-            alt="Wealth Code Calculator" 
-            width={400} 
-            height={100} 
+            src="/welthcodeline%20copy.png" 
+            alt="Wealth Code Calculator Title" 
+            width={480} 
+            height={120} 
             className="mx-auto drop-shadow-[0_3px_10px_rgba(167,131,90,0.15)]" 
           />
         </div>
@@ -160,12 +160,12 @@ export default function MoneyCode() {
               </div>
             )}
 
-            {/* כפתורים */}
-            <div className="space-y-3">
+            {/* כפתורים בשורה אחת */}
+            <div className="flex gap-3 flex-nowrap">
               <button
                 onClick={calculateMoneyCode}
                 disabled={!birthDate || isLoading}
-                className="w-full px-5 py-3 text-sm font-medium transition-all duration-300 border-2 rounded-lg shadow-warm-sm has-sheen bg-gold-primary/20 hover:bg-gold-primary/30 disabled:opacity-50 disabled:cursor-not-allowed border-gold-primary/50 hover:shadow-warm-md text-espresso"
+                className="flex-1 px-5 py-3 text-sm font-medium transition-all duration-300 border-2 rounded-lg shadow-warm-sm has-sheen bg-gold-primary/20 hover:bg-gold-primary/30 disabled:opacity-50 disabled:cursor-not-allowed border-gold-primary/50 hover:shadow-warm-md text-espresso"
                 aria-label="חשב קוד עושר"
               >
                 {isLoading ? (
@@ -174,16 +174,15 @@ export default function MoneyCode() {
                     מחשבים...
                   </div>
                 ) : (
-                  'קבלו את הקוד האישי שלכם'
+                  'קסניה, אני רוצה לדעת את הקוד שלי'
                 )}
               </button>
-              
               <button
                 onClick={clearData}
-                className="w-full px-5 py-2 text-xs font-normal transition-all duration-300 border rounded-lg shadow-sm bg-ivory hover:bg-beige-100/50 text-espresso/70 border-beige-200 hover:border-beige-200/80 hover:shadow-md hover:text-espresso"
-                aria-label="נקה נתונים"
+                className="px-4 py-3 text-xs font-normal transition-all duration-300 border rounded-lg shadow-sm bg-ivory hover:bg-beige-100/50 text-espresso/70 border-beige-200 hover:border-beige-200/80 hover:shadow-md hover:text-espresso"
+                aria-label="איפוס"
               >
-                ניקוי שדות
+                איפוס
               </button>
             </div>
           </div>
@@ -192,60 +191,47 @@ export default function MoneyCode() {
           <div className="max-w-lg p-6 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-xl border-beige-200 animate-fade-in">
             <h2 className="text-title text-depth-medium emphasis-strong animate-gleam-fade-in">קוד העושר האישי שלך</h2>
             
-            {/* תצוגת הקוד בשורה אחת */}
-            <div className="p-5 mb-8 text-center border-2 rounded-lg shadow-warm-sm bg-ivory backdrop-blur-sm border-beige-200 animate-slide-up">
-              <div className="font-mono text-5xl font-light tracking-wider text-cacao">
-                {result.bd}{result.bm}{result.by}{result.lp}
+            {/* תצוגת הקוד משמאל לימין (4329) */}
+            <div className="p-5 mb-6 text-center border-2 rounded-lg shadow-warm-sm bg-ivory backdrop-blur-sm border-beige-200 animate-slide-up">
+              <div dir="ltr" className="font-mono text-6xl font-light tracking-[0.2em] text-cacao select-all">
+                {`${result.bd}${result.bm}${result.by}${result.lp}`}
               </div>
             </div>
 
-            {/* הסבר על הקוד */}
+            {/* טקסטים לפי הבקשה */}
             <div className="p-6 mb-8 border rounded-lg shadow-sm bg-ivory backdrop-blur-sm border-beige-200/80 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              <h3 className="text-subtitle text-depth-light emphasis-gold text-center mb-6">קוד העושר האישי שלכם</h3>
-              
-              <div className="mb-6 space-y-3 text-right">
-                <div className="text-sm leading-relaxed text-text-secondary animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                  הקוד שגיליתם הוא מפתח אנרגטי שמלווה אתכם מלידה.
-                </div>
-                <div className="text-sm leading-relaxed text-text-secondary animate-fade-in" style={{ animationDelay: '0.5s' }}>
-                  אפשר לשאת אותו כקמע אישי, להשתמש בו כקוד סמוי לכרטיסים או מכשירים, לכתוב אותו בארנק כמגנט לשפע – או לחזור עליו במדיטציה יומית כמנטרה שמחזקת מיקוד ועוצמה פנימית.
-                </div>
+              <div className="mb-4 space-y-2 text-center text-sm leading-relaxed text-text-secondary">
+                <p>הקוד שגיליתם הוא <strong className="text-cacao">מפתח אנרגטי</strong> שמלווה אתכם מלידה.</p>
+                <p>אפשר לשאת אותו כקמע אישי, להשתמש בו כקוד סמוי לכרטיסים או מכשירים, לכתוב אותו בארנק כמגנט ל<strong className="text-cacao">שפע</strong> – או לחזור עליו במדיטציה יומית כמנטרה שמחזקת <strong className="text-cacao">מיקוד</strong> ו<strong className="text-cacao">עוצמה פנימית</strong>.</p>
               </div>
-              
-              <div className="text-center mb-4">
-                <span className="text-gold-warm text-sm">⸻</span>
+              <div className="text-center mb-4"><span className="text-gold-warm text-sm">⸻</span></div>
+              <h4 className="mb-3 text-sm font-medium text-cacao text-center">גלו את עצמכם דרך הקוד האישי</h4>
+              <div className="space-y-2 text-sm leading-relaxed text-text-secondary max-w-xl mx-auto">
+                <p className="text-center">כשאתם מבינים מה מסתתר מאחורי כל ספרה – נפתחת בפניכם מפה ברורה:</p>
+                <ul className="space-y-1 pr-2">
+                  <li className="flex items-start gap-2"><span className="text-gold-warm">•</span><span>אילו <strong className="text-cacao">כוחות טבעיים</strong> וחוזקות מולדים קיימים בכם ואיך להעצים אותם.</span></li>
+                  <li className="flex items-start gap-2"><span className="text-gold-warm">•</span><span>מהם ה<strong className="text-cacao">מחסומים</strong> שמעכבים אתכם ואיך לפרוץ אותם.</span></li>
+                  <li className="flex items-start gap-2"><span className="text-gold-warm">•</span><span>על מה חשוב לשים לב במיוחד כדי להפסיק לחזור על אותם דפוסים שוב ושוב.</span></li>
+                </ul>
+                <p className="mt-2">הקוד מעניק לכם מפתח ל<strong className="text-cacao">שפע</strong>, הצלחה והגשמה – אישית וכלכלית.</p>
+                <p>ברגע שתראו אילו תכונות נטבעו בכם מלידה, תבינו שזה לא “אשמתכם”, ותוכלו להפסיק להילחם בעצמכם. במקום להסתיר חולשות – תדעו איך להפוך אותן למנוף לצמיחה ולפרוץ סוף סוף קדימה.</p>
+                <p>זה הזמן לצאת עם עצמכם ל”דייט ראשון” אמיתי – להכיר מי אתם באמת. והכול מתחיל כאן.</p>
               </div>
-              
-              <div className="pt-2 text-center border-t border-sand-100/40 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                <h4 className="mb-4 text-sm font-medium text-cacao">מה הקוד מגלה עליכם?</h4>
-                <div className="space-y-3 text-sm leading-relaxed text-text-secondary text-right">
-                  <p>
-                    המספרים שבקוד אינם מקריים – הם משקפים את המתנות, הכוחות והאתגרים שהנשמה שלכם בחרה לחיים האלה.
-                  </p>
-                  <div className="text-xs leading-relaxed text-text-secondary pr-2">
-                    <p className="mb-2">מתוך הפירוש המלא תגלו:</p>
-                    <div className="space-y-1">
-                      <div className="flex items-start gap-2">
-                        <span className="text-gold-warm">•</span>
-                        <span>אילו כוחות טבעיים בולטים אצלכם ואיך להעצים אותם.</span>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <span className="text-gold-warm">•</span>
-                        <span>מהם המחסומים שמעכבים אתכם ואיך לפרוץ אותם.</span>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <span className="text-gold-warm">•</span>
-                        <span>היכן מסתתר המפתח לשפע, הצלחה והגשמה אישית וכלכלית.</span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="pt-2">
-                    הקוד פותח בפניכם דרך חדשה – סוף סוף לצאת ממעגלים חוזרים, להשתחרר מהגבולות שבלמו אתכם, ולממש את הפוטנציאל האמיתי שמחכה להתגלות.
-                  </p>
-                  <p className="font-medium text-cacao pt-2">
-                    רוצים סוף סוף לפרוץ קדימה?
-                  </p>
-                </div>
+              <div className="text-center mt-4">
+                <p className="mb-3 text-cacao">✨ גלו מה המספרים מספרים עליכם – רק ב־36.9 ₪</p>
+                <button
+                  onClick={handlePayment}
+                  className="px-8 py-3 text-base font-medium transition-all duration-300 border-2 shadow-md bg-gold-primary/20 hover:bg-gold-primary/30 text-espresso border-gold-primary/50 hover:scale-[1.02] rounded-lg hover:shadow-lg"
+                  aria-label="אני בפנים"
+                >
+                  אני בפנים
+                </button>
+              </div>
+              <div className="text-center mt-6"><span className="text-gold-warm text-sm">⸻</span></div>
+              <div className="mt-4 text-center text-sm text-text-secondary space-y-1">
+                <div className="font-medium text-cacao">מה קורה אחרי התשלום?</div>
+                <p>תוך דקות ספורות תקבלו למייל מפת דרכים אישית לשפע והצלחה.</p>
+                <p>בנוסף – תוכלו לצפות בפירוש ישירות באתר, כולל אפשרות להורדה.</p>
               </div>
             </div>
 
@@ -271,8 +257,7 @@ export default function MoneyCode() {
                 <div className="space-y-2 text-espresso/80 text-xs assistant-regular">
                   <p><strong>מייל מעוצב</strong> עם הפירוש המלא יישלח תוך דקות ספורות</p>
                   <p><strong>צפייה ישירה</strong> באתר עם אפשרות הורדה</p>
-                  <p><strong>נשמר לתמיד</strong> - תמיד תוכלו לחזור ולצפות</p>
-                  <p className="pt-2 border-t border-gold-primary/30">בעיה? יש לנו <strong>מייל ווואטסאפ</strong> לתמיכה</p>
+                  
                 </div>
               </div>
             </div>
