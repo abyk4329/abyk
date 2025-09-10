@@ -25,6 +25,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# nested repos (prevent embedding another git repo)
+/abyk
+/halivas.invoice
+
 # editor
 .vscode/
 .idea/
