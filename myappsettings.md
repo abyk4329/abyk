@@ -1,4 +1,4 @@
-#  מבנה עמוד הבית | Homepage Structure
+# מבנה עמוד הבית | Homepage Structure
 
 ## Header for pc and tablets / Slide menu for phone
 
@@ -7,12 +7,14 @@
 ### **מחשבון קוד הכסף**
 
 ### **בקרוב**
+
 - **מצפן פנג שאוי**
 - **אנרגיה של היום**
 
 ### **צור קשר**
+
 - **טלפון 0524616121 שליחת וואטסאפ**
-- **מייל awakening.by.ksenia@gmail.com** 
+- **מייל awakening.by.ksenia@gmail.com**
 
 ### אפשרות החלפת שפה (עברית / אנגלית / רוסית) | Language switch (Hebrew/English/Russian)
 
@@ -20,8 +22,9 @@
 
 ## סלוגן קצר | Short slogan
 
-### **Personal Space for Growth – Unlock Your Inner Light** 
-- אנימציה -  EnergyPulse – פעימה עדינה שיוצאת מהמרכז
+### **Personal Space for Growth – Unlock Your Inner Light**
+
+- אנימציה - EnergyPulse – פעימה עדינה שיוצאת מהמרכז
 - TypingEffect
 
 ## כפתור מחשבון קוד הכסף | Money Code Calculator button
@@ -33,18 +36,21 @@
 ## Footer
 
 ### שתף עם חבר
+
 - פותח אפשרות לשיתוף של העמוד
 
 ### לינקים לרשתות חברתיות | Social media links
+
 - Instagram [https://www.instagram.com/awakening.by.ksenia?igsh=MTZwOWljN2dsOXZzbQ%3D%3D&utm_source=qr](https://www.instagram.com/awakening.by.ksenia?igsh=MTZwOWljN2dsOXZzbQ%3D%3D&utm_source=qr)
 - TikTok www.tiktok.com/@awakening.by.ksenia
 
 ### תנאי שימוש ⎮ מדיניות פרטיות
-- טקסטים בקובץ מצורף 
+
+- טקסטים בקובץ מצורף
 
 ### זכויות יוצרים (2025 © Awakening by Ksenia) | Copyrights
 
-# כללים ⎮ Rules 
+# כללים ⎮ Rules
 
 ## **האתר פונה לקהל רחב גם לנשים וגם לגברים ולכן זה חייב להיות בשפה ניטרלית**
 
@@ -56,21 +62,23 @@
 
 ### פוטר אחיד בכל הדפים | Unified footer across pages
 
-### Header for pc and tablets / Slide menu for phone 
+### Header for pc and tablets / Slide menu for phone
 
 ## כפתורים בעמודים לרבות עמוד הבית
 
 ### חזור לעמוד הבית | Back to Home
+
 - - RippleClick + BoldText + BrownDark
 
-# אנימציות  | Animation
+# אנימציות | Animation
 
-## **מעברים** (Page Transitions)  
-  - FadeTransition – **מעבר** **מתעמעם**
+## **מעברים** (Page Transitions)
 
-## **רקע -  BokehLights + Gold Sparkle**
+- FadeTransition – **מעבר** **מתעמעם**
 
-##  **אנימציות לוגו (Logo Animations)**
+## **רקע - BokehLights + Gold Sparkle**
+
+## **אנימציות לוגו (Logo Animations)**
 
 ### **לוגו גדול עם GlowEffect או ZoomIn**
 
@@ -84,4 +92,4 @@
 
 ### באנר הודעות חשובות (השקה ב־9.9.2025) | Important announcement banner
 
-### 
+###

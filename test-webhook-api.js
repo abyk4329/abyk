@@ -69,7 +69,7 @@ async function testWebhookAPI() {
   try {
     process.stdout.write(color("yellow", "1) GET health check... "));
     const r = await fetchRef(
-      webhookUrl + "?webhook_key=" + encodeURIComponent(secret)
+      webhookUrl + "?webhook_key=" + encodeURIComponent(secret),
     );
     const j = await r.json().catch(() => ({}));
     console.log(color(r.ok ? "green" : "red", r.ok ? "OK" : "FAIL"), j);
@@ -91,7 +91,7 @@ async function testWebhookAPI() {
     console.log(
       color(r.ok ? "green" : "red", r.ok ? "OK" : "FAIL"),
       r.status,
-      j
+      j,
     );
   } catch (e) {
     console.log(color("red", "ERROR"), e.message);
@@ -116,7 +116,7 @@ async function testWebhookAPI() {
     console.log(
       color(r.ok ? "green" : "red", r.ok ? "OK" : "FAIL"),
       r.status,
-      j
+      j,
     );
   } catch (e) {
     console.log(color("red", "ERROR"), e.message);
@@ -125,7 +125,7 @@ async function testWebhookAPI() {
   // 4. Negative test (bad signature)
   try {
     process.stdout.write(
-      color("yellow", "4) POST with bad signature (expect 401)... ")
+      color("yellow", "4) POST with bad signature (expect 401)... "),
     );
     const body = JSON.stringify(testPayload);
     const badSig = "deadbeef";
@@ -140,8 +140,8 @@ async function testWebhookAPI() {
     console.log(
       color(
         r.status === 401 ? "green" : "red",
-        r.status === 401 ? "EXPECTED 401" : "UNEXPECTED " + r.status
-      )
+        r.status === 401 ? "EXPECTED 401" : "UNEXPECTED " + r.status,
+      ),
     );
   } catch (e) {
     console.log(color("red", "ERROR"), e.message);

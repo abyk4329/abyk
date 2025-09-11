@@ -1,12 +1,13 @@
 {
-	"root": true,
-	"env": {
-		"browser": true,
-		"es2021": true,
-		"node": true
-	},
-	"extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
-	"rules": {
-		"prettier/prettier": "error"
-	}
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "rules": {
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }

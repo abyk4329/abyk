@@ -100,7 +100,7 @@ async function testWebhookEmail() {
     console.log("Message ID:", info.messageId);
     console.log(
       "Preview URL (if available):",
-      nodemailer.getTestMessageUrl(info)
+      nodemailer.getTestMessageUrl(info),
     );
   } catch (error) {
     console.error("❌ Error sending email:", error);

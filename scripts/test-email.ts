@@ -1,27 +1,30 @@
-import nodemailer from 'nodemailer'
+import nodemailer from "nodemailer";
 
 // Use .env.local when running via Next dev/build, but for standalone script we allow direct envs.
-const EMAIL_USER = process.env.EMAIL_USER || 'awakening.by.ksenia@gmail.com'
-const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || 'quowltyhgteybtue'
-const TO = process.env.TEST_TO || 'kseniachud@gmail.com'
-const DRY_RUN = process.env.DRY_RUN === '1'
+const EMAIL_USER = process.env.EMAIL_USER || "awakening.by.ksenia@gmail.com";
+const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || "quowltyhgteybtue";
+const TO = process.env.TEST_TO || "kseniachud@gmail.com";
+const DRY_RUN = process.env.DRY_RUN === "1";
 
 async function main() {
-  console.log('Testing email configuration...')
-  console.log('EMAIL_USER:', EMAIL_USER)
-  console.log('EMAIL_PASSWORD length:', EMAIL_PASSWORD ? EMAIL_PASSWORD.length : 'undefined')
+  console.log("Testing email configuration...");
+  console.log("EMAIL_USER:", EMAIL_USER);
+  console.log(
+    "EMAIL_PASSWORD length:",
+    EMAIL_PASSWORD ? EMAIL_PASSWORD.length : "undefined",
+  );
 
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASSWORD,
     },
-  })
+  });
 
-  console.log('Verifying connection...')
-  await transporter.verify()
-  console.log('✅ Connection verified successfully!')
+  console.log("Verifying connection...");
+  await transporter.verify();
+  console.log("✅ Connection verified successfully!");
 
   const emailHtml = `<!DOCTYPE html>
 <html dir="rtl" lang="he">
@@ -49,36 +52,44 @@ async function main() {
     </div>
   </div>
 </body>
-</html>`
+</html>`;
 
   const mailOptions = {
     from: `"Awakening by Ksenia" <${EMAIL_USER}>`,
     to: TO,
-  subject: 'הפירוש האישי לקוד העושר שלכם מוכן - Awakening by Ksenia',
+    subject: "הפירוש האישי לקוד העושר שלכם מוכן - Awakening by Ksenia",
     html: emailHtml,
-  }
+  };
 
-  console.log('Prepared email options:', { to: TO, subject: mailOptions.subject, htmlLength: emailHtml.length })
+  console.log("Prepared email options:", {
+    to: TO,
+    subject: mailOptions.subject,
+    htmlLength: emailHtml.length,
+  });
 
   if (DRY_RUN) {
-    console.log('DRY_RUN=1 -> Skipping actual send.')
-    return
+    console.log("DRY_RUN=1 -> Skipping actual send.");
+    return;
   }
 
-  const result = await transporter.sendMail(mailOptions)
-  console.log('✅ Email sent successfully!')
-  console.log('Message ID:', result.messageId)
+  const result = await transporter.sendMail(mailOptions);
+  console.log("✅ Email sent successfully!");
+  console.log("Message ID:", result.messageId);
 }
 
-type EmailError = Error & { code?: string }
+type EmailError = Error & { code?: string };
 
 main().catch((error: EmailError) => {
-  console.error('❌ Error:', error?.message || error)
-  if (error?.code === 'EAUTH') {
-    console.error('Authentication failed. Check your EMAIL_PASSWORD in .env.local')
-    console.error('Make sure you are using an App Password, not your regular Gmail password')
+  console.error("❌ Error:", error?.message || error);
+  if (error?.code === "EAUTH") {
+    console.error(
+      "Authentication failed. Check your EMAIL_PASSWORD in .env.local",
+    );
+    console.error(
+      "Make sure you are using an App Password, not your regular Gmail password",
+    );
   }
-  process.exitCode = 1
-})
+  process.exitCode = 1;
+});
 
 //# sourceMappingURL=index.js.map

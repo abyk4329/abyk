@@ -9,7 +9,9 @@ async function testEmail() {
   console.log("EMAIL_USER:", process.env.EMAIL_USER);
   console.log(
     "EMAIL_PASSWORD length:",
-    process.env.EMAIL_PASSWORD ? process.env.EMAIL_PASSWORD.length : "undefined"
+    process.env.EMAIL_PASSWORD
+      ? process.env.EMAIL_PASSWORD.length
+      : "undefined",
   );
 
   try {
@@ -247,10 +249,10 @@ async function testEmail() {
     console.error("❌ Error:", error.message);
     if (error.code === "EAUTH") {
       console.error(
-        "Authentication failed. Check your EMAIL_PASSWORD in .env.local"
+        "Authentication failed. Check your EMAIL_PASSWORD in .env.local",
       );
       console.error(
-        "Make sure you are using an App Password, not your regular Gmail password"
+        "Make sure you are using an App Password, not your regular Gmail password",
       );
     }
   }

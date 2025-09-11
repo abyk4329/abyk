@@ -18,18 +18,26 @@ export async function GET(req: NextRequest) {
     const source = params.get("source");
 
     // Build the main app API URL
-  const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  
-  // Warn if using localhost in production
-  if (process.env.NODE_ENV === 'production' && baseUrl.includes('localhost')) {
-    console.warn('[Interpretation API] Using localhost URL in production environment');
-    // Consider throwing an error or returning an error response
-    return NextResponse.json(
-      { error: "Invalid proxy configuration" },
-      { status: 500 }
-    );
-  }
-  const mainApiUrl = new URL("/api/interpretation", baseUrl);
+    const baseUrl =
+      process.env.BASE_URL ||
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      "http://localhost:3000";
+
+    // Warn if using localhost in production
+    if (
+      process.env.NODE_ENV === "production" &&
+      baseUrl.includes("localhost")
+    ) {
+      console.warn(
+        "[Interpretation API] Using localhost URL in production environment",
+      );
+      // Consider throwing an error or returning an error response
+      return NextResponse.json(
+        { error: "Invalid proxy configuration" },
+        { status: 500 },
+      );
+    }
+    const mainApiUrl = new URL("/api/interpretation", baseUrl);
 
     // Forward all parameters
     if (bd) mainApiUrl.searchParams.set("bd", bd);
@@ -136,9 +144,7 @@ export async function GET(req: NextRequest) {
     }
     // Note: do not throw on non-OK; pass through status/body below
     if (!response.ok) {
-      console.warn(
-        `Main API responded with non-OK status: ${response.status}`,
-      );
+      console.warn(`Main API responded with non-OK status: ${response.status}`);
     }
 
     // Check if it's a download request
@@ -155,7 +161,9 @@ export async function GET(req: NextRequest) {
 
     // Content-type aware handling with safe fallbacks
     const upstreamStatus = response.status;
-    const contentType = (response.headers.get("content-type") || "").toLowerCase();
+    const contentType = (
+      response.headers.get("content-type") || ""
+    ).toLowerCase();
 
     // Helper: copy a small set of safe headers from upstream
     const buildForwardHeaders = (includeContentType: boolean) => {

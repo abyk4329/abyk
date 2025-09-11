@@ -1,52 +1,72 @@
-import fs from 'fs'
-import path from 'path'
+import fs from "fs";
+import path from "path";
 
-export type Code = { bd: number; bm: number; by: number; lp: number }
+export type Code = { bd: number; bm: number; by: number; lp: number };
 
-export const isValidDigit = (n: number) => Number.isInteger(n) && n >= 1 && n <= 9
+export const isValidDigit = (n: number) =>
+  Number.isInteger(n) && n >= 1 && n <= 9;
 
 const readNumbersMeaningHtml = (): string => {
-  const candidates = ['numbersmeaninglast.html', 'numbersmeaning.html']
+  const candidates = ["numbersmeaninglast.html", "numbersmeaning.html"];
   for (const name of candidates) {
-    const filePath = path.join(process.cwd(), 'public', name)
+    const filePath = path.join(process.cwd(), "public", name);
     try {
-      const content = fs.readFileSync(filePath, 'utf8')
-      if (content && content.trim().length > 0) return content
-    } catch { /* continue */ }
+      const content = fs.readFileSync(filePath, "utf8");
+      if (content && content.trim().length > 0) return content;
+    } catch {
+      /* continue */
+    }
   }
-  console.warn('numbersmeaning*(last).html missing or unreadable; returning placeholder.')
-  return '<!-- numbersmeaning placeholder -->'
-}
+  console.warn(
+    "numbersmeaning*(last).html missing or unreadable; returning placeholder.",
+  );
+  return "<!-- numbersmeaning placeholder -->";
+};
 
 export const getInterpretations = (): Record<string, string> => {
   try {
-    const htmlContent = readNumbersMeaningHtml()
-    const interpretations: Record<string, string> = {}
-    const numbers = ['1','2','3','4','5','6','7','8','9']
+    const htmlContent = readNumbersMeaningHtml();
+    const interpretations: Record<string, string> = {};
+    const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
     numbers.forEach((num) => {
       const patterns = [
-        new RegExp(`<h[2-3][^>]*>\\s*${num}\\s*<\\/h[2-3]>\\s*<div[^>]*>([\\s\\S]*?)<\\/div>`, 'i'),
-        new RegExp(`<h[2-3][^>]*>\\s*${num}[^<]*<\\/h[2-3]>\\s*([\\s\\S]*?)(?=<h[2-3][^>]*>|$)`, 'i'),
-        new RegExp(`<p[^>]*>\\s*(?:<[^>]+>\\s*)*${num}(?:\\s*<\\/[^>]+>)*\\s*<\\/p>\\s*([\\s\\S]*?)(?=<p[^>]*>\\s*(?:<[^>]+>\\s*)*[1-9](?:\\s*<\\/[^>]+>)*\\s*<\\/p>|<h[2-3][^>]*>|$)`, 'i'),
-        new RegExp(`<p[^>]*class="p1"[^>]*>\\s*${num}\\s*[–-]\\s*[^<]*<\\/p>([\\s\\S]*?)(?=<p[^>]*class="p1"[^>]*>\\s*[1-9]\\s*[–-]|$)`, 'i'),
-      ]
+        new RegExp(
+          `<h[2-3][^>]*>\\s*${num}\\s*<\\/h[2-3]>\\s*<div[^>]*>([\\s\\S]*?)<\\/div>`,
+          "i",
+        ),
+        new RegExp(
+          `<h[2-3][^>]*>\\s*${num}[^<]*<\\/h[2-3]>\\s*([\\s\\S]*?)(?=<h[2-3][^>]*>|$)`,
+          "i",
+        ),
+        new RegExp(
+          `<p[^>]*>\\s*(?:<[^>]+>\\s*)*${num}(?:\\s*<\\/[^>]+>)*\\s*<\\/p>\\s*([\\s\\S]*?)(?=<p[^>]*>\\s*(?:<[^>]+>\\s*)*[1-9](?:\\s*<\\/[^>]+>)*\\s*<\\/p>|<h[2-3][^>]*>|$)`,
+          "i",
+        ),
+        new RegExp(
+          `<p[^>]*class="p1"[^>]*>\\s*${num}\\s*[–-]\\s*[^<]*<\\/p>([\\s\\S]*?)(?=<p[^>]*class="p1"[^>]*>\\s*[1-9]\\s*[–-]|$)`,
+          "i",
+        ),
+      ];
       for (const rx of patterns) {
-        const match = htmlContent.match(rx)
-        if (match) { interpretations[num] = match[1].trim(); break }
+        const match = htmlContent.match(rx);
+        if (match) {
+          interpretations[num] = match[1].trim();
+          break;
+        }
       }
-    })
-    return interpretations
+    });
+    return interpretations;
   } catch (e) {
-    console.error('interpretations read error:', e)
-    return {}
+    console.error("interpretations read error:", e);
+    return {};
   }
-}
+};
 
 export const uniqueNumbersFromCode = (code: Code): number[] => {
-  const all = [code.bd, code.bm, code.by, code.lp].filter(Boolean)
-  return Array.from(new Set(all))
-}
+  const all = [code.bd, code.bm, code.by, code.lp].filter(Boolean);
+  return Array.from(new Set(all));
+};
 
 export const buildIntroHtml = () => {
   return `
@@ -65,24 +85,25 @@ export const buildIntroHtml = () => {
       כך, צירוף המספרים הייחודי שלכם מגלה לא רק את הפוטנציאל האישי אלא גם את הדרך לעבוד עם האנרגיות כדי למשוך שפע, הרמוניה והגשמה.
     </p>
   </section>
-  `
-}
+  `;
+};
 
 export const buildPersonalHtml = (code: Code) => {
-  const interpretations = getInterpretations()
-  const uniques = uniqueNumbersFromCode(code)
+  const interpretations = getInterpretations();
+  const uniques = uniqueNumbersFromCode(code);
   const interpretationsHtml = uniques
     .map((n) => {
-      const key = String(n)
-      const block = interpretations[key] || '<p>פירוש זמני לא זמין. נעדכן בקרוב.</p>'
+      const key = String(n);
+      const block =
+        interpretations[key] || "<p>פירוש זמני לא זמין. נעדכן בקרוב.</p>";
       return `
       <section class="interpretation">
         <h2>פירוש למספר ${key}</h2>
         ${block}
       </section>
-    `
+    `;
     })
-    .join('\n')
+    .join("\n");
 
   return `
     <h1>הפירוש הנומרולוגי האישי שלכם</h1>
@@ -94,22 +115,22 @@ export const buildPersonalHtml = (code: Code) => {
     </div>
   ${buildIntroHtml()}
     ${interpretationsHtml}
-  `
-}
+  `;
+};
 
 export const buildSourceHtml = (code: Code) => {
-  const interpretations = getInterpretations()
-  const uniques = uniqueNumbersFromCode(code)
+  const interpretations = getInterpretations();
+  const uniques = uniqueNumbersFromCode(code);
   return uniques
     .map((n) => {
-      const key = String(n)
-      const block = interpretations[key] || '<p>פירוש זמני לא זמין. נעדכן בקרוב.</p>'
+      const key = String(n);
+      const block =
+        interpretations[key] || "<p>פירוש זמני לא זמין. נעדכן בקרוב.</p>";
       return `
 <h2>${key}</h2>
 <div>
 ${block}
-</div>`
+</div>`;
     })
-    .join('\n')
-}
-
+    .join("\n");
+};
