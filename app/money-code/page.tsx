@@ -148,7 +148,7 @@ export default function MoneyCode() {
       business_name: "Awakening by Ksenia",
       business_tagline:
         "Your personal space for growth. Unlock the light within you.",
-      logo_url: `${window.location.origin}/newlogos/Favicon.png`,
+      logo_url: `${window.location.origin}/newlogos/favicon.png`,
     });
     {/* prettier-ignore */}
     window.open(`${paymentBase}?${params.toString()}`, "_blank");
@@ -170,7 +170,7 @@ export default function MoneyCode() {
 
         <div className="mt-1 mb-6 animate-gleam-fade-in">
           <Image
-            src="/newlogos/welthcodeline.png"
+            src="/newlogos/welthcodeline copy.png"
             alt="Wealth Code Calculator Title"
             width={480}
             height={120}
@@ -181,9 +181,6 @@ export default function MoneyCode() {
         <div className="max-w-md p-8 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-2xl border-beige-200">
           <div className="space-y-6">
             <div>
-              <label className="block mb-3 text-sm font-medium text-espresso/90">
-                הכניסו את תאריך הלידה שלכם
-              </label>
               <input
                 type="date"
                 value={birthDate}
@@ -200,28 +197,23 @@ export default function MoneyCode() {
               </div>
             )}
 
-            <div className="flex gap-3 flex-nowrap">
+            <div className="flex gap-3">
               <button
                 onClick={calculateMoneyCode}
-                disabled={!birthDate || isLoading || !!configError}
-                className="flex-1 px-5 py-3 text-sm font-medium transition-all duration-300 border-2 rounded-lg shadow-warm-sm has-sheen bg-gold-primary/20 hover:bg-gold-primary/30 disabled:opacity-50 disabled:cursor-not-allowed border-gold-primary/50 hover:shadow-warm-md text-espresso"
-                aria-label="חשב קוד עושר"
+                disabled={!birthDate || isLoading}
+                className="flex-1 px-6 py-3 text-white transition-all duration-300 rounded-lg bg-gold-primary hover:bg-gold-deep disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 rounded-full border-espresso/30 border-t-espresso animate-spin"></div>
-                    מחשבים...
-                  </div>
+                  <div className="text-sm">מחשבים...</div>
                 ) : (
                   "אנחנו רוצים לדעת את הקוד שלנו"
                 )}
               </button>
               <button
                 onClick={clearData}
-                className="px-4 py-3 text-xs font-normal transition-all duration-300 border rounded-lg shadow-sm bg-ivory hover:bg-beige-100/50 text-espresso/70 border-beige-200 hover:border-beige-200/80 hover:shadow-md hover:text-espresso"
-                aria-label="איפוס"
+                className="px-4 py-2 text-sm border transition-all duration-300 rounded-lg border-beige-300 text-espresso hover:bg-beige-100"
               >
-                איפוס
+                נקה
               </button>
             </div>
           </div>
@@ -296,12 +288,12 @@ export default function MoneyCode() {
                 {/* prettier-ignore */}
                 <p>
                   ברגע שתראו אילו תכונות נטבעו בכם מלידה, תבינו שזה לא
-                  “אשמתכם”, ותוכלו להפסיק להילחם בעצמכם. במקום להסתיר חולשות –
+                  &ldquo;אשמתכם&rdquo;, ותוכלו להפסיק להילחם בעצמכם. במקום להסתיר חולשות –
                   תדעו איך להפוך אותן למנוף לצמיחה ולפרוץ סוף סוף קדימה.
                 </p>
                 {/* prettier-ignore */}
                 <p>
-                  זה הזמן לצאת עם עצמכם ל”דייט ראשון” אמיתי – להכיר מי אתם
+                  זה הזמן לצאת עם עצמכם ל&ldquo;דייט ראשון&rdquo; אמיתי – להכיר מי אתם
                   באמת. והכול מתחיל כאן.
                 </p>
                 {/* prettier-ignore-end */}
@@ -334,15 +326,6 @@ export default function MoneyCode() {
             </div>
           </div>
         )}
-
-        <div className="pt-8">
-          <a
-            href="/"
-            className="inline-block px-6 py-2 text-sm font-normal transition-all duration-300 border rounded-lg shadow-sm bg-ivory/80 hover:bg-ivory text-espresso/80 hover:text-espresso border-sand-100/30 hover:border-sand-100/50 hover:shadow-md"
-          >
-            ← חזרה לעמוד הבית
-          </a>
-        </div>
       </div>
     </main>
   );

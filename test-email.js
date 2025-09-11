@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 // הגדרת משתני סביבה ידנית
 process.env.EMAIL_USER = "awakening.by.ksenia@gmail.com";
@@ -33,7 +33,7 @@ async function testEmail() {
   <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>הפירוש הנומרולוגי שלך - Awakening by Ksenia</title>
+    <title>הפירוש הנומרולוגי שלכם - Awakening by Ksenia</title>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap');
       
@@ -191,21 +191,21 @@ async function testEmail() {
     <div class="container">
       <div class="content">
         <div style="text-align: center; margin: 25px 0;">
-          <h3 style="color: #C6A170; margin: 0 0 15px 0; font-size: 24px; font-weight: 600; text-align: right;">הקוד העושר האישי שלך הוא</h3>
+          <h3 style="color: #C6A170; margin: 0 0 15px 0; font-size: 24px; font-weight: 600; text-align: right;">קוד העושר האישי שלכם הוא</h3>
           <div style="font-size: 36px; font-weight: 700; color: #1F2024; text-align: center; margin: 20px 0; letter-spacing: 8px; padding: 20px; background: linear-gradient(135deg, #f6efe6 0%, #f0e7d8 100%); border-radius: 12px; border: 1px solid #D4B896;">
             3 7 9 1
           </div>
         </div>
 
-        <div style="margin: 30px 0; padding: 25px; background: #FBFAF9; border-radius: 12px; border-left: 4px solid #C6A170; text-align: right;">
-          <p style="color: #5A5A5A; font-size: 18px; line-height: 1.8; margin: 0;">כל מספר בקוד העושר שלך הוא ייחודי ומייצג היבט שונה באישיותך ובמסלול החיים שלך. השילוב הזה יוצר פרופיל אישיותי מורכב ועשיר.</p>
+        <div style="margin: 30px 0; padding: 25px; background: linear-gradient(135deg, #f6efe6 0%, #f0e7d8 100%); border-radius: 12px; border-left: 4px solid #C6A170; text-align: right;">
+          <p style="color: #5A5A5A; font-size: 18px; line-height: 1.8; margin: 0;">כל מספר בקוד העושר שלכם הוא ייחודי ומייצג היבט שונה בזהות ובמסלול החיים שלכם. השילוב הזה יוצר פרופיל אישי מגוון ועשיר.</p>
         </div>
 
         <div style="text-align: center; padding: 25px; background: linear-gradient(135deg, #f6efe6 0%, #f0e7d8 100%); border-radius: 12px; margin: 30px 0; border: 1px solid #D4B896;">
           <h3 style="color: #C6A170; font-size: 20px; font-weight: 600; margin: 0 0 15px 0;">הפירוש המלא והמפורט</h3>
-          <p style="color: #5A5A5A; font-size: 16px; margin: 0 0 20px 0; text-align: right; line-height: 1.8;">הפירוש המלא שלך כולל ניתוח עמוק של כל מספר, השפעתו על תחומי חיים שונים, והקשרים הייחודיים בין המספרים בקוד שלך. קבל/י תובנות מעמיקות על האישיות שלך, כישוריך, אתגריך ומסלול החיים המיועד לך.</p>
+          <p style="color: #5A5A5A; font-size: 16px; margin: 0 0 20px 0; text-align: right; line-height: 1.8;">הפירוש המלא שלכם כולל ניתוח של כל מספר, ההשפעה על תחומי חיים שונים והקשרים הייחודיים ביניהם. קבלו תובנות מעמיקות על זהותכם, חוזקות, אתגרים ומסלול החיים הייחודי שלכם.</p>
           <a href="https://awakening-by-ksenia-app.vercel.app/thank-you?bd=3&bm=7&by=9&lp=1" style="display: inline-block; background: linear-gradient(135deg, #C6A170 0%, #B8956A 100%); color: white; text-decoration: none; padding: 15px 30px; border-radius: 8px; font-weight: 600; font-size: 16px; margin: 10px 0; box-shadow: 0 4px 15px rgba(198, 161, 112, 0.3);">
-            צפי בפירוש המלא
+            צפו בפירוש המלא
           </a>
         </div>
 
@@ -226,9 +226,9 @@ async function testEmail() {
           📧 <a href="mailto:awakening.by.ksenia@gmail.com" style="color: #C6A170; text-decoration: none; font-weight: 500;">awakening.by.ksenia@gmail.com</a>
         </p>
         <p style="margin: 10px 0;">
-          📱 <a href="https://wa.me/972507888379?text=שלום%20קסניה,%20רציתי%20לשאול%20על%20הפירוש%20הנומרולוגי" style="color: #C6A170; text-decoration: none; font-weight: 500;">וואטסאפ - 050-788-8379</a>
+          📱 <a href="https://wa.me/972507888379?text=שלום%20קסניה,%20יש%20לי%20שאלה" style="color: #C6A170; text-decoration: none; font-weight: 500;">וואטסאפ - 050-788-8379</a>
         </p>
-        <p style="color: #B8B8B8; font-size: 14px; margin-top: 15px;">תודה שבחרת ב-Awakening by Ksenia<br/>נומרולוגיה אישית ומותאמת במיוחד עבורך</p>
+        <p style="color: #B8B8B8; font-size: 14px; margin-top: 15px;">תודה שבחרתם ב-Awakening by Ksenia<br/>נומרולוגיה אישית מותאמת עבורכם</p>
       </div>
     </div>
   </body>
@@ -237,7 +237,7 @@ async function testEmail() {
     const result = await transporter.sendMail({
       from: `"Awakening by Ksenia" <${process.env.EMAIL_USER}>`,
       to: "kseniachud@gmail.com",
-      subject: "הפירוש האישי לקוד העושר שלך מוכן - Awakening by Ksenia",
+      subject: "הפירוש האישי לקוד העושר שלכם מוכן - Awakening by Ksenia",
       html: testEmailHtml,
     });
 

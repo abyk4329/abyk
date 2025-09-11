@@ -28,7 +28,7 @@ async function main() {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>הפירוש הנומרולוגי שלך - Awakening by Ksenia</title>
+  <title>הפירוש הנומרולוגי שלכם - Awakening by Ksenia</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap');
   body { font-family: 'Assistant'; background: #FEFEFE; color: #1F2024; line-height: 1.7; margin: 0; padding: 20px; direction: rtl; text-align: right; }
@@ -41,7 +41,7 @@ async function main() {
 <body>
   <div class="container">
     <div class="content">
-      <h3 style="color:#C6A170;margin:0 0 15px 0;font-size:24px;font-weight:600;text-align:right;">הקוד העושר האישי שלך הוא</h3>
+  <h3 style="color:#C6A170;margin:0 0 15px 0;font-size:24px;font-weight:600;text-align:right;">קוד העושר האישי שלכם הוא</h3>
       <div style="font-size:36px;font-weight:700;color:#1F2024;text-align:center;margin:20px 0;letter-spacing:8px;padding:20px;background:linear-gradient(135deg,#f6efe6 0%,#f0e7d8 100%);border-radius:12px;border:1px solid #D4B896;">3 7 9 1</div>
       <div style="text-align:center;margin:30px 0;">
         <a href="https://awakening-by-ksenia-app.vercel.app/thank-you?bd=3&bm=7&by=9&lp=1" class="cta-button">צפייה בפירוש המלא באתר</a>
@@ -54,7 +54,7 @@ async function main() {
   const mailOptions = {
     from: `"Awakening by Ksenia" <${EMAIL_USER}>`,
     to: TO,
-    subject: 'הפירוש האישי לקוד העושר שלך מוכן - Awakening by Ksenia',
+  subject: 'הפירוש האישי לקוד העושר שלכם מוכן - Awakening by Ksenia',
     html: emailHtml,
   }
 

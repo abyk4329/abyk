@@ -82,6 +82,7 @@ function ThankYouContent() {
     fetchInterpretation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code]);
+
   // Sanitize interpretation HTML safely with lifecycle guard
   useEffect(() => {
     let active = true;
@@ -133,6 +134,7 @@ function ThankYouContent() {
               אפשר לעיין בו מיד כאן בעמוד, ובסוף הטקסט יופיע קישור נוח להורדה.
               במקביל נשלח אליכם גם דוא״ל.
             </p>
+
             {/* קוד המספרים בפיל לבן */}
             {code.bd && code.bm && code.by && code.lp ? (
               <div className="grid grid-cols-4 gap-3">
@@ -169,7 +171,7 @@ function ThankYouContent() {
               {/* כפתורי קשר עם אייקונים */}
               <div className="flex justify-center gap-6">
                 <a
-                  href="mailto:awakening.by.ksenia@gmail.com?subject=לא קיבלתי מייל עם הפירוש&body=שלום, הזמנתי פירוש נומרולוגי אבל לא קיבלתי מייל. אודה לעזרה."
+                  href="mailto:awakening.by.ksenia@gmail.com?subject=לא קיבלנו מייל עם הפירוש&body=שלום, הזמנו פירוש נומרולוגי אבל לא קיבלנו מייל. נשמח לעזרה."
                   className="transition-colors duration-200 text-smoky-brown hover:text-cacao"
                   aria-label="דוא״ל"
                 >
@@ -188,7 +190,7 @@ function ThankYouContent() {
                   </svg>
                 </a>
                 <a
-                  href="https://wa.me/972524616121?text=שלום, הזמנתי פירוש נומרולוגי אבל לא קיבלתי מייל. אודה לעזרה"
+                  href="https://wa.me/972524616121?text=שלום, הזמנו פירוש נומרולוגי אבל לא קיבלנו מייל. נשמח לעזרה"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-colors duration-200 text-smoky-brown hover:text-cacao"
@@ -265,28 +267,6 @@ function ThankYouContent() {
               )}
           </div>
         )}
-
-        {/* כפתור שיתוף – בוטל לפי בקשה (מוסתר) */}
-        {/* חתימה */}
-        <div className="signature">
-          <Image
-            src="/newlogos/sig.png"
-            alt="Ksenia Signature"
-            width={150}
-            height={75}
-            className="mx-auto"
-          />
-        </div>
-
-        {/* כפתורי פעולה */}
-        <div className="flex flex-col justify-center gap-4 sm:flex-row">
-          <a
-            href="/"
-            className="px-6 py-3 font-bold text-center transition-colors duration-300 rounded-lg ripple bg-espresso hover:bg-gold-deep text-ivory"
-          >
-            חזרה לעמוד הבית
-          </a>
-        </div>
       </div>
     </main>
   );
@@ -297,7 +277,9 @@ export default function ThankYou() {
     <Suspense
       fallback={
         <main className="container flex items-center justify-center min-h-screen">
-          <div className="text-text-secondary">טוען...</div>
+          <div className="text-center">
+            <div className="mb-4 text-lg text-cacao">טוען...</div>
+          </div>
         </main>
       }
     >
