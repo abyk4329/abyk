@@ -1,9 +1,9 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="container min-h-screen flex flex-col items-center justify-center">
-      <div className="text-center space-y-8 slide-up">
+    <main className="container flex flex-col items-center justify-center min-h-screen">
+      <div className="space-y-8 text-center slide-up">
         {/* לוגו */}
         <div className="logo animate-logo-entrance">
           <Image
@@ -17,34 +17,36 @@ export default function Home() {
         </div>
 
         {/* כותרת ראשית */}
-        <h1 className="text-gold-deep text-4xl md:text-5xl font-bold animate-fade-in">
+        <h1 className="text-4xl font-bold text-gold-deep md:text-5xl animate-fade-in">
           התעוררות
         </h1>
 
         {/* תת כותרת */}
-        <h2 className="text-gold text-xl md:text-2xl font-medium animate-fade-in">
+        <h2 className="text-xl font-medium text-gold md:text-2xl animate-fade-in">
           חישוב קוד נומרולוגי אישי
         </h2>
 
         {/* תיאור */}
-        <p className="text-text-secondary text-lg max-w-2xl mx-auto px-4 animate-fade-in">
-          גלה את המשמעות הנומרולוגית שלך ופתח שער להבנה עמוקה יותר של עצמך
+        {/* היה: גלה את המשמעות הנומרולוגית שלך ופתח שער להבנה עמוקה יותר של עצמך */}
+        <p className="max-w-2xl px-4 mx-auto text-lg text-text-secondary animate-fade-in">
+          גלו את המשמעות הנומרולוגית שלכם ופתחו שער להבנה עמוקה יותר על עצמכם
         </p>
 
         {/* כפתור */}
+        {/* היה: חשבי קוד כסף ✨ */}
         <a
           href="/money-code"
-          className="inline-block btn bg-gold hover:bg-gold-deep text-charcoal px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105 animate-fade-in"
+          className="inline-block px-8 py-4 text-lg font-semibold transition-all duration-300 rounded-lg btn bg-gold hover:bg-gold-deep text-charcoal hover:scale-105 animate-fade-in"
         >
-          חשבי קוד כסף ✨
+          חשבו קוד כסף
         </a>
 
-        <p className="text-text-secondary text-sm animate-fade-in">
+        <p className="text-sm text-text-secondary animate-fade-in">
           פירוש מלא ומותאם אישית - 97₪
         </p>
 
         {/* חתימה */}
-        <div className="signature mt-12 animate-fade-in">
+        <div className="mt-12 signature animate-fade-in">
           <Image
             src="/newlogos/sig.png"
             alt="Ksenia Signature"
@@ -55,5 +57,5 @@ export default function Home() {
         </div>
       </div>
     </main>
-  )
+  );
 }

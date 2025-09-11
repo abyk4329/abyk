@@ -1,54 +1,113 @@
-"use client"
-import Image from 'next/image'
-import React, { Suspense, useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+"use client";
+import Image from "next/image";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
+// Secure sanitization (library is required dependency)
+import DOMPurify from "isomorphic-dompurify";
+import { useSearchParams } from "next/navigation";
 
-export const dynamic = 'force-dynamic'
-export const fetchCache = 'force-no-store'
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 function ThankYouContent() {
-  const searchParams = useSearchParams()
-  const [htmlPreview, setHtmlPreview] = useState<string>('')
-  const [uniqueNumbers, setUniqueNumbers] = useState<number[]>([])
+  const searchParams = useSearchParams();
+  const [htmlPreview, setHtmlPreview] = useState<string>("");
+  const [sanitizedHtml, setSanitizedHtml] = useState<string>("");
+  const [uniqueNumbers, setUniqueNumbers] = useState<number[]>([]);
+  const [interpretationLoading, setInterpretationLoading] = useState(false);
+  const [interpretationError, setInterpretationError] = useState<string | null>(
+    null,
+  );
 
   // Derive code from URL first, then fallback to localStorage
   const code = useMemo(() => {
-    const bd = Number(searchParams.get('bd') || '0')
-    const bm = Number(searchParams.get('bm') || '0')
-    const by = Number(searchParams.get('by') || '0')
-    const lp = Number(searchParams.get('lp') || '0')
-    if (bd && bm && by && lp) return { bd, bm, by, lp }
-    // Fallback
+    const safeParse = (val: string | null) => {
+      if (val == null) return 0;
+      const n = parseInt(val, 10);
+      return Number.isFinite(n) && n > 0 ? n : 0;
+    };
+
+    const bd = safeParse(searchParams.get("bd"));
+    const bm = safeParse(searchParams.get("bm"));
+    const by = safeParse(searchParams.get("by"));
+    const lp = safeParse(searchParams.get("lp"));
+
+    const allValid = bd > 0 && bm > 0 && by > 0 && lp > 0;
+    if (allValid) return { bd, bm, by, lp };
+
+    // Fallback to localStorage only if URL set invalid or empty
     try {
-      const raw = localStorage.getItem('abyk_money_code')
+      const raw = localStorage.getItem("abyk_money_code");
       if (raw) {
-        const saved = JSON.parse(raw)
-        const fbd = Number(saved?.bd || 0)
-        const fbm = Number(saved?.bm || 0)
-        const fby = Number(saved?.by || 0)
-        const flp = Number(saved?.lp || 0)
-        if (fbd && fbm && fby && flp) return { bd: fbd, bm: fbm, by: fby, lp: flp }
+        const saved = JSON.parse(raw);
+        const fbd = safeParse(String(saved?.bd ?? ""));
+        const fbm = safeParse(String(saved?.bm ?? ""));
+        const fby = safeParse(String(saved?.by ?? ""));
+        const flp = safeParse(String(saved?.lp ?? ""));
+        if (fbd > 0 && fbm > 0 && fby > 0 && flp > 0)
+          return { bd: fbd, bm: fbm, by: fby, lp: flp };
       }
-    } catch {}
-    return { bd: 0, bm: 0, by: 0, lp: 0 }
-  }, [searchParams])
+    } catch {
+      // Ignore localStorage errors
+    }
+    return { bd: 0, bm: 0, by: 0, lp: 0 };
+  }, [searchParams]);
+
+  function fetchInterpretation() {
+    if (!code.bd || !code.bm || !code.by || !code.lp) return;
+    const url = `/api/interpretation?inline=1&source=1&bd=${code.bd}&bm=${code.bm}&by=${code.by}&lp=${code.lp}`;
+    setInterpretationError(null);
+    setInterpretationLoading(true);
+    setHtmlPreview("");
+    setSanitizedHtml("");
+    fetch(url)
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((data) => {
+        if (data?.html) setHtmlPreview(data.html);
+        if (Array.isArray(data?.uniqueNumbers))
+          setUniqueNumbers(data.uniqueNumbers);
+      })
+      .catch((err) => {
+        console.error("[ThankYou] Interpretation fetch failed", err);
+        setInterpretationError(
+          "שגיאה בטעינת הפירוש. נסו שוב בעוד רגע או רעננו את העמוד.",
+        );
+      })
+      .finally(() => setInterpretationLoading(false));
+  }
 
   useEffect(() => {
-    if (!code.bd || !code.bm || !code.by || !code.lp) return
-    const url = `/api/interpretation?inline=1&source=1&bd=${code.bd}&bm=${code.bm}&by=${code.by}&lp=${code.lp}`
-    fetch(url)
-      .then((r) => r.json())
-      .then((data) => {
-        if (data?.html) setHtmlPreview(data.html)
-        if (Array.isArray(data?.uniqueNumbers)) setUniqueNumbers(data.uniqueNumbers)
-      })
-      .catch(() => {})
-  }, [code])
+    fetchInterpretation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code]);
+  // Sanitize interpretation HTML safely with lifecycle guard
+  useEffect(() => {
+    let active = true;
+    if (!htmlPreview) {
+      setSanitizedHtml("");
+      return () => {
+        active = false;
+      };
+    }
+    try {
+      const clean = DOMPurify.sanitize(htmlPreview, {
+        USE_PROFILES: { html: true },
+      });
+      if (active) setSanitizedHtml(clean);
+    } catch {
+      if (active) setSanitizedHtml("");
+    }
+    return () => {
+      active = false;
+    };
+  }, [htmlPreview]);
 
   return (
-    <main className="container min-h-screen flex flex-col items-center justify-center py-8">
-      <div className="text-center space-y-8 max-w-2xl">
-        {/* לוגו */}
+    <main className="container flex flex-col items-center justify-center min-h-screen py-8">
+      <div className="max-w-2xl space-y-8 text-center">
+        {/* אייקון */}
         <div className="logo">
           <Image
             src="/newlogos/logo.png"
@@ -60,60 +119,93 @@ function ThankYouContent() {
         </div>
 
         {/* הודעת תודה */}
-  <div className="bg-ivory/90 backdrop-blur-sm rounded-2xl p-8 shadow-warm-md border border-beige-200">
+        <div className="p-8 border bg-ivory/90 backdrop-blur-sm rounded-2xl shadow-warm-md border-beige-200">
           <div className="mb-6">
-            <h1 className="text-cacao text-3xl font-bold mb-4">תודה על הרכישה</h1>
+            <h1 className="mb-4 text-3xl font-bold text-cacao">
+              תודה על הרכישה
+            </h1>
           </div>
-
           <div className="space-y-6 text-lg">
-            <p className="text-espresso font-bold">התשלום נקלט בהצלחה, והפירוש האישי שלך כבר מוכן</p>
-            <p className="text-text-secondary">אפשר לעיין בו מיד כאן בעמוד, ובסוף הטקסט יופיע קישור נוח להורדה. במקביל נשלח אליך גם דוא״ל.</p>
-
+            <p className="font-bold text-espresso">
+              התשלום נקלט בהצלחה, והפירוש האישי שלכם כבר מוכן
+            </p>
+            <p className="text-text-secondary">
+              אפשר לעיין בו מיד כאן בעמוד, ובסוף הטקסט יופיע קישור נוח להורדה.
+              במקביל נשלח אליכם גם דוא״ל.
+            </p>
             {/* קוד המספרים בפיל לבן */}
             {code.bd && code.bm && code.by && code.lp ? (
               <div className="grid grid-cols-4 gap-3">
                 {[
-                  { label: 'BD', value: code.bd },
-                  { label: 'BM', value: code.bm },
-                  { label: 'BY', value: code.by },
-                  { label: 'LP', value: code.lp },
+                  { label: "BD", value: code.bd },
+                  { label: "BM", value: code.bm },
+                  { label: "BY", value: code.by },
+                  { label: "LP", value: code.lp },
                 ].map((item) => (
-                  <div key={item.label} className="rounded-xl bg-espresso px-3 py-3 border border-espresso/30 shadow-sm">
-                    <div className="text-pearl/80 text-xs mb-1">{item.label}</div>
-                    <div className="text-white text-2xl font-extrabold leading-none">{item.value}</div>
+                  <div
+                    key={item.label}
+                    className="px-3 py-3 border shadow-sm rounded-xl bg-espresso border-espresso/30"
+                  >
+                    <div className="mb-1 text-xs text-pearl/80">
+                      {item.label}
+                    </div>
+                    <div className="text-2xl font-extrabold leading-none text-white">
+                      {item.value}
+                    </div>
                   </div>
                 ))}
               </div>
             ) : null}
-
             {/* הודעה מינימליסטית על המייל */}
-            <div className="bg-ivory border border-beige-200 rounded-xl p-6 text-espresso shadow-warm-sm">
-              <p className="text-center text-base leading-relaxed mb-4">
-                אם חלפו יותר מ־15 דקות והמייל עדיין לא התקבל, 
-                <span className="font-medium"> ניתן לפנות אליי ואשמח לעזור</span>.
+            <div className="p-6 border bg-ivory border-beige-200 rounded-xl text-espresso shadow-warm-sm">
+              <p className="mb-4 text-base leading-relaxed text-center">
+                אם חלפו יותר מ־15 דקות והמייל עדיין לא התקבל,
+                <span className="font-medium">
+                  {" "}
+                  ניתן לפנות אליי ואשמח לעזור
+                </span>
+                .
               </p>
-              
               {/* כפתורי קשר עם אייקונים */}
               <div className="flex justify-center gap-6">
-                <a 
+                <a
                   href="mailto:awakening.by.ksenia@gmail.com?subject=לא קיבלתי מייל עם הפירוש&body=שלום, הזמנתי פירוש נומרולוגי אבל לא קיבלתי מייל. אודה לעזרה."
-                  className="text-smoky-brown hover:text-cacao transition-colors duration-200"
+                  className="transition-colors duration-200 text-smoky-brown hover:text-cacao"
                   aria-label="דוא״ל"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
                   </svg>
                 </a>
-                
-                <a 
+                <a
                   href="https://wa.me/972524616121?text=שלום, הזמנתי פירוש נומרולוגי אבל לא קיבלתי מייל. אודה לעזרה"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-smoky-brown hover:text-cacao transition-colors duration-200"
+                  className="transition-colors duration-200 text-smoky-brown hover:text-cacao"
                   aria-label="וואטסאפ"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                    />
                   </svg>
                 </a>
               </div>
@@ -122,63 +214,94 @@ function ThankYouContent() {
         </div>
 
         {/* תצוגה והורדה של הפירוש */}
-        {htmlPreview && (
-          <div className="max-w-4xl w-full">
-            {/* אזור הפירוש */}
-            <div className="bg-ivory border border-beige-200 rounded-xl p-6 mb-6 shadow-warm-sm">
-              <h2 className="text-cacao text-2xl font-medium mb-4 text-center assistant-light">
-                הפירוש האישי שלך
+        {(interpretationLoading || interpretationError || sanitizedHtml) && (
+          <div className="w-full max-w-4xl">
+            <div className="p-6 mb-6 border bg-ivory border-beige-200 rounded-xl shadow-warm-sm">
+              <h2 className="mb-4 text-2xl font-medium text-center text-cacao assistant-light">
+                הפירוש האישי שלכם
               </h2>
-              
-              <div className="text-center text-sm text-espresso/60 mb-4">
-                <span className="assistant-light">המספרים הייחודיים שלך: </span>
-                <span className="font-medium text-cacao">{uniqueNumbers.join(', ')}</span>
+              <div className="mb-4 text-sm text-center text-espresso/60">
+                <span className="assistant-light">
+                  המספרים הייחודיים שלכם:{" "}
+                </span>
+                <span className="font-medium text-cacao">
+                  {uniqueNumbers.length ? uniqueNumbers.join(", ") : "—"}
+                </span>
               </div>
+              {interpretationLoading && (
+                <div className="p-3 text-sm text-center border rounded-lg bg-beige-100/40 border-beige-200 animate-pulse text-espresso">
+                  טוען את הפירוש...
+                </div>
+              )}
+              {interpretationError && !interpretationLoading && (
+                <div className="p-4 text-sm text-center text-red-700 border border-red-200 rounded-lg bg-red-50">
+                  <div className="mb-3">{interpretationError}</div>
+                  <button
+                    type="button"
+                    onClick={fetchInterpretation}
+                    className="px-4 py-2 text-xs font-medium text-red-700 transition-colors duration-200 border border-red-300 rounded-md bg-white/70 hover:bg-red-100"
+                  >
+                    נסה שוב
+                  </button>
+                </div>
+              )}
             </div>
-
-            {/* תצוגת הפירוש */}
-            <div className="bg-ivory/95 backdrop-blur-sm rounded-xl p-6 border border-beige-200 text-right shadow-warm-sm">
-              <div className="prose prose-lg max-w-none" dir="rtl">
-                <div dangerouslySetInnerHTML={{ __html: htmlPreview }} />
-              </div>
-              
-              <div className="mt-8 pt-6 border-t border-gold/20 text-center">
-                <a
-                  className="assistant-regular text-espresso/80 hover:text-espresso underline decoration-gold/50 hover:decoration-gold transition-colors"
-                  href={`/api/interpretation?bd=${code.bd}&bm=${code.bm}&by=${code.by}&lp=${code.lp}&download=1&source=1`}
-                >
-                  הורדת הפירוש המלא
-                </a>
-              </div>
-            </div>
+            {sanitizedHtml &&
+              !interpretationLoading &&
+              !interpretationError && (
+                <div className="p-6 text-right border bg-ivory/95 backdrop-blur-sm rounded-xl border-beige-200 shadow-warm-sm">
+                  <div className="prose prose-lg max-w-none" dir="rtl">
+                    <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
+                  </div>
+                  <div className="pt-6 mt-8 text-center border-t border-gold/20">
+                    <a
+                      className="underline transition-colors assistant-regular text-espresso/80 hover:text-espresso decoration-gold/50 hover:decoration-gold"
+                      href={`/api/interpretation?bd=${code.bd}&bm=${code.bm}&by=${code.by}&lp=${code.lp}&download=1&source=1`}
+                    >
+                      הורדת הפירוש המלא
+                    </a>
+                  </div>
+                </div>
+              )}
           </div>
         )}
 
-  {/* כפתור שיתוף – בוטל לפי בקשה */}
-  {/* מוסתר */}
-
+        {/* כפתור שיתוף – בוטל לפי בקשה (מוסתר) */}
         {/* חתימה */}
         <div className="signature">
-          <Image src="/newlogos/sig.png" alt="Ksenia Signature" width={150} height={75} className="mx-auto" />
+          <Image
+            src="/newlogos/sig.png"
+            alt="Ksenia Signature"
+            width={150}
+            height={75}
+            className="mx-auto"
+          />
         </div>
 
         {/* כפתורי פעולה */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/" className="ripple bg-espresso hover:bg-gold-deep text-ivory px-6 py-3 rounded-lg font-bold transition-colors duration-300 text-center">
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          <a
+            href="/"
+            className="px-6 py-3 font-bold text-center transition-colors duration-300 rounded-lg ripple bg-espresso hover:bg-gold-deep text-ivory"
+          >
             חזרה לעמוד הבית
           </a>
         </div>
-
-  {/* שורת קשר הוסרה לפי בקשה */}
       </div>
     </main>
-  )
+  );
 }
 
 export default function ThankYou() {
   return (
-    <Suspense fallback={<main className="container min-h-screen flex items-center justify-center"><div className="text-text-secondary">טוען...</div></main>}>
+    <Suspense
+      fallback={
+        <main className="container flex items-center justify-center min-h-screen">
+          <div className="text-text-secondary">טוען...</div>
+        </main>
+      }
+    >
       <ThankYouContent />
     </Suspense>
-  )
+  );
 }

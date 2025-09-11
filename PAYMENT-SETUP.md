@@ -11,8 +11,8 @@
 - הצגת התוצאות עם כפתור לתשלום
 
 ### 2. תשלום (דרך קישור חיצוני)
-- העברה לקישור: https://mrng.to/NzYedNr0Ku
-- הפרמטרים נשלחים בURL:
+- ההפניה נעשית לכתובת שמוגדרת במשתנה הסביבה `NEXT_PUBLIC_PAYMENT_URL` (חובה להגדיר בפריסה – אין fallback בקוד).
+- הפרמטרים נשלחים ב-URL:
   - bd, bm, by, lp (המספרים)
   - birthDate (תאריך המקורי)
 
@@ -23,12 +23,15 @@
 
 ## הגדרות נדרשות
 
-### משתני סביבה (.env.local)
+### משתני סביבה חובה (.env.local)
 ```env
 EMAIL_USER=your-email@gmail.com
 EMAIL_PASSWORD=your-app-password
 WEBHOOK_SECRET=your-webhook-secret
+NEXT_PUBLIC_PAYMENT_URL=https://your-payment-platform/your-link-id
 ```
+
+אם `NEXT_PUBLIC_PAYMENT_URL` אינו מוגדר – כפתורי התשלום ייחסמו ותוצג הודעת שגיאת תצורה למשתמש. בקונסול יוצג לוג אזהרה.
 
 ### הגדרת Gmail App Password
 1. עבור לאשפר Google Account
@@ -75,9 +78,14 @@ curl -X POST http://localhost:3001/api/payment-webhook \
 ```
 
 ### פריסה לפרודקציה
-1. פרוס לVercel: `vercel --prod`
-2. הגדר משתני סביבה בVercel Dashboard
-3. בדוק שה-webhook endpoint פעיל
+1. פרוס ל-Vercel: `vercel --prod`
+2. בלשונית Settings → Environment Variables הוסף:
+  - `EMAIL_USER`
+  - `EMAIL_PASSWORD`
+  - `WEBHOOK_SECRET`
+  - `NEXT_PUBLIC_PAYMENT_URL`
+3. בצע redeploy לאחר ההגדרה.
+4. בדוק שה-webhook endpoint פעיל.
 
 ## אבטחה
 

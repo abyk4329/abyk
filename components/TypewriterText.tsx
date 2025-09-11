@@ -1,5 +1,5 @@
-'use client';
-import { useState, useEffect } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 
 interface TypewriterTextProps {
   text: string;
@@ -8,13 +8,13 @@ interface TypewriterTextProps {
   startDelay?: number;
 }
 
-export default function TypewriterText({ 
-  text, 
-  speed = 100, 
-  className = '', 
-  startDelay = 0 
+export default function TypewriterText({
+  text,
+  speed = 100,
+  className = "",
+  startDelay = 0,
 }: TypewriterTextProps) {
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
 

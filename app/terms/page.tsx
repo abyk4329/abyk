@@ -1,4 +1,4 @@
-export const metadata = { title: 'תנאי שימוש - Awakening by Ksenia' }
+export const metadata = { title: "תנאי שימוש - Awakening by Ksenia" };
 
 export default function Terms() {
   return (
@@ -14,5 +14,5 @@ export default function Terms() {
         </a>
       </div>
     </main>
-  )
+  );
 }

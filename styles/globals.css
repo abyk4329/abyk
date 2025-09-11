@@ -4,23 +4,15 @@
 
 :root {
   /* Unified palette */
-  --ivory: #FAFAFA; /* Main warm background color */
-  --ivory-soft: #FAFAFA; /* Soft variant of the main background */
-  /* Near-whites (very light) */
-  --nearwhite-100: #FEFEFE;
-  --nearwhite-150: #FAFAFA;
-  --nearwhite-200: #FEFAFA;
-  --nearwhite-250: #FDFCFA;
-  --nearwhite-300: #F9F5EF;
-  --nearwhite-350: #F8EFE5;
-  --nearwhite-400: #F4F1EA;
+  --ivory: #fffdfa; /* Updated to requested color */
+  --ivory-soft: #f9f6f6; /* New soft ivory to blend with --ivory */
   --sand-50: #F1E3D7; /* milky beige */
   --sand-100: #E8D7C6; /* light sand */
   --stone-soft: #E6D7C5; /* soft stone */
   --pearl-sand: #E2D8CB; /* pearly sand */
 
-  --pearl: #f8f8f8; /* Bright pearl white */
-  --pearl-soft: #f0f0f0; /* Soft pearl */
+  --peach-beige: #E1C6AB;
+  --nude-beige: #DDC5B0;
   --desert-sand: #DFCBB3;
   --peach-gold: #CDA991;
   --caramel: #C29E7E;
@@ -41,26 +33,9 @@
   /* Legacy tokens mapped for compatibility */
   --gold: var(--sandy-gold);
   --gold-deep: var(--golden-brown);
-  --gold-warm: #B9916D;
   --charcoal: var(--espresso);
   --text-secondary: var(--smoky-brown);
   --champagne: var(--peach-beige);
-
-  /* Additional mid & deep hues from palette for depth */
-  --mid-700: #56443F;
-  --mid-800: #46342B;
-  --mid-850: #443A35;
-  --deep-800: #281E17;
-  --deep-900: #1D130B;
-
-  /* New base 7-color palette */
-  --beige-cream: #f7f3e8; /* base bg */
-  --beige-100: #ede2cc;
-  --beige-200: #dcc9a7;
-  --beige-300: #dcba8a;
-  --gold-primary: #b99668;
-  --gold-primary-dark: #8a724c;
-  --accent-choco: #845c2e;
 }
 
 * {
@@ -70,302 +45,55 @@
 }
 
 body {
-  font-family: 'Assistant';
-  /* Clean warm background for all pages */
-  background-color: #FAFAFA;
-  background-image: none;
+  font-family: 'Assistant', sans-serif;
+  /* Gentle vertical blend between the two ivories */
+  background-color: var(--ivory);
+  background-image: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-soft) 55%, var(--ivory) 100%);
   color: var(--charcoal);
   text-align: center;
-  min-height: 100vh;
-  position: relative;
 }
-
-/* ---------- Elegant depth: shadows, text-depth, sheen ---------- */
-.shadow-warm-sm {
-  box-shadow:
-    0 1px 3px rgba(40, 30, 23, 0.06),
-    0 4px 12px rgba(132, 92, 46, 0.08);
-}
-
-.shadow-warm-md {
-  box-shadow:
-    0 2px 6px rgba(40, 30, 23, 0.10),
-    0 8px 20px rgba(185, 150, 104, 0.16);
-}
-
-.shadow-warm-lg {
-  box-shadow:
-    0 6px 14px rgba(40, 30, 23, 0.12),
-    0 14px 32px rgba(185, 150, 104, 0.20);
-}
-
-.text-depth-light {
-  text-shadow: 0 1px 1px rgba(255,255,255,0.4), 0 1px 2px rgba(40,30,23,0.18);
-}
-
-.text-depth-medium {
-  text-shadow: 0 1px 1px rgba(255,255,255,0.35), 0 2px 4px rgba(40,30,23,0.20);
-}
-
-.text-depth-strong {
-  text-shadow: 0 1px 1px rgba(255,255,255,0.3), 0 3px 8px rgba(29,19,11,0.25);
-}
-
-.bg-sheen-gold {
-  background: radial-gradient(120% 60% at 50% -10%, rgba(185,150,104,0.18), rgba(0,0,0,0) 60%);
-}
-
-.has-sheen { position: relative; overflow: hidden; }
-.has-sheen::after {
-  content: "";
-  position: absolute; inset: -20% -60% auto -60%; height: 180%;
-  background: linear-gradient(115deg, rgba(255,255,255,0) 45%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 55%);
-  transform: translateX(-100%);
-  pointer-events: none;
-  animation: sheen-sweep 2.4s linear infinite;
-  animation-play-state: paused;
-}
-.has-sheen:hover::after { animation-play-state: running; }
-
-@keyframes sheen-sweep { to { transform: translateX(140%); } }
-
-@media (prefers-reduced-motion: reduce) {
-  .has-sheen::after { display: none; }
-}
-
-/* Subtle fade/slide animations used across the app */
-@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translate3d(0, 8px, 0) }
-  to   { opacity: 1; transform: translate3d(0, 0, 0) }
-}
-.animate-fade-in { animation: fadeIn 420ms ease-out both; }
-.animate-slide-up { animation: fadeInUp 480ms ease-out both; }
-.animate-gleam-fade-in { animation: fadeIn 600ms ease-out both; }
-
-/* עברית - Assistant */
-:lang(he), [lang="he"], .hebrew {
-  font-family: 'Assistant';
-}
-
-/* אנגלית - Assistant */
-:lang(en), [lang="en"], .english {
-  font-family: 'Assistant';
-}
-
-/* משקלי גופן ל-Assistant */
-.assistant-extralight {
-  font-family: 'Assistant';
-  font-weight: 200;
-}
-
-.assistant-light {
-  font-family: 'Assistant';
-  font-weight: 300;
-}
-
-.assistant-regular {
-  font-family: 'Assistant';
-  font-weight: 400;
-}
-
-.assistant-medium {
-  font-family: 'Assistant';
-  font-weight: 500;
-}
-
-/* גופן אנגלית - דק ואלגנטי */
-.english-extralight {
-  font-family: 'Assistant';
-  font-weight: 200;
-}
-
-.english-light {
-  font-family: 'Assistant';
-  font-weight: 300;
-}
-
-/* Remove golden dust effects - keep minimal if any */
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: none; /* Remove all golden gradients */
-  animation: none; /* Remove breathing animation */
-  opacity: 0;
-}
-
-/* Clean background without shadows */
 
 html {
   direction: rtl;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Assistant';
   color: var(--cacao);
   text-align: center;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
+  font-weight: 600;
 }
 
 h1 {
-  font-size: 3.2rem;
-  font-weight: 800;
-  margin-bottom: 1.5rem;
-  color: var(--dark-choco);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 768px) {
   h1 {
-    font-size: 2.4rem;
-    margin-bottom: 1.2rem;
+    font-size: 2rem;
   }
 }
 
 h2 {
-  font-size: 2.4rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--cacao);
-  text-shadow: 0 1px 1px rgba(0,0,0,0.03);
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
 }
 
 @media (max-width: 768px) {
   h2 {
-    font-size: 1.8rem;
-    margin-bottom: 0.8rem;
+    font-size: 1.5rem;
   }
-}
-
-h3 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 0.8rem;
-  color: var(--copper-brown);
-}
-
-@media (max-width: 768px) {
-  h3 {
-    font-size: 1.4rem;
-  }
-}
-
-h4 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 0.6rem;
-  color: var(--golden-brown);
-}
-
-h5 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: var(--smoky-brown);
-}
-
-h6 {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.4rem;
-  color: var(--smoky-brown);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 p {
   text-align: center;
-  line-height: 1.7;
-  margin-bottom: 1.2rem;
-  font-weight: 400;
-  color: var(--espresso);
-}
-
-.lead {
-  font-size: 1.25rem;
-  font-weight: 500;
   line-height: 1.6;
-  color: var(--cacao);
-  margin-bottom: 1.5rem;
-}
-
-.body-large {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  font-weight: 400;
-}
-
-.body-small {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--smoky-brown);
-  font-weight: 400;
+  margin-bottom: 1rem;
 }
 
 strong {
   color: var(--dark-choco);
   font-weight: 700;
-}
-
-/* הדגשות ועומק טיפוגרפי */
-.emphasis-gold {
-  color: var(--sandy-gold);
-  font-weight: 600;
-}
-
-.emphasis-strong {
-  color: var(--dark-choco);
-  font-weight: 700;
-  text-shadow: 0 0.5px 1px rgba(0,0,0,0.1);
-}
-
-.text-gradient {
-  background: linear-gradient(135deg, var(--cacao) 0%, var(--sandy-gold) 50%, var(--copper-brown) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  font-weight: 600;
-}
-
-/* אפקטי עומק */
-.text-depth-light {
-  text-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
-}
-
-.text-depth-medium {
-  text-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.05);
-}
-
-.text-depth-strong {
-  text-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 6px 12px rgba(0,0,0,0.08);
-}
-
-/* גדלים דינמיים */
-.text-hero {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.text-display {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.text-title {
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.text-subtitle {
-  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-  font-weight: 500;
-  line-height: 1.4;
 }
 
 .container {
@@ -404,16 +132,11 @@ strong {
   border: none;
   padding: 12px 24px;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-family: 'Assistant';
-}
-
-.btn.hebrew {
-  font-family: 'Assistant';
-  font-weight: 400;
+  font-family: 'Assistant', sans-serif;
 }
 
 .btn:hover {
@@ -427,19 +150,51 @@ strong {
   text-align: center;
 }
 
-/* Background: Clean and warm without dots */
+/* Background: Subtle floating light points over blended ivory */
 .bg-bokeh {
   position: relative;
   min-height: 100vh;
-  background: #fdfcfa; /* New warm background color */
+  background:
+    linear-gradient(180deg, var(--ivory) 0%, var(--ivory-soft) 60%, var(--ivory) 100%);
+  overflow: hidden;
+}
+.bg-bokeh::before,
+.bg-bokeh::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.bg-bokeh::before {
+  background-image:
+    radial-gradient(rgba(190,157,118,0.4) 1px, transparent 1px),
+    radial-gradient(rgba(167,131,90,0.3) 0.8px, transparent 0.8px),
+    radial-gradient(rgba(225,198,171,0.5) 1.2px, transparent 1.2px);
+  background-size: 60px 60px, 40px 40px, 80px 80px;
+  background-position: 0 0, 20px 20px, 40px 40px;
+  animation: lightPointsFade 8s ease-in-out infinite;
+  opacity: 0.6;
+}
+.bg-bokeh::after {
+  background-image:
+    radial-gradient(rgba(225,198,171,0.6) 0.6px, transparent 0.6px),
+    radial-gradient(rgba(190,157,118,0.4) 0.4px, transparent 0.4px);
+  background-size: 50px 50px, 30px 30px;
+  background-position: 15px 15px, 35px 35px;
+  animation: lightPointsFade 12s ease-in-out infinite reverse;
+  opacity: 0.4;
+}
+@keyframes lightPointsFade {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.8; }
 }
 
-/* Clean backgrounds for header and footer */
+/* Header/Footer backgrounds using both ivories */
 .bg-header {
-  background: var(--pearl);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--ivory) 88%, transparent) 0%, color-mix(in oklab, var(--ivory-soft) 88%, transparent) 100%);
 }
 .bg-footer {
-  background: var(--pearl);
+  background: linear-gradient(180deg, var(--ivory-soft) 0%, var(--ivory) 100%);
 }
 
 /* Page fade transition */
@@ -453,17 +208,28 @@ strong {
   transition: opacity 300ms ease, transform 300ms ease;
 }
 
+/* EnergyPulse for slogan */
 /* EnergyPulse for slogan - enhanced shimmer */
-@keyframes subtleShimmer {
-  0%, 100% {
-    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85)) drop-shadow(0 3px 10px rgba(31, 32, 36, 0.08));
+@keyframes energyPulse {
+  0% { 
+    text-shadow: 0 0 0 rgba(190,157,118,0.0);
+    transform: scale(1);
   }
-  50% {
-    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95)) drop-shadow(0 4px 15px rgba(190, 157, 118, 0.15));
+  50% { 
+    text-shadow: 
+      0 0 12px rgba(190,157,118,0.6),
+      0 0 20px rgba(167,131,90,0.4),
+      0 0 30px rgba(225,198,171,0.3);
+    transform: scale(1.02);
+  }
+  100% { 
+    text-shadow: 0 0 0 rgba(190,157,118,0.0);
+    transform: scale(1);
   }
 }
-.slogan-shadow {
-  animation: subtleShimmer 4s ease-in-out infinite;
+.energy-pulse { 
+  animation: energyPulse 3.5s ease-in-out infinite;
+  transition: all 0.3s ease;
 }
 
 /* Typing caret */
@@ -552,79 +318,9 @@ strong { color: var(--dark-choco); font-weight: 700; }
   animation: slideUp 0.6s ease-out forwards;
 }
 
-.animate-slide-up {
-  animation: slideUp 0.6s ease-out forwards;
-}
-
 .animate-logo-entrance {
   animation: logoEntrance 1.2s ease-out forwards;
 }
-
-/* Slogan legibility + gentle motion */
-.slogan-shadow {
-  /* subtle white edge + soft depth shadow for crispness on bright ivory */
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85))
-          drop-shadow(0 3px 10px rgba(31, 32, 36, 0.12));
-  animation: subtleShimmer 4s ease-in-out infinite;
-}
-
-@keyframes floatY {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-.float-y { animation: floatY 6s ease-in-out infinite; }
-
-/* --- New Animations (Sept 2025) --- */
-
-/* 2. Text Fade-in with Gleam */
-@keyframes textGleam {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-.animate-gleam-fade-in {
-  opacity: 0;
-  animation: fadeIn 1s ease-out forwards;
-  background: linear-gradient(to right, 
-    var(--charcoal) 20%, 
-    var(--cacao) 40%, 
-    var(--gold) 50%, 
-    var(--cacao) 60%, 
-    var(--charcoal) 80%);
-  background-size: 200% auto;
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: fadeIn 1s ease-out 0.2s forwards, textGleam 2s ease-in-out 0.5s forwards;
-}
-
-
-/* 3. Button Shine on Hover */
-.btn-shine {
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-shine::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 75%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
-  transform: skewX(-25deg);
-  transition: left 0.7s ease-in-out;
-}
-
-.btn-shine:hover::before {
-  left: 150%;
-}
-
 
 /* כפתורי אינטראקציה */
 .btn:active {
@@ -638,12 +334,11 @@ strong { color: var(--dark-choco); font-weight: 700; }
 
 /* עיצוב לקלטים */
 input[type="date"] {
-  font-family: 'Assistant';
-  font-weight: 300;
+  font-family: 'Assistant', sans-serif;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: grayscale(100%) brightness(0.7);
+  filter: invert(0.7) sepia(1) saturate(5) hue-rotate(30deg);
   cursor: pointer;
 }
 
@@ -682,7 +377,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   padding-bottom: 0.75rem;
 }
 
-.prose .code {
+/* Code container - specific class to avoid confusion with element selector */
+.prose .code-blocks {
   display: flex;
   justify-content: center;
   gap: 0.75rem;
@@ -690,7 +386,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   flex-wrap: wrap;
 }
 
-.prose .code .pill {
+.prose .code-blocks .pill {
   background: var(--espresso);
   color: var(--ivory);
   padding: 0.75rem 1rem;
@@ -699,13 +395,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   min-width: 4rem;
 }
 
-.prose .code .pill div {
+.prose .code-blocks .pill div {
   font-size: 0.75rem;
   color: var(--sandy-gold);
   margin-bottom: 0.25rem;
 }
 
-.prose .code .pill strong {
+.prose .code-blocks .pill strong {
   font-size: 1.5rem;
   font-weight: 700;
 }
@@ -736,7 +432,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .prose .intro ul {
   margin: 1rem 0;
-  padding-right: 1.5rem;
+  padding-inline-start: 1.5rem;
 }
 
 .prose .intro li {
@@ -792,7 +488,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .prose .interpretation ul {
   margin: 1rem 0;
-  padding-right: 1.5rem;
+  padding-inline-start: 1.5rem;
 }
 
 .prose .interpretation li {
@@ -821,11 +517,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 1.25rem;
   }
   
-  .prose .code {
+  .prose .code-blocks {
     gap: 0.5rem;
   }
   
-  .prose .code .pill {
+  .prose .code-blocks .pill {
     padding: 0.5rem 0.75rem;
     min-width: 3.5rem;
   }

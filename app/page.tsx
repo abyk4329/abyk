@@ -1,50 +1,45 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="container min-h-[calc(100vh-10rem)] flex flex-col items-center justify-center text-center py-4 px-4">
-      <div className="max-w-4xl mx-auto space-y-0 slide-up">
-        {/* לוגו */}
-        <div className="logo animate-logo-entrance">
-          <Image
-            src="/newlogos/logo.png"
-            alt="Awakening by Ksenia Logo"
-            width={600}
-            height={280}
-            className="mx-auto drop-shadow-[0_6px_30px_rgba(167,131,90,0.25)]"
-            priority
-          />
-        </div>
-
-        {/* סלוגן כ-SVG במקום טקסט */}
-        <div className="max-w-[700px] md:max-w-[820px] mx-auto px-2 -mt-8 md:-mt-10">
-          <Image
-            src="/newlogos/slogangold.png"
-            alt="Unlock Your Inner Light"
-            width={700}
-            height={100}
-            className="mx-auto slogan-shadow float-y"
-            priority
-          />
-        </div>
-
-        {/* טקסט הזמנה */}
-        <div className="pt-8 pb-4">
-          <p className="text-subtitle text-depth-light emphasis-gold tracking-wide animate-fade-in">
-            גלו את קוד העושר האישי שלכם
-          </p>
+    <main className="container flex flex-col items-center justify-start min-h-screen px-4 pt-6 pb-10 text-center md:pt-8">
+      <div className="w-full max-w-4xl mx-auto slide-up">
+        {/* HERO */}
+        <div className="flex flex-col items-center">
+          {/* לוגו – הועלה למעלה */}
+          <div className="animate-logo-entrance">
+            <Image
+              src="/newlogos/logo.png"
+              alt="Awakening by Ksenia Logo"
+              width={320}
+              height={160}
+              className="mx-auto drop-shadow-[0_6px_26px_rgba(167,131,90,0.22)]"
+              priority
+            />
+          </div>
+          {/* סלוגן – צמוד יותר ללוגו */}
+          <div className="mt-2 md:mt-3 animate-fade-in">
+            <Image
+              src="/newlogos/slogangold.png"
+              alt="Unlock the light within you"
+              width={460}
+              height={120}
+              className="mx-auto drop-shadow-[0_4px_18px_rgba(167,131,90,0.18)]"
+              priority
+            />
+          </div>
         </div>
 
         {/* כפתור */}
-        <div className="pt-2">
+        <div className="mt-8 md:mt-10">
           <a
             href="/money-code"
-            className="btn-shine group relative inline-flex items-center justify-center rounded-full bg-gradient-to-b from-sand-100 to-stone-soft text-espresso px-8 py-3 text-base md:text-lg font-semibold shadow-[0_4px_15px_rgba(0,0,0,0.05)] hover:from-stone-soft hover:to-stone-soft hover:text-cacao transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold ring-offset-2 ring-offset-ivory active:translate-y-[1px] animate-fade-in ripple"
+            className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-b from-champagne to-gold text-espresso px-9 py-3 text-lg font-semibold shadow-[0_6px_22px_rgba(167,131,90,0.22)] hover:from-gold hover:to-gold-deep hover:text-ivory transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold ring-offset-2 ring-offset-ivory active:translate-y-[1px] animate-fade-in ripple"
           >
-            <span className="relative z-10">מחשבון קוד העושר</span>
+            <span className="relative z-10">מחשבון קוד הכסף</span>
           </a>
         </div>
       </div>
     </main>
-  )
+  );
 }
