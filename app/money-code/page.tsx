@@ -24,10 +24,13 @@ export default function MoneyCode() {
     if (!paymentBase) {
       const msg =
         "שגיאת תצורה: משתנה הסביבה NEXT_PUBLIC_PAYMENT_URL לא הוגדר. לא ניתן לבצע תשלום עד להגדרה.";
-      console.error(
+      console.warn(
         "[MoneyCode] Missing NEXT_PUBLIC_PAYMENT_URL environment variable",
       );
       setConfigError(msg);
+    } else {
+      // Clear any existing config error if payment URL is now available
+      setConfigError(null);
     }
   }, [paymentBase]);
 
@@ -172,8 +175,8 @@ export default function MoneyCode() {
           <Image
             src="/newlogos/welthcodeline copy.png"
             alt="Wealth Code Calculator Title"
-            width={480}
-            height={120}
+            width={600}
+            height={150}
             className="mx-auto drop-shadow-[0_3px_10px_rgba(167,131,90,0.15)]"
           />
         </div>
@@ -206,7 +209,7 @@ export default function MoneyCode() {
                 {isLoading ? (
                   <div className="text-sm">מחשבים...</div>
                 ) : (
-                  "אנחנו רוצים לדעת את הקוד שלנו"
+                  "אני רוצה לדעת מה הקוד שלי"
                 )}
               </button>
               <button
