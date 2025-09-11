@@ -27,16 +27,18 @@ export default function Home() {
         </h2>
 
         {/* תיאור */}
+        {/* היה: גלה את המשמעות הנומרולוגית שלך ופתח שער להבנה עמוקה יותר של עצמך */}
         <p className="text-text-secondary text-lg max-w-2xl mx-auto px-4 animate-fade-in">
-          גלה את המשמעות הנומרולוגית שלך ופתח שער להבנה עמוקה יותר של עצמך
+          גלו את המשמעות הנומרולוגית שלכם ופתחו שער להבנה עמוקה יותר על עצמכם
         </p>
 
         {/* כפתור */}
+        {/* היה: חשבי קוד כסף ✨ */}
         <a
           href="/money-code"
           className="inline-block btn bg-gold hover:bg-gold-deep text-charcoal px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105 animate-fade-in"
         >
-          חשבי קוד כסף ✨
+          חשבו קוד כסף
         </a>
 
         <p className="text-text-secondary text-sm animate-fade-in">

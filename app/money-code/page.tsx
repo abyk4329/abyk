@@ -66,7 +66,7 @@ export default function MoneyCode() {
     const isValid = (...vals: number[]) => vals.every(v => Number.isInteger(v) && v >= 1 && v <= 9)
     if (!isValid(bd, bm, by, lp)) {
       setIsLoading(false)
-      setError('רק מספרים 1–9 מותרים. אנא בדוק את התאריך שהוזן.')
+      setError('רק מספרים 1–9 מותרים. אנא בדקו את התאריך שהוזן.')
       return
     }
 
@@ -85,34 +85,28 @@ export default function MoneyCode() {
   const handlePayment = () => {
     if (!result || !birthDate) return
     
-    // Persist code locally to allow thank-you page fallback
     try {
       localStorage.setItem('abyk_money_code', JSON.stringify({ ...result, birthDate, ts: Date.now() }))
     } catch {}
 
-    // יצירת URL עם הפרמטרים לתשלום
     const params = new URLSearchParams({
       bd: result.bd.toString(),
       bm: result.bm.toString(),
       by: result.by.toString(),
       lp: result.lp.toString(),
-  birthDate: birthDate,
-  // כתובת החזרה לאחר תשלום מוצלח
-  return_url: `${window.location.origin}/thank-you?bd=${result.bd}&bm=${result.bm}&by=${result.by}&lp=${result.lp}`,
-  business_name: 'Awakening by Ksenia',
-  business_tagline: 'Your personal space for growth. Unlock the light within you.',
-  logo_url: `${window.location.origin}/newlogos/iconfavicon.png`
+      birthDate: birthDate,
+      return_url: `${window.location.origin}/thank-you?bd=${result.bd}&bm=${result.bm}&by=${result.by}&lp=${result.lp}`,
+      business_name: 'Awakening by Ksenia',
+      business_tagline: 'Your personal space for growth. Unlock the light within you.',
+      logo_url: `${window.location.origin}/newlogos/favicon.png`
     })
-    
-  // מעבר לקישור התשלום
-  const base = process.env.NEXT_PUBLIC_PAYMENT_URL || 'https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw'
-  window.open(`${base}?${params.toString()}`, '_blank')
+    const base = process.env.NEXT_PUBLIC_PAYMENT_URL || 'https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw'
+    window.open(`${base}?${params.toString()}`, '_blank')
   }
 
   return (
     <main className="container min-h-screen px-4 py-8">
       <div className="max-w-3xl mx-auto space-y-8 text-center">
-        {/* לוגו */}
         <div className="logo">
           <Image
             src="/newlogos/logo.png"
@@ -124,10 +118,9 @@ export default function MoneyCode() {
           />
         </div>
 
-        {/* תווית חדשה לכותרת המחשבון */}
         <div className="mt-1 mb-6 animate-gleam-fade-in">
           <Image 
-            src="/welthcodeline%20copy.png" 
+            src="/newlogos/welthcodeline%20copy.png" 
             alt="Wealth Code Calculator Title" 
             width={480} 
             height={120} 
@@ -135,10 +128,8 @@ export default function MoneyCode() {
           />
         </div>
 
-        {/* כרטיס המחשבון */}
-  <div className="max-w-md p-8 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-2xl border-beige-200">
+        <div className="max-w-md p-8 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-2xl border-beige-200">
           <div className="space-y-6">
-            {/* קלט תאריך לידה */}
             <div>
               <label className="block mb-3 text-sm font-medium text-espresso/90">
                 הכניסו את תאריך הלידה שלכם
@@ -153,14 +144,12 @@ export default function MoneyCode() {
               />
             </div>
 
-            {/* הודעת שגיאה */}
             {error && (
               <div className="p-3 text-center border rounded-lg bg-red-50 border-red-200 text-red-700 text-sm">
                 {error}
               </div>
             )}
 
-            {/* כפתורים בשורה אחת */}
             <div className="flex gap-3 flex-nowrap">
               <button
                 onClick={calculateMoneyCode}
@@ -174,7 +163,7 @@ export default function MoneyCode() {
                     מחשבים...
                   </div>
                 ) : (
-                  'קסניה, אני רוצה לדעת את הקוד שלי'
+                  'אנחנו רוצים לדעת את הקוד שלנו'
                 )}
               </button>
               <button
@@ -186,19 +175,16 @@ export default function MoneyCode() {
               </button>
             </div>
           </div>
-        </div>        {/* תוצאה */}
-        {result && (
+        </div>        {result && (
           <div className="max-w-lg p-6 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-xl border-beige-200 animate-fade-in">
-            <h2 className="text-title text-depth-medium emphasis-strong animate-gleam-fade-in">קוד העושר האישי שלך</h2>
+            <h2 className="text-title text-depth-medium emphasis-strong animate-gleam-fade-in">קוד העושר האישי שלכם</h2>
             
-            {/* תצוגת הקוד משמאל לימין (4329) */}
             <div className="p-5 mb-6 text-center border-2 rounded-lg shadow-warm-sm bg-ivory backdrop-blur-sm border-beige-200 animate-slide-up">
               <div dir="ltr" className="font-mono text-6xl font-light tracking-[0.2em] text-cacao select-all">
                 {`${result.bd}${result.bm}${result.by}${result.lp}`}
               </div>
             </div>
 
-            {/* טקסטים לפי הבקשה */}
             <div className="p-6 mb-8 border rounded-lg shadow-sm bg-ivory backdrop-blur-sm border-beige-200/80 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <div className="mb-4 space-y-2 text-center text-sm leading-relaxed text-text-secondary">
                 <p>הקוד שגיליתם הוא <strong className="text-cacao">מפתח אנרגטי</strong> שמלווה אתכם מלידה.</p>
@@ -222,9 +208,9 @@ export default function MoneyCode() {
                 <button
                   onClick={handlePayment}
                   className="px-8 py-3 text-base font-medium transition-all duration-300 border-2 shadow-md bg-gold-primary/20 hover:bg-gold-primary/30 text-espresso border-gold-primary/50 hover:scale-[1.02] rounded-lg hover:shadow-lg"
-                  aria-label="אני בפנים"
+                  aria-label="אנחנו בפנים"
                 >
-                  אני בפנים
+                  אנחנו בפנים
                 </button>
               </div>
               <div className="text-center mt-6"><span className="text-gold-warm text-sm">⸻</span></div>
@@ -249,7 +235,6 @@ export default function MoneyCode() {
                 קבלו פירוש מלא - 36.9₪
               </button>
               
-              {/* הסבר על התהליך */}
               <div className="mt-6 p-4 bg-ivory border border-gold-primary/30 rounded-xl text-sm">
                 <div className="text-center mb-3">
                   <span className="font-medium text-accent-choco assistant-light">מה קורה אחרי התשלום?</span>
@@ -264,7 +249,6 @@ export default function MoneyCode() {
           </div>
         )}
 
-        {/* כפתור חזרה */}
         <div className="pt-8">
           <a
             href="/"

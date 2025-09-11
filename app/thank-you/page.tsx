@@ -66,8 +66,8 @@ function ThankYouContent() {
           </div>
 
           <div className="space-y-6 text-lg">
-            <p className="text-espresso font-bold">התשלום נקלט בהצלחה, והפירוש האישי שלך כבר מוכן</p>
-            <p className="text-text-secondary">אפשר לעיין בו מיד כאן בעמוד, ובסוף הטקסט יופיע קישור נוח להורדה. במקביל נשלח אליך גם דוא״ל.</p>
+            <p className="text-espresso font-bold">התשלום נקלט בהצלחה, והפירוש האישי שלכם כבר מוכן</p>
+            <p className="text-text-secondary">אפשר לעיין בו מיד כאן בעמוד, ובסוף הטקסט יופיע קישור נוח להורדה. במקביל נשלח אליכם גם דוא״ל.</p>
 
             {/* קוד המספרים בפיל לבן */}
             {code.bd && code.bm && code.by && code.lp ? (
@@ -96,7 +96,7 @@ function ThankYouContent() {
               {/* כפתורי קשר עם אייקונים */}
               <div className="flex justify-center gap-6">
                 <a 
-                  href="mailto:awakening.by.ksenia@gmail.com?subject=לא קיבלתי מייל עם הפירוש&body=שלום, הזמנתי פירוש נומרולוגי אבל לא קיבלתי מייל. אודה לעזרה."
+                  href="mailto:awakening.by.ksenia@gmail.com?subject=לא קיבלנו מייל עם הפירוש&body=שלום, הזמנו פירוש נומרולוגי אבל לא קיבלנו מייל. נשמח לעזרה."
                   className="text-smoky-brown hover:text-cacao transition-colors duration-200"
                   aria-label="דוא״ל"
                 >
@@ -106,7 +106,7 @@ function ThankYouContent() {
                 </a>
                 
                 <a 
-                  href="https://wa.me/972524616121?text=שלום, הזמנתי פירוש נומרולוגי אבל לא קיבלתי מייל. אודה לעזרה"
+                  href="https://wa.me/972524616121?text=שלום, הזמנו פירוש נומרולוגי אבל לא קיבלנו מייל. נשמח לעזרה"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-smoky-brown hover:text-cacao transition-colors duration-200"
@@ -127,11 +127,11 @@ function ThankYouContent() {
             {/* אזור הפירוש */}
             <div className="bg-ivory border border-beige-200 rounded-xl p-6 mb-6 shadow-warm-sm">
               <h2 className="text-cacao text-2xl font-medium mb-4 text-center assistant-light">
-                הפירוש האישי שלך
+                הפירוש האישי שלכם
               </h2>
               
               <div className="text-center text-sm text-espresso/60 mb-4">
-                <span className="assistant-light">המספרים הייחודיים שלך: </span>
+                <span className="assistant-light">המספרים הייחודיים שלכם: </span>
                 <span className="font-medium text-cacao">{uniqueNumbers.join(', ')}</span>
               </div>
             </div>

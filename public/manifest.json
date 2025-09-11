@@ -11,27 +11,21 @@
   "categories": ["lifestyle", "wellness"],
   "icons": [
     {
-  "src": "/newlogos/iconfavicon.png",
-  "sizes": "512x512",
-  "type": "image/png",
+      "src": "/newlogos/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/newlogos/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
-  "src": "/newlogos/iconfavicon.png",
-  "sizes": "192x192",
-  "type": "image/png",
-      "purpose": "any"
-    },
-    {
-  "src": "/newlogos/iconfavicon.png",
-  "sizes": "512x512",
-  "type": "image/png",
-      "purpose": "any"
-    },
-    {
-  "src": "/newlogos/iconfavicon.png",
-  "sizes": "180x180",
-  "type": "image/png",
+      "src": "/newlogos/favicon.png",
+      "sizes": "180x180",
+      "type": "image/png",
       "purpose": "any"
     }
   ]
