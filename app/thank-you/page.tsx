@@ -111,10 +111,10 @@ function ThankYouContent() {
         {/* אייקון */}
         <div className="logo">
           <Image
-            src="/newlogos/logo.png"
-            alt="Awakening by Ksenia Logo"
-            width={250}
-            height={125}
+            src="/newlogos/ikon.png"
+            alt="ABYK Logo"
+            width={200}
+            height={200}
             className="mx-auto"
           />
         </div>

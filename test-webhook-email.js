@@ -49,7 +49,7 @@ async function testWebhookEmail() {
 <body>
     <div class="container">
         <div class="header">
-            <img src="${baseUrl}/newlogos/logo.png" alt="Awakening by Ksenia" class="logo">
+            <img src="${baseUrl}/newlogos/ikon.png" alt="Awakening by Ksenia" class="logo">
             <h1>הפירוש האישי לקוד העושר שלכם מוכן</h1>
         </div>
         <div class="content">
@@ -69,7 +69,7 @@ async function testWebhookEmail() {
             </div>
         </div>
         <div class="footer">
-            <img src="${baseUrl}/newlogos/logo.png" alt="Awakening by Ksenia" class="footer-logo">
+            <img src="${baseUrl}/newlogos/ikon.png" alt="Awakening by Ksenia" class="footer-logo">
             <div class="footer-text">תודה שבחרתם ב-Awakening by Ksenia<br/>נומרולוגיה אישית מותאמת עבורכם</div>
         </div>
     </div>

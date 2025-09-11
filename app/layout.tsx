@@ -15,9 +15,9 @@ export const metadata: Metadata = {
   title: "Awakening by Ksenia",
   description: "Your Personal Space For Growth — Unlock Your Inner Light",
   icons: {
-    icon: "/newlogos/favicon.png",
-    shortcut: "/newlogos/favicon.png",
-    apple: "/newlogos/favicon.png",
+    icon: "/newlogos/ikon.png",
+    shortcut: "/newlogos/ikon.png",
+    apple: "/newlogos/ikon.png",
   },
 };
 

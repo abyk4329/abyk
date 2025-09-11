@@ -220,7 +220,7 @@ async function testEmail() {
       
       <div class="footer">
         <div style="margin-bottom: 20px;">
-          <img src="https://awakening-by-ksenia-app.vercel.app/newlogos/logo.png" alt="Awakening by Ksenia" style="width: 80px; height: auto; margin-bottom: 15px;">
+          <img src="https://awakening-by-ksenia-app.vercel.app/newlogos/ikon.png" alt="Awakening by Ksenia" style="width: 80px; height: auto; margin-bottom: 15px;">
         </div>
         <p class="signature">בברכה, קסניה</p>
         <p>אם יש שאלות, ניתן לפנות אליי:</p>

@@ -7,10 +7,10 @@ export default function Home() {
         {/* לוגו */}
         <div className="logo animate-logo-entrance">
           <Image
-            src="/newlogos/logo.png"
-            alt="Awakening by Ksenia Logo"
-            width={200}
-            height={100}
+            src="/newlogos/logowithsloganhomepage.png"
+            alt="Awakening by Ksenia - Unlock the light within you"
+            width={480}
+            height={300}
             className="mx-auto"
             priority
           />
@@ -48,10 +48,10 @@ export default function Home() {
         {/* חתימה */}
         <div className="mt-12 signature animate-fade-in">
           <Image
-            src="/newlogos/sig.png"
-            alt="Ksenia Signature"
-            width={150}
-            height={75}
+            src="/newlogos/signature.svg"
+            alt="by Ksenia Signature"
+            width={200}
+            height={100}
             className="mx-auto"
           />
         </div>

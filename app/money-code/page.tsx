@@ -151,7 +151,7 @@ export default function MoneyCode() {
       business_name: "Awakening by Ksenia",
       business_tagline:
         "Your personal space for growth. Unlock the light within you.",
-      logo_url: `${window.location.origin}/newlogos/favicon.png`,
+      logo_url: `${window.location.origin}/newlogos/ikon.png`,
     });
     {/* prettier-ignore */}
     window.open(`${paymentBase}?${params.toString()}`, "_blank");
@@ -162,10 +162,10 @@ export default function MoneyCode() {
       <div className="max-w-3xl mx-auto space-y-4 text-center">
         <div className="logo">
           <Image
-            src="/newlogos/logo.png"
-            alt="Awakening by Ksenia Logo"
-            width={250}
-            height={125}
+            src="/newlogos/ikon.png"
+            alt="ABYK Logo"
+            width={300}
+            height={300}
             className="mx-auto"
             priority
           />
@@ -173,8 +173,8 @@ export default function MoneyCode() {
 
         <div className="mt-2 mb-4 animate-gleam-fade-in">
           <Image
-            src="/newlogos/welthcodeline copy.png"
-            alt="Wealth Code Calculator Title"
+            src="/newlogos/welthcode.png"
+            alt="מחשבון קוד העושר"
             width={700}
             height={175}
             className="mx-auto drop-shadow-[0_3px_10px_rgba(167,131,90,0.15)]"

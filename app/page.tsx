@@ -9,22 +9,11 @@ export default function Home() {
           {/* לוגו – הועלה למעלה */}
           <div className="animate-logo-entrance">
             <Image
-              src="/newlogos/logo.png"
-              alt="Awakening by Ksenia Logo"
-              width={320}
-              height={160}
+              src="/newlogos/logowithsloganhomepage.png"
+              alt="Awakening by Ksenia - Unlock the light within you"
+              width={480}
+              height={300}
               className="mx-auto drop-shadow-[0_6px_26px_rgba(167,131,90,0.22)]"
-              priority
-            />
-          </div>
-          {/* סלוגן – צמוד יותר ללוגו */}
-          <div className="mt-2 md:mt-3 animate-fade-in">
-            <Image
-              src="/newlogos/slogangold.png"
-              alt="Unlock the light within you"
-              width={460}
-              height={120}
-              className="mx-auto drop-shadow-[0_4px_18px_rgba(167,131,90,0.18)]"
               priority
             />
           </div>
