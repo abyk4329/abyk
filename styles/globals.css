@@ -574,3 +574,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     min-width: 3.5rem;
   }
 }
+
+/* Custom date input styling for calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: brightness(0.7) sepia(1) saturate(2) hue-rotate(30deg);
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  filter: brightness(0.6) sepia(1) saturate(2.5) hue-rotate(30deg);
+  opacity: 1;
+}

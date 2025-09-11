@@ -171,12 +171,12 @@ export default function MoneyCode() {
           />
         </div>
 
-        <div className="mt-1 mb-6 animate-gleam-fade-in">
+        <div className="mt-8 mb-8 animate-gleam-fade-in">
           <Image
             src="/newlogos/welthcodeline copy.png"
             alt="Wealth Code Calculator Title"
-            width={600}
-            height={150}
+            width={700}
+            height={175}
             className="mx-auto drop-shadow-[0_3px_10px_rgba(167,131,90,0.15)]"
           />
         </div>
@@ -184,11 +184,14 @@ export default function MoneyCode() {
         <div className="max-w-md p-8 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-2xl border-beige-200">
           <div className="space-y-6">
             <div>
+              <label className="block mb-3 text-lg font-medium text-center text-cacao">
+                הכניסו תאריך לידה
+              </label>
               <input
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full px-4 py-3 font-normal text-center transition-all border-2 rounded-lg shadow-sm border-beige-200/70 bg-ivory text-espresso focus:outline-none focus:ring-2 focus:ring-gold-primary/40 focus:border-gold-primary"
+                className="w-full px-4 py-3 font-normal text-center transition-all border-2 rounded-lg shadow-sm border-beige-200/70 bg-ivory text-espresso focus:outline-none focus:ring-2 focus:ring-gold-primary/40 focus:border-gold-primary [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:brightness-[0.8] [&::-webkit-calendar-picker-indicator]:sepia-[1] [&::-webkit-calendar-picker-indicator]:saturate-[3] [&::-webkit-calendar-picker-indicator]:hue-rotate-[15deg]"
                 dir="ltr"
                 aria-label="תאריך לידה"
               />
