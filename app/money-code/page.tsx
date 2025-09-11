@@ -158,8 +158,8 @@ export default function MoneyCode() {
   };
 
   return (
-    <main className="container min-h-screen px-4 py-8">
-      <div className="max-w-3xl mx-auto space-y-8 text-center">
+    <main className="container min-h-screen px-4 py-4">
+      <div className="max-w-3xl mx-auto space-y-4 text-center">
         <div className="logo">
           <Image
             src="/newlogos/logo.png"
@@ -171,7 +171,7 @@ export default function MoneyCode() {
           />
         </div>
 
-        <div className="mt-8 mb-8 animate-gleam-fade-in">
+        <div className="mt-2 mb-4 animate-gleam-fade-in">
           <Image
             src="/newlogos/welthcodeline copy.png"
             alt="Wealth Code Calculator Title"
@@ -217,7 +217,7 @@ export default function MoneyCode() {
               </button>
               <button
                 onClick={clearData}
-                className="px-4 py-2 text-sm border transition-all duration-300 rounded-lg border-beige-300 text-espresso hover:bg-beige-100"
+                className="px-4 py-2 text-sm transition-all duration-300 border rounded-lg border-beige-300 text-espresso hover:bg-beige-100"
               >
                 נקה
               </button>
