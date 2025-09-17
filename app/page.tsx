@@ -1,34 +1,58 @@
 import Image from "next/image";
-
+import { SocialRow } from "@/components/glass/SocialRow";
 export default function Home() {
   return (
-    <main className="container flex flex-col items-center justify-start min-h-screen px-4 pt-6 pb-10 text-center md:pt-8">
-      <div className="w-full max-w-4xl mx-auto slide-up">
-        {/* HERO */}
-        <div className="flex flex-col items-center">
-          {/* לוגו – הועלה למעלה */}
-          <div className="animate-logo-entrance">
-            <Image
-              src="/newlogos/logowithsloganhomepage.png"
-              alt="Awakening by Ksenia - Unlock the light within you"
-              width={480}
-              height={300}
-              className="mx-auto drop-shadow-[0_6px_26px_rgba(167,131,90,0.22)]"
-              priority
-            />
+    <div className="homepage-container px-4">
+      <div className="slide-up mx-auto w-full max-w-4xl text-center">
+        {/* HERO with 3D circle background */}
+        <div className="relative flex min-h-[400px] flex-col items-center justify-center">
+          {/* 3D Circle Background */}
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="animate-pulse-slow h-[450px] w-[450px] rounded-full border border-sand-100/30 bg-gradient-to-br from-champagne/15 via-sand-50/25 to-pearl-sand/15 shadow-[inset_0_25px_50px_rgba(167,131,90,0.08),_0_30px_60px_rgba(167,131,90,0.12)] backdrop-blur-[2px] md:h-[550px] md:w-[550px]"></div>
+          </div>
+
+          {/* Logo and Tagline Container - Horizontal Layout */}
+          <div className="relative z-10 flex flex-col items-center space-y-1 md:space-y-2">
+            {/* לוגו בסיס - ימין קלות */}
+            <div className="animate-logo-entrance -translate-y-2 translate-x-6 transform md:translate-x-12">
+              <Image
+                src="/newlogos/logobase.png"
+                alt="Awakening by Ksenia Logo"
+                width={340}
+                height={150}
+                className="logo-responsive contrast-105 saturate-105 drop-shadow-[0_10px_35px_rgba(167,131,90,0.3)] filter"
+                priority
+              />
+            </div>
+
+            {/* סלוגן - שמאל קלות ומטה */}
+            <div className="animate-fade-in -translate-x-8 translate-y-1 transform md:-translate-x-16">
+              <Image
+                src="/newlogos/Unlock the light within you....png"
+                alt="Unlock the light within you"
+                width={380}
+                height={60}
+                className="tagline-responsive contrast-105 drop-shadow-[0_8px_30px_rgba(167,131,90,0.25)] filter"
+              />
+            </div>
           </div>
         </div>
 
+        {/* Social icons row */}
+        <div className="relative z-10 mt-6 flex justify-center">
+          <SocialRow size={44} />
+        </div>
+
         {/* כפתור */}
-        <div className="mt-8 md:mt-10">
+        <div className="relative z-10 mt-6 md:mt-8">
           <a
             href="/money-code"
-            className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-b from-champagne to-gold text-espresso px-9 py-3 text-lg font-semibold shadow-[0_6px_22px_rgba(167,131,90,0.22)] hover:from-gold hover:to-gold-deep hover:text-ivory transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold ring-offset-2 ring-offset-ivory active:translate-y-[1px] animate-fade-in ripple"
+            className="animate-fade-in ripple group relative inline-flex items-center justify-center rounded-full bg-gradient-to-b from-champagne to-gold px-8 py-3 text-base font-semibold text-espresso shadow-[0_8px_28px_rgba(167,131,90,0.25)] ring-offset-2 ring-offset-ivory transition-all duration-300 hover:from-gold hover:to-gold-deep hover:text-ivory hover:shadow-[0_12px_35px_rgba(167,131,90,0.35)] focus:outline-none focus:ring-2 focus:ring-gold active:translate-y-[1px] md:text-lg"
           >
             <span className="relative z-10">מחשבון קוד הכסף</span>
           </a>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

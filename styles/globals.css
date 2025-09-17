@@ -172,6 +172,155 @@ strong {
   );
   overflow: hidden;
 }
+
+/* Ensure proper full height layout */
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+#__next {
+  min-height: 100vh;
+}
+
+/* Homepage specific optimizations */
+.homepage-container {
+  min-height: calc(100vh - 140px); /* Account for header and footer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .homepage-container {
+    min-height: calc(100vh - 120px); /* Smaller header/footer on mobile */
+    padding: 0.5rem 0;
+  }
+}
+
+@media (max-height: 600px) {
+  /* For very short screens, reduce spacing */
+  .homepage-container {
+    min-height: calc(100vh - 100px);
+    padding: 0.25rem 0;
+  }
+}
+
+/* Better responsive image handling */
+.logo-responsive {
+  max-width: min(340px, 85vw);
+  height: auto;
+}
+
+.tagline-responsive {
+  max-width: min(380px, 90vw);
+  height: auto;
+}
+
+/* Enhanced 3D Circle Animation */
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1) rotateX(0deg);
+    opacity: 0.4;
+    box-shadow: 
+      inset 0 25px 50px rgba(167,131,90,0.08),
+      0 30px 60px rgba(167,131,90,0.12),
+      0 0 100px rgba(190,157,118,0.1);
+  }
+  50% {
+    transform: scale(1.02) rotateX(2deg);
+    opacity: 0.6;
+    box-shadow: 
+      inset 0 30px 60px rgba(167,131,90,0.12),
+      0 35px 70px rgba(167,131,90,0.18),
+      0 0 120px rgba(190,157,118,0.15);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 5s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+/* Enhanced logo entrance with stronger 3D effect */
+@keyframes logoEntrance3D {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(-40px) rotateX(20deg) rotateY(10deg);
+    filter: blur(8px);
+  }
+  40% {
+    opacity: 0.7;
+    transform: scale(1.12) translateY(-8px) rotateX(8deg) rotateY(4deg);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateX(0deg) rotateY(0deg);
+    filter: blur(0px);
+  }
+}
+
+.animate-logo-entrance {
+  animation: logoEntrance3D 1.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  transform-style: preserve-3d;
+}
+
+/* Enhanced fade-in for tagline with floating effect */
+@keyframes fadeInFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(35px) translateX(-15px) scale(0.9);
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(5px) translateX(-5px) scale(1.02);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInFloat 1.2s ease-out forwards 0.4s;
+  opacity: 0;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .logo-responsive {
+    max-width: min(300px, 80vw);
+  }
+  
+  .tagline-responsive {
+    max-width: min(340px, 85vw);
+  }
+  
+  /* Smaller 3D circle on mobile */
+  .animate-pulse-slow {
+    animation: pulse-slow 6s ease-in-out infinite;
+  }
+}
+
+/* Additional depth with subtle gradients */
+.logo-responsive, .tagline-responsive {
+  transition: all 0.3s ease;
+}
+
+.logo-responsive:hover {
+  transform: scale(1.02) translateZ(10px);
+  filter: contrast(110%) saturate(110%) drop-shadow(0 15px 40px rgba(167,131,90,0.4));
+}
+
+.tagline-responsive:hover {
+  transform: scale(1.01) translateZ(5px);
+  filter: contrast(108%) drop-shadow(0 12px 35px rgba(167,131,90,0.35));
+}
 .bg-bokeh::before,
 .bg-bokeh::after {
   content: "";

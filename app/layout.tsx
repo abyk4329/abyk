@@ -30,11 +30,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         suppressHydrationWarning
       >
         <div
-          className="relative min-h-screen bg-bokeh"
+          className="relative min-h-screen bg-bokeh flex flex-col"
           style={{ backgroundColor: "var(--ivory)" }}
         >
           <Header />
-          <div className="pt-20">{children}</div>
+          <main className="flex-1 pt-20">{children}</main>
           <Footer />
         </div>
       </body>
