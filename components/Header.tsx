@@ -67,17 +67,17 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-40 w-full border-b shadow-sm bg-ivory/95 shadow-warm-sm backdrop-blur-md border-gold-primary/30">
+      <header className="shadow-warm-sm fixed inset-x-0 top-0 z-40 w-full border-b border-gold-primary/30 bg-ivory/95 shadow-sm backdrop-blur-md">
         <div className="flex items-center justify-between px-4 py-3 md:py-4">
           {/* כפתור המבורגר למובייל */}
           <button
             ref={hamburgerRef}
-            className="flex items-center transition-colors duration-200 md:hidden text-espresso hover:text-cacao"
+            className="flex items-center text-espresso transition-colors duration-200 hover:text-cacao md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="תפריט"
           >
             <svg
-              className="w-6 h-6"
+              className="h-6 w-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -92,17 +92,17 @@ export default function Header() {
           </button>
 
           {/* ניווט לדסקטופ */}
-          <nav className="flex-row items-center hidden gap-6 md:flex text-espresso">
+          <nav className="hidden flex-row items-center gap-6 text-espresso md:flex">
             <a
               href="/"
-              className="text-sm transition-colors duration-200 hover:text-cta-dark text-espresso assistant-light"
+              className="hover:text-cta-dark assistant-light text-sm text-espresso transition-colors duration-200"
             >
               בית
             </a>
 
             <a
               href="/money-code"
-              className="text-sm transition-colors duration-200 hover:text-cta-dark text-espresso assistant-light"
+              className="hover:text-cta-dark assistant-light text-sm text-espresso transition-colors duration-200"
             >
               מחשבון קוד העושר
             </a>
@@ -110,7 +110,7 @@ export default function Header() {
             {/* יצירת קשר עם תפריט נפתח */}
             <div className="relative" ref={contactRef}>
               <button
-                className="flex items-center gap-1 text-sm transition-colors duration-200 hover:text-cta-dark text-espresso assistant-light"
+                className="hover:text-cta-dark assistant-light flex items-center gap-1 text-sm text-espresso transition-colors duration-200"
                 onClick={() => setContactOpen(!contactOpen)}
                 aria-expanded={contactOpen}
               >
@@ -132,16 +132,16 @@ export default function Header() {
 
               {/* תפריט יצירת קשר */}
               {contactOpen && (
-                <div className="absolute right-0 mt-2 bg-ivory border border-beige-200 rounded-lg shadow-lg py-2 min-w-[160px] z-50">
+                <div className="absolute right-0 z-50 mt-2 min-w-[160px] rounded-lg border border-beige-200 bg-ivory py-2 shadow-lg">
                   <a
                     href="https://wa.me/972524616121"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-3 py-2 transition-colors duration-200 text-smoky-brown hover:text-cta-dark hover:bg-beige-100/50"
+                    className="hover:text-cta-dark flex items-center gap-2 px-3 py-2 text-smoky-brown transition-colors duration-200 hover:bg-beige-100/50"
                     onClick={() => setContactOpen(false)}
                   >
                     <svg
-                      className="w-4 h-4 text-smoky-brown"
+                      className="h-4 w-4 text-smoky-brown"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1"
@@ -153,16 +153,16 @@ export default function Header() {
                         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                       />
                     </svg>
-                    <span className="text-sm assistant-light">WhatsApp</span>
+                    <span className="assistant-light text-sm">WhatsApp</span>
                   </a>
 
                   <a
                     href="mailto:awakening.by.ksenia@gmail.com"
-                    className="flex items-center gap-2 px-3 py-2 transition-colors duration-200 text-smoky-brown hover:text-cta-dark hover:bg-beige-100/50"
+                    className="hover:text-cta-dark flex items-center gap-2 px-3 py-2 text-smoky-brown transition-colors duration-200 hover:bg-beige-100/50"
                     onClick={() => setContactOpen(false)}
                   >
                     <svg
-                      className="w-4 h-4 text-smoky-brown"
+                      className="h-4 w-4 text-smoky-brown"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1"
@@ -174,7 +174,7 @@ export default function Header() {
                         d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                       />
                     </svg>
-                    <span className="text-sm assistant-light">Email</span>
+                    <span className="assistant-light text-sm">Email</span>
                   </a>
                 </div>
               )}
@@ -184,12 +184,8 @@ export default function Header() {
           {/* טקסט המותג */}
           <div className="flex items-center">
             <div className="text-right">
-              <div className="text-sm tracking-wide assistant-light text-espresso">
-                <span className="assistant-medium">Awakening by Ksenia</span>
-                <span className="mx-1 md:mx-1.5 text-espresso/60">|</span>
-                <span className="assistant-extralight">
-                  Your personal space for growth
-                </span>
+              <div className="assistant-light text-[11px] uppercase tracking-[0.3em] text-espresso md:text-xs md:tracking-[0.32em]">
+                YOUR PERSONAL SPACE FOR GROWTH
               </div>
             </div>
           </div>
@@ -206,20 +202,20 @@ export default function Header() {
         >
           <div
             ref={mobileMenuRef}
-            className="fixed top-0 right-0 h-full transition-transform duration-300 ease-in-out transform border-l shadow-xl w-80 bg-ivory border-beige-200/70"
+            className="fixed right-0 top-0 h-full w-80 transform border-l border-beige-200/70 bg-ivory shadow-xl transition-transform duration-300 ease-in-out"
             onClick={(e) => e.stopPropagation()}
           >
             {/* כותרת התפריט */}
-            <div className="flex items-center justify-between p-4 border-b border-sand-100">
-              <div className="text-sm english-light text-cacao">
-                Awakening by Ksenia | Your personal space for growth
+            <div className="flex items-center justify-between border-b border-sand-100 p-4">
+              <div className="assistant-light text-[11px] uppercase tracking-[0.3em] text-cacao md:text-xs md:tracking-[0.32em]">
+                YOUR PERSONAL SPACE FOR GROWTH
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="transition-colors duration-200 text-espresso hover:text-cacao"
+                className="text-espresso transition-colors duration-200 hover:text-cacao"
               >
                 <svg
-                  className="w-6 h-6"
+                  className="h-6 w-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -235,10 +231,10 @@ export default function Header() {
             </div>
 
             {/* פריטי תפריט */}
-            <div className="p-4 space-y-4">
+            <div className="space-y-4 p-4">
               <a
                 href="/"
-                className="block py-3 text-lg text-right transition-colors duration-200 border-b text-espresso hover:text-cacao assistant-regular border-sand-100/50"
+                className="assistant-regular block border-b border-sand-100/50 py-3 text-right text-lg text-espresso transition-colors duration-200 hover:text-cacao"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 בית
@@ -246,15 +242,15 @@ export default function Header() {
 
               <a
                 href="/money-code"
-                className="block py-3 text-lg text-right transition-colors duration-200 border-b text-espresso hover:text-cacao assistant-regular border-sand-100/50"
+                className="assistant-regular block border-b border-sand-100/50 py-3 text-right text-lg text-espresso transition-colors duration-200 hover:text-cacao"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 מחשבון קוד העושר
               </a>
 
               {/* יצירת קשר במובייל */}
-              <div className="py-3 border-b border-sand-100/50">
-                <div className="mb-3 text-lg text-right assistant-regular text-espresso">
+              <div className="border-b border-sand-100/50 py-3">
+                <div className="assistant-regular mb-3 text-right text-lg text-espresso">
                   יצירת קשר
                 </div>
 
@@ -264,7 +260,7 @@ export default function Header() {
                       href="https://wa.me/972524616121"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block py-2 text-lg text-right transition-colors duration-200 text-smoky-brown hover:text-cacao assistant-light"
+                      className="assistant-light block py-2 text-right text-lg text-smoky-brown transition-colors duration-200 hover:text-cacao"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       WhatsApp
@@ -274,7 +270,7 @@ export default function Header() {
                   <div>
                     <a
                       href="mailto:awakening.by.ksenia@gmail.com"
-                      className="block py-2 text-lg text-right transition-colors duration-200 text-smoky-brown hover:text-cacao assistant-light"
+                      className="assistant-light block py-2 text-right text-lg text-smoky-brown transition-colors duration-200 hover:text-cacao"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Email
