@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { SocialRow } from "@/components/glass/SocialRow";
 export default function Home() {
   return (
     <div className="homepage-container px-4">
@@ -26,7 +25,7 @@ export default function Home() {
             </div>
 
             {/* סלוגן - שמאל קלות ומטה */}
-            <div className="animate-fade-in -translate-x-8 translate-y-1 transform md:-translate-x-16">
+            <div className="animate-fade-in-float -translate-x-8 translate-y-1 transform md:-translate-x-16">
               <Image
                 src="/newlogos/Unlock the light within you....png"
                 alt="Unlock the light within you"
@@ -37,12 +36,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        {/* Social icons row */}
-        <div className="relative z-10 mt-6 flex justify-center">
-          <SocialRow size={44} />
-        </div>
-
         {/* כפתור */}
         <div className="relative z-10 mt-6 md:mt-8">
           <a

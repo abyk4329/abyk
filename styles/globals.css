@@ -286,7 +286,7 @@ html, body {
   }
 }
 
-.animate-fade-in {
+.animate-fade-in-float {
   animation: fadeInFloat 1.2s ease-out forwards 0.4s;
   opacity: 0;
 }

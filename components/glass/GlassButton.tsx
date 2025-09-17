@@ -23,10 +23,10 @@ export function GlassButton({
     <button
       onClick={handleClick}
       className={`
-        relative overflow-hidden rounded-full border border-white/20 
-        bg-white/10 backdrop-blur-md transition-all duration-300 
-        hover:bg-white/20 hover:border-white/30 hover:scale-105
-        active:scale-95 group
+  relative overflow-hidden rounded-full border border-white/20 
+  bg-transparent transition-all duration-300 
+  hover:shadow-[0_10px_24px_rgba(167,131,90,0.25)] hover:border-white/30
+  active:scale-95 group
         ${className}
       `}
       style={{
@@ -34,9 +34,9 @@ export function GlassButton({
         height: `${size}px`,
       }}
     >
-      {/* Light sweep effect */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
+      {/* Soft gold glow on hover */}
+      <div className="absolute inset-0 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="absolute inset-0 rounded-full blur-md bg-[radial-gradient(circle_at_center,rgba(190,157,118,0.45),rgba(190,157,118,0)_65%)]"></div>
       </div>
 
       {/* Content */}

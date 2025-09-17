@@ -17,7 +17,7 @@ export default function Home() {
         </div>
 
         {/* כותרת ראשית */}
-        <h1 className="text-4xl font-bold text-gold-deep md:text-5xl animate-fade-in">
+        <h1 className="text-4xl font-bold text-gold-deep md:text-5xl animate-fade-in-float">
           התעוררות
         </h1>
 
@@ -46,7 +46,7 @@ export default function Home() {
         </p>
 
         {/* חתימה */}
-        <div className="mt-12 signature animate-fade-in">
+        <div className="mt-12 signature animate-fade-in-float">
           <Image
             src="/newlogos/signature.svg"
             alt="by Ksenia Signature"
