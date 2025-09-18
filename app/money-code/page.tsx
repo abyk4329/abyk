@@ -181,49 +181,63 @@ export default function MoneyCode() {
           />
         </div>
 
-        <div className="max-w-md p-8 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-2xl border-beige-200">
-          <div className="space-y-6">
-            <div>
-              <label className="block mb-3 text-ms-1 font-medium text-center text-cacao">
-                הכניסו תאריך לידה
-              </label>
-              <input
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full px-4 py-3 font-normal text-center transition-all border-2 rounded-lg shadow-sm border-beige-200/70 bg-ivory text-espresso focus:outline-none focus:ring-2 focus:ring-gold-primary/40 focus:border-gold-primary [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:brightness-[0.8] [&::-webkit-calendar-picker-indicator]:sepia-[1] [&::-webkit-calendar-picker-indicator]:saturate-[3] [&::-webkit-calendar-picker-indicator]:hue-rotate-[15deg]"
-                dir="ltr"
-                aria-label="תאריך לידה"
-              />
+        <div className="max-w-md mx-auto rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.05)] border border-white/30 bg-footer/80 backdrop-blur-md">
+          <div className="flex items-center justify-between px-4 py-2 bg-footer/70 border-b border-white/20">
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-red-400/80" />
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-green-400/80" />
             </div>
-
-            {(error || configError) && (
-              <div className="p-3 text-ms--1 text-center text-red-700 border border-red-200 rounded-lg bg-red-50">
-                {configError || error}
+            <div className="text-ms--1 tracking-widest text-espresso/70">
+              בחירת תאריך לידה
+            </div>
+            <div />
+          </div>
+          <div className="p-6 bg-ivory/95">
+            <div className="space-y-6">
+              <div>
+                <label className="block mb-3 text-ms-1 font-medium text-center text-cacao">
+                  הכניסו תאריך לידה
+                </label>
+                <input
+                  type="date"
+                  value={birthDate}
+                  onChange={(e) => setBirthDate(e.target.value)}
+                  className="w-full px-4 py-3 font-normal text-center transition-all border-2 rounded-lg shadow-sm border-beige-200/70 bg-ivory text-espresso focus:outline-none focus:ring-2 focus:ring-gold-primary/40 focus:border-gold-primary [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:brightness-[0.8] [&::-webkit-calendar-picker-indicator]:sepia-[1] [&::-webkit-calendar-picker-indicator]:saturate-[3] [&::-webkit-calendar-picker-indicator]:hue-rotate-[15deg]"
+                  dir="ltr"
+                  aria-label="תאריך לידה"
+                />
               </div>
-            )}
 
-            <div className="flex gap-3">
-              <button
-                onClick={calculateMoneyCode}
-                disabled={!birthDate || isLoading}
-                className="assistant-regular flex-1 rounded-xl px-6 py-3 text-espresso transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 bg-white/10 backdrop-blur-md shadow-[0_2px_10px_rgba(63,50,38,0.10)] hover:bg-[rgba(190,157,118,0.12)] hover:shadow-[0_8px_28px_rgba(167,131,90,0.18)] active:bg-[rgba(190,157,118,0.16)] active:shadow-[0_10px_34px_rgba(167,131,90,0.25)] focus:outline-none focus:ring-2 focus:ring-[rgba(190,157,118,0.35)] ring-offset-2 ring-offset-ivory"
-              >
-                {isLoading ? (
-                  <div className="text-ms--1">מחשבים...</div>
-                ) : (
-                  "אני רוצה לדעת מה הקוד שלי"
-                )}
-              </button>
-              <button
-                onClick={clearData}
-                className="px-4 py-2 text-ms--1 transition-all duration-300 border rounded-lg border-beige-300 text-espresso hover:bg-beige-100"
-              >
-                נקה
-              </button>
+              {(error || configError) && (
+                <div className="p-3 text-ms--1 text-center text-red-700 border border-red-200 rounded-lg bg-red-50">
+                  {configError || error}
+                </div>
+              )}
+
+              <div className="flex gap-3">
+                <button
+                  onClick={calculateMoneyCode}
+                  disabled={!birthDate || isLoading}
+                  className="assistant-regular flex-1 rounded-xl px-6 py-3 text-espresso transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 bg-white/10 backdrop-blur-md shadow-[0_2px_10px_rgba(63,50,38,0.10)] hover:bg-[rgba(190,157,118,0.12)] hover:shadow-[0_8px_28px_rgba(167,131,90,0.18)] active:bg-[rgba(190,157,118,0.16)] active:shadow-[0_10px_34px_rgba(167,131,90,0.25)] focus:outline-none focus:ring-2 focus:ring-[rgba(190,157,118,0.35)] ring-offset-2 ring-offset-ivory"
+                >
+                  {isLoading ? (
+                    <div className="text-ms--1">מחשבים...</div>
+                  ) : (
+                    "אני רוצה לדעת מה הקוד שלי"
+                  )}
+                </button>
+                <button
+                  onClick={clearData}
+                  className="px-4 py-2 text-ms--1 transition-all duration-300 border rounded-lg border-beige-300 text-espresso hover:bg-beige-100"
+                >
+                  נקה
+                </button>
+              </div>
             </div>
           </div>
         </div>
+
         {result && (
           <div className="max-w-lg p-6 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-xl border-beige-200 animate-fade-in">
             <h2 className="text-depth-medium emphasis-strong animate-gleam-fade-in">

@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { Assistant } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const assistant = Assistant({
   subsets: ["latin"],
@@ -73,7 +72,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="relative min-h-screen bg-bokeh flex flex-col">
           <Header />
           <main className="flex-1 pt-20 pb-28 md:pb-24">{children}</main>
-          <ThemeSwitcher />
           <Footer />
         </div>
       </body>
