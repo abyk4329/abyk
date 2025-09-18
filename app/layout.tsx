@@ -18,15 +18,37 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/newlogos/Favicon.png", sizes: "16x16", type: "image/png" },
-      { url: "/newlogos/Favicon.png", sizes: "32x32", type: "image/png" },
-      { url: "/newlogos/Favicon.png", sizes: "192x192", type: "image/png" },
-      { url: "/newlogos/Favicon.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      {
+        url: "/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+      {
+        url: "/favicon-light.png",
+        media: "(prefers-color-scheme: light)",
+        type: "image/png",
+      },
+      {
+        url: "/favicon-dark.png",
+        media: "(prefers-color-scheme: dark)",
+        type: "image/png",
+      },
     ],
     apple: [
-      { url: "/newlogos/Favicon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
-    shortcut: "/newlogos/Favicon.png",
+    other: [
+      { rel: "mask-icon", url: "/newlogos/signature.svg", color: "#111111" },
+    ],
+    shortcut: "/favicon.ico",
   },
   appleWebApp: {
     capable: true,
