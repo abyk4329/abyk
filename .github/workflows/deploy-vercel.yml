@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-prod
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,10 +25,11 @@ jobs:
           [ -n "${{ secrets.VERCEL_ORG_ID }}" ] || (echo "Missing VERCEL_ORG_ID" && exit 1)
           [ -n "${{ secrets.VERCEL_PROJECT_ID }}" ] || (echo "Missing VERCEL_PROJECT_ID" && exit 1)
 
-      - name: Deploy with Vercel
+      - name: Deploy with Vercel (Production)
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: "--prod"
+          vercel-args: "--prod --force"
+          working-directory: .
