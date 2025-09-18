@@ -15,10 +15,11 @@ const assistant = Assistant({
 export const metadata: Metadata = {
   title: "Awakening by Ksenia",
   description: "Your Personal Space For Growth — Unlock Your Inner Light",
+  manifest: "/manifest.json",
   icons: {
-    icon: "/newlogos/ikon.png",
-    shortcut: "/newlogos/ikon.png",
-    apple: "/newlogos/ikon.png",
+    icon: "/newlogos/Favicon.png",
+    shortcut: "/newlogos/Favicon.png",
+    apple: "/newlogos/Favicon.png",
   },
 };
 
