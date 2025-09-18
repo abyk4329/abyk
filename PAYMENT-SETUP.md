@@ -47,7 +47,7 @@ NEXT_PUBLIC_PAYMENT_URL=https://your-payment-platform/your-link-id
 
 ### הגדרת Webhook במערכת התשלומים
 
-- URL: `https://your-domain.vercel.app/api/payment-webhook`
+- URL: `https://abyk.online/api/payment-webhook`
 - Method: POST
 - Expected payload:
 

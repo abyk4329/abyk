@@ -132,7 +132,7 @@ WEBHOOK_SECRET=your-secret-key
 
 ### 3. הגדרת Webhook במערכת התשלומים
 
-- **Webhook URL**: `https://your-domain.vercel.app/api/payment-webhook`
+- **Webhook URL**: `https://abyk.online/api/payment-webhook`
 - **Method**: POST
 - **תשלח לקוח פירוש**: לאחר תשלום מוצלח ✅
 

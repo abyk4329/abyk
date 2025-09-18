@@ -47,7 +47,7 @@ async function main() {
   <h3 style="color:#C6A170;margin:0 0 15px 0;font-size:24px;font-weight:600;text-align:right;">קוד העושר האישי שלכם הוא</h3>
       <div style="font-size:36px;font-weight:700;color:#1F2024;text-align:center;margin:20px 0;letter-spacing:8px;padding:20px;background:linear-gradient(135deg,#f6efe6 0%,#f0e7d8 100%);border-radius:12px;border:1px solid #D4B896;">3 7 9 1</div>
       <div style="text-align:center;margin:30px 0;">
-  <a href="https://abyk.vercel.app/thank-you?bd=3&bm=7&by=9&lp=1" class="cta-button">צפייה בפירוש המלא באתר</a>
+  <a href="https://abyk.online/thank-you?bd=3&bm=7&by=9&lp=1" class="cta-button">צפייה בפירוש המלא באתר</a>
       </div>
     </div>
   </div>

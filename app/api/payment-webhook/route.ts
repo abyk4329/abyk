@@ -167,7 +167,7 @@ export async function POST(req: NextRequest) {
     const baseUrl = (
       process.env.BASE_URL ||
       process.env.NEXT_PUBLIC_BASE_URL ||
-      "https://abyk.vercel.app"
+      "https://abyk.online"
     ).replace(/\/$/, "");
     const interpretationUrl = `${baseUrl}/thank-you?bd=${code.bd}&bm=${code.bm}&by=${code.by}&lp=${code.lp}`;
     const duplicateText = hasDuplicates

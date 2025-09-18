@@ -13,6 +13,7 @@ const assistant = Assistant({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://abyk.online"),
   title: "Awakening by Ksenia",
   description: "Your Personal Space For Growth — Unlock Your Inner Light",
   manifest: "/manifest.json",
