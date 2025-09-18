@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Assistant } from "next/font/google";
 import Header from "@/components/Header";
@@ -33,6 +33,10 @@ export const metadata: Metadata = {
     title: "Awakening by Ksenia",
     statusBarStyle: "black-translucent",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#fdfcfa",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
