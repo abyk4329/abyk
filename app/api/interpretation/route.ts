@@ -3,6 +3,9 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
+// Ensure this route is always dynamic (it reads request URL and proxies)
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url);

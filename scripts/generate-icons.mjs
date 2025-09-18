@@ -16,6 +16,7 @@ async function buildPng(size, outPath, bg = "#ffffff") {
     .flatten({ background: bg })
     .resize(size, size, { fit: "cover" });
   await img.png({ compressionLevel: 9 }).toFile(outPath);
+  console.log(`✓ ${path.basename(outPath)} (${size}x${size})`);
 }
 
 async function main() {
@@ -55,6 +56,7 @@ async function main() {
     path.join(publicDir, "favicon-48x48.png"),
   ]);
   await fs.writeFile(path.join(publicDir, "favicon.ico"), icoBuf);
+  console.log("✓ favicon.ico (16,32,48)");
 
   console.log("Icons generated successfully");
 }
