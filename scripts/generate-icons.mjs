@@ -5,7 +5,7 @@ import pngToIco from "png-to-ico";
 
 const root = process.cwd();
 const publicDir = path.join(root, "public");
-const src = path.join(publicDir, "newlogos", "Favicon.png");
+const src = path.join(root, "ABYKiconfavicon.png");
 
 async function ensurePublic() {
   await fs.mkdir(publicDir, { recursive: true });
