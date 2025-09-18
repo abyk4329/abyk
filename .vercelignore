@@ -1,0 +1,10 @@
+# Exclude non-canonical apps and local artifacts from Vercel uploads
+abyk/
+**/abyk/**
+halivas.invoice/
+**/.DS_Store
+updatelogos/
+PROJECT_CLEANUP_REPORT.md
+PROJECT_CLEANUP_REPORT copy.md
+README-NEW.md
+SUMMARY.md
