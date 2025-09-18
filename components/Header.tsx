@@ -68,6 +68,13 @@ export default function Header() {
   return (
     <>
       <header className="shadow-warm-sm fixed inset-x-0 top-0 z-40 w-full border-b border-gold-primary/30 bg-ivory/95 shadow-sm backdrop-blur-md">
+        {/* Centered slogan overlay */}
+        <div className="pointer-events-none absolute inset-x-0 top-2 flex justify-center">
+          <div className="assistant-light uppercase text-center tracking-[0.15em] text-espresso text-[clamp(10px,1.8vw,14px)] md:text-[clamp(12px,1.4vw,16px)]">
+            YOUR PERSONAL SPACE FOR GROWTH
+          </div>
+        </div>
+
         <div className="flex items-center justify-between px-4 py-3 md:py-4">
           {/* כפתור המבורגר למובייל */}
           <button
@@ -181,14 +188,8 @@ export default function Header() {
             </div>
           </nav>
 
-          {/* טקסט המותג */}
-          <div className="flex items-center">
-            <div className="text-right">
-              <div className="assistant-light text-[11px] uppercase tracking-[0.3em] text-espresso md:text-xs md:tracking-[0.32em]">
-                YOUR PERSONAL SPACE FOR GROWTH
-              </div>
-            </div>
-          </div>
+          {/* Right-side spacer (slogan is absolutely centered above) */}
+          <div className="w-6 md:w-8" aria-hidden />
         </div>
         {/* thin gold divider for emphasis */}
         <div className="h-[2px] bg-gradient-to-r from-transparent via-gold-primary/50 to-transparent" />
