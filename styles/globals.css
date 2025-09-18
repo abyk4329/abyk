@@ -36,6 +36,49 @@
   --charcoal: var(--espresso);
   --text-secondary: var(--smoky-brown);
   --champagne: var(--peach-beige);
+
+  /* Modular scale defaults */
+  --ms-base: 1rem;
+  /* Default ratio (tablet/desktop mid-range) */
+  --ms-r: 1.333;
+
+  /* Golden ratio for spacing system */
+  --phi: 1.618;
+  --space-base: 1rem;
+  --space-phi-05: calc(var(--space-base) / var(--phi));
+  --space-phi-1: calc(var(--space-base) * var(--phi));
+  --space-phi-2: calc(var(--space-phi-1) * var(--phi));
+}
+
+/* Theme variants via data-theme attribute */
+:root[data-theme="gold"] {
+  --gold: #be9d76;
+  --gold-deep: #a7835a;
+}
+:root[data-theme="rose"] {
+  --gold: #d5a3b3;
+  --gold-deep: #b87c91;
+}
+:root[data-theme="sand"] {
+  --gold: #c9b9a3;
+  --gold-deep: #a99374;
+}
+
+/* Type scale overrides via data-scale attribute */
+:root[data-scale="tight"] { --ms-r: 1.25; }
+:root[data-scale="classic"] { --ms-r: 1.333; }
+:root[data-scale="silver"] { --ms-r: 1.414; }
+:root[data-scale="golden"] { --ms-r: 1.618; }
+
+/* Spacing density via data-space attribute */
+:root[data-space="compact"] {
+  --space-base: 0.875rem;
+}
+:root[data-space="comfortable"] {
+  --space-base: 1rem;
+}
+:root[data-space="airy"] {
+  --space-base: 1.125rem;
 }
 
 * {
@@ -46,6 +89,8 @@
 
 body {
   font-family: "Assistant", sans-serif;
+  /* Responsive root sizing with slight fluidity */
+  font-size: clamp(15px, 1rem + 0.25vw, 18px);
   /* Gentle vertical blend between the two ivories */
   background-color: var(--ivory);
   background-image: linear-gradient(
@@ -73,27 +118,24 @@ h6 {
   font-weight: 600;
 }
 
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+/* Modular scale steps computed from base and ratio */
+:root {
+  --ms--2: calc(var(--ms-base) / (var(--ms-r) * var(--ms-r)));
+  --ms--1: calc(var(--ms-base) / var(--ms-r));
+  --ms-0: var(--ms-base);
+  --ms-1: calc(var(--ms-base) * var(--ms-r));
+  --ms-2: calc(var(--ms-1) * var(--ms-r));
+  --ms-3: calc(var(--ms-2) * var(--ms-r));
+  --ms-4: calc(var(--ms-3) * var(--ms-r));
+  --ms-5: calc(var(--ms-4) * var(--ms-r));
 }
 
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-}
-
-h2 {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-}
-
-@media (max-width: 768px) {
-  h2 {
-    font-size: 1.5rem;
-  }
-}
+h1 { font-size: var(--ms-4); line-height: 1.15; margin-bottom: var(--space-phi-05); }
+h2 { font-size: var(--ms-3); line-height: 1.2;  margin-bottom: var(--space-phi-05); }
+h3 { font-size: var(--ms-2); line-height: 1.25; margin-bottom: 0.6rem; }
+h4 { font-size: var(--ms-1); line-height: 1.3;  margin-bottom: 0.5rem; }
+h5 { font-size: var(--ms-0); line-height: 1.35; margin-bottom: 0.4rem; }
+h6 { font-size: var(--ms--1); line-height: 1.4; margin-bottom: 0.35rem; }
 
 p {
   text-align: center;
@@ -461,6 +503,33 @@ html, body {
 strong {
   color: var(--dark-choco);
   font-weight: 700;
+}
+
+/* Golden-ratio spacing utilities */
+.p-phi { padding: var(--space-phi-1); }
+.px-phi { padding-left: var(--space-phi-1); padding-right: var(--space-phi-1); }
+.py-phi { padding-top: var(--space-phi-1); padding-bottom: var(--space-phi-1); }
+.gap-phi { gap: var(--space-phi-1); }
+.gap-phi-2 { gap: var(--space-phi-2); }
+.mt-phi { margin-top: var(--space-phi-1); }
+.mb-phi { margin-bottom: var(--space-phi-1); }
+.my-phi { margin-top: var(--space-phi-1); margin-bottom: var(--space-phi-1); }
+
+/* Responsive ratio selection (auto choose best among 1.200, 1.250, 1.333, 1.414, 1.618) */
+@media (max-width: 480px) {
+  :root { --ms-r: 1.2; }
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  :root { --ms-r: 1.25; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root { --ms-r: 1.333; }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :root { --ms-r: 1.414; }
+}
+@media (min-width: 1440px) {
+  :root { --ms-r: 1.618; }
 }
 
 @media (max-width: 768px) {

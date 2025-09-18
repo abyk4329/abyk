@@ -101,7 +101,7 @@ export default function Header() {
             </a>
 
             <a
-              href="/money-code"
+              href="/thewelthcode"
               className="hover:text-cta-dark assistant-light text-sm text-espresso transition-colors duration-200"
             >
               מחשבון קוד העושר
@@ -241,7 +241,7 @@ export default function Header() {
               </a>
 
               <a
-                href="/money-code"
+                href="/thewelthcode"
                 className="assistant-regular block border-b border-sand-100/50 py-3 text-right text-lg text-espresso transition-colors duration-200 hover:text-cacao"
                 onClick={() => setMobileMenuOpen(false)}
               >

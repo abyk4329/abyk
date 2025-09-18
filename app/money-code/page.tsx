@@ -207,7 +207,7 @@ export default function MoneyCode() {
               <button
                 onClick={calculateMoneyCode}
                 disabled={!birthDate || isLoading}
-                className="flex-1 px-6 py-3 text-white transition-all duration-300 rounded-lg bg-gold-primary hover:bg-gold-deep disabled:opacity-50 disabled:cursor-not-allowed"
+                className="assistant-regular flex-1 rounded-xl px-6 py-3 text-espresso transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 bg-white/10 backdrop-blur-md shadow-[0_2px_10px_rgba(63,50,38,0.10)] hover:bg-[rgba(190,157,118,0.12)] hover:shadow-[0_8px_28px_rgba(167,131,90,0.18)] active:bg-[rgba(190,157,118,0.16)] active:shadow-[0_10px_34px_rgba(167,131,90,0.25)] focus:outline-none focus:ring-2 focus:ring-[rgba(190,157,118,0.35)] ring-offset-2 ring-offset-ivory"
               >
                 {isLoading ? (
                   <div className="text-sm">מחשבים...</div>
