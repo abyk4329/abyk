@@ -184,7 +184,7 @@ export default function MoneyCode() {
         <div className="max-w-md p-8 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-2xl border-beige-200">
           <div className="space-y-6">
             <div>
-              <label className="block mb-3 text-lg font-medium text-center text-cacao">
+              <label className="block mb-3 text-ms-1 font-medium text-center text-cacao">
                 הכניסו תאריך לידה
               </label>
               <input
@@ -198,7 +198,7 @@ export default function MoneyCode() {
             </div>
 
             {(error || configError) && (
-              <div className="p-3 text-sm text-center text-red-700 border border-red-200 rounded-lg bg-red-50">
+              <div className="p-3 text-ms--1 text-center text-red-700 border border-red-200 rounded-lg bg-red-50">
                 {configError || error}
               </div>
             )}
@@ -210,14 +210,14 @@ export default function MoneyCode() {
                 className="assistant-regular flex-1 rounded-xl px-6 py-3 text-espresso transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 bg-white/10 backdrop-blur-md shadow-[0_2px_10px_rgba(63,50,38,0.10)] hover:bg-[rgba(190,157,118,0.12)] hover:shadow-[0_8px_28px_rgba(167,131,90,0.18)] active:bg-[rgba(190,157,118,0.16)] active:shadow-[0_10px_34px_rgba(167,131,90,0.25)] focus:outline-none focus:ring-2 focus:ring-[rgba(190,157,118,0.35)] ring-offset-2 ring-offset-ivory"
               >
                 {isLoading ? (
-                  <div className="text-sm">מחשבים...</div>
+                  <div className="text-ms--1">מחשבים...</div>
                 ) : (
                   "אני רוצה לדעת מה הקוד שלי"
                 )}
               </button>
               <button
                 onClick={clearData}
-                className="px-4 py-2 text-sm transition-all duration-300 border rounded-lg border-beige-300 text-espresso hover:bg-beige-100"
+                className="px-4 py-2 text-ms--1 transition-all duration-300 border rounded-lg border-beige-300 text-espresso hover:bg-beige-100"
               >
                 נקה
               </button>
@@ -226,14 +226,14 @@ export default function MoneyCode() {
         </div>
         {result && (
           <div className="max-w-lg p-6 mx-auto border-2 shadow-warm-sm bg-ivory/95 backdrop-blur-sm rounded-xl border-beige-200 animate-fade-in">
-            <h2 className="text-title text-depth-medium emphasis-strong animate-gleam-fade-in">
+            <h2 className="text-depth-medium emphasis-strong animate-gleam-fade-in">
               קוד העושר האישי שלכם
             </h2>
 
             <div className="p-5 mb-6 text-center border-2 rounded-lg shadow-warm-sm bg-ivory backdrop-blur-sm border-beige-200 animate-slide-up">
               <div
                 dir="ltr"
-                className="font-mono text-6xl font-light tracking-[0.2em] text-cacao select-all"
+                className="font-mono text-ms-4 font-light tracking-[0.2em] text-cacao select-all"
               >
                 {`${result.bd}${result.bm}${result.by}${result.lp}`}
               </div>
@@ -258,12 +258,12 @@ export default function MoneyCode() {
                 </p>
               </div>
               <div className="mb-4 text-center">
-                <span className="text-sm text-gold-warm">⸻</span>
+                <span className="text-ms--1 text-gold-warm">ﹻ</span>
               </div>
-              <h4 className="mb-3 text-sm font-medium text-center text-cacao">
+              <h4 className="mb-3 text-ms--1 font-medium text-center text-cacao">
                 גלו את עצמכם דרך הקוד האישי
               </h4>
-              <div className="max-w-xl mx-auto space-y-2 text-sm leading-relaxed text-text-secondary">
+              <div className="max-w-xl mx-auto space-y-2 text-ms--1 leading-relaxed text-text-secondary">
                 <p className="text-center">
                   כשאתם מבינים מה מסתתר מאחורי כל ספרה – נפתחת בפניכם מפה ברורה:
                 </p>
@@ -311,16 +311,16 @@ export default function MoneyCode() {
                 <button
                   onClick={handlePayment}
                   disabled={!!configError}
-                  className="px-8 py-3 text-base font-medium transition-all duration-300 border-2 shadow-md bg-gold-primary/20 hover:bg-gold-primary/30 text-espresso border-gold-primary/50 hover:scale-[1.02] rounded-lg hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-3 text-ms-0 font-medium transition-all duration-300 border-2 shadow-md bg-gold-primary/20 hover:bg-gold-primary/30 text-espresso border-gold-primary/50 hover:scale-[1.02] rounded-lg hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="אנחנו בפנים"
                 >
                   {configError ? "שגיאת תצורה" : "אנחנו בפנים"}
                 </button>
               </div>
               <div className="mt-6 text-center">
-                <span className="text-sm text-gold-warm">⸻</span>
+                <span className="text-ms--1 text-gold-warm">ﹻ</span>
               </div>
-              <div className="mt-4 space-y-1 text-sm text-center text-text-secondary">
+              <div className="mt-4 space-y-1 text-ms--1 text-center text-text-secondary">
                 <div className="font-medium text-cacao">
                   מה קורה אחרי התשלום?
                 </div>

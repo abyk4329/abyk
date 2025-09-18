@@ -50,7 +50,7 @@ export function GlassIconLink({
       <span className="relative z-10 flex items-center gap-2 text-espresso/80 transition-colors duration-300 group-hover:text-espresso">
         <span style={{ lineHeight: 0 }}>{children}</span>
         {showLabel && (
-          <span className="hidden text-sm md:inline text-espresso/80 group-hover:text-espresso">
+          <span className="hidden md:inline text-ms--1 text-espresso/80 group-hover:text-espresso">
             {text ?? label}
           </span>
         )}

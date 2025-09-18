@@ -40,7 +40,7 @@ export default function Home() {
         <div className="relative z-10 mt-6 md:mt-8">
           <a
             href="/thewelthcode"
-            className="animate-fade-in ripple group relative inline-flex items-center justify-center rounded-full bg-gradient-to-b from-champagne to-gold px-8 py-3 text-base font-semibold text-espresso shadow-[0_8px_28px_rgba(167,131,90,0.25)] ring-offset-2 ring-offset-ivory transition-all duration-300 hover:from-gold hover:to-gold-deep hover:text-ivory hover:shadow-[0_12px_35px_rgba(167,131,90,0.35)] focus:outline-none focus:ring-2 focus:ring-gold active:translate-y-[1px] md:text-lg"
+            className="animate-fade-in ripple group relative inline-flex items-center justify-center rounded-full bg-gradient-to-b from-champagne to-gold px-8 py-3 text-ms-0 md:text-ms-1 font-semibold text-espresso shadow-[0_8px_28px_rgba(167,131,90,0.25)] ring-offset-2 ring-offset-ivory transition-all duration-300 hover:from-gold hover:to-gold-deep hover:text-ivory hover:shadow-[0_12px_35px_rgba(167,131,90,0.35)] focus:outline-none focus:ring-2 focus:ring-gold active:translate-y-[1px]"
           >
             <span className="relative z-10">מחשבון קוד העושר</span>
           </a>

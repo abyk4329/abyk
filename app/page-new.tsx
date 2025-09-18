@@ -17,18 +17,18 @@ export default function Home() {
         </div>
 
         {/* כותרת ראשית */}
-        <h1 className="text-4xl font-bold text-gold-deep md:text-5xl animate-fade-in-float">
+        <h1 className="font-bold text-gold-deep animate-fade-in-float">
           התעוררות
         </h1>
 
         {/* תת כותרת */}
-        <h2 className="text-xl font-medium text-gold md:text-2xl animate-fade-in">
+        <h2 className="font-medium text-gold animate-fade-in">
           חישוב קוד נומרולוגי אישי
         </h2>
 
         {/* תיאור */}
         {/* היה: גלה את המשמעות הנומרולוגית שלך ופתח שער להבנה עמוקה יותר של עצמך */}
-        <p className="max-w-2xl px-4 mx-auto text-lg text-text-secondary animate-fade-in">
+        <p className="max-w-2xl px-4 mx-auto text-text-secondary animate-fade-in text-ms-0 md:text-ms-1">
           גלו את המשמעות הנומרולוגית שלכם ופתחו שער להבנה עמוקה יותר על עצמכם
         </p>
 
@@ -36,12 +36,12 @@ export default function Home() {
         {/* היה: חשבי קוד כסף ✨ */}
         <a
           href="/money-code"
-          className="inline-block px-8 py-4 text-lg font-semibold transition-all duration-300 rounded-lg btn bg-gold hover:bg-gold-deep text-charcoal hover:scale-105 animate-fade-in"
+          className="inline-block px-8 py-4 text-ms-1 font-semibold transition-all duration-300 rounded-lg btn bg-gold hover:bg-gold-deep text-charcoal hover:scale-105 animate-fade-in"
         >
           חשבו קוד כסף
         </a>
 
-        <p className="text-sm text-text-secondary animate-fade-in">
+        <p className="text-ms--1 text-text-secondary animate-fade-in">
           פירוש מלא ומותאם אישית - 97₪
         </p>
 

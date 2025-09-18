@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable prettier/prettier */
 
 import { useEffect, useState } from "react";
 import DOMPurify from "dompurify";
@@ -69,9 +70,7 @@ export default function Privacy() {
   return (
     <main className="container py-8 mx-auto">
       <div className="content">
-        <h1 className="mb-8 text-3xl font-bold text-gold-deep">
-          מדיניות פרטיות
-        </h1>
+  <h1 className="mb-8 font-bold text-gold-deep">מדיניות פרטיות</h1>
         {error && (
           <div className="p-4 mb-4 text-sm text-red-700 border border-red-200 rounded-lg bg-red-50">
             {error}
@@ -89,7 +88,7 @@ export default function Privacy() {
         <div className="mt-10">
           <a
             href="/"
-            className="inline-block px-6 py-3 transition-colors duration-300 rounded-lg ripple assistant-bold bg-charcoal hover:bg-gold-deep text-ivory"
+            className="inline-block px-6 py-3 transition-colors duration-300 rounded-lg ripple assistant-bold bg-charcoal hover:bg-gold-deep text-ivory text-ms-0"
           >
             חזרה לעמוד הבית
           </a>

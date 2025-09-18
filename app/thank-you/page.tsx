@@ -122,11 +122,9 @@ function ThankYouContent() {
         {/* הודעת תודה */}
         <div className="p-8 border bg-ivory/90 backdrop-blur-sm rounded-2xl shadow-warm-md border-beige-200">
           <div className="mb-6">
-            <h1 className="mb-4 text-3xl font-bold text-cacao">
-              תודה על הרכישה
-            </h1>
+            <h1 className="mb-4 font-bold text-cacao">תודה על הרכישה</h1>
           </div>
-          <div className="space-y-6 text-lg">
+          <div className="space-y-6 text-ms-1">
             <p className="font-bold text-espresso">
               התשלום נקלט בהצלחה, והפירוש האישי שלכם כבר מוכן
             </p>
@@ -148,10 +146,10 @@ function ThankYouContent() {
                     key={item.label}
                     className="px-3 py-3 border shadow-sm rounded-xl bg-espresso border-espresso/30"
                   >
-                    <div className="mb-1 text-xs text-pearl/80">
+                    <div className="mb-1 text-ms--1 text-pearl/80">
                       {item.label}
                     </div>
-                    <div className="text-2xl font-extrabold leading-none text-white">
+                    <div className="text-ms-2 font-extrabold leading-none text-white">
                       {item.value}
                     </div>
                   </div>
@@ -160,7 +158,7 @@ function ThankYouContent() {
             ) : null}
             {/* הודעה מינימליסטית על המייל */}
             <div className="p-6 border bg-ivory border-beige-200 rounded-xl text-espresso shadow-warm-sm">
-              <p className="mb-4 text-base leading-relaxed text-center">
+              <p className="mb-4 text-ms-0 leading-relaxed text-center">
                 אם חלפו יותר מ־15 דקות והמייל עדיין לא התקבל,
                 <span className="font-medium">
                   {" "}
@@ -219,10 +217,10 @@ function ThankYouContent() {
         {(interpretationLoading || interpretationError || sanitizedHtml) && (
           <div className="w-full max-w-4xl">
             <div className="p-6 mb-6 border bg-ivory border-beige-200 rounded-xl shadow-warm-sm">
-              <h2 className="mb-4 text-2xl font-medium text-center text-cacao assistant-light">
+              <h2 className="mb-4 font-medium text-center text-cacao assistant-light text-ms-2">
                 הפירוש האישי שלכם
               </h2>
-              <div className="mb-4 text-sm text-center text-espresso/60">
+              <div className="mb-4 text-ms--1 text-center text-espresso/60">
                 <span className="assistant-light">
                   המספרים הייחודיים שלכם:{" "}
                 </span>
@@ -231,17 +229,17 @@ function ThankYouContent() {
                 </span>
               </div>
               {interpretationLoading && (
-                <div className="p-3 text-sm text-center border rounded-lg bg-beige-100/40 border-beige-200 animate-pulse text-espresso">
+                <div className="p-3 text-ms--1 text-center border rounded-lg bg-beige-100/40 border-beige-200 animate-pulse text-espresso">
                   טוען את הפירוש...
                 </div>
               )}
               {interpretationError && !interpretationLoading && (
-                <div className="p-4 text-sm text-center text-red-700 border border-red-200 rounded-lg bg-red-50">
+                <div className="p-4 text-ms--1 text-center text-red-700 border border-red-200 rounded-lg bg-red-50">
                   <div className="mb-3">{interpretationError}</div>
                   <button
                     type="button"
                     onClick={fetchInterpretation}
-                    className="px-4 py-2 text-xs font-medium text-red-700 transition-colors duration-200 border border-red-300 rounded-md bg-white/70 hover:bg-red-100"
+                    className="px-4 py-2 text-ms--1 font-medium text-red-700 transition-colors duration-200 border border-red-300 rounded-md bg-white/70 hover:bg-red-100"
                   >
                     נסה שוב
                   </button>

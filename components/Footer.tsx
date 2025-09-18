@@ -17,7 +17,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
             <a
               href="/terms"
-              className="rounded px-1.5 py-0.5 text-xs text-text-secondary underline-offset-4 transition-colors hover:text-gold-deep hover:underline md:text-sm"
+              className="rounded px-1.5 py-0.5 text-ms--1 text-text-secondary underline-offset-4 transition-colors hover:text-gold-deep hover:underline"
               aria-label="תנאי שימוש"
             >
               תנאי שימוש
@@ -25,7 +25,7 @@ export default function Footer() {
             <span className="select-none text-text-secondary/40">|</span>
             <a
               href="/privacy"
-              className="rounded px-1.5 py-0.5 text-xs text-text-secondary underline-offset-4 transition-colors hover:text-gold-deep hover:underline md:text-sm"
+              className="rounded px-1.5 py-0.5 text-ms--1 text-text-secondary underline-offset-4 transition-colors hover:text-gold-deep hover:underline"
               aria-label="מדיניות פרטיות"
             >
               מדיניות פרטיות
@@ -70,7 +70,7 @@ export default function Footer() {
           </div>
 
           {/* Brand */}
-          <div className="text-xs font-semibold tracking-[0.2em] text-text-secondary md:text-sm">
+          <div className="font-semibold tracking-[0.2em] text-text-secondary text-ms--1 md:text-ms-0">
             Awakening by Ksenia © 2025
           </div>
         </div>

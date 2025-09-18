@@ -55,7 +55,7 @@ export default function ThemeSwitcher() {
   return (
     <div className="fixed bottom-20 left-3 z-40 select-none">
       <div className="rounded-xl border border-white/30 bg-footer/90 backdrop-blur-md p-3 shadow-xl">
-        <div className="mb-2 text-xs font-semibold tracking-widest text-espresso/80">
+        <div className="mb-2 text-ms--1 font-semibold tracking-widest text-espresso/80">
           Theme
         </div>
         <div className="mb-3 flex gap-2">
@@ -63,7 +63,7 @@ export default function ThemeSwitcher() {
             <button
               key={k}
               onClick={() => update("theme", k)}
-              className={`rounded-md px-2 py-1 text-xs ${
+              className={`rounded-md px-2 py-1 text-ms--1 ${
                 theme === k
                   ? "bg-gold text-ivory"
                   : "bg-transparent border border-white/20 text-espresso/80"
@@ -74,7 +74,7 @@ export default function ThemeSwitcher() {
           ))}
         </div>
 
-        <div className="mb-2 text-xs font-semibold tracking-widest text-espresso/80">
+        <div className="mb-2 text-ms--1 font-semibold tracking-widest text-espresso/80">
           Type Scale
         </div>
         <div className="mb-3 grid grid-cols-2 gap-2">
@@ -82,7 +82,7 @@ export default function ThemeSwitcher() {
             <button
               key={k}
               onClick={() => update("scale", k)}
-              className={`rounded-md px-2 py-1 text-xs ${
+              className={`rounded-md px-2 py-1 text-ms--1 ${
                 scale === k
                   ? "bg-gold text-ivory"
                   : "bg-transparent border border-white/20 text-espresso/80"
@@ -93,7 +93,7 @@ export default function ThemeSwitcher() {
           ))}
         </div>
 
-        <div className="mb-2 text-xs font-semibold tracking-widest text-espresso/80">
+        <div className="mb-2 text-ms--1 font-semibold tracking-widest text-espresso/80">
           Spacing
         </div>
         <div className="grid grid-cols-3 gap-2">
@@ -101,7 +101,7 @@ export default function ThemeSwitcher() {
             <button
               key={k}
               onClick={() => update("space", k)}
-              className={`rounded-md px-2 py-1 text-xs ${
+              className={`rounded-md px-2 py-1 text-ms--1 ${
                 space === k
                   ? "bg-gold text-ivory"
                   : "bg-transparent border border-white/20 text-espresso/80"

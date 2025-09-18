@@ -38,7 +38,9 @@ export function GlassCTA({
       {/* Content */}
       <div className="relative z-10 flex items-center gap-3 text-espresso/80 group-hover:text-espresso transition-colors duration-300">
         <span className="flex items-center justify-center">{children}</span>
-        <span className="text-sm font-medium whitespace-nowrap">{label}</span>
+        <span className="text-ms--1 font-medium whitespace-nowrap">
+          {label}
+        </span>
       </div>
     </button>
   );
