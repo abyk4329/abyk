@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Assistant } from "next/font/google";
 import Header from "@/components/Header";
+import BottomLogo from "@/components/BottomLogo";
 import Footer from "@/components/Footer";
 
 const assistant = Assistant({
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="relative min-h-screen bg-bokeh flex flex-col">
           <Header />
           <main className="flex-1 pt-20 pb-28 md:pb-24">{children}</main>
+          <BottomLogo />
           <Footer />
         </div>
       </body>

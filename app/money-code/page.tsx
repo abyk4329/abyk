@@ -163,17 +163,6 @@ export default function MoneyCode() {
   return (
     <main className="container min-h-screen px-4 py-4">
       <div className="max-w-3xl mx-auto space-y-4 text-center">
-        <div className="logo">
-          <Image
-            src="/newlogos/ikon.png"
-            alt="ABYK Logo"
-            width={300}
-            height={300}
-            className="mx-auto"
-            priority
-          />
-        </div>
-
         <div className="mt-2 mb-4 animate-gleam-fade-in">
           <Image
             src="/newlogos/welthcode.png"
