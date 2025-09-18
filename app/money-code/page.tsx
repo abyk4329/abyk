@@ -18,7 +18,10 @@ export default function MoneyCode() {
   // Track configuration error for missing payment URL
   const [configError, setConfigError] = useState<string | null>(null);
 
-  const paymentBase = process.env.NEXT_PUBLIC_PAYMENT_URL;
+  // Payment checkout base URL; use env if set, otherwise fallback to provided Grow link
+  const paymentBase =
+    process.env.NEXT_PUBLIC_PAYMENT_URL ||
+    "https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw";
 
   useEffect(() => {
     if (!paymentBase) {
