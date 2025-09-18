@@ -15,7 +15,7 @@ async function testWebhookEmail() {
   const hasDuplicates = numbers.length !== uniqueNumbers.length;
 
   // Generate URL for full interpretation
-  const baseUrl = "https://awakening-by-ksenia-app.vercel.app";
+  const baseUrl = "https://abyk.vercel.app";
   const interpretationUrl = `${baseUrl}/thank-you?bd=${testCode.bd}&bm=${testCode.bm}&by=${testCode.by}&lp=${testCode.lp}`;
 
   const emailHtml = `<!DOCTYPE html>

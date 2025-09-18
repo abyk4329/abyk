@@ -204,13 +204,13 @@ async function testEmail() {
         <div style="text-align: center; padding: 25px; background: linear-gradient(135deg, #f6efe6 0%, #f0e7d8 100%); border-radius: 12px; margin: 30px 0; border: 1px solid #D4B896;">
           <h3 style="color: #C6A170; font-size: 20px; font-weight: 600; margin: 0 0 15px 0;">הפירוש המלא והמפורט</h3>
           <p style="color: #5A5A5A; font-size: 16px; margin: 0 0 20px 0; text-align: right; line-height: 1.8;">הפירוש המלא שלכם כולל ניתוח של כל מספר, ההשפעה על תחומי חיים שונים והקשרים הייחודיים ביניהם. קבלו תובנות מעמיקות על זהותכם, חוזקות, אתגרים ומסלול החיים הייחודי שלכם.</p>
-          <a href="https://awakening-by-ksenia-app.vercel.app/thank-you?bd=3&bm=7&by=9&lp=1" style="display: inline-block; background: linear-gradient(135deg, #C6A170 0%, #B8956A 100%); color: white; text-decoration: none; padding: 15px 30px; border-radius: 8px; font-weight: 600; font-size: 16px; margin: 10px 0; box-shadow: 0 4px 15px rgba(198, 161, 112, 0.3);">
+          <a href="https://abyk.vercel.app/thank-you?bd=3&bm=7&by=9&lp=1" style="display: inline-block; background: linear-gradient(135deg, #C6A170 0%, #B8956A 100%); color: white; text-decoration: none; padding: 15px 30px; border-radius: 8px; font-weight: 600; font-size: 16px; margin: 10px 0; box-shadow: 0 4px 15px rgba(198, 161, 112, 0.3);">
             צפו בפירוש המלא
           </a>
         </div>
 
         <div style="text-align: center; margin: 30px 0;">
-          <a href="https://awakening-by-ksenia-app.vercel.app/thank-you?bd=3&bm=7&by=9&lp=1" class="cta-button">
+          <a href="https://abyk.vercel.app/thank-you?bd=3&bm=7&by=9&lp=1" class="cta-button">
             צפייה בפירוש המלא באתר
           </a>
         </div>
@@ -218,7 +218,7 @@ async function testEmail() {
       
       <div class="footer">
         <div style="margin-bottom: 20px;">
-          <img src="https://awakening-by-ksenia-app.vercel.app/newlogos/ikon.png" alt="Awakening by Ksenia" style="width: 80px; height: auto; margin-bottom: 15px;">
+          <img src="https://abyk.vercel.app/newlogos/ikon.png" alt="Awakening by Ksenia" style="width: 80px; height: auto; margin-bottom: 15px;">
         </div>
         <p class="signature">בברכה, קסניה</p>
         <p>אם יש שאלות, ניתן לפנות אליי:</p>
