@@ -17,9 +17,21 @@ export const metadata: Metadata = {
   description: "Your Personal Space For Growth — Unlock Your Inner Light",
   manifest: "/manifest.json",
   icons: {
-    icon: "/newlogos/Favicon.png",
+    icon: [
+      { url: "/newlogos/Favicon.png", sizes: "16x16", type: "image/png" },
+      { url: "/newlogos/Favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/newlogos/Favicon.png", sizes: "192x192", type: "image/png" },
+      { url: "/newlogos/Favicon.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/newlogos/Favicon.png", sizes: "180x180", type: "image/png" },
+    ],
     shortcut: "/newlogos/Favicon.png",
-    apple: "/newlogos/Favicon.png",
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Awakening by Ksenia",
+    statusBarStyle: "black-translucent",
   },
 };
 
