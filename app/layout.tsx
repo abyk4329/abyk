@@ -58,7 +58,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fdfcfa",
+  themeColor: "#f8f5f2",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -69,10 +69,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${assistant.className} bg-ivory text-charcoal`}
         suppressHydrationWarning
       >
-        <div
-          className="relative min-h-screen bg-bokeh flex flex-col"
-          style={{ backgroundColor: "var(--ivory)" }}
-        >
+        <div className="relative min-h-screen bg-bokeh flex flex-col">
           <Header />
           <main className="flex-1 pt-20 pb-28 md:pb-24">{children}</main>
           <ThemeSwitcher />

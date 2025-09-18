@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 :root {
-  /* Unified palette */
-  --ivory: #fffdfa; /* Updated to requested color */
-  --ivory-soft: #f9f6f6; /* New soft ivory to blend with --ivory */
+  /* Unified palette - Pearl theme with depth */
+  --ivory: #f8f5f2; /* Pearl white with warmth */
+  --ivory-soft: #f4f1ee; /* Deeper pearl tone */
+  --pearl-light: #faf8f6; /* Lightest pearl */
+  --pearl-depth: #eee9e4; /* Pearl with subtle depth */
   --sand-50: #f1e3d7; /* milky beige */
   --sand-100: #e8d7c6; /* light sand */
   --stone-soft: #e6d7c5; /* soft stone */
@@ -91,13 +93,14 @@ body {
   font-family: "Assistant", sans-serif;
   /* Responsive root sizing with slight fluidity */
   font-size: clamp(15px, 1rem + 0.25vw, 18px);
-  /* Gentle vertical blend between the two ivories */
+  /* Pearl gradient with subtle depth */
   background-color: var(--ivory);
   background-image: linear-gradient(
-    180deg,
-    var(--ivory) 0%,
-    var(--ivory-soft) 55%,
-    var(--ivory) 100%
+    135deg,
+    var(--pearl-light) 0%,
+    var(--ivory) 25%,
+    var(--ivory-soft) 75%,
+    var(--pearl-depth) 100%
   );
   color: var(--charcoal);
   text-align: center;
@@ -202,15 +205,16 @@ strong {
   text-align: center;
 }
 
-/* Background: Subtle floating light points over blended ivory */
+/* Background: Clean pearl gradient without animations */
 .bg-bokeh {
   position: relative;
   min-height: 100vh;
   background: linear-gradient(
-    180deg,
-    var(--ivory) 0%,
-    var(--ivory-soft) 60%,
-    var(--ivory) 100%
+    135deg,
+    var(--pearl-light) 0%,
+    var(--ivory) 30%,
+    var(--ivory-soft) 70%,
+    var(--pearl-depth) 100%
   );
   overflow: hidden;
 }
@@ -363,62 +367,16 @@ html, body {
   transform: scale(1.01) translateZ(5px);
   filter: contrast(108%) drop-shadow(0 12px 35px rgba(167,131,90,0.35));
 }
-.bg-bokeh::before,
-.bg-bokeh::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.bg-bokeh::before {
-  background-image:
-    radial-gradient(rgba(190, 157, 118, 0.4) 1px, transparent 1px),
-    radial-gradient(rgba(167, 131, 90, 0.3) 0.8px, transparent 0.8px),
-    radial-gradient(rgba(225, 198, 171, 0.5) 1.2px, transparent 1.2px);
-  background-size:
-    60px 60px,
-    40px 40px,
-    80px 80px;
-  background-position:
-    0 0,
-    20px 20px,
-    40px 40px;
-  animation: lightPointsFade 8s ease-in-out infinite;
-  opacity: 0.6;
-}
-.bg-bokeh::after {
-  background-image:
-    radial-gradient(rgba(225, 198, 171, 0.6) 0.6px, transparent 0.6px),
-    radial-gradient(rgba(190, 157, 118, 0.4) 0.4px, transparent 0.4px);
-  background-size:
-    50px 50px,
-    30px 30px;
-  background-position:
-    15px 15px,
-    35px 35px;
-  animation: lightPointsFade 12s ease-in-out infinite reverse;
-  opacity: 0.4;
-}
-@keyframes lightPointsFade {
-  0%,
-  100% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-/* Header/Footer backgrounds using both ivories */
+/* Header/Footer backgrounds using pearl tones */
 .bg-header {
   background: linear-gradient(
     180deg,
-    color-mix(in oklab, var(--ivory) 88%, transparent) 0%,
-    color-mix(in oklab, var(--ivory-soft) 88%, transparent) 100%
+    color-mix(in oklab, var(--pearl-light) 90%, transparent) 0%,
+    color-mix(in oklab, var(--ivory) 90%, transparent) 100%
   );
 }
 .bg-footer {
-  background: linear-gradient(180deg, var(--ivory-soft) 0%, var(--ivory) 100%);
+  background: linear-gradient(180deg, var(--ivory-soft) 0%, var(--pearl-depth) 100%);
 }
 
 /* Page fade transition */
