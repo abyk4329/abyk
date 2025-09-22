@@ -7,13 +7,16 @@ import { DayPicker } from "react-day-picker";
 import { cn } from "./utils";
 import { buttonVariants } from "./button";
 
-const Calendar = React.forwardRef<
-  React.ElementRef<typeof DayPicker>,
-  React.ComponentProps<typeof DayPicker>
->(({ className, classNames, showOutsideDays = true, ...props }, ref) => {
+export type CalendarProps = React.ComponentProps<typeof DayPicker>
+
+function Calendar({
+  className,
+  classNames,
+  showOutsideDays = true,
+  ...props
+}: CalendarProps) {
   return (
     <DayPicker
-      ref={ref}
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
@@ -69,6 +72,8 @@ const Calendar = React.forwardRef<
       {...props}
     />
   );
-});
+}
 
 Calendar.displayName = "Calendar";
+
+export { Calendar };

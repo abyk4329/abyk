@@ -259,7 +259,7 @@ export class WealthCodePDFGenerator {
     // Add footer with contact info
     this.addFooter();
 
-    return this.doc.output('arraybuffer') as Uint8Array;
+    return new Uint8Array(this.doc.output('arraybuffer') as ArrayBuffer);
   }
 
   private addFooter() {

@@ -10,6 +10,7 @@ import { TermsAndPrivacy } from "./components/TermsAndPrivacy";
 import { ThankYouPage } from "./components/ThankYouPage";
 import { WealthCodeInterpretations } from "./components/WealthCodeInterpretations";
 import { EmailPreview } from "./components/EmailPreview";
+import { PurchaseTest } from "./components/PurchaseTest";
 
 import { Footer } from "./components/Footer";
 
@@ -233,7 +234,6 @@ export default function App() {
         className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
         style={{
           backgroundImage: `url(${backgroundImage.src})`,
-          imageRendering: "high-quality",
           backfaceVisibility: "hidden",
           transform: "translateZ(0)",
           willChange: "transform",

@@ -550,7 +550,7 @@ export function WealthCodeInterpretations({
 
       if (pdfData) {
         // Create and download PDF blob
-        const blob = new Blob([pdfData], {
+        const blob = new Blob([new Uint8Array(pdfData)], {
           type: "application/pdf",
         });
         const url = URL.createObjectURL(blob);
@@ -650,7 +650,6 @@ export function WealthCodeInterpretations({
         className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
         style={{
           backgroundImage: `url(${backgroundImage.src})`,
-          imageRendering: "high-quality",
           backfaceVisibility: "hidden",
           transform: "translateZ(0)",
           willChange: "transform",

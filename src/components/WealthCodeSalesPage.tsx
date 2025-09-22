@@ -5,12 +5,8 @@ import { Card } from "./ui/card";
 import {
   ArrowLeft,
   Star,
-  CheckCircle,
-  Clock,
 } from "lucide-react";
 import { Footer } from "./Footer";
-import { sendWealthCodeEmail } from "./EmailService";
-import { useState } from "react";
 
 interface WealthCodeSalesPageProps {
   wealthCode: number;
@@ -36,54 +32,12 @@ interface WealthCodeSalesPageProps {
 export function WealthCodeSalesPage({
   wealthCode,
   codeStructure,
-  fullData,
   onBack,
   onCalculateNew,
-  onShowThankYou,
 }: WealthCodeSalesPageProps) {
-  const [emailSent, setEmailSent] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [customerEmail, setCustomerEmail] = useState("");
-  const [customerName, setCustomerName] = useState("");
-  const [showEmailForm, setShowEmailForm] = useState(false);
-
   const handlePurchase = async () => {
-    if (!customerEmail) {
-      setShowEmailForm(true);
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      // Send email with the wealth code interpretation
-      const result = await sendWealthCodeEmail({
-        wealthCode,
-        customerName: customerName || undefined,
-        customerEmail,
-        codeStructure,
-      });
-
-      if (result.success) {
-        setEmailSent(true);
-        onShowThankYou?.(wealthCode, codeStructure, fullData); // Navigate to thank you page
-      } else {
-        alert(`שגיאה: ${result.message}`);
-      }
-    } catch (error) {
-      console.error("Error during purchase:", error);
-      alert("שגיאה בעיבוד ההזמנה. נסה שוב מאוחר יותר.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleEmailFormSubmit = (e: any) => {
-    e.preventDefault();
-    if (customerEmail) {
-      setShowEmailForm(false);
-      handlePurchase();
-    }
+    // עבור לקישור התשלום של Grow ישירות
+    window.open("https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ", "_blank");
   };
 
   return (
@@ -93,7 +47,6 @@ export function WealthCodeSalesPage({
         className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
         style={{
           backgroundImage: `url(${backgroundImage.src})`,
-          imageRendering: "high-quality",
           backfaceVisibility: "hidden",
           transform: "translateZ(0)",
           willChange: "transform",
@@ -335,21 +288,8 @@ export function WealthCodeSalesPage({
                           size="lg"
                           className="font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-lg px-8 py-4 font-['Assistant'] tracking-wide bg-[rgba(149,112,82,0.5)] hover:bg-[rgba(149,112,82,0.7)] border-none text-[rgba(254,254,254,1)] w-full sm:w-auto"
                           onClick={handlePurchase}
-                          disabled={isLoading || emailSent}
                         >
-                          {isLoading ? (
-                            <>
-                              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                              שולח...
-                            </>
-                          ) : emailSent ? (
-                            <>
-                              <CheckCircle className="w-4 h-4 mr-2" />
-                              נשלח בהצלחה!
-                            </>
-                          ) : (
-                            "אני רוצה להכיר את עצמי"
-                          )}
+                          אני רוצה להכיר את עצמי
                         </Button>
 
                         <p className="text-[rgba(149,112,82,0.7)] font-light text-[12px] tracking-wide">
@@ -362,61 +302,6 @@ export function WealthCodeSalesPage({
                 </div>
               </Card>
             </div>
-
-            {/* Email Form */}
-            {showEmailForm && (
-              <div className="text-center">
-                <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-8 sm:p-12 shadow-2xl shadow-orange-200/40 max-w-4xl mx-auto bg-[rgba(254,254,254,0.1)]">
-                  <div className="space-y-6">
-                    <h2 className="font-bold drop-shadow-lg tracking-wide text-center text-[rgba(254,254,254,1)] font-['Assistant'] text-[28px]">
-                      הכנס את פרטייך
-                    </h2>
-                    <div className="space-y-4 text-center">
-                      <p
-                        className="font-light leading-relaxed drop-shadow-md tracking-wide text-[16px]"
-                        style={{ color: "#473B31" }}
-                      >
-                        כדי לקבל את הפירוש המלא של קוד העושר
-                        האישי שלך, נא הכנס את פרטייך.
-                      </p>
-                      <form onSubmit={handleEmailFormSubmit}>
-                        <div className="space-y-3">
-                          <input
-                            type="text"
-                            className="w-full p-2 border border-gray-300 rounded"
-                            placeholder="שם"
-                            value={customerName}
-                            onChange={(e) =>
-                              setCustomerName(e.target.value)
-                            }
-                          />
-                          <input
-                            type="email"
-                            className="w-full p-2 border border-gray-300 rounded"
-                            placeholder="כתובת אימייל"
-                            value={customerEmail}
-                            onChange={(e) =>
-                              setCustomerEmail(e.target.value)
-                            }
-                          />
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6">
-                          <Button
-                            size="lg"
-                            className="bg-white/90 hover:bg-white text-[#473B31] font-normal border border-white/30 backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-lg py-4 px-8 font-['Assistant'] tracking-wide text-[rgba(254,254,254,1)] bg-[rgba(149,112,82,0.5)] px-[10px] py-[16px] text-[16px]"
-                            onClick={handlePurchase}
-                          >
-                            המשך
-                          </Button>
-
-
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            )}
           </div>
         </main>
 

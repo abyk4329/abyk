@@ -21,7 +21,6 @@ export function TermsAndPrivacy({ onBack, initialTab = 'terms' }: TermsAndPrivac
         className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
         style={{ 
           backgroundImage: `url(${backgroundImage.src})`,
-          imageRendering: 'high-quality',
           backfaceVisibility: 'hidden',
           transform: 'translateZ(0)',
           willChange: 'transform',

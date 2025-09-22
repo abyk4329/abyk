@@ -167,13 +167,13 @@ export function WealthCodeCalculator({
       allSame,
       allDifferent,
       hasRepeats,
-      type: allSame
+      type: (allSame
         ? "master"
         : allDifferent
           ? "diverse"
           : hasRepeats
             ? "focused"
-            : "balanced",
+            : "balanced") as "master" | "diverse" | "focused" | "balanced",
     };
   };
 
@@ -598,7 +598,6 @@ export function WealthCodeCalculator({
             className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
             style={{
               backgroundImage: `url(${backgroundImage.src})`,
-              imageRendering: "high-quality",
               backfaceVisibility: "hidden",
               transform: "translateZ(0)",
               willChange: "transform",

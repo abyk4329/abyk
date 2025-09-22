@@ -29,9 +29,9 @@ export class EmailService {
 
   // Generate email data for sending
   generateEmailData(data: EmailData) {
-    // Create URLs for viewing and downloading
-    const baseUrl = window.location.origin;
-    const viewUrl = `${baseUrl}?page=thank-you&code=${data.wealthCode}`;
+    // Create URLs for viewing and downloading with new App Router paths
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+    const viewUrl = `${baseUrl}/thank-you?code=${data.wealthCode}`;
     const downloadUrl = `${baseUrl}/api/download-pdf?code=${data.wealthCode}`;
 
     const emailData = {
@@ -59,7 +59,7 @@ export class EmailService {
   }) {
     try {
       // Load EmailJS dynamically
-      const emailjs = await import('emailjs-com');
+      const emailjs = await import('@emailjs/browser');
       
       const emailData = this.generateEmailData(data);
       
@@ -74,7 +74,7 @@ export class EmailService {
         download_url: emailData.html.match(/href="([^"]*download[^"]*)"/)?.[1] || ''
       };
 
-      const result = await emailjs.default.send(
+      const result = await emailjs.send(
         emailJSConfig.serviceId,
         emailJSConfig.templateId,
         templateParams,
@@ -195,9 +195,9 @@ export async function sendWealthCodeEmail(data: EmailData): Promise<{
     
     // Fallback to EmailJS if available
     const emailJSConfig = {
-      serviceId: process.env.REACT_APP_EMAILJS_SERVICE_ID || '',
-      templateId: process.env.REACT_APP_EMAILJS_TEMPLATE_ID || '',
-      publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY || ''
+      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
     };
 
     if (emailJSConfig.serviceId && emailJSConfig.templateId && emailJSConfig.publicKey) {

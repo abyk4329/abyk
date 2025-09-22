@@ -1,7 +1,7 @@
 'use client'
 
-import App from '@/App'
+import { HomePageRouter } from '@/components/HomePageRouter'
 
 export default function Page() {
-  return <App />
+  return <HomePageRouter />
 }

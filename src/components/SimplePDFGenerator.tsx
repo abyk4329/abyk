@@ -207,35 +207,35 @@ export class SimplePDFGenerator {
         <div class="section">
             <h3>מתנות מרכזיות</h3>
             <ul>
-                ${(digitData[index]?.gifts || [`מתנה של ספרה ${digit}`]).map(gift => `<li>${gift}</li>`).join('')}
+                ${(digitData[index]?.gifts || [`מתנה של ספרה ${digit}`]).map((gift: string) => `<li>${gift}</li>`).join('')}
             </ul>
         </div>
         
         <div class="section">
             <h3>חסימות ואתגרים עיקריים</h3>
             <ul>
-                ${(digitData[index]?.challenges || [`אתגר של ספרה ${digit}`]).map(challenge => `<li>${challenge}</li>`).join('')}
+                ${(digitData[index]?.challenges || [`אתגר של ספרה ${digit}`]).map((challenge: string) => `<li>${challenge}</li>`).join('')}
             </ul>
         </div>
         
         <div class="section">
             <h3>נורות אדומות - סימנים לחוסר איזון</h3>
             <ul>
-                ${(digitData[index]?.imbalanceSigns || [`סימן חוסר איזון של ספרה ${digit}`]).map(sign => `<li>${sign}</li>`).join('')}
+                ${(digitData[index]?.imbalanceSigns || [`סימן חוסר איזון של ספרה ${digit}`]).map((sign: string) => `<li>${sign}</li>`).join('')}
             </ul>
         </div>
         
         <div class="section">
             <h3>מוקדי צמיחה והתפתחות</h3>
             <ul>
-                ${(digitData[index]?.growthAreas || [`תחום צמיחה של ספרה ${digit}`]).map(area => `<li>${area}</li>`).join('')}
+                ${(digitData[index]?.growthAreas || [`תחום צמיחה של ספרה ${digit}`]).map((area: string) => `<li>${area}</li>`).join('')}
             </ul>
         </div>
         
         <div class="section">
             <h3>תחומים מתאימים לקריירה ולשליחות</h3>
             <ul>
-                ${(digitData[index]?.careerPaths || [`נתיב קריירה של ספרה ${digit}`]).map(path => `<li>${path}</li>`).join('')}
+                ${(digitData[index]?.careerPaths || [`נתיב קריירה של ספרה ${digit}`]).map((path: string) => `<li>${path}</li>`).join('')}
             </ul>
         </div>
         
