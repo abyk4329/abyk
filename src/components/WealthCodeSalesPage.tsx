@@ -37,7 +37,7 @@ export function WealthCodeSalesPage({
 }: WealthCodeSalesPageProps) {
   const handlePurchase = async () => {
     // עבור לקישור התשלום של Grow ישירות
-    window.open("https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ", "_blank");
+  window.open("https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw", "_blank");
   };
 
   return (

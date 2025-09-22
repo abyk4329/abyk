@@ -1,5 +1,5 @@
 /* פונטים עבריים */
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -68,19 +68,21 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Assistant', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Assistant", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     direction: rtl;
   }
 }
 
 /* עיצובים מותאמים אישית */
 .gradient-bg {
-  background: linear-gradient(135deg, 
-    rgba(254, 240, 138, 0.4) 0%, 
-    rgba(251, 191, 36, 0.3) 25%, 
-    rgba(249, 115, 22, 0.2) 50%, 
-    rgba(239, 68, 68, 0.3) 75%, 
-    rgba(236, 72, 153, 0.4) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(254, 240, 138, 0.4) 0%,
+    rgba(251, 191, 36, 0.3) 25%,
+    rgba(249, 115, 22, 0.2) 50%,
+    rgba(239, 68, 68, 0.3) 75%,
+    rgba(236, 72, 153, 0.4) 100%
+  );
 }
 
 .glass-effect {
@@ -99,8 +101,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* סגנונות לטקסט עברי */
@@ -114,8 +121,14 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-slide-in-right {
@@ -123,8 +136,14 @@
 }
 
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(100px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .animate-scale-in {
@@ -132,6 +151,12 @@
 }
 
 @keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
