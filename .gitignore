@@ -13,12 +13,13 @@
 # testing
 /coverage
 
-# next.js
+# next.js (legacy)
 /.next/
 /out/
 
 # production
 /build
+abykonline/build
 
 # misc
 .DS_Store

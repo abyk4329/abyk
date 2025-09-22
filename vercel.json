@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "framework": "vite",
+  "buildCommand": "pnpm -C abykonline install && pnpm -C abykonline build",
+  "devCommand": "pnpm -C abykonline dev",
+  "outputDirectory": "abykonline/build",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
