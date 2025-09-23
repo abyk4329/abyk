@@ -1,3 +1,7 @@
+packages:
+  - .
+  - src
+
 onlyBuiltDependencies:
   - core-js
   - sharp

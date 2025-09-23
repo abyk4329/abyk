@@ -1,7 +1,6 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import backgroundImage from "@/assets/bea9d96a238e2baf538ec6f451608eacb2724c58.png";
 import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
 import { Footer } from "./Footer";
@@ -49,19 +48,8 @@ export function HomePageRouter() {
 
   return (
     <div className="min-h-screen relative" lang="he">
-      {/* Background Image with Overlay */}
-      <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
-        style={{
-          backgroundImage: `url(${backgroundImage.src})`,
-          backfaceVisibility: "hidden",
-          transform: "translateZ(0)",
-          willChange: "transform",
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-          backgroundAttachment: "fixed",
-        }}
-      >
+      {/* Overlays over global body background */}
+      <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent via-50% to-rose-100/25 sm:bg-gradient-to-b sm:from-orange-50/20 sm:via-transparent sm:to-rose-50/20"></div>
         <div className="absolute inset-0 backdrop-saturate-110 backdrop-contrast-102 backdrop-brightness-102"></div>
       </div>

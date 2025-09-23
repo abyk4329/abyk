@@ -70,6 +70,21 @@
     @apply bg-background text-foreground;
     font-family: "Assistant", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     direction: rtl;
+    /* Global site background */
+    background-image: url('/background_hq.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Use fixed on desktop for subtle parallax, switch to scroll on mobile for iOS performance */
+    background-attachment: fixed;
+  }
+}
+
+/* Mobile adjustments for background performance/responsiveness */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-position: center top;
   }
 }
 
@@ -163,7 +178,7 @@
 
 /* Glass utilities */
 .glass-bar {
-  background: rgba(255, 255, 255, 0.20);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 12px;
@@ -177,5 +192,5 @@
 }
 
 .text-brand {
-  color: #473B31;
+  color: #473b31;
 }

@@ -1,4 +1,3 @@
-import backgroundImage from "@/assets/9a42d447acea050bf24d319ab01daa6b6ac13c0c.png";
 import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
@@ -42,19 +41,8 @@ export function WealthCodeSalesPage({
 
   return (
     <div className="min-h-screen relative" lang="he">
-      {/* Background Image with Overlay */}
-      <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
-        style={{
-          backgroundImage: `url(${backgroundImage.src})`,
-          backfaceVisibility: "hidden",
-          transform: "translateZ(0)",
-          willChange: "transform",
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-          backgroundAttachment: "fixed",
-        }}
-      >
+      {/* Overlays over global body background */}
+      <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent via-50% to-rose-100/25 sm:bg-gradient-to-b sm:from-orange-50/20 sm:via-transparent sm:to-rose-50/20"></div>
         <div className="absolute inset-0 backdrop-saturate-110 backdrop-contrast-102 backdrop-brightness-102"></div>
       </div>
@@ -62,7 +50,7 @@ export function WealthCodeSalesPage({
       {/* Main Content Container */}
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Header */}
-        <header className="backdrop-blur-lg bg-white/15 border-b border-white/30 shadow-xl sm:backdrop-blur-md sm:bg-white/12 sm:border-white/25 bg-[rgba(244,241,234,0.12)]">
+  <header className="backdrop-blur-lg border-b border-white/30 shadow-xl sm:backdrop-blur-md sm:border-white/25 bg-[rgba(244,241,234,0.12)]">
           <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-6">
             <div className="flex items-center justify-between bg-[rgba(254,254,254,0)]">
               {/* Spacer for balance */}
@@ -99,9 +87,9 @@ export function WealthCodeSalesPage({
           >
             {/* Main Code Display */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-8 sm:p-12 shadow-2xl shadow-orange-200/40 max-w-2xl mx-auto bg-[rgba(254,254,254,0.12)] bg-[rgba(254,254,254,0.1)]">
+              <Card className="backdrop-blur-xl border border-white/20 p-8 sm:p-12 shadow-2xl shadow-orange-200/40 max-w-2xl mx-auto bg-[rgba(254,254,254,0.12)]">
                 <div className="space-y-6 bg-[rgba(135,103,79,0)]">
-                  <h1 className="font-normal drop-shadow-lg tracking-wide text-center text-[rgba(254,254,254,1)] font-['Assistant'] text-[28px] font-bold">
+                  <h1 className="drop-shadow-lg tracking-wide text-center text-[rgba(254,254,254,1)] font-['Assistant'] text-[28px] font-bold">
                     קוד העושר האישי שלך הוא
                   </h1>
                   <div className="inline-flex items-center justify-center w-48 h-36 rounded-xl bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-sm border border-white/25 shadow-2xl text-[rgba(255,255,255,0)]">
@@ -130,7 +118,7 @@ export function WealthCodeSalesPage({
                     המשמעות העמוקה של קוד העושר
                   </h2>
 
-                  <div className="bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 bg-[rgba(254,254,254,0.1)] mt-[1px] mr-[0px] mb-[18px] ml-[0px] py-[68px] px-[24px] pt-[30px] pr-[24px] pb-[6px] pl-[24px]">
+                  <div className="bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 mt-[1px] mr-[0px] mb-[18px] ml-[0px] py-[68px] px-[24px] pt-[30px] pr-[24px] pb-[6px] pl-[24px]">
                     <div className="space-y-4 text-center pt-[0px] pr-[0px] pb-[7px] pl-[0px] mx-[0px] mt-[-13px] mr-[0px] mb-[1px] ml-[0px]">
                       <p className="text-[rgba(71,59,49,1)] font-light text-[15px] leading-relaxed">
                         בחרתי במונח "קוד העושר" ולא "קוד הכסף"
@@ -157,7 +145,7 @@ export function WealthCodeSalesPage({
 
             {/* Understanding The Code Card */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
+              <Card className="backdrop-blur-xl border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
                 <div className="text-center space-y-6">
                   <h2
                     className="font-bold mb-4 drop-shadow-lg tracking-wide font-['Assistant']"
@@ -169,7 +157,7 @@ export function WealthCodeSalesPage({
                     להבין את הקוד – להבין את עצמך
                   </h2>
 
-                  <div className="bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 bg-[rgba(254,254,254,0.1)] mt-[1px] mr-[0px] mb-[18px] ml-[0px] py-[68px] px-[24px] pt-[30px] pr-[24px] pb-[6px] pl-[24px]">
+                  <div className="bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 mt-[1px] mr-[0px] mb-[18px] ml-[0px] py-[68px] px-[24px] pt-[30px] pr-[24px] pb-[6px] pl-[24px]">
                     <div className="space-y-4 text-center pt-[0px] pr-[0px] pb-[7px] pl-[0px] mx-[0px] mt-[-13px] mr-[0px] mb-[1px] ml-[0px]">
                       <p className="text-[rgba(71,59,49,1)] font-light text-[15px] leading-relaxed">
                         המספרים בקוד אינם צירוף מקרי. הם משקפים
@@ -198,7 +186,7 @@ export function WealthCodeSalesPage({
 
             {/* What's Included */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
+              <Card className="backdrop-blur-xl border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
                 <div className="text-center space-y-6">
                   <h2
                     className="font-bold mb-4 drop-shadow-lg tracking-wide font-['Assistant']"
@@ -210,7 +198,7 @@ export function WealthCodeSalesPage({
                     הפירוש המלא – כל מה שמחכה לכם בפנים
                   </h2>
 
-                  <div className="bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 bg-[rgba(254,254,254,0.1)] mt-[1px] mr-[0px] mb-[18px] ml-[0px] py-[68px] px-[24px] pt-[30px] pr-[24px] pb-[6px] pl-[24px]">
+                  <div className="bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 mt-[1px] mr-[0px] mb-[18px] ml-[0px] py-[68px] px-[24px] pt-[30px] pr-[24px] pb-[6px] pl-[24px]">
                     <div className="space-y-4 text-center pt-[0px] pr-[0px] pb-[7px] pl-[0px] mx-[0px] mt-[-13px] mr-[0px] mb-[1px] ml-[0px]">
                       <p className="text-[rgba(71,59,49,1)] font-light text-[15px] leading-relaxed">
                         ניתוח מעמיק של הספרות{" "}

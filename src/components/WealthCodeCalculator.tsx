@@ -1,4 +1,3 @@
-import backgroundImage from "@/assets/9a42d447acea050bf24d319ab01daa6b6ac13c0c.png";
 import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -593,19 +592,8 @@ export function WealthCodeCalculator({
         />
       ) : (
         <div className="min-h-screen relative" lang="he">
-          {/* Background Image with Overlay */}
-          <div
-            className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
-            style={{
-              backgroundImage: `url(${backgroundImage.src})`,
-              backfaceVisibility: "hidden",
-              transform: "translateZ(0)",
-              willChange: "transform",
-              backgroundSize: "cover",
-              backgroundPosition: "center center",
-              backgroundAttachment: "fixed",
-            }}
-          >
+          {/* Overlays over global body background */}
+          <div className="fixed inset-0 pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent via-50% to-rose-100/25 sm:bg-gradient-to-b sm:from-orange-50/20 sm:via-transparent sm:to-rose-50/20"></div>
             <div className="absolute inset-0 backdrop-saturate-110 backdrop-contrast-102 backdrop-brightness-102"></div>
           </div>
@@ -636,7 +624,7 @@ export function WealthCodeCalculator({
             </header>
 
             {/* Main Content */}
-            <main className="flex-1 sm:px-6 sm:py-8 px-[16px] py-[43px] py-[0px] px-[24px]">
+            <main className="flex-1 sm:px-6 sm:py-8 px-[24px] py-[43px]">
               <div className="max-w-4xl mx-auto space-y-8">
                 {/* Input Card */}
                 <div className="flex items-center justify-center min-h-[60vh] mt-[-91px] mr-[0px] mb-[0px] ml-[0px]">
@@ -663,7 +651,7 @@ export function WealthCodeCalculator({
                             dir="ltr"
                           >
                             <div className="flex flex-col items-center space-y-1">
-                              <label className="font-normal text-[rgba(254,254,254,1)] font-['Assistant'] mb-2 block font-bold">
+                              <label className="text-[rgba(254,254,254,1)] font-['Assistant'] mb-2 block font-bold">
                                 יום
                               </label>
                               <Input
@@ -680,14 +668,14 @@ export function WealthCodeCalculator({
                                 }}
                                 placeholder=""
                                 maxLength={2}
-                                className="w-16 h-12 text-center px-2 py-2 font-semibold border backdrop-blur-sm transition-all duration-300 shadow-sm hover:shadow-md font-['Assistant'] tracking-wide text-lg bg-[rgba(254,254,254,0.2)] text-[rgba(149,112,82,1)] border-[rgba(135,103,79,0.3)] placeholder-[rgba(149,112,82,0.6)] text-[16px] font-bold font-normal"
+                                className="w-16 h-12 text-center px-2 py-2 font-semibold border backdrop-blur-sm transition-all duration-300 shadow-sm hover:shadow-md font-['Assistant'] tracking-wide text-lg bg-[rgba(254,254,254,0.2)] text-[rgba(149,112,82,1)] border-[rgba(135,103,79,0.3)] placeholder-[rgba(149,112,82,0.6)] text-[16px]"
                               />
                             </div>
                             <span className="text-[rgba(149,112,82,0.6)] text-xl font-bold mt-[30px] mr-[0px] mb-[0px] ml-[0px]">
                               /
                             </span>
                             <div className="flex flex-col items-center space-y-1">
-                              <label className="font-normal text-[rgba(254,254,254,1)] font-['Assistant'] mb-2 block font-bold">
+                              <label className="text-[rgba(254,254,254,1)] font-['Assistant'] mb-2 block font-bold">
                                 חודש
                               </label>
                               <Input
@@ -711,7 +699,7 @@ export function WealthCodeCalculator({
                               /
                             </span>
                             <div className="flex flex-col items-center space-y-1">
-                              <label className="font-normal text-[rgba(254,254,254,1)] font-['Assistant'] mb-2 block font-bold">
+                              <label className="text-[rgba(254,254,254,1)] font-['Assistant'] mb-2 block font-bold">
                                 שנה
                               </label>
                               <Input
@@ -791,7 +779,7 @@ export function WealthCodeCalculator({
             </main>
 
             {/* Logo - Small, above footer */}
-            <div className="flex justify-center pt-[-4px] pr-[0px] pb-[60px] pl-[0px] mx-[0px] mt-[0px] mr-[0px] mb-[8px] ml-[0px] pt-[3px]">
+            <div className="flex justify-center pr-[0px] pb-[60px] pl-[0px] mx-[0px] mt-[0px] mr-[0px] mb-[8px] ml-[0px] pt-[3px]">
               <img
                 src={logoImage.src}
                 alt="AWAKENING"
