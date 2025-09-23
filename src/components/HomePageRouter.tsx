@@ -71,31 +71,33 @@ export function HomePageRouter() {
           </div>
         </header>
 
-        {/* Main Content */}
-        <main className="flex-1 flex items-center justify-center px-4 py-8 sm:px-6 sm:py-12">
-          <div className="w-full max-w-md">
+        {/* Hero */}
+        <main className="flex-1 flex items-center justify-center px-4 py-12 sm:px-6 sm:py-20">
+          <div className="text-center w-full max-w-4xl">
+            {/* Logo above the card, centered, on the background */}
+            <div className="sm:mb-16 mt-[-80px] mb-12">
+              <img
+                src={logoImage.src}
+                alt="AWAKENING"
+                className="mx-auto h-40 sm:h-52 w-auto opacity-95 drop-shadow-2xl"
+              />
+            </div>
+
+            {/* Glass card with title, subtext, and button */}
             <div className="backdrop-blur-xl rounded-3xl border shadow-2xl max-w-md mx-auto bg-[rgba(254,254,254,0.12)] border-[rgba(135,103,79,0.2)] p-8 sm:p-12">
-              <div className="text-center space-y-8">
-                <img
-                  src={logoImage.src}
-                  alt="AWAKENING"
-                  className="mx-auto h-40 sm:h-52 w-auto opacity-95 drop-shadow-2xl"
-                />
-                
-                <div className="space-y-6">
-                  <h1 className="font-normal drop-shadow-lg tracking-wide text-center text-[rgba(254,254,254,1)] font-['Assistant'] text-[28px] sm:text-[36px]">
-                    גלו את קוד העושר האישי שלכם
-                  </h1>
-                  
-                  <Button
-                    size="lg"
-                    onClick={handleShowCalculator}
-                    className="font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl w-full sm:w-auto text-lg px-8 py-4 font-['Assistant'] tracking-wide bg-[rgba(149,112,82,0.3)] hover:bg-[rgba(149,112,82,0.5)] border-none text-[rgba(254,254,254,1)] mb-4"
-                  >
-                    התחילו עכשיו
-                  </Button>
-                </div>
-              </div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-3 font-normal tracking-wide drop-shadow-lg font-['Assistant'] text-[#473B31]">
+                גלו את קוד העושר שלכם
+              </h1>
+              <p className="text-sm sm:text-base font-light mb-8 leading-relaxed drop-shadow-md font-['Assistant'] text-[#473B31] opacity-90">
+                לחישוב וקבלת קוד אישי על פי תאריך לידה
+              </p>
+              <Button
+                size="lg"
+                onClick={handleShowCalculator}
+                className="font-normal border-none transition-all duration-300 shadow-lg hover:shadow-xl w-full sm:w-auto text-lg px-8 py-4 font-['Assistant'] tracking-wide bg-[#CDB49D] hover:bg-[#BFA58E] text-[#473B31]"
+              >
+                מחשבון קוד העושר
+              </Button>
             </div>
           </div>
         </main>

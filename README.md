@@ -32,3 +32,12 @@ This is the ABYK website (Next.js App Router + Tailwind).
 ## Notes
 - The site routes include: / (home), /thank-you, /interpretations, /terms, /privacy, /terms-privacy, /email-preview.
 - The CTA on the sales page opens the Grow payment link directly.
+
+## Email delivery
+
+- Server endpoint: `POST /api/send-email` with JSON `{ to, subject, html?, text?, metadata? }`.
+- Uses Resend when `RESEND_API_KEY` is set. Configure in Vercel env vars:
+  - `RESEND_API_KEY` — API key from https://resend.com/
+  - `EMAIL_FROM` — e.g. `AWAKENING <noreply@abyk.online>`
+- If Resend is not configured, the endpoint will no-op and log the email data but still return `{ ok: true }` so your flow keeps working in dev.
+- Client helper: `sendWealthCodeEmail()` builds the Hebrew email and calls the API; it can fallback to EmailJS if the API is unavailable and the EmailJS public keys are provided.
