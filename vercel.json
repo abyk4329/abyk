@@ -1,4 +1,7 @@
 {
   "installCommand": "pnpm install --ignore-scripts=false",
-  "buildCommand": "pnpm run build"
+  "buildCommand": "pnpm run build",
+  "redirects": [
+    { "source": "/favicon.ico", "destination": "/icon", "permanent": true }
+  ]
 }
