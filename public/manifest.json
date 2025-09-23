@@ -1,17 +1,12 @@
 {
   "name": "AWAKENING BY KSENIA",
   "short_name": "ABYK",
-  "description": "מרחב אישי שמעניק לך כלים פשוטים לחיים מודעים, מלאי אהבה ובהירות.",
   "start_url": "/",
-  "scope": "/",
   "display": "standalone",
-  "background_color": "#0b0a10",
-  "theme_color": "#0b0a10",
-  "lang": "he",
-  "dir": "rtl",
+  "theme_color": "transparent",
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "/icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+    { "src": "/icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any maskable" }
   ]
 }

@@ -1,31 +1,30 @@
 import type { ReactNode } from 'react'
 
 export const metadata = {
-  title: 'AWAKENING BY KSENIA',
+  title: 'AWAKENING BY KSENIA ─ Your Personal Space for Growth',
   applicationName: 'AWAKENING BY KSENIA',
   description: 'מרחב אישי שמעניק לך כלים פשוטים לחיים מודעים, מלאי אהבה ובהירות.',
   metadataBase: new URL('https://abyk.online'),
-  themeColor: '#0b0a10',
   manifest: '/manifest.json',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'AWAKENING BY KSENIA',
+    title: 'AWAKENING BY KSENIA ─ Your Personal Space for Growth',
     description: 'מרחב אישי שמעניק לך כלים פשוטים לחיים מודעים, מלאי אהבה ובהירות.',
     type: 'website',
-    url: '/',
-    images: [{ url: '/share-image.png' }],
+    url: 'https://abyk.online',
+    images: [{ url: 'https://abyk.online/share-image.png' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AWAKENING BY KSENIA',
+    title: 'AWAKENING BY KSENIA ─ Your Personal Space for Growth',
     description: 'מרחב אישי שמעניק לך כלים פשוטים לחיים מודעים, מלאי אהבה ובהירות.',
-    images: ['/share-image.png'],
+    images: ['https://abyk.online/share-image.png'],
   },
   appleWebApp: {
     capable: true,
-    title: 'AWAKENING BY KSENIA',
+    title: 'AWAKENING BY KSENIA ─ Your Personal Space for Growth',
     statusBarStyle: 'black-translucent',
   },
   icons: {
@@ -36,6 +35,10 @@ export const metadata = {
     ],
     apple: [{ url: '/icon-180.png', sizes: '180x180', type: 'image/png' }],
   },
+}
+
+export const viewport = {
+  themeColor: 'transparent',
 }
 
 import './globals.css'

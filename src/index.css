@@ -160,3 +160,22 @@
     transform: scale(1);
   }
 }
+
+/* Glass utilities */
+.glass-bar {
+  background: rgba(255, 255, 255, 0.20);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+}
+
+.glass-bar-warm {
+  background: rgba(71, 59, 49, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+}
+
+.text-brand {
+  color: #473B31;
+}
