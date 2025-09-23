@@ -5,7 +5,7 @@ export const metadata = {
   applicationName: 'AWAKENING BY KSENIA',
   description: 'מרחב אישי שמעניק לך כלים פשוטים לחיים מודעים, מלאי אהבה ובהירות.',
   metadataBase: new URL('https://abyk.online'),
-  manifest: '/manifest.json',
+  manifest: '/manifest.json?v=2',
   alternates: {
     canonical: '/',
   },
@@ -34,13 +34,16 @@ export const metadata = {
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
-  shortcut: ['/icon', '/favicon.ico'],
+    shortcut: ['/icon', '/favicon.ico'],
     apple: [{ url: '/icon-180.png', sizes: '180x180', type: 'image/png' }],
   },
 }
 
 export const viewport = {
   themeColor: 'transparent',
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
 }
 
 import './globals.css'
@@ -48,20 +51,7 @@ import './globals.css'
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="he" dir="rtl">
-      <body>
-        {/* Global header */}
-        <header className="w-full flex flex-col items-center text-center py-6 select-none">
-          <h1 className="uppercase font-bold tracking-wide text-[#473B31]">AWAKENING BY KSENIA</h1>
-          <div
-            className="h-px w-1/2 my-3 mx-auto"
-            style={{ backgroundColor: '#473B31', opacity: 0.3 }}
-          />
-          <p className="font-light text-[#473B31]" dir="ltr">
-            YOUR PERSONAL SPACE FOR GROWTH
-          </p>
-        </header>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   )
 }

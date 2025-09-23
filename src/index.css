@@ -63,6 +63,9 @@
 }
 
 @layer base {
+  :root { color-scheme: light; }
+  html, body { height: 100%; }
+  html, body, #__next, main { min-height: 100svh; }
   * {
     @apply border-border;
   }
@@ -71,12 +74,14 @@
     font-family: "Assistant", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     direction: rtl;
     /* Global site background */
-    background-image: url('/background_hq.webp');
+    background-image: url("/background_hq.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     /* Use fixed on desktop for subtle parallax, switch to scroll on mobile for iOS performance */
     background-attachment: fixed;
+    /* Extend under iOS status bar when installed as PWA */
+    padding-top: env(safe-area-inset-top, 0);
   }
 }
 
