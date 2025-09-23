@@ -51,7 +51,7 @@ import './globals.css'
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="he" dir="rtl">
-      <body>{children}</body>
+      <body className="bg-root">{children}</body>
     </html>
   )
 }

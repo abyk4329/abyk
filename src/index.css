@@ -63,9 +63,23 @@
 }
 
 @layer base {
-  :root { color-scheme: light; }
-  html, body { height: 100%; }
-  html, body, #__next, main { min-height: 100svh; }
+  :root {
+    color-scheme: light;
+    /* global background variable */
+    --app-bg: url("/background_hq.webp");
+  }
+  html,
+  body,
+  #__next {
+    min-height: 100%;
+    height: 100%;
+  }
+  html,
+  body,
+  #__next,
+  main {
+    min-height: 100svh;
+  }
   * {
     @apply border-border;
   }
@@ -73,24 +87,42 @@
     @apply bg-background text-foreground;
     font-family: "Assistant", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     direction: rtl;
-    /* Global site background */
-    background-image: url("/background_hq.webp");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /* Use fixed on desktop for subtle parallax, switch to scroll on mobile for iOS performance */
-    background-attachment: fixed;
     /* Extend under iOS status bar when installed as PWA */
     padding-top: env(safe-area-inset-top, 0);
   }
 }
 
-/* Mobile adjustments for background performance/responsiveness */
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-    background-position: center top;
-  }
+/* Fixed full-bleed background layer (reliable on iOS) */
+body.bg-root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: var(--app-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+/* Ensure main covers dynamic viewport height on mobile */
+main {
+  min-height: 100dvh;
+}
+
+/* Force transparent backgrounds for common wrappers */
+.page,
+.section,
+footer,
+header,
+.container,
+.wrapper {
+  background: transparent !important;
+}
+
+/* Footer readability on brand background */
+footer,
+footer * {
+  color: #473b31;
 }
 
 /* עיצובים מותאמים אישית */
