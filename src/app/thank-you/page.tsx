@@ -19,6 +19,7 @@ function ThankYouContent() {
   const searchParams = useSearchParams()
   const [wealthCode, setWealthCode] = useState<number | null>(null)
   const [codeStructure, setCodeStructure] = useState<CodeStructure | null>(null)
+  const [ready, setReady] = useState(false)
 
   // Generate code structure for URL-based access
   const generateCodeStructure = (code: number): CodeStructure => {
@@ -60,21 +61,40 @@ function ThankYouContent() {
   };
 
   useEffect(() => {
-    const code = searchParams.get('code')
-    if (code) {
-      const parsedCode = parseInt(code)
-      if (!isNaN(parsedCode) && parsedCode >= 1111 && parsedCode <= 9999) {
-        setWealthCode(parsedCode)
-        setCodeStructure(generateCodeStructure(parsedCode))
-      } else {
-        // Invalid code, redirect to home
-        router.push('/')
+    // Accept multiple possible param keys from payment provider
+    const possibleKeys = [
+      'code',
+      'transaction_id',
+      'transactionId',
+      'order_id',
+      'orderId',
+      'payment_id',
+      'paymentId',
+      'reference',
+      'ref',
+      'id',
+    ] as const
+
+    let raw: string | null = null
+    for (const key of possibleKeys) {
+      const v = searchParams.get(key as string)
+      if (v) {
+        raw = v
+        break
       }
-    } else {
-      // No code, redirect to home
-      router.push('/')
     }
-  }, [searchParams, router])
+
+    if (raw) {
+      const parsed = parseInt(raw)
+      if (!isNaN(parsed) && parsed >= 1111 && parsed <= 9999) {
+        setWealthCode(parsed)
+        setCodeStructure(generateCodeStructure(parsed))
+      }
+    }
+
+    // Always render a thank-you screen even if code is absent/invalid
+    setReady(true)
+  }, [searchParams])
 
   const handleBack = () => {
     router.push('/')
@@ -88,7 +108,7 @@ function ThankYouContent() {
     router.push('/')
   }
 
-  if (!wealthCode || !codeStructure) {
+  if (!ready) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -100,8 +120,8 @@ function ThankYouContent() {
 
   return (
     <ThankYouPage
-      wealthCode={wealthCode}
-      codeStructure={codeStructure}
+      wealthCode={wealthCode ?? undefined}
+      codeStructure={codeStructure ?? undefined}
       onBack={handleBack}
       onShowInterpretations={handleShowInterpretations}
       onCalculateNew={handleCalculateNew}
