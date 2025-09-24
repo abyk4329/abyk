@@ -3,113 +3,13 @@ import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { ArrowLeft, Download, Eye, FileText } from 'lucide-react';
 import { SimplePDFGenerator } from './SimplePDFGenerator';
+import { wealthCodeTexts } from "../data/wealthCodeTexts";
 
 interface PDFPreviewDemoProps {
   onBack: () => void;
 }
 
-// Demo digit meanings (simplified)
-const digitMeanings = {
-  1: {
-    title: "המנהיג/ה",
-    essence: "אנרגיה של התחלה, יוזמה והובלה. זוהי נקודת הפתיחה, הצעד הראשון, היכולת לעמוד לבד גם כשאין שביל מסומן.",
-    gifts: ["מנהיגות טבעית", "אומץ לפרוץ קדימה", "יכולת קבלת החלטות"],
-    challenges: ["פחד מאחריות", "שליטת יתר", "הישארות באזור הנוחות"],
-    imbalanceSigns: ["פרויקטים שלא יוצאים לדרך", "ביקורת יתר על מנהיגים"],
-    growthAreas: ["לצאת מאזור הנוחות", "לקבל החלטות בזמן", "לשחרר שליטה"],
-    careerPaths: ["ניהול בכיר ומנכ״לות", "יזמות עסקית", "הובלת פרויקטים"],
-    dailyPractice: "היום, בחר משימה אחת והעבר אותה לאדם אחר.",
-    bottomLine: "הספרה 1 באה להזכיר לך שאתה כאן כדי להוביל, לא להמתין."
-  },
-  2: {
-    title: "הדובר/ת",
-    essence: "ספרה 2 היא אנרגיה של תקשורת, יחסים והרמוניה.",
-    gifts: ["כישרון קולי יוצא דופן", "יכולת רגשית עמוקה", "גישור והרמוניה"],
-    challenges: ["קול כלוא", "ריצוי יתר", "פחד במה"],
-    imbalanceSigns: ["כאבי גרון חוזרים", "התפרצויות אחרי שתיקה"],
-    growthAreas: ["להעדיף יושר פנימי", "לבנות את שריר אמירת האמת"],
-    careerPaths: ["הוראה והכשרה", "הנחיית קבוצות", "דיפלומטיה"],
-    dailyPractice: "כתוב מסר אישי קצר ושתף אותו עם מישהו.",
-    bottomLine: "הספרה 2 מזכירה לך שהקול שלך הוא המתנה שלך."
-  },
-  3: {
-    title: "היוצר/ת",
-    essence: "ספרה 3 מייצגת יצירתיות, שמחת חיים וביטוי אישי.",
-    gifts: ["כריזמה טבעית", "יצירתיות גבוהה", "ביטוי אישי"],
-    challenges: ["חיים בקיצוניות", "פחד מקשר מחייב", "תלות רגשית"],
-    imbalanceSigns: ["פרויקטים יצירתיים שלא נסגרים", "תחושת ריקנות"],
-    growthAreas: ["איזון בין בית לעבודה", "יצירה בלי אישור חיצוני"],
-    careerPaths: ["אמנות ומשחק", "עיצוב", "בלוגינג ותוכן"],
-    dailyPractice: "הקדש חצי שעה ליצירה חופשית.",
-    bottomLine: "הספרה 3 מזכירה לך שאתה כאן כדי ליצור ולשמח."
-  },
-  4: {
-    title: "הבונה/ת",
-    essence: "ספרה 4 היא אנרגיה של יסוד, משמעת, התמדה ומבנה.",
-    gifts: ["משמעת ועקביות", "חוסן פיזי ונפשי", "כוח עבודה"],
-    challenges: ["כאוס וחוסר סדר", "חיפוש קיצורי דרך", "דחיינות"],
-    imbalanceSigns: ["שינה לא סדירה", "גלילה אינסופית", "בלגן מתמשך"],
-    growthAreas: ["לאמץ ספורט יומיומי", "לקבוע סדר יום יציב"],
-    careerPaths: ["בנייה ונדל״ן", "הנדסה", "ספורט"],
-    dailyPractice: "בחר משימה פיזית מוחשית אחת.",
-    bottomLine: "ספרה 4 מזכירה לך שהצלחה נבנית מלבנים קטנות של סדר."
-  },
-  5: {
-    title: "החופשי/ה",
-    essence: "ספרה 5 מייצגת חופש, הרפתקאות וחשיבה מחוץ לקופסה.",
-    gifts: ["רב גוניות וגמישות", "כריזמה ומagneticות", "חשיבה יצירתית"],
-    challenges: ["חוסר מיקוד", "בריחה מאחריות", "חוסר סבלנות"],
-    imbalanceSigns: ["חוסר מיקוד כרוני", "חוסר יציבות", "בריחה מהתחייבויות"],
-    growthAreas: ["למצוא איזון בין חופש למסגרת", "להתחייב למה שחשוב"],
-    careerPaths: ["יזמות ועסקים", "תקשורת ומדיה", "נסיעות ותיירות"],
-    dailyPractice: "בחר דבר אחד להתמקד בו היום.",
-    bottomLine: "הספרה 5 מזכירה לך שחופש אמיתי בא עם אחריות."
-  },
-  6: {
-    title: "המטפל/ת",
-    essence: "ספרה 6 מייצגת אהבה, דאגה למשפחה ויצירת הרמוניה.",
-    gifts: ["אמפתיה טבעית", "יכולת ריפוי", "יצירת אווירה חמה"],
-    challenges: ["זניחה עצמית", "מסירות יתר", "קושי לומר לא"],
-    imbalanceSigns: ["תחושת עומס רגשי", "זניחת הצרכים האישיים"],
-    growthAreas: ["לדאוג לעצמך קודם", "לקבוע גבולות בריאים"],
-    careerPaths: ["טיפול ובריאות", "חינוך", "עבודה חברתית"],
-    dailyPractice: "עשה משהו נחמד לעצמך היום.",
-    bottomLine: "הספרה 6 מזכירה לך שאתה לא יכול לתת ממקום ריק."
-  },
-  7: {
-    title: "החוקר/ת",
-    essence: "ספרה 7 מייצגת חוכמה, רוחניות וחיפוש אחר אמת עמוקה.",
-    gifts: ["אינטואיציה חזקה", "יכולת ניתוח עמוק", "חכמה רוחנית"],
-    challenges: ["בדידות ובידוד", "ביקורתיות יתר", "פרפקציוניזם"],
-    imbalanceSigns: ["נטיה לבידוד", "ניתוח יתר של הכל"],
-    growthAreas: ["לשתף את החוכמה שלך", "לקבל עזרה מאחרים"],
-    careerPaths: ["מחקר ופיתוח", "רוחניות וטיפול", "טכנולוגיה"],
-    dailyPractice: "שתף תובנה אחת עם מישהו אחר.",
-    bottomLine: "הספרה 7 מזכירה לך שחוכמה נועדה להיות משותפת."
-  },
-  8: {
-    title: "המגשים/ה",
-    essence: "ספרה 8 מייצגת הצלחה חומרית, עוצמה וכוח ביצוע.",
-    gifts: ["כישרון עסקי טבעי", "יכולת הנהגה", "חזון ארוך טווח"],
-    challenges: ["אובססיה לכסף", "זניחת הצד הרגשי", "שליטנות"],
-    imbalanceSigns: ["עבודה מופרזת", "התעלמות מהמשפחה"],
-    growthAreas: ["לאזן בין עסקים לחיים", "להשקיע ביחסים"],
-    careerPaths: ["ניהול ועסקים", "נדל״ן", "פיננסים"],
-    dailyPractice: "הקדש זמן איכות למישהו שאוהב אותך.",
-    bottomLine: "הספרה 8 מזכירה לך שהצלחה אמיתית כוללת גם אהבה."
-  },
-  9: {
-    title: "המשפיע/ה",
-    essence: "ספרה 9 מייצגת שליחות, השפעה רחבה ותרומה לעולם.",
-    gifts: ["ראייה רחבה", "יכולת השפעה", "רגישות חברתית"],
-    challenges: ["תסכול מהעולם", "ציניות", "רגשנות יתר"],
-    imbalanceSigns: ["כעס על עוולות בעולם", "תחושת חוסר אונים"],
-    growthAreas: ["להתמקד בהשפעה החיובית שלך", "לפעול בקטן"],
-    careerPaths: ["השפעה חברתית", "כתיבה וביטוי", "אמנות"],
-    dailyPractice: "עשה מעשה טוב קטן שמשפיע על אחרים.",
-    bottomLine: "הספרה 9 מזכירה לך שאתה כאן כדי להשאיר חותם חיובי."
-  }
-};
+// Use centralized wealthCodeTexts for demo content
 
 export function PDFPreviewDemo({ onBack }: PDFPreviewDemoProps) {
   const [wealthCode, setWealthCode] = useState(1234);
@@ -156,29 +56,41 @@ export function PDFPreviewDemo({ onBack }: PDFPreviewDemoProps) {
     };
   };
 
+  const mapMeaning = (digit: number) => {
+    const meaning = wealthCodeTexts[digit];
+    if (!meaning) {
+      return {
+        title: `ספרה ${digit}`,
+        essence: `פירוש לספרה ${digit}`,
+        gifts: [`מתנה של ספרה ${digit}`],
+        challenges: [`אתגר של ספרה ${digit}`],
+        imbalanceSigns: [`סימן לחוסר איזון בספרה ${digit}`],
+        growthAreas: [`תחום צמיחה לספרה ${digit}`],
+        careerPaths: [`קריירה מתאימה לספרה ${digit}`],
+        dailyPractice: `תרגול יומי לספרה ${digit}`,
+        bottomLine: `לסיכום ספרה ${digit}`
+      };
+    }
+    return {
+      title: meaning.title,
+      essence: meaning.essence,
+      gifts: meaning.gifts,
+      challenges: meaning.challenges,
+      imbalanceSigns: meaning.imbalanceSigns,
+      growthAreas: meaning.growthAreas,
+      careerPaths: meaning.careerPaths,
+      dailyPractice: meaning.dailyPractice,
+      bottomLine: meaning.bottomLine,
+    };
+  };
+
   const generateHTMLPreview = async () => {
     try {
       const codeStructure = generateCodeStructure(wealthCode);
       const uniqueDigits = [...new Set(codeStructure.digits)];
       
       // Prepare digit data for HTML
-      const digitData = uniqueDigits.map(digit => {
-        const meaning = digitMeanings[digit as keyof typeof digitMeanings];
-        if (!meaning) {
-          return {
-            title: `ספרה ${digit}`,
-            essence: `פירוש לספרה ${digit}`,
-            gifts: [`מתנה של ספרה ${digit}`],
-            challenges: [`אתגר של ספרה ${digit}`],
-            imbalanceSigns: [`סימן לחוסר איזון בספרה ${digit}`],
-            growthAreas: [`תחום צמיחה לספרה ${digit}`],
-            careerPaths: [`קריירה מתאימה לספרה ${digit}`],
-            dailyPractice: `תרגול יומי לספרה ${digit}`,
-            bottomLine: `לסיכום ספרה ${digit}`
-          };
-        }
-        return meaning;
-      });
+      const digitData = uniqueDigits.map(digit => mapMeaning(digit));
       
       // Generate HTML
       const html = await SimplePDFGenerator.generateHTML(wealthCode, codeStructure, digitData);
@@ -209,44 +121,14 @@ export function PDFPreviewDemo({ onBack }: PDFPreviewDemoProps) {
   const handleDownloadHTML = async () => {
     const codeStructure = generateCodeStructure(wealthCode);
     const uniqueDigits = [...new Set(codeStructure.digits)];
-    
-    const digitData = uniqueDigits.map(digit => {
-      const meaning = digitMeanings[digit as keyof typeof digitMeanings];
-      return meaning || {
-        title: `ספרה ${digit}`,
-        essence: `פירוש לספרה ${digit}`,
-        gifts: [`מתנה של ספרה ${digit}`],
-        challenges: [`אתגר של ספרה ${digit}`],
-        imbalanceSigns: [`סימן לחוסר איזון בספרה ${digit}`],
-        growthAreas: [`תחום צמיחה לספרה ${digit}`],
-        careerPaths: [`קריירה מתאימה לספרה ${digit}`],
-        dailyPractice: `תרגול יומי לספרה ${digit}`,
-        bottomLine: `לסיכום ספרה ${digit}`
-      };
-    });
-    
+    const digitData = uniqueDigits.map(digit => mapMeaning(digit));
     await SimplePDFGenerator.downloadHTML(wealthCode, codeStructure, digitData);
   };
 
   const handlePrintToPDF = async () => {
     const codeStructure = generateCodeStructure(wealthCode);
     const uniqueDigits = [...new Set(codeStructure.digits)];
-    
-    const digitData = uniqueDigits.map(digit => {
-      const meaning = digitMeanings[digit as keyof typeof digitMeanings];
-      return meaning || {
-        title: `ספרה ${digit}`,
-        essence: `פירוש לספרה ${digit}`,
-        gifts: [`מתנה של ספרה ${digit}`],
-        challenges: [`אתגר של ספרה ${digit}`],
-        imbalanceSigns: [`סימן לחוסר איזון בספרה ${digit}`],
-        growthAreas: [`תחום צמיחה לספרה ${digit}`],
-        careerPaths: [`קריירה מתאימה לספרה ${digit}`],
-        dailyPractice: `תרגול יומי לספרה ${digit}`,
-        bottomLine: `לסיכום ספרה ${digit}`
-      };
-    });
-    
+    const digitData = uniqueDigits.map(digit => mapMeaning(digit));
     await SimplePDFGenerator.printToPDF(wealthCode, codeStructure, digitData);
   };
 
