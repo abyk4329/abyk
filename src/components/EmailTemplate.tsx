@@ -59,7 +59,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
             color: #473B31;
             background: linear-gradient(135deg, #f5f3f0 0%, #faf8f5 100%);
             direction: rtl;
-            text-align: right;
+            text-align: center;
         }
         
         .container {
@@ -72,7 +72,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
         .header {
             background: white;
             padding: 30px 20px;
-            text-align: right;
+            text-align: center;
             border-bottom: 1px solid rgba(135, 103, 79, 0.2);
         }
         
@@ -85,7 +85,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
         .wealth-code-display {
             background: linear-gradient(135deg, #fefefe 0%, #f8f6f3 100%);
             padding: 40px 20px;
-            text-align: right;
+            text-align: center;
             border-bottom: 3px solid #87674F;
             direction: rtl;
         }
@@ -115,7 +115,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
         .content {
             padding: 30px 20px;
             direction: rtl;
-            text-align: right;
+            text-align: center;
         }
         
         .greeting {
@@ -139,6 +139,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
             padding: 20px;
             margin: 25px 0;
             border: 1px solid rgba(135, 103, 79, 0.2);
+            text-align: center;
         }
         
         .digits-preview h3 {
@@ -146,6 +147,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
             font-weight: 400;
             color: #473B31;
             margin-bottom: 15px;
+            text-align: center;
         }
         
         .digits-preview p {
@@ -153,11 +155,13 @@ export function generateEmailHTML(data: EmailTemplateData): string {
             font-weight: 300;
             color: #87674F;
             line-height: 1.6;
+            text-align: center;
         }
         
         .buttons {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 15px;
             margin: 30px 0;
         }
@@ -196,7 +200,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
             border-color: #87674F;
         }
         
-        .footer {
+    .footer {
             background: #f8f6f3;
             color: #87674F;
             padding: 25px 30px;
@@ -335,15 +339,15 @@ export function generateEmailHTML(data: EmailTemplateData): string {
                     נורות אזהרה לזיהוי חוסר איזון, מוקדי צמיחה, תחומי קריירה מתאימים ותרגול יומיומי מעשי.
                     בנוסף, תבינו את משמעותן של ספרות החוזרות או השונות בקוד, וכן תקבלו הסבר כיצד לשלב את הקוד בחיי היומיום.
                 </p>
-                                <div style="margin-top:14px;">
+                                <div style="margin-top:14px; text-align:center;">
                                     ${digits
                                         .map((d) => {
                                             const block = (wealthCodeTexts as any)[d];
                                             if (!block) return '';
                                             return `
-                                                <div style="margin-bottom:10px;">
-                                                    <div style="font-weight:500;color:#473B31;">${d} — ${block.title}</div>
-                                                    <div style="font-size:13px;color:#87674F;white-space:pre-line;">${block.essence || ''}</div>
+                                                <div style="margin-bottom:10px; text-align:center;">
+                                                    <div style="font-weight:500;color:#473B31; text-align:center;">${d} — ${block.title}</div>
+                                                    <div style="font-size:13px;color:#87674F;white-space:pre-line; text-align:center;">${block.essence || ''}</div>
                                                 </div>`;
                                         })
                                         .join("")}
@@ -365,9 +369,9 @@ export function generateEmailHTML(data: EmailTemplateData): string {
             </div>
 
             <!-- Sharing Section -->
-            <div style="background: rgba(135, 103, 79, 0.08); border-radius: 12px; padding: 20px; margin: 25px 0; border: 1px solid rgba(135, 103, 79, 0.2); direction: rtl; text-align: right;">
+            <div style="background: rgba(135, 103, 79, 0.08); border-radius: 12px; padding: 20px; margin: 25px 0; border: 1px solid rgba(135, 103, 79, 0.2); direction: rtl; text-align: center;">
                 <h3 style="font-size: 16px; font-weight: 400; color: #473B31; margin-bottom: 15px;">שתפו את המתנה</h3>
-                <p style="font-size: 14px; font-weight: 300; color: #87674F; line-height: 1.6; margin-bottom: 15px;">
+                <p style="font-size: 14px; font-weight: 300; color: #87674F; line-height: 1.6; margin-bottom: 15px; text-align: center;">
                     מה שהאיר לכם, יכול להאיר גם לאחרים. שתפו את המחשבון עם מי שחשוב לכם.
                 </p>
                 <a href="https://awakening-by-ksenia.com" 
