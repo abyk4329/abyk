@@ -3,7 +3,7 @@ export class SimplePDFGenerator {
   static async generateHTML(wealthCode: number, codeStructure: any, digitData: any[]): Promise<string> {
     const uniqueDigits = [...new Set<number>(codeStructure.digits)].sort((a, b) => a - b);
     
-    let html = `
+    const html = `
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
 <head>
