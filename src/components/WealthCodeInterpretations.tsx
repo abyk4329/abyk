@@ -24,6 +24,7 @@ import {
   Calculator,
 } from "lucide-react";
 import { Footer } from "./Footer";
+import Header from "./Header";
 import { WealthCodePDFGenerator } from "./PDFGenerator";
 import { useState } from "react";
 
@@ -652,35 +653,8 @@ export function WealthCodeInterpretations({
 
       {/* Main Content Container */}
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Header */}
-  <header className="backdrop-blur-lg border-b border-white/30 shadow-xl sm:backdrop-blur-md sm:border-white/25 bg-[rgba(244,241,234,0.12)]">
-          <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-6">
-            <div className="flex items-center justify-between">
-              {/* Spacer for balance */}
-              <div className="w-16">
-                <Button
-                  variant="ghost"
-                  onClick={onBack}
-                  className="absolute left-4 sm:left-6 text-[rgba(254,254,254,1)] font-normal hover:text-white/90 hover:bg-white/15 border-0 font-['Assistant'] tracking-wide p-2"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </Button>
-              </div>
-
-              {/* Centered tagline */}
-              <span
-                className="font-normal text-xs sm:text-sm md:text-lg tracking-[0.25em] drop-shadow-lg font-['Assistant'] text-center"
-                style={{ color: "#473B31" }}
-                dir="ltr"
-              >
-                YOUR PERSONAL SPACE FOR GROWTH
-              </span>
-
-              {/* Spacer for balance */}
-              <div className="w-16"></div>
-            </div>
-          </div>
-        </header>
+  {/* Header */}
+  <Header />
 
         {/* Main Content - Tab System */}
         <main className="flex-1 p-4 sm:p-6">

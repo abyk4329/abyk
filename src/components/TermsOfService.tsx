@@ -2,6 +2,7 @@ import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { ArrowLeft, Mail } from 'lucide-react';
+import Header from "./Header";
 import { Footer } from './Footer';
 
 interface TermsOfServiceProps {
@@ -19,35 +20,8 @@ export function TermsOfService({ onBack }: TermsOfServiceProps) {
 
       {/* Main Content Container */}
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Header */}
-  <header className="backdrop-blur-lg border-b border-white/30 shadow-xl sm:backdrop-blur-md sm:border-white/25 bg-[rgba(254,254,254,0.12)]">
-          <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-6">
-            <div className="flex items-center justify-between">
-              {/* Spacer for balance */}
-              <div className="w-16">
-                <Button
-                  variant="ghost"
-                  onClick={onBack}
-                  className="text-[rgba(254,254,254,1)] font-normal hover:text-white/90 hover:bg-white/15 border-0 font-['Assistant'] tracking-wide p-2"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </Button>
-              </div>
-              
-              {/* Centered tagline */}
-              <span
-                className="font-normal text-xs sm:text-sm md:text-lg tracking-[0.25em] drop-shadow-lg font-['Assistant'] text-center"
-                style={{ color: "#473B31" }}
-                dir="ltr"
-              >
-                YOUR PERSONAL SPACE FOR GROWTH
-              </span>
-              
-              {/* Spacer for balance */}
-              <div className="w-16"></div>
-            </div>
-          </div>
-        </header>
+  {/* Header */}
+  <Header />
 
         {/* Main Content */}
         <main className="flex-1 px-4 py-6 sm:px-6 sm:py-8">
@@ -73,44 +47,15 @@ export function TermsOfService({ onBack }: TermsOfServiceProps) {
             {/* Introduction */}
             <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
               <div className="space-y-4 text-center">
-                <p className="text-[rgba(71,59,49,1)] font-light leading-relaxed drop-shadow-md tracking-wide text-[16px]">
-                  האתר Awakening by Ksenia (להלן: „האתר") מופעל על ידי צ׳ודנובסקי קסניה אוריה (להלן: „המפעילה"). שימוש באתר, לרבות רכישת מוצרים דיגיטליים, מהווה הסכמה מלאה ומפורשת לתנאי שימוש אלה. אם אינך מסכים/ה לתנאים, מתבקשת/ת להימנע משימוש באתר.
-                </p>
-              </div>
-            </Card>
-
-            {/* Section 1: Service Nature */}
-            <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
-              <div className="space-y-4 text-center">
                 <h3 className="font-bold drop-shadow-lg tracking-wide text-center font-['Assistant'] text-[24px]" style={{ color: '#473B31' }}>
-                  1. אופי השירות
+                  1. הקדמה
                 </h3>
                 <div className="space-y-3 text-center">
                   <p className="text-[rgba(71,59,49,1)] font-light leading-relaxed drop-shadow-md tracking-wide text-[16px]">
-                    • האתר מציע מוצרים דיגיטליים ייחודיים, לרבות פירוש אישי לקוד העושר.
+                    תנאי שימוש אלה מסדירים את השימוש באתר ובמוצרים הדיגיטליים הניתנים במסגרתו.
                   </p>
                   <p className="text-[rgba(71,59,49,1)] font-light leading-relaxed drop-shadow-md tracking-wide text-[16px]">
-                    • התכנים והשירותים באתר נועדו לספק הכוונה, השראה וכלים להתפתחות אישית ורוחנית.
-                  </p>
-                  <p className="text-[rgba(71,59,49,1)] font-light leading-relaxed drop-shadow-md tracking-wide text-[16px]">
-                    • התכנים אינם מהווים תחליף לייעוץ רפואי, משפטי או פיננסי מוסמך.
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            {/* Section 2: Purchase and Delivery */}
-            <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
-              <div className="space-y-4 text-center">
-                <h3 className="font-bold drop-shadow-lg tracking-wide text-center font-['Assistant'] text-[24px]" style={{ color: '#473B31' }}>
-                  2. רכישה ואספקה
-                </h3>
-                <div className="space-y-3 text-center">
-                  <p className="text-[rgba(71,59,49,1)] font-light leading-relaxed drop-shadow-md tracking-wide text-[16px]">
-                    • לאחר השלמת התשלום, תיפתח למשתמש/ת גישה מיידית להורדה, והעותק יישלח לכתובת הדוא"ל שנמסרה בעת ההזמנה.
-                  </p>
-                  <p className="text-[rgba(71,59,49,1)] font-light leading-relaxed drop-shadow-md tracking-wide text-[16px]">
-                    • מאחר שמדובר במוצר דיגיטלי הנמסר באופן מיידי, לא ניתן לבטל את העסקה ולא יינתן החזר כספי.
+                    השימוש באתר מהווה הסכמה לתנאים המפורטים להלן.
                   </p>
                 </div>
               </div>

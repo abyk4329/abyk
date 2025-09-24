@@ -175,6 +175,19 @@
       font-size: var(--text-base);
       font-weight: var(--font-weight-medium);
       line-height: 1.5;
+  /* Header title: force single line and avoid wrapping */
+  .header-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 480px) {
+    .header-title {
+      font-size: 14px !important;
+      letter-spacing: 0.05em !important;
+    }
+  }
     }
 
     input {

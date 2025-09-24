@@ -2,6 +2,7 @@ import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { ArrowLeft, Mail } from 'lucide-react';
+import Header from "./Header";
 import { Footer } from './Footer';
 import { useState } from 'react';
 
@@ -204,34 +205,7 @@ export function TermsAndPrivacy({ onBack, initialTab = 'terms' }: TermsAndPrivac
                 {/* Section 6: Contact */}
                 <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
                   <div className="space-y-4 text-center">
-                    <h3 className="font-bold drop-shadow-lg tracking-wide text-center font-['Assistant'] text-[24px]" style={{ color: '#473B31' }}>
-                      6. יצירת קשר
-                    </h3>
-                    <div className="space-y-4 text-center">
-                      <p className="text-[rgba(71,59,49,1)] font-light leading-relaxed drop-shadow-md tracking-wide text-[16px]">
-                        לשאלות או פניות ניתן ליצור קשר בדוא"ל:
-                      </p>
-                      <div className="flex items-center justify-center gap-3">
-                        <Mail className="w-5 h-5 text-[rgba(71,59,49,1)]" />
-                        <a 
-                          href="mailto:awakening.by.ksenia@gmail.com"
-                          className="text-[rgba(71,59,49,1)] font-normal hover:text-[rgba(71,59,49,0.8)] transition-colors duration-200 tracking-wide underline decoration-[rgba(71,59,49,0.4)] hover:decoration-[rgba(71,59,49,0.8)]"
-                        >
-                          awakening.by.ksenia@gmail.com
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            )}
-
-            {/* Privacy Policy Content */}
-            {activeTab === 'privacy' && (
-              <div className="space-y-8">
-                {/* Introduction */}
-                <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
-                  <div className="space-y-4 text-center">
+            <Header />
                     <p className="text-[rgba(71,59,49,1)] font-light text-lg leading-relaxed drop-shadow-md tracking-wide text-center">
                       נכנסה לתוקף בתאריך: 22.09.2025
                     </p>
