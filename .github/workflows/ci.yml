@@ -5,50 +5,49 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  build-and-test:
+  build-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Setup Node.js
+      - name: Setup Node & pnpm
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
-      - name: Install dependencies
+      - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      - name: Generate route map
+      - name: Prebuild (route map)
         run: pnpm run prebuild
 
-      - name: Build
-        run: pnpm run build
-        env:
-          NEXT_PUBLIC_SHOW_SIMULATE: '1'
+      - name: Build (enable simulate for CI)
+        run: NEXT_PUBLIC_SHOW_SIMULATE=1 pnpm run build
 
-      - name: Install Playwright Browsers
+      - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-    - name: Run E2E tests
-        env:
-          E2E_BASE_URL: http://localhost:3000
-      NEXT_PUBLIC_SHOW_SIMULATE: '1'
-        run: |
-          # Start Next.js in the background
-          pnpm start &
-          # Wait for server
-          npx wait-on http://localhost:3000
-          pnpm run test:e2e
+      - name: Start app
+        run: pnpm start &
 
-      - name: Link check production site
-        if: github.event_name == 'push'
-        run: pnpm run links:check
+      - name: Wait for app
+        run: npx wait-on http://localhost:3000
+
+      - name: Run E2E
+        run: pnpm run test:e2e
+
+      - name: Link check (production)
+        run: npx linkinator https://abyk.online --recurse --skip 'mailto:|tel:|^/api'
