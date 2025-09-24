@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Suspense, useEffect, useMemo, useState } from 'react'
+import { Suspense, useEffect, useMemo, useState, useRef } from 'react'
 import { WealthCodeInterpretations } from '@/components/WealthCodeInterpretations'
 
 interface CodeStructure {
@@ -20,6 +20,7 @@ function InterpretationsContent() {
   const [wealthCode, setWealthCode] = useState<number | null>(null)
   const [codeStructure, setCodeStructure] = useState<CodeStructure | null>(null)
   const [ready, setReady] = useState(false)
+  const autoDownloadedRef = useRef(false)
 
   const generateCodeStructure = (code: number): CodeStructure => {
     const digits = code.toString().split('').map(Number)
@@ -80,6 +81,25 @@ function InterpretationsContent() {
 
     setReady(true)
   }, [searchParams])
+
+  // Trigger a one-time server PDF download if requested via query
+  useEffect(() => {
+    if (!ready || !wealthCode || autoDownloadedRef.current) return
+
+    const dl = searchParams.get('download') ?? searchParams.get('autoDownload')
+    if (dl === '1' || dl === 'true') {
+      autoDownloadedRef.current = true
+      const url = `/api/download-pdf?code=${wealthCode}`
+      // Create an invisible link to prompt browser download
+      const a = document.createElement('a')
+      a.href = url
+      a.download = ''
+      a.rel = 'noopener'
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+    }
+  }, [ready, wealthCode, searchParams])
 
   const handleBack = () => {
     if (wealthCode) {

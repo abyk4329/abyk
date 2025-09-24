@@ -126,7 +126,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Assistant', system-ui, sans-serif;
+    font-family: "Assistant", system-ui, sans-serif;
   }
 }
 
@@ -270,11 +270,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .calendar-popup {
     max-width: 90vw;
   }
-  
+
   .calendar-popup .rdp {
     margin: 0;
   }
-  
+
   .calendar-popup .rdp-months {
     justify-content: center;
   }
@@ -287,7 +287,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 6px;
   padding: 4px 8px;
-  font-family: 'Assistant', system-ui, sans-serif;
+  font-family: "Assistant", system-ui, sans-serif;
   font-size: 14px;
   backdrop-filter: blur(10px);
   transition: all 0.2s ease;
@@ -336,5 +336,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     min-width: 100px;
     font-size: 13px;
     padding: 3px 6px;
+  }
+}
+
+/*
+ * Global visual override: remove the orange glow from cards.
+ * Many components use `shadow-2xl shadow-orange-200/40` which tints the shadow.
+ * We neutralize that color to a subtle, neutral shadow site‑wide without
+ * editing every component.
+ */
+@layer utilities {
+  .shadow-orange-200\/40 {
+    /* Tailwind uses --tw-shadow-color for colored shadows */
+    --tw-shadow-color: rgba(0, 0, 0, 0.22) !important; /* neutralize orange */
+    /* Ensure the colored shadow pathway is used with the new color */
+    --tw-shadow: var(--tw-shadow-colored) !important;
   }
 }

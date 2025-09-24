@@ -303,7 +303,7 @@ const digitMeanings = {
     dailyPractice:
       "צור/צרי משהו קטן ויפה היום – ציור, תמונה, סידור פינה בבית – לא כדי להרשים אחרים, אלא כדי להזכיר לעצמך את היופי שאתה מביא.",
     bottomLine:
-      "ספרה 6 נולדה להביא ריפוי ונוחות לעולם. כשהיא לומדת לשלב בין נתינה לרוחניות, ולבנות מודל עסקי ברור – היא מצליחה גם לרפא אחרים וגם להעלות את עצמها.",
+      "ספרה 6 נולדה להביא ריפוי ונוחות לעולם. כשהיא לומדת לשלב בין נתינה לרוחניות, ולבנות מודל עסקי ברור – היא מצליחה גם לרפא אחרים וגם להעלות את עצמה.",
   },
   7: {
     title: "הלוחם/ת",
@@ -431,7 +431,7 @@ const digitMeanings = {
       "כתיבה טיפולית וסדנאות עומק",
     ],
     dailyPractice:
-      "כתוב/כתבי הצעה טיפולית או מסר רוחני קצר, קבע/י מחיר ברור – גם אם זה מרגיש לא נוח – ושתף/י ��ותו החוצה.",
+      "כתוב/כתבי הצעה טיפולית או מסר רוחני קצר, קבע/י מחיר ברור – גם אם זה מרגיש לא נוח – ושתף/י אותו החוצה.",
     bottomLine:
       "ספרה 9 נועדה להביא ריפוי ונוחות לעולם. כשהיא לומדת לשלב בין נתינה לרוחניות, ולבנות מודל עסקי ברור – היא מצליחה גם לרפא אחרים וגם להעלות את עצמה.",
   },
@@ -935,6 +935,16 @@ export function WealthCodeInterpretations({
                 <Download className="ml-2 w-5 h-5" />
                 {isDownloading ? "מכין PDF..." : "הורד PDF מלא"}
               </Button>
+
+              {/* Server PDF quick download */}
+              <a
+                href={`/api/download-pdf?code=${wealthCode}`}
+                className="inline-flex items-center justify-center font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-lg px-8 py-4 font-['Assistant'] tracking-wide bg-[rgba(254,254,254,0.1)] hover:bg-[rgba(254,254,254,0.2)] border-[rgba(149,112,82,0.3)] text-[rgba(149,112,82,1)] rounded-md"
+                rel="noopener"
+              >
+                <Download className="ml-2 w-5 h-5" />
+                הורדה מהירה (שרת)
+              </a>
 
               <Button
                 onClick={handleShare}

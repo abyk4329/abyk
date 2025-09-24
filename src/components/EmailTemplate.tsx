@@ -53,7 +53,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
             color: #473B31;
             background: linear-gradient(135deg, #f5f3f0 0%, #faf8f5 100%);
             direction: rtl;
-            text-align: center;
+            text-align: right;
         }
         
         .container {
@@ -66,7 +66,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
         .header {
             background: white;
             padding: 30px 20px;
-            text-align: center;
+            text-align: right;
             border-bottom: 1px solid rgba(135, 103, 79, 0.2);
         }
         
@@ -79,7 +79,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
         .wealth-code-display {
             background: linear-gradient(135deg, #fefefe 0%, #f8f6f3 100%);
             padding: 40px 20px;
-            text-align: center;
+            text-align: right;
             border-bottom: 3px solid #87674F;
             direction: rtl;
         }
@@ -108,13 +108,13 @@ export function generateEmailHTML(data: EmailTemplateData): string {
             font-weight: 400;
             color: #87674F;
             margin-top: 15px;
-            text-align: center;
+            text-align: right;
         }
         
         .content {
             padding: 30px 20px;
             direction: rtl;
-            text-align: center;
+            text-align: right;
         }
         
         .greeting {
@@ -350,7 +350,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
             </div>
 
             <!-- Sharing Section -->
-            <div style="background: rgba(135, 103, 79, 0.08); border-radius: 12px; padding: 20px; margin: 25px 0; border: 1px solid rgba(135, 103, 79, 0.2); direction: rtl; text-align: center;">
+            <div style="background: rgba(135, 103, 79, 0.08); border-radius: 12px; padding: 20px; margin: 25px 0; border: 1px solid rgba(135, 103, 79, 0.2); direction: rtl; text-align: right;">
                 <h3 style="font-size: 16px; font-weight: 400; color: #473B31; margin-bottom: 15px;">שתפו את המתנה</h3>
                 <p style="font-size: 14px; font-weight: 300; color: #87674F; line-height: 1.6; margin-bottom: 15px;">
                     מה שהאיר לכם, יכול להאיר גם לאחרים. שתפו את המחשבון עם מי שחשוב לכם.

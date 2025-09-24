@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { generateEmailHTML, generateEmailSubject, generateEmailText } from '@/components/EmailTemplate'
 
 export const runtime = 'edge'
 
@@ -42,21 +43,39 @@ export async function POST(req: NextRequest) {
     if (email && successStatuses.includes(status)) {
       try {
         const baseUrl = req.nextUrl.origin
-        const subject = 'הפירוש המלא לקוד העושר האישי שלך'
-        const viewUrl = `${baseUrl}/thank-you${transactionId ? `?code=${encodeURIComponent(transactionId)}` : ''}`
+  const viewUrl = `${baseUrl}/thank-you${transactionId ? `?code=${encodeURIComponent(transactionId)}&download=1` : ''}`
         const downloadUrl = `${baseUrl}/api/download-pdf${transactionId ? `?code=${encodeURIComponent(transactionId)}` : ''}`
-        const html = `<!doctype html><html dir="rtl" lang="he"><body style="font-family:Assistant,system-ui,sans-serif;color:#473B31;">
-          <div style="max-width:640px;margin:0 auto;background:#fff;padding:24px;border:1px solid rgba(135,103,79,.2);border-radius:12px;">
-            <h1 style="font-size:22px;margin:0 0 12px;">תודה על הרכישה!</h1>
-            <p style="font-size:15px;line-height:1.7;margin:0 0 16px;">הפירוש המלא לקוד האישי שלך ממתין לך לצפייה ולהורדה.</p>
-            <p style="margin:0 0 10px;"><a href="${viewUrl}" style="display:inline-block;padding:12px 18px;background:#87674F;color:#fff;text-decoration:none;border-radius:8px;">צפייה באתר (מומלץ)</a></p>
-            <p style="margin:8px 0 0;"><a href="${downloadUrl}" style="display:inline-block;padding:10px 16px;background:rgba(135,103,79,.1);color:#473B31;text-decoration:none;border-radius:8px;border:1px solid rgba(135,103,79,.3);">הורדת PDF</a></p>
-          </div>
-        </body></html>`
+        const wealthCode = Number((body.wealth_code || body.code || '').toString().replace(/\D/g, '')) || undefined
+        const name = body.name || body.customer_name || body.customerName || undefined
+
+        const subject = generateEmailSubject(wealthCode || 0)
+        const html = generateEmailHTML({
+          wealthCode: wealthCode || 0,
+          customerName: name,
+          viewUrl,
+          downloadUrl,
+          codeStructure: (function compute() {
+            const code = (wealthCode || 0).toString().padStart(4, '0')
+            const digits = code.split('').map(Number)
+            const counts = digits.reduce((acc: Record<number, number>, d) => { acc[d] = (acc[d] || 0) + 1; return acc }, {})
+            const repeatedDigits = Object.entries(counts).filter(([, c]) => (c as number) > 1).map(([digit, count]) => ({ digit: parseInt(digit, 10), count: count as number }))
+            const allSame = new Set(digits).size === 1
+            const allDifferent = new Set(digits).size === 4
+            const hasRepeats = repeatedDigits.length > 0
+            return { digits, repeatedDigits, allSame, allDifferent, hasRepeats }
+          })(),
+        })
+        const text = generateEmailText({
+          wealthCode: wealthCode || 0,
+          customerName: name,
+          viewUrl,
+          downloadUrl,
+          codeStructure: { digits: [], repeatedDigits: [], allSame: false, allDifferent: false, hasRepeats: false },
+        })
         await fetch(`${baseUrl}/api/send-email`, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ to: email, subject, html, metadata: { transactionId, amount, status } }),
+          body: JSON.stringify({ to: email, subject, html, text, metadata: { transactionId, amount, status, name, wealthCode } }),
         })
       } catch (e) {
         console.error('GROW_WEBHOOK_EMAIL_TRIGGER_ERROR', e)
