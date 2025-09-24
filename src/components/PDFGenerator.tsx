@@ -7,7 +7,7 @@ export type CodeStructure = {
   allSame: boolean;
   allDifferent: boolean;
   hasRepeats: boolean;
-  type: "master" | "diverse" | "focused" | "balanced";
+  type: "master" | "repeated" | "diverse";
 };
 
 export type WealthCodeData = {

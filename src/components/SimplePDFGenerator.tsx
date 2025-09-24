@@ -1,7 +1,7 @@
 // Simple PDF generator using browser APIs
 export class SimplePDFGenerator {
   static async generateHTML(wealthCode: number, codeStructure: any, digitData: any[]): Promise<string> {
-    const uniqueDigits = [...new Set(codeStructure.digits)];
+    const uniqueDigits = [...new Set<number>(codeStructure.digits)].sort((a, b) => a - b);
     
     let html = `
 <!DOCTYPE html>

@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect, Suspense } from 'react'
 import { EmailPreview } from '@/components/EmailPreview'
+import { paths } from '@/lib/urls'
 
 function EmailPreviewContent() {
   const router = useRouter()
@@ -17,13 +18,11 @@ function EmailPreviewContent() {
       setWealthCode(parsedCode)
     } else {
       // Invalid code, redirect to home
-      router.push('/')
+  router.push(paths.home())
     }
   }, [searchParams, router])
 
-  const handleBack = () => {
-    router.push('/')
-  }
+  const handleBack = () => { router.push(paths.home()) }
 
   if (!wealthCode) {
     return (

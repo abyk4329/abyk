@@ -17,7 +17,7 @@ interface WealthCodeSalesPageProps {
     allSame: boolean;
     allDifferent: boolean;
     hasRepeats: boolean;
-    type: "master" | "diverse" | "focused" | "balanced";
+  type: "master" | "repeated" | "diverse";
   };
   fullData?: any; // Add fullData
   onBack: () => void;
@@ -34,10 +34,26 @@ export function WealthCodeSalesPage({
   codeStructure,
   onBack,
   onCalculateNew,
+  onShowThankYou,
 }: WealthCodeSalesPageProps) {
   const handlePurchase = async () => {
     // עבור לקישור התשלום של Grow ישירות
   window.open("https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw", "_blank");
+  };
+
+  const handleSimulatePayment = () => {
+    // מדמה הצלחת תשלום ומנווט לעמוד תודה בתוך האפליקציה
+    if (onShowThankYou) {
+      onShowThankYou(wealthCode, codeStructure);
+    } else {
+      // נפילה אחורית: שימוש בפרמטרי URL לצורך כניסה ישירה
+      const params = new URLSearchParams(window.location.search);
+      params.set("page", "thank-you");
+      params.set("code", String(wealthCode));
+      window.history.replaceState({}, document.title, `${window.location.pathname}?${params.toString()}`);
+      // טריגר רענון קל כדי שה-useEffect ב-App יקרא את הפרמטרים
+      window.location.reload();
+    }
   };
 
   return (
@@ -179,7 +195,7 @@ export function WealthCodeSalesPage({
                         {(() => {
                           const uniqueDigits = [
                             ...new Set(codeStructure.digits),
-                          ].sort();
+                          ].sort((a, b) => a - b);
                           if (uniqueDigits.length === 1) {
                             return uniqueDigits[0];
                           } else if (
@@ -253,6 +269,21 @@ export function WealthCodeSalesPage({
                         >
                           אני רוצה להכיר את עצמי
                         </Button>
+
+                        {/* כפתור סימולציה לתשלום לצורכי בדיקה מהירה - מוסתר בפרודקשן, אלא אם הוגדר NEXT_PUBLIC_SHOW_SIMULATE=1 */}
+                        {(process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_SHOW_SIMULATE === '1') && (
+                          <div className="flex justify-center">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={handleSimulatePayment}
+                              className="mt-2 font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-sm px-4 py-2 font-['Assistant'] tracking-wide bg-[rgba(254,254,254,0.1)] hover:bg-[rgba(254,254,254,0.2)] border-[rgba(149,112,82,0.3)] text-[rgba(149,112,82,1)]"
+                              aria-label="סימולציית תשלום"
+                            >
+                              סימולציית תשלום (בדיקה)
+                            </Button>
+                          </div>
+                        )}
 
                         <p className="text-[rgba(149,112,82,0.7)] font-light text-[12px] tracking-wide">
                           תשלום מובטח באמצעות ספק סליקה חיצוני

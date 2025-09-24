@@ -33,6 +33,24 @@ This is the ABYK website (Next.js App Router + Tailwind).
 - The site routes include: / (home), /thank-you, /interpretations, /terms, /privacy, /terms-privacy, /email-preview.
 - The CTA on the sales page opens the Grow payment link directly.
 
+## How to QA
+
+Preview locally with the QA overlay and run E2E tests:
+
+```sh
+pnpm i
+npx playwright install
+pnpm run prebuild && pnpm run build && pnpm start
+# Preview QA
+open http://localhost:3000/?qa=1
+pnpm run test:e2e
+```
+
+Environment toggle for simulate buttons:
+- `.env.example` includes `NEXT_PUBLIC_SHOW_SIMULATE=0` by default.
+- Set `NEXT_PUBLIC_SHOW_SIMULATE=1` to show “simulate payment” buttons (useful for CI/demos).
+- CI is configured to set `NEXT_PUBLIC_SHOW_SIMULATE=1` for E2E.
+
 ## Email delivery
 
 - Server endpoint: `POST /api/send-email` with JSON `{ to, subject, html?, text?, metadata? }`.

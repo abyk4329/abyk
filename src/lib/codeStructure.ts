@@ -5,6 +5,8 @@ export type CodeStructure = {
   allSame: boolean;
   allDifferent: boolean;
   hasRepeats: boolean;
+  // Canonical structure types used across the app
+  type?: 'master' | 'repeated' | 'diverse';
 };
 
 export function computeCodeStructure(code: number | string): CodeStructure {
