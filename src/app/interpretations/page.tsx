@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useMemo, useState, useRef } from 'react'
 import { WealthCodeInterpretations } from '@/components/WealthCodeInterpretations'
+import { paths, isFourDigitCode } from '@/lib/urls'
 
 interface CodeStructure {
   digits: number[]
@@ -11,7 +12,8 @@ interface CodeStructure {
   allSame: boolean
   allDifferent: boolean
   hasRepeats: boolean
-  type: 'master' | 'diverse' | 'focused' | 'balanced'
+  // Canonical structure types used across the app
+  type: 'master' | 'repeated' | 'diverse'
 }
 
 function InterpretationsContent() {
@@ -44,7 +46,8 @@ function InterpretationsContent() {
       allSame,
       allDifferent,
       hasRepeats,
-      type: allSame ? 'master' : allDifferent ? 'diverse' : hasRepeats ? 'focused' : 'balanced',
+      // Map to the normalized tri-state structure type
+      type: allSame ? 'master' : allDifferent ? 'diverse' : 'repeated',
     }
   }
 
@@ -71,12 +74,10 @@ function InterpretationsContent() {
       }
     }
 
-    if (raw) {
+    if (raw && isFourDigitCode(raw)) {
       const parsed = parseInt(raw)
-      if (!isNaN(parsed) && parsed >= 1111 && parsed <= 9999) {
-        setWealthCode(parsed)
-        setCodeStructure(generateCodeStructure(parsed))
-      }
+      setWealthCode(parsed)
+      setCodeStructure(generateCodeStructure(parsed))
     }
 
     setReady(true)
@@ -84,12 +85,12 @@ function InterpretationsContent() {
 
   // Trigger a one-time server PDF download if requested via query
   useEffect(() => {
-    if (!ready || !wealthCode || autoDownloadedRef.current) return
+  if (!ready || !wealthCode || !isFourDigitCode(wealthCode) || autoDownloadedRef.current) return
 
     const dl = searchParams.get('download') ?? searchParams.get('autoDownload')
     if (dl === '1' || dl === 'true') {
       autoDownloadedRef.current = true
-      const url = `/api/download-pdf?code=${wealthCode}`
+  const url = paths.downloadPdf(wealthCode)
       // Create an invisible link to prompt browser download
       const a = document.createElement('a')
       a.href = url
@@ -103,14 +104,14 @@ function InterpretationsContent() {
 
   const handleBack = () => {
     if (wealthCode) {
-      router.push(`/thank-you?code=${wealthCode}`)
+      router.push(paths.thankYou(wealthCode))
     } else {
-      router.push('/thank-you')
+      router.push(paths.thankYouNoCode())
     }
   }
 
   const handleCalculateNew = () => {
-    router.push('/')
+  router.push(paths.home())
   }
 
   if (!ready) {
@@ -125,7 +126,7 @@ function InterpretationsContent() {
 
   if (!wealthCode || !codeStructure) {
     // If no valid code, send to Thank You to keep flow consistent
-    router.replace('/thank-you')
+  router.replace(paths.thankYouNoCode())
     return null
   }
 

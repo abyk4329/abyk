@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect, Suspense } from 'react'
 import { ThankYouPage } from '@/components/ThankYouPage'
+import { paths, isFourDigitCode } from '@/lib/urls'
 
 interface CodeStructure {
   digits: number[];
@@ -11,7 +12,8 @@ interface CodeStructure {
   allSame: boolean;
   allDifferent: boolean;
   hasRepeats: boolean;
-  type: "master" | "diverse" | "focused" | "balanced";
+  // Canonical structure types used across the app
+  type: "master" | "repeated" | "diverse";
 }
 
 function ThankYouContent() {
@@ -50,13 +52,8 @@ function ThankYouContent() {
       allSame,
       allDifferent,
       hasRepeats,
-      type: allSame
-        ? "master"
-        : allDifferent
-          ? "diverse"
-          : hasRepeats
-            ? "focused"
-            : "balanced",
+      // Map to the normalized tri-state structure type
+      type: allSame ? "master" : allDifferent ? "diverse" : "repeated",
     };
   };
 
@@ -97,16 +94,24 @@ function ThankYouContent() {
   }, [searchParams])
 
   const handleBack = () => {
-    router.push('/')
+  router.push(paths.home())
   }
 
   const handleShowInterpretations = (code: number) => {
-    router.push(`/interpretations?code=${code}`)
+    if (isFourDigitCode(code)) {
+      router.push(paths.interpretations(code))
+    } else {
+      router.push(paths.thankYouNoCode())
+    }
   }
 
   const handleCalculateNew = () => {
-    router.push('/')
+    router.push(paths.home())
   }
+
+  const handleShowTerms = () => router.push(paths.terms())
+  const handleShowPrivacy = () => router.push(paths.privacy())
+  const handleShowTermsAndPrivacy = () => router.push(paths.termsPrivacy())
 
   if (!ready) {
     return (
@@ -125,6 +130,9 @@ function ThankYouContent() {
       onBack={handleBack}
       onShowInterpretations={handleShowInterpretations}
       onCalculateNew={handleCalculateNew}
+  onShowTerms={handleShowTerms}
+  onShowPrivacy={handleShowPrivacy}
+  onShowTermsAndPrivacy={handleShowTermsAndPrivacy}
     />
   )
 }

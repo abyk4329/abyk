@@ -1,24 +1,12 @@
 import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "./ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import {
   ArrowLeft,
   Download,
   Star,
   TrendingUp,
-  AlertCircle,
-  Target,
-  Lightbulb,
-  Calendar,
-  Heart,
-  Zap,
-  Shield,
   Eye,
   Share2,
   Calculator,
@@ -29,9 +17,10 @@ import { WealthCodePDFGenerator } from "./PDFGenerator";
 import { useState } from "react";
 import { wealthCodeTexts, sectionTitles } from "../data/wealthCodeTexts";
 import { codeStructures, codeApplication } from "@/data/codeStructures";
+import { paths, isFourDigitCode } from "@/lib/urls";
 import { detectCodeStructure } from "@/lib/detectCodeStructure";
 
-// Shared types
+// ===== Shared types =====
 interface CodeStructure {
   digits: number[];
   digitCounts: Record<number, number>;
@@ -39,7 +28,7 @@ interface CodeStructure {
   allSame: boolean;
   allDifferent: boolean;
   hasRepeats: boolean;
-  type: "master" | "diverse" | "focused" | "balanced";
+  type: "master" | "repeated" | "diverse"; // <-- תוקן
 }
 
 interface WealthCodeInterpretationsProps {
@@ -50,7 +39,7 @@ interface WealthCodeInterpretationsProps {
   onCalculateNew: () => void;
 }
 
-// Central content now comes from src/data/* files
+// ===== Central content now comes from src/data/* files =====
 
 // Get comprehensive number descriptions for individual digit tabs
 const getNumberDescription = (digit: number) => {
@@ -105,11 +94,12 @@ export function WealthCodeInterpretations({
   onCalculateNew,
 }: WealthCodeInterpretationsProps) {
   const [isDownloading, setIsDownloading] = useState(false);
-  const [pdfPreviewUrl, setPdfPreviewUrl] = useState<
-    string | null
-  >(null);
+  const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
   const [showPdfPreview, setShowPdfPreview] = useState(false);
-  const uniqueDigits = [...new Set(codeStructure.digits)];
+
+  // ייחודי + ממויין עולה (למשל 5513 -> 1,3,5)
+  const uniqueDigits = [...new Set(codeStructure.digits)].sort((a, b) => a - b);
+
   // Detect the structure key from the 4-digit code (string)
   const structureKey = detectCodeStructure(String(wealthCode).padStart(4, "0"));
   const structure = codeStructures[structureKey];
@@ -132,11 +122,7 @@ export function WealthCodeInterpretations({
         };
       });
 
-      const pdfData = pdfGenerator.generatePDF(
-        wealthCode,
-        codeStructure,
-        digitData,
-      );
+      const pdfData = pdfGenerator.generatePDF(wealthCode, codeStructure, digitData);
       return pdfData;
     } catch (error) {
       console.error("Error generating PDF:", error);
@@ -153,9 +139,7 @@ export function WealthCodeInterpretations({
 
       if (pdfData) {
         // Create and download PDF blob
-        const blob = new Blob([new Uint8Array(pdfData)], {
-          type: "application/pdf",
-        });
+        const blob = new Blob([new Uint8Array(pdfData)], { type: "application/pdf" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
@@ -171,9 +155,7 @@ export function WealthCodeInterpretations({
       console.error("Error generating PDF:", error);
       // Fallback to text download
       const interpretation = generateFormattedInterpretation();
-      const blob = new Blob([interpretation], {
-        type: "text/plain;charset=utf-8",
-      });
+      const blob = new Blob([interpretation], { type: "text/plain;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -232,14 +214,14 @@ export function WealthCodeInterpretations({
 
   // Add pattern explanation from centralized data
   text += `מבנה הקוד:\n`;
-  text += `${structure.title}\n`;
-  text += `${structure.description}\n\n`;
+    text += `${structure.title}\n`;
+    text += `${structure.description}\n\n`;
 
     return text;
   };
 
   return (
-    <div className="min-h-screen relative" lang="he" dir="rtl">
+  <div className="min-h-screen relative text-right" lang="he" dir="rtl">
       {/* Overlays over global body background */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent via-50% to-rose-100/25 sm:bg-gradient-to-b sm:from-orange-50/20 sm:via-transparent sm:to-rose-50/20"></div>
@@ -248,8 +230,8 @@ export function WealthCodeInterpretations({
 
       {/* Main Content Container */}
       <div className="relative z-10 min-h-screen flex flex-col">
-  {/* Header */}
-  <Header />
+        {/* Header */}
+        <Header />
 
         {/* Main Content - Tab System */}
         <main className="flex-1 p-4 sm:p-6">
@@ -271,7 +253,7 @@ export function WealthCodeInterpretations({
             </div>
 
             {/* Main Tabs System */}
-            <Tabs defaultValue="structure" className="w-full">
+            <Tabs defaultValue="structure" className="w-full" dir="rtl">
               <TabsList className="grid w-full bg-[rgba(254,254,254,0.15)] backdrop-blur-md border border-white/20 grid-cols-3 gap-1 p-1 mb-8">
                 <TabsTrigger
                   value="structure"
@@ -297,23 +279,14 @@ export function WealthCodeInterpretations({
 
               {/* Structure Tab - Code Structure */}
               <TabsContent value="structure" className="space-y-6">
-                <Card
-                  className="backdrop-blur-xl bg-[rgba(254,254,254,0.12)] border-[rgba(135,103,79,0.2)] p-6"
-                  dir="rtl"
-                >
+                <Card className="backdrop-blur-xl bg-[rgba(254,254,254,0.12)] border-[rgba(135,103,79,0.2)] p-6" dir="rtl">
                   <div className="space-y-6">
                     {/* Code Type Badge */}
                     <div className="text-center">
                       <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(149,112,82,0.5)] mb-4">
-                        {structureKey === "master" && (
-                          <Star className="w-5 h-5 text-[rgba(149,112,82,1)]" />
-                        )}
-                        {structureKey === "repeated" && (
-                          <TrendingUp className="w-5 h-5 text-[rgba(149,112,82,1)]" />
-                        )}
-                        {structureKey === "diverse" && (
-                          <Eye className="w-5 h-5 text-[rgba(149,112,82,1)]" />
-                        )}
+                        {structureKey === "master" && <Star className="w-5 h-5 text-[rgba(149,112,82,1)]" />}
+                        {structureKey === "repeated" && <TrendingUp className="w-5 h-5 text-[rgba(149,112,82,1)]" />}
+                        {structureKey === "diverse" && <Eye className="w-5 h-5 text-[rgba(149,112,82,1)]" />}
                         <span className="text-[rgba(254,254,254,1)] font-['Assistant'] text-center">
                           {structure.title}
                         </span>
@@ -331,8 +304,7 @@ export function WealthCodeInterpretations({
                     </div>
 
                     {/* Repeated Digits if any */}
-                    {codeStructure.repeatedDigits.length >
-                      0 && (
+                    {codeStructure.repeatedDigits.length > 0 && (
                       <div>
                         <h3
                           className="text-center mb-4 font-normal tracking-wide font-['Assistant']"
@@ -341,24 +313,19 @@ export function WealthCodeInterpretations({
                           ספרות מועצמות בקוד שלך
                         </h3>
                         <div className="flex justify-center gap-4">
-                          {codeStructure.repeatedDigits.map(
-                            ({ digit, count }) => (
+                          {codeStructure.repeatedDigits.map(({ digit, count }) => (
+                            <div key={digit} className="text-center">
                               <div
-                                key={digit}
-                                className="text-center"
+                                className="text-2xl font-bold w-10 h-10 rounded-full flex items-center justify-center bg-[rgba(149,112,82,0.3)] mb-2 font-['Assistant']"
+                                style={{ color: "#473B31" }}
                               >
-                                <div
-                                  className="text-2xl font-bold w-10 h-10 rounded-full flex items-center justify-center bg-[rgba(149,112,82,0.3)] mb-2 font-['Assistant']"
-                                  style={{ color: "#473B31" }}
-                                >
-                                  {digit}
-                                </div>
-                                <span className="text-sm text-[rgba(149,112,82,1)] font-['Assistant']">
-                                  מופיע {count} פעמים
-                                </span>
+                                {digit}
                               </div>
-                            ),
-                          )}
+                              <span className="text-sm text-[rgba(149,112,82,1)] font-['Assistant']">
+                                מופיע {count} פעמים
+                              </span>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     )}
@@ -367,26 +334,19 @@ export function WealthCodeInterpretations({
               </TabsContent>
 
               {/* Numbers Tab - Individual Number Details */}
-              <TabsContent
-                value="numbers"
-                className="space-y-6"
-              >
-                <Card className="backdrop-blur-xl bg-[rgba(254,254,254,0.12)] border-[rgba(135,103,79,0.2)] p-6">
-                  <Tabs
-                    defaultValue={uniqueDigits[0]?.toString()}
-                    className="w-full"
-                  >
+        <TabsContent value="numbers" className="space-y-6 text-right">
+                <Card className="backdrop-blur-xl bg-[rgba(254,254,254,0.12)] border-[rgba(135,103,79,0.2)] p-6" dir="rtl">
+          <Tabs defaultValue={uniqueDigits[0]?.toString()} className="w-full text-right" dir="rtl">
                     <TabsList
-                      className="grid w-full bg-[rgba(254,254,254,0.15)] backdrop-blur-md border border-white/20 p-1 mb-6"
-                      style={{
-                        gridTemplateColumns: `repeat(${uniqueDigits.length}, 1fr)`,
-                      }}
+            className="grid w-full bg-[rgba(254,254,254,0.15)] backdrop-blur-md border border-white/20 p-1 mb-6 text-right"
+                      style={{ gridTemplateColumns: `repeat(${uniqueDigits.length}, 1fr)` }}
+                      dir="rtl"
                     >
                       {uniqueDigits.map((digit) => (
                         <TabsTrigger
                           key={digit}
                           value={digit.toString()}
-                          className="data-[state=active]:bg-[rgba(149,112,82,0.4)] data-[state=active]:text-white text-[rgba(149,112,82,1)] font-['Assistant'] text-center"
+                          className="data-[state=active]:bg-[rgba(149,112,82,0.4)] data-[state=active]:text-white text-[rgba(149,112,82,1)] font-['Assistant'] text-right"
                         >
                           {digit}
                         </TabsTrigger>
@@ -394,69 +354,51 @@ export function WealthCodeInterpretations({
                     </TabsList>
 
                     {uniqueDigits.map((digit) => {
-                      const numberDesc =
-                        getNumberDescription(digit);
+                      const numberDesc = getNumberDescription(digit);
                       if (!numberDesc) return null;
 
                       return (
-                        <TabsContent
-                          key={digit}
-                          value={digit.toString()}
-                          className="space-y-6"
-                        >
+                        <TabsContent key={digit} value={digit.toString()} className="space-y-6 text-right" dir="rtl">
                           <div className="text-center mb-6">
-                            <div
-                              className="text-5xl font-bold mb-2 font-['Assistant']"
-                              style={{ color: "#473B31" }}
-                            >
+                            <div className="text-5xl font-bold mb-2 font-['Assistant']" style={{ color: "#473B31" }}>
                               {digit}
                             </div>
-                            <h3
-                              className="font-normal tracking-wide font-['Assistant']"
-                              style={{ color: "#473B31" }}
-                            >
+                            <h3 className="font-normal tracking-wide font-['Assistant']" style={{ color: "#473B31" }}>
                               {wealthCodeTexts[digit]?.title}
                             </h3>
                           </div>
 
                           <div className="space-y-6">
-                            {numberDesc.content.map(
-                              (section, index) => (
-                                <div
-                                  key={index}
-                                  className="border-r-4 border-[rgba(149,112,82,0.4)] pr-4 text-right"
+                            {numberDesc.content.map((section, index) => (
+                              <div key={index} className="border-r-4 border-[rgba(149,112,82,0.4)] pr-4 text-right">
+                                <h4
+                                  className="mb-3 font-normal tracking-wide font-['Assistant'] text-right"
+                                  style={{ color: "#473B31" }}
                                 >
-                                  <h4
-                                    className="mb-3 font-normal tracking-wide font-['Assistant'] text-center"
-                                    style={{ color: "#473B31" }}
-                                  >
-                                    {section.title}
-                                  </h4>
-                                  {section.text && (
-                                    <p className="whitespace-pre-line text-[rgba(149,112,82,1)] font-light leading-relaxed font-['Assistant'] mb-4 text-center">
-                                      {section.text}
-                                    </p>
-                                  )}
-                                  {section.items && (
-                                    <ul className="space-y-2">
-                                      {section.items.map(
-                                        (item, itemIndex) => (
-                                          <li
-                                            key={itemIndex}
-                                            className="text-[rgba(149,112,82,1)] font-light leading-relaxed font-['Assistant'] flex items-start gap-2 text-right"
-                                          >
-                                            <span>{item}</span>
-                                            <span className="text-[rgba(149,112,82,0.6)] mt-2">
-                                              •
-                                            </span>
-                                          </li>
-                                        ),
-                                      )}
-                                    </ul>
-                                  )}
-                                </div>
-                              ),
-                            )}
+                                  {section.title}
+                                </h4>
+
+                                {section.text && (
+                                  <p className="whitespace-pre-line text-[rgba(149,112,82,1)] font-light leading-relaxed font-['Assistant'] mb-4 text-right">
+                                    {section.text}
+                                  </p>
+                                )}
+
+                                {section.items && (
+                                  <ul className="space-y-2">
+                                    {section.items.map((item, itemIndex) => (
+                                      <li
+                                        key={itemIndex}
+                                        className="text-[rgba(149,112,82,1)] font-light leading-relaxed font-['Assistant'] flex items-start gap-2 text-right"
+                                      >
+                                        <span className="text-[rgba(149,112,82,0.6)] mt-2">•</span>
+                                        <span>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
+                            ))}
                           </div>
                         </TabsContent>
                       );
@@ -466,11 +408,14 @@ export function WealthCodeInterpretations({
               </TabsContent>
 
               {/* Daily Application Tab */}
-              <TabsContent value="daily" className="space-y-6">
-                <Card className="backdrop-blur-xl bg-[rgba(254,254,254,0.1)] border-[rgba(135,103,79,0.2)] p-6">
+              <TabsContent value="daily" className="space-y-6" dir="rtl">
+                <Card className="backdrop-blur-xl bg-[rgba(254,254,254,0.1)] border-[rgba(135,103,79,0.2)] p-6" dir="rtl">
                   <div className="space-y-6">
                     <section className="border-r-4 border-[rgba(149,112,82,0.4)] pr-4 text-right">
-                      <h3 className="mb-3 font-normal tracking-wide font-['Assistant'] text-center" style={{ color: "#473B31" }}>
+                      <h3
+                        className="mb-3 font-normal tracking-wide font-['Assistant'] text-right"
+                        style={{ color: "#473B31" }}
+                      >
                         {codeApplication.title}
                       </h3>
                       <p className="whitespace-pre-line font-light leading-relaxed font-['Assistant'] text-right text-[rgba(71,59,49,1)]">

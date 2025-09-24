@@ -48,3 +48,6 @@ pnpm-debug.log*
 .vercel
 
 tsconfig.tsbuildinfo
+
+# Generated at prebuild
+src/routeMap.json

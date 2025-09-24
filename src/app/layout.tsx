@@ -47,11 +47,18 @@ export const viewport = {
 }
 
 import './globals.css'
+import QaOverlay from '@/components/QaOverlay'
+import routeMap from '@/routeMap.json'
+import NoIndexWhenQA from '@/components/NoIndexWhenQA'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="he" dir="rtl">
-      <body className="bg-root">{children}</body>
+  <html lang="he" dir="rtl" suppressHydrationWarning>
+      <body className="bg-root">
+        {children}
+  <NoIndexWhenQA />
+        <QaOverlay routeMap={routeMap as any} />
+      </body>
     </html>
   )
 }

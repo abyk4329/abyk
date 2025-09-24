@@ -41,7 +41,7 @@ export function WealthCodeCalculator({
       allSame: boolean;
       allDifferent: boolean;
       hasRepeats: boolean;
-      type: "master" | "diverse" | "focused" | "balanced";
+  type: "master" | "repeated" | "diverse";
     };
   } | null>(null);
 
@@ -168,13 +168,8 @@ export function WealthCodeCalculator({
       allSame,
       allDifferent,
       hasRepeats,
-      type: (allSame
-        ? "master"
-        : allDifferent
-          ? "diverse"
-          : hasRepeats
-            ? "focused"
-            : "balanced") as "master" | "diverse" | "focused" | "balanced",
+      // Map to the normalized tri-state structure type
+      type: (allSame ? "master" : allDifferent ? "diverse" : "repeated") as "master" | "repeated" | "diverse",
     };
   };
 
@@ -240,6 +235,7 @@ export function WealthCodeCalculator({
                                 יום
                               </label>
                               <Input
+                                data-testid="day-input"
                                 type="text"
                                 value={day}
                                 onChange={(e) => {
@@ -264,6 +260,7 @@ export function WealthCodeCalculator({
                                 חודש
                               </label>
                               <Input
+                                data-testid="month-input"
                                 type="text"
                                 value={month}
                                 onChange={(e) => {
@@ -288,6 +285,7 @@ export function WealthCodeCalculator({
                                 שנה
                               </label>
                               <Input
+                                data-testid="year-input"
                                 type="text"
                                 value={year}
                                 onChange={(e) => {

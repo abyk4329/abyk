@@ -87,7 +87,7 @@ export function PDFPreviewDemo({ onBack }: PDFPreviewDemoProps) {
   const generateHTMLPreview = async () => {
     try {
       const codeStructure = generateCodeStructure(wealthCode);
-      const uniqueDigits = [...new Set(codeStructure.digits)];
+    const uniqueDigits = [...new Set<number>(codeStructure.digits)].sort((a, b) => a - b);
       
       // Prepare digit data for HTML
       const digitData = uniqueDigits.map(digit => mapMeaning(digit));
@@ -120,14 +120,14 @@ export function PDFPreviewDemo({ onBack }: PDFPreviewDemoProps) {
 
   const handleDownloadHTML = async () => {
     const codeStructure = generateCodeStructure(wealthCode);
-    const uniqueDigits = [...new Set(codeStructure.digits)];
+    const uniqueDigits = [...new Set<number>(codeStructure.digits)].sort((a, b) => a - b);
     const digitData = uniqueDigits.map(digit => mapMeaning(digit));
     await SimplePDFGenerator.downloadHTML(wealthCode, codeStructure, digitData);
   };
 
   const handlePrintToPDF = async () => {
     const codeStructure = generateCodeStructure(wealthCode);
-    const uniqueDigits = [...new Set(codeStructure.digits)];
+    const uniqueDigits = [...new Set<number>(codeStructure.digits)].sort((a, b) => a - b);
     const digitData = uniqueDigits.map(digit => mapMeaning(digit));
     await SimplePDFGenerator.printToPDF(wealthCode, codeStructure, digitData);
   };

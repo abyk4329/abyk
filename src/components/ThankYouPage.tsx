@@ -16,6 +16,7 @@ import {
 import { Footer } from "./Footer";
 import Header from "./Header";
 import { SimplePDFGenerator } from "./SimplePDFGenerator";
+import { isFourDigitCode, paths } from "@/lib/urls";
 import { useState, useEffect } from "react";
 
 interface ThankYouPageProps {
@@ -25,6 +26,9 @@ interface ThankYouPageProps {
   onBack: () => void;
   onShowInterpretations?: (code: number) => void;
   onCalculateNew: () => void;
+  onShowTerms?: () => void;
+  onShowPrivacy?: () => void;
+  onShowTermsAndPrivacy?: () => void;
 }
 
 export function ThankYouPage({
@@ -34,11 +38,31 @@ export function ThankYouPage({
   onBack,
   onShowInterpretations,
   onCalculateNew,
+  onShowTerms,
+  onShowPrivacy,
+  onShowTermsAndPrivacy,
 }: ThankYouPageProps) {
+  const showSimulate = process.env.NODE_ENV !== 'production'
   const handleViewInterpretation = () => {
-    if (wealthCode && onShowInterpretations) {
-      onShowInterpretations(wealthCode);
+    // ניסיון ראשון: להשתמש בקוד שהועבר לפרופס
+    if (onShowInterpretations && isFourDigitCode(wealthCode)) {
+      onShowInterpretations(Number(wealthCode));
+      return;
     }
+
+    // נפילה אחורית: ננסה לקרוא מה-URL אם הפרופס לא קיים
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const codeParam = params.get("code");
+      const parsed = codeParam ? parseInt(codeParam) : NaN;
+      if (!isNaN(parsed) && isFourDigitCode(parsed) && onShowInterpretations) {
+        onShowInterpretations(parsed);
+        return;
+      }
+    } catch {}
+
+  // אם אין קוד – נציג הודעה ידידותית
+    alert("חסר קוד לעבור לעמוד הפירושים. נסו לרענן את הדף או חזרו לעמוד הראשי.");
   };
 
   const [isDownloading, setIsDownloading] = useState(false);
@@ -49,7 +73,9 @@ export function ThankYouPage({
     setIsDownloading(true);
     try {
       // Prepare digit data for PDF (simplified version)
-      const uniqueDigits = [...new Set(codeStructure.digits)];
+      const uniqueDigits = (Array.from(new Set<number>(codeStructure.digits)) as number[]).sort(
+        (a, b) => a - b,
+      );
       const digitData = uniqueDigits.map((digit) => ({
         title: `ספרה ${digit}`,
         essence: `מהות הספרה ${digit}`,
@@ -283,9 +309,9 @@ export function ThankYouPage({
 
         {/* Footer */}
         <Footer
-          onShowTerms={() => {}}
-          onShowPrivacy={() => {}}
-          onShowTermsAndPrivacy={() => {}}
+          onShowTerms={onShowTerms}
+          onShowPrivacy={onShowPrivacy}
+          onShowTermsAndPrivacy={onShowTermsAndPrivacy}
         />
       </div>
     </div>

@@ -5,6 +5,7 @@ import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
 import { Footer } from "./Footer";
 import Header from "./Header";
+import { paths } from "@/lib/urls";
 import { useState } from 'react';
 import { WealthCodeCalculator } from './WealthCodeCalculator';
 
@@ -17,15 +18,15 @@ export function HomePageRouter() {
   };
 
   const handleShowTerms = () => {
-    router.push('/terms');
+  router.push(paths.terms());
   };
 
   const handleShowPrivacy = () => {
-    router.push('/privacy');
+  router.push(paths.privacy());
   };
 
   const handleShowTermsAndPrivacy = () => {
-    router.push('/terms-privacy');
+  router.push(paths.termsPrivacy());
   };
 
   const handleBackToHome = () => {
@@ -33,7 +34,7 @@ export function HomePageRouter() {
   };
 
   const handleShowThankYou = (wealthCode: number, codeStructure: any) => {
-    router.push(`/thank-you?code=${wealthCode}`);
+  router.push(paths.thankYou(wealthCode));
   };
 
   // If calculator is shown, render it
@@ -85,6 +86,20 @@ export function HomePageRouter() {
               >
                 מחשבון קוד העושר
               </Button>
+
+              {/* סימולציה מהירה: מעבר לעמוד תודה עם קוד בדיקה - מוסתרת בפרודקשן, אלא אם הוגדר NEXT_PUBLIC_SHOW_SIMULATE=1 */}
+              {(process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_SHOW_SIMULATE === '1') && (
+                <div className="mt-3">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => router.push(paths.thankYou(7335))}
+                    className="font-normal transition-all duration-300 shadow hover:shadow-md text-sm px-4 py-2 font-['Assistant'] tracking-wide bg-[rgba(254,254,254,0.1)] hover:bg-[rgba(254,254,254,0.2)] border-[rgba(149,112,82,0.3)] text-[rgba(149,112,82,1)]"
+                  >
+                    סימולציית תשלום (בדיקה)
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </main>

@@ -55,6 +55,18 @@ export default function App() {
         setCurrentCodeStructure(codeStructure);
         setShowThankYou(true);
       }
+    } else if (page === "interpretations" && code) {
+      const wealthCode = parseInt(code);
+      if (
+        !isNaN(wealthCode) &&
+        wealthCode >= 1111 &&
+        wealthCode <= 9999
+      ) {
+        const codeStructure = generateCodeStructure(wealthCode);
+        setCurrentWealthCode(wealthCode);
+        setCurrentCodeStructure(codeStructure);
+        setShowInterpretations(true);
+      }
     } else if (page === "terms") {
       setShowTerms(true);
     } else if (page === "privacy") {
@@ -106,13 +118,8 @@ export default function App() {
       allSame,
       allDifferent,
       hasRepeats,
-      type: allSame
-        ? "master"
-        : allDifferent
-          ? "diverse"
-          : hasRepeats
-            ? "focused"
-            : "balanced",
+      // Map to the normalized tri-state structure type
+      type: allSame ? "master" : allDifferent ? "diverse" : "repeated",
     };
   };
 
@@ -127,6 +134,11 @@ export default function App() {
     setCurrentFullData(fullData);
     setShowCalculator(false); // Important: close calculator first
     setShowThankYou(true);
+  // Update URL for deep linking
+  const params = new URLSearchParams(window.location.search);
+  params.set("page", "thank-you");
+  params.set("code", String(wealthCode));
+  window.history.replaceState({}, document.title, `${window.location.pathname}?${params.toString()}`);
   };
 
   // Handle showing interpretations page
@@ -134,6 +146,11 @@ export default function App() {
     if (currentCodeStructure) {
       setShowInterpretations(true);
       setShowThankYou(false); // Close thank you page when opening interpretations
+  // Update URL for deep linking
+  const params = new URLSearchParams(window.location.search);
+  params.set("page", "interpretations");
+  params.set("code", String(wealthCode));
+  window.history.replaceState({}, document.title, `${window.location.pathname}?${params.toString()}`);
     }
   };
 
@@ -191,6 +208,9 @@ export default function App() {
         onBack={resetToHome}
         onShowInterpretations={handleShowInterpretations}
         onCalculateNew={() => setShowCalculator(true)}
+  onShowTerms={() => setShowTerms(true)}
+  onShowPrivacy={() => setShowPrivacy(true)}
+  onShowTermsAndPrivacy={() => setShowTermsAndPrivacy(true)}
       />
     );
   }
@@ -205,7 +225,16 @@ export default function App() {
         wealthCode={currentWealthCode}
         codeStructure={currentCodeStructure}
         fullData={currentFullData}
-        onBack={() => setShowThankYou(true)}
+        onBack={() => {
+          setShowThankYou(true);
+          setShowInterpretations(false);
+          if (currentWealthCode) {
+            const params = new URLSearchParams(window.location.search);
+            params.set("page", "thank-you");
+            params.set("code", String(currentWealthCode));
+            window.history.replaceState({}, document.title, `${window.location.pathname}?${params.toString()}`);
+          }
+        }}
         onCalculateNew={() => {
           resetToHome();
           setShowCalculator(true);
@@ -302,6 +331,22 @@ export default function App() {
           </div>
         </main>
 
+              
+              {/* בדיקה מהירה: סימולציית תשלום → עמוד תודה */}
+              <div className="mt-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    const testCode = 7335;
+                    const codeStructure = generateCodeStructure(testCode);
+                    handleShowThankYou(testCode, codeStructure);
+                  }}
+                  className="font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-sm px-4 py-2 font-['Assistant'] tracking-wide bg-[rgba(254,254,254,0.1)] hover:bg-[rgba(254,254,254,0.2)] border-[rgba(149,112,82,0.3)] text-[rgba(149,112,82,1)]"
+                >
+                  סימולציית תשלום (בדיקה)
+                </Button>
+              </div>
         {/* Footer */}
         <Footer
           onShowTerms={() => setShowTerms(true)}

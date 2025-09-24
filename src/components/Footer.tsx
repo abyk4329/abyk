@@ -1,4 +1,5 @@
 import { Instagram, MessageCircle, Mail } from 'lucide-react';
+import { paths } from '@/lib/urls';
 import { TikTokIcon } from './TikTokIcon';
 
 interface FooterProps {
@@ -13,13 +14,17 @@ export function Footer({ onShowTerms, onShowPrivacy, onShowTermsAndPrivacy }: Fo
       role="contentinfo" 
       className="backdrop-blur-lg bg-white/15 border-t border-white/30 shadow-xl sm:backdrop-blur-md sm:bg-white/12 sm:border-white/25 font-['Assistant']"
     >
-      <div className="max-w-4xl mx-auto px-4 py-6 sm:px-6 sm:py-8 px-[24px] py-[8px]">
+  <div className="max-w-4xl mx-auto px-4 py-6 sm:px-6 sm:py-8">
         <div className="flex flex-col items-center space-y-5">
           
           {/* Policy Links - Top */}
           <div className="flex items-center gap-3">
             <button
-              onClick={onShowTermsAndPrivacy}
+              onClick={() => {
+                if (onShowTermsAndPrivacy) return onShowTermsAndPrivacy();
+                // fallback: navigate via location
+                window.location.href = paths.termsPrivacy();
+              }}
               className="text-white font-normal hover:text-white/80 transition-colors duration-200 text-sm tracking-wide bg-transparent border-none cursor-pointer pt-[0px] pr-[0px] pb-[-25px] pl-[0px] mt-[0px] mr-[0px] mb-[-8px] ml-[0px]"
             >
               תנאי שימוש ומדיניות פרטיות
@@ -79,7 +84,7 @@ export function Footer({ onShowTerms, onShowPrivacy, onShowTermsAndPrivacy }: Fo
 
           {/* Copyright - Bottom */}
           <div className="text-center pt-2">
-            <p className="text-[rgba(254,254,254,1)] font-light text-sm drop-shadow-md tracking-wide font-bold">
+            <p className="text-[rgba(254,254,254,1)] text-sm drop-shadow-md tracking-wide font-bold">
               Awakening by Ksenia © 2025
             </p>
           </div>
