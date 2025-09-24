@@ -2,6 +2,20 @@ import { codeStructures, codeApplication } from "@/data/codeStructures";
 import { wealthCodeTexts } from "@/data/wealthCodeTexts";
 import { detectCodeStructure } from "@/lib/detectCodeStructure";
 
+type DigitKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+type DigitBlock = {
+    digit: number;
+    title: string;
+    essence: string;
+    gifts: string[];
+    challenges: string[];
+    imbalanceSigns: string[];
+    growthAreas: string[];
+    careerPaths: string[];
+    dailyPractice: string;
+    bottomLine: string;
+};
+
 type RepeatedDigit = { digit: number; count: number };
 type CodeStructureSummary = {
     digits: number[];
@@ -22,12 +36,13 @@ type EmailData = {
 export function generateEmailHTML(data: EmailData): string {
     const codeStr = String(data.wealthCode);
     const key = data.codeStructure?.type ?? detectCodeStructure(codeStr);
-    const structure = codeStructures[key];
+    const structure = codeStructures[key] ?? { title: "", description: "" };
     const uniqueDigits = Array.from(new Set(codeStr.split("").map(Number)));
+    const wct = wealthCodeTexts as unknown as Record<DigitKey, DigitBlock>;
 
     const digitsBlocks = uniqueDigits
         .map((d) => {
-            const b = (wealthCodeTexts as any)[d];
+            const b = wct[d as DigitKey];
             if (!b) return "";
             return `
             <section style="margin:24px 0; text-align:center;">
@@ -36,28 +51,28 @@ export function generateEmailHTML(data: EmailData): string {
                 <p style="white-space:pre-line;margin:0;">${b.essence}</p>
 
                 <h4 style="margin:16px 0 4px 0;font-weight:600;">מתנות מרכזיות</h4>
-                <ul style="margin:0;padding-inline-start:20px;text-align:right;display:inline-block;">${b.gifts
-                    .map((li: string) => `<li>${li}</li>`)
+                <ul style="margin:0; padding:0; direction:rtl; list-style-position:inside; text-align:right; display:inline-block;">${b.gifts
+                    .map((li) => `<li>${li}</li>`)
                     .join("")}</ul>
 
                 <h4 style="margin:16px 0 4px 0;font-weight:600;">חסימות ואתגרים עיקריים</h4>
-                <ul style="margin:0;padding-inline-start:20px;text-align:right;display:inline-block;">${b.challenges
-                    .map((li: string) => `<li>${li}</li>`)
+                <ul style="margin:0; padding:0; direction:rtl; list-style-position:inside; text-align:right; display:inline-block;">${b.challenges
+                    .map((li) => `<li>${li}</li>`)
                     .join("")}</ul>
 
                 <h4 style="margin:16px 0 4px 0;font-weight:600;">נורות אדומות – סימנים לחוסר איזון</h4>
-                <ul style="margin:0;padding-inline-start:20px;text-align:right;display:inline-block;">${b.imbalanceSigns
-                    .map((li: string) => `<li>${li}</li>`)
+                <ul style="margin:0; padding:0; direction:rtl; list-style-position:inside; text-align:right; display:inline-block;">${b.imbalanceSigns
+                    .map((li) => `<li>${li}</li>`)
                     .join("")}</ul>
 
                 <h4 style="margin:16px 0 4px 0;font-weight:600;">מוקדי צמיחה והתפתחות</h4>
-                <ul style="margin:0;padding-inline-start:20px;text-align:right;display:inline-block;">${b.growthAreas
-                    .map((li: string) => `<li>${li}</li>`)
+                <ul style="margin:0; padding:0; direction:rtl; list-style-position:inside; text-align:right; display:inline-block;">${b.growthAreas
+                    .map((li) => `<li>${li}</li>`)
                     .join("")}</ul>
 
                 <h4 style="margin:16px 0 4px 0;font-weight:600;">תחומים מתאימים לקריירה ולשליחות</h4>
-                <ul style="margin:0;padding-inline-start:20px;text-align:right;display:inline-block;">${b.careerPaths
-                    .map((li: string) => `<li>${li}</li>`)
+                <ul style="margin:0; padding:0; direction:rtl; list-style-position:inside; text-align:right; display:inline-block;">${b.careerPaths
+                    .map((li) => `<li>${li}</li>`)
                     .join("")}</ul>
 
                 <h4 style="margin:16px 0 4px 0;font-weight:600;">דוגמה יומית לתרגול</h4>
@@ -112,8 +127,9 @@ export function generateEmailSubject(code: string | number): string {
 export function generateEmailText(data: EmailData): string {
     const codeStr = String(data.wealthCode);
     const key = data.codeStructure?.type ?? detectCodeStructure(codeStr);
-    const structure = codeStructures[key];
+    const structure = codeStructures[key] ?? { title: "", description: "" };
     const uniqueDigits = Array.from(new Set(codeStr.split("").map(Number)));
+    const wct = wealthCodeTexts as unknown as Record<DigitKey, DigitBlock>;
 
     const lines: string[] = [];
     lines.push("שלום,");
@@ -125,7 +141,7 @@ export function generateEmailText(data: EmailData): string {
 
     lines.push("המספרים:");
     uniqueDigits.forEach((d) => {
-        const b = (wealthCodeTexts as any)[d];
+        const b = wct[d as DigitKey];
         if (!b) return;
         lines.push(`- ${b.digit} | ${b.title}`);
         lines.push(`  מהות: ${b.essence}`);
