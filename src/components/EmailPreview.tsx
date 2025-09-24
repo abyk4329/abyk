@@ -1,49 +1,95 @@
-import { useState } from 'react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Card } from './ui/card';
-import { ArrowLeft, Mail, Eye, Code, Download } from 'lucide-react';
-import { generateEmailHTML, generateEmailSubject, generateEmailText } from './EmailTemplate';
+"use client";
+
+import { useMemo, useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Card } from "./ui/card";
+import { ArrowLeft, Mail, Eye, Code, Download } from "lucide-react";
+import { generateEmailHTML, generateEmailSubject, generateEmailText } from "./EmailTemplate";
 import { detectCodeStructure } from "@/lib/detectCodeStructure";
+
+type RepeatedDigit = { digit: number; count: number };
+type CodeStructureSummary = {
+  digits: number[];
+  repeatedDigits: RepeatedDigit[];
+  allSame: boolean;
+  allDifferent: boolean;
+  hasRepeats: boolean;
+  type: "master" | "repeated" | "diverse";
+};
+
+type EmailData = {
+  wealthCode: number;
+  viewUrl: string;
+  downloadUrl: string;
+  codeStructure: CodeStructureSummary;
+};
 
 interface EmailPreviewProps {
   onBack: () => void;
   wealthCode?: number;
-  codeStructure?: any;
-  fullData?: any;
+  codeStructure?: CodeStructureSummary;
+  fullData?: unknown; // שמרי אם צריך בעתיד
 }
 
-export function EmailPreview({ onBack, wealthCode: initialWealthCode, codeStructure, fullData }: EmailPreviewProps) {
-  const [wealthCode, setWealthCode] = useState(initialWealthCode || 1234);
-  const [customerName, setCustomerName] = useState('דוגמה לקוח');
-  const [viewMode, setViewMode] = useState<'html' | 'text' | 'data'>('html');
+export function EmailPreview({
+  onBack,
+  wealthCode: initialWealthCode,
+  codeStructure,
+}: EmailPreviewProps) {
+  const [wealthCode, setWealthCode] = useState<number>(initialWealthCode || 1234);
+  const [viewMode, setViewMode] = useState<"html" | "text" | "data">("html");
 
-  // Shared code structure
+  // SSR-safe origin
+  const origin = useMemo(() => {
+    if (typeof window !== "undefined" && window.location?.origin) {
+      return window.location.origin;
+    }
+    return process.env.NEXT_PUBLIC_BASE_URL || "https://abyk.online";
+  }, []);
 
-  const emailData = {
-    wealthCode,
-    customerName,
-  viewUrl: `${window.location.origin}/interpretations?code=${wealthCode}&utm_source=email&utm_campaign=delivery`,
-  downloadUrl: `${window.location.origin}/api/download-pdf?code=${wealthCode}`,
-  codeStructure: codeStructure || ((): any => {
-    const key = detectCodeStructure(String(wealthCode));
-    const digits = String(wealthCode).split("").map(Number);
-    const repeated = Object.entries(digits.reduce((a: any,d:number)=>{a[d]=(a[d]||0)+1;return a;},{}))
-      .filter(([,c]) => (c as number) > 1)
-      .map(([digit,count]) => ({digit: parseInt(digit,10), count: count as number}));
-    const allSame = new Set(digits).size === 1;
-    const allDifferent = new Set(digits).size === 4;
-    const hasRepeats = repeated.length>0;
-    return { digits, repeatedDigits: repeated, allSame, allDifferent, hasRepeats, type: key };
-  })()
-  };
+  const structure = useMemo<CodeStructureSummary>(() => {
+    if (codeStructure) return codeStructure;
+    const codeStr = String(wealthCode);
+    const key = detectCodeStructure(codeStr);
+    const digits = codeStr.split("").map(Number);
+    const counts = digits.reduce<Record<number, number>>((acc, d) => {
+      acc[d] = (acc[d] || 0) + 1;
+      return acc;
+    }, {});
+    const repeated = Object.entries(counts)
+      .filter(([, c]) => (c as number) > 1)
+      .map(([digit, count]) => ({ digit: parseInt(digit, 10), count: count as number }));
+    const setSize = new Set(digits).size;
+    return {
+      digits,
+      repeatedDigits: repeated,
+      allSame: setSize === 1,
+      allDifferent: setSize === 4,
+      hasRepeats: repeated.length > 0,
+      type: key,
+    };
+  }, [codeStructure, wealthCode]);
 
-  const emailHTML = generateEmailHTML(emailData);
-  const emailText = generateEmailText(emailData);
-  const emailSubject = generateEmailSubject(wealthCode);
+  const emailData = useMemo<EmailData>(() => {
+    const codeEnc = encodeURIComponent(String(wealthCode));
+    return {
+      wealthCode,
+      viewUrl: `${origin}/interpretations?code=${codeEnc}&utm_source=email&utm_campaign=delivery`,
+      downloadUrl: `${origin}/api/download-pdf?code=${codeEnc}`,
+      codeStructure: structure,
+    };
+  }, [origin, structure, wealthCode]);
+
+  const emailHTML = useMemo(() => generateEmailHTML(emailData), [emailData]);
+  const emailText = useMemo(() => generateEmailText(emailData), [emailData]);
+  const emailSubject = useMemo(
+    () => generateEmailSubject(String(wealthCode)),
+    [wealthCode]
+  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-rose-50" lang="he">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-rose-50" lang="he" dir="rtl">
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
@@ -73,7 +119,7 @@ export function EmailPreview({ onBack, wealthCode: initialWealthCode, codeStruct
               <h2 className="text-lg font-medium text-[#473B31] mb-4 font-['Assistant']">
                 הגדרות בדיקה
               </h2>
-              
+
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-[#473B31] mb-2 font-['Assistant']">
@@ -82,24 +128,24 @@ export function EmailPreview({ onBack, wealthCode: initialWealthCode, codeStruct
                   <Input
                     type="number"
                     value={wealthCode}
-                    onChange={(e) => setWealthCode(parseInt(e.target.value) || 1234)}
+                    onChange={(e) => {
+                      const n = parseInt(e.target.value || "", 10);
+                      if (Number.isNaN(n)) {
+                        setWealthCode(1234);
+                      } else {
+                        // גבולות סבירים
+                        const clamped = Math.max(1111, Math.min(9999, n));
+                        setWealthCode(clamped);
+                      }
+                    }}
                     min={1111}
                     max={9999}
                     className="text-center font-['Assistant']"
+                    inputMode="numeric"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-[#473B31] mb-2 font-['Assistant']">
-                    שם הלקוח
-                  </label>
-                  <Input
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    placeholder="שם הלקוח"
-                    className="font-['Assistant']"
-                  />
-                </div>
+                {/** Intentionally no customer name control; template uses neutral greeting **/}
 
                 <div>
                   <label className="block text-sm font-medium text-[#473B31] mb-2 font-['Assistant']">
@@ -107,27 +153,27 @@ export function EmailPreview({ onBack, wealthCode: initialWealthCode, codeStruct
                   </label>
                   <div className="flex flex-col gap-2">
                     <Button
-                      variant={viewMode === 'html' ? 'default' : 'outline'}
+                      variant={viewMode === "html" ? "default" : "outline"}
                       size="sm"
-                      onClick={() => setViewMode('html')}
+                      onClick={() => setViewMode("html")}
                       className="w-full justify-start font-['Assistant']"
                     >
                       <Eye className="w-4 h-4 mr-2" />
                       תצוגת HTML
                     </Button>
                     <Button
-                      variant={viewMode === 'text' ? 'default' : 'outline'}
+                      variant={viewMode === "text" ? "default" : "outline"}
                       size="sm"
-                      onClick={() => setViewMode('text')}
+                      onClick={() => setViewMode("text")}
                       className="w-full justify-start font-['Assistant']"
                     >
                       <Mail className="w-4 h-4 mr-2" />
                       תצוגת טקסט
                     </Button>
                     <Button
-                      variant={viewMode === 'data' ? 'default' : 'outline'}
+                      variant={viewMode === "data" ? "default" : "outline"}
                       size="sm"
-                      onClick={() => setViewMode('data')}
+                      onClick={() => setViewMode("data")}
                       className="w-full justify-start font-['Assistant']"
                     >
                       <Code className="w-4 h-4 mr-2" />
@@ -141,9 +187,7 @@ export function EmailPreview({ onBack, wealthCode: initialWealthCode, codeStruct
                 <h3 className="font-medium text-[#473B31] mb-2 font-['Assistant']">
                   כותרת המייל:
                 </h3>
-                <p className="text-sm text-[#87674F] font-['Assistant']">
-                  {emailSubject}
-                </p>
+                <p className="text-sm text-[#87674F] font-['Assistant']">{emailSubject}</p>
               </div>
             </Card>
           </div>
@@ -158,23 +202,25 @@ export function EmailPreview({ onBack, wealthCode: initialWealthCode, codeStruct
               </div>
 
               <div className="p-6">
-                {viewMode === 'html' && (
+                {viewMode === "html" && (
                   <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                     <iframe
+                      // srcDoc בטוח לדפדפן עבור preview פנימי
                       srcDoc={emailHTML}
                       className="w-full h-[800px] border-none"
                       title="Email Preview"
+                      sandbox="allow-same-origin"
                     />
                   </div>
                 )}
 
-                {viewMode === 'text' && (
+                {viewMode === "text" && (
                   <div className="bg-gray-50 rounded-lg p-4 font-mono text-sm whitespace-pre-wrap max-h-[800px] overflow-y-auto">
                     {emailText}
                   </div>
                 )}
 
-                {viewMode === 'data' && (
+                {viewMode === "data" && (
                   <div className="space-y-4">
                     <div className="bg-gray-50 rounded-lg p-4">
                       <h3 className="font-medium text-[#473B31] mb-2 font-['Assistant']">
@@ -184,7 +230,7 @@ export function EmailPreview({ onBack, wealthCode: initialWealthCode, codeStruct
                         {JSON.stringify(emailData, null, 2)}
                       </pre>
                     </div>
-                    
+
                     <div className="bg-gray-50 rounded-lg p-4">
                       <h3 className="font-medium text-[#473B31] mb-2 font-['Assistant']">
                         לינקים במייל
@@ -193,8 +239,8 @@ export function EmailPreview({ onBack, wealthCode: initialWealthCode, codeStruct
                         <div>
                           <strong>צפייה באתר:</strong>
                           <br />
-                          <a 
-                            href={emailData.viewUrl} 
+                          <a
+                            href={emailData.viewUrl}
                             className="text-blue-600 hover:underline break-all"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -222,12 +268,14 @@ export function EmailPreview({ onBack, wealthCode: initialWealthCode, codeStruct
         <div className="mt-6 flex justify-center gap-4">
           <Button
             onClick={() => {
-              const blob = new Blob([emailHTML], { type: 'text/html' });
+              const blob = new Blob([emailHTML], { type: "text/html" });
               const url = URL.createObjectURL(blob);
-              const a = document.createElement('a');
+              const a = document.createElement("a");
               a.href = url;
               a.download = `email-preview-${wealthCode}.html`;
+              document.body.appendChild(a);
               a.click();
+              a.remove();
               URL.revokeObjectURL(url);
             }}
             className="bg-[#87674F] hover:bg-[#95705D] text-white font-['Assistant']"
