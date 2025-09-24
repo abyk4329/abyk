@@ -1,6 +1,16 @@
 import jsPDF from 'jspdf';
 
-interface WealthCodeData {
+export type CodeStructure = {
+  digits: number[];
+  digitCounts: Record<number, number>;
+  repeatedDigits: { digit: number; count: number }[];
+  allSame: boolean;
+  allDifferent: boolean;
+  hasRepeats: boolean;
+  type: "master" | "diverse" | "focused" | "balanced";
+};
+
+export type WealthCodeData = {
   title: string;
   essence: string;
   gifts: string[];
@@ -10,16 +20,6 @@ interface WealthCodeData {
   careerPaths: string[];
   dailyPractice: string;
   bottomLine: string;
-}
-
-interface CodeStructure {
-  digits: number[];
-  digitCounts: Record<number, number>;
-  repeatedDigits: { digit: number; count: number }[];
-  allSame: boolean;
-  allDifferent: boolean;
-  hasRepeats: boolean;
-  type: 'master' | 'diverse' | 'focused' | 'balanced';
 }
 
 export class WealthCodePDFGenerator {
