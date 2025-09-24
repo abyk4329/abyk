@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
   const wealthCode = parseInt(searchParams.get('code') || '1234', 10)
   const name = searchParams.get('name') || undefined
 
-  const viewUrl = `${origin}/thank-you?code=${encodeURIComponent(searchParams.get('tx') || 'PREVIEW')}&download=1`
+  const viewUrl = `${origin}/interpretations?code=${encodeURIComponent(searchParams.get('tx') || 'PREVIEW')}&utm_source=email&utm_campaign=delivery`
   const downloadUrl = `${origin}/api/download-pdf?code=${encodeURIComponent(searchParams.get('tx') || 'PREVIEW')}`
 
   const html = generateEmailHTML({
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     if (!wealthCode) return NextResponse.json({ ok: false, error: 'missing code' }, { status: 400 })
 
     const origin = process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin
-  const viewUrl = `${origin}/thank-you?code=${encodeURIComponent('EMAIL-PREVIEW')}&download=1`
+  const viewUrl = `${origin}/interpretations?code=${encodeURIComponent('EMAIL-PREVIEW')}&utm_source=email&utm_campaign=delivery`
     const downloadUrl = `${origin}/api/download-pdf?code=${encodeURIComponent('EMAIL-PREVIEW')}`
 
     const html = generateEmailHTML({

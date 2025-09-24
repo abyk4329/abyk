@@ -28,6 +28,8 @@ import Header from "./Header";
 import { WealthCodePDFGenerator } from "./PDFGenerator";
 import { useState } from "react";
 import { wealthCodeTexts, sectionTitles } from "../data/wealthCodeTexts";
+import { codeStructures, codeApplication } from "@/data/codeStructures";
+import { detectCodeStructure } from "@/lib/detectCodeStructure";
 
 // Shared types
 interface CodeStructure {
@@ -48,15 +50,7 @@ interface WealthCodeInterpretationsProps {
   onCalculateNew: () => void;
 }
 
-// Central content now comes from src/data/wealthCodeTexts.ts
-
-const dailyApplicationContent = {
-  title: "יישום הקוד בחיי היום יום",
-  description:
-    "כיצד להעמיק את החיבור אל הקוד האישי ולהטמיעו במרחב החיים",
-  content:
-    "כדי להעמיק את החיבור אל הקוד האישי, ניתן להטמיעו במרחב החיים בדרכים מגוונות: כתיבתו על פתקית ושמירתו קרוב – בארנק, בכיס, על לוח חזון אישי או במרחב העבודה; שילובו בסיסמאות אישיות באופן מאובטח; הוספתו לשם המשתמש או לכתובת הדואר האלקטרוני; ואף הכללתו בפרטים יומיומיים נוספים. בנוסף, מומלץ לפתח מודעות פעילה לקוד: להקדיש זמן להתבוננות פנימית עמו מדי יום, לחזור עליו מנטלית לפני פגישות חשובות, החלטות מכריעות או ברגעי אתגר. עם הזמן, הקוד יהפוך לעוגן פנימי המחבר אותך למהות העמוקה שלך ולפוטנציאל הטמון בך.",
-};
+// Central content now comes from src/data/* files
 
 // Get comprehensive number descriptions for individual digit tabs
 const getNumberDescription = (digit: number) => {
@@ -116,6 +110,9 @@ export function WealthCodeInterpretations({
   >(null);
   const [showPdfPreview, setShowPdfPreview] = useState(false);
   const uniqueDigits = [...new Set(codeStructure.digits)];
+  // Detect the structure key from the 4-digit code (string)
+  const structureKey = detectCodeStructure(String(wealthCode).padStart(4, "0"));
+  const structure = codeStructures[structureKey];
 
   const generatePDF = () => {
     try {
@@ -213,37 +210,30 @@ export function WealthCodeInterpretations({
   };
 
   const generateFormattedInterpretation = () => {
-    let text = `פירוש מלא לקוד העושר ${wealthCode}\\n`;
-    text += `=================================\\n\\n`;
+    let text = `פירוש מלא לקוד העושר ${wealthCode}\n`;
+    text += `=================================\n\n`;
 
     uniqueDigits.forEach((digit) => {
       const meaning = wealthCodeTexts[digit];
-      text += `ספרה ${digit}: ${meaning.title}\\n`;
-      text += `------------------------\\n`;
-      text += `${sectionTitles.essence}:\\n${meaning.essence}\\n\\n`;
-      text += `${sectionTitles.gifts}:\\n${meaning.gifts.map((gift) => `• ${gift}`).join("\\n")}\\n\\n`;
-      text += `${sectionTitles.challenges}:\\n${meaning.challenges.map((challenge) => `• ${challenge}`).join("\\n")}\\n\\n`;
-      text += `${sectionTitles.imbalanceSigns}:\\n${meaning.imbalanceSigns.map((sign) => `• ${sign}`).join("\\n")}\\n\\n`;
-      text += `${sectionTitles.growthAreas}:\\n${meaning.growthAreas.map((area) => `• ${area}`).join("\\n")}\\n\\n`;
-      text += `${sectionTitles.careerPaths}:\\n${meaning.careerPaths.map((path) => `• ${path}`).join("\\n")}\\n\\n`;
-      text += `${sectionTitles.dailyPractice}:\\n${meaning.dailyPractice}\\n\\n`;
+      text += `ספרה ${digit}: ${meaning.title}\n`;
+      text += `------------------------\n`;
+      text += `${sectionTitles.essence}:\n${meaning.essence}\n\n`;
+      text += `${sectionTitles.gifts}:\n${meaning.gifts.map((gift) => `• ${gift}`).join("\n")}\n\n`;
+      text += `${sectionTitles.challenges}:\n${meaning.challenges.map((challenge) => `• ${challenge}`).join("\n")}\n\n`;
+      text += `${sectionTitles.imbalanceSigns}:\n${meaning.imbalanceSigns.map((sign) => `• ${sign}`).join("\n")}\n\n`;
+      text += `${sectionTitles.growthAreas}:\n${meaning.growthAreas.map((area) => `• ${area}`).join("\n")}\n\n`;
+      text += `${sectionTitles.careerPaths}:\n${meaning.careerPaths.map((path) => `• ${path}`).join("\n")}\n\n`;
+      text += `${sectionTitles.dailyPractice}:\n${meaning.dailyPractice}\n\n`;
       if (meaning.bottomLine) {
-        text += `${sectionTitles.bottomLine}:\\n${meaning.bottomLine}\\n\\n`;
+        text += `${sectionTitles.bottomLine}:\n${meaning.bottomLine}\n\n`;
       }
-      text += `================================\\n\\n`;
+      text += `================================\n\n`;
     });
 
-    // Add pattern explanation
-    if (codeStructure.allSame) {
-      text += `קוד מאסטר - כל הספרות זהות\\n`;
-      text += `זהו קוד מיוחד המעיד על פוטנציאל רוחני גבוה ואתגרים מיוחדים בחיים.\\n\\n`;
-    } else if (codeStructure.hasRepeats) {
-      text += `ספרות חוזרות בקוד\\n`;
-      text += `הספרות החוזרות מעידות על אנרגיות מועצמות שדורשות תשומת לב מיוחדת.\\n\\n`;
-    } else if (codeStructure.allDifferent) {
-      text += `קוד מגוון - כל הספרות שונות\\n`;
-      text += `מעיד על אישיות רב-ממדית עם כישרונות מגוונים ואתגרים מרובים.\\n\\n`;
-    }
+  // Add pattern explanation from centralized data
+  text += `מבנה הקוד:\n`;
+  text += `${structure.title}\n`;
+  text += `${structure.description}\n\n`;
 
     return text;
   };
@@ -306,48 +296,37 @@ export function WealthCodeInterpretations({
               </TabsList>
 
               {/* Structure Tab - Code Structure */}
-              <TabsContent
-                value="structure"
-                className="space-y-6"
-              >
+              <TabsContent value="structure" className="space-y-6">
                 <Card
                   className="backdrop-blur-xl bg-[rgba(254,254,254,0.12)] border-[rgba(135,103,79,0.2)] p-6"
                   dir="rtl"
                 >
                   <div className="space-y-6">
-                    {/* Code Type */}
+                    {/* Code Type Badge */}
                     <div className="text-center">
                       <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(149,112,82,0.5)] mb-4">
-                        {codeStructure.allSame && (
+                        {structureKey === "master" && (
                           <Star className="w-5 h-5 text-[rgba(149,112,82,1)]" />
                         )}
-                        {codeStructure.hasRepeats &&
-                          !codeStructure.allSame && (
-                            <TrendingUp className="w-5 h-5 text-[rgba(149,112,82,1)]" />
-                          )}
-                        {codeStructure.allDifferent && (
+                        {structureKey === "repeated" && (
+                          <TrendingUp className="w-5 h-5 text-[rgba(149,112,82,1)]" />
+                        )}
+                        {structureKey === "diverse" && (
                           <Eye className="w-5 h-5 text-[rgba(149,112,82,1)]" />
                         )}
                         <span className="text-[rgba(254,254,254,1)] font-['Assistant'] text-center">
-                          {codeStructure.allSame &&
-                            "קוד מאסטר - כל הספרות זהות"}
-                          {codeStructure.hasRepeats &&
-                            "קוד עם ספרות חוזרות"}
-                          {codeStructure.allDifferent &&
-                            "קוד מגוון - כל הספרות שונות"}
+                          {structure.title}
                         </span>
                       </div>
                     </div>
 
-                    {/* Code Explanation */}
+                    {/* Code Explanation from centralized data */}
                     <div className="text-center">
-                      <p className="text-[rgba(71,59,49,1)] font-light leading-relaxed font-['Assistant'] text-center">
-                        {codeStructure.allSame &&
-                          "קוד מאסטר – מצב שבו כל הספרות בקוד זהות. כאן נוצרת עוצמה מרוכזת במיוחד: האנרגיה של הספרה מתעצמת באופן קיצוני ומדגישה תחום אחד מרכזי שבו מצוי הפוטנציאל העמוק ביותר שלך. זוהי מתנה של כוח ממוקד, אך היא מחייבת זהירות ואיזון, שכן ריכוז עוצמה כה גדול עלול להוביל לקיבעון או לחסימה."}
-                        {codeStructure.hasRepeats &&
-                          "קוד עם ספרות חוזרות – כאשר ספרה אחת או שתיים מופיעות יותר מפעם אחת. במקרה זה, האנרגיה של אותן ספרות מועצמת ומקבלת תשומת לב רבה בחיים. היא מעניקה חיזוק יוצא דופן ויכולת התמדה בתחומים מסוימים, אולם כאשר היא אינה מאוזנת היא עלולה ליצור חוסר פרופורציה ביחס לשאר תחומי ההתפתחות."}
-                        {codeStructure.allDifferent &&
-                          "קוד מגוון – כאשר כל ארבע הספרות שונות. דפוס זה פותח חיבור לארבעה תחומי אנרגיה נפרדים ומעניק מגוון עשיר של אפשרויות ביטוי והזדמנויות. האתגר המרכזי הוא שמירה על איזון פנימי שיאפשר לכל אחת מן האנרגיות לבוא לידי ביטוי במלואה. רק כאשר מתקיימת הרמוניה ביניהן, מתגלה מלוא השפע הגלום בקוד."}
+                      <h3 className="font-normal tracking-wide font-['Assistant'] mb-2" style={{ color: "#473B31" }}>
+                        {structure.title}
+                      </h3>
+                      <p className="whitespace-pre-line text-[rgba(71,59,49,1)] font-light leading-relaxed font-['Assistant'] text-center">
+                        {structure.description}
                       </p>
                     </div>
 
@@ -454,7 +433,7 @@ export function WealthCodeInterpretations({
                                     {section.title}
                                   </h4>
                                   {section.text && (
-                                    <p className="text-[rgba(149,112,82,1)] font-light leading-relaxed font-['Assistant'] mb-4 text-center">
+                                    <p className="whitespace-pre-line text-[rgba(149,112,82,1)] font-light leading-relaxed font-['Assistant'] mb-4 text-center">
                                       {section.text}
                                     </p>
                                   )}
@@ -490,11 +469,14 @@ export function WealthCodeInterpretations({
               <TabsContent value="daily" className="space-y-6">
                 <Card className="backdrop-blur-xl bg-[rgba(254,254,254,0.1)] border-[rgba(135,103,79,0.2)] p-6">
                   <div className="space-y-6">
-                    <div className="border-r-4 border-[rgba(149,112,82,0.4)] pr-4 text-right">
-                      <p className="font-light leading-relaxed font-['Assistant'] text-right text-[rgba(71,59,49,1)]">
-                        {dailyApplicationContent.content}
+                    <section className="border-r-4 border-[rgba(149,112,82,0.4)] pr-4 text-right">
+                      <h3 className="mb-3 font-normal tracking-wide font-['Assistant'] text-center" style={{ color: "#473B31" }}>
+                        {codeApplication.title}
+                      </h3>
+                      <p className="whitespace-pre-line font-light leading-relaxed font-['Assistant'] text-right text-[rgba(71,59,49,1)]">
+                        {codeApplication.description}
                       </p>
-                    </div>
+                    </section>
                   </div>
                 </Card>
               </TabsContent>

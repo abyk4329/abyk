@@ -1,31 +1,37 @@
+import { codeStructures } from "@/data/codeStructures";
+import { wealthCodeTexts } from "@/data/wealthCodeTexts";
+import { detectCodeStructure, countDigits } from "@/lib/detectCodeStructure";
+
 interface EmailTemplateData {
-  wealthCode: number;
-  customerName?: string;
-  viewUrl: string;
-  downloadUrl: string;
-  codeStructure: {
-    digits: number[];
-    allSame: boolean;
-    hasRepeats: boolean;
-    allDifferent: boolean;
-    repeatedDigits: { digit: number; count: number }[];
-  };
+    wealthCode: number;
+    customerName?: string;
+    viewUrl: string;
+    downloadUrl: string;
+    // codeStructure may be passed by old callers, but we resolve from detectCodeStructure internally now
+    codeStructure?: {
+        digits: number[];
+        allSame: boolean;
+        hasRepeats: boolean;
+        allDifferent: boolean;
+        repeatedDigits: { digit: number; count: number }[];
+    };
 }
 
 export function generateEmailHTML(data: EmailTemplateData): string {
-  const { wealthCode, customerName, viewUrl, downloadUrl, codeStructure } = data;
-  
-  // Determine pattern description
-  let patternDescription = '';
-  if (codeStructure.allSame) {
-    patternDescription = 'קוד מאסטר - כל הספרות זהות';
-  } else if (codeStructure.hasRepeats) {
-    patternDescription = 'קוד עם ספרות חוזרות - אנרגיות מועצמות';
-  } else if (codeStructure.allDifferent) {
-    patternDescription = 'קוד מגוון - כל הספרות שונות';
-  }
+    const { wealthCode, customerName, viewUrl, downloadUrl } = data;
+    const code = wealthCode.toString();
+    const structureKey = detectCodeStructure(code);
+    const structure = codeStructures[structureKey];
+    const digits = code.split("").map(Number);
+    const counts = countDigits(code);
+    const repeatedDigits = Object.entries(counts)
+        .filter(([, c]) => (c as number) > 1)
+        .map(([digit, count]) => ({ digit: parseInt(digit, 10), count: count as number }));
+    const allSame = new Set(digits).size === 1;
+    const allDifferent = new Set(digits).size === 4;
+    const hasRepeats = repeatedDigits.length > 0;
 
-  const uniqueDigits = [...new Set(codeStructure.digits)];
+    const uniqueDigits = [...new Set(digits)];
   const digitalStr = uniqueDigits.length === 1 ? uniqueDigits[0].toString() :
     uniqueDigits.length === 2 ? `${uniqueDigits[0]} ו-${uniqueDigits[1]}` :
     uniqueDigits.length === 3 ? `${uniqueDigits[0]}, ${uniqueDigits[1]} ו-${uniqueDigits[2]}` :
@@ -103,13 +109,8 @@ export function generateEmailHTML(data: EmailTemplateData): string {
             border: 2px solid rgba(135, 103, 79, 0.3);
         }
         
-        .pattern-description {
-            font-size: 16px;
-            font-weight: 400;
-            color: #87674F;
-            margin-top: 15px;
-            text-align: right;
-        }
+    .structure-title { font-size: 18px; font-weight: 500; color: #473B31; margin-top: 10px; }
+    .structure-desc { font-size: 14px; font-weight: 300; color: #87674F; margin-top: 8px; white-space: pre-line; }
         
         .content {
             padding: 30px 20px;
@@ -312,7 +313,8 @@ export function generateEmailHTML(data: EmailTemplateData): string {
         <div class="wealth-code-display">
             <div class="wealth-code-title">קוד העושר האישי שלך</div>
             <div class="wealth-code-number">${wealthCode}</div>
-            ${patternDescription ? `<div class="pattern-description">${patternDescription}</div>` : ''}
+            <div class="structure-title">${structure.title}</div>
+            <div class="structure-desc">${structure.description}</div>
         </div>
         
         <!-- Main Content -->
@@ -325,7 +327,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
                 תודה רבה על הרכישה! הפירוש המלא לקוד האישי שלך ממתין לך לצפייה ולהורדה.
             </div>
             
-            <!-- Digits Preview -->
+                        <!-- Digits Preview -->
             <div class="digits-preview">
                 <h3>מה כולל הפירוש המלא</h3>
                 <p>
@@ -333,6 +335,19 @@ export function generateEmailHTML(data: EmailTemplateData): string {
                     נורות אזהרה לזיהוי חוסר איזון, מוקדי צמיחה, תחומי קריירה מתאימים ותרגול יומיומי מעשי.
                     בנוסף, תבינו את משמעותן של ספרות החוזרות או השונות בקוד, וכן תקבלו הסבר כיצד לשלב את הקוד בחיי היומיום.
                 </p>
+                                <div style="margin-top:14px;">
+                                    ${digits
+                                        .map((d) => {
+                                            const block = (wealthCodeTexts as any)[d];
+                                            if (!block) return '';
+                                            return `
+                                                <div style="margin-bottom:10px;">
+                                                    <div style="font-weight:500;color:#473B31;">${d} — ${block.title}</div>
+                                                    <div style="font-size:13px;color:#87674F;white-space:pre-line;">${block.essence || ''}</div>
+                                                </div>`;
+                                        })
+                                        .join("")}
+                                </div>
             </div>
             
             <!-- Action Buttons -->
@@ -381,12 +396,15 @@ export function generateEmailHTML(data: EmailTemplateData): string {
 
 // Function to generate email subject
 export function generateEmailSubject(wealthCode: number): string {
-  return `הפירוש המלא לקוד העושר האישי שלך`;
+    return `הפירוש המלא לקוד האישי שלך – ${wealthCode}`;
 }
 
 // Function to generate plain text version of email
 export function generateEmailText(data: EmailTemplateData): string {
-  const { wealthCode, customerName, viewUrl, downloadUrl } = data;
+    const { wealthCode, customerName, viewUrl, downloadUrl } = data;
+    const code = wealthCode.toString();
+    const structureKey = detectCodeStructure(code);
+    const structure = codeStructures[structureKey];
   
   return `
 שלום${customerName ? ` ${customerName}` : ''}!
@@ -394,6 +412,9 @@ export function generateEmailText(data: EmailTemplateData): string {
 קוד העושר האישי שלך: ${wealthCode}
 
 תודה רבה על הרכישה! הפירוש המלא לקוד האישי שלך ממתין לך לצפייה ולהורדה.
+
+מבנה הקוד: ${structure.title}
+${structure.description}
 
 צפייה באתר (מומלץ):
 ${viewUrl}

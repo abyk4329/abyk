@@ -31,7 +31,8 @@ export class EmailService {
   generateEmailData(data: EmailData) {
     // Create URLs for viewing and downloading with new App Router paths
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-    const viewUrl = `${baseUrl}/thank-you?code=${data.wealthCode}`;
+  // Link directly to interpretations page as requested
+  const viewUrl = `${baseUrl}/interpretations?code=${data.wealthCode}&utm_source=email&utm_campaign=delivery`;
     const downloadUrl = `${baseUrl}/api/download-pdf?code=${data.wealthCode}`;
 
     const emailData = {
@@ -40,7 +41,20 @@ export class EmailService {
       customerEmail: data.customerEmail,
       viewUrl,
       downloadUrl,
-      codeStructure: data.codeStructure
+      codeStructure: data.codeStructure || (() => {
+        const digits = data.wealthCode.toString().split('').map(Number)
+        const counts = digits.reduce((acc: Record<number, number>, d) => {
+          acc[d] = (acc[d] || 0) + 1
+          return acc
+        }, {})
+        const repeatedDigits = Object.entries(counts)
+          .filter(([, c]) => (c as number) > 1)
+          .map(([digit, count]) => ({ digit: parseInt(digit, 10), count: count as number }))
+        const allSame = new Set(digits).size === 1
+        const allDifferent = new Set(digits).size === 4
+        const hasRepeats = repeatedDigits.length > 0
+        return { digits, repeatedDigits, allSame, allDifferent, hasRepeats }
+      })()
     };
 
     return {

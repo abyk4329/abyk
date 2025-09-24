@@ -3,13 +3,13 @@
         "version": "0.1.0",
         "private": true,
         "scripts": {
-                "dev": "next dev --turbo",
+                "dev": "next dev",
                 "build": "next build",
                 "start": "next start",
                 "lint": "next lint",
                 "type-check": "tsc --noEmit",
                 "dev:turbo": "next dev --turbo",
-                "analyze": "ANALYZE=true npm run build"
+                "analyze": "ANALYZE=true pnpm run build"
         },
         "dependencies": {
                 "@emailjs/browser": "^4.4.1",

@@ -4,6 +4,7 @@ import { Input } from './ui/input';
 import { Card } from './ui/card';
 import { ArrowLeft, Mail, Eye, Code, Download } from 'lucide-react';
 import { generateEmailHTML, generateEmailSubject, generateEmailText } from './EmailTemplate';
+import { detectCodeStructure } from "@/lib/detectCodeStructure";
 
 interface EmailPreviewProps {
   onBack: () => void;
@@ -17,44 +18,24 @@ export function EmailPreview({ onBack, wealthCode: initialWealthCode, codeStruct
   const [customerName, setCustomerName] = useState('דוגמה לקוח');
   const [viewMode, setViewMode] = useState<'html' | 'text' | 'data'>('html');
 
-  // Generate example code structure
-  const generateCodeStructure = (code: number) => {
-    const digits = code.toString().split("").map(Number);
-    const digitCounts = digits.reduce(
-      (acc, digit) => {
-        acc[digit] = (acc[digit] || 0) + 1;
-        return acc;
-      },
-      {} as Record<number, number>,
-    );
-
-    const repeatedDigits = Object.entries(digitCounts)
-      .filter(([_, count]) => count > 1)
-      .map(([digit, count]) => ({
-        digit: parseInt(digit),
-        count,
-      }));
-
-    const allSame = new Set(digits).size === 1;
-    const allDifferent = new Set(digits).size === 4;
-    const hasRepeats = repeatedDigits.length > 0;
-
-    return {
-      digits,
-      digitCounts,
-      repeatedDigits,
-      allSame,
-      allDifferent,
-      hasRepeats,
-    };
-  };
+  // Shared code structure
 
   const emailData = {
     wealthCode,
     customerName,
-    viewUrl: `${window.location.origin}?page=thank-you&code=${wealthCode}`,
-    downloadUrl: `${window.location.origin}/api/download-pdf?code=${wealthCode}`,
-    codeStructure: codeStructure || generateCodeStructure(wealthCode)
+  viewUrl: `${window.location.origin}/interpretations?code=${wealthCode}&utm_source=email&utm_campaign=delivery`,
+  downloadUrl: `${window.location.origin}/api/download-pdf?code=${wealthCode}`,
+  codeStructure: codeStructure || ((): any => {
+    const key = detectCodeStructure(String(wealthCode));
+    const digits = String(wealthCode).split("").map(Number);
+    const repeated = Object.entries(digits.reduce((a: any,d:number)=>{a[d]=(a[d]||0)+1;return a;},{}))
+      .filter(([,c]) => (c as number) > 1)
+      .map(([digit,count]) => ({digit: parseInt(digit,10), count: count as number}));
+    const allSame = new Set(digits).size === 1;
+    const allDifferent = new Set(digits).size === 4;
+    const hasRepeats = repeated.length>0;
+    return { digits, repeatedDigits: repeated, allSame, allDifferent, hasRepeats, type: key };
+  })()
   };
 
   const emailHTML = generateEmailHTML(emailData);

@@ -42,8 +42,8 @@ export async function POST(req: NextRequest) {
     const successStatuses = ['paid', 'succeeded', 'success', 'completed']
     if (email && successStatuses.includes(status)) {
       try {
-        const baseUrl = req.nextUrl.origin
-  const viewUrl = `${baseUrl}/thank-you${transactionId ? `?code=${encodeURIComponent(transactionId)}&download=1` : ''}`
+  const baseUrl = req.nextUrl.origin
+  const viewUrl = `${baseUrl}/interpretations${transactionId ? `?code=${encodeURIComponent(transactionId)}` : ''}${transactionId ? '&' : '?'}utm_source=email&utm_campaign=delivery`
         const downloadUrl = `${baseUrl}/api/download-pdf${transactionId ? `?code=${encodeURIComponent(transactionId)}` : ''}`
         const wealthCode = Number((body.wealth_code || body.code || '').toString().replace(/\D/g, '')) || undefined
         const name = body.name || body.customer_name || body.customerName || undefined

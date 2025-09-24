@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { jsPDF } from 'jspdf'
 
 export const runtime = 'nodejs'
 
@@ -13,7 +14,7 @@ type SendEmailPayload = {
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as SendEmailPayload
-    const { to, subject, html, text, metadata } = body || {}
+  const { to, subject, html, text, metadata } = body || {}
 
     if (!to || !subject || (!html && !text)) {
       return NextResponse.json(
@@ -41,12 +42,43 @@ export async function POST(req: NextRequest) {
           auth: { user: EMAIL_USER, pass: EMAIL_PASSWORD },
         })
 
+        // Optionally attach a generated PDF if requested
+        let attachments: any[] | undefined
+        const attachCode = Number((metadata?.attachPdfCode as any) || 0)
+        if (attachCode && attachCode >= 1111 && attachCode <= 9999) {
+          try {
+            const doc = new jsPDF('p', 'mm', 'a4')
+            doc.setFont('helvetica', 'normal')
+            doc.setFontSize(20)
+            doc.text('ABYK - Wealth Code', 105, 20, { align: 'center' })
+            let y = 40
+            const margin = 20
+            doc.setFontSize(16)
+            doc.text(`Code: ${attachCode}`, margin, y)
+            y += 10
+            // minimal hint with link
+            doc.setFontSize(12)
+            doc.text('For full details visit:', margin, y)
+            y += 6
+            doc.text(`https://abyk.online/interpretations?code=${attachCode}`, margin, y)
+            const pdfBytes = doc.output('arraybuffer') as ArrayBuffer
+            attachments = [{
+              filename: `wealth-code-${attachCode}.pdf`,
+              content: Buffer.from(new Uint8Array(pdfBytes)),
+              contentType: 'application/pdf',
+            }]
+          } catch (genErr) {
+            console.error('EMAIL_PDF_ATTACH_ERROR', genErr)
+          }
+        }
+
         const info = await transporter.sendMail({
           from: EMAIL_FROM,
           to,
           subject,
           html,
           text,
+          attachments,
         })
 
         return NextResponse.json({ ok: true, messageId: info.messageId, transport: 'smtp' })
