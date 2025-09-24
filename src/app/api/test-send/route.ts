@@ -26,9 +26,9 @@ export async function GET(req: NextRequest) {
 
   const viewUrl = `${origin}/interpretations?code=${encodeURIComponent(code)}&utm_source=email&utm_campaign=delivery`
     const downloadUrl = `${origin}/api/download-pdf?code=${encodeURIComponent(code)}`
-    const subject = generateEmailSubject(code)
-    const html = generateEmailHTML({ wealthCode: code, viewUrl, downloadUrl, codeStructure: computeStructure(code) })
-    const text = generateEmailText({ wealthCode: code, viewUrl, downloadUrl, codeStructure: computeStructure(code) })
+  const subject = generateEmailSubject(code)
+  const html = generateEmailHTML({ wealthCode: code, viewUrl, downloadUrl })
+  const text = generateEmailText({ wealthCode: code, viewUrl, downloadUrl })
 
     const resp = await fetch(`${origin}/api/send-email`, {
       method: 'POST',

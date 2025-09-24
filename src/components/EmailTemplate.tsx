@@ -9,12 +9,11 @@ type CodeStructureSummary = {
     allSame: boolean;
     allDifferent: boolean;
     hasRepeats: boolean;
-    type?: "master" | "repeated" | "diverse";
+    type: "master" | "repeated" | "diverse";
 };
 
 type EmailData = {
     wealthCode: number;
-    customerName?: string;
     viewUrl: string;
     downloadUrl: string;
     codeStructure?: CodeStructureSummary;
@@ -70,7 +69,6 @@ export function generateEmailHTML(data: EmailData): string {
         })
         .join("");
 
-    const name = data.customerName?.trim();
     return `
     <!doctype html>
     <html lang="he" dir="rtl">
@@ -79,7 +77,7 @@ export function generateEmailHTML(data: EmailData): string {
             <tr><td align="center">
                 <table role="presentation" width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border:1px solid #eadfd6;border-radius:12px;margin:24px;">
                     <tr><td style="padding:24px; text-align:center;">
-                        <h1 style="margin:0 0 8px 0;font-size:22px;font-weight:600;">${name ? `שלום ${name},` : "שלום,"}</h1>
+                        <h1 style="margin:0 0 8px 0;font-size:22px;font-weight:600;">שלום,</h1>
                         <p style="margin:0 0 16px 0;">הנה הפירוש המלא לקוד האישי שלך – <strong>${codeStr}</strong>.</p>
 
                         <h2 style="margin:24px 0 8px 0;font-size:18px;font-weight:700;">מבנה הקוד</h2>
@@ -118,7 +116,7 @@ export function generateEmailText(data: EmailData): string {
     const uniqueDigits = Array.from(new Set(codeStr.split("").map(Number)));
 
     const lines: string[] = [];
-    lines.push(data.customerName ? `שלום ${data.customerName},` : "שלום,");
+    lines.push("שלום,");
     lines.push(`הנה הפירוש המלא לקוד האישי שלך – ${codeStr}.`);
     lines.push("");
     lines.push(`מבנה הקוד: ${structure.title}`);

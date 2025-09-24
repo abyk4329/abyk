@@ -34,10 +34,8 @@ export async function GET(req: NextRequest) {
 
   const html = generateEmailHTML({
     wealthCode,
-    customerName: name,
     viewUrl,
     downloadUrl,
-    codeStructure: computeStructure(wealthCode),
   })
   return new NextResponse(html, { headers: { 'content-type': 'text/html; charset=utf-8' } })
 }
@@ -54,17 +52,13 @@ export async function POST(req: NextRequest) {
 
     const html = generateEmailHTML({
       wealthCode,
-      customerName: name,
       viewUrl,
       downloadUrl,
-      codeStructure: computeStructure(wealthCode),
     })
     const text = generateEmailText({
       wealthCode,
-      customerName: name,
       viewUrl,
       downloadUrl,
-      codeStructure: computeStructure(wealthCode),
     })
     const subject = generateEmailSubject(wealthCode)
 

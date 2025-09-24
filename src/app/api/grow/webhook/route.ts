@@ -51,26 +51,13 @@ export async function POST(req: NextRequest) {
         const subject = generateEmailSubject(wealthCode || 0)
         const html = generateEmailHTML({
           wealthCode: wealthCode || 0,
-          customerName: name,
           viewUrl,
           downloadUrl,
-          codeStructure: (function compute() {
-            const code = (wealthCode || 0).toString().padStart(4, '0')
-            const digits = code.split('').map(Number)
-            const counts = digits.reduce((acc: Record<number, number>, d) => { acc[d] = (acc[d] || 0) + 1; return acc }, {})
-            const repeatedDigits = Object.entries(counts).filter(([, c]) => (c as number) > 1).map(([digit, count]) => ({ digit: parseInt(digit, 10), count: count as number }))
-            const allSame = new Set(digits).size === 1
-            const allDifferent = new Set(digits).size === 4
-            const hasRepeats = repeatedDigits.length > 0
-            return { digits, repeatedDigits, allSame, allDifferent, hasRepeats }
-          })(),
         })
         const text = generateEmailText({
           wealthCode: wealthCode || 0,
-          customerName: name,
           viewUrl,
           downloadUrl,
-          codeStructure: { digits: [], repeatedDigits: [], allSame: false, allDifferent: false, hasRepeats: false },
         })
         await fetch(`${baseUrl}/api/send-email`, {
           method: 'POST',
