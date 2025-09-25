@@ -119,7 +119,7 @@ function ThankYouContent() {
     if (isFourDigitCode(code)) {
       router.push(paths.interpretations(code))
     } else {
-      router.push(paths.thankYouNoCode())
+      router.push(paths.thankYou())
     }
   }
 
@@ -127,8 +127,8 @@ function ThankYouContent() {
     router.push(paths.home())
   }
 
-  const handleShowTerms = () => router.push(paths.terms())
-  const handleShowPrivacy = () => router.push(paths.privacy())
+  const handleShowTerms = () => router.push(paths.termsPrivacy())
+  const handleShowPrivacy = () => router.push(paths.termsPrivacy())
   const handleShowTermsAndPrivacy = () => router.push(paths.termsPrivacy())
 
   if (!ready) {
