@@ -4,17 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect, Suspense } from 'react'
 import { ThankYouPage } from '@/components/ThankYouPage'
 import { paths, isFourDigitCode } from '@/lib/urls'
-
-interface CodeStructure {
-  digits: number[];
-  digitCounts: Record<number, number>;
-  repeatedDigits: { digit: number; count: number }[];
-  allSame: boolean;
-  allDifferent: boolean;
-  hasRepeats: boolean;
-  // Canonical structure types used across the app
-  type: "master" | "repeated" | "diverse";
-}
+import { computeCodeStructure, type CodeStructure } from '@/lib/codeStructure'
 
 function ThankYouContent() {
   const router = useRouter()
@@ -23,39 +13,7 @@ function ThankYouContent() {
   const [codeStructure, setCodeStructure] = useState<CodeStructure | null>(null)
   const [ready, setReady] = useState(false)
 
-  // Generate code structure for URL-based access
-  const generateCodeStructure = (code: number): CodeStructure => {
-    const digits = code.toString().split("").map(Number);
-    const digitCounts = digits.reduce(
-      (acc, digit) => {
-        acc[digit] = (acc[digit] || 0) + 1;
-        return acc;
-      },
-      {} as Record<number, number>,
-    );
 
-    const repeatedDigits = Object.entries(digitCounts)
-      .filter(([, count]) => count > 1)
-      .map(([digit, count]) => ({
-        digit: parseInt(digit),
-        count,
-      }));
-
-    const allSame = new Set(digits).size === 1;
-    const allDifferent = new Set(digits).size === 4;
-    const hasRepeats = repeatedDigits.length > 0;
-
-    return {
-      digits,
-      digitCounts,
-      repeatedDigits,
-      allSame,
-      allDifferent,
-      hasRepeats,
-      // Map to the normalized tri-state structure type
-      type: allSame ? "master" : allDifferent ? "diverse" : "repeated",
-    };
-  };
 
   useEffect(() => {
     // Accept multiple possible param keys from payment provider
@@ -104,7 +62,7 @@ function ThankYouContent() {
 
     if (parsed) {
       setWealthCode(parsed)
-      setCodeStructure(generateCodeStructure(parsed))
+      setCodeStructure(computeCodeStructure(parsed))
     }
 
     // Always render a thank-you screen even if code is absent/invalid
