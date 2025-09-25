@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { WealthCodeSalesPage } from "@/components/WealthCodeSalesPage";
 import { computeCodeStructure, type CodeStructure } from "@/lib/codeStructure";
@@ -35,7 +35,7 @@ function readStoredCode(): number | null {
   return null;
 }
 
-export default function SalesPage() {
+function SalesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [resolvedCode, setResolvedCode] = useState<number | null>(null);
@@ -80,4 +80,12 @@ export default function SalesPage() {
   }
 
   return <WealthCodeSalesPage wealthCode={resolvedCode} codeStructure={structure} />;
+}
+
+export default function SalesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SalesContent />
+    </Suspense>
+  );
 }
