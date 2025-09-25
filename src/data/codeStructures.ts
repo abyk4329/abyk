@@ -1,4 +1,4 @@
-import type { StructureType } from "@/lib/codeStructure";
+export type StructureType = 'master' | 'repeated' | 'diverse';
 
 export type CodeStructureKey = StructureType;
 
@@ -8,8 +8,6 @@ export const codeApplication = {
 
 מעבר לכך, כדאי לטפח מודעות פעילה לקוד – להקדיש לו רגע של התבוננות פנימית מדי יום, לחזור עליו בלב לפני פגישות חשובות, החלטות משמעותיות או ברגעי אתגר. עם הזמן, הקוד הופך להיות עוגן פנימי שמחזיר אותך למהות שלך ומחבר אותך לפוטנציאל הרחב שקיים בך.`,
 };
-
-export type StructureType = 'master' | 'repeated' | 'diverse';
 
 export const STRUCTURE_INTRO = `
 כל ספרה נושאת תדר אנרגטי ייחודי, והאופן שבו הן משתלבות בקוד האישי יוצר דפוס אנרגטי המשקף את מהותך ואת תחומי הכוח שלך.
