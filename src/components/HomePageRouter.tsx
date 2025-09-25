@@ -42,8 +42,6 @@ export function HomePageRouter() {
     return (
       <WealthCodeCalculator
         onBack={handleBackToHome}
-        onShowThankYou={handleShowThankYou}
-        onShowTermsAndPrivacy={handleShowTermsAndPrivacy}
       />
     );
   }
