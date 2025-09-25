@@ -126,7 +126,7 @@ function InterpretationsContent() {
 
   if (!wealthCode || !codeStructure) {
     // If no valid code, send to Thank You to keep flow consistent
-  router.replace(paths.thankYouNoCode())
+  router.replace(paths.thankYou())
     return null
   }
 
