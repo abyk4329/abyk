@@ -30,6 +30,8 @@ export const metadata = {
   icons: {
     icon: [
       { url: '/icon', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
       { url: '/favicon-40.png', sizes: '40x40', type: 'image/png' },
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
@@ -51,13 +53,15 @@ import QaOverlay from '@/components/QaOverlay'
 import routeMap from '@/routeMap.json'
 import NoIndexWhenQA from '@/components/NoIndexWhenQA'
 
+const isQA = process.env.NEXT_PUBLIC_QA === 'true'
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-  <html lang="he" dir="rtl" suppressHydrationWarning>
+    <html lang="he" dir="rtl" suppressHydrationWarning>
       <body className="bg-root">
         {children}
-  <NoIndexWhenQA />
-        <QaOverlay routeMap={routeMap as any} />
+        {isQA && <NoIndexWhenQA />}
+        {isQA && <QaOverlay routeMap={routeMap as Record<string, string>} />}
       </body>
     </html>
   )
