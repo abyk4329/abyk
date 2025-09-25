@@ -1,5 +1,5 @@
 import { generateEmailHTML, generateEmailSubject, generateEmailText } from "./EmailTemplate";
-import { detectCodeStructure } from "@/lib/detectCodeStructure";
+import { computeCodeStructure } from "@/lib/codeStructure";
 
 type RepeatedDigit = { digit: number; count: number };
 export type CodeStructureSummary = {
@@ -53,7 +53,7 @@ export class EmailService {
       data.codeStructure ??
       (() => {
         const digits = codeStr.split("").map(Number);
-        const key = detectCodeStructure(codeStr);
+        const key = computeCodeStructure(Number(codeStr)).type;
         const counts = digits.reduce<Record<number, number>>((acc, d) => {
           acc[d] = (acc[d] || 0) + 1;
           return acc;

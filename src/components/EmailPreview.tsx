@@ -6,7 +6,7 @@ import { Input } from "./ui/input";
 import { Card } from "./ui/card";
 import { ArrowLeft, Mail, Eye, Code, Download } from "lucide-react";
 import { generateEmailHTML, generateEmailSubject, generateEmailText } from "./EmailTemplate";
-import { detectCodeStructure } from "@/lib/detectCodeStructure";
+import { computeCodeStructure } from "@/lib/codeStructure";
 
 type RepeatedDigit = { digit: number; count: number };
 type CodeStructureSummary = {
@@ -51,7 +51,7 @@ export function EmailPreview({
   const structure = useMemo<CodeStructureSummary>(() => {
     if (codeStructure) return codeStructure;
     const codeStr = String(wealthCode);
-    const key = detectCodeStructure(codeStr);
+    const key = computeCodeStructure(Number(codeStr)).type;
     const digits = codeStr.split("").map(Number);
     const counts = digits.reduce<Record<number, number>>((acc, d) => {
       acc[d] = (acc[d] || 0) + 1;

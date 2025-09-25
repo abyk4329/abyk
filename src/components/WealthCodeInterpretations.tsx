@@ -22,7 +22,7 @@ import {
   type DigitBlock,
 } from "../data/wealthCodeTexts";
 import { codeStructures, codeApplication } from "@/data/codeStructures";
-import { detectCodeStructure } from "@/lib/detectCodeStructure";
+import { computeCodeStructure } from "@/lib/codeStructure";
 import type { CodeStructure } from "@/lib/codeStructure";
 
 interface WealthCodeInterpretationsProps {
@@ -94,7 +94,7 @@ export function WealthCodeInterpretations({
   const primaryDigitTab = fullData?.digit ?? uniqueDigits[0]?.toString() ?? "0";
 
   // Detect the structure key from the 4-digit code (string)
-  const structureKey = detectCodeStructure(String(wealthCode).padStart(4, "0"));
+  const structureKey = computeCodeStructure(Number(wealthCode)).type;
   const structure = codeStructures[structureKey];
 
   const generatePDF = () => {
