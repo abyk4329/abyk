@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { PrivacyPolicy } from '@/components/PrivacyPolicy'
+import { TermsAndPrivacy } from '@/components/TermsAndPrivacy'
 
 export default function PrivacyPage() {
   const router = useRouter()
@@ -11,6 +11,6 @@ export default function PrivacyPage() {
   }
 
   return (
-    <PrivacyPolicy onBack={handleBack} />
+    <TermsAndPrivacy onBack={handleBack} initialTab="privacy" />
   )
 }

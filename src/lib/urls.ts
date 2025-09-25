@@ -1,12 +1,11 @@
 export const paths = {
   home: () => '/',
-  thankYou: (code: string | number) => `/thank-you?code=${code}`,
-  thankYouNoCode: () => '/thank-you',
-  interpretations: (code: string | number) => `/interpretations?code=${code}`,
+  calculator: () => '/calculator',
+  sales: (code?: number) => (code ? `/sales?code=${code}` : '/sales'),
+  thankYou: (code?: number) => (code ? `/thank-you?code=${code}` : '/thank-you'),
+  interpretations: (code: number) => `/interpretations?code=${code}`,
+  termsPrivacy: () => '/terms',
   downloadPdf: (code: string | number) => `/api/download-pdf?code=${code}`,
-  termsPrivacy: () => '/terms-privacy',
-  terms: () => '/terms',
-  privacy: () => '/privacy',
 };
 
 export const getCodeFromUrl = (): string | null => {

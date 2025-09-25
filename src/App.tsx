@@ -1,25 +1,26 @@
+import Image from "next/image";
 import backgroundImage from "@/assets/9a42d447acea050bf24d319ab01daa6b6ac13c0c.png";
 import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./components/ui/button";
-import { Calculator } from "lucide-react";
 import { useState, useEffect } from "react";
 import { WealthCodeCalculator } from "./components/WealthCodeCalculator";
-import { TermsOfService } from "./components/TermsOfService";
-import { PrivacyPolicy } from "./components/PrivacyPolicy";
 import { TermsAndPrivacy } from "./components/TermsAndPrivacy";
 import { ThankYouPage } from "./components/ThankYouPage";
 import { WealthCodeInterpretations } from "./components/WealthCodeInterpretations";
 import { EmailPreview } from "./components/EmailPreview";
-import { PurchaseTest } from "./components/PurchaseTest";
+
+import { computeCodeStructure, type CodeStructure } from "@/lib/codeStructure";
+import type { DigitBlock } from "@/data/wealthCodeTexts";
 
 import { Footer } from "./components/Footer";
 
 export default function App() {
   const [showCalculator, setShowCalculator] = useState(false);
-  const [showTerms, setShowTerms] = useState(false);
-  const [showPrivacy, setShowPrivacy] = useState(false);
   const [showTermsAndPrivacy, setShowTermsAndPrivacy] =
     useState(false);
+  const [termsPrivacyTab, setTermsPrivacyTab] = useState<
+    "terms" | "privacy"
+  >("terms");
   const [showThankYou, setShowThankYou] = useState(false);
   const [showInterpretations, setShowInterpretations] =
     useState(false);
@@ -30,9 +31,18 @@ export default function App() {
     number | null
   >(null);
   const [currentCodeStructure, setCurrentCodeStructure] =
-    useState<any>(null);
+    useState<CodeStructure | null>(null);
   const [currentFullData, setCurrentFullData] =
-    useState<any>(null);
+    useState<DigitBlock | null>(null);
+
+  const computeStructureSafely = (code: number): CodeStructure | null => {
+    try {
+      return computeCodeStructure(code);
+    } catch (error) {
+      console.warn("Failed to compute code structure", error);
+      return null;
+    }
+  };
 
   // Check URL parameters on load
   useEffect(() => {
@@ -50,10 +60,12 @@ export default function App() {
         wealthCode <= 9999
       ) {
         // Generate code structure for the given wealth code
-        const codeStructure = generateCodeStructure(wealthCode);
-        setCurrentWealthCode(wealthCode);
-        setCurrentCodeStructure(codeStructure);
-        setShowThankYou(true);
+        const codeStructure = computeStructureSafely(wealthCode);
+        if (codeStructure) {
+          setCurrentWealthCode(wealthCode);
+          setCurrentCodeStructure(codeStructure);
+          setShowThankYou(true);
+        }
       }
     } else if (page === "interpretations" && code) {
       const wealthCode = parseInt(code);
@@ -62,16 +74,21 @@ export default function App() {
         wealthCode >= 1111 &&
         wealthCode <= 9999
       ) {
-        const codeStructure = generateCodeStructure(wealthCode);
-        setCurrentWealthCode(wealthCode);
-        setCurrentCodeStructure(codeStructure);
-        setShowInterpretations(true);
+        const codeStructure = computeStructureSafely(wealthCode);
+        if (codeStructure) {
+          setCurrentWealthCode(wealthCode);
+          setCurrentCodeStructure(codeStructure);
+          setShowInterpretations(true);
+        }
       }
     } else if (page === "terms") {
-      setShowTerms(true);
+      setTermsPrivacyTab("terms");
+      setShowTermsAndPrivacy(true);
     } else if (page === "privacy") {
-      setShowPrivacy(true);
+      setTermsPrivacyTab("privacy");
+      setShowTermsAndPrivacy(true);
     } else if (page === "terms-privacy") {
+      setTermsPrivacyTab("terms");
       setShowTermsAndPrivacy(true);
     } else if (page === "email-preview") {
       // Allow email preview for any code for testing
@@ -81,64 +98,36 @@ export default function App() {
         wealthCode >= 1111 &&
         wealthCode <= 9999
       ) {
-        const codeStructure = generateCodeStructure(wealthCode);
-        setCurrentWealthCode(wealthCode);
-        setCurrentCodeStructure(codeStructure);
-        setShowEmailPreview(true);
+        const codeStructure = computeStructureSafely(wealthCode);
+        if (codeStructure) {
+          setCurrentWealthCode(wealthCode);
+          setCurrentCodeStructure(codeStructure);
+          setShowEmailPreview(true);
+        }
       }
     }
   }, []);
 
-  // Generate code structure for URL-based access
-  const generateCodeStructure = (code: number) => {
-    const digits = code.toString().split("").map(Number);
-    const digitCounts = digits.reduce(
-      (acc, digit) => {
-        acc[digit] = (acc[digit] || 0) + 1;
-        return acc;
-      },
-      {} as Record<number, number>,
-    );
-
-    const repeatedDigits = Object.entries(digitCounts)
-      .filter(([_, count]) => count > 1)
-      .map(([digit, count]) => ({
-        digit: parseInt(digit),
-        count,
-      }));
-
-    const allSame = new Set(digits).size === 1;
-    const allDifferent = new Set(digits).size === 4;
-    const hasRepeats = repeatedDigits.length > 0;
-
-    return {
-      digits,
-      digitCounts,
-      repeatedDigits,
-      allSame,
-      allDifferent,
-      hasRepeats,
-      // Map to the normalized tri-state structure type
-      type: allSame ? "master" : allDifferent ? "diverse" : "repeated",
-    };
-  };
-
   // Handle showing thank you page after purchase
   const handleShowThankYou = (
     wealthCode: number,
-    codeStructure: any,
-    fullData?: any,
+    codeStructure: CodeStructure,
+    fullData?: DigitBlock,
   ) => {
     setCurrentWealthCode(wealthCode);
     setCurrentCodeStructure(codeStructure);
-    setCurrentFullData(fullData);
+    setCurrentFullData(fullData ?? null);
     setShowCalculator(false); // Important: close calculator first
     setShowThankYou(true);
-  // Update URL for deep linking
-  const params = new URLSearchParams(window.location.search);
-  params.set("page", "thank-you");
-  params.set("code", String(wealthCode));
-  window.history.replaceState({}, document.title, `${window.location.pathname}?${params.toString()}`);
+    // Update URL for deep linking
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", "thank-you");
+    params.set("code", String(wealthCode));
+    window.history.replaceState(
+      {},
+      document.title,
+      `${window.location.pathname}?${params.toString()}`,
+    );
   };
 
   // Handle showing interpretations page
@@ -146,20 +135,23 @@ export default function App() {
     if (currentCodeStructure) {
       setShowInterpretations(true);
       setShowThankYou(false); // Close thank you page when opening interpretations
-  // Update URL for deep linking
-  const params = new URLSearchParams(window.location.search);
-  params.set("page", "interpretations");
-  params.set("code", String(wealthCode));
-  window.history.replaceState({}, document.title, `${window.location.pathname}?${params.toString()}`);
+      // Update URL for deep linking
+      const params = new URLSearchParams(window.location.search);
+      params.set("page", "interpretations");
+      params.set("code", String(wealthCode));
+      window.history.replaceState(
+        {},
+        document.title,
+        `${window.location.pathname}?${params.toString()}`,
+      );
     }
   };
 
   // Reset to home
   const resetToHome = () => {
     setShowCalculator(false);
-    setShowTerms(false);
-    setShowPrivacy(false);
     setShowTermsAndPrivacy(false);
+    setTermsPrivacyTab("terms");
     setShowThankYou(false);
     setShowInterpretations(false);
     setShowEmailPreview(false);
@@ -175,28 +167,37 @@ export default function App() {
     );
   };
 
+  const openTermsPrivacy = (tab: "terms" | "privacy" = "terms") => {
+    setTermsPrivacyTab(tab);
+    setShowTermsAndPrivacy(true);
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", tab === "privacy" ? "privacy" : "terms");
+    window.history.replaceState(
+      {},
+      document.title,
+      `${window.location.pathname}?${params.toString()}`,
+    );
+  };
+
   if (showCalculator) {
     return (
       <WealthCodeCalculator
         onBack={resetToHome}
         onShowThankYou={handleShowThankYou}
-        onShowTerms={() => setShowTerms(true)}
-        onShowPrivacy={() => setShowPrivacy(true)}
-        onShowTermsAndPrivacy={() => setShowTermsAndPrivacy(true)}
+        onShowTerms={() => openTermsPrivacy("terms")}
+        onShowPrivacy={() => openTermsPrivacy("privacy")}
+        onShowTermsAndPrivacy={() => openTermsPrivacy("terms")}
       />
     );
   }
 
-  if (showTerms) {
-    return <TermsOfService onBack={resetToHome} />;
-  }
-
-  if (showPrivacy) {
-    return <PrivacyPolicy onBack={resetToHome} />;
-  }
-
   if (showTermsAndPrivacy) {
-    return <TermsAndPrivacy onBack={resetToHome} />;
+    return (
+      <TermsAndPrivacy
+        onBack={resetToHome}
+        initialTab={termsPrivacyTab}
+      />
+    );
   }
 
   if (showThankYou && currentWealthCode) {
@@ -208,9 +209,9 @@ export default function App() {
         onBack={resetToHome}
         onShowInterpretations={handleShowInterpretations}
         onCalculateNew={() => setShowCalculator(true)}
-  onShowTerms={() => setShowTerms(true)}
-  onShowPrivacy={() => setShowPrivacy(true)}
-  onShowTermsAndPrivacy={() => setShowTermsAndPrivacy(true)}
+        onShowTerms={() => openTermsPrivacy("terms")}
+        onShowPrivacy={() => openTermsPrivacy("privacy")}
+        onShowTermsAndPrivacy={() => openTermsPrivacy("terms")}
       />
     );
   }
@@ -239,6 +240,9 @@ export default function App() {
           resetToHome();
           setShowCalculator(true);
         }}
+        onShowTerms={() => openTermsPrivacy("terms")}
+        onShowPrivacy={() => openTermsPrivacy("privacy")}
+        onShowTermsAndPrivacy={() => openTermsPrivacy("terms")}
       />
     );
   }
@@ -300,10 +304,11 @@ export default function App() {
           <div className="text-center max-w-4xl w-full">
             {/* Logo */}
             <div className="sm:mb-16 mt-[-80px] mr-[0px] mb-[48px] ml-[0px]">
-              <img
-                src={logoImage.src}
+              <Image
+                src={logoImage}
                 alt="AWAKENING"
-                className="mx-auto h-40 sm:h-52 w-auto opacity-95 drop-shadow-2xl"
+                className="mx-auto h-40 w-auto opacity-95 drop-shadow-2xl sm:h-52"
+                priority
               />
             </div>
 
@@ -339,8 +344,10 @@ export default function App() {
                   variant="outline"
                   onClick={() => {
                     const testCode = 7335;
-                    const codeStructure = generateCodeStructure(testCode);
-                    handleShowThankYou(testCode, codeStructure);
+                    const codeStructure = computeStructureSafely(testCode);
+                    if (codeStructure) {
+                      handleShowThankYou(testCode, codeStructure);
+                    }
                   }}
                   className="font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-sm px-4 py-2 font-['Assistant'] tracking-wide bg-[rgba(254,254,254,0.1)] hover:bg-[rgba(254,254,254,0.2)] border-[rgba(149,112,82,0.3)] text-[rgba(149,112,82,1)]"
                 >
@@ -349,11 +356,9 @@ export default function App() {
               </div>
         {/* Footer */}
         <Footer
-          onShowTerms={() => setShowTerms(true)}
-          onShowPrivacy={() => setShowPrivacy(true)}
-          onShowTermsAndPrivacy={() =>
-            setShowTermsAndPrivacy(true)
-          }
+          onShowTerms={() => openTermsPrivacy("terms")}
+          onShowPrivacy={() => openTermsPrivacy("privacy")}
+          onShowTermsAndPrivacy={() => openTermsPrivacy("terms")}
         />
       </div>
     </div>

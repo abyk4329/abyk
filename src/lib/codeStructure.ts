@@ -6,7 +6,7 @@ export type CodeStructure = {
   digits: number[];                     // למשל 4,4,6,1 עבור 4461
   uniqueAsc: number[];                  // ספרות ייחודיות בסדר עולה: למשל [1,4,6]
   digitCounts: Record<number, number>;  // מפה: ספרה -> מספר הופעות
-  repeatedDigits: number[];             // ספרות שחוזרות (ממוינות עולה)
+  repeatedDigits: Array<{ digit: number; count: number }>; // ספרות שחוזרות עם מונה
   allSame: boolean;
   allDifferent: boolean;
   hasRepeats: boolean;
@@ -37,7 +37,9 @@ export function computeCodeStructure(raw: number): CodeStructure {
   }, {});
 
   const uniqueAsc = Array.from(new Set(digits)).sort((a, b) => a - b);
-  const repeatedDigits = uniqueAsc.filter((d) => digitCounts[d] > 1); // כבר ממויין
+  const repeatedDigits = uniqueAsc
+    .filter((digit) => digitCounts[digit] > 1)
+    .map((digit) => ({ digit, count: digitCounts[digit] }));
 
   const allSame = uniqueAsc.length === 1;
   const allDifferent = uniqueAsc.length === digits.length; // כל הספרות שונות

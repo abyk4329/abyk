@@ -1,26 +1,26 @@
+"use client";
+
 import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
+import Image from "next/image";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Footer } from "./Footer";
 import Header from "./Header";
 import { useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import type { CodeStructure } from "@/lib/codeStructure";
+import { paths } from "@/lib/urls";
 
 interface WealthCodeSalesPageProps {
   wealthCode: number;
   codeStructure: CodeStructure;
-  onBack: () => void;
-  onCalculateNew: () => void;
-  onShowThankYou?: (wealthCode: number, codeStructure: CodeStructure) => void;
 }
 
 export function WealthCodeSalesPage({
   wealthCode,
   codeStructure,
-  onBack,
-  onCalculateNew,
-  onShowThankYou,
 }: WealthCodeSalesPageProps) {
+  const router = useRouter();
   const uniqueDigits = useMemo(() => codeStructure.uniqueAsc, [codeStructure.uniqueAsc]);
 
   // Persist the last calculated wealth code for post-payment return flows
@@ -52,13 +52,8 @@ export function WealthCodeSalesPage({
         try { sessionStorage.setItem('lastWealthCode', String(wealthCode)); } catch {}
       }
     } catch {}
-    if (onShowThankYou) {
-      onShowThankYou(wealthCode, codeStructure);
-    } else {
-      // נפילה אחורית: ניווט ישיר לעמוד תודה עם הקוד בURL
-      const thankYouUrl = `/thank-you?code=${wealthCode}`;
-      window.location.href = thankYouUrl;
-    }
+    const target = paths.thankYou(wealthCode);
+    router.push(target);
   };
 
   return (
@@ -116,7 +111,7 @@ export function WealthCodeSalesPage({
                   <div className="mb-[18px] ml-[0px] mr-[0px] mt-[1px] rounded-lg border border-white/20 bg-white/10 px-[24px] py-[68px] pb-[6px] pl-[24px] pr-[24px] pt-[30px] backdrop-blur-sm">
                     <div className="mx-[0px] mb-[1px] ml-[0px] mr-[0px] mt-[-13px] space-y-4 pb-[7px] pl-[0px] pr-[0px] pt-[0px] text-center">
                       <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
-                        בחרתי במונח "קוד העושר" ולא "קוד הכסף"
+                        בחרתי במונח &quot;קוד העושר&quot; ולא &quot;קוד הכסף&quot;
                         מתוך הבנה עמוקה שכסף הוא רק מרכיב אחד
                         במארג השלם של חיים מלאים. עושר אמיתי
                         מורכב מתחושת ערך עצמי איתנה, יציבות
@@ -294,8 +289,8 @@ export function WealthCodeSalesPage({
 
         {/* Logo - Small, above footer */}
         <div className="flex justify-center pb-6">
-          <img
-            src={logoImage.src}
+          <Image
+            src={logoImage}
             alt="AWAKENING"
             className="h-20 w-auto opacity-90 sm:h-24"
           />

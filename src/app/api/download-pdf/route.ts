@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
     })
   } catch (err) {
   // Log the error server-side for debugging
-  // eslint-disable-next-line no-console
+   
   console.error('download-pdf error:', err)
   return NextResponse.json({ ok: false, error: 'failed to generate pdf' }, { status: 500 })
   }

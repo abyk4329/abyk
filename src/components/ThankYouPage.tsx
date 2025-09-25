@@ -1,28 +1,33 @@
+import Image from "next/image";
 import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import {
-  CheckCircle,
-  Eye,
-  Download,
-  MessageCircle,
-  Instagram,
-  ArrowLeft,
-  AlertTriangle,
-  Mail,
-  Share2,
-  Calculator,
-} from "lucide-react";
+import { Eye, Download, MessageCircle, Share2, Calculator } from "lucide-react";
 import { Footer } from "./Footer";
 import Header from "./Header";
 import { SimplePDFGenerator } from "./SimplePDFGenerator";
-import { isFourDigitCode, paths } from "@/lib/urls";
-import { useState, useEffect } from "react";
+import { isFourDigitCode } from "@/lib/urls";
+import { useState } from "react";
+import { wealthCodeTexts, type DigitBlock } from "@/data/wealthCodeTexts";
+import type { CodeStructure } from "@/lib/codeStructure";
+
+const createFallbackDigitBlock = (digit: number): DigitBlock => ({
+  digit: String(digit),
+  title: `ספרה ${digit}`,
+  essence: `מהות הספרה ${digit}`,
+  gifts: [`מתנה 1 של ספרה ${digit}`, `מתנה 2 של ספרה ${digit}`],
+  challenges: [`אתגר 1 של ספרה ${digit}`, `אתגר 2 של ספרה ${digit}`],
+  imbalanceSigns: [`סימן חוסר איזון של ספרה ${digit}`],
+  growthAreas: [`תחום צמיחה של ספרה ${digit}`],
+  careerPaths: [`נתיב קריירה של ספרה ${digit}`],
+  dailyPractice: `תרגול יומי לספרה ${digit}`,
+  bottomLine: `מסקנת ספרה ${digit}`,
+});
 
 interface ThankYouPageProps {
   wealthCode?: number;
-  codeStructure?: any;
-  fullData?: any;
+  codeStructure?: CodeStructure | null;
+  fullData?: DigitBlock | null;
   onBack: () => void;
   onShowInterpretations?: (code: number) => void;
   onCalculateNew: () => void;
@@ -42,7 +47,6 @@ export function ThankYouPage({
   onShowPrivacy,
   onShowTermsAndPrivacy,
 }: ThankYouPageProps) {
-  const showSimulate = process.env.NODE_ENV !== 'production'
   const handleViewInterpretation = () => {
     // ניסיון ראשון: להשתמש בקוד שהועבר לפרופס
     if (onShowInterpretations && isFourDigitCode(wealthCode)) {
@@ -127,26 +131,17 @@ export function ThankYouPage({
     setIsDownloading(true);
     try {
       // Prepare digit data for PDF (simplified version)
-      const uniqueDigits = (Array.from(new Set<number>(codeStructure.digits)) as number[]).sort(
+      const uniqueDigits = [...new Set<number>(codeStructure.digits)].sort(
         (a, b) => a - b,
       );
-      const digitData = uniqueDigits.map((digit) => ({
-        title: `ספרה ${digit}`,
-        essence: `מהות הספרה ${digit}`,
-        gifts: [
-          `מתנה 1 של ספרה ${digit}`,
-          `מתנה 2 של ספרה ${digit}`,
-        ],
-        challenges: [
-          `אתגר 1 של ספרה ${digit}`,
-          `אתגר 2 של ספרה ${digit}`,
-        ],
-        imbalanceSigns: [`סימן חוסר איזון של ספרה ${digit}`],
-        growthAreas: [`תחום צמיחה של ספרה ${digit}`],
-        careerPaths: [`נתיב קריירה של ספרה ${digit}`],
-        dailyPractice: `תרגול יומי לספרה ${digit}`,
-        bottomLine: `מסקנת ספרה ${digit}`,
-      }));
+      const digitData: DigitBlock[] = uniqueDigits.map((digit) => {
+        if (fullData && parseInt(fullData.digit, 10) === digit) {
+          return fullData;
+        }
+
+        const meaning = wealthCodeTexts[digit as keyof typeof wealthCodeTexts];
+        return meaning ?? createFallbackDigitBlock(digit);
+      });
 
       // Use the simple PDF generator
       await SimplePDFGenerator.downloadHTML(
@@ -245,7 +240,7 @@ export function ThankYouPage({
                         <Button
                           size="lg"
                           onClick={handleDownloadPDF}
-                          disabled={isDownloading}
+                          disabled={isDownloading || !codeStructure}
                           className="font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-lg px-8 py-4 font-['Assistant'] tracking-wide bg-[rgba(135,103,79,0.4)] hover:bg-[rgba(135,103,79,0.6)] border-none text-[rgba(254,254,254,1)] w-full sm:w-auto"
                         >
                           {isDownloading ? (
@@ -354,10 +349,11 @@ export function ThankYouPage({
 
         {/* Logo */}
         <div className="flex justify-center pb-6">
-          <img
-            src={logoImage.src}
+          <Image
+            src={logoImage}
             alt="AWAKENING"
             className="h-32 sm:h-40 w-auto opacity-90 drop-shadow-lg"
+            priority
           />
         </div>
 

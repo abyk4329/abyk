@@ -1,49 +1,30 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { ArrowLeft } from "lucide-react";
+
 import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card } from "./ui/card";
-import { } from "lucide-react";
-import { useState } from "react";
 import { Footer } from "./Footer";
 import Header from "./Header";
-import { WealthCodeSalesPage } from "./WealthCodeSalesPage";
-import { wealthCodeTexts } from "../data/wealthCodeTexts";
+import { computeCodeStructure } from "@/lib/codeStructure";
+import { paths } from "@/lib/urls";
 
 interface WealthCodeCalculatorProps {
   onBack: () => void;
-  onShowThankYou?: (
-    wealthCode: number,
-    codeStructure: any,
-  ) => void;
-  onShowTerms?: () => void;
-  onShowPrivacy?: () => void;
-  onShowTermsAndPrivacy?: () => void;
 }
 
 export function WealthCodeCalculator({
   onBack,
-  onShowThankYou,
-  onShowTerms,
-  onShowPrivacy,
-  onShowTermsAndPrivacy,
 }: WealthCodeCalculatorProps) {
+  const router = useRouter();
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
-  const [showSalesPage, setShowSalesPage] = useState(false);
-  const [result, setResult] = useState<{
-    wealthCode: number;
-    fullData: any;
-    codeStructure: {
-      digits: number[];
-      digitCounts: Record<number, number>;
-      repeatedDigits: { digit: number; count: number }[];
-      allSame: boolean;
-      allDifferent: boolean;
-      hasRepeats: boolean;
-  type: "master" | "repeated" | "diverse";
-    };
-  } | null>(null);
 
   const isValidDate = (
     day: string,
@@ -119,105 +100,66 @@ export function WealthCodeCalculator({
     const wealthCodeString = `${firstDigit}${secondDigit}${thirdDigit}${fourthDigit}`;
     const wealthCode = parseInt(wealthCodeString);
 
-    // Analyze code structure
-    const codeStructure = analyzeCodeStructure(wealthCode);
+    try {
+      computeCodeStructure(wealthCode);
+    } catch (error) {
+      console.error("Invalid wealth code computed", error);
+      return;
+    }
 
-    // For now, show data for the first digit (main character)
-    const fullData = wealthCodeTexts[firstDigit];
+    try {
+      localStorage.setItem("lastWealthCode", String(wealthCode));
+    } catch {}
+    try {
+      sessionStorage.setItem("lastWealthCode", String(wealthCode));
+    } catch {}
 
-    setResult({
-      wealthCode,
-      fullData,
-      codeStructure,
-    });
+    setDay("");
+    setMonth("");
+    setYear("");
 
-    // Show sales page after calculation
-    setShowSalesPage(true);
-
-    // Don't automatically show thank you - let the sales page handle it
-    // if (onShowThankYou) {
-    //   onShowThankYou(wealthCode, codeStructure);
-    // }
-  };
-
-  const analyzeCodeStructure = (code: number) => {
-    const digits = code.toString().split("").map(Number);
-    const digitCounts = digits.reduce(
-      (acc, digit) => {
-        acc[digit] = (acc[digit] || 0) + 1;
-        return acc;
-      },
-      {} as Record<number, number>,
-    );
-
-    const repeatedDigits = Object.entries(digitCounts)
-      .filter(([_, count]) => count > 1)
-      .map(([digit, count]) => ({
-        digit: parseInt(digit),
-        count,
-      }));
-
-    const allSame = new Set(digits).size === 1;
-    const allDifferent = new Set(digits).size === 4;
-    const hasRepeats = repeatedDigits.length > 0;
-
-    return {
-      digits,
-      digitCounts,
-      repeatedDigits,
-      allSame,
-      allDifferent,
-      hasRepeats,
-      // Map to the normalized tri-state structure type
-      type: (allSame ? "master" : allDifferent ? "diverse" : "repeated") as "master" | "repeated" | "diverse",
-    };
+    router.push(paths.sales(wealthCode));
   };
 
   return (
-    <>
-      {showSalesPage && result ? (
-        <WealthCodeSalesPage
-          wealthCode={result.wealthCode}
-          codeStructure={result.codeStructure}
-          fullData={result.fullData}
-          onBack={() => setShowSalesPage(false)}
-          onShowThankYou={onShowThankYou}
-          onCalculateNew={() => {
-            setDay("");
-            setMonth("");
-            setYear("");
-            setResult(null);
-            setShowSalesPage(false);
-          }}
-        />
-      ) : (
-        <div className="min-h-screen relative" lang="he">
+    <div className="relative min-h-screen" lang="he">
           {/* Overlays over global body background */}
-          <div className="fixed inset-0 pointer-events-none">
+          <div className="pointer-events-none fixed inset-0">
             <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent via-50% to-rose-100/25 sm:bg-gradient-to-b sm:from-orange-50/20 sm:via-transparent sm:to-rose-50/20"></div>
-            <div className="absolute inset-0 backdrop-saturate-110 backdrop-contrast-102 backdrop-brightness-102"></div>
+            <div className="backdrop-saturate-110 backdrop-contrast-102 backdrop-brightness-102 absolute inset-0"></div>
           </div>
 
           {/* Main Content Container */}
-          <div className="relative z-10 min-h-screen flex flex-col">
+          <div className="relative z-10 flex min-h-screen flex-col">
             {/* Header */}
             <Header />
 
             {/* Main Content */}
-            <main className="flex-1 sm:px-6 sm:py-8 px-[24px] py-[43px]">
-              <div className="max-w-4xl mx-auto space-y-8">
+            <main className="flex-1 px-[24px] py-[43px] sm:px-6 sm:py-8">
+              <div className="mx-auto max-w-4xl space-y-8">
+                <div className="flex justify-start">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={onBack}
+                    className="flex items-center gap-2 border border-[rgba(149,112,82,0.3)] bg-[rgba(254,254,254,0.15)] px-4 py-2 font-['Assistant'] text-[rgba(149,112,82,1)] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-[rgba(254,254,254,0.25)] hover:shadow-xl"
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                    חזרה
+                  </Button>
+                </div>
                 {/* Input Card */}
-                <div className="flex items-center justify-center min-h-[60vh] mt-[-91px] mr-[0px] mb-[0px] ml-[0px]">
-                  <Card className="backdrop-blur-xl border shadow-2xl max-w-2xl w-full bg-[rgba(254,254,254,0.12)] border-[rgba(135,103,79,0.2)] sm:p-12 px-[32px] py-[61px] mt-[-15px] mr-[0px] mb-[-65px] ml-[0px]">
+                <div className="mb-[0px] ml-[0px] mr-[0px] mt-[-91px] flex min-h-[60vh] items-center justify-center">
+                  <Card className="mb-[-65px] ml-[0px] mr-[0px] mt-[-15px] w-full max-w-2xl border border-[rgba(135,103,79,0.2)] bg-[rgba(254,254,254,0.12)] px-[32px] py-[61px] shadow-2xl backdrop-blur-xl sm:p-12">
                     <div
-                      className="text-center space-y-6 font-['Assistant']"
+                      className="space-y-6 text-center font-['Assistant']"
                       dir="rtl"
                     >
-                      <div className="text-center mb-6">
-                        <h1 className="font-normal drop-shadow-lg tracking-wide text-center text-[rgba(254,254,254,1)] font-['Assistant'] text-[32px] pt-[-14px] pr-[0px] pb-[0px] pl-[0px] mt-[-40px] mr-[0px] mb-[0px] ml-[0px]">
+                      <div className="mb-6 text-center">
+                        <h1 className="mb-[0px] ml-[0px] mr-[0px] mt-[-40px] pb-[0px] pl-[0px] pr-[0px] pt-[-14px] text-center font-['Assistant'] text-[32px] font-normal tracking-wide text-[rgba(254,254,254,1)] drop-shadow-lg">
                           מחשבון קוד העושר
                         </h1>
-                        <p className="text-[rgba(149,112,82,1)] font-light mb-6 leading-relaxed drop-shadow-md font-['Assistant'] tracking-wide text-center">
+                        <p className="mb-6 text-center font-['Assistant'] font-light leading-relaxed tracking-wide text-[rgba(149,112,82,1)] drop-shadow-md">
                           הכניסו את תאריך הלידה שלכם לחישוב הקוד
                         </p>
                       </div>
@@ -227,11 +169,11 @@ export function WealthCodeCalculator({
                         <div className="space-y-3">
                           <div className="text-center"></div>
                           <div
-                            className="flex items-center justify-center gap-3 max-w-sm mx-auto bg-[rgba(0,0,0,0)]"
+                            className="mx-auto flex max-w-sm items-center justify-center gap-3 bg-[rgba(0,0,0,0)]"
                             dir="ltr"
                           >
                             <div className="flex flex-col items-center space-y-1">
-                              <label className="text-[rgba(254,254,254,1)] font-['Assistant'] mb-2 block font-bold">
+                              <label className="mb-2 block font-['Assistant'] font-bold text-[rgba(254,254,254,1)]">
                                 יום
                               </label>
                               <Input
@@ -249,14 +191,14 @@ export function WealthCodeCalculator({
                                 }}
                                 placeholder=""
                                 maxLength={2}
-                                className="w-16 h-12 text-center px-2 py-2 font-semibold border backdrop-blur-sm transition-all duration-300 shadow-sm hover:shadow-md font-['Assistant'] tracking-wide text-lg bg-[rgba(254,254,254,0.2)] text-[rgba(149,112,82,1)] border-[rgba(135,103,79,0.3)] placeholder-[rgba(149,112,82,0.6)] text-[16px]"
+                                className="h-12 w-16 border border-[rgba(135,103,79,0.3)] bg-[rgba(254,254,254,0.2)] px-2 py-2 text-center font-['Assistant'] text-[16px] text-lg font-semibold tracking-wide text-[rgba(149,112,82,1)] placeholder-[rgba(149,112,82,0.6)] shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-md"
                               />
                             </div>
-                            <span className="text-[rgba(149,112,82,0.6)] text-xl font-bold mt-[30px] mr-[0px] mb-[0px] ml-[0px]">
+                            <span className="mb-[0px] ml-[0px] mr-[0px] mt-[30px] text-xl font-bold text-[rgba(149,112,82,0.6)]">
                               /
                             </span>
                             <div className="flex flex-col items-center space-y-1">
-                              <label className="text-[rgba(254,254,254,1)] font-['Assistant'] mb-2 block font-bold">
+                              <label className="mb-2 block font-['Assistant'] font-bold text-[rgba(254,254,254,1)]">
                                 חודש
                               </label>
                               <Input
@@ -274,14 +216,14 @@ export function WealthCodeCalculator({
                                 }}
                                 placeholder=""
                                 maxLength={2}
-                                className="w-16 h-12 text-center px-2 py-2 hover:bg-white/30 font-semibold border backdrop-blur-sm transition-all duration-300 shadow-sm hover:shadow-md font-['Assistant'] tracking-wide text-lg bg-[rgba(254,254,254,0.2)] text-[rgba(149,112,82,1)] border-[rgba(135,103,79,0.3)] placeholder-[rgba(149,112,82,0.6)] text-[16px]"
+                                className="h-12 w-16 border border-[rgba(135,103,79,0.3)] bg-[rgba(254,254,254,0.2)] px-2 py-2 text-center font-['Assistant'] text-[16px] text-lg font-semibold tracking-wide text-[rgba(149,112,82,1)] placeholder-[rgba(149,112,82,0.6)] shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-white/30 hover:shadow-md"
                               />
                             </div>
-                            <span className="text-[rgba(149,112,82,0.6)] text-xl font-bold mt-[30px] mr-[0px] mb-[0px] ml-[0px]">
+                            <span className="mb-[0px] ml-[0px] mr-[0px] mt-[30px] text-xl font-bold text-[rgba(149,112,82,0.6)]">
                               /
                             </span>
                             <div className="flex flex-col items-center space-y-1">
-                              <label className="text-[rgba(254,254,254,1)] font-['Assistant'] mb-2 block font-bold">
+                              <label className="mb-2 block font-['Assistant'] font-bold text-[rgba(254,254,254,1)]">
                                 שנה
                               </label>
                               <Input
@@ -299,7 +241,7 @@ export function WealthCodeCalculator({
                                 }}
                                 placeholder=""
                                 maxLength={4}
-                                className="w-20 h-12 text-center px-2 py-2 hover:bg-white/30 font-semibold border backdrop-blur-sm transition-all duration-300 shadow-sm hover:shadow-md font-['Assistant'] tracking-wide text-lg bg-[rgba(254,254,254,0.2)] text-[rgba(149,112,82,1)] border-[rgba(135,103,79,0.3)] placeholder-[rgba(149,112,82,0.6)] text-[16px]"
+                                className="h-12 w-20 border border-[rgba(135,103,79,0.3)] bg-[rgba(254,254,254,0.2)] px-2 py-2 text-center font-['Assistant'] text-[16px] text-lg font-semibold tracking-wide text-[rgba(149,112,82,1)] placeholder-[rgba(149,112,82,0.6)] shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-white/30 hover:shadow-md"
                               />
                             </div>
                           </div>
@@ -308,7 +250,7 @@ export function WealthCodeCalculator({
                           {(day || month || year) && (
                             <div className="text-center">
                               <p
-                                className="font-semibold text-lg tracking-wide font-['Assistant']"
+                                className="font-['Assistant'] text-lg font-semibold tracking-wide"
                                 style={{ color: "#473B31" }}
                               >
                                 {day && month && year
@@ -319,7 +261,7 @@ export function WealthCodeCalculator({
                                 day &&
                                 month &&
                                 year && (
-                                  <p className="text-[rgba(207,122,122,1)] font-semibold text-sm mt-1 font-['Assistant']">
+                                  <p className="mt-1 font-['Assistant'] text-sm font-semibold text-[rgba(207,122,122,1)]">
                                     תאריך לא תקין
                                   </p>
                                 )}
@@ -334,7 +276,7 @@ export function WealthCodeCalculator({
                             disabled={
                               !isValidDate(day, month, year)
                             }
-                            className="w-full font-normal backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-base px-6 py-3 font-['Assistant'] tracking-wide bg-[rgba(149,112,82,0.4)] hover:bg-[rgba(149,112,82,0.6)] border-none text-[rgba(254,254,254,1)] disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full border-none bg-[rgba(149,112,82,0.4)] px-6 py-3 font-['Assistant'] text-base font-normal tracking-wide text-[rgba(254,254,254,1)] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-[rgba(149,112,82,0.6)] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
                           >
                             אני רוצה לגלות את הקוד
                           </Button>
@@ -348,7 +290,7 @@ export function WealthCodeCalculator({
                               }}
                               variant="outline"
                               size="sm"
-                              className="px-4 py-2 hover:bg-white/30 font-semibold border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl font-['Assistant'] tracking-wide bg-[rgba(254,254,254,0.2)] text-[rgba(71,59,49,1)] border-[rgba(135,103,79,0.3)]"
+                              className="border border-[rgba(135,103,79,0.3)] bg-[rgba(254,254,254,0.2)] px-4 py-2 font-['Assistant'] font-semibold tracking-wide text-[rgba(71,59,49,1)] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white/30 hover:shadow-xl"
                             >
                               איפוס
                             </Button>
@@ -362,23 +304,18 @@ export function WealthCodeCalculator({
             </main>
 
             {/* Logo - Small, above footer */}
-            <div className="flex justify-center pr-[0px] pb-[60px] pl-[0px] mx-[0px] mt-[0px] mr-[0px] mb-[8px] ml-[0px] pt-[3px]">
-              <img
-                src={logoImage.src}
+            <div className="mx-[0px] mb-[8px] ml-[0px] mr-[0px] mt-[0px] flex justify-center pb-[60px] pl-[0px] pr-[0px] pt-[3px]">
+              <Image
+                src={logoImage}
                 alt="AWAKENING"
-                className="h-40 sm:h-48 w-auto opacity-90 drop-shadow-lg m-[0px]"
+                className="m-[0px] h-40 w-auto opacity-90 drop-shadow-lg sm:h-48"
+                priority
               />
             </div>
 
             {/* Footer */}
-            <Footer
-              onShowTerms={onShowTerms}
-              onShowPrivacy={onShowPrivacy}
-              onShowTermsAndPrivacy={onShowTermsAndPrivacy}
-            />
+            <Footer />
           </div>
         </div>
-      )}
-    </>
   );
 }

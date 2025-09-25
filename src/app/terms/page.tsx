@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { TermsOfService } from '@/components/TermsOfService'
+import { TermsAndPrivacy } from '@/components/TermsAndPrivacy'
 
 export default function TermsPage() {
   const router = useRouter()
@@ -11,6 +11,6 @@ export default function TermsPage() {
   }
 
   return (
-    <TermsOfService onBack={handleBack} />
+    <TermsAndPrivacy onBack={handleBack} initialTab="terms" />
   )
 }
