@@ -81,12 +81,30 @@ function ThankYouContent() {
       }
     }
 
+    let parsed: number | null = null
     if (raw) {
-      const parsed = parseInt(raw)
-      if (!isNaN(parsed) && parsed >= 1111 && parsed <= 9999) {
-        setWealthCode(parsed)
-        setCodeStructure(generateCodeStructure(parsed))
+      const p = parseInt(raw)
+      if (!isNaN(p) && p >= 1111 && p <= 9999) {
+        parsed = p
       }
+    }
+
+    // Fallback: try localStorage (was saved on sales page before redirect)
+    if (!parsed && typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('lastWealthCode')
+        if (stored) {
+          const p2 = parseInt(stored, 10)
+          if (!isNaN(p2) && p2 >= 1111 && p2 <= 9999) {
+            parsed = p2
+          }
+        }
+      } catch {}
+    }
+
+    if (parsed) {
+      setWealthCode(parsed)
+      setCodeStructure(generateCodeStructure(parsed))
     }
 
     // Always render a thank-you screen even if code is absent/invalid

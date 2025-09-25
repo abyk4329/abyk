@@ -53,3 +53,310 @@ jobs:
 
       - name: Link check (production)
         run: npx linkinator https://abyk.online --recurse --skip 'mailto:|tel:|^/api'
+
+import type { ReactNode } from 'react'
+import { STRUCTURE_INTRO, STRUCTURE_COPY } from "@/data/structureTexts";
+import type { StructureType } from "@/data/structureTexts";
+
+export const metadata = {
+  title: 'AWAKENING BY KSENIA ─ Your Personal Space for Growth',
+  applicationName: 'AWAKENING BY KSENIA',
+  description: 'מרחב אישי שמעניק לך כלים פשוטים לחיים מודעים, מלאי אהבה ובהירות.',
+  metadataBase: new URL('https://abyk.online'),
+  manifest: '/manifest.json?v=2',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'AWAKENING BY KSENIA ─ Your Personal Space for Growth',
+    description: 'מרחב אישי שמעניק לך כלים פשוטים לחיים מודעים, מלאי אהבה ובהירות.',
+    type: 'website',
+    url: 'https://abyk.online',
+    images: [{ url: 'https://abyk.online/share-image.png' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AWAKENING BY KSENIA ─ Your Personal Space for Growth',
+    description: 'מרחב אישי שמעניק לך כלים פשוטים לחיים מודעים, מלאי אהבה ובהירות.',
+    images: ['https://abyk.online/share-image.png'],
+  },
+  appleWebApp: {
+    capable: true,
+    title: 'AWAKENING BY KSENIA ─ Your Personal Space for Growth',
+    statusBarStyle: 'black-translucent',
+  },
+  icons: {
+    icon: [
+      { url: '/icon', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-40.png', sizes: '40x40', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: ['/icon', '/favicon.ico'],
+    apple: [{ url: '/icon-180.png', sizes: '180x180', type: 'image/png' }],
+  },
+}
+
+export const viewport = {
+  themeColor: 'transparent',
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+}
+
+import './globals.css'
+import QaOverlay from '@/components/QaOverlay'
+import routeMap from '@/routeMap.json'
+import NoIndexWhenQA from '@/components/NoIndexWhenQA'
+
+const isQA = process.env.NEXT_PUBLIC_QA === 'true'
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="he" dir="rtl" suppressHydrationWarning>
+      <body className="bg-root">
+        {children}
+        {isQA && <NoIndexWhenQA />}
+        {isQA && <QaOverlay routeMap={routeMap as Record<string, string>} />}
+      </body>
+    </html>
+  )
+}
+
+export type CodeStructure = {
+  digits: number[];
+  digitCounts: Record<number, number>;
+  repeatedDigits: number[];
+  allSame: boolean;
+  allDifferent: boolean;
+  hasRepeats: boolean;
+  type: 'master' | 'repeated' | 'diverse';
+};
+ 
+export function computeCodeStructure(wealthCode: number): CodeStructure {
+  const digits = wealthCode
+    .toString()
+    .padStart(4, '0')
+    .split('')
+    .map((digit) => Number.parseInt(digit, 10));
+ 
+  const digitCounts = digits.reduce<Record<number, number>>((acc, digit) => {
+    acc[digit] = (acc[digit] ?? 0) + 1;
+    return acc;
+  }, {});
+ 
+  const repeatedDigits = Object.entries(digitCounts)
+    .filter(([, count]) => count > 1)
+    .map(([digit]) => Number.parseInt(digit, 10));
+ 
+  const uniqueDigitCount = new Set(digits).size;
+  const allSame = uniqueDigitCount === 1;
+  const hasRepeats = repeatedDigits.length > 0;
+  const allDifferent = uniqueDigitCount === digits.length;
+ 
+  const type: CodeStructure['type'] = allSame ? 'master' : hasRepeats ? 'repeated' : 'diverse';
+ 
+  return {
+    digits,
+    digitCounts,
+    repeatedDigits,
+    allSame,
+    allDifferent,
+    hasRepeats,
+    type,
+  };
+}
+ 
+export type ReportableStructure = Pick<
+  CodeStructure,
+  'digits' | 'allSame' | 'allDifferent' | 'hasRepeats' | 'type'
+>;
+ 
+export function toReportableStructure(structure: CodeStructure): ReportableStructure {
+  const { digits, allSame, allDifferent, hasRepeats, type } = structure;
+  return { digits, allSame, allDifferent, hasRepeats, type };
+}
+
+import type { StructureType } from "@/data/structureTexts";
+ 
+export function detectCodeStructure(code: string): StructureType {
+   const digits = code.split("");
+   const allSame = digits.every((d) => d === digits[0]);
+   if (allSame) return "master";
+ 
+   const counts: Record<string, number> = {};
+   digits.forEach((d) => (counts[d] = (counts[d] ?? 0) + 1));
+   const hasRepeat = Object.values(counts).some((n) => n >= 2);
+   return hasRepeat ? "repeated" : "diverse";
+ }
+
+import { wealthCodeTexts, sectionTitles } from "../data/wealthCodeTexts";
+import { codeApplication } from "@/data/codeStructures";
+import { STRUCTURE_INTRO, STRUCTURE_COPY } from "@/data/structureTexts";
+
+export function getWealthCodeText(key: string) {
+  return wealthCodeTexts[key] ?? '';
+}
+
+export function getSectionTitle(key: string) {
+  return sectionTitles[key] ?? '';
+}
+
+export function getCodeStructure(structureKey: string) {
+  const structure = STRUCTURE_COPY[structureKey];
+
+  if (!structure) {
+    return null;
+  }
+
+  let text = '';
+
+  text += `מבנה הקוד:\n`;
+  text += `${STRUCTURE_INTRO}\n\n`;
+  text += `${structure.title}\n`;
+  text += `${structure.paragraph}\n\n`;
+
+  return {
+    ...structure,
+    text,
+  };
+}
+
+export function getCodeApplication(key: string) {
+  return codeApplication[key] ?? null;
+}
+
+// Simple PDF generator using browser APIs
+export class SimplePDFGenerator {
+  static async generateHTML(
+    wealthCode: number,
+    codeStructure: any,
+    digitData: any[]
+  ): Promise<string> {
+     const uniqueDigits = [...new Set<number>(codeStructure.digits)].sort((a, b) => a - b);
++    const structureType = (
++      codeStructure.type ??
++      (codeStructure.allSame ? "master" : codeStructure.hasRepeats ? "repeated" : "diverse")
++    ) as StructureType;
++    const structureCopy = STRUCTURE_COPY[structureType];
++    const structureSection = `${STRUCTURE_INTRO}\n\n${structureCopy.paragraph}`;
++    this.addSection(structureCopy.title, structureSection);
+ 
+     const html = `
+ <!DOCTYPE html>
+ <html lang="he" dir="rtl">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>דו"ח עושר אישי</title>
+     <style>
+       body {
+         font-family: Arial, sans-serif;
+         margin: 0;
+         padding: 0;
+         background-color: #f4f4f9;
+       }
+ 
+       .container {
+         max-width: 800px;
+         margin: 50px auto;
+         background: #fff;
+         padding: 20px;
+         border-radius: 8px;
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+       }
+ 
+       h1, h2, h3 {
+         color: #333;
+       }
+ 
+       p {
+         line-height: 1.6;
+         color: #666;
+       }
+ 
+       .section {
+         margin-bottom: 20px;
+         padding: 10px;
+         border-left: 4px solid #007bff;
+         background-color: #e9f5ff;
+       }
+ 
+       .highlight {
+         background-color: #007bff;
+         color: #fff;
+         padding: 2px 4px;
+         border-radius: 4px;
+       }
+ 
+       /* Add more styles as needed */
+     </style>
+ </head>
+ <body>
+     <div class="container">
+       <h1>דו"ח עושר אישי</h1>
+       <div class="section">
+-        <h2>מבוא</h2>
+-        <p>דו"ח זה נערך במיוחד עבורך, במטרה לספק תובנות מעמיקות אודות עושרך האישי ואופן ניהולו.</p>
++        <p>${STRUCTURE_INTRO}</p>
++    </div>
++    <div class="section">
++        <h2>${structureCopy.title}</h2>
++        <p>${structureCopy.paragraph}</p>
++    </div>
+ 
+       <div class="section">
+         <h2>קוד עושר</h2>
+         <p>קוד העושר שלך הוא: <span class="highlight">${wealthCode.toString().padStart(4, '0')}</span></p>
+       </div>
+ 
+       <div class="section">
+         <h2>מבנה הקוד</h2>
+         <p>הקוד שלך מורכב מהספרות הבאות: ${uniqueDigits.join(', ')}</p>
+       </div>
+ 
+       <div class="section">
+         <h2>ניתוח הקוד</h2>
+         <p>הניתוח הבא מתבצע על פי הספרות בקוד שלך:</p>
+         <ul>
+           ${codeStructure.digits.map((digit, index) => `
+             <li>ספרה ${index + 1}: ${digit} - ${getDigitMeaning(digit)}</li>
+           `).join('')}
+         </ul>
+       </div>
+ 
+       <div class="section">
+         <h2>תובנות והמלצות</h2>
+         <p>בהתבסס על ניתוח הקוד שלך, הנה כמה תובנות והמלצות:</p>
+         <ul>
+           ${getInsightsAndRecommendations(codeStructure).map(insight => `
+             <li>${insight}</li>
+           `).join('')}
+         </ul>
+       </div>
+ 
+       <div class="section">
+         <h2>סיכום</h2>
+         <p>תודה שהשתמשת בדו"ח העושר האישי. אנו מקווים שהמידע שסופק יעזור לך במסע שלך לעבר עושר ושפע.</p>
+       </div>
+     </div>
+   </body>
+ </html>
+     `;
+ 
+     return html;
+   }
+ 
+   static async generatePDF(wealthCode: number, codeStructure: any, digitData: any[]): Promise<Uint8Array> {
+     const html = await this.generateHTML(wealthCode, codeStructure, digitData);
+     const pdf = await this.htmlToPDF(html);
+     return pdf;
+   }
+ 
+   private static async htmlToPDF(html: string): Promise<Uint8Array> {
+     // Implement PDF generation logic here (e.g., using Puppeteer or another library)
+     return new Uint8Array();
+   }
+ }

@@ -86,13 +86,40 @@ export function ThankYouPage({
       console.error('Error parsing URL parameters:', error);
     }
 
+    // נסיון נוסף: לבדוק localStorage / sessionStorage כגיבוי
+    try {
+      if (typeof window !== 'undefined') {
+        const candidates: Array<string | null> = [];
+        try {
+          candidates.push(localStorage.getItem('lastWealthCode'));
+        } catch {}
+        try {
+          candidates.push(sessionStorage.getItem('lastWealthCode'));
+        } catch {}
+
+        for (const value of candidates) {
+          if (!value) continue;
+          const parsed = parseInt(value, 10);
+          if (!isNaN(parsed) && parsed >= 1111 && parsed <= 9999) {
+            if (onShowInterpretations) {
+              onShowInterpretations(parsed);
+              return;
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Storage fallback failed:', e);
+    }
+
     // אם אין קוד – נבדוק אם יש לפחות קוד חלקי ב-URL או נציג הודעה
     console.log('No valid code found in props or URL parameters');
     alert("לא נמצא קוד עושר תקין. במידה ובוצעה רכישה, אנא וודאו שהקישור מכיל את הקוד או בצעו חישוב חדש.");
     if (onCalculateNew) {
       onCalculateNew();
     }
-  };  const [isDownloading, setIsDownloading] = useState(false);
+  };
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const handleDownloadPDF = async () => {
     if (!wealthCode || !codeStructure) return;

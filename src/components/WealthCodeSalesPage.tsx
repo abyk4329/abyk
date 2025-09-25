@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { Footer } from "./Footer";
 import Header from "./Header";
+import { useEffect } from "react";
 
 interface WealthCodeSalesPageProps {
   wealthCode: number;
@@ -36,13 +37,34 @@ export function WealthCodeSalesPage({
   onCalculateNew,
   onShowThankYou,
 }: WealthCodeSalesPageProps) {
+  // Persist the last calculated wealth code for post-payment return flows
+  useEffect(() => {
+    try {
+      if (wealthCode && Number.isFinite(wealthCode)) {
+        localStorage.setItem('lastWealthCode', String(wealthCode));
+      }
+    } catch {}
+  }, [wealthCode]);
   const handlePurchase = async () => {
-    // עבור לקישור התשלום של Grow ישירות
-  window.open("https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw", "_blank");
+    // שמירת הקוד כגיבוי לפני ניווט החוצה ל-Grow
+    try {
+      if (wealthCode && Number.isFinite(wealthCode)) {
+        try { localStorage.setItem('lastWealthCode', String(wealthCode)); } catch {}
+        try { sessionStorage.setItem('lastWealthCode', String(wealthCode)); } catch {}
+      }
+    } catch {}
+    // מעבר לקישור התשלום של Grow בחלון חדש
+    window.open("https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw", "_blank");
   };
 
   const handleSimulatePayment = () => {
     // מדמה הצלחת תשלום ומנווט לעמוד תודה בתוך האפליקציה
+    try {
+      if (wealthCode && Number.isFinite(wealthCode)) {
+        try { localStorage.setItem('lastWealthCode', String(wealthCode)); } catch {}
+        try { sessionStorage.setItem('lastWealthCode', String(wealthCode)); } catch {}
+      }
+    } catch {}
     if (onShowThankYou) {
       onShowThankYou(wealthCode, codeStructure);
     } else {
@@ -73,12 +95,12 @@ export function WealthCodeSalesPage({
           >
             {/* Main Code Display */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl border border-white/20 p-8 sm:p-12 shadow-2xl shadow-orange-200/40 max-w-2xl mx-auto bg-[rgba(254,254,254,0.12)]">
+              <Card className="border border-white/20 p-8 sm:p-12 max-w-2xl mx-auto bg-[rgba(254,254,254,0.12)]">
                 <div className="space-y-6 bg-[rgba(135,103,79,0)]">
-                  <h1 className="drop-shadow-lg tracking-wide text-center text-[rgba(254,254,254,1)] font-['Assistant'] text-[28px] font-bold">
+                  <h1 className="tracking-wide text-center text-[rgba(254,254,254,1)] font-['Assistant'] text-[28px] font-bold">
                     קוד העושר האישי שלך הוא
                   </h1>
-                  <div className="inline-flex items-center justify-center w-48 h-36 rounded-xl bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-sm border border-white/25 shadow-2xl text-[rgba(255,255,255,0)]">
+                  <div className="inline-flex items-center justify-center w-48 h-36 rounded-xl bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-sm border border-white/25 text-[rgba(255,255,255,0)]">
                     <span
                       className="text-5xl font-bold tracking-wider text-center"
                       style={{ color: "#473B31" }}
@@ -92,10 +114,10 @@ export function WealthCodeSalesPage({
 
             {/* Deep Meaning Card */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
+              <Card className="bg-white/12 border border-white/20 p-6 sm:p-8 bg-[rgba(254,254,254,0.1)]">
                 <div className="text-center space-y-6">
                   <h2
-                    className="font-bold mb-4 drop-shadow-lg tracking-wide font-['Assistant']"
+                    className="font-bold mb-4 tracking-wide font-['Assistant']"
                     style={{
                       color: "#FEFEFE",
                       fontSize: "28px",
@@ -131,10 +153,10 @@ export function WealthCodeSalesPage({
 
             {/* Understanding The Code Card */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
+              <Card className="border border-white/20 p-6 sm:p-8 bg-[rgba(254,254,254,0.1)]">
                 <div className="text-center space-y-6">
                   <h2
-                    className="font-bold mb-4 drop-shadow-lg tracking-wide font-['Assistant']"
+                    className="font-bold mb-4 tracking-wide font-['Assistant']"
                     style={{
                       color: "#FEFEFE",
                       fontSize: "28px",
@@ -172,10 +194,10 @@ export function WealthCodeSalesPage({
 
             {/* What's Included */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
+              <Card className="border border-white/20 p-6 sm:p-8 bg-[rgba(254,254,254,0.1)]">
                 <div className="text-center space-y-6">
                   <h2
-                    className="font-bold mb-4 drop-shadow-lg tracking-wide font-['Assistant']"
+                    className="font-bold mb-4 tracking-wide font-['Assistant']"
                     style={{
                       color: "#FEFEFE",
                       fontSize: "28px",
@@ -227,10 +249,10 @@ export function WealthCodeSalesPage({
 
             {/* Time to Discover Card */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
+              <Card className="bg-white/12 border border-white/20 p-6 sm:p-8 bg-[rgba(254,254,254,0.1)]">
                 <div className="text-center space-y-6">
                   <h2
-                    className="font-bold mb-4 drop-shadow-lg tracking-wide font-['Assistant']"
+                    className="font-bold mb-4 tracking-wide font-['Assistant']"
                     style={{
                       color: "#FEFEFE",
                       fontSize: "28px",
@@ -260,7 +282,7 @@ export function WealthCodeSalesPage({
 
                         <Button
                           size="lg"
-                          className="font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-lg px-8 py-4 font-['Assistant'] tracking-wide bg-[rgba(149,112,82,0.5)] hover:bg-[rgba(149,112,82,0.7)] border-none text-[rgba(254,254,254,1)] w-full sm:w-auto"
+                          className="font-normal border backdrop-blur-sm transition-all duration-300 text-lg px-8 py-4 font-['Assistant'] tracking-wide bg-[rgba(149,112,82,0.5)] hover:bg-[rgba(149,112,82,0.7)] border-none text-[rgba(254,254,254,1)] w-full sm:w-auto"
                           onClick={handlePurchase}
                         >
                           אני רוצה להכיר את עצמי
@@ -273,7 +295,7 @@ export function WealthCodeSalesPage({
                               size="sm"
                               variant="outline"
                               onClick={handleSimulatePayment}
-                              className="mt-2 font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-sm px-4 py-2 font-['Assistant'] tracking-wide bg-[rgba(254,254,254,0.1)] hover:bg-[rgba(254,254,254,0.2)] border-[rgba(149,112,82,0.3)] text-[rgba(149,112,82,1)]"
+                              className="mt-2 font-normal border backdrop-blur-sm transition-all duration-300 text-sm px-4 py-2 font-['Assistant'] tracking-wide bg-[rgba(254,254,254,0.1)] hover:bg-[rgba(254,254,254,0.2)] border-[rgba(149,112,82,0.3)] text-[rgba(149,112,82,1)]"
                               aria-label="סימולציית תשלום"
                             >
                               סימולציית תשלום (בדיקה)
@@ -299,7 +321,7 @@ export function WealthCodeSalesPage({
           <img
             src={logoImage.src}
             alt="AWAKENING"
-            className="h-20 sm:h-24 w-auto opacity-90 drop-shadow-lg"
+            className="h-20 sm:h-24 w-auto opacity-90"
           />
         </div>
 
