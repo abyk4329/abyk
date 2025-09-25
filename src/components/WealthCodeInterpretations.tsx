@@ -208,7 +208,7 @@ export function WealthCodeInterpretations({
   // Add pattern explanation from centralized data
   text += `מבנה הקוד:\n`;
     text += `${structure.title}\n`;
-    text += `${structure.description}\n\n`;
+    text += `${structure.paragraph}\n\n`;
 
     return text;
   };
