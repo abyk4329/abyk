@@ -1,20 +1,10 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Suspense, useEffect, useMemo, useState, useRef } from 'react'
+import { Suspense, useEffect, useState, useRef } from 'react'
 import { WealthCodeInterpretations } from '@/components/WealthCodeInterpretations'
 import { paths, isFourDigitCode } from '@/lib/urls'
-
-interface CodeStructure {
-  digits: number[]
-  digitCounts: Record<number, number>
-  repeatedDigits: { digit: number; count: number }[]
-  allSame: boolean
-  allDifferent: boolean
-  hasRepeats: boolean
-  // Canonical structure types used across the app
-  type: 'master' | 'repeated' | 'diverse'
-}
+import { computeCodeStructure, type CodeStructure } from '@/lib/codeStructure'
 
 function InterpretationsContent() {
   const router = useRouter()
@@ -24,32 +14,7 @@ function InterpretationsContent() {
   const [ready, setReady] = useState(false)
   const autoDownloadedRef = useRef(false)
 
-  const generateCodeStructure = (code: number): CodeStructure => {
-    const digits = code.toString().split('').map(Number)
-    const digitCounts = digits.reduce((acc, digit) => {
-      acc[digit] = (acc[digit] || 0) + 1
-      return acc
-    }, {} as Record<number, number>)
 
-    const repeatedDigits = Object.entries(digitCounts)
-      .filter(([, count]) => count > 1)
-      .map(([digit, count]) => ({ digit: parseInt(digit), count: count as number }))
-
-    const allSame = new Set(digits).size === 1
-    const allDifferent = new Set(digits).size === 4
-    const hasRepeats = repeatedDigits.length > 0
-
-    return {
-      digits,
-      digitCounts,
-      repeatedDigits,
-      allSame,
-      allDifferent,
-      hasRepeats,
-      // Map to the normalized tri-state structure type
-      type: allSame ? 'master' : allDifferent ? 'diverse' : 'repeated',
-    }
-  }
 
   useEffect(() => {
     const possibleKeys = [
@@ -77,7 +42,7 @@ function InterpretationsContent() {
     if (raw && isFourDigitCode(raw)) {
       const parsed = parseInt(raw)
       setWealthCode(parsed)
-      setCodeStructure(generateCodeStructure(parsed))
+      setCodeStructure(computeCodeStructure(parsed))
     }
 
     setReady(true)
