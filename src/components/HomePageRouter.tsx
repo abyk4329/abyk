@@ -18,11 +18,11 @@ export function HomePageRouter() {
   };
 
   const handleShowTerms = () => {
-  router.push(paths.terms());
+  router.push(paths.termsPrivacy());
   };
 
   const handleShowPrivacy = () => {
-  router.push(paths.privacy());
+  router.push(paths.termsPrivacy());
   };
 
   const handleShowTermsAndPrivacy = () => {
