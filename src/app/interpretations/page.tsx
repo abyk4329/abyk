@@ -106,7 +106,7 @@ function InterpretationsContent() {
     if (wealthCode) {
       router.push(paths.thankYou(wealthCode))
     } else {
-      router.push(paths.thankYouNoCode())
+      router.push(paths.thankYou())
     }
   }
 
