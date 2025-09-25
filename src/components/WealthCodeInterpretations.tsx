@@ -292,7 +292,7 @@ export function WealthCodeInterpretations({
                         {structure.title}
                       </h3>
                       <p className="whitespace-pre-line text-center font-['Assistant'] font-light leading-relaxed text-[rgba(71,59,49,1)]">
-                        {structure.description}
+                        {structure.paragraph}
                       </p>
                     </div>
 
