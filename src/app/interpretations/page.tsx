@@ -99,7 +99,7 @@ function InterpretationsContent() {
     <WealthCodeInterpretations
       wealthCode={wealthCode}
       codeStructure={codeStructure}
-      fullData={{}}
+      fullData={null}
       onBack={handleBack}
       onCalculateNew={handleCalculateNew}
     />
