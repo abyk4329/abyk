@@ -4,6 +4,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default tseslint.config(
+  { ignores: ["node_modules", "dist", "eslint.config.js", ".next"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -19,6 +20,5 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
     },
-    ignores: ["node_modules", "dist", "eslint.config.js"],
   }
 );

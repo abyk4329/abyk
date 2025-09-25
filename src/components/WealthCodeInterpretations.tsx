@@ -21,7 +21,7 @@ import {
   sectionTitles,
   type DigitBlock,
 } from "../data/wealthCodeTexts";
-import { codeStructures, codeApplication } from "@/data/codeStructures";
+import { codeApplication, STRUCTURE_COPY } from "@/data/codeStructures";
 import { computeCodeStructure } from "@/lib/codeStructure";
 import type { CodeStructure } from "@/lib/codeStructure";
 
@@ -95,7 +95,7 @@ export function WealthCodeInterpretations({
 
   // Detect the structure key from the 4-digit code (string)
   const structureKey = computeCodeStructure(Number(wealthCode)).type;
-  const structure = codeStructures[structureKey];
+  const structure = STRUCTURE_COPY[structureKey];
 
   const generatePDF = () => {
     try {
