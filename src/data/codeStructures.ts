@@ -1,4 +1,4 @@
-import type { StructureType } from "./structureTexts";
+import type { StructureType } from "@/lib/codeStructure";
 
 export type CodeStructureKey = StructureType;
 
