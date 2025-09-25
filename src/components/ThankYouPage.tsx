@@ -50,22 +50,49 @@ export function ThankYouPage({
       return;
     }
 
-    // נפילה אחורית: ננסה לקרוא מה-URL אם הפרופס לא קיים
+    // נפילה אחורית: ננסה לקרוא מה-URL עם כל האפשרויות
     try {
       const params = new URLSearchParams(window.location.search);
-      const codeParam = params.get("code");
-      const parsed = codeParam ? parseInt(codeParam) : NaN;
-      if (!isNaN(parsed) && isFourDigitCode(parsed) && onShowInterpretations) {
-        onShowInterpretations(parsed);
+      const possibleKeys = [
+        'code',
+        'transaction_id',
+        'transactionId',
+        'order_id',
+        'orderId',
+        'payment_id',
+        'paymentId',
+        'reference',
+        'ref',
+        'id',
+      ];
+
+      let foundCode: number | null = null;
+      for (const key of possibleKeys) {
+        const paramValue = params.get(key);
+        if (paramValue) {
+          const parsed = parseInt(paramValue, 10);
+          if (!isNaN(parsed) && parsed >= 1111 && parsed <= 9999) {
+            foundCode = parsed;
+            break;
+          }
+        }
+      }
+
+      if (foundCode && onShowInterpretations) {
+        onShowInterpretations(foundCode);
         return;
       }
-    } catch {}
+    } catch (error) {
+      console.error('Error parsing URL parameters:', error);
+    }
 
-  // אם אין קוד – נציג הודעה ידידותית
-    alert("חסר קוד לעבור לעמוד הפירושים. נסו לרענן את הדף או חזרו לעמוד הראשי.");
-  };
-
-  const [isDownloading, setIsDownloading] = useState(false);
+    // אם אין קוד – נבדוק אם יש לפחות קוד חלקי ב-URL או נציג הודעה
+    console.log('No valid code found in props or URL parameters');
+    alert("לא נמצא קוד עושר תקין. במידה ובוצעה רכישה, אנא וודאו שהקישור מכיל את הקוד או בצעו חישוב חדש.");
+    if (onCalculateNew) {
+      onCalculateNew();
+    }
+  };  const [isDownloading, setIsDownloading] = useState(false);
 
   const handleDownloadPDF = async () => {
     if (!wealthCode || !codeStructure) return;

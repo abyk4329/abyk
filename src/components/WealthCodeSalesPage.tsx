@@ -46,13 +46,9 @@ export function WealthCodeSalesPage({
     if (onShowThankYou) {
       onShowThankYou(wealthCode, codeStructure);
     } else {
-      // נפילה אחורית: שימוש בפרמטרי URL לצורך כניסה ישירה
-      const params = new URLSearchParams(window.location.search);
-      params.set("page", "thank-you");
-      params.set("code", String(wealthCode));
-      window.history.replaceState({}, document.title, `${window.location.pathname}?${params.toString()}`);
-      // טריגר רענון קל כדי שה-useEffect ב-App יקרא את הפרמטרים
-      window.location.reload();
+      // נפילה אחורית: ניווט ישיר לעמוד תודה עם הקוד בURL
+      const thankYouUrl = `/thank-you?code=${wealthCode}`;
+      window.location.href = thankYouUrl;
     }
   };
 
