@@ -91,7 +91,7 @@ export function WealthCodeSalesPage({
           >
             {/* Main Code Display */}
             <div className="text-center">
-              <Card className="mx-auto max-w-2xl border border-white/20 bg-[rgba(254,254,254,0.12)] p-8 sm:p-12">
+              <Card className="mx-auto max-w-2xl border border-white/20 bg-[rgba(254,254,254,0.12)] backdrop-blur-xl shadow-2xl p-8 sm:p-12">
                 <div className="space-y-6 bg-[rgba(135,103,79,0)]">
                   <h1 className="text-center font-['Assistant'] text-[28px] font-bold tracking-wide text-[rgba(254,254,254,1)]">
                     קוד העושר האישי שלך הוא
@@ -110,7 +110,7 @@ export function WealthCodeSalesPage({
 
             {/* Deep Meaning Card */}
             <div className="text-center">
-              <Card className="bg-white/12 border border-white/20 bg-[rgba(254,254,254,0.1)] p-6 sm:p-8">
+              <Card className="bg-white/12 border border-white/20 bg-[rgba(254,254,254,0.1)] backdrop-blur-xl shadow-2xl p-6 sm:p-8">
                 <div className="space-y-6 text-center">
                   <h2
                     className="mb-4 font-['Assistant'] font-bold tracking-wide"
@@ -122,7 +122,7 @@ export function WealthCodeSalesPage({
                     המשמעות העמוקה של קוד העושר
                   </h2>
 
-                  <div className="mb-[18px] ml-[0px] mr-[0px] mt-[1px] rounded-lg border border-white/20 bg-white/10 px-[24px] py-[68px] pb-[6px] pl-[24px] pr-[24px] pt-[30px] backdrop-blur-sm">
+                  <div className="mb-[18px] ml-[0px] mr-[0px] mt-[1px] rounded-lg border border-white/20 bg-white/10 px-[24px] py-[68px] pb-[6px] pl-[24px] pr-[24px] pt-[30px] backdrop-blur-lg shadow-xl">
                     <div className="mx-[0px] mb-[1px] ml-[0px] mr-[0px] mt-[-13px] space-y-4 pb-[7px] pl-[0px] pr-[0px] pt-[0px] text-center">
                       <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
                         בחרתי במונח &quot;קוד העושר&quot; ולא &quot;קוד הכסף&quot;
@@ -149,7 +149,7 @@ export function WealthCodeSalesPage({
 
             {/* Understanding The Code Card */}
             <div className="text-center">
-              <Card className="border border-white/20 bg-[rgba(254,254,254,0.1)] p-6 sm:p-8">
+              <Card className="border border-white/20 bg-[rgba(254,254,254,0.1)] backdrop-blur-xl shadow-2xl p-6 sm:p-8">
                 <div className="space-y-6 text-center">
                   <h2
                     className="mb-4 font-['Assistant'] font-bold tracking-wide"
@@ -161,7 +161,7 @@ export function WealthCodeSalesPage({
                     להבין את הקוד – להבין את עצמך
                   </h2>
 
-                  <div className="mb-[18px] ml-[0px] mr-[0px] mt-[1px] rounded-lg border border-white/20 bg-white/10 px-[24px] py-[68px] pb-[6px] pl-[24px] pr-[24px] pt-[30px] backdrop-blur-sm">
+                  <div className="mb-[18px] ml-[0px] mr-[0px] mt-[1px] rounded-lg border border-white/20 bg-white/10 px-[24px] py-[68px] pb-[6px] pl-[24px] pr-[24px] pt-[30px] backdrop-blur-lg shadow-xl">
                     <div className="mx-[0px] mb-[1px] ml-[0px] mr-[0px] mt-[-13px] space-y-4 pb-[7px] pl-[0px] pr-[0px] pt-[0px] text-center">
                       <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
                         המספרים בקוד אינם צירוף מקרי. הם משקפים
@@ -190,7 +190,7 @@ export function WealthCodeSalesPage({
 
             {/* What's Included */}
             <div className="text-center">
-              <Card className="border border-white/20 bg-[rgba(254,254,254,0.1)] p-6 sm:p-8">
+              <Card className="border border-white/20 bg-[rgba(254,254,254,0.1)] backdrop-blur-xl shadow-2xl p-6 sm:p-8">
                 <div className="space-y-6 text-center">
                   <h2
                     className="mb-4 font-['Assistant'] font-bold tracking-wide"
@@ -202,7 +202,7 @@ export function WealthCodeSalesPage({
                     הפירוש המלא – כל מה שמחכה לכם בפנים
                   </h2>
 
-                  <div className="mb-[18px] ml-[0px] mr-[0px] mt-[1px] rounded-lg border border-white/20 bg-white/10 px-[24px] py-[68px] pb-[6px] pl-[24px] pr-[24px] pt-[30px] backdrop-blur-sm">
+                  <div className="mb-[18px] ml-[0px] mr-[0px] mt-[1px] rounded-lg border border-white/20 bg-white/10 px-[24px] py-[68px] pb-[6px] pl-[24px] pr-[24px] pt-[30px] backdrop-blur-lg shadow-xl">
                     <div className="mx-[0px] mb-[1px] ml-[0px] mr-[0px] mt-[-13px] space-y-4 pb-[7px] pl-[0px] pr-[0px] pt-[0px] text-center">
                       <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
                         ניתוח מעמיק של הספרות{" "}
@@ -226,7 +226,7 @@ export function WealthCodeSalesPage({
 
             {/* Time to Discover Card */}
             <div className="text-center">
-              <Card className="bg-white/12 border border-white/20 bg-[rgba(254,254,254,0.1)] p-6 sm:p-8">
+              <Card className="bg-white/12 border border-white/20 bg-[rgba(254,254,254,0.1)] backdrop-blur-xl shadow-2xl p-6 sm:p-8">
                 <div className="space-y-6 text-center">
                   <h2
                     className="mb-4 font-['Assistant'] font-bold tracking-wide"
@@ -239,7 +239,7 @@ export function WealthCodeSalesPage({
                     האישי שלך
                   </h2>
 
-                  <div className="rounded-lg border border-white/20 bg-white/10 p-6 backdrop-blur-sm sm:p-8">
+                  <div className="rounded-lg border border-white/20 bg-white/10 p-6 backdrop-blur-lg shadow-xl sm:p-8">
                     <div className="space-y-6 text-center">
                       <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
                         הפירוש המלא של הקוד מעניק מפתח להבנת
