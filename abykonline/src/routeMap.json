@@ -1,0 +1,20 @@
+{
+  "/api/email/render": "src/app/api/email/render/route.ts",
+  "/api/grow/webhook": "src/app/api/grow/webhook/route.ts",
+  "/api/send-email": "src/app/api/send-email/route.ts",
+  "/api/test-send": "src/app/api/test-send/route.ts",
+  "/calculator": "src/app/calculator/page.tsx",
+  "/email-preview": "src/app/email-preview/page.tsx",
+  "/api/favicon.ico": "src/app/favicon.ico/route.tsx",
+  "/api/icon-192": "src/app/icon-192/route.tsx",
+  "/api/icon-512": "src/app/icon-512/route.tsx",
+  "/interpretations": "src/app/interpretations/page.tsx",
+  "/api/maskable-192": "src/app/maskable-192/route.tsx",
+  "/api/maskable-512": "src/app/maskable-512/route.tsx",
+  "/": "src/app/page.tsx",
+  "/privacy": "src/app/privacy/page.tsx",
+  "/sales": "src/app/sales/page.tsx",
+  "/terms": "src/app/terms/page.tsx",
+  "/terms-privacy": "src/app/terms-privacy/page.tsx",
+  "/thank-you": "src/app/thank-you/page.tsx"
+}

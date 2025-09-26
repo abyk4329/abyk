@@ -1,0 +1,28 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install Next.js dependencies",
+			"type": "shell",
+			"command": "pnpm install",
+			"args": [],
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "type-check",
+			"type": "shell",
+			"command": "pnpm",
+			"args": [
+				"run",
+				"type-check"
+			],
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
+		}
+	]
+}

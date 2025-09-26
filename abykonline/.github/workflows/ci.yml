@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prebuild (route map)
+        run: pnpm run prebuild
+
+      - name: Build (enable simulate for CI)
+        run: NEXT_PUBLIC_SHOW_SIMULATE=1 pnpm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Start app
+        run: pnpm start &
+
+      - name: Wait for app
+        run: npx wait-on http://localhost:3000
+
+      - name: Run E2E tests
+        run: pnpm run test:e2e
+
+      - name: Link check (production)
+        run: npx linkinator https://abyk.online --recurse --skip 'mailto:|tel:|^/api'

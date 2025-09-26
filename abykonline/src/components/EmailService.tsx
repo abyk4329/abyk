@@ -1,21 +1,25 @@
-import { generateEmailHTML, generateEmailSubject, generateEmailText } from './EmailTemplate';
+import { generateEmailHTML, generateEmailSubject, generateEmailText } from "./EmailTemplate";
+import { computeCodeStructure } from "@/lib/codeStructure";
 
-interface EmailData {
+type RepeatedDigit = { digit: number; count: number };
+export type CodeStructureSummary = {
+  digits: number[];
+  allSame: boolean;
+  hasRepeats: boolean;
+  allDifferent: boolean;
+  repeatedDigits: RepeatedDigit[];
+  type?: "master" | "repeated" | "diverse";
+};
+
+export interface EmailData {
   wealthCode: number;
-  customerName?: string;
   customerEmail: string;
-  codeStructure: {
-    digits: number[];
-    allSame: boolean;
-    hasRepeats: boolean;
-    allDifferent: boolean;
-    repeatedDigits: { digit: number; count: number }[];
-  };
+  customerName?: string; // אופציונלי למטא-דאטה בלבד, לא לתבנית
+  codeStructure?: CodeStructureSummary;
 }
 
 interface EmailServiceConfig {
-  // Your email service configuration
-  serviceUrl: string; // e.g., EmailJS, SendGrid, etc.
+  serviceUrl: string; // API endpoint (e.g., '/api/send-email')
   apiKey?: string;
   templateId?: string;
 }
@@ -27,145 +31,163 @@ export class EmailService {
     this.config = config;
   }
 
-  // Generate email data for sending
-  generateEmailData(data: EmailData) {
-    // Create URLs for viewing and downloading
-    const baseUrl = window.location.origin;
-    const viewUrl = `${baseUrl}?page=thank-you&code=${data.wealthCode}`;
-    const downloadUrl = `${baseUrl}/api/download-pdf?code=${data.wealthCode}`;
+  private getBaseUrl(): string {
+    if (typeof window !== "undefined" && window.location?.origin) {
+      return window.location.origin;
+    }
+    return process.env.NEXT_PUBLIC_BASE_URL || "https://abyk.online";
+  }
 
-    const emailData = {
+  // Generate email payload for sending
+  generateEmailData(data: EmailData) {
+    const baseUrl = this.getBaseUrl();
+    const codeStr = String(data.wealthCode);
+    const codeEnc = encodeURIComponent(codeStr);
+
+    // Canonical links
+    const viewUrl = `${baseUrl}/interpretations?code=${codeEnc}&utm_source=email&utm_campaign=delivery`;
+
+    // Use provided structure or detect
+    const codeStructure: CodeStructureSummary =
+      data.codeStructure ??
+      (() => {
+        const digits = codeStr.split("").map(Number);
+        const key = computeCodeStructure(Number(codeStr)).type;
+        const counts = digits.reduce<Record<number, number>>((acc, d) => {
+          acc[d] = (acc[d] || 0) + 1;
+          return acc;
+        }, {});
+        const repeatedDigits = Object.entries(counts)
+          .filter(([, c]) => (c as number) > 1)
+          .map(([digit, count]) => ({ digit: parseInt(digit, 10), count: count as number }));
+        const setSize = new Set(digits).size;
+        return {
+          digits,
+          repeatedDigits,
+          allSame: setSize === 1,
+          allDifferent: setSize === 4,
+          hasRepeats: repeatedDigits.length > 0,
+          type: key,
+        };
+      })();
+
+    // חשוב: לא מעבירים customerName לתבנית המייל (היא ניטרלית)
+    const templateData = {
       wealthCode: data.wealthCode,
-      customerName: data.customerName,
-      customerEmail: data.customerEmail,
       viewUrl,
-      downloadUrl,
-      codeStructure: data.codeStructure
-    };
+      // do not pass codeStructure; template resolves it internally
+    } as const;
+
+    const subject = generateEmailSubject(codeStr);
+    const html = generateEmailHTML(templateData);
+    const text = generateEmailText(templateData);
 
     return {
       to: data.customerEmail,
-      subject: generateEmailSubject(data.wealthCode),
-      html: generateEmailHTML(emailData),
-      text: generateEmailText(emailData)
+      subject,
+      html,
+      text,
+      // שימושים חיצוניים (EmailJS / לוגים / מטא)
+      viewUrl,
+      wealthCode: data.wealthCode,
+      customerName: data.customerName, // לשימוש במטא בלבד, לא בטמפלייט
     };
   }
 
-  // Send email using EmailJS (browser-based solution)
-  async sendEmailWithEmailJS(data: EmailData, emailJSConfig: {
-    serviceId: string;
-    templateId: string;
-    publicKey: string;
-  }) {
+  // Send email using EmailJS (browser)
+  async sendEmailWithEmailJS(
+    data: EmailData,
+    emailJSConfig: { serviceId: string; templateId: string; publicKey: string }
+  ) {
     try {
-      // Load EmailJS dynamically
-      const emailjs = await import('emailjs-com');
-      
-      const emailData = this.generateEmailData(data);
-      
+      const emailjs = await import("@emailjs/browser");
+      const payload = this.generateEmailData(data);
+
       const templateParams = {
-        to_email: emailData.to,
-        subject: emailData.subject,
-        html_content: emailData.html,
-        text_content: emailData.text,
-        wealth_code: data.wealthCode,
-        customer_name: data.customerName || 'לקוח יקר',
-        view_url: emailData.html.match(/href="([^"]*view[^"]*)"/)?.[1] || '',
-        download_url: emailData.html.match(/href="([^"]*download[^"]*)"/)?.[1] || ''
+        to_email: payload.to,
+        subject: payload.subject,
+        html_content: payload.html,
+        text_content: payload.text,
+        wealth_code: String(payload.wealthCode),
+        // ניטרלי: לא משתמשים בשם בתוך התבנית; שומר למייל/CRM אם חייבים
+        customer_name: data.customerName || "",
+        view_url: payload.viewUrl,
+        download_url: payload.downloadUrl,
       };
 
-      const result = await emailjs.default.send(
+      const result = await emailjs.send(
         emailJSConfig.serviceId,
         emailJSConfig.templateId,
         templateParams,
         emailJSConfig.publicKey
       );
 
-      return {
-        success: true,
-        messageId: result.text,
-        message: 'המייל נשלח בהצלחה!'
-      };
+      return { success: true, messageId: result.text, message: "המייל נשלח בהצלחה!" };
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error("Error sending email:", error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'שגיאה בשליחת המייל',
-        message: 'שגיאה בשליחת המייל. נסה שוב מאוחר יותר.'
+        error: error instanceof Error ? error.message : "שגיאה בשליחת המייל",
+        message: "שגיאה בשליחת המייל. נסה שוב מאוחר יותר.",
       };
     }
   }
 
   // Mock email send for development/demo
   async mockSendEmail(data: EmailData) {
-    const emailData = this.generateEmailData(data);
-    
+    const payload = this.generateEmailData(data);
+
     // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    console.log('📧 Mock email sent:', {
-      to: emailData.to,
-      subject: emailData.subject,
-      wealthCode: data.wealthCode
-    });
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
-    // Store in localStorage for demo purposes
-    const emailLog = JSON.parse(localStorage.getItem('emailLog') || '[]');
-    emailLog.push({
-      timestamp: new Date().toISOString(),
-      to: emailData.to,
-      subject: emailData.subject,
-      wealthCode: data.wealthCode,
-      html: emailData.html.substring(0, 200) + '...'
-    });
-    localStorage.setItem('emailLog', JSON.stringify(emailLog));
+    // Mock email sent in development mode
+    if (typeof window !== "undefined") {
+      const emailLog = JSON.parse(localStorage.getItem("emailLog") || "[]");
+      emailLog.push({
+        timestamp: new Date().toISOString(),
+        to: payload.to,
+        subject: payload.subject,
+        wealthCode: payload.wealthCode,
+        html: payload.html.substring(0, 200) + "...",
+      });
+      localStorage.setItem("emailLog", JSON.stringify(emailLog));
+    }
 
-    return {
-      success: true,
-      messageId: `mock_${Date.now()}`,
-      message: 'המייל נשלח בהצלחה! (מצב דמו)'
-    };
+    return { success: true, messageId: `mock_${Date.now()}`, message: "המייל נשלח בהצלחה! (מצב דמו)" };
   }
 
   // Send using backend API (recommended for production)
   async sendEmailViaAPI(data: EmailData, apiEndpoint: string) {
     try {
-      const emailData = this.generateEmailData(data);
-      
-      const response = await fetch(apiEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const payload = this.generateEmailData(data);
+
+      const response = await fetch(apiEndpoint || this.config.serviceUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          to: emailData.to,
-          subject: emailData.subject,
-          html: emailData.html,
-          text: emailData.text,
+          to: payload.to,
+          subject: payload.subject,
+          html: payload.html,
+          text: payload.text,
           metadata: {
-            wealthCode: data.wealthCode,
-            customerName: data.customerName
-          }
-        })
+            wealthCode: payload.wealthCode,
+            customerName: data.customerName || "", // מטא בלבד
+            viewUrl: payload.viewUrl,
+            downloadUrl: payload.downloadUrl,
+          },
+        }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-      const result = await response.json();
-      
-      return {
-        success: true,
-        messageId: result.messageId,
-        message: 'המייל נשלח בהצלחה!'
-      };
+      const result = await response.json().catch(() => ({}));
+      return { success: true, messageId: result.messageId, message: "המייל נשלח בהצלחה!" };
     } catch (error) {
-      console.error('Error sending email via API:', error);
+      console.error("Error sending email via API:", error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'שגיאה בשליחת המייל',
-        message: 'שגיאה בשליחת המייל. נסה שוב מאוחר יותר.'
+        error: error instanceof Error ? error.message : "שגיאה בשליחת המייל",
+        message: "שגיאה בשליחת המייל. נסה שוב מאוחר יותר.",
       };
     }
   }
@@ -173,38 +195,32 @@ export class EmailService {
 
 // Default instance for easy use
 export const emailService = new EmailService({
-  serviceUrl: '/api/send-email' // Default API endpoint
+  serviceUrl: "/api/send-email",
 });
 
-// Email sending function for the app
-export async function sendWealthCodeEmail(data: EmailData): Promise<{
-  success: boolean;
-  message: string;
-  error?: string;
-}> {
-  // In development mode, use mock email
-  if (process.env.NODE_ENV === 'development') {
+// App helper
+export async function sendWealthCodeEmail(
+  data: EmailData
+): Promise<{ success: boolean; message: string; error?: string }> {
+  if (process.env.NODE_ENV === "development") {
     return emailService.mockSendEmail(data);
   }
 
-  // Try to send via API first
   try {
-    return await emailService.sendEmailViaAPI(data, '/api/send-email');
+    return await emailService.sendEmailViaAPI(data, "/api/send-email");
   } catch (apiError) {
-    console.warn('API email failed, trying EmailJS fallback');
-    
-    // Fallback to EmailJS if available
+    console.warn("API email failed, trying EmailJS fallback");
+
     const emailJSConfig = {
-      serviceId: process.env.REACT_APP_EMAILJS_SERVICE_ID || '',
-      templateId: process.env.REACT_APP_EMAILJS_TEMPLATE_ID || '',
-      publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY || ''
+      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
+      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
+      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "",
     };
 
     if (emailJSConfig.serviceId && emailJSConfig.templateId && emailJSConfig.publicKey) {
       return await emailService.sendEmailWithEmailJS(data, emailJSConfig);
     }
 
-    // Ultimate fallback to mock
     return emailService.mockSendEmail(data);
   }
 }

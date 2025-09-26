@@ -1,7 +1,7 @@
-import backgroundImage from "figma:asset/bea9d96a238e2baf538ec6f451608eacb2724c58.png";
-import logoImage from "figma:asset/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
+import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
 import { Footer } from "./Footer";
+import Header from "./Header";
 
 interface HomePageProps {
   onShowCalculator: () => void;
@@ -18,51 +18,23 @@ export function HomePage({
 }: HomePageProps) {
   return (
     <div className="min-h-screen relative" lang="he">
-      {/* Background Image with Overlay - Enhanced for better quality and mobile optimization */}
-      <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          imageRendering: "high-quality",
-          backfaceVisibility: "hidden",
-          transform: "translateZ(0)",
-          willChange: "transform",
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-          backgroundAttachment: "fixed",
-        }}
-      >
-        {/* Enhanced overlay with soft tones for new fabric background */}
+      {/* Overlays over global body background */}
+      <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent via-50% to-rose-100/25 sm:bg-gradient-to-b sm:from-orange-50/20 sm:via-transparent sm:to-rose-50/20"></div>
-        {/* Additional quality enhancement overlay */}
         <div className="absolute inset-0 backdrop-saturate-110 backdrop-contrast-102 backdrop-brightness-102"></div>
       </div>
 
       {/* Main Content Container */}
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Header */}
-        <header className="backdrop-blur-lg border-b shadow-xl sm:backdrop-blur-md sm:border-white/25 bg-[rgba(254,254,254,0.12)] border-[rgba(135,103,79,0.3)]">
-          <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-6">
-            <div className="flex items-center justify-center">
-              {/* Tagline - Always centered */}
-              <span
-                className="font-normal text-xs sm:text-sm md:text-lg tracking-[0.25em] drop-shadow-lg font-['Assistant'] text-center"
-                style={{ color: "#473B31" }}
-                dir="ltr"
-              >
-                YOUR PERSONAL SPACE FOR GROWTH
-              </span>
-            </div>
-          </div>
-        </header>
-
+  <Header />
         {/* Main Content - Logo and Calculator Button */}
         <main className="flex-1 flex items-center justify-center px-4 py-12 sm:px-6 sm:py-20">
           <div className="text-center max-w-4xl w-full">
             {/* Logo */}
             <div className="sm:mb-16 mt-[-80px] mr-[0px] mb-[48px] ml-[0px]">
               <img
-                src={logoImage}
+                src={logoImage.src}
                 alt="AWAKENING"
                 className="mx-auto h-40 sm:h-52 w-auto opacity-95 drop-shadow-2xl"
               />

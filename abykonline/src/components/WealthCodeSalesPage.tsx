@@ -1,159 +1,104 @@
-import backgroundImage from "figma:asset/9a42d447acea050bf24d319ab01daa6b6ac13c0c.png";
-import logoImage from "figma:asset/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
+"use client";
+
+import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
+import Image from "next/image";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import {
-  ArrowLeft,
-  Star,
-  CheckCircle,
-  Clock,
-} from "lucide-react";
 import { Footer } from "./Footer";
-import { sendWealthCodeEmail } from "./EmailService";
-import { useState } from "react";
+import Header from "./Header";
+import { useEffect, useMemo, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import type { CodeStructure } from "@/lib/codeStructure";
+import { paths } from "@/lib/urls";
 
 interface WealthCodeSalesPageProps {
   wealthCode: number;
-  codeStructure: {
-    digits: number[];
-    digitCounts: Record<number, number>;
-    repeatedDigits: { digit: number; count: number }[];
-    allSame: boolean;
-    allDifferent: boolean;
-    hasRepeats: boolean;
-    type: "master" | "diverse" | "focused" | "balanced";
-  };
-  fullData?: any; // Add fullData
-  onBack: () => void;
-  onCalculateNew: () => void;
-  onShowThankYou?: (
-    wealthCode: number,
-    codeStructure: any,
-    fullData?: any,
-  ) => void;
+  codeStructure: CodeStructure;
 }
 
 export function WealthCodeSalesPage({
   wealthCode,
   codeStructure,
-  fullData,
-  onBack,
-  onCalculateNew,
-  onShowThankYou,
 }: WealthCodeSalesPageProps) {
-  const [emailSent, setEmailSent] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [customerEmail, setCustomerEmail] = useState("");
-  const [customerName, setCustomerName] = useState("");
-  const [showEmailForm, setShowEmailForm] = useState(false);
+  const router = useRouter();
+  const uniqueDigits = useMemo(() => codeStructure.uniqueAsc, [codeStructure.uniqueAsc]);
 
+  // Shared function to save wealth code to storage
+  const saveWealthCode = useCallback(() => {
+    if (!wealthCode || !Number.isFinite(wealthCode)) return;
+    
+    try { 
+      localStorage.setItem('lastWealthCode', String(wealthCode)); 
+    } catch {
+      // Ignore localStorage errors (e.g., in private mode)
+    }
+    
+    try { 
+      sessionStorage.setItem('lastWealthCode', String(wealthCode)); 
+    } catch {
+      // Ignore sessionStorage errors
+    }
+  }, [wealthCode]);
+
+  // Persist the last calculated wealth code for post-payment return flows
+  useEffect(() => {
+    saveWealthCode();
+  }, [saveWealthCode]);
+  
   const handlePurchase = async () => {
-    if (!customerEmail) {
-      setShowEmailForm(true);
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      // Send email with the wealth code interpretation
-      const result = await sendWealthCodeEmail({
-        wealthCode,
-        customerName: customerName || undefined,
-        customerEmail,
-        codeStructure,
-      });
-
-      if (result.success) {
-        setEmailSent(true);
-        onShowThankYou(); // Navigate to thank you page
-      } else {
-        alert(`שגיאה: ${result.message}`);
-      }
-    } catch (error) {
-      console.error("Error during purchase:", error);
-      alert("שגיאה בעיבוד ההזמנה. נסה שוב מאוחר יותר.");
-    } finally {
-      setIsLoading(false);
-    }
+    // שמירת הקוד כגיבוי לפני ניווט החוצה ל-Grow
+    saveWealthCode();
+    const url = process.env.NEXT_PUBLIC_GROW_PAY_URL ?? "https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw";
+    const w = window.open(url, "_blank", "noopener,noreferrer");
+    if (w) w.opener = null;
   };
 
-  const handleEmailFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (customerEmail) {
-      setShowEmailForm(false);
-      handlePurchase();
-    }
+  const handleSimulatePayment = () => {
+    // מדמה הצלחת תשלום ומנווט לעמוד תודה בתוך האפליקציה
+    saveWealthCode();
+    const target = paths.thankYou(wealthCode);
+    router.push(target);
   };
+
+  // Format the unique digits display text
+  const formattedUniqueDigits = useMemo(() => {
+    if (uniqueDigits.length === 0) return "";
+    if (uniqueDigits.length === 1) return uniqueDigits[0];
+    if (uniqueDigits.length === 2) return `${uniqueDigits[0]} ו-${uniqueDigits[1]}`;
+    
+    // For 3 or more digits
+    return `${uniqueDigits.slice(0, -1).join(", ")} ו-${uniqueDigits.at(-1)}`;
+  }, [uniqueDigits]);
 
   return (
-    <div className="min-h-screen relative" lang="he">
-      {/* Background Image with Overlay */}
-      <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          imageRendering: "high-quality",
-          backfaceVisibility: "hidden",
-          transform: "translateZ(0)",
-          willChange: "transform",
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-          backgroundAttachment: "fixed",
-        }}
-      >
+    <div className="relative min-h-screen" lang="he" dir="rtl">
+      {/* Overlays over global body background */}
+      <div className="pointer-events-none fixed inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent via-50% to-rose-100/25 sm:bg-gradient-to-b sm:from-orange-50/20 sm:via-transparent sm:to-rose-50/20"></div>
-        <div className="absolute inset-0 backdrop-saturate-110 backdrop-contrast-102 backdrop-brightness-102"></div>
+        <div className="backdrop-saturate-110 backdrop-contrast-102 backdrop-brightness-102 absolute inset-0"></div>
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 min-h-screen flex flex-col">
+      <div className="relative z-10 flex min-h-screen flex-col">
         {/* Header */}
-        <header className="backdrop-blur-lg bg-white/15 border-b border-white/30 shadow-xl sm:backdrop-blur-md sm:bg-white/12 sm:border-white/25 bg-[rgba(244,241,234,0.12)]">
-          <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-6">
-            <div className="flex items-center justify-between bg-[rgba(254,254,254,0)]">
-              {/* Spacer for balance */}
-              <div className="w-16">
-                <Button
-                  variant="ghost"
-                  onClick={onBack}
-                  className="text-[rgba(254,254,254,1)] font-normal hover:text-white/90 hover:bg-white/15 border-0 font-['Assistant'] tracking-wide p-2"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </Button>
-              </div>
-              
-              {/* Centered tagline */}
-              <span
-                className="font-normal text-xs sm:text-sm md:text-lg tracking-[0.25em] drop-shadow-lg font-['Assistant'] text-center"
-                style={{ color: "#473B31" }}
-                dir="ltr"
-              >
-                YOUR PERSONAL SPACE FOR GROWTH
-              </span>
-              
-              {/* Spacer for balance */}
-              <div className="w-16"></div>
-            </div>
-          </div>
-        </header>
+        <Header />
 
         {/* Main Content */}
         <main className="flex-1 px-4 py-6 sm:px-6 sm:py-8">
           <div
-            className="max-w-4xl mx-auto space-y-8 font-['Assistant']"
+            className="mx-auto max-w-4xl space-y-8 font-['Assistant']"
             dir="rtl"
           >
             {/* Main Code Display */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-8 sm:p-12 shadow-2xl shadow-orange-200/40 max-w-2xl mx-auto bg-[rgba(254,254,254,0.12)] bg-[rgba(254,254,254,0.1)]">
+              <Card className="mx-auto max-w-2xl border border-white/20 bg-[rgba(254,254,254,0.12)] p-8 sm:p-12">
                 <div className="space-y-6 bg-[rgba(135,103,79,0)]">
-                  <h1 className="font-normal drop-shadow-lg tracking-wide text-center text-[rgba(254,254,254,1)] font-['Assistant'] text-[28px] font-bold">
+                  <h1 className="text-center font-['Assistant'] text-[28px] font-bold tracking-wide text-[rgba(254,254,254,1)]">
                     קוד העושר האישי שלך הוא
                   </h1>
-                  <div className="inline-flex items-center justify-center w-48 h-36 rounded-xl bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-sm border border-white/25 shadow-2xl text-[rgba(255,255,255,0)]">
+                  <div className="inline-flex h-36 w-48 items-center justify-center rounded-xl border border-white/25 bg-gradient-to-br from-white/30 to-white/10 text-[rgba(255,255,255,0)] backdrop-blur-sm">
                     <span
-                      className="text-5xl font-bold tracking-wider text-center"
+                      className="text-center text-5xl font-bold tracking-wider"
                       style={{ color: "#473B31" }}
                     >
                       {wealthCode}
@@ -165,10 +110,10 @@ export function WealthCodeSalesPage({
 
             {/* Deep Meaning Card */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
-                <div className="text-center space-y-6">
+              <Card className="bg-white/12 border border-white/20 bg-[rgba(254,254,254,0.1)] p-6 sm:p-8">
+                <div className="space-y-6 text-center">
                   <h2
-                    className="font-bold mb-4 drop-shadow-lg tracking-wide font-['Assistant']"
+                    className="mb-4 font-['Assistant'] font-bold tracking-wide"
                     style={{
                       color: "#FEFEFE",
                       fontSize: "28px",
@@ -177,10 +122,10 @@ export function WealthCodeSalesPage({
                     המשמעות העמוקה של קוד העושר
                   </h2>
 
-                  <div className="bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 bg-[rgba(254,254,254,0.1)] mt-[1px] mr-[0px] mb-[18px] ml-[0px] py-[68px] px-[24px] pt-[30px] pr-[24px] pb-[6px] pl-[24px]">
-                    <div className="space-y-4 text-center pt-[0px] pr-[0px] pb-[7px] pl-[0px] mx-[0px] mt-[-13px] mr-[0px] mb-[1px] ml-[0px]">
-                      <p className="text-[rgba(71,59,49,1)] font-light text-[15px] leading-relaxed">
-                        בחרתי במונח "קוד העושר" ולא "קוד הכסף"
+                  <div className="mb-[18px] ml-[0px] mr-[0px] mt-[1px] rounded-lg border border-white/20 bg-white/10 px-[24px] py-[68px] pb-[6px] pl-[24px] pr-[24px] pt-[30px] backdrop-blur-sm">
+                    <div className="mx-[0px] mb-[1px] ml-[0px] mr-[0px] mt-[-13px] space-y-4 pb-[7px] pl-[0px] pr-[0px] pt-[0px] text-center">
+                      <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
+                        בחרתי במונח &quot;קוד העושר&quot; ולא &quot;קוד הכסף&quot;
                         מתוך הבנה עמוקה שכסף הוא רק מרכיב אחד
                         במארג השלם של חיים מלאים. עושר אמיתי
                         מורכב מתחושת ערך עצמי איתנה, יציבות
@@ -188,7 +133,7 @@ export function WealthCodeSalesPage({
                         של הפוטנציאל האישי שלך, ויכולת להגשים את
                         מה שבאמת משמעותי עבורך.
                       </p>
-                      <p className="text-[rgba(71,59,49,1)] font-light text-[15px] leading-relaxed">
+                      <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
                         הקוד האישי שלך פועל כמצפן פנימי רב-עוצמה
                         – הוא חושף את הכישרונות והחוזקות המולדים
                         שלך, מאיר את החסמים החוזרים שמעכבים את
@@ -204,10 +149,10 @@ export function WealthCodeSalesPage({
 
             {/* Understanding The Code Card */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
-                <div className="text-center space-y-6">
+              <Card className="border border-white/20 bg-[rgba(254,254,254,0.1)] p-6 sm:p-8">
+                <div className="space-y-6 text-center">
                   <h2
-                    className="font-bold mb-4 drop-shadow-lg tracking-wide font-['Assistant']"
+                    className="mb-4 font-['Assistant'] font-bold tracking-wide"
                     style={{
                       color: "#FEFEFE",
                       fontSize: "28px",
@@ -216,9 +161,9 @@ export function WealthCodeSalesPage({
                     להבין את הקוד – להבין את עצמך
                   </h2>
 
-                  <div className="bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 bg-[rgba(254,254,254,0.1)] mt-[1px] mr-[0px] mb-[18px] ml-[0px] py-[68px] px-[24px] pt-[30px] pr-[24px] pb-[6px] pl-[24px]">
-                    <div className="space-y-4 text-center pt-[0px] pr-[0px] pb-[7px] pl-[0px] mx-[0px] mt-[-13px] mr-[0px] mb-[1px] ml-[0px]">
-                      <p className="text-[rgba(71,59,49,1)] font-light text-[15px] leading-relaxed">
+                  <div className="mb-[18px] ml-[0px] mr-[0px] mt-[1px] rounded-lg border border-white/20 bg-white/10 px-[24px] py-[68px] pb-[6px] pl-[24px] pr-[24px] pt-[30px] backdrop-blur-sm">
+                    <div className="mx-[0px] mb-[1px] ml-[0px] mr-[0px] mt-[-13px] space-y-4 pb-[7px] pl-[0px] pr-[0px] pt-[0px] text-center">
+                      <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
                         המספרים בקוד אינם צירוף מקרי. הם משקפים
                         דפוסים עמוקים המניעים אותך לאורך חייך.
                         כשאתה מזהה דפוסים אלה, אתה מתחיל לפעול
@@ -226,7 +171,7 @@ export function WealthCodeSalesPage({
                         אוטומטית. זוהי נקודת המפנה שבה השליטה על
                         חייך חוזרת לידיך.
                       </p>
-                      <p className="text-[rgba(71,59,49,1)] font-light text-[15px] leading-relaxed">
+                      <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
                         מטרת העבודה עם הקוד היא לחיות חיים
                         מודעים, שבהם כל פעולה הופכת מתגובה
                         לא-מודעת לבחירה מכוונת. הבנה זו מבהירה
@@ -245,10 +190,10 @@ export function WealthCodeSalesPage({
 
             {/* What's Included */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
-                <div className="text-center space-y-6">
+              <Card className="border border-white/20 bg-[rgba(254,254,254,0.1)] p-6 sm:p-8">
+                <div className="space-y-6 text-center">
                   <h2
-                    className="font-bold mb-4 drop-shadow-lg tracking-wide font-['Assistant']"
+                    className="mb-4 font-['Assistant'] font-bold tracking-wide"
                     style={{
                       color: "#FEFEFE",
                       fontSize: "28px",
@@ -257,28 +202,11 @@ export function WealthCodeSalesPage({
                     הפירוש המלא – כל מה שמחכה לכם בפנים
                   </h2>
 
-                  <div className="bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 bg-[rgba(254,254,254,0.1)] mt-[1px] mr-[0px] mb-[18px] ml-[0px] py-[68px] px-[24px] pt-[30px] pr-[24px] pb-[6px] pl-[24px]">
-                    <div className="space-y-4 text-center pt-[0px] pr-[0px] pb-[7px] pl-[0px] mx-[0px] mt-[-13px] mr-[0px] mb-[1px] ml-[0px]">
-                      <p className="text-[rgba(71,59,49,1)] font-light text-[15px] leading-relaxed">
+                  <div className="mb-[18px] ml-[0px] mr-[0px] mt-[1px] rounded-lg border border-white/20 bg-white/10 px-[24px] py-[68px] pb-[6px] pl-[24px] pr-[24px] pt-[30px] backdrop-blur-sm">
+                    <div className="mx-[0px] mb-[1px] ml-[0px] mr-[0px] mt-[-13px] space-y-4 pb-[7px] pl-[0px] pr-[0px] pt-[0px] text-center">
+                      <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
                         ניתוח מעמיק של הספרות{" "}
-                        {(() => {
-                          const uniqueDigits = [
-                            ...new Set(codeStructure.digits),
-                          ].sort();
-                          if (uniqueDigits.length === 1) {
-                            return uniqueDigits[0];
-                          } else if (
-                            uniqueDigits.length === 2
-                          ) {
-                            return `${uniqueDigits[0]} ו-${uniqueDigits[1]}`;
-                          } else if (
-                            uniqueDigits.length === 3
-                          ) {
-                            return `${uniqueDigits[0]}, ${uniqueDigits[1]} ו-${uniqueDigits[2]}`;
-                          } else {
-                            return `${uniqueDigits.slice(0, -1).join(", ")} ו-${uniqueDigits[uniqueDigits.length - 1]}`;
-                          }
-                        })()}{" "}
+                        {formattedUniqueDigits}{" "}
                         הכולל: מהות כל ספרה, מתנות מרכזיות,
                         חסימות ואתגרים, נורות אזהרה לזיהוי חוסר
                         איזון, מוקדי צמיחה והתפתחות אישית, תחומי
@@ -289,8 +217,6 @@ export function WealthCodeSalesPage({
                       </p>
                     </div>
                   </div>
-
-                  {/* Additional Benefits */}
                 </div>
               </Card>
             </div>
@@ -300,10 +226,10 @@ export function WealthCodeSalesPage({
 
             {/* Time to Discover Card */}
             <div className="text-center">
-              <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-6 sm:p-8 shadow-2xl shadow-orange-200/40 bg-[rgba(254,254,254,0.1)]">
-                <div className="text-center space-y-6">
+              <Card className="bg-white/12 border border-white/20 bg-[rgba(254,254,254,0.1)] p-6 sm:p-8">
+                <div className="space-y-6 text-center">
                   <h2
-                    className="font-bold mb-4 drop-shadow-lg tracking-wide font-['Assistant']"
+                    className="mb-4 font-['Assistant'] font-bold tracking-wide"
                     style={{
                       color: "#FEFEFE",
                       fontSize: "28px",
@@ -313,9 +239,9 @@ export function WealthCodeSalesPage({
                     האישי שלך
                   </h2>
 
-                  <div className="bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 p-6 sm:p-8">
+                  <div className="rounded-lg border border-white/20 bg-white/10 p-6 backdrop-blur-sm sm:p-8">
                     <div className="space-y-6 text-center">
-                      <p className="text-[rgba(71,59,49,1)] font-light text-[15px] leading-relaxed">
+                      <p className="text-[15px] font-light leading-relaxed text-[rgba(71,59,49,1)]">
                         הפירוש המלא של הקוד מעניק מפתח להבנת
                         הדינמיקות הפנימיות המעצבות את חייך, לצד
                         אבחנה מדויקת של החסמים המעכבים אותך
@@ -327,32 +253,35 @@ export function WealthCodeSalesPage({
 
                       {/* Price and Purchase Section */}
                       <div className="mt-8 space-y-6">
-                        <h3 className="text-[rgba(71,59,49,1)] font-normal text-[18px] tracking-wide">
+                        <h3 className="text-[18px] font-normal tracking-wide text-[rgba(71,59,49,1)]">
                           עלות הפירוש המלא: ₪36.90 בלבד
                         </h3>
 
                         <Button
                           size="lg"
-                          className="font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-lg px-8 py-4 font-['Assistant'] tracking-wide bg-[rgba(149,112,82,0.5)] hover:bg-[rgba(149,112,82,0.7)] border-none text-[rgba(254,254,254,1)] w-full sm:w-auto"
+                          className="w-full border border-none bg-[rgba(149,112,82,0.5)] px-8 py-4 font-['Assistant'] text-lg font-normal tracking-wide text-[rgba(254,254,254,1)] backdrop-blur-sm transition-all duration-300 hover:bg-[rgba(149,112,82,0.7)] sm:w-auto"
                           onClick={handlePurchase}
-                          disabled={isLoading || emailSent}
+                          aria-label="לרכישת פירוש קוד העושר האישי"
                         >
-                          {isLoading ? (
-                            <>
-                              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                              שולח...
-                            </>
-                          ) : emailSent ? (
-                            <>
-                              <CheckCircle className="w-4 h-4 mr-2" />
-                              נשלח בהצלחה!
-                            </>
-                          ) : (
-                            "אני רוצה להכיר את עצמי"
-                          )}
+                          אני רוצה להכיר את עצמי
                         </Button>
 
-                        <p className="text-[rgba(149,112,82,0.7)] font-light text-[12px] tracking-wide">
+                        {/* כפתור סימולציה לתשלום לצורכי בדיקה מהירה - מוסתר בפרודקשן, אלא אם הוגדר NEXT_PUBLIC_SHOW_SIMULATE=1 */}
+                        {(process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_SHOW_SIMULATE === '1') && (
+                          <div className="flex justify-center">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={handleSimulatePayment}
+                              className="mt-2 border border-[rgba(149,112,82,0.3)] bg-[rgba(254,254,254,0.1)] px-4 py-2 font-['Assistant'] text-sm font-normal tracking-wide text-[rgba(149,112,82,1)] backdrop-blur-sm transition-all duration-300 hover:bg-[rgba(254,254,254,0.2)]"
+                              aria-label="סימולציית תשלום"
+                            >
+                              סימולציית תשלום (בדיקה)
+                            </Button>
+                          </div>
+                        )}
+
+                        <p className="text-[12px] font-light tracking-wide text-[rgba(149,112,82,0.7)]">
                           תשלום מובטח באמצעות ספק סליקה חיצוני
                           Grow
                         </p>
@@ -362,70 +291,15 @@ export function WealthCodeSalesPage({
                 </div>
               </Card>
             </div>
-
-            {/* Email Form */}
-            {showEmailForm && (
-              <div className="text-center">
-                <Card className="backdrop-blur-xl bg-white/12 border border-white/20 p-8 sm:p-12 shadow-2xl shadow-orange-200/40 max-w-4xl mx-auto bg-[rgba(254,254,254,0.1)]">
-                  <div className="space-y-6">
-                    <h2 className="font-bold drop-shadow-lg tracking-wide text-center text-[rgba(254,254,254,1)] font-['Assistant'] text-[28px]">
-                      הכנס את פרטייך
-                    </h2>
-                    <div className="space-y-4 text-center">
-                      <p
-                        className="font-light leading-relaxed drop-shadow-md tracking-wide text-[16px]"
-                        style={{ color: "#473B31" }}
-                      >
-                        כדי לקבל את הפירוש המלא של קוד העושר
-                        האישי שלך, נא הכנס את פרטייך.
-                      </p>
-                      <form onSubmit={handleEmailFormSubmit}>
-                        <div className="space-y-3">
-                          <input
-                            type="text"
-                            className="w-full p-2 border border-gray-300 rounded"
-                            placeholder="שם"
-                            value={customerName}
-                            onChange={(e) =>
-                              setCustomerName(e.target.value)
-                            }
-                          />
-                          <input
-                            type="email"
-                            className="w-full p-2 border border-gray-300 rounded"
-                            placeholder="כתובת אימייל"
-                            value={customerEmail}
-                            onChange={(e) =>
-                              setCustomerEmail(e.target.value)
-                            }
-                          />
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6">
-                          <Button
-                            size="lg"
-                            className="bg-white/90 hover:bg-white text-[#473B31] font-normal border border-white/30 backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl text-lg py-4 px-8 font-['Assistant'] tracking-wide text-[rgba(254,254,254,1)] bg-[rgba(149,112,82,0.5)] px-[10px] py-[16px] text-[16px]"
-                            onClick={handlePurchase}
-                          >
-                            המשך
-                          </Button>
-
-
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            )}
           </div>
         </main>
 
         {/* Logo - Small, above footer */}
         <div className="flex justify-center pb-6">
-          <img
+          <Image
             src={logoImage}
             alt="AWAKENING"
-            className="h-20 sm:h-24 w-auto opacity-90 drop-shadow-lg"
+            className="h-20 w-auto opacity-90 sm:h-24"
           />
         </div>
 
