@@ -6,15 +6,12 @@ import { Button } from "./ui/button";
 import { Footer } from "./Footer";
 import Header from "./Header";
 import { paths } from "@/lib/urls";
-import { useState } from 'react';
-import { WealthCodeCalculator } from './WealthCodeCalculator';
 
 export function HomePageRouter() {
   const router = useRouter();
-  const [showCalculator, setShowCalculator] = useState(false);
 
   const handleShowCalculator = () => {
-    setShowCalculator(true);
+    router.push(paths.calculator());
   };
 
   const handleShowTerms = () => {
@@ -24,19 +21,6 @@ export function HomePageRouter() {
   const handleShowPrivacy = () => {
   router.push(paths.termsPrivacy());
   };
-
-  const handleBackToHome = () => {
-    setShowCalculator(false);
-  };
-
-  // If calculator is shown, render it
-  if (showCalculator) {
-    return (
-      <WealthCodeCalculator
-        onBack={handleBackToHome}
-      />
-    );
-  }
 
   return (
     <div className="relative min-h-screen" lang="he">

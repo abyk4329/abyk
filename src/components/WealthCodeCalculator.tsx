@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { ArrowLeft } from "lucide-react";
 
 import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
@@ -14,13 +13,7 @@ import Header from "./Header";
 import { computeCodeStructure } from "@/lib/codeStructure";
 import { paths } from "@/lib/urls";
 
-interface WealthCodeCalculatorProps {
-  onBack: () => void;
-}
-
-export function WealthCodeCalculator({
-  onBack,
-}: WealthCodeCalculatorProps) {
+export function WealthCodeCalculator() {
   const router = useRouter();
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
@@ -109,10 +102,14 @@ export function WealthCodeCalculator({
 
     try {
       localStorage.setItem("lastWealthCode", String(wealthCode));
-    } catch {}
+    } catch {
+      /* ignore storage errors */
+    }
     try {
       sessionStorage.setItem("lastWealthCode", String(wealthCode));
-    } catch {}
+    } catch {
+      /* ignore storage errors */
+    }
 
     setDay("");
     setMonth("");
@@ -137,17 +134,6 @@ export function WealthCodeCalculator({
             {/* Main Content */}
             <main className="flex-1 px-[24px] py-[43px] sm:px-6 sm:py-8">
               <div className="mx-auto max-w-4xl space-y-8">
-                <div className="flex justify-start">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={onBack}
-                    className="flex items-center gap-2 border border-[rgba(149,112,82,0.3)] bg-[rgba(254,254,254,0.15)] px-4 py-2 font-['Assistant'] text-[rgba(149,112,82,1)] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-[rgba(254,254,254,0.25)] hover:shadow-xl"
-                  >
-                    <ArrowLeft className="h-4 w-4" />
-                    חזרה
-                  </Button>
-                </div>
                 {/* Input Card */}
                 <div className="mb-[0px] ml-[0px] mr-[0px] mt-[-91px] flex min-h-[60vh] items-center justify-center">
                   <Card className="mb-[-65px] ml-[0px] mr-[0px] mt-[-15px] w-full max-w-2xl border border-[rgba(135,103,79,0.2)] bg-[rgba(254,254,254,0.12)] px-[32px] py-[61px] shadow-2xl backdrop-blur-xl sm:p-12">

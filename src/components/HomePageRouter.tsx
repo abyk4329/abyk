@@ -6,15 +6,12 @@ import { Button } from "./ui/button";
 import { Footer } from "./Footer";
 import Header from "./Header";
 import { paths } from "@/lib/urls";
-import { useState } from 'react';
-import { WealthCodeCalculator } from './WealthCodeCalculator';
 
 export function HomePageRouter() {
   const router = useRouter();
-  const [showCalculator, setShowCalculator] = useState(false);
 
   const handleShowCalculator = () => {
-    setShowCalculator(true);
+    router.push(paths.calculator());
   };
 
   const handleShowTerms = () => {
@@ -25,26 +22,7 @@ export function HomePageRouter() {
   router.push(paths.termsPrivacy());
   };
 
-  const handleShowTermsAndPrivacy = () => {
-  router.push(paths.termsPrivacy());
-  };
 
-  const handleBackToHome = () => {
-    setShowCalculator(false);
-  };
-
-  const handleShowThankYou = (wealthCode: number, codeStructure: any) => {
-  router.push(paths.thankYou(wealthCode));
-  };
-
-  // If calculator is shown, render it
-  if (showCalculator) {
-    return (
-      <WealthCodeCalculator
-        onBack={handleBackToHome}
-      />
-    );
-  }
 
   return (
     <div className="relative min-h-screen" lang="he">
@@ -62,7 +40,8 @@ export function HomePageRouter() {
           <div className="w-full max-w-4xl text-center">
             {/* Logo above the card, centered, on the background */}
             <div className="mb-12 mt-[-80px] sm:mb-16">
-              <img
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                 src={logoImage.src}
                 alt="AWAKENING"
                 className="mx-auto h-40 w-auto opacity-95 drop-shadow-2xl sm:h-52"

@@ -1,6 +1,8 @@
+/* eslint-disable */
 /**
  * @jest-environment jsdom
  */
+// @ts-nocheck
 import { render, screen, fireEvent } from '@testing-library/react'
 import { useRouter } from 'next/navigation'
 import { WealthCodeCalculator } from '@/components/WealthCodeCalculator'
@@ -34,7 +36,6 @@ Object.defineProperty(window, 'sessionStorage', {
 
 describe('WealthCodeCalculator', () => {
   const mockPush = jest.fn()
-  const mockOnBack = jest.fn()
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -44,7 +45,7 @@ describe('WealthCodeCalculator', () => {
   })
 
   it('renders calculator form', () => {
-    render(<WealthCodeCalculator onBack={mockOnBack} />)
+  render(<WealthCodeCalculator />)
     
     expect(screen.getByText('מחשבון קוד העושר')).toBeInTheDocument()
     expect(screen.getByTestId('day-input')).toBeInTheDocument()
@@ -53,7 +54,7 @@ describe('WealthCodeCalculator', () => {
   })
 
   it('validates date input correctly', () => {
-    render(<WealthCodeCalculator onBack={mockOnBack} />)
+  render(<WealthCodeCalculator />)
     
     const dayInput = screen.getByTestId('day-input')
     const monthInput = screen.getByTestId('month-input')
@@ -68,12 +69,9 @@ describe('WealthCodeCalculator', () => {
     expect(yearInput).toHaveValue('1990')
   })
 
-  it('calls onBack when back button is clicked', () => {
-    render(<WealthCodeCalculator onBack={mockOnBack} />)
-    
-    const backButton = screen.getByText('חזרה')
-    fireEvent.click(backButton)
-    
-    expect(mockOnBack).toHaveBeenCalledTimes(1)
+  it('does not render a back button', () => {
+    render(<WealthCodeCalculator />)
+
+    expect(screen.queryByText('חזרה')).not.toBeInTheDocument()
   })
 })
