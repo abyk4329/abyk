@@ -2,7 +2,8 @@ interface EmailTemplateData {
   wealthCode: number;
   customerName?: string;
   viewUrl: string;
-  codeStructure: {
+  downloadUrl?: string;   // הוספתי את downloadUrl
+  codeStructure?: {
     digits: number[];
     allSame: boolean;
     hasRepeats: boolean;
@@ -25,24 +26,25 @@ export function generateEmailHTML(data: EmailTemplateData): string {
 
   // תיאור תבנית הקוד
   let patternDescription = '';
-  if (codeStructure.allSame) {
+  if (codeStructure?.allSame) {
     patternDescription = 'קוד מאסטר - כל הספרות זהות';
-  } else if (codeStructure.hasRepeats) {
+  } else if (codeStructure?.hasRepeats) {
     patternDescription = 'קוד עם ספרות חוזרות - אנרגיות מועצמות';
-  } else if (codeStructure.allDifferent) {
+  } else if (codeStructure?.allDifferent) {
     patternDescription = 'קוד מגוון - כל הספרות שונות';
   }
 
   // שרשור ספרות ייחודיות לניסוח טקסט טבעי (1, 2 ו-3)
-  const uniqueDigits = [...new Set(codeStructure.digits)];
-  const digitsStr =
-    uniqueDigits.length === 1
+  const uniqueDigits = codeStructure ? [...new Set(codeStructure.digits)] : [];
+  const digitsStr = uniqueDigits.length > 0 
+    ? uniqueDigits.length === 1
       ? uniqueDigits[0].toString()
       : uniqueDigits.length === 2
         ? `${uniqueDigits[0]} ו-${uniqueDigits[1]}`
         : uniqueDigits.length === 3
           ? `${uniqueDigits[0]}, ${uniqueDigits[1]} ו-${uniqueDigits[2]}`
-          : `${uniqueDigits.slice(0, -1).join(', ')} ו-${uniqueDigits[uniqueDigits.length - 1]}`;
+          : `${uniqueDigits.slice(0, -1).join(', ')} ו-${uniqueDigits[uniqueDigits.length - 1]}`
+    : 'הספרות בקוד';
 
   // צבעים/סגנון עקביים
   const colText = '#473B31';
