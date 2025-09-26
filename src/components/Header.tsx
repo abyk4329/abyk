@@ -9,8 +9,8 @@ export function Header() {
   const showBack = Boolean(pathname) && pathname !== '/'
 
   return (
-  <header className="relative border-b border-white/15 bg-white/8 shadow-[0_20px_35px_-25px_rgba(71,59,49,0.35)] backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-white/5">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent opacity-40 mix-blend-screen" aria-hidden />
+  <header className="relative border-b border-[#FAFAFA]/30 bg-[#FAFAFA] shadow-sm backdrop-blur-sm">
+      <div className="pointer-events-none absolute inset-0 bg-white/20" aria-hidden />
 
       <div className="relative mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-6">
         <div className="flex items-center justify-center">
@@ -27,7 +27,7 @@ export function Header() {
 
           {/* Centered title */}
           <h1
-            className="header-title text-center font-['Assistant'] text-sm font-normal tracking-[0.25em] text-[#5E4934] sm:text-base md:text-lg"
+            className="header-title text-center font-['Assistant'] text-sm font-normal tracking-[0.25em] text-white sm:text-base md:text-lg"
             dir="ltr"
           >
             YOUR PERSONAL SPACE FOR GROWTH

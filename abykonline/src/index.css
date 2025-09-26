@@ -243,26 +243,32 @@ h6 {
 
 @layer components {
   .brand-card {
-    @apply rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_28px_60px_-25px_rgba(94,73,52,0.45)] transition-all duration-300;
+    @apply rounded-2xl border border-[#FAFAFA]/20 backdrop-blur-sm transition-all duration-300;
+    background-color: #fafafa;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .brand-card:hover,
   .brand-card:focus-within {
-    background-color: rgba(255, 255, 255, 0.14);
-    box-shadow: 0 32px 75px -28px rgba(94, 73, 52, 0.55);
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 
   .brand-panel {
-    @apply rounded-xl border border-white/12 bg-white/8 backdrop-blur-lg shadow-[0_20px_50px_-28px_rgba(94,73,52,0.4)] transition-all duration-300;
+    @apply rounded-xl border border-[#FAFAFA]/30 backdrop-blur-sm transition-all duration-300;
+    background-color: #fafafa;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
   }
 
   .brand-panel:hover,
   .brand-panel:focus-within {
-    background-color: rgba(255, 255, 255, 0.12);
+    background-color: #ffffff;
   }
 
   .brand-tab-list {
-    @apply grid gap-2 rounded-2xl border border-white/15 bg-white/8 p-1 backdrop-blur-lg shadow-[0_20px_40px_-20px_rgba(94,73,52,0.35)];
+    @apply grid gap-2 rounded-2xl border border-[#FAFAFA]/25 p-1 backdrop-blur-sm;
+    background-color: #fafafa;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   }
 
   .brand-tab {

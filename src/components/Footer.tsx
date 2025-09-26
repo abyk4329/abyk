@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer 
       role="contentinfo" 
-      className="backdrop-blur-md bg-white/8 border-t border-white/20 shadow-lg sm:backdrop-blur-md sm:bg-white/6 sm:border-white/15 font-['Assistant']"
+      className="backdrop-blur-sm bg-[#FAFAFA] border-t border-[#FAFAFA]/40 shadow-sm font-['Assistant']"
     >
   <div className="max-w-4xl mx-auto px-4 py-6 sm:px-6 sm:py-8">
         <div className="flex flex-col items-center space-y-5">
@@ -34,7 +34,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp - צור קשר עם Awakening by Ksenia"
-              className="flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 text-[rgba(135,103,79,1)] hover:text-white transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-white/30 hover:scale-105 p-[6px]"
+              className="flex items-center gap-2 rounded-full bg-white/20 hover:bg-white/30 text-[#8B4513] hover:text-[#B8860B] transition-all duration-300 border border-white/30 hover:border-[#B8860B]/50 hover:scale-105 p-[6px]"
             >
               <MessageCircle className="w-5 h-5" strokeWidth={1.5} />
               <span className="hidden lg:inline font-light text-sm tracking-wide text-white">WhatsApp</span>
@@ -46,7 +46,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Follow Instagram - Awakening by Ksenia"
-              className="flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 text-[rgba(135,103,79,1)] hover:text-white transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-white/30 hover:scale-105 p-[6px]"
+              className="flex items-center gap-2 rounded-full bg-white/20 hover:bg-white/30 text-[#8B4513] hover:text-[#B8860B] transition-all duration-300 border border-white/30 hover:border-[#B8860B]/50 hover:scale-105 p-[6px]"
             >
               <Instagram className="w-5 h-5" strokeWidth={1.5} />
               <span className="hidden lg:inline font-light text-sm tracking-wide text-white">Follow Instagram</span>
@@ -58,7 +58,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Follow TikTok - Awakening by Ksenia"
-              className="flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 text-[rgba(135,103,79,1)] hover:text-white transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-white/30 hover:scale-105 p-[6px]"
+              className="flex items-center gap-2 rounded-full bg-white/20 hover:bg-white/30 text-[#8B4513] hover:text-[#B8860B] transition-all duration-300 border border-white/30 hover:border-[#B8860B]/50 hover:scale-105 p-[6px]"
             >
               <TikTokIcon className="w-5 h-5" strokeWidth={1.5} />
               <span className="hidden lg:inline font-light text-sm tracking-wide text-white">Follow TikTok</span>
@@ -68,7 +68,7 @@ export function Footer() {
             <a 
               href="mailto:awakening.by.ksenia@gmail.com"
               aria-label="Email - שלח הודעה ל Awakening by Ksenia"
-              className="flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 text-[rgba(135,103,79,1)] hover:text-white transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-white/30 hover:scale-105 py-[8px] px-[6px] p-[6px]"
+              className="flex items-center gap-2 rounded-full bg-white/20 hover:bg-white/30 text-[#8B4513] hover:text-[#B8860B] transition-all duration-300 border border-white/30 hover:border-[#B8860B]/50 hover:scale-105 py-[8px] px-[6px] p-[6px]"
             >
               <Mail className="w-5 h-5" strokeWidth={1.5} />
               <span className="hidden lg:inline font-light text-sm tracking-wide text-white">Email</span>

@@ -12,9 +12,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         brand:
-          "border border-transparent bg-[rgba(149,112,82,0.7)] text-white shadow-[0_24px_50px_-24px_rgba(149,112,82,0.7)] hover:bg-[rgba(149,112,82,0.85)] hover:shadow-[0_32px_70px_-28px_rgba(149,112,82,0.75)] active:scale-[0.98]",
+          "border border-transparent bg-gradient-to-r from-[#B8860B] to-[#DAA520] text-white shadow-sm hover:shadow-md active:scale-[0.98] hover:from-[#CD853F] hover:to-[#F0E68C]",
         subtle:
-          "border border-white/25 bg-white/12 text-[#5E4934] shadow-[0_20px_40px_-25px_rgba(94,73,52,0.55)] hover:bg-white/20 hover:shadow-[0_28px_55px_-28px_rgba(94,73,52,0.55)] active:scale-[0.99]",
+          "border border-[#FAFAFA]/40 bg-[#FAFAFA] text-[#8B4513] shadow-sm hover:bg-white hover:shadow-md active:scale-[0.99]",
       },
       size: {
         default: "min-h-[2.75rem] px-5 py-2.5",
