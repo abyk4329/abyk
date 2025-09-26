@@ -122,7 +122,7 @@ header,
 /* Footer readability on brand background */
 footer,
 footer * {
-  color: #5e4934;
+  color: #87674f;
 }
 
 /* עיצובים מותאמים אישית */
@@ -229,7 +229,7 @@ footer * {
 }
 
 .text-brand {
-  color: #5e4934;
+  color: #87674f;
 }
 
 h1,
@@ -238,7 +238,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #5e4934;
+  color: #87674f;
 }
 
 @layer components {
@@ -289,7 +289,7 @@ h6 {
   }
 
   .brand-code-display {
-    @apply inline-flex min-h-[120px] min-w-[220px] items-center justify-center rounded-2xl border border-white/20 bg-gradient-to-br from-white/70 via-white/30 to-white/10 px-8 py-6 text-5xl font-bold tracking-[0.35em] text-[#5E4934] shadow-[0_30px_70px_-30px_rgba(94,73,52,0.55)] backdrop-blur-2xl;
+    @apply inline-flex min-h-[120px] min-w-[220px] items-center justify-center rounded-2xl border border-white/20 bg-gradient-to-br from-white/70 via-white/30 to-white/10 px-8 py-6 text-5xl font-bold tracking-[0.35em] text-[#87674F] shadow-[0_30px_70px_-30px_rgba(94,73,52,0.55)] backdrop-blur-2xl;
   }
 
   @screen sm {

@@ -48,7 +48,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
     : 'הספרות בקוד';
 
   // צבעים/סגנון עקביים
-  const colText = '#5E4934';
+  const colText = '#87674F';
   const colAccent = '#87674F';
   const colBg = '#faf8f5';
   const colCard = '#ffffff';

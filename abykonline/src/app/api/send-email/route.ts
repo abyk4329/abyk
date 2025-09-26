@@ -14,13 +14,26 @@ type SendEmailPayload = {
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as SendEmailPayload
-  const { to, subject, html, text, metadata } = body || {}
+    const { to, subject, html, text, metadata } = body || {}
 
     if (!to || !subject || (!html && !text)) {
       return NextResponse.json(
         { ok: false, error: 'missing-fields', details: 'to, subject and html/text are required' },
         { status: 400 }
       )
+    }
+
+    const EMAIL_PREVIEW_ONLY = (process.env.EMAIL_PREVIEW_ONLY ?? 'true').toLowerCase() === 'true'
+
+    if (EMAIL_PREVIEW_ONLY) {
+      console.log('EMAIL_SEND_DISABLED_PREVIEW_ONLY', {
+        to,
+        subject,
+        hasHtml: Boolean(html),
+        hasText: Boolean(text),
+        metadata,
+      })
+      return NextResponse.json({ ok: true, messageId: 'preview-only', transport: 'disabled' })
     }
 
     const RESEND_API_KEY = process.env.RESEND_API_KEY

@@ -23,7 +23,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-md rounded-3xl border border-[rgba(135,103,79,0.2)] bg-[rgba(254,254,254,0.12)] p-6 shadow-2xl backdrop-blur-xl sm:p-8">
           <h2
             className="text-2xl font-normal tracking-wide drop-shadow-lg font-['Assistant'] sm:text-3xl lg:text-4xl"
-            style={{ color: "#5E4934" }}
+            style={{ color: "#87674F" }}
           >
             גלו את קוד העושר שלכם
           </h2>

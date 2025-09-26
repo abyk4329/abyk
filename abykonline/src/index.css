@@ -122,7 +122,7 @@ header,
 /* Footer readability on brand background */
 footer,
 footer * {
-  color: #5e4934;
+  color: #87674f;
 }
 
 /* עיצובים מותאמים אישית */
@@ -229,7 +229,7 @@ footer * {
 }
 
 .text-brand {
-  color: #5e4934;
+  color: #87674f;
 }
 
 h1,
@@ -238,7 +238,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #5e4934;
+  color: #87674f;
 }
 
 @layer components {
@@ -272,12 +272,14 @@ h6 {
   }
 
   .brand-tab {
-    @apply rounded-full border border-transparent px-5 py-2 text-sm font-medium tracking-wide text-[#5E4934] transition-all duration-300 shadow-[0_10px_20px_-18px_rgba(94,73,52,0.55)];
-    background: rgba(255, 255, 255, 0.08);
+    @apply rounded-full border border-transparent px-5 py-2 text-sm font-medium tracking-wide text-white transition-all duration-300;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 
   .brand-tab[data-state="active"] {
-    background: rgba(149, 112, 82, 0.65);
+    background: linear-gradient(135deg, #b8860b, #daa520);
+    color: white;
     color: #fff;
     box-shadow: 0 18px 38px -22px rgba(149, 112, 82, 0.65);
   }
@@ -287,7 +289,7 @@ h6 {
   }
 
   .brand-code-display {
-    @apply inline-flex min-h-[120px] min-w-[220px] items-center justify-center rounded-2xl border border-white/20 bg-gradient-to-br from-white/70 via-white/30 to-white/10 px-8 py-6 text-5xl font-bold tracking-[0.35em] text-[#5E4934] shadow-[0_30px_70px_-30px_rgba(94,73,52,0.55)] backdrop-blur-2xl;
+    @apply inline-flex min-h-[120px] min-w-[220px] items-center justify-center rounded-2xl border border-white/20 bg-gradient-to-br from-white/70 via-white/30 to-white/10 px-8 py-6 text-5xl font-bold tracking-[0.35em] text-[#87674F] shadow-[0_30px_70px_-30px_rgba(94,73,52,0.55)] backdrop-blur-2xl;
   }
 
   @screen sm {

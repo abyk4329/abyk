@@ -16,7 +16,7 @@ interface ThankYouPageProps {
 
 export function ThankYouPage({
   wealthCode,
-  codeStructure,
+  codeStructure: _codeStructure,
   onBack,
   onShowInterpretations,
   onCalculateNew,
@@ -141,13 +141,13 @@ export function ThankYouPage({
         <main className="flex-1 px-4 py-6 sm:px-6 sm:py-8">
           <div className="mx-auto max-w-4xl space-y-8 font-['Assistant']" dir="rtl">
             {/* First Card - Thank You and Main Actions */}
-            <Card className="brand-card p-6 sm:p-8 text-center text-[#5E4934]">
+            <Card className="brand-card p-6 sm:p-8 text-center text-[#87674F]" data-has-code={Boolean(_codeStructure && wealthCode)}>
               <div className="space-y-6">
                 <h2 className="text-3xl font-bold tracking-wide sm:text-4xl">
                   תודה על הרכישה!
                 </h2>
 
-                <div className="brand-panel space-y-6 px-6 py-6 text-[#5E4934]/90 sm:px-8 sm:py-8">
+                <div className="brand-panel space-y-6 px-6 py-6 text-[#87674F]/90 sm:px-8 sm:py-8">
                   <p className="text-base leading-relaxed sm:text-lg">
                     הפירוש המלא שלך מוכן עבורך – זה הזמן לגלות את המשמעות העמוקה שמסתתרת מאחורי הקוד האישי שלך.
                   </p>
@@ -172,23 +172,17 @@ export function ThankYouPage({
                     </Button>
                   </div>
 
-                  <p className="text-sm leading-relaxed text-[#5E4934]/75 sm:text-base">
-                    לצפייה מיטבית מומלץ להתחיל באתר. נוסף לכך, שלחנו את הפירוש גם אל כתובת המייל שלך לשמירה וגישה נוחה בכל עת.
-                  </p>
                 </div>
               </div>
             </Card>
 
             {/* Second Card - Additional Services and Actions */}
-            <Card className="brand-card p-6 sm:p-8 text-center text-[#5E4934]">
+            <Card className="brand-card p-6 sm:p-8 text-center text-[#87674F]">
               <div className="space-y-8">
                 <div className="space-y-4">
                   <h2 className="text-2xl font-semibold sm:text-3xl">
                     רוצה להעמיק יותר?
                   </h2>
-                  <p className="text-base leading-relaxed text-[#5E4934]/90 sm:text-lg">
-                    אנחנו כאן ללוות אותך במסע. בחרי אם להעמיק עם ליווי אישי או לבצע חישוב חדש למשפחה וחברים.
-                  </p>
                 </div>
 
                 <div className="brand-panel space-y-4 px-6 py-6 sm:px-8 sm:py-8">
@@ -216,12 +210,6 @@ export function ThankYouPage({
                       לחישוב קוד נוסף
                     </Button>
                   </div>
-
-                  {codeStructure && wealthCode && (
-                    <p className="text-sm leading-relaxed text-[#5E4934]/70">
-                      הקוד שלך {wealthCode} ממשיך ללוות אותך – את מוזמנת לשמור אותו ולחזור בכל עת להעמקה נוספת.
-                    </p>
-                  )}
                 </div>
               </div>
             </Card>

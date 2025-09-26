@@ -18,7 +18,7 @@ interface ThankYouPageProps {
 
 export const ThankYouPage: React.FC<ThankYouPageProps> = ({
   wealthCode,
-  codeStructure,
+  codeStructure: _codeStructure,
   onBack,
   onShowInterpretations,
   onCalculateNew,
@@ -95,13 +95,13 @@ export const ThankYouPage: React.FC<ThankYouPageProps> = ({
       <div className="relative z-10 flex min-h-screen flex-col">
         <main className="flex-1 px-4 py-6 sm:px-6 sm:py-8">
           <div className="mx-auto max-w-4xl space-y-8 font-['Assistant']" dir="rtl">
-            <Card className="brand-card p-6 sm:p-8 text-center text-[#5E4934]">
+            <Card className="brand-card p-6 sm:p-8 text-center text-[#87674F]" data-has-code={Boolean(_codeStructure && wealthCode)}>
               <div className="space-y-6">
                 <h2 className="text-3xl font-bold tracking-wide sm:text-4xl">
                   תודה על הרכישה!
                 </h2>
 
-                <div className="brand-panel space-y-6 px-6 py-6 text-[#5E4934]/90 sm:px-8 sm:py-8">
+                <div className="brand-panel space-y-6 px-6 py-6 text-[#87674F]/90 sm:px-8 sm:py-8">
                   <p className="text-base leading-relaxed sm:text-lg">
                     הפירוש המלא שלך מוכן וממתין לך. זה הזמן לחקור את המשמעות מאחורי הקוד האישי שלך.
                   </p>
@@ -126,22 +126,16 @@ export const ThankYouPage: React.FC<ThankYouPageProps> = ({
                     </Button>
                   </div>
 
-                  <p className="text-sm leading-relaxed text-[#5E4934]/75 sm:text-base">
-                    שלחנו גם מייל עם כל הפרטים, כך שתמיד תוכלי לחזור אליו בזמן שנוח לך.
-                  </p>
                 </div>
               </div>
             </Card>
 
-            <Card className="brand-card p-6 sm:p-8 text-center text-[#5E4934]">
+            <Card className="brand-card p-6 sm:p-8 text-center text-[#87674F]">
               <div className="space-y-8">
                 <div className="space-y-4">
                   <h2 className="text-2xl font-semibold sm:text-3xl">
                     רוצה להעמיק יותר?
                   </h2>
-                  <p className="text-base leading-relaxed text-[#5E4934]/90 sm:text-lg">
-                    אנחנו כאן ללוות אותך. בחרי כיצד להמשיך במסע – בליווי אישי או בחישוב חדש למי שחשוב לך.
-                  </p>
                 </div>
 
                 <div className="brand-panel space-y-4 px-6 py-6 sm:px-8 sm:py-8">
@@ -166,12 +160,6 @@ export const ThankYouPage: React.FC<ThankYouPageProps> = ({
                       לחישוב קוד נוסף
                     </Button>
                   </div>
-
-                  {codeStructure && wealthCode && (
-                    <p className="text-sm leading-relaxed text-[#5E4934]/70">
-                      הקוד שלך {wealthCode} שמור אצלנו – תוכלי לחזור אליו בכל עת ולגלות שכבות חדשות של משמעות.
-                    </p>
-                  )}
                 </div>
               </div>
             </Card>

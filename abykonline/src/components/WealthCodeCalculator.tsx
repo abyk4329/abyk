@@ -136,7 +136,7 @@ export function WealthCodeCalculator() {
               dir="rtl"
             >
               <div className="mb-6 text-center">
-                <h1 className="mt-[-40px] text-center font-['Assistant'] text-[32px] font-normal tracking-wide text-white drop-shadow-lg">
+                <h1 className="mt-[-40px] text-center font-['Assistant'] text-[32px] font-normal tracking-wide text-[#87674F] drop-shadow-lg">
                   מחשבון קוד העושר
                 </h1>
                 <p className="mb-6 text-center font-['Assistant'] font-light leading-relaxed tracking-wide text-[rgba(149,112,82,1)] drop-shadow-md">
@@ -216,7 +216,7 @@ export function WealthCodeCalculator() {
                     <div className="text-center">
                       <p
                         className="font-['Assistant'] text-lg font-semibold tracking-wide"
-                        style={{ color: "#5E4934" }}
+                        style={{ color: "#87674F" }}
                       >
                         {day && month && year
                           ? `${day.padStart(2, "0")}/${month.padStart(2, "0")}/${year}`
@@ -239,7 +239,7 @@ export function WealthCodeCalculator() {
                     size="lg"
                     onClick={calculateWealthCode}
                     disabled={!isValidDate(day, month, year)}
-                    className="w-full sm:w-auto"
+                    className="w-full sm:w-auto font-['Assistant'] tracking-[0.12em]"
                   >
                     אני רוצה לגלות את הקוד
                   </Button>

@@ -37,7 +37,7 @@ export function HomePage({
             <div className="backdrop-blur-xl rounded-3xl border shadow-2xl max-w-md mx-auto bg-[rgba(254,254,254,0.12)] border-[rgba(135,103,79,0.2)] p-8 sm:p-12">
               <h2
                 className="text-2xl sm:text-3xl lg:text-4xl mb-6 font-normal tracking-wide drop-shadow-lg font-['Assistant']"
-                style={{ color: "#5E4934" }}
+                style={{ color: "#87674F" }}
               >
                 גלו את קוד העושר שלכם
               </h2>
@@ -47,7 +47,7 @@ export function HomePage({
               <Button
                 size="lg"
                 onClick={onShowCalculator}
-                className="font-normal border backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl w-full sm:w-auto text-lg px-8 py-4 font-['Assistant'] tracking-wide bg-[rgba(149,112,82,0.3)] hover:bg-[rgba(149,112,82,0.5)] border-none text-[rgba(254,254,254,1)] mb-4"
+                className="w-full sm:w-auto font-['Assistant'] tracking-[0.12em]"
               >
                 מחשבון קוד העושר
               </Button>

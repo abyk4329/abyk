@@ -19,7 +19,7 @@ export function Header() {
             <Link
               href={paths.home()}
               aria-label="Back to home"
-              className="absolute left-4 top-1/2 z-10 flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-md px-3 py-2 text-[#5E4934] transition hover:scale-[1.02] hover:opacity-80 sm:left-6"
+              className="absolute left-4 top-1/2 z-10 flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-md px-3 py-2 text-[#87674F] transition hover:scale-[1.02] hover:opacity-80 sm:left-6"
             >
               <ArrowLeft className="h-5 w-5" />
             </Link>
@@ -27,7 +27,7 @@ export function Header() {
 
           {/* Centered title */}
           <h1
-            className="header-title text-center font-['Assistant'] text-sm font-normal tracking-[0.25em] text-white sm:text-base md:text-lg"
+            className="header-title text-center font-['Assistant'] text-sm font-light tracking-[0.25em] text-[#5C4033] sm:text-base md:text-lg"
             dir="ltr"
           >
             YOUR PERSONAL SPACE FOR GROWTH

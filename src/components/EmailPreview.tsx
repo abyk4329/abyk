@@ -104,7 +104,7 @@ export function EmailPreview({
             חזור
           </Button>
           <div>
-            <h1 className="text-2xl font-medium text-[#5E4934] font-['Assistant']">
+            <h1 className="text-2xl font-medium text-[#87674F] font-['Assistant']">
               תצוגה מקדימה של המייל ללקוח
             </h1>
             <p className="text-[#87674F] font-light font-['Assistant']">
@@ -117,13 +117,13 @@ export function EmailPreview({
           {/* Controls */}
           <div className="lg:col-span-1">
             <Card className="p-6 bg-white/80 backdrop-blur-sm border-[#87674F]/20">
-              <h2 className="text-lg font-medium text-[#5E4934] mb-4 font-['Assistant']">
+              <h2 className="text-lg font-medium text-[#87674F] mb-4 font-['Assistant']">
                 הגדרות בדיקה
               </h2>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#5E4934] mb-2 font-['Assistant']">
+                  <label className="block text-sm font-medium text-[#87674F] mb-2 font-['Assistant']">
                     קוד עושר
                   </label>
                   <Input
@@ -149,7 +149,7 @@ export function EmailPreview({
                 {/** Intentionally no customer name control; template uses neutral greeting **/}
 
                 <div>
-                  <label className="block text-sm font-medium text-[#5E4934] mb-2 font-['Assistant']">
+                  <label className="block text-sm font-medium text-[#87674F] mb-2 font-['Assistant']">
                     מצב תצוגה
                   </label>
                   <div className="flex flex-col gap-2">
@@ -185,7 +185,7 @@ export function EmailPreview({
               </div>
 
               <div className="mt-6 p-4 bg-[#87674F]/10 rounded-lg">
-                <h3 className="font-medium text-[#5E4934] mb-2 font-['Assistant']">
+                <h3 className="font-medium text-[#87674F] mb-2 font-['Assistant']">
                   כותרת המייל:
                 </h3>
                 <p className="text-sm text-[#87674F] font-['Assistant']">{emailSubject}</p>
@@ -197,7 +197,7 @@ export function EmailPreview({
           <div className="lg:col-span-2">
             <Card className="bg-white/90 backdrop-blur-sm border-[#87674F]/20">
               <div className="p-4 border-b border-[#87674F]/20">
-                <h2 className="text-lg font-medium text-[#5E4934] font-['Assistant']">
+                <h2 className="text-lg font-medium text-[#87674F] font-['Assistant']">
                   תצוגה מקדימה
                 </h2>
               </div>
@@ -224,7 +224,7 @@ export function EmailPreview({
                 {viewMode === "data" && (
                   <div className="space-y-4">
                     <div className="bg-gray-50 rounded-lg p-4">
-                      <h3 className="font-medium text-[#5E4934] mb-2 font-['Assistant']">
+                      <h3 className="font-medium text-[#87674F] mb-2 font-['Assistant']">
                         נתוני האימייל
                       </h3>
                       <pre className="text-sm text-gray-700 whitespace-pre-wrap">
@@ -233,7 +233,7 @@ export function EmailPreview({
                     </div>
 
                     <div className="bg-gray-50 rounded-lg p-4">
-                      <h3 className="font-medium text-[#5E4934] mb-2 font-['Assistant']">
+                      <h3 className="font-medium text-[#87674F] mb-2 font-['Assistant']">
                         לינקים במייל
                       </h3>
                       <div className="space-y-2 text-sm">

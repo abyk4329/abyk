@@ -37,10 +37,10 @@ export function HomePageRouter() {
 
             {/* Glass card with title, subtext, and button */}
             <div className="brand-card mx-auto max-w-md p-8 sm:p-12">
-              <h1 className="mb-3 font-['Assistant'] text-2xl font-normal tracking-wide text-[#5E4934] drop-shadow-lg sm:text-3xl lg:text-4xl">
+              <h1 className="mb-3 font-['Assistant'] text-2xl font-normal tracking-wide text-[#87674F] drop-shadow-lg sm:text-3xl lg:text-4xl">
                 גלו את קוד העושר שלכם
               </h1>
-              <p className="mb-8 font-['Assistant'] text-sm font-light leading-relaxed text-[#5E4934] opacity-90 drop-shadow-md sm:text-base">
+              <p className="mb-8 font-['Assistant'] text-sm font-light leading-relaxed text-[#87674F] opacity-90 drop-shadow-md sm:text-base">
                 לחישוב וקבלת קוד אישי על פי תאריך לידה
               </p>
               <Button

@@ -96,7 +96,7 @@ export function WealthCodeSalesPage({
             <div className="text-center">
               <Card className="brand-card mx-auto max-w-2xl p-8 sm:p-12">
                 <div className="space-y-6">
-                  <h1 className="text-center font-['Assistant'] text-3xl font-bold tracking-wide text-[#5E4934] sm:text-[32px]">
+                  <h1 className="text-center font-['Assistant'] text-3xl font-bold tracking-wide text-[#87674F] sm:text-[32px]">
                     קוד העושר האישי שלך הוא
                   </h1>
                   <div className="brand-code-display">
@@ -110,12 +110,12 @@ export function WealthCodeSalesPage({
             <div className="text-center">
               <Card className="brand-card p-6 sm:p-8">
                 <div className="space-y-6">
-                  <h2 className="text-3xl font-bold tracking-wide text-[#5E4934] sm:text-[30px]">
+                  <h2 className="text-3xl font-bold tracking-wide text-[#87674F] sm:text-[30px]">
                     המשמעות העמוקה של קוד העושר
                   </h2>
 
                   <div className="brand-panel px-6 py-8 text-right sm:px-10 sm:py-10">
-                    <div className="space-y-4 text-base leading-relaxed text-[#5E4934]">
+                    <div className="space-y-4 text-base leading-relaxed text-[#87674F]">
                       <p>
                         בחרתי במונח &quot;קוד העושר&quot; ולא &quot;קוד הכסף&quot;
                         מתוך הבנה עמוקה שכסף הוא רק מרכיב אחד
@@ -143,12 +143,12 @@ export function WealthCodeSalesPage({
             <div className="text-center">
               <Card className="brand-card p-6 sm:p-8">
                 <div className="space-y-6">
-                  <h2 className="text-3xl font-bold tracking-wide text-[#5E4934] sm:text-[30px]">
+                  <h2 className="text-3xl font-bold tracking-wide text-[#87674F] sm:text-[30px]">
                     להבין את הקוד – להבין את עצמך
                   </h2>
 
                   <div className="brand-panel px-6 py-8 text-right sm:px-10 sm:py-10">
-                    <div className="space-y-4 text-base leading-relaxed text-[#5E4934]">
+                    <div className="space-y-4 text-base leading-relaxed text-[#87674F]">
                       <p>
                         המספרים בקוד אינם צירוף מקרי. הם משקפים
                         דפוסים עמוקים המניעים אותך לאורך חייך.
@@ -178,12 +178,12 @@ export function WealthCodeSalesPage({
             <div className="text-center">
               <Card className="brand-card p-6 sm:p-8">
                 <div className="space-y-6">
-                  <h2 className="text-3xl font-bold tracking-wide text-[#5E4934] sm:text-[30px]">
+                  <h2 className="text-3xl font-bold tracking-wide text-[#87674F] sm:text-[30px]">
                     הפירוש המלא – כל מה שמחכה לכם בפנים
                   </h2>
 
                   <div className="brand-panel px-6 py-8 text-right sm:px-10 sm:py-10">
-                    <div className="space-y-4 text-base leading-relaxed text-[#5E4934]">
+                    <div className="space-y-4 text-base leading-relaxed text-[#87674F]">
                       <p>
                         ניתוח מעמיק של הספרות {uniqueDigitsLabel} הכולל: מהות כל ספרה,
                         חסימות ואתגרים, נורות אזהרה לזיהוי חוסר
@@ -208,13 +208,13 @@ export function WealthCodeSalesPage({
             <div className="text-center">
               <Card className="brand-card p-6 sm:p-8">
                 <div className="space-y-6">
-                  <h2 className="text-3xl font-bold tracking-wide text-[#5E4934] sm:text-[30px]">
+                  <h2 className="text-3xl font-bold tracking-wide text-[#87674F] sm:text-[30px]">
                     הגיע הזמן לגלות את המשמעות האמיתית של הקוד
                     האישי שלך
                   </h2>
 
                   <div className="brand-panel px-6 py-8 text-right sm:px-10 sm:py-10">
-                    <div className="space-y-6 text-base leading-relaxed text-[#5E4934]">
+                    <div className="space-y-6 text-base leading-relaxed text-[#87674F]">
                       <p>
                         הפירוש המלא של הקוד מעניק מפתח להבנת
                         הדינמיקות הפנימיות המעצבות את חייך, לצד
@@ -226,7 +226,7 @@ export function WealthCodeSalesPage({
                       </p>
 
                       <div className="space-y-6 pt-4 text-center">
-                        <h3 className="text-xl font-semibold text-[#5E4934]">
+                        <h3 className="text-xl font-semibold text-[#87674F]">
                           עלות הפירוש המלא: ₪36.90 בלבד
                         </h3>
 
@@ -253,7 +253,7 @@ export function WealthCodeSalesPage({
                           </div>
                         )}
 
-                        <p className="text-xs font-light tracking-wide text-[#5E4934]/70">
+                        <p className="text-xs font-light tracking-wide text-[#87674F]/70">
                           תשלום מובטח באמצעות ספק סליקה חיצוני Grow
                         </p>
                       </div>

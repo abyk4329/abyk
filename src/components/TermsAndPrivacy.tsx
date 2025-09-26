@@ -94,7 +94,7 @@ export function TermsAndPrivacy({
       <div className="space-y-4 text-center">
         <h3
           className="text-center font-['Assistant'] text-[24px] font-bold tracking-wide drop-shadow-lg"
-          style={{ color: "#5E4934" }}
+          style={{ color: "#87674F" }}
         >
           {section.title}
         </h3>
@@ -113,7 +113,7 @@ export function TermsAndPrivacy({
           type="button"
           onClick={onBack}
           aria-label="חזרה"
-          className="flex items-center gap-2 rounded-md px-3 py-2 text-[#5E4934] transition hover:opacity-80"
+          className="flex items-center gap-2 rounded-md px-3 py-2 text-[#87674F] transition hover:opacity-80"
         >
           <ArrowLeft className="h-5 w-5" />
           <span className="font-['Assistant'] text-sm">חזרה</span>
@@ -130,7 +130,7 @@ export function TermsAndPrivacy({
                   </h1>
                   <h2
                     className="text-center font-['Assistant'] text-[24px] font-bold tracking-wide drop-shadow-lg"
-                    style={{ color: "#5E4934" }}
+                    style={{ color: "#87674F" }}
                   >
                     Awakening by Ksenia
                   </h2>
