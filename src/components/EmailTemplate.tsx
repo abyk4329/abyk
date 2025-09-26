@@ -1,8 +1,9 @@
-interface EmailTemplateData {
+export interface EmailTemplateData {
   wealthCode: number;
   customerName?: string;
   viewUrl: string;
-  codeStructure: {
+  downloadUrl?: string;
+  codeStructure?: {
     digits: number[];
     allSame: boolean;
     hasRepeats: boolean;
@@ -18,6 +19,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
     wealthCode,
     customerName,
     viewUrl,
+    downloadUrl,
     codeStructure,
     logoUrl,
     shareUrl,
@@ -25,24 +27,25 @@ export function generateEmailHTML(data: EmailTemplateData): string {
 
   // תיאור תבנית הקוד
   let patternDescription = '';
-  if (codeStructure.allSame) {
+  if (codeStructure?.allSame) {
     patternDescription = 'קוד מאסטר - כל הספרות זהות';
-  } else if (codeStructure.hasRepeats) {
+  } else if (codeStructure?.hasRepeats) {
     patternDescription = 'קוד עם ספרות חוזרות - אנרגיות מועצמות';
-  } else if (codeStructure.allDifferent) {
+  } else if (codeStructure?.allDifferent) {
     patternDescription = 'קוד מגוון - כל הספרות שונות';
   }
 
   // שרשור ספרות ייחודיות לניסוח טקסט טבעי (1, 2 ו-3)
-  const uniqueDigits = [...new Set(codeStructure.digits)];
-  const digitsStr =
-    uniqueDigits.length === 1
+  const uniqueDigits = codeStructure ? [...new Set(codeStructure.digits)] : [];
+  const digitsStr = uniqueDigits.length > 0
+    ? uniqueDigits.length === 1
       ? uniqueDigits[0].toString()
       : uniqueDigits.length === 2
         ? `${uniqueDigits[0]} ו-${uniqueDigits[1]}`
         : uniqueDigits.length === 3
           ? `${uniqueDigits[0]}, ${uniqueDigits[1]} ו-${uniqueDigits[2]}`
-          : `${uniqueDigits.slice(0, -1).join(', ')} ו-${uniqueDigits[uniqueDigits.length - 1]}`;
+          : `${uniqueDigits.slice(0, -1).join(', ')} ו-${uniqueDigits[uniqueDigits.length - 1]}`
+    : 'הספרות בקוד';
 
   // צבעים/סגנון עקביים
   const colText = '#473B31';
@@ -146,6 +149,15 @@ export function generateEmailHTML(data: EmailTemplateData): string {
                     צפייה באתר (מומלץ)
                   </a>
 
+                  ${
+                    downloadUrl
+                      ? `<a href="${downloadUrl}" target="_blank" class="btn"
+                    style="display:inline-block; padding:15px 25px; text-decoration:none; border-radius:8px; font-weight:400; font-size:16px; text-align:center; border:none; cursor:pointer; background:linear-gradient(135deg, #6DBE45 0%, #4A9A2A 100%); color:#ffffff; transition:all .3s ease;">
+                    הורדה עכשיו
+                  </a>`
+                      : ''
+                  }
+
                 </div>
 
                 <div style="font-size:13px; color:${colAccent}; margin-top:20px; font-weight:300;">
@@ -192,7 +204,8 @@ export function generateEmailHTML(data: EmailTemplateData): string {
   `.trim();
 }
 
-export function generateEmailSubject(wealthCode: number): string {
+export function generateEmailSubject(wealthCode: number | string): string {
+  void wealthCode;
   // משאירה כפי שביקשת (אם תרצי – אפשר להוסיף גם את המספר לנושא)
   return `הפירוש המלא לקוד העושר האישי שלך`;
 }

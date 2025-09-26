@@ -46,7 +46,7 @@ export function computeCodeStructure(raw: number): CodeStructure {
   const allDifferent = uniqueAsc.length === digits.length;
 
   // Determine structure type as an example.
-  let type: StructureType = allSame
+  const type: StructureType = allSame
     ? 'master'
     : repeatedDigits.length > 0
       ? 'repeated'

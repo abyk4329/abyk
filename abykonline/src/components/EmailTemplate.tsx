@@ -200,8 +200,8 @@ export function generateEmailHTML(data: EmailTemplateData): string {
   `.trim();
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-export function generateEmailSubject(wealthCode: number): string {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function generateEmailSubject(wealthCode: number | string): string {
   // משאירה כפי שביקשת (אם תרצי – אפשר להוסיף גם את המספר לנושא)
   return `הפירוש המלא לקוד העושר האישי שלך`;
 }

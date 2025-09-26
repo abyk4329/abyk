@@ -1,4 +1,5 @@
 /* eslint-env node */
+import process from "node:process";
 import bundleAnalyzer from "@next/bundle-analyzer";
 
 /** @type {import('next').NextConfig} */
@@ -64,7 +65,6 @@ const nextConfig = {
 
   // Performance optimizations
   compiler: {
-    // eslint-disable-next-line no-undef
     removeConsole: process.env.NODE_ENV === "production",
   },
 
@@ -96,7 +96,6 @@ const nextConfig = {
 };
 
 const withBundleAnalyzer = bundleAnalyzer({
-  // eslint-disable-next-line no-undef
   enabled: process.env.ANALYZE === "true",
 });
 

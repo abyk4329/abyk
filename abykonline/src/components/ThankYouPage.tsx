@@ -1,7 +1,5 @@
 import React from 'react';
 
-import React from 'react';
-
 export const ThankYouPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-background">

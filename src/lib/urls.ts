@@ -4,6 +4,7 @@ export const paths = {
   sales: (code?: number) => (code ? `/sales?code=${code}` : '/sales'),
   thankYou: (code?: number) => (code ? `/thank-you?code=${code}` : '/thank-you'),
   interpretations: (code: number) => `/interpretations?code=${code}`,
+  downloadPdf: (code: number) => `/api/download-pdf?code=${encodeURIComponent(code)}`,
   termsPrivacy: () => '/terms',
 };
 
