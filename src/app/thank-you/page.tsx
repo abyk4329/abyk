@@ -57,7 +57,9 @@ function ThankYouContent() {
             parsed = p2
           }
         }
-      } catch {}
+      } catch (error) {
+        console.warn('Failed to read lastWealthCode from localStorage', error)
+      }
     }
 
     if (parsed) {
@@ -85,10 +87,6 @@ function ThankYouContent() {
     router.push(paths.home())
   }
 
-  const handleShowTerms = () => router.push(paths.termsPrivacy())
-  const handleShowPrivacy = () => router.push(paths.termsPrivacy())
-  const handleShowTermsAndPrivacy = () => router.push(paths.termsPrivacy())
-
   if (!ready) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -106,9 +104,6 @@ function ThankYouContent() {
       onBack={handleBack}
       onShowInterpretations={handleShowInterpretations}
       onCalculateNew={handleCalculateNew}
-  onShowTerms={handleShowTerms}
-  onShowPrivacy={handleShowPrivacy}
-  onShowTermsAndPrivacy={handleShowTermsAndPrivacy}
     />
   )
 }

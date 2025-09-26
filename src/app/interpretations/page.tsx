@@ -67,14 +67,6 @@ function InterpretationsContent() {
     }
   }, [ready, wealthCode, searchParams])
 
-  const handleBack = () => {
-    if (wealthCode) {
-      router.push(paths.thankYou(wealthCode))
-    } else {
-      router.push(paths.thankYou())
-    }
-  }
-
   const handleCalculateNew = () => {
   router.push(paths.home())
   }
@@ -100,7 +92,6 @@ function InterpretationsContent() {
       wealthCode={wealthCode}
       codeStructure={codeStructure}
       fullData={null}
-      onBack={handleBack}
       onCalculateNew={handleCalculateNew}
     />
   )

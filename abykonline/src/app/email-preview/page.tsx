@@ -22,8 +22,6 @@ function EmailPreviewContent() {
     }
   }, [searchParams, router])
 
-  const handleBack = () => { router.push(paths.home()) }
-
   if (!wealthCode) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -37,7 +35,6 @@ function EmailPreviewContent() {
   return (
     <EmailPreview
       wealthCode={wealthCode}
-      onBack={handleBack}
     />
   )
 }

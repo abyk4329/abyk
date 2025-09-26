@@ -52,14 +52,40 @@ import './globals.css'
 import QaOverlay from '@/components/QaOverlay'
 import routeMap from '@/routeMap.json'
 import NoIndexWhenQA from '@/components/NoIndexWhenQA'
+import Header from '@/components/Header'
+import { Footer } from '@/components/Footer'
 
 const isQA = process.env.NEXT_PUBLIC_QA === 'true'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="he" dir="rtl" suppressHydrationWarning>
-      <body className="bg-root">
-        {children}
+      <body className="relative min-h-screen bg-root">
+        {/* Global background overlay spanning the entire viewport */}
+        <div className="pointer-events-none fixed inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-50/35 via-transparent to-rose-100/30 sm:bg-gradient-to-b sm:from-orange-50/25 sm:via-transparent sm:to-rose-50/25" />
+          <div className="absolute inset-0 backdrop-saturate-[1.12] backdrop-contrast-105 backdrop-brightness-[1.05]" />
+        </div>
+
+        <div className="relative z-10 flex min-h-screen flex-col">
+          {/* Sticky Header */}
+          <div className="sticky top-0 z-50 w-full">
+            <Header />
+          </div>
+
+          {/* Main content area */}
+          <main className="relative flex-1">
+            <div className="relative z-10">
+              {children}
+            </div>
+          </main>
+
+          {/* Footer pinned to bottom */}
+          <div className="mt-auto">
+            <Footer />
+          </div>
+        </div>
+
         {isQA && <NoIndexWhenQA />}
         {isQA && <QaOverlay routeMap={routeMap as Record<string, string>} />}
       </body>

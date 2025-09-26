@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect, Suspense } from 'react'
-import { ThankYouPage } from '@/components/ThankYouPage'
+import ThankYouPage from '../../components/ThankYouPage'
 import { paths, isFourDigitCode } from '@/lib/urls'
 import { computeCodeStructure, type CodeStructure } from '@/lib/codeStructure'
 
@@ -57,7 +57,9 @@ function ThankYouContent() {
             parsed = p2
           }
         }
-      } catch {}
+      } catch (error) {
+        console.warn('Failed to read lastWealthCode from localStorage', error)
+      }
     }
 
     if (parsed) {
@@ -85,10 +87,6 @@ function ThankYouContent() {
     router.push(paths.home())
   }
 
-  const handleShowTerms = () => router.push(paths.termsPrivacy())
-  const handleShowPrivacy = () => router.push(paths.termsPrivacy())
-  const handleShowTermsAndPrivacy = () => router.push(paths.termsPrivacy())
-
   if (!ready) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -101,14 +99,11 @@ function ThankYouContent() {
 
   return (
     <ThankYouPage
-      wealthCode={wealthCode ?? undefined}
-      codeStructure={codeStructure ?? undefined}
+      wealthCode={wealthCode}
+      codeStructure={codeStructure}
       onBack={handleBack}
       onShowInterpretations={handleShowInterpretations}
       onCalculateNew={handleCalculateNew}
-  onShowTerms={handleShowTerms}
-  onShowPrivacy={handleShowPrivacy}
-  onShowTermsAndPrivacy={handleShowTermsAndPrivacy}
     />
   )
 }

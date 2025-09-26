@@ -11,16 +11,18 @@ function readStoredCode(): number | null {
   const readers: Array<() => string | null> = [
     () => {
       try {
-        return sessionStorage.getItem(STORAGE_KEY);
-      } catch {
-        return null;
+        return sessionStorage.getItem(STORAGE_KEY)
+      } catch (error) {
+        console.warn('Failed to read lastWealthCode from sessionStorage', error)
+        return null
       }
     },
     () => {
       try {
-        return localStorage.getItem(STORAGE_KEY);
-      } catch {
-        return null;
+        return localStorage.getItem(STORAGE_KEY)
+      } catch (error) {
+        console.warn('Failed to read lastWealthCode from localStorage', error)
+        return null
       }
     },
   ];
@@ -69,7 +71,8 @@ function SalesContent() {
     try {
       const computed = computeCodeStructure(resolvedCode);
       setStructure(computed);
-    } catch {
+    } catch (error) {
+      console.warn('Failed to compute code structure for sales page', error)
       setStructure(null);
       router.replace(paths.calculator());
     }

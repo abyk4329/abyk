@@ -12,7 +12,6 @@ type Payload = {
 export async function GET(req: NextRequest) {
   const { searchParams, origin } = new URL(req.url)
   const wealthCode = parseInt(searchParams.get('code') || '1234', 10)
-  const name = searchParams.get('name') || undefined
 
   const viewUrl = `${origin}/interpretations?code=${encodeURIComponent(searchParams.get('tx') || 'PREVIEW')}&utm_source=email&utm_campaign=delivery`
   const downloadUrl = `${origin}/api/download-pdf?code=${encodeURIComponent(searchParams.get('tx') || 'PREVIEW')}`
@@ -28,7 +27,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as Payload
-    const { to, wealthCode, name } = body
+    const { to, wealthCode } = body
     if (!wealthCode) return NextResponse.json({ ok: false, error: 'missing code' }, { status: 400 })
 
     const origin = process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin
@@ -58,8 +57,9 @@ export async function POST(req: NextRequest) {
     const json = await resp.json().catch(() => ({}))
     if (!resp.ok) return NextResponse.json(json, { status: resp.status })
     return NextResponse.json(json)
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error('EMAIL_RENDER_POST_ERROR', e)
-    return NextResponse.json({ ok: false, error: e?.message || 'unexpected' }, { status: 500 })
+    const errorMessage = e instanceof Error ? e.message : 'unexpected'
+    return NextResponse.json({ ok: false, error: errorMessage }, { status: 500 })
   }
 }

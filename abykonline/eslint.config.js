@@ -2,9 +2,16 @@
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 
-export default [
+const config = [
   {
-    ignores: [".next/**", "dist/**", "node_modules/**", "pnpm-lock.yaml"],
+    ignores: [
+      ".next/**",
+      "dist/**",
+      "node_modules/**",
+      "pnpm-lock.yaml",
+      "next-env.d.ts",
+      "**/favicon.ico/**",
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -15,3 +22,5 @@ export default [
     },
   },
 ];
+
+export default config;

@@ -12,7 +12,8 @@ export const getCodeFromUrl = (): string | null => {
   if (typeof window === 'undefined') return null;
   try {
     return new URL(window.location.href).searchParams.get('code');
-  } catch {
+  } catch (error) {
+    console.warn('Failed to parse code from URL', error);
     return null;
   }
 };

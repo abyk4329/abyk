@@ -17,7 +17,9 @@ export default function NoIndexWhenQA() {
       return () => {
         if (meta && meta.parentNode) meta.parentNode.removeChild(meta)
       }
-    } catch {}
+    } catch (error) {
+      console.warn('Failed to apply QA noindex meta tag', error)
+    }
   }, [])
 
   return null

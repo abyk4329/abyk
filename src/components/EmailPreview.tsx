@@ -1,12 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card } from "./ui/card";
 import { ArrowLeft, Mail, Eye, Code, Download } from "lucide-react";
 import { generateEmailHTML, generateEmailSubject, generateEmailText } from "./EmailTemplate";
 import { computeCodeStructure } from "@/lib/codeStructure";
+import { paths } from "@/lib/urls";
 
 type RepeatedDigit = { digit: number; count: number };
 type CodeStructureSummary = {
@@ -26,17 +28,16 @@ type EmailData = {
 };
 
 interface EmailPreviewProps {
-  onBack: () => void;
   wealthCode?: number;
   codeStructure?: CodeStructureSummary;
   fullData?: unknown; // שמרי אם צריך בעתיד
 }
 
 export function EmailPreview({
-  onBack,
   wealthCode: initialWealthCode,
   codeStructure,
 }: EmailPreviewProps) {
+  const router = useRouter();
   const [wealthCode, setWealthCode] = useState<number>(initialWealthCode || 1234);
   const [viewMode, setViewMode] = useState<"html" | "text" | "data">("html");
 
@@ -94,16 +95,16 @@ export function EmailPreview({
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
           <Button
-            variant="ghost"
+            variant="subtle"
             size="lg"
-            onClick={onBack}
-            className="flex items-center gap-2 text-[#473B31] hover:text-[#87674F]"
+            onClick={() => router.push(paths.home())}
+            className="flex items-center gap-2"
           >
             <ArrowLeft className="w-5 h-5" />
             חזור
           </Button>
           <div>
-            <h1 className="text-2xl font-medium text-[#473B31] font-['Assistant']">
+            <h1 className="text-2xl font-medium text-[#5E4934] font-['Assistant']">
               תצוגה מקדימה של המייל ללקוח
             </h1>
             <p className="text-[#87674F] font-light font-['Assistant']">
@@ -116,13 +117,13 @@ export function EmailPreview({
           {/* Controls */}
           <div className="lg:col-span-1">
             <Card className="p-6 bg-white/80 backdrop-blur-sm border-[#87674F]/20">
-              <h2 className="text-lg font-medium text-[#473B31] mb-4 font-['Assistant']">
+              <h2 className="text-lg font-medium text-[#5E4934] mb-4 font-['Assistant']">
                 הגדרות בדיקה
               </h2>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#473B31] mb-2 font-['Assistant']">
+                  <label className="block text-sm font-medium text-[#5E4934] mb-2 font-['Assistant']">
                     קוד עושר
                   </label>
                   <Input
@@ -148,12 +149,12 @@ export function EmailPreview({
                 {/** Intentionally no customer name control; template uses neutral greeting **/}
 
                 <div>
-                  <label className="block text-sm font-medium text-[#473B31] mb-2 font-['Assistant']">
+                  <label className="block text-sm font-medium text-[#5E4934] mb-2 font-['Assistant']">
                     מצב תצוגה
                   </label>
                   <div className="flex flex-col gap-2">
                     <Button
-                      variant={viewMode === "html" ? "default" : "outline"}
+                      variant={viewMode === "html" ? "brand" : "subtle"}
                       size="sm"
                       onClick={() => setViewMode("html")}
                       className="w-full justify-start font-['Assistant']"
@@ -162,7 +163,7 @@ export function EmailPreview({
                       תצוגת HTML
                     </Button>
                     <Button
-                      variant={viewMode === "text" ? "default" : "outline"}
+                      variant={viewMode === "text" ? "brand" : "subtle"}
                       size="sm"
                       onClick={() => setViewMode("text")}
                       className="w-full justify-start font-['Assistant']"
@@ -171,7 +172,7 @@ export function EmailPreview({
                       תצוגת טקסט
                     </Button>
                     <Button
-                      variant={viewMode === "data" ? "default" : "outline"}
+                      variant={viewMode === "data" ? "brand" : "subtle"}
                       size="sm"
                       onClick={() => setViewMode("data")}
                       className="w-full justify-start font-['Assistant']"
@@ -184,7 +185,7 @@ export function EmailPreview({
               </div>
 
               <div className="mt-6 p-4 bg-[#87674F]/10 rounded-lg">
-                <h3 className="font-medium text-[#473B31] mb-2 font-['Assistant']">
+                <h3 className="font-medium text-[#5E4934] mb-2 font-['Assistant']">
                   כותרת המייל:
                 </h3>
                 <p className="text-sm text-[#87674F] font-['Assistant']">{emailSubject}</p>
@@ -196,7 +197,7 @@ export function EmailPreview({
           <div className="lg:col-span-2">
             <Card className="bg-white/90 backdrop-blur-sm border-[#87674F]/20">
               <div className="p-4 border-b border-[#87674F]/20">
-                <h2 className="text-lg font-medium text-[#473B31] font-['Assistant']">
+                <h2 className="text-lg font-medium text-[#5E4934] font-['Assistant']">
                   תצוגה מקדימה
                 </h2>
               </div>
@@ -223,7 +224,7 @@ export function EmailPreview({
                 {viewMode === "data" && (
                   <div className="space-y-4">
                     <div className="bg-gray-50 rounded-lg p-4">
-                      <h3 className="font-medium text-[#473B31] mb-2 font-['Assistant']">
+                      <h3 className="font-medium text-[#5E4934] mb-2 font-['Assistant']">
                         נתוני האימייל
                       </h3>
                       <pre className="text-sm text-gray-700 whitespace-pre-wrap">
@@ -232,7 +233,7 @@ export function EmailPreview({
                     </div>
 
                     <div className="bg-gray-50 rounded-lg p-4">
-                      <h3 className="font-medium text-[#473B31] mb-2 font-['Assistant']">
+                      <h3 className="font-medium text-[#5E4934] mb-2 font-['Assistant']">
                         לינקים במייל
                       </h3>
                       <div className="space-y-2 text-sm">

@@ -1,23 +1,16 @@
+import Image from "next/image";
 import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
-import { Footer } from "./Footer";
-import Header from "./Header";
 
 interface HomePageProps {
   onShowCalculator: () => void;
-  onShowTerms: () => void;
-  onShowPrivacy: () => void;
-  onShowTermsAndPrivacy: () => void;
 }
 
 export function HomePage({
   onShowCalculator,
-  onShowTerms,
-  onShowPrivacy,
-  onShowTermsAndPrivacy,
 }: HomePageProps) {
   return (
-    <div className="min-h-screen relative" lang="he">
+    <div className="relative flex min-h-[120vh] flex-col pb-24" lang="he">
       {/* Overlays over global body background */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent via-50% to-rose-100/25 sm:bg-gradient-to-b sm:from-orange-50/20 sm:via-transparent sm:to-rose-50/20"></div>
@@ -25,18 +18,18 @@ export function HomePage({
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Header */}
-  <Header />
+  <div className="relative z-10 flex min-h-full flex-col">
+
         {/* Main Content - Logo and Calculator Button */}
-        <main className="flex-1 flex items-center justify-center px-4 py-12 sm:px-6 sm:py-20">
+        <main className="flex flex-1 items-center justify-center px-4 pt-16 pb-32 sm:px-6 sm:pt-24 sm:pb-36">
           <div className="text-center max-w-4xl w-full">
             {/* Logo */}
-            <div className="sm:mb-16 mt-[-80px] mr-[0px] mb-[48px] ml-[0px]">
-              <img
-                src={logoImage.src}
+            <div className="sm:mb-16 mt-4 mb-12">
+              <Image
+                src={logoImage}
                 alt="AWAKENING"
-                className="mx-auto h-40 sm:h-52 w-auto opacity-95 drop-shadow-2xl"
+                className="mx-auto h-40 w-auto opacity-95 drop-shadow-2xl sm:h-52"
+                priority
               />
             </div>
 
@@ -44,7 +37,7 @@ export function HomePage({
             <div className="backdrop-blur-xl rounded-3xl border shadow-2xl max-w-md mx-auto bg-[rgba(254,254,254,0.12)] border-[rgba(135,103,79,0.2)] p-8 sm:p-12">
               <h2
                 className="text-2xl sm:text-3xl lg:text-4xl mb-6 font-normal tracking-wide drop-shadow-lg font-['Assistant']"
-                style={{ color: "#473B31" }}
+                style={{ color: "#5E4934" }}
               >
                 גלו את קוד העושר שלכם
               </h2>
@@ -61,13 +54,6 @@ export function HomePage({
             </div>
           </div>
         </main>
-
-        {/* Footer */}
-        <Footer
-          onShowTerms={onShowTerms}
-          onShowPrivacy={onShowPrivacy}
-          onShowTermsAndPrivacy={onShowTermsAndPrivacy}
-        />
       </div>
     </div>
   );

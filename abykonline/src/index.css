@@ -122,7 +122,7 @@ header,
 /* Footer readability on brand background */
 footer,
 footer * {
-  color: #473b31;
+  color: #5e4934;
 }
 
 /* עיצובים מותאמים אישית */
@@ -229,5 +229,64 @@ footer * {
 }
 
 .text-brand {
-  color: #473b31;
+  color: #5e4934;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #5e4934;
+}
+
+@layer components {
+  .brand-card {
+    @apply rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_28px_60px_-25px_rgba(94,73,52,0.45)] transition-all duration-300;
+  }
+
+  .brand-card:hover,
+  .brand-card:focus-within {
+    background-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 32px 75px -28px rgba(94, 73, 52, 0.55);
+  }
+
+  .brand-panel {
+    @apply rounded-xl border border-white/12 bg-white/8 backdrop-blur-lg shadow-[0_20px_50px_-28px_rgba(94,73,52,0.4)] transition-all duration-300;
+  }
+
+  .brand-panel:hover,
+  .brand-panel:focus-within {
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .brand-tab-list {
+    @apply grid gap-2 rounded-2xl border border-white/15 bg-white/8 p-1 backdrop-blur-lg shadow-[0_20px_40px_-20px_rgba(94,73,52,0.35)];
+  }
+
+  .brand-tab {
+    @apply rounded-full border border-transparent px-5 py-2 text-sm font-medium tracking-wide text-[#5E4934] transition-all duration-300 shadow-[0_10px_20px_-18px_rgba(94,73,52,0.55)];
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .brand-tab[data-state="active"] {
+    background: rgba(149, 112, 82, 0.65);
+    color: #fff;
+    box-shadow: 0 18px 38px -22px rgba(149, 112, 82, 0.65);
+  }
+
+  .brand-tab[data-state="active"] svg {
+    color: inherit;
+  }
+
+  .brand-code-display {
+    @apply inline-flex min-h-[120px] min-w-[220px] items-center justify-center rounded-2xl border border-white/20 bg-gradient-to-br from-white/70 via-white/30 to-white/10 px-8 py-6 text-5xl font-bold tracking-[0.35em] text-[#5E4934] shadow-[0_30px_70px_-30px_rgba(94,73,52,0.55)] backdrop-blur-2xl;
+  }
+
+  @screen sm {
+    .brand-code-display {
+      @apply min-h-[140px] min-w-[260px] px-10 py-8 text-6xl tracking-[0.45em];
+    }
+  }
 }

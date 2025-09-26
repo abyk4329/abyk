@@ -1,5 +1,4 @@
 import { generateEmailHTML, generateEmailSubject, generateEmailText } from "./EmailTemplate";
-import { computeCodeStructure } from "@/lib/codeStructure";
 
 type RepeatedDigit = { digit: number; count: number };
 export type CodeStructureSummary = {
@@ -47,30 +46,6 @@ export class EmailService {
     // Canonical links
     const viewUrl = `${baseUrl}/interpretations?code=${codeEnc}&utm_source=email&utm_campaign=delivery`;
   const downloadUrl = `${baseUrl}/api/download-pdf?code=${codeEnc}`;
-
-    // Use provided structure or detect
-    const codeStructure: CodeStructureSummary =
-      data.codeStructure ??
-      (() => {
-        const digits = codeStr.split("").map(Number);
-        const key = computeCodeStructure(Number(codeStr)).type;
-        const counts = digits.reduce<Record<number, number>>((acc, d) => {
-          acc[d] = (acc[d] || 0) + 1;
-          return acc;
-        }, {});
-        const repeatedDigits = Object.entries(counts)
-          .filter(([, c]) => (c as number) > 1)
-          .map(([digit, count]) => ({ digit: parseInt(digit, 10), count: count as number }));
-        const setSize = new Set(digits).size;
-        return {
-          digits,
-          repeatedDigits,
-          allSame: setSize === 1,
-          allDifferent: setSize === 4,
-          hasRepeats: repeatedDigits.length > 0,
-          type: key,
-        };
-      })();
 
     // חשוב: לא מעבירים customerName לתבנית המייל (היא ניטרלית)
     const templateData = {
@@ -211,7 +186,7 @@ export async function sendWealthCodeEmail(
 
   try {
     return await emailService.sendEmailViaAPI(data, "/api/send-email");
-  } catch (apiError) {
+  } catch {
     console.warn("API email failed, trying EmailJS fallback");
 
     const emailJSConfig = {

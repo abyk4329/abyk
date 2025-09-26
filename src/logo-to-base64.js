@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Script to convert logo to base64 for email template
 // Run this in the browser console or Node.js to get the base64 string
 
@@ -10,7 +11,7 @@ function imageToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
-      const base64 = reader.result.split(',')[1]; // Remove data:image/png;base64, prefix
+      const base64 = reader.result.split(",")[1]; // Remove data:image/png;base64, prefix
       resolve(base64);
     };
     reader.onerror = reject;
@@ -27,13 +28,13 @@ async function urlToBase64(url) {
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.onload = () => {
-        const base64 = reader.result.split(',')[1];
+        const base64 = reader.result.split(",")[1];
         resolve(base64);
       };
       reader.readAsDataURL(blob);
     });
   } catch (error) {
-    console.error('Error converting URL to base64:', error);
+    console.error("Error converting URL to base64:", error);
   }
 }
 
@@ -41,5 +42,7 @@ async function urlToBase64(url) {
 // const base64 = await urlToBase64('https://your-logo-url.com/logo.png');
 // console.log(base64);
 
-console.log('Logo to Base64 converter ready!');
-console.log('Use imageToBase64(file) or urlToBase64(url) to convert your logo.');
+console.log("Logo to Base64 converter ready!");
+console.log(
+  "Use imageToBase64(file) or urlToBase64(url) to convert your logo."
+);
