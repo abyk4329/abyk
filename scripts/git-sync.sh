@@ -15,8 +15,39 @@ if [ "$current_branch" != "main" ]; then
   exit 1
 fi
 
-# Step 1: remove stale Git lock files
-rm -f .git/HEAD.lock .git/index.lock
+# Step 1: ensure no active Git lock files are present
+lock_files=(".git/HEAD.lock" ".git/index.lock")
+stale_locks=0
+
+for lock_file in "${lock_files[@]}"; do
+  if [ -e "$lock_file" ]; then
+    stale_locks=1
+    echo "[git-sync] Error: detected Git lock file: $lock_file" >&2
+
+    # Prefer detailed modification timestamp when available
+    if command -v stat >/dev/null 2>&1; then
+      if stat --format='%y' "$lock_file" >/dev/null 2>&1; then
+        lock_mtime=$(stat --format='%y' "$lock_file")
+        echo "[git-sync]        Last modified: $lock_mtime" >&2
+      elif stat -f '%Sm' "$lock_file" >/dev/null 2>&1; then
+        lock_mtime=$(stat -f '%Sm' "$lock_file")
+        echo "[git-sync]        Last modified: $lock_mtime" >&2
+      fi
+    fi
+
+    # Provide fallback details if stat is unavailable
+    if [ -z "${lock_mtime:-}" ]; then
+      ls -l "$lock_file" >&2 || true
+    fi
+
+    echo "[git-sync] Please investigate the owning Git process before rerunning this script." >&2
+  fi
+done
+
+if [ "$stale_locks" -eq 1 ]; then
+  echo "[git-sync] Aborting to avoid corrupting the repository. If the lock file is stale, remove it manually after verifying no Git process is using it." >&2
+  exit 2
+fi
 
 # Step 2: abort any in-progress merge
 if [ -f .git/MERGE_HEAD ]; then

@@ -5,7 +5,6 @@ import { Card } from "./ui/card";
 import { Eye, Download, MessageCircle, Share2, Calculator } from "lucide-react";
 import { Footer } from "./Footer";
 import Header from "./Header";
-import { SimplePDFGenerator } from "./SimplePDFGenerator";
 import { isFourDigitCode } from "@/lib/urls";
 import { useState } from "react";
 import { wealthCodeTexts, type DigitBlock } from "@/data/wealthCodeTexts";
@@ -126,35 +125,7 @@ export function ThankYouPage({
   const [isDownloading, setIsDownloading] = useState(false);
 
   const handleDownloadPDF = async () => {
-    if (!wealthCode || !codeStructure) return;
-
-    setIsDownloading(true);
-    try {
-      // Prepare digit data for PDF (simplified version)
-      const uniqueDigits = [...new Set<number>(codeStructure.digits)].sort(
-        (a, b) => a - b,
-      );
-      const digitData: DigitBlock[] = uniqueDigits.map((digit) => {
-        if (fullData && parseInt(fullData.digit, 10) === digit) {
-          return fullData;
-        }
-
-        const meaning = wealthCodeTexts[digit as keyof typeof wealthCodeTexts];
-        return meaning ?? createFallbackDigitBlock(digit);
-      });
-
-      // Use the simple PDF generator
-      await SimplePDFGenerator.downloadHTML(
-        wealthCode,
-        codeStructure,
-        digitData,
-      );
-    } catch (error) {
-      console.error("Error generating PDF:", error);
-      alert("שגיאה ביצירת הקובץ. נסה שוב.");
-    } finally {
-      setIsDownloading(false);
-    }
+    alert("הורדת PDF זמנית לא זמינה");
   };
 
   const handleShareCalculator = () => {

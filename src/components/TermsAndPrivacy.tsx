@@ -89,7 +89,7 @@ export function TermsAndPrivacy({
   const renderSection = (section: PolicySection) => (
     <Card
       key={section.title}
-      className="bg-white/12 border border-white/20 bg-[rgba(254,254,254,0.1)] p-6 shadow-2xl shadow-orange-200/40 backdrop-blur-xl sm:p-8"
+      className="border-[rgba(135,103,79,0.2)] bg-[rgba(254,254,254,0.12)] p-6 backdrop-blur-xl sm:p-8"
     >
       <div className="space-y-4 text-center">
         <h3
@@ -109,39 +109,37 @@ export function TermsAndPrivacy({
     <div className="relative min-h-screen" lang="he">
       <div className="pointer-events-none fixed inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent via-50% to-rose-100/25 sm:bg-gradient-to-b sm:from-orange-50/20 sm:via-transparent sm:to-rose-50/20" />
-        <div className="absolute inset-0 backdrop-saturate-110 backdrop-contrast-102 backdrop-brightness-102" />
+        <div className="absolute inset-0 backdrop-brightness-[1.02] backdrop-contrast-[1.02] backdrop-saturate-[1.1]" />
       </div>
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <header className="border-b border-white/30 bg-[rgba(254,254,254,0.12)] shadow-xl backdrop-blur-lg sm:border-white/25 sm:backdrop-blur-md">
-          <div className="mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-6">
-            <div className="flex items-center justify-between">
-              <div className="w-16">
-                <Button
-                  variant="ghost"
-                  onClick={onBack}
-                  className="border-0 p-2 font-['Assistant'] font-normal tracking-wide text-[rgba(254,254,254,1)] hover:bg-white/15 hover:text-white/90"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                </Button>
-              </div>
+          <div className="relative mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-6">
+            <div className="flex items-center justify-center">
+              <button
+                type="button"
+                onClick={onBack}
+                aria-label="חזרה"
+                className="absolute left-4 top-1/2 flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-md px-3 py-2 text-[#473B31] transition hover:scale-[1.02] hover:opacity-80 sm:left-6"
+              >
+                <ArrowLeft className="h-5 w-5" />
+              </button>
 
               <span
-                className="text-center font-['Assistant'] text-xs font-normal tracking-[0.25em] drop-shadow-lg sm:text-sm md:text-lg"
-                style={{ color: "#473B31" }}
+                className="text-center font-['Assistant'] text-xs font-normal tracking-[0.25em] text-[#473B31] drop-shadow-lg sm:text-sm md:text-lg"
                 dir="ltr"
               >
                 YOUR PERSONAL SPACE FOR GROWTH
               </span>
 
-              <div className="w-16" />
+              <div className="absolute right-4 top-1/2 min-h-[44px] min-w-[44px] -translate-y-1/2 sm:right-6" />
             </div>
           </div>
         </header>
 
         <main className="flex-1 px-4 py-6 sm:px-6 sm:py-8">
           <div className="mx-auto max-w-4xl space-y-8 font-['Assistant']" dir="rtl">
-            <Card className="mx-auto max-w-3xl border border-white/20 bg-[rgba(254,254,254,0.1)] p-8 shadow-2xl shadow-orange-200/40 backdrop-blur-xl sm:p-12">
+            <Card className="mx-auto max-w-3xl border-[rgba(135,103,79,0.2)] bg-[rgba(254,254,254,0.12)] p-8 backdrop-blur-xl sm:p-12">
               <div className="space-y-6 text-center">
                 <div className="space-y-3">
                   <h1 className="text-[32px] font-bold tracking-wide text-[rgba(254,254,254,1)] drop-shadow-lg">

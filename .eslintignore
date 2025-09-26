@@ -1,0 +1,11 @@
+# ESLint ignore patterns for deployment
+.next/
+dist/
+node_modules/
+*.min.js
+coverage/
+test-results/
+.vercel/
+.env.local
+.env*.local
+tsconfig.tsbuildinfo

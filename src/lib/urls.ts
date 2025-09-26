@@ -5,7 +5,6 @@ export const paths = {
   thankYou: (code?: number) => (code ? `/thank-you?code=${code}` : '/thank-you'),
   interpretations: (code: number) => `/interpretations?code=${code}`,
   termsPrivacy: () => '/terms',
-  downloadPdf: (code: string | number) => `/api/download-pdf?code=${code}`,
 };
 
 export const getCodeFromUrl = (): string | null => {

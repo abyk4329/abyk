@@ -46,7 +46,6 @@ export class EmailService {
 
     // Canonical links
     const viewUrl = `${baseUrl}/interpretations?code=${codeEnc}&utm_source=email&utm_campaign=delivery`;
-    const downloadUrl = `${baseUrl}/api/download-pdf?code=${codeEnc}`;
 
     // Use provided structure or detect
     const codeStructure: CodeStructureSummary =
@@ -76,7 +75,6 @@ export class EmailService {
     const templateData = {
       wealthCode: data.wealthCode,
       viewUrl,
-      downloadUrl,
       // do not pass codeStructure; template resolves it internally
     } as const;
 
@@ -91,7 +89,6 @@ export class EmailService {
       text,
       // שימושים חיצוניים (EmailJS / לוגים / מטא)
       viewUrl,
-      downloadUrl,
       wealthCode: data.wealthCode,
       customerName: data.customerName, // לשימוש במטא בלבד, לא בטמפלייט
     };

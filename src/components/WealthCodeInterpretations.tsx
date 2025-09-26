@@ -3,19 +3,9 @@ import logoImage from "@/assets/98ba3b7f347e523ebb8bf2cb6df3ddd5ab3385a0.png";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import {
-  ArrowLeft,
-  Download,
-  Star,
-  TrendingUp,
-  Eye,
-  Share2,
-  Calculator,
-} from "lucide-react";
+import { ArrowLeft, Star, TrendingUp, Eye, Share2, Calculator } from "lucide-react";
 import { Footer } from "./Footer";
 import Header from "./Header";
-import { WealthCodePDFGenerator } from "./PDFGenerator";
-import { useState } from "react";
 import {
   wealthCodeTexts,
   sectionTitles,
@@ -87,7 +77,6 @@ export function WealthCodeInterpretations({
   onBack,
   onCalculateNew,
 }: WealthCodeInterpretationsProps) {
-  const [isDownloading, setIsDownloading] = useState(false);
 
   // ייחודי + ממויין עולה (למשל 5513 -> 1,3,5)
   const uniqueDigits = [...new Set(codeStructure.digits)].sort((a, b) => a - b);
@@ -97,70 +86,7 @@ export function WealthCodeInterpretations({
   const structureKey = computeCodeStructure(Number(wealthCode)).type;
   const structure = STRUCTURE_COPY[structureKey];
 
-  const generatePDF = () => {
-    try {
-      const pdfGenerator = new WealthCodePDFGenerator();
-      const digitData = uniqueDigits.map((digit) => {
-        const meaning = wealthCodeTexts[digit];
-        return {
-          title: `${meaning.digit} – ${meaning.title}`,
-          essence: meaning.essence,
-          gifts: meaning.gifts,
-          challenges: meaning.challenges,
-          imbalanceSigns: meaning.imbalanceSigns,
-          growthAreas: meaning.growthAreas,
-          careerPaths: meaning.careerPaths,
-          dailyPractice: meaning.dailyPractice,
-          bottomLine: meaning.bottomLine,
-        };
-      });
 
-      const pdfData = pdfGenerator.generatePDF(wealthCode, codeStructure, digitData);
-      return pdfData;
-    } catch (error) {
-      console.error("Error generating PDF:", error);
-      return null;
-    }
-  };
-
-  const handleDownload = async () => {
-    if (isDownloading) return;
-
-    setIsDownloading(true);
-    try {
-      const pdfData = generatePDF();
-
-      if (pdfData) {
-        // Create and download PDF blob
-        const blob = new Blob([new Uint8Array(pdfData)], { type: "application/pdf" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `קוד-עושר-${wealthCode}-פירוש-מלא.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-      } else {
-        throw new Error("PDF generation failed");
-      }
-    } catch (error) {
-      console.error("Error generating PDF:", error);
-      // Fallback to text download
-      const interpretation = generateFormattedInterpretation();
-      const blob = new Blob([interpretation], { type: "text/plain;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `פירוש-קוד-עושר-${wealthCode}.txt`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } finally {
-      setIsDownloading(false);
-    }
-  };
 
   const handleShare = () => {
     const shareUrl = `${window.location.origin}?page=calculator`;
@@ -182,35 +108,6 @@ export function WealthCodeInterpretations({
       navigator.clipboard.writeText(shareUrl);
       alert("הקישור הועתק ללוח! שתף עם מי שחשוב לך");
     }
-  };
-
-  const generateFormattedInterpretation = () => {
-    let text = `פירוש מלא לקוד העושר ${wealthCode}\n`;
-    text += `=================================\n\n`;
-
-    uniqueDigits.forEach((digit) => {
-      const meaning = wealthCodeTexts[digit];
-      text += `ספרה ${digit}: ${meaning.title}\n`;
-      text += `------------------------\n`;
-      text += `${sectionTitles.essence}:\n${meaning.essence}\n\n`;
-      text += `${sectionTitles.gifts}:\n${meaning.gifts.map((gift) => `• ${gift}`).join("\n")}\n\n`;
-      text += `${sectionTitles.challenges}:\n${meaning.challenges.map((challenge) => `• ${challenge}`).join("\n")}\n\n`;
-      text += `${sectionTitles.imbalanceSigns}:\n${meaning.imbalanceSigns.map((sign) => `• ${sign}`).join("\n")}\n\n`;
-      text += `${sectionTitles.growthAreas}:\n${meaning.growthAreas.map((area) => `• ${area}`).join("\n")}\n\n`;
-      text += `${sectionTitles.careerPaths}:\n${meaning.careerPaths.map((path) => `• ${path}`).join("\n")}\n\n`;
-      text += `${sectionTitles.dailyPractice}:\n${meaning.dailyPractice}\n\n`;
-      if (meaning.bottomLine) {
-        text += `${sectionTitles.bottomLine}:\n${meaning.bottomLine}\n\n`;
-      }
-      text += `================================\n\n`;
-    });
-
-  // Add pattern explanation from centralized data
-  text += `מבנה הקוד:\n`;
-    text += `${structure.title}\n`;
-    text += `${structure.paragraph}\n\n`;
-
-    return text;
   };
 
   return (
@@ -430,25 +327,6 @@ export function WealthCodeInterpretations({
                 <ArrowLeft className="ml-2 h-5 w-5" />
                 חזרה לעמוד תודה
               </Button>
-
-              <Button
-                onClick={handleDownload}
-                disabled={isDownloading}
-                className="border border-none bg-[rgba(149,112,82,0.3)] px-8 py-4 font-['Assistant'] text-lg font-normal tracking-wide text-[rgba(254,254,254,1)] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-[rgba(149,112,82,0.5)] hover:shadow-xl"
-              >
-                <Download className="ml-2 h-5 w-5" />
-                {isDownloading ? "מכין PDF..." : "הורד PDF מלא"}
-              </Button>
-
-              {/* Server PDF quick download */}
-              <a
-                href={`/api/download-pdf?code=${wealthCode}`}
-                className="inline-flex items-center justify-center rounded-md border border-[rgba(149,112,82,0.3)] bg-[rgba(254,254,254,0.1)] px-8 py-4 font-['Assistant'] text-lg font-normal tracking-wide text-[rgba(149,112,82,1)] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-[rgba(254,254,254,0.2)] hover:shadow-xl"
-                rel="noopener"
-              >
-                <Download className="ml-2 h-5 w-5" />
-                הורדה מהירה (שרת)
-              </a>
 
               <Button
                 onClick={handleShare}

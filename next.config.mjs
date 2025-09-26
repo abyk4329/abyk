@@ -1,3 +1,5 @@
+import bundleAnalyzer from "@next/bundle-analyzer";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enable Turbopack and experimental features for better performance
@@ -65,15 +67,6 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
 
-  // Bundle analyzer (when ANALYZE=true)
-  ...(process.env.ANALYZE === "true" && {
-    webpack: (config) => {
-      const { BundleAnalyzerPlugin } = require("@next/bundle-analyzer")();
-      config.plugins.push(new BundleAnalyzerPlugin());
-      return config;
-    },
-  }),
-
   // Output optimization
   output: "standalone",
 
@@ -101,4 +94,8 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default withBundleAnalyzer(nextConfig);

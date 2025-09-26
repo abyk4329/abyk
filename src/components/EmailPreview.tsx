@@ -76,7 +76,6 @@ export function EmailPreview({
     return {
       wealthCode,
       viewUrl: `${origin}/interpretations?code=${codeEnc}&utm_source=email&utm_campaign=delivery`,
-      downloadUrl: `${origin}/api/download-pdf?code=${codeEnc}`,
       codeStructure: structure,
     };
   }, [origin, structure, wealthCode]);

@@ -1,4 +1,4 @@
-export const POLICY_UPDATED_AT = "22.09.2025" as const;
+export const POLICY_UPDATED_AT = "26.09.2025" as const;
 export const POLICY_CONTACT_EMAIL = "awakening.by.ksenia@gmail.com" as const;
 
 export type PolicyParagraph =
