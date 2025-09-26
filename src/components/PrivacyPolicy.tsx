@@ -1,0 +1,1 @@
+export { TermsAndPrivacy as PrivacyPolicy } from "./TermsAndPrivacy";

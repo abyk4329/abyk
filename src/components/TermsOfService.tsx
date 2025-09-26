@@ -1,0 +1,1 @@
+export { TermsAndPrivacy as TermsOfService } from "./TermsAndPrivacy";

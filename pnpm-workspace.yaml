@@ -1,6 +1,8 @@
 packages:
   - .
+  - src
 
 onlyBuiltDependencies:
   - core-js
   - sharp
+  - unrs-resolver
