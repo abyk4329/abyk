@@ -10,39 +10,40 @@ node_modules/
 /.next/
 /out/
 /dist/
+out/
 
 # Production
 /build
 
-# Misc
-.DS_Store
-*.tsbuildinfo
-next-env.d.ts
+# Environment files
+.env*
+.env*.local
+!.env.example
 
-# Debug
+# Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Local env files
-.env*.local
-
 # Vercel
 .vercel
+.vercel/cache/
 
 # TypeScript
 tsconfig.tsbuildinfo
+next-env.d.ts
 
-# IDE
+# IDE & Editors
 .vscode/
 .idea/
+*.local
 
 # OS
+.DS_Store
 Thumbs.db
-
-# Logs
-*.log
 
 # Generated at prebuild
 src/routeMap.json
+abykonline/src/routeMap.json
