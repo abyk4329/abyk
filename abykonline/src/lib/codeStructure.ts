@@ -24,16 +24,16 @@ export function computeCodeStructure(raw: number): CodeStructure {
   const safe = Number.isFinite(raw) ? Math.max(0, Math.trunc(raw)) : 0;
 
   // פירוק לספרות בלי padStart (אין אפסים מובילים)
-  let digits = safe.toString().split('').map((ch) => parseInt(ch, 10));
-
-  // הסרת כל הספרות 0 בהתאם לדרישת המערכת
-  digits = digits.filter(digit => digit !== 0);
+  const digits = safe.toString().split('').map((ch) => parseInt(ch, 10));
+  if (digits.includes(0)) {
+    throw new Error("Wealth code cannot contain the digit 0");
+  }
 
   // ספירת הופעות של כל ספרה
-  const digitCounts = digits.reduce((acc, digit) => {
+  const digitCounts = digits.reduce<Record<number, number>>((acc, digit) => {
     acc[digit] = (acc[digit] || 0) + 1;
     return acc;
-  }, {} as Record<number, number>);
+  }, {});
 
   const uniqueAsc = Array.from(new Set(digits)).sort((a, b) => a - b);
   const repeatedDigits = uniqueAsc

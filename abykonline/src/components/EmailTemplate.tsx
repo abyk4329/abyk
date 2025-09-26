@@ -1,4 +1,4 @@
-interface EmailTemplateData {
+export interface EmailTemplateData {
   wealthCode: number;
   customerName?: string;
   viewUrl: string;
@@ -19,6 +19,7 @@ export function generateEmailHTML(data: EmailTemplateData): string {
     wealthCode,
     customerName,
     viewUrl,
+    downloadUrl,
     codeStructure,
     logoUrl,
     shareUrl,
@@ -148,6 +149,11 @@ export function generateEmailHTML(data: EmailTemplateData): string {
                     צפייה באתר (מומלץ)
                   </a>
 
+                  <!-- download -->
+                  <a href="${downloadUrl}" target="_blank" class="btn"
+                    style="display:inline-block; padding:15px 25px; text-decoration:none; border-radius:8px; font-weight:400; font-size:16px; text-align:center; border:none; cursor:pointer; background:linear-gradient(135deg, #6DBE45 0%, #4A9A2A 100%); color:#ffffff; transition:all .3s ease;">
+                    הורדה עכשיו
+                  </a>
                 </div>
 
                 <div style="font-size:13px; color:${colAccent}; margin-top:20px; font-weight:300;">

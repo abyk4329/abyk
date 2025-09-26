@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     if (!wealthCode) return NextResponse.json({ ok: false, error: 'missing code' }, { status: 400 })
 
     const origin = process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin
-  const viewUrl = `${origin}/interpretations?code=${encodeURIComponent('EMAIL-PREVIEW')}&utm_source=email&utm_campaign=delivery`
+    const viewUrl = `${origin}/interpretations?code=${encodeURIComponent('EMAIL-PREVIEW')}&utm_source=email&utm_campaign=delivery`
     const downloadUrl = `${origin}/api/download-pdf?code=${encodeURIComponent('EMAIL-PREVIEW')}`
 
     const html = generateEmailHTML({
@@ -43,7 +43,6 @@ export async function POST(req: NextRequest) {
     const text = generateEmailText({
       wealthCode,
       viewUrl,
-      downloadUrl,
     })
     const subject = generateEmailSubject(wealthCode)
 

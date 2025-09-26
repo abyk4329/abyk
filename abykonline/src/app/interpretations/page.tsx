@@ -76,7 +76,7 @@ function InterpretationsContent() {
   }
 
   const handleCalculateNew = () => {
-  router.push(paths.home())
+    router.push(paths.home())
   }
 
   if (!ready) {
@@ -91,7 +91,7 @@ function InterpretationsContent() {
 
   if (!wealthCode || !codeStructure) {
     // If no valid code, send to Thank You to keep flow consistent
-  router.replace(paths.thankYou())
+    router.replace(paths.thankYou())
     return null
   }
 
