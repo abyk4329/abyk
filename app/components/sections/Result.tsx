@@ -1,14 +1,18 @@
 "use client";
 
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { GlassButton } from "../shared/GlassButton";
+
 const backgroundImage = "/images/61a287a191cbe6aa8bcb3bd084132926dd86fada.png";
 const logo = "/images/bdac5cb81d27fdfd2e671bace0444b5b16c8c60c.png";
-import { GlassButton } from "../shared/GlassButton";
 
 interface ResultProps {
   code: string;
 }
 
 export function Result({ code }: ResultProps) {
+  const router = useRouter();
   // זיהוי סוג הקוד
   const getCodeType = (code: string) => {
     const digits = code.split('');
@@ -118,7 +122,7 @@ export function Result({ code }: ResultProps) {
 
             {/* CTA Button */}
             <div className="flex justify-center items-center">
-              <GlassButton onClick={() => window.location.hash = '#/sales'}>
+              <GlassButton onClick={() => router.push(`/sales?code=${code}`)}>
                 גלו את המשמעות המלאה
               </GlassButton>
             </div>
@@ -127,10 +131,13 @@ export function Result({ code }: ResultProps) {
           {/* Logo - Below Card */}
           <div className="mt-8 sm:mt-10 lg:mt-12 flex justify-center">
             <div className="backdrop-blur-xl bg-white/5 rounded-3xl p-6 sm:p-8 shadow-[0_8px_32px_0_rgba(94,73,52,0.2),inset_0_1px_2px_0_rgba(255,255,255,0.3)] mb-[-30px]">
-              <img 
-                src={logo} 
-                alt="Awakening by Ksenia" 
+              <Image
+                src={logo}
+                alt="Awakening by Ksenia"
+                width={320}
+                height={320}
                 className="h-20 sm:h-28 lg:h-36 w-auto max-w-full object-contain drop-shadow-2xl"
+                sizes="(max-width: 640px) 8rem, (max-width: 1024px) 11rem, 14rem"
               />
             </div>
           </div>

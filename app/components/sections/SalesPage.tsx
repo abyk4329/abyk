@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { GlassButton } from "../shared/GlassButton";
 const backgroundImage = "/images/61a287a191cbe6aa8bcb3bd084132926dd86fada.png";
 
@@ -7,7 +9,42 @@ interface SalesPageProps {
   code: string;
 }
 
+const PURCHASE_URL =
+  (process.env.NEXT_PUBLIC_GROW_PAYMENT_LINK ?? "https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ") as string;
+
 export function SalesPage({ code }: SalesPageProps) {
+  const router = useRouter();
+  const [email, setEmail] = useState<string>("");
+  const [isTouched, setIsTouched] = useState(false);
+
+  const validateEmail = (value: string) => {
+    if (!value.trim()) return "אנא הזינו כתובת מייל";
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!pattern.test(value.trim())) {
+      return "כתובת המייל אינה תקינה";
+    }
+    return "";
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const storedEmail = localStorage.getItem("customerEmail");
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
+
+  const emailError = useMemo(() => {
+    if (!isTouched) return "";
+    return validateEmail(email);
+  }, [email, isTouched]);
+
+  const persistCheckoutContext = (customerEmail: string) => {
+    if (typeof window === "undefined") return;
+    localStorage.setItem("customerEmail", customerEmail.trim());
+    localStorage.setItem("wealthCode", code);
+  };
+
   // Function to get unique digits in ascending order
   const getUniqueDigits = (codeStr: string): string => {
     const digits = codeStr.split('').map(Number);
@@ -27,11 +64,25 @@ export function SalesPage({ code }: SalesPageProps) {
   const uniqueDigitsText = getUniqueDigits(code);
 
   const handlePurchase = () => {
-    window.open('https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ', '_blank');
+    const validationMessage = validateEmail(email);
+    setIsTouched(true);
+    if (validationMessage) return;
+    persistCheckoutContext(email);
+    window.open(PURCHASE_URL, '_blank', 'noopener,noreferrer');
   };
 
   const handleMockPurchase = () => {
-    window.location.hash = '#/thankyou';
+    const validationMessage = validateEmail(email);
+    setIsTouched(true);
+    if (validationMessage) return;
+    persistCheckoutContext(email);
+    router.push(`/thank-you?code=${code}&email=${encodeURIComponent(email)}`);
+  };
+
+  const handleViewAfterPurchase = () => {
+    if (!email) return;
+    persistCheckoutContext(email);
+    router.push(`/thank-you?code=${code}&email=${encodeURIComponent(email)}`);
   };
 
   return (
@@ -112,6 +163,33 @@ export function SalesPage({ code }: SalesPageProps) {
           <p className="text-center mb-6">
             הפירוש המלא של הקוד מעניק מפתח להבנת הדינמיקות הפנימיות המעצבות את חייך. באמצעותו ניתן לזהות את מקורות הדפוסים החוזרים, להבין כיצד להשתחרר ממעגלי סבל מתמשכים, ולפתח פרספקטיבה חדשה על האתגרים וההזדמנויות הפתוחות בפניך.
           </p>
+
+          {/* Email Capture */}
+          <div className="max-w-md mx-auto mb-6">
+            <label htmlFor="customer-email" className="block text-right mb-2 text-sm" style={{ color: '#87674F' }}>
+              להזנת כתובת המייל לקבלת הפירוש במייל מיד לאחר הרכישה
+            </label>
+            <input
+              id="customer-email"
+              type="email"
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+              onBlur={() => setIsTouched(true)}
+              placeholder="name@example.com"
+              className="w-full px-4 py-3 backdrop-blur-xl bg-white/20 rounded-2xl text-right transition-all duration-300 shadow-[0_4px_16px_0_rgba(94,73,52,0.1),inset_0_1px_2px_0_rgba(255,255,255,0.3)] focus:outline-none focus:ring-2 focus:ring-[#87674F]/30 focus:bg-white/30 focus:shadow-[0_6px_20px_0_rgba(94,73,52,0.15),inset_0_2px_4px_0_rgba(255,255,255,0.4)] hover:bg-white/25 hover:shadow-[0_6px_20px_0_rgba(94,73,52,0.12)] active:scale-[0.99]"
+              style={{ color: '#5e4934' }}
+              autoComplete="email"
+              inputMode="email"
+              dir="ltr"
+            />
+            {emailError && (
+              <p className="mt-2 text-sm" style={{ color: '#c2410c', textAlign: 'right' }}>
+                {emailError}
+              </p>
+            )}
+          </div>
           
           {/* Price */}
           <div className="text-center mb-6">
@@ -125,11 +203,28 @@ export function SalesPage({ code }: SalesPageProps) {
 
           {/* Purchase Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
-            <GlassButton onClick={handlePurchase}>
+            <GlassButton
+              onClick={handlePurchase}
+              disabled={!email.trim() || Boolean(emailError)}
+            >
               מעבר לרכישה
             </GlassButton>
-            <GlassButton onClick={handleMockPurchase}>
+            <GlassButton
+              onClick={handleMockPurchase}
+              disabled={!email.trim() || Boolean(emailError)}
+            >
               דמו תשלום (לבדיקה)
+            </GlassButton>
+          </div>
+
+          <div className="flex justify-center mb-6">
+            <GlassButton
+              onClick={handleViewAfterPurchase}
+              className="w-full sm:w-auto"
+              disabled={!email.trim() || Boolean(emailError)}
+              variant="secondary"
+            >
+              כבר רכשתם? מעבר לפירוש ותודה
             </GlassButton>
           </div>
 

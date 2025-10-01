@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react/no-unescaped-entities */
 
 const backgroundImage = "/images/61a287a191cbe6aa8bcb3bd084132926dd86fada.png";
 

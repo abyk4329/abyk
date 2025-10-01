@@ -1,3 +1,8 @@
+"use client";
+
+import Image from "next/image";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { GlassButton } from "../shared/GlassButton";
 import { Calculator, MessageCircle, Instagram, Mail, Music } from "lucide-react";
 const backgroundImage = "/images/61a287a191cbe6aa8bcb3bd084132926dd86fada.png";
@@ -6,19 +11,118 @@ const logo = "/images/bdac5cb81d27fdfd2e671bace0444b5b16c8c60c.png";
 export function ThankYou() {
   const shareUrl = "https://abyk.online/";
   const shareText = "גלו את קוד העושר הנומרולוגי שלכם! מסע מרתק להכרה עצמית וצמיחה אישית";
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const codeParam = searchParams.get("code");
+  const emailParam = searchParams.get("email");
+  const [code, setCode] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const storedCode = localStorage.getItem("wealthCode") || "";
+    const storedEmail = localStorage.getItem("customerEmail") || "";
+
+    const nextCode = codeParam && codeParam.trim().length > 0 ? codeParam : storedCode;
+    const nextEmail = emailParam && emailParam.trim().length > 0 ? emailParam : storedEmail;
+
+    if (nextCode) {
+      setCode(nextCode);
+      localStorage.setItem("wealthCode", nextCode);
+    } else {
+      router.push("/calculator");
+    }
+
+    if (nextEmail) {
+      setEmail(nextEmail);
+      localStorage.setItem("customerEmail", nextEmail);
+    }
+  }, [codeParam, emailParam, router]);
+
+  const ticketKey = useMemo(() => {
+    if (!code) return "";
+    return `purchaseEmailSent:${code}`;
+  }, [code]);
+
+  const sendPurchaseEmail = useCallback(
+    async (force = false) => {
+      if (!code || !email) return;
+
+      if (!force && typeof window !== "undefined") {
+        const ticketValue = localStorage.getItem(ticketKey);
+        if (ticketValue && ticketValue === email) {
+          setEmailStatus("sent");
+          return;
+        }
+      }
+
+      setEmailStatus("sending");
+      setErrorMessage("");
+
+      try {
+        const response = await fetch("/api/send-purchase-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ code, email })
+        });
+
+        if (!response.ok) {
+          const data = await response.json().catch(() => null);
+          throw new Error(data?.message || "שליחת המייל נכשלה. אנא נסו שוב.");
+        }
+
+        setEmailStatus("sent");
+        if (typeof window !== "undefined") {
+          localStorage.setItem(ticketKey, email);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          setErrorMessage(error.message);
+        } else {
+          setErrorMessage("אירעה שגיאה בלתי צפויה בשליחת המייל.");
+        }
+        setEmailStatus("error");
+      }
+    },
+    [code, email, ticketKey]
+  );
+
+  useEffect(() => {
+    if (!code || !email) return;
+    void sendPurchaseEmail();
+  }, [code, email, sendPurchaseEmail]);
+
+  const pdfDownloadUrl = useMemo(() => {
+    if (!code) return "";
+    return `/api/generate-pdf?code=${code}`;
+  }, [code]);
 
   const handleViewInterpretation = () => {
-    window.location.hash = '#/interpretations';
+    if (!code) {
+      router.push('/interpretations');
+      return;
+    }
+    router.push(`/interpretations?code=${code}`);
   };
 
   const handleCalculateAnother = () => {
-    window.location.hash = '#/calculator';
+    router.push('/calculator');
   };
 
   const handleConsultation = () => {
     const whatsappNumber = "972525606008";
     const message = encodeURIComponent("היי, אשמח לתיאום יעוץ אישי");
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+  };
+
+  const handleDownloadPdf = () => {
+    if (!pdfDownloadUrl) return;
+    window.open(pdfDownloadUrl, '_blank', 'noopener,noreferrer');
   };
 
   const handleShareWhatsApp = () => {
@@ -44,6 +148,24 @@ export function ThankYou() {
     const message = encodeURIComponent(`${shareText}\n${shareUrl}`);
     window.open(`https://wa.me/?text=${message}`, '_blank');
   };
+
+  const statusLabel = useMemo(() => {
+    if (!email) return null;
+    switch (emailStatus) {
+      case "sending":
+        return "שולחים אליך את הפירוש למייל...";
+      case "sent":
+        return `הפירוש נשלח ל-${email}.`;
+      case "error":
+        return errorMessage || "שליחת המייל נכשלה. ניתן לנסות שוב.";
+      default:
+        return "";
+    }
+  }, [email, emailStatus, errorMessage]);
+
+  if (!code) {
+    return null;
+  }
 
   return (
     <div className="relative min-h-screen pt-24 sm:pt-28 lg:pt-32 pb-8 fullscreen-bg">
@@ -85,11 +207,45 @@ export function ThankYou() {
             הפירוש המלא לקוד האישי שלך נשלח במייל וממתין לך לצפייה ולהורדה.
           </p>
 
+          {statusLabel && (
+            <div className="backdrop-blur-xl bg-white/15 border border-white/30 rounded-2xl p-4 mb-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.4)]">
+              <p className="text-center text-sm" style={{ color: emailStatus === "error" ? '#b91c1c' : '#5e4934' }}>
+                {emailStatus === "sending" && (
+                  <span className="inline-flex items-center gap-2 justify-center">
+                    <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" aria-hidden="true" />
+                    {statusLabel}
+                  </span>
+                )}
+                {emailStatus !== "sending" && statusLabel}
+              </p>
+              {emailStatus === "error" && (
+                <div className="mt-3 flex justify-center">
+                  <GlassButton
+                    onClick={() => sendPurchaseEmail(true)}
+                    className="px-6"
+                  >
+                    שליחה מחדש למייל
+                  </GlassButton>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Action Buttons */}
           <div className="space-y-4 mb-8">
             <GlassButton onClick={handleViewInterpretation} className="w-full">
               <div className="flex items-center justify-center gap-2">
                 <span>לצפייה באתר</span>
+              </div>
+            </GlassButton>
+
+            <GlassButton
+              onClick={handleDownloadPdf}
+              className="w-full"
+              disabled={!pdfDownloadUrl}
+            >
+              <div className="flex items-center justify-center gap-2">
+                <span>להורדה כ-PDF</span>
               </div>
             </GlassButton>
 
@@ -199,10 +355,13 @@ export function ThankYou() {
         {/* Logo - Below Card */}
         <div className="mt-8 sm:mt-10 lg:mt-12 flex justify-center">
           <div className="backdrop-blur-xl bg-white/5 rounded-3xl p-6 sm:p-8 shadow-[0_8px_32px_0_rgba(94,73,52,0.2),inset_0_1px_2px_0_rgba(255,255,255,0.3)] mb-[-30px]">
-            <img 
-              src={logo} 
-              alt="Awakening by Ksenia" 
+            <Image
+              src={logo}
+              alt="Awakening by Ksenia"
+              width={320}
+              height={320}
               className="h-20 sm:h-28 lg:h-36 w-auto max-w-full object-contain drop-shadow-2xl"
+              sizes="(max-width: 640px) 8rem, (max-width: 1024px) 11rem, 14rem"
             />
           </div>
         </div>

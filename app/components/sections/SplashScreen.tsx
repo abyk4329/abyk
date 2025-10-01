@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 const logo = "/images/bdac5cb81d27fdfd2e671bace0444b5b16c8c60c.png";
@@ -98,10 +99,14 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
             }}
             className="relative z-10"
           >
-            <img
+            <Image
               src={logo}
               alt="Awakening by Ksenia"
+              width={360}
+              height={360}
+              priority
               className="h-40 sm:h-48 lg:h-56 w-auto object-contain drop-shadow-2xl"
+              sizes="(max-width: 640px) 10rem, (max-width: 1024px) 12rem, 14rem"
             />
           </motion.div>
         </motion.div>

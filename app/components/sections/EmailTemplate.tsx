@@ -5,9 +5,10 @@ interface EmailTemplateProps {
 }
 
 export function EmailTemplate({ code, interpretationsUrl, pdfUrl }: EmailTemplateProps) {
-  const shareUrl = "https://abyk.online/";
-  const whatsappConsultation = "https://wa.me/972525606008?text=" + encodeURIComponent("היי, אשמח לתיאום יעוץ אישי");
-  const calculatorUrl = "https://abyk.online/#/calculator";
+    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL ?? "https://abyk.online").replace(/\/$/, "");
+    const shareUrl = `${baseUrl}/`;
+    const whatsappConsultation = "https://wa.me/972525606008?text=" + encodeURIComponent("היי, אשמח לתיאום יעוץ אישי");
+    const calculatorUrl = `${baseUrl}/calculator`;
   
   return `
 <!DOCTYPE html>
@@ -326,6 +327,10 @@ export function EmailTemplate({ code, interpretationsUrl, pdfUrl }: EmailTemplat
                         לצפייה באתר
                     </a>
                     
+                    <a href="${pdfUrl}" class="button button-primary">
+                        להורדה כ-PDF
+                    </a>
+
                     <a href="${calculatorUrl}" class="button button-secondary">
                         לחישוב קוד נוסף
                     </a>
@@ -396,8 +401,9 @@ export function EmailTemplate({ code, interpretationsUrl, pdfUrl }: EmailTemplat
 
 // Helper function to generate email HTML
 export function generatePurchaseEmail(code: string): string {
-  const interpretationsUrl = `https://abyk.online/#/interpretations?code=${code}`;
-  const pdfUrl = `https://abyk.online/api/generate-pdf?code=${code}`;
+    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL ?? "https://abyk.online").replace(/\/$/, "");
+    const interpretationsUrl = `${baseUrl}/interpretations?code=${code}`;
+    const pdfUrl = `${baseUrl}/api/generate-pdf?code=${code}`;
   
   return EmailTemplate({ code, interpretationsUrl, pdfUrl });
 }

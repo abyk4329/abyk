@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 const backgroundImage = "/images/61a287a191cbe6aa8bcb3bd084132926dd86fada.png";
 const logo = "/images/bdac5cb81d27fdfd2e671bace0444b5b16c8c60c.png";
@@ -231,10 +232,13 @@ export function Calculator({ onCalculate }: CalculatorProps) {
 
           {/* Logo - Below Card */}
           <div className="mt-8 sm:mt-10 lg:mt-12 flex justify-center">
-            <img 
-              src={logo} 
-              alt="Awakening by Ksenia" 
+            <Image
+              src={logo}
+              alt="Awakening by Ksenia"
+              width={360}
+              height={360}
               className="h-24 sm:h-32 lg:h-40 w-auto max-w-full object-contain drop-shadow-2xl mt-[3px] mr-[0px] mb-[-30px] ml-[0px]"
+              sizes="(max-width: 640px) 9rem, (max-width: 1024px) 12rem, 16rem"
             />
           </div>
 

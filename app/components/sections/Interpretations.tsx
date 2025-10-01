@@ -1,10 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { GlassButton } from "../shared/GlassButton";
 import { Calculator, MessageCircle, Download, Share2 } from "lucide-react";
-const backgroundImage = "/images/61a287a191cbe6aa8bcb3bd084132926dd86fada.png";
-const logo = "/images/bdac5cb81d27fdfd2e671bace0444b5b16c8c60c.png";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { codeStructures } from "../../data/codeStructures";
 import { digitInterpretations } from "../../data/digitInterpretations";
@@ -12,11 +12,15 @@ import { dailyApplication } from "../../data/dailyApplication";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
+const backgroundImage = "/images/61a287a191cbe6aa8bcb3bd084132926dd86fada.png";
+const logo = "/images/bdac5cb81d27fdfd2e671bace0444b5b16c8c60c.png";
+
 interface InterpretationsProps {
   code: string;
 }
 
 export function Interpretations({ code }: InterpretationsProps) {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<string>("0");
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -143,7 +147,7 @@ export function Interpretations({ code }: InterpretationsProps) {
   };
 
   const handleCalculateAnother = () => {
-    window.location.hash = '#/calculator';
+    router.push('/calculator');
   };
 
   const handleConsultation = () => {
@@ -496,10 +500,13 @@ export function Interpretations({ code }: InterpretationsProps) {
         {/* Logo - Below Card */}
         <div className="mt-8 sm:mt-10 lg:mt-12 flex justify-center">
           <div className="backdrop-blur-xl bg-white/5 rounded-3xl p-6 sm:p-8 shadow-[0_8px_32px_0_rgba(94,73,52,0.2),inset_0_1px_2px_0_rgba(255,255,255,0.3)] mb-[-30px]">
-            <img 
-              src={logo} 
-              alt="Awakening by Ksenia" 
+            <Image
+              src={logo}
+              alt="Awakening by Ksenia"
+              width={320}
+              height={320}
               className="h-20 sm:h-28 lg:h-36 w-auto max-w-full object-contain drop-shadow-2xl"
+              sizes="(max-width: 640px) 8rem, (max-width: 1024px) 11rem, 14rem"
             />
           </div>
         </div>

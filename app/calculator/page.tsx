@@ -10,7 +10,7 @@ export default function CalculatorPage() {
     // שמירת הקוד ב-localStorage ומעבר לעמוד התוצאות
     if (typeof window !== 'undefined') {
       localStorage.setItem('wealthCode', code);
-      router.push('/result');
+      router.push(`/result?code=${code}`);
     }
   };
   

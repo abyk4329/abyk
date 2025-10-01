@@ -45,10 +45,14 @@ export function Hero({ onNavigate }: HeroProps) {
         <div className="max-w-full sm:max-w-4xl mx-auto">
           {/* Logo - Above Card */}
           <div className="sm:mb-8 lg:mb-10 flex justify-center m-[0px] px-[0px] p-[0px]">
-            <img 
-              src={logo} 
-              alt="Awakening by Ksenia" 
+            <Image
+              src={logo}
+              alt="Awakening by Ksenia"
+              width={400}
+              height={400}
+              priority
               className="h-32 sm:h-48 lg:h-56 w-auto max-w-full object-contain drop-shadow-2xl px-[0px] py-[-25px] mt-[28px] mr-[0px] mb-[40px] ml-[0px]"
+              sizes="(max-width: 640px) 8rem, (max-width: 1024px) 12rem, 14rem"
             />
           </div>
 
