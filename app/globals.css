@@ -64,14 +64,18 @@ html {
 }
 
 body {
-  @apply min-h-screen bg-background text-foreground antialiased;
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-family: var(--font-family);
   text-align: center;
   direction: rtl;
 }
 
 main {
-  @apply flex-1;
+  flex: 1 1 0%;
 }
 
 /* Glass card effects */
