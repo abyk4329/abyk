@@ -4,10 +4,10 @@
   
   // Features to install
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "20",
-      "nodeGypDependencies": true
-    },
+   "features": {
+     "ghcr.io/devcontainers-extra/features/pnpm:1": {
+       "version": "latest"
+     }
     "ghcr.io/devcontainers-extra/features/pnpm:1": {
       "version": "latest"
     }

@@ -20,7 +20,6 @@ export default function Sales() {
       }
 
       const savedCode = localStorage.getItem('wealthCode');
-      const savedCode = localStorage.getItem('wealthCode');
       if (savedCode && /^\d{4}$/.test(savedCode)) {
         setCode(savedCode);
         return;
