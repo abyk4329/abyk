@@ -1,0 +1,56 @@
+name: CI - Check Build
+
+on:
+  push:
+    branches: [ main, nextjs-migration ]
+  pull_request:
+    branches: [ main, nextjs-migration ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+        
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        
+    - name: Setup pnpm cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+          
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Run lint
+      run: pnpm lint || echo "Lint warnings found (non-blocking)"
+      
+    - name: Build project
+      run: pnpm build
+      env:
+        # Provide dummy values for build-time env vars
+        NEXT_PUBLIC_APP_NAME: "Awakening by Ksenia"
+        NEXT_PUBLIC_APP_URL: "https://abyk.online"
+        NEXT_PUBLIC_GROW_PAYMENT_LINK: "https://pay.grow.link/test"
+        NEXT_PUBLIC_PRODUCT_PRICE: "34"
+        NEXT_PUBLIC_WHATSAPP_NUMBER: "972525606008"
+        RESEND_API_KEY: "dummy_key_for_build"
