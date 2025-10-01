@@ -13,14 +13,15 @@ export default function InterpretationsPage() {
   useEffect(() => {
     // קריאת הקוד מ-localStorage
     if (typeof window !== 'undefined') {
-      if (codeParam && codeParam.length > 0) {
+      if (codeParam && /^\d{4}$/.test(codeParam)) {
         setCode(codeParam);
         localStorage.setItem('wealthCode', codeParam);
         return;
       }
 
       const savedCode = localStorage.getItem('wealthCode');
-      if (savedCode && savedCode.length > 0) {
+      const savedCode = localStorage.getItem('wealthCode');
+      if (savedCode && /^\d{4}$/.test(savedCode)) {
         setCode(savedCode);
         return;
       }

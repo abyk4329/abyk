@@ -80,7 +80,11 @@ export function SalesPage({ code }: SalesPageProps) {
   };
 
   const handleViewAfterPurchase = () => {
-    if (!email) return;
+    const validationMessage = validateEmail(email);
+    if (validationMessage) {
+      setIsTouched(true);
+      return;
+    }
     persistCheckoutContext(email);
     router.push(`/thank-you?code=${code}&email=${encodeURIComponent(email)}`);
   };
