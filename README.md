@@ -1,6 +1,33 @@
 # 🌟 Awakening by Ksenia - קוד העושר
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/abyk4329/abyk)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/abyk4329/abyk)
+
 אתר נומרולוגי מקצועי לחישוב וניתוח "קוד העושר" האישי - מערכת נומרולוגית המבוססת על תאריך לידה ומספקת תובנות עמוקות לצמיחה אישית והכרה עצמית.
+
+## 📱 **עריכה מהטלפון**
+
+### אפשרות 1: GitHub Codespaces (מומלץ! 🌟)
+VS Code מלא בדפדפן עם כל הסביבה מוכנה:
+1. לחץ על הכפתור "Open in GitHub Codespaces" למעלה
+2. או: גש ל-[github.com/abyk4329/abyk](https://github.com/abyk4329/abyk)
+3. לחץ על `Code` → `Codespaces` → `New codespace`
+4. המתן שהסביבה תיבנה (דקה או שתיים)
+5. הקלד `pnpm dev` בטרמינל
+6. לחץ על הפורט שנפתח (3000) לראות preview
+
+**חינם**: 60 שעות בחודש! 🎁
+
+### אפשרות 2: github.dev (מהיר!)
+1. גש ל-[github.com/abyk4329/abyk](https://github.com/abyk4329/abyk)
+2. לחץ על `.` (נקודה) על המקלדת
+3. העורך ייפתח מיד! ⚡
+4. (אין אפשרות להריץ סרבר, רק לערוך קבצים)
+
+### אפשרות 3: אפליקציות מובייל
+- **GitHub Mobile** - עריכה בסיסית וניהול PR
+- **Working Copy** (iOS) - Git client מקצועי
+- **Spck Editor** (Android/iOS) - IDE מלא למובייל
 
 ## ✨ תכונות עיקריות
 
