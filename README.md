@@ -7,6 +7,8 @@
 
 ## 📱 **עריכה מהטלפון**
 
+> 📖 **[מדריך מהיר - לחץ כאן!](./QUICK_START_MOBILE.md)** | 📚 **[מדריך מפורט](./MOBILE_EDITING_GUIDE.md)**
+
 ### אפשרות 1: GitHub Codespaces (מומלץ! 🌟)
 VS Code מלא בדפדפן עם כל הסביבה מוכנה:
 1. לחץ על הכפתור "Open in GitHub Codespaces" למעלה
