@@ -1,0 +1,59 @@
+# Dependencies
+node_modules
+/.pnp
+.pnp.js
+
+# Next.js build output
+.next
+out
+
+# Build artifacts
+build
+coverage
+dist
+
+# Turborepo cache
+.turbo
+
+# Vercel
+.vercel
+
+# Environment
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Testing
+.nyc_output
+
+# Misc
+.DS_Store
+*.pem
+.idea
+.vscode/settings.json
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Figma export (reference only, not needed in production)
+figmawebdesign/
