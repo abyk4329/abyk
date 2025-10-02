@@ -1,13 +1,13 @@
 {
   "name": "ABYK - Next.js Development",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
-  
+
   // Features to install
   "features": {
-   "features": {
-     "ghcr.io/devcontainers-extra/features/pnpm:1": {
-       "version": "latest"
-     }
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20",
+      "nodeGypDependencies": true
+    },
     "ghcr.io/devcontainers-extra/features/pnpm:1": {
       "version": "latest"
     }

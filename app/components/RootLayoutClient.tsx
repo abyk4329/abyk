@@ -51,7 +51,7 @@ export function RootLayoutClient({ children }: { children: ReactNode }) {
       setCurrentIndex(prev.length);
       return [...prev, pathname];
     });
-  }, [pathname]);
+  }, [pathname, currentIndex]);
 
   // Scroll to top whenever page changes
   useEffect(() => {
