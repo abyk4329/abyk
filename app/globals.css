@@ -1,36 +1,608 @@
-* {
-  box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap");
+
+/* Tailwind v4 - Single import replaces the three @tailwind directives */
+@import "tailwindcss";
+
+/* ============================================
+   CSS Variables - Color Palette & Tokens
+   ============================================ */
+:root {
+  /* Typography */
+  --font-size: 16px;
+  --font-family: "Assistant", sans-serif;
+
+  /* Layout */
+  --header-height: 56px;
+
+  /* Neumorphism Base Colors */
+  --background: #fdfcfb;
+  --foreground: #473b31;
+
+  /* Brown Tones - Main Palette */
+  --brown-dark: #473b31; /* טקסט ראשי */
+  --brown-heading: #5e4934; /* כותרות H1 */
+  --brown-bronze: #87674f; /* כותרות H2-H4 */
+  --brown-neutral: #9f8572; /* Caption ותיאורים */
+
+  /* Sand/Beige Tones */
+  --sand-light: #d3c6bd; /* גבולות */
+  --sand-lighter: #ddcec0; /* רקעים בהירים */
+  --beige-lightest: #eae0d8; /* רקעים בהירים מאוד */
+  --white-cream: #fdfcfb; /* רקע עיקרי */
+
+  /* Semantic-like tokens */
+  --card: #ffffff;
+  --card-foreground: #473b31;
+  --popover: #fdfcfb;
+  --popover-foreground: #473b31;
+  --primary: #5e4934;
+  --primary-foreground: #fdfcfb;
+  --secondary: #eae0d8;
+  --secondary-foreground: #473b31;
+  --muted: #ddcec0;
+  --muted-foreground: #87674f;
+  --accent: #d3c6bd;
+  --accent-foreground: #473b31;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(71, 59, 49, 0.1);
+  --input: transparent;
+  --input-background: #eae0d8;
+  --switch-background: #d3c6bd;
+  --ring: #87674f;
+
+  /* Charts */
+  --chart-1: #d97706;
+  --chart-2: #0891b2;
+  --chart-3: #4338ca;
+  --chart-4: #eab308;
+  --chart-5: #f59e0b;
+
+  /* Radius */
+  --radius: 0.625rem;
+
+  /* Sidebar */
+  --sidebar: #fafaf9;
+  --sidebar-foreground: #292524;
+  --sidebar-primary: #030213;
+  --sidebar-primary-foreground: #fafaf9;
+  --sidebar-accent: #f5f5f4;
+  --sidebar-accent-foreground: #44403c;
+  --sidebar-border: #e7e5e4;
+  --sidebar-ring: #a8a29e;
+
+  /* Font Weights */
+  --font-weight-medium: 600;
+  --font-weight-normal: 400;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background: #f5f5f5;
-  color: #111;
+/* Dark scheme (no Tailwind v4 variants; plain CSS vars override) */
+.dark {
+  --background: #292524;
+  --foreground: #fafaf9;
+  --card: #292524;
+  --card-foreground: #fafaf9;
+  --popover: #292524;
+  --popover-foreground: #fafaf9;
+  --primary: #fafaf9;
+  --primary-foreground: #44403c;
+  --secondary: #57534e;
+  --secondary-foreground: #fafaf9;
+  --muted: #57534e;
+  --muted-foreground: #a8a29e;
+  --accent: #57534e;
+  --accent-foreground: #fafaf9;
+  --destructive: #dc2626;
+  --destructive-foreground: #fca5a5;
+  --border: #57534e;
+  --input: #57534e;
+  --ring: #78716c;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #6366f1;
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #ec4899;
+  --chart-5: #ef4444;
+  --sidebar: #44403c;
+  --sidebar-foreground: #fafaf9;
+  --sidebar-primary: #6366f1;
+  --sidebar-primary-foreground: #fafaf9;
+  --sidebar-accent: #57534e;
+  --sidebar-accent-foreground: #fafaf9;
+  --sidebar-border: #57534e;
+  --sidebar-ring: #78716c;
 }
 
-main {
-  max-width: 640px;
+/* ============================================
+   Base Styles - Reset & Global (v3 safe)
+   ============================================ */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: linear-gradient(
+      135deg,
+      rgb(253, 252, 251) 0%,
+      rgb(245, 241, 237) 100%
+    );
+    color: var(--foreground);
+    font-family: var(--font-family);
+    line-height: 1.1;
+    text-align: center;
+    direction: rtl;
+  }
+
+  /* Set a default border color without relying on v4 tokens */
+  *,
+  *::before,
+  *::after {
+    border-color: var(--border);
+  }
+}
+
+/* ============================================
+   Typography - Mobile First Responsive
+   ============================================ */
+@layer base {
+  /* Headings */
+  h1 {
+    font-family: "Assistant", sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: 0em;
+    color: #5e4934;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  h2 {
+    font-family: "Assistant", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: 0em;
+    color: #87674f;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+  }
+
+  h3 {
+    font-family: "Assistant", sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: 0em;
+    color: #87674f;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  h4 {
+    font-family: "Assistant", sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: 0em;
+    color: #87674f;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  h5 {
+    font-family: "Assistant", sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: 0em;
+    color: #9f8572;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Body Text */
+  p,
+  label,
+  input,
+  textarea {
+    font-family: "Assistant", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0em;
+    color: #473b31;
+    text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.04);
+  }
+
+  button {
+    font-family: "Assistant", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: 0em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Caption Style */
+  .caption {
+    font-family: "Assistant", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0.13em !important;
+    color: #9f8572 !important;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  /* Footer Text Styles */
+  .footer-terms-text {
+    font-size: 14px;
+  }
+  .footer-copyright-text {
+    font-size: 14px;
+  }
+
+  /* Tablet - 640px and up */
+  @media (min-width: 640px) {
+    :root {
+      --header-height: 64px;
+    }
+
+    h1 {
+      font-size: 36px;
+    }
+    h2 {
+      font-size: 30px;
+    }
+    h3 {
+      font-size: 26px;
+    }
+    h4 {
+      font-size: 24px;
+    }
+    h5 {
+      font-size: 20px;
+    }
+
+    .caption {
+      font-size: 16px !important;
+    }
+    .footer-terms-text {
+      font-size: 12px;
+    }
+    .footer-copyright-text {
+      font-size: 11px;
+    }
+  }
+
+  /* Desktop - 1024px and up */
+  @media (min-width: 1024px) {
+    h1 {
+      font-size: 48px;
+    }
+    h2 {
+      font-size: 36px;
+    }
+    h3 {
+      font-size: 32px;
+    }
+    h4 {
+      font-size: 28px;
+    }
+    h5 {
+      font-size: 24px;
+    }
+
+    p,
+    label,
+    input,
+    textarea {
+      font-size: 18px;
+    }
+    button {
+      font-size: 17px;
+    }
+
+    .caption {
+      font-size: 18px !important;
+    }
+    .footer-terms-text {
+      font-size: 12px;
+    }
+    .footer-copyright-text {
+      font-size: 11px;
+    }
+  }
+}
+
+/* ============================================
+   Neumorphism (Soft UI)
+   ============================================ */
+
+/* Main Card - Large Floating 3D */
+.neuro-card-main {
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(242, 238, 234));
+  box-shadow: 30px 30px 90px rgba(159, 133, 114, 0.25),
+    -30px -30px 90px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.8),
+    inset -2px -2px 6px rgba(211, 198, 189, 0.1);
+  border: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.neuro-card-main:hover {
+  box-shadow: 35px 35px 100px rgba(159, 133, 114, 0.3),
+    -35px -35px 100px rgba(255, 255, 255, 1),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 6px rgba(211, 198, 189, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Secondary Card - Medium Raised 3D */
+.neuro-card-secondary {
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(245, 241, 237));
+  box-shadow: 18px 18px 36px rgba(159, 133, 114, 0.18),
+    -18px -18px 36px rgba(255, 255, 255, 0.85),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.7),
+    inset -1px -1px 3px rgba(211, 198, 189, 0.08);
+  border: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.neuro-card-secondary:hover {
+  box-shadow: 22px 22px 44px rgba(159, 133, 114, 0.22),
+    -22px -22px 44px rgba(255, 255, 255, 0.95),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.8),
+    inset -1px -1px 3px rgba(211, 198, 189, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Floating Card - Extra Depth for Logo/Special Elements */
+.neuro-card-floating {
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
+  box-shadow: 40px 40px 120px rgba(159, 133, 114, 0.35),
+    -40px -40px 120px rgba(255, 255, 255, 1),
+    inset 3px 3px 8px rgba(255, 255, 255, 0.9),
+    inset -3px -3px 8px rgba(211, 198, 189, 0.15);
+  border: 0;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.neuro-card-floating:hover {
+  box-shadow: 45px 45px 135px rgba(159, 133, 114, 0.4),
+    -45px -45px 135px rgba(255, 255, 255, 1),
+    inset 3px 3px 8px rgba(255, 255, 255, 1),
+    inset -3px -3px 8px rgba(211, 198, 189, 0.18);
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* Icon Circle - 3D Round Button */
+.neuro-icon {
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
+  box-shadow: 12px 12px 24px rgba(159, 133, 114, 0.2),
+    -12px -12px 24px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.6);
+  border: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.neuro-icon:hover {
+  box-shadow: 14px 14px 28px rgba(159, 133, 114, 0.25),
+    -14px -14px 28px rgba(255, 255, 255, 1),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.7);
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Button Primary - Raised with Press Effect */
+.neuro-button {
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
+  box-shadow: 12px 12px 24px rgba(159, 133, 114, 0.2),
+    -12px -12px 24px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.6);
+  border: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #87674f;
+}
+.neuro-button:hover {
+  box-shadow: 14px 14px 28px rgba(159, 133, 114, 0.25),
+    -14px -14px 28px rgba(255, 255, 255, 1),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.7);
+  transform: translateY(-2px);
+}
+.neuro-button:active {
+  box-shadow: inset 6px 6px 12px rgba(159, 133, 114, 0.18),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.8),
+    1px 1px 3px rgba(159, 133, 114, 0.1);
+  transform: scale(0.97) translateY(2px);
+}
+
+/* Input - Inset/Pressed Style */
+.neuro-input {
+  background: linear-gradient(145deg, rgb(253, 252, 251), rgb(245, 241, 237));
+  box-shadow: inset 8px 8px 16px rgba(159, 133, 114, 0.12),
+    inset -8px -8px 16px rgba(255, 255, 255, 0.85),
+    1px 1px 3px rgba(159, 133, 114, 0.05);
+  border: 0;
+  transition: all 0.3s ease;
+  color: #473b31;
+}
+.neuro-input:focus {
+  box-shadow: inset 10px 10px 20px rgba(159, 133, 114, 0.15),
+    inset -10px -10px 20px rgba(255, 255, 255, 0.9),
+    0 0 0 3px rgba(135, 103, 79, 0.1);
+  outline: none;
+}
+.neuro-input::placeholder {
+  color: #9f8572;
+  opacity: 0.6;
+}
+
+/* Legacy Glass Classes (compat) */
+.glass-card-main {
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(242, 238, 234));
+  box-shadow: 30px 30px 90px rgba(159, 133, 114, 0.25),
+    -30px -30px 90px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.8),
+    inset -2px -2px 6px rgba(211, 198, 189, 0.1);
+  border: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-card-main:hover {
+  box-shadow: 35px 35px 100px rgba(159, 133, 114, 0.3),
+    -35px -35px 100px rgba(255, 255, 255, 1),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 6px rgba(211, 198, 189, 0.12);
+  transform: translateY(-2px);
+}
+.glass-card-secondary {
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(245, 241, 237));
+  box-shadow: 18px 18px 36px rgba(159, 133, 114, 0.18),
+    -18px -18px 36px rgba(255, 255, 255, 0.85),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.7),
+    inset -1px -1px 3px rgba(211, 198, 189, 0.08);
+  border: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-card-secondary:hover {
+  box-shadow: 22px 22px 44px rgba(159, 133, 114, 0.22),
+    -22px -22px 44px rgba(255, 255, 255, 0.95),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.8),
+    inset -1px -1px 3px rgba(211, 198, 189, 0.1);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   Layout & Spacing Utilities
+   ============================================ */
+
+/* Container - Centered with Max Width */
+.neuro-container {
   width: 100%;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .neuro-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .neuro-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
-h1 {
-  margin-top: 0;
-  font-size: 2rem;
+/* Helper to remove any spacing before the footer */
+.no-bottom-gap {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
-p {
-  font-size: 1rem;
-  line-height: 1.6;
+/* ============================================
+   PDF Rendering Mode Overrides
+   ============================================ */
+@layer base {
+  /* Remove backdrop filters and use solid backgrounds for PDF */
+  body.pdf-rendering .neuro-card-main,
+  body.pdf-rendering .glass-card-main,
+  .pdf-rendering.neuro-card-main,
+  .pdf-rendering .neuro-card-main {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgb(253, 252, 251) !important;
+    border: 2px solid rgb(211, 198, 189) !important;
+    box-shadow: 0 4px 12px rgba(94, 73, 52, 0.15) !important;
+  }
+
+  body.pdf-rendering .neuro-card-secondary,
+  body.pdf-rendering .glass-card-secondary,
+  .pdf-rendering.neuro-card-secondary,
+  .pdf-rendering .neuro-card-secondary {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgb(245, 241, 237) !important;
+    border: 1px solid rgb(211, 198, 189) !important;
+    box-shadow: 0 2px 8px rgba(94, 73, 52, 0.1) !important;
+  }
+
+  /* Remove ALL backdrop filters in PDF mode */
+  body.pdf-rendering *,
+  .pdf-rendering * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Override transparent backgrounds */
+  body.pdf-rendering [class*="bg-white/"] {
+    background: rgb(255, 255, 255) !important;
+  }
+
+  /* Force RGB colors (avoid oklab) */
+  body.pdf-rendering * {
+    color: rgb(71, 59, 49) !important;
+  }
+  body.pdf-rendering h1 {
+    color: rgb(94, 73, 52) !important;
+  }
+  body.pdf-rendering h2,
+  body.pdf-rendering h3,
+  body.pdf-rendering h4 {
+    color: rgb(135, 103, 79) !important;
+  }
+  body.pdf-rendering .caption {
+    color: rgb(159, 133, 114) !important;
+  }
+
+  /* Simplify shadows for PDF */
+  body.pdf-rendering .neuro-card-main,
+  body.pdf-rendering .neuro-card-secondary,
+  body.pdf-rendering .neuro-button,
+  body.pdf-rendering .neuro-input {
+    box-shadow: 0 4px 12px rgba(94, 73, 52, 0.15) !important;
+  }
+}
+
+/* ============================================
+   Utilities (custom)
+   ============================================ */
+@layer utilities {
+  .rtl {
+    direction: rtl;
+  }
+  .ltr {
+    direction: ltr;
+  }
+
+  /* Text Shadows */
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .text-shadow-md {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  }
+  .text-shadow-lg {
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
