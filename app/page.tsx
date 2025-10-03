@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PageLayout } from "@/app/components/layout/PageLayout";
 import {
   Calculator,
@@ -10,18 +10,38 @@ import {
   Interpretations,
   ThankYou,
 } from "@/modules/wealth-code/components";
+import { SplashScreen } from "@/app/components/layout/SplashScreen";
 
 type ViewType = "hero" | "calculator" | "result" | "sales" | "interpretations" | "thankyou";
-
-const BACKGROUND_IMAGE = "/og/share-square.png";
 
 export default function Home() {
   const [currentView, setCurrentView] = useState<ViewType>("hero");
   const [wealthCode, setWealthCode] = useState<string>("");
+  const [isSplashVisible, setIsSplashVisible] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const hasSeenSplash = window.sessionStorage.getItem("abyk:splash-dismissed");
+    if (hasSeenSplash === "true") {
+      setIsSplashVisible(false);
+    }
+  }, []);
 
   const goTo = useCallback((view: ViewType) => {
     setCurrentView(view);
   }, []);
+
+  const handleSplashComplete = useCallback(() => {
+    if (typeof window !== "undefined") {
+      window.sessionStorage.setItem("abyk:splash-dismissed", "true");
+    }
+
+    setIsSplashVisible(false);
+    goTo("hero");
+  }, [goTo]);
 
   const handleCalculate = (code: string) => {
     setWealthCode(code);
@@ -92,39 +112,8 @@ export default function Home() {
 
   return (
     <div className="relative w-full flex-1 overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-10"
-        style={{
-          backgroundImage: `url(${BACKGROUND_IMAGE})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "top center",
-          backgroundSize: "min(1200px, 90vw)",
-          top: `calc(-1 * env(safe-area-inset-top))`,
-          left: `calc(-1 * env(safe-area-inset-left))`,
-          right: `calc(-1 * env(safe-area-inset-right))`,
-          bottom: `calc(-1 * env(safe-area-inset-bottom))`,
-          width: "calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right))",
-          height: "calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom))",
-        }}
-      />
-
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          background: "linear-gradient(180deg, rgba(253,252,251,0.88) 0%, rgba(248,244,240,0.82) 50%, rgba(253,252,251,0.92) 100%)",
-          top: `calc(-1 * env(safe-area-inset-top))`,
-          left: `calc(-1 * env(safe-area-inset-left))`,
-          right: `calc(-1 * env(safe-area-inset-right))`,
-          bottom: `calc(-1 * env(safe-area-inset-bottom))`,
-          width: "calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right))",
-          height: "calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom))",
-        }}
-      />
-
-      <PageLayout
-        className="space-y-12 pt-[calc(var(--header-height)+2.75rem)] pb-12 sm:pb-16 lg:pb-20"
-        maxWidth="xl"
-      >
+      {isSplashVisible && <SplashScreen onComplete={handleSplashComplete} />}
+      <PageLayout className="space-y-12 pb-12 sm:pb-16 lg:pb-20" maxWidth="xl">
         {renderView()}
       </PageLayout>
     </div>

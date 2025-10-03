@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-pdf/renderer": "^4.3.1",
     "@types/html2canvas": "^1.0.0",
+    "framer-motion": "^12.23.22",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.3",
     "lucide-react": "^0.544.0",
@@ -34,7 +35,7 @@
     "tailwindcss": "^4.1.14",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@9.11.0",
+  "packageManager": "pnpm@10.18.0",
   "engines": {
     "node": ">=20 <23",
     "pnpm": ">=9"

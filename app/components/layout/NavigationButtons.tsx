@@ -1,16 +1,109 @@
 'use client';
 
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { ArrowRight, ArrowLeft, Home } from "lucide-react";
 
 interface NavigationButtonsProps {
-  onGoBack: () => void;
-  onGoForward: () => void;
-  onGoHome: () => void;
+  onGoBack?: () => void;
+  onGoForward?: () => void;
+  onGoHome?: () => void;
+  canGoBack?: boolean;
+  canGoForward?: boolean;
+  className?: string;
+}
+
+interface NavigationState {
   canGoBack: boolean;
   canGoForward: boolean;
 }
 
-export function NavigationButtons({ onGoBack, onGoForward, onGoHome, canGoBack, canGoForward }: NavigationButtonsProps) {
+export function NavigationButtons({
+  onGoBack,
+  onGoForward,
+  onGoHome,
+  canGoBack,
+  canGoForward,
+  className,
+}: NavigationButtonsProps = {}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [navigationState, setNavigationState] = useState<NavigationState>({
+    canGoBack: false,
+    canGoForward: false,
+  });
+
+  const updateNavigationState = useCallback(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const historyState = window.history.state as { idx?: number } | null;
+    const currentIndex = historyState?.idx ?? 0;
+    const totalEntries = window.history.length ?? 1;
+
+    setNavigationState({
+      canGoBack: currentIndex > 0,
+      canGoForward: currentIndex < totalEntries - 1,
+    });
+  }, []);
+
+  useEffect(() => {
+    updateNavigationState();
+
+    window.addEventListener("popstate", updateNavigationState);
+    return () => window.removeEventListener("popstate", updateNavigationState);
+  }, [updateNavigationState]);
+
+  useEffect(() => {
+    updateNavigationState();
+  }, [pathname, updateNavigationState]);
+
+  const effectiveCanGoBack = canGoBack ?? navigationState.canGoBack;
+  const effectiveCanGoForward = canGoForward ?? navigationState.canGoForward;
+
+  const handleGoBack = useCallback(() => {
+    if (!effectiveCanGoBack) {
+      return;
+    }
+
+    if (onGoBack) {
+      onGoBack();
+      return;
+    }
+
+    router.back();
+    window.setTimeout(updateNavigationState, 300);
+  }, [effectiveCanGoBack, onGoBack, router, updateNavigationState]);
+
+  const handleGoForward = useCallback(() => {
+    if (!effectiveCanGoForward) {
+      return;
+    }
+
+    if (onGoForward) {
+      onGoForward();
+      return;
+    }
+
+    router.forward();
+    window.setTimeout(updateNavigationState, 300);
+  }, [effectiveCanGoForward, onGoForward, router, updateNavigationState]);
+
+  const handleGoHome = useCallback(() => {
+    if (onGoHome) {
+      onGoHome();
+      return;
+    }
+
+    router.push("/");
+    window.setTimeout(updateNavigationState, 300);
+  }, [onGoHome, router, updateNavigationState]);
+
+  const containerClassName = useMemo(() => {
+    return ["w-full mb-4 sm:mb-6", className].filter(Boolean).join(" ");
+  }, [className]);
+
   const buttonStyle = {
     background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240))',
     boxShadow: `
@@ -40,7 +133,7 @@ export function NavigationButtons({ onGoBack, onGoForward, onGoHome, canGoBack, 
 
   return (
     <div 
-      className="w-full mb-4 sm:mb-6"
+      className={containerClassName}
       style={{
         paddingLeft: 'env(safe-area-inset-left)',
         paddingRight: 'env(safe-area-inset-right)',
@@ -51,8 +144,8 @@ export function NavigationButtons({ onGoBack, onGoForward, onGoHome, canGoBack, 
           {/* Forward Button - חץ ימינה (קדימה) - בצד שמאל */}
           <button
             type="button"
-            onClick={onGoForward}
-            disabled={!canGoForward}
+            onClick={handleGoForward}
+            disabled={!effectiveCanGoForward}
             className={`
               group relative
               p-3 sm:p-3.5
@@ -60,23 +153,23 @@ export function NavigationButtons({ onGoBack, onGoForward, onGoHome, canGoBack, 
               transition-all duration-400
               touch-manipulation
               border-0
-              ${!canGoForward ? 'opacity-40 cursor-not-allowed' : ''}
+              ${!effectiveCanGoForward ? 'opacity-40 cursor-not-allowed' : ''}
             `}
             style={buttonStyle}
             onMouseEnter={(e) => {
-              if (canGoForward) {
+              if (effectiveCanGoForward) {
                 e.currentTarget.style.boxShadow = hoverShadow;
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }
             }}
             onMouseDown={(e) => {
-              if (canGoForward) {
+              if (effectiveCanGoForward) {
                 e.currentTarget.style.boxShadow = pressedShadow;
                 e.currentTarget.style.transform = 'scale(0.95) translateY(1px)';
               }
             }}
             onMouseUp={(e) => {
-              if (canGoForward) {
+              if (effectiveCanGoForward) {
                 e.currentTarget.style.boxShadow = hoverShadow;
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }
@@ -96,7 +189,7 @@ export function NavigationButtons({ onGoBack, onGoForward, onGoHome, canGoBack, 
           {/* Home Button - באמצע */}
           <button
             type="button"
-            onClick={onGoHome}
+            onClick={handleGoHome}
             className="
               group relative
               p-3 sm:p-3.5
@@ -133,8 +226,8 @@ export function NavigationButtons({ onGoBack, onGoForward, onGoHome, canGoBack, 
           {/* Back Button - חץ שמאלה (אחורה) - בצד ימין */}
           <button
             type="button"
-            onClick={onGoBack}
-            disabled={!canGoBack}
+            onClick={handleGoBack}
+            disabled={!effectiveCanGoBack}
             className={`
               group relative
               p-3 sm:p-3.5
@@ -142,23 +235,23 @@ export function NavigationButtons({ onGoBack, onGoForward, onGoHome, canGoBack, 
               transition-all duration-400
               touch-manipulation
               border-0
-              ${!canGoBack ? 'opacity-40 cursor-not-allowed' : ''}
+              ${!effectiveCanGoBack ? 'opacity-40 cursor-not-allowed' : ''}
             `}
             style={buttonStyle}
             onMouseEnter={(e) => {
-              if (canGoBack) {
+              if (effectiveCanGoBack) {
                 e.currentTarget.style.boxShadow = hoverShadow;
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }
             }}
             onMouseDown={(e) => {
-              if (canGoBack) {
+              if (effectiveCanGoBack) {
                 e.currentTarget.style.boxShadow = pressedShadow;
                 e.currentTarget.style.transform = 'scale(0.95) translateY(1px)';
               }
             }}
             onMouseUp={(e) => {
-              if (canGoBack) {
+              if (effectiveCanGoBack) {
                 e.currentTarget.style.boxShadow = hoverShadow;
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }

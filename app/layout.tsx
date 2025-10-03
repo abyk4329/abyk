@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Header, Footer, CookieConsent } from "@/app/components/layout";
+import { AppShell } from "@/app/components/layout";
 import { BRAND, SOCIAL } from "@/lib/constants";
 import { publicEnv } from "@/lib/env";
 
@@ -58,11 +58,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="he" dir="rtl" className="scroll-smooth" suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col bg-background text-foreground antialiased">
-  <Header />
-  <main className="flex-1 no-bottom-gap">{children}</main>
-  <Footer />
-  <CookieConsent />
+      <body className="page-bg text-foreground antialiased">
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

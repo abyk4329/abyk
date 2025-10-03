@@ -1,40 +1,7 @@
-const BACKGROUND_IMAGE = "/og/share-square.png";
-
 export function TermsPrivacy() {
   return (
-    <div className="relative min-h-[calc(100vh-var(--header-height))] pt-20 sm:pt-24 lg:pt-28 pb-8">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-10"
-        style={{ 
-          backgroundImage: `url(${BACKGROUND_IMAGE})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "top center",
-          backgroundSize: "min(1200px, 90vw)",
-          top: `calc(-1 * env(safe-area-inset-top))`,
-          left: `calc(-1 * env(safe-area-inset-left))`,
-          right: `calc(-1 * env(safe-area-inset-right))`,
-          bottom: `calc(-1 * env(safe-area-inset-bottom))`,
-          width: 'calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right))',
-          height: 'calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom))'
-        }}
-      />
-
-      {/* Overlay */}
-      <div 
-        className="absolute inset-0 -z-10"
-        style={{
-          background: "linear-gradient(180deg, rgba(253,252,251,0.82) 0%, rgba(248,244,240,0.76) 45%, rgba(253,252,251,0.88) 100%)",
-          top: `calc(-1 * env(safe-area-inset-top))`,
-          left: `calc(-1 * env(safe-area-inset-left))`,
-          right: `calc(-1 * env(safe-area-inset-right))`,
-          bottom: `calc(-1 * env(safe-area-inset-bottom))`,
-          width: 'calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right))',
-          height: 'calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom))'
-        }}
-      />
-      
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-4xl">
+    <div className="relative min-h-[calc(100vh-var(--header-height))] pb-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-4xl">
         {/* Header */}
         <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-[0_4px_24px_0_rgba(94,73,52,0.12),inset_0_1px_3px_0_rgba(255,255,255,0.4)] p-8 sm:p-12 mb-8">
           <h1 className="mb-4 text-center" style={{ lineHeight: '1' }}>

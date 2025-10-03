@@ -11,8 +11,6 @@ import { dailyApplication } from "../../data/dailyApplication";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-const BACKGROUND_IMAGE = "/og/share-square.png";
-
 interface InterpretationsProps {
   code: string;
   onCalculateAnother: () => void;
@@ -162,39 +160,8 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-var(--header-height))] pt-20 sm:pt-24 lg:pt-28 pb-8">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-10"
-        style={{ 
-          backgroundImage: `url(${BACKGROUND_IMAGE})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "top center",
-          backgroundSize: "min(1200px, 90vw)",
-          top: `calc(-1 * env(safe-area-inset-top))`,
-          left: `calc(-1 * env(safe-area-inset-left))`,
-          right: `calc(-1 * env(safe-area-inset-right))`,
-          bottom: `calc(-1 * env(safe-area-inset-bottom))`,
-          width: 'calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right))',
-          height: 'calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom))'
-        }}
-      />
-
-      {/* Overlay */}
-      <div 
-        className="absolute inset-0 -z-10"
-        style={{
-          background: "linear-gradient(180deg, rgba(253,252,251,0.82) 0%, rgba(248,244,240,0.76) 45%, rgba(253,252,251,0.88) 100%)",
-          top: `calc(-1 * env(safe-area-inset-top))`,
-          left: `calc(-1 * env(safe-area-inset-left))`,
-          right: `calc(-1 * env(safe-area-inset-right))`,
-          bottom: `calc(-1 * env(safe-area-inset-bottom))`,
-          width: 'calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right))',
-          height: 'calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom))'
-        }}
-      />
-      
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-5xl">
+    <div className="relative min-h-[calc(100vh-var(--header-height))] pb-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-5xl">
         
         {/* Main Card */}
         <section 

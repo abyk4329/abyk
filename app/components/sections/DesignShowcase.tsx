@@ -10,42 +10,12 @@ import {
   TrendingUp, Award, Gift, BookOpen, Briefcase, Lightbulb
 } from "lucide-react";
 
-// Dev-only background placeholder. Replace with a real asset from /public when needed.
-const backgroundImage = "/og/share-square.png";
-
 export function DesignShowcase() {
   const [activeSection, setActiveSection] = useState<'cards' | 'buttons' | 'inputs' | 'icons' | 'layouts' | 'typography' | 'interactions'>('cards');
 
   return (
-    <div className="relative min-h-[calc(100vh-var(--header-height))] pt-20 sm:pt-24 lg:pt-28 pb-16">
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-10"
-        style={{
-          backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
-          top: `calc(-1 * env(safe-area-inset-top))`,
-          left: `calc(-1 * env(safe-area-inset-left))`,
-          right: `calc(-1 * env(safe-area-inset-right))`,
-          bottom: `calc(-1 * env(safe-area-inset-bottom))`,
-          width: 'calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right))',
-          height: 'calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom))'
-        }}
-      />
-
-      {/* Overlay */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/30 to-white/50 -z-10"
-        style={{
-          top: `calc(-1 * env(safe-area-inset-top))`,
-          left: `calc(-1 * env(safe-area-inset-left))`,
-          right: `calc(-1 * env(safe-area-inset-right))`,
-          bottom: `calc(-1 * env(safe-area-inset-bottom))`,
-          width: 'calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right))',
-          height: 'calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom))'
-        }}
-      />
-
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+    <div className="relative min-h-[calc(100vh-var(--header-height))] pb-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* DEV-ONLY NOTICE: This is a design playground and must not ship to production */}
         <div className="mb-6">
           <div

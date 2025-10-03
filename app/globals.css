@@ -72,7 +72,14 @@
   --font-family: "Assistant", sans-serif;
 
   /* Layout */
-  --header-height: 56px;
+  --bg-start: #fdfcfb;
+  --bg-end: #f5f1ed;
+  --page-gradient: linear-gradient(
+    135deg,
+    var(--bg-start) 0%,
+    var(--bg-end) 100%
+  );
+  --header-height: 64px;
 
   /* Neumorphism Base Colors */
   --background: #fdfcfb;
@@ -232,11 +239,7 @@
   }
 
   body {
-    background: linear-gradient(
-      135deg,
-      rgb(253, 252, 251) 0%,
-      rgb(245, 241, 237) 100%
-    );
+    background: var(--page-gradient);
     color: var(--color-foreground);
     font-family: var(--font-family);
     line-height: 1.1;
@@ -351,10 +354,6 @@
 
   /* Tablet - 640px and up */
   @media (min-width: 640px) {
-    :root {
-      --header-height: 64px;
-    }
-
     h1 {
       font-size: 36px;
     }
@@ -603,6 +602,28 @@
 /* ============================================
    Layout & Spacing Utilities
    ============================================ */
+
+.page-bg {
+  background: var(--page-gradient);
+}
+
+.app-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  padding-top: calc(var(--header-height) + env(safe-area-inset-top));
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.app-main--spacious {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+}
 
 /* Container - Centered with Max Width */
 .neuro-container {

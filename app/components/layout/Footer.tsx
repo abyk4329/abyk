@@ -48,11 +48,11 @@ export function Footer() {
   ];
 
   return (
-    <footer 
+    <footer
       className="relative"
       style={{
         paddingBottom: 'env(safe-area-inset-bottom)',
-        background: 'linear-gradient(180deg, rgb(250, 248, 246) 0%, rgb(253, 252, 251) 100%)',
+        background: 'transparent',
         boxShadow: `
           0 -10px 30px rgba(159, 133, 114, 0.15),
           0 4px 16px rgba(255, 255, 255, 0.8),

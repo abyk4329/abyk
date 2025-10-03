@@ -10,9 +10,7 @@ interface HeroProps {
 
 export function Hero({ onNavigate }: HeroProps) {
   return (
-    <section
-      className="relative w-full flex items-center justify-center overflow-hidden pt-3 sm:pt-4 lg:pt-6 pb-8 sm:pb-10 lg:pb-12"
-    >
+    <section className="relative flex w-full items-center justify-center overflow-hidden pb-8 sm:pb-10 lg:pb-12">
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-full sm:max-w-3xl mx-auto">
