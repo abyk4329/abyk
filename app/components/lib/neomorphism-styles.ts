@@ -1,0 +1,204 @@
+"use client";
+
+import type { CSSProperties, FocusEventHandler, MouseEventHandler, TouchEventHandler, KeyboardEventHandler } from "react";
+
+type InteractiveStyle = CSSProperties & {
+    hover?: string;
+    pressed?: string;
+    focus?: string;
+};
+
+type HoverHandlers = {
+    onMouseEnter?: MouseEventHandler<HTMLElement>;
+    onMouseLeave?: MouseEventHandler<HTMLElement>;
+    onFocus?: FocusEventHandler<HTMLElement>;
+    onBlur?: FocusEventHandler<HTMLElement>;
+    onTouchStart?: TouchEventHandler<HTMLElement>;
+    onTouchEnd?: TouchEventHandler<HTMLElement>;
+};
+
+type PressHandlers = HoverHandlers & {
+    onMouseDown?: MouseEventHandler<HTMLElement>;
+    onMouseUp?: MouseEventHandler<HTMLElement>;
+    onTouchCancel?: TouchEventHandler<HTMLElement>;
+    onKeyDown?: KeyboardEventHandler<HTMLElement>;
+    onKeyUp?: KeyboardEventHandler<HTMLElement>;
+};
+
+const applyShadow = (element: HTMLElement, value?: string) => {
+    if (!value) {
+        return;
+    }
+
+    element.style.boxShadow = value;
+};
+
+// Helper function to safely extract string box shadow
+export const getBoxShadow = (value: string | string[] | undefined): string => {
+    if (!value) return '';
+    if (typeof value === 'string') return value;
+    return String(value);
+};
+
+export const createHoverHandlers = (
+    baseShadow?: string,
+    hoverShadow?: string
+): HoverHandlers => {
+    if (!baseShadow || !hoverShadow) {
+        return {};
+    }
+
+    return {
+        onMouseEnter: (event) => applyShadow(event.currentTarget, hoverShadow),
+        onMouseLeave: (event) => applyShadow(event.currentTarget, baseShadow),
+        onFocus: (event) => applyShadow(event.currentTarget, hoverShadow),
+        onBlur: (event) => applyShadow(event.currentTarget, baseShadow),
+        onTouchStart: (event) => applyShadow(event.currentTarget, hoverShadow),
+        onTouchEnd: (event) => applyShadow(event.currentTarget, baseShadow),
+    };
+};
+
+export const createPressHandlers = (
+    baseShadow?: string,
+    pressedShadow?: string,
+    hoverShadow?: string
+): PressHandlers => {
+    if (!baseShadow || !pressedShadow) {
+        return {};
+    }
+
+    const hoverHandlers = createHoverHandlers(baseShadow, hoverShadow ?? baseShadow);
+
+    const handleMouseDown: MouseEventHandler<HTMLElement> = (event) => {
+        applyShadow(event.currentTarget, pressedShadow);
+    };
+
+    const handleMouseUp: MouseEventHandler<HTMLElement> = (event) => {
+        applyShadow(event.currentTarget, baseShadow);
+    };
+
+    const handleTouchStart: TouchEventHandler<HTMLElement> = (event) => {
+        applyShadow(event.currentTarget, pressedShadow);
+    };
+
+    const handleTouchEnd: TouchEventHandler<HTMLElement> = (event) => {
+        applyShadow(event.currentTarget, baseShadow);
+    };
+
+    return {
+        ...hoverHandlers,
+        onMouseDown: handleMouseDown,
+        onMouseUp: handleMouseUp,
+        onMouseLeave: (event) => applyShadow(event.currentTarget, baseShadow),
+        onTouchStart: handleTouchStart,
+        onTouchEnd: handleTouchEnd,
+        onTouchCancel: handleTouchEnd,
+        onKeyDown: (event) => {
+            if (event.key === " " || event.key === "Enter") {
+                applyShadow(event.currentTarget, pressedShadow);
+            }
+        },
+        onKeyUp: (event) => {
+            if (event.key === " " || event.key === "Enter") {
+                applyShadow(event.currentTarget, baseShadow);
+            }
+        },
+    };
+};
+
+const MAIN_CARD_SHADOW =
+    "20px 20px 50px rgba(159,133,114,0.25), -20px -20px 50px rgba(255,255,255,0.95), inset 2px 2px 6px rgba(255,255,255,0.7), inset -2px -2px 6px rgba(211,198,189,0.35)";
+const MAIN_CARD_HOVER =
+    "24px 24px 55px rgba(159,133,114,0.3), -24px -24px 55px rgba(255,255,255,1), inset 2px 2px 8px rgba(255,255,255,0.75), inset -2px -2px 8px rgba(211,198,189,0.4)";
+
+const SECONDARY_CARD_SHADOW =
+    "12px 12px 30px rgba(159,133,114,0.18), -12px -12px 30px rgba(255,255,255,0.9), inset 1px 1px 3px rgba(255,255,255,0.6)";
+const SECONDARY_CARD_HOVER =
+    "15px 15px 34px rgba(159,133,114,0.22), -15px -15px 34px rgba(255,255,255,0.95), inset 1px 1px 4px rgba(255,255,255,0.68)";
+
+const FLOATING_CARD_SHADOW =
+    "25px 25px 60px rgba(159,133,114,0.25), -25px -25px 60px rgba(255,255,255,0.95), inset 3px 3px 8px rgba(255,255,255,0.6), inset -3px -3px 8px rgba(211,198,189,0.4)";
+const FLOATING_CARD_HOVER =
+    "28px 28px 65px rgba(159,133,114,0.3), -28px -28px 65px rgba(255,255,255,1), inset 3px 3px 10px rgba(255,255,255,0.7), inset -3px -3px 10px rgba(211,198,189,0.45)";
+
+const BUTTON_PRIMARY_SHADOW =
+    "10px 10px 24px rgba(94,73,52,0.22), -8px -8px 20px rgba(255,255,255,0.9), inset 1px 1px 3px rgba(255,255,255,0.4)";
+const BUTTON_PRIMARY_PRESSED =
+    "inset 6px 6px 12px rgba(94,73,52,0.28), inset -3px -3px 8px rgba(255,255,255,0.6)";
+
+const ICON_DEFAULT_SHADOW =
+    "6px 6px 16px rgba(94,73,52,0.2), -6px -6px 16px rgba(255,255,255,0.85), inset 1px 1px 2px rgba(255,255,255,0.5)";
+const ICON_DEFAULT_HOVER =
+    "8px 8px 18px rgba(94,73,52,0.26), -8px -8px 18px rgba(255,255,255,0.92), inset 1px 1px 3px rgba(255,255,255,0.6)";
+
+const INPUT_DEFAULT_SHADOW =
+    "8px 8px 18px rgba(94,73,52,0.18), -8px -8px 18px rgba(255,255,255,0.9), inset 1px 1px 3px rgba(255,255,255,0.5)";
+const INPUT_DEFAULT_FOCUS =
+    "inset 4px 4px 8px rgba(94,73,52,0.28), inset -2px -2px 6px rgba(255,255,255,0.7)";
+
+export const neumorphismStyles: {
+    card: {
+        main: InteractiveStyle;
+        secondary: InteractiveStyle;
+        floating: InteractiveStyle;
+    };
+    button: {
+        primary: InteractiveStyle;
+    };
+    icon: {
+        default: InteractiveStyle;
+    };
+    input: {
+        default: InteractiveStyle;
+    };
+} = {
+    card: {
+        main: {
+            background: "linear-gradient(145deg, #ffffff, #f8f4f0)",
+            boxShadow: MAIN_CARD_SHADOW,
+            border: "1px solid rgba(255,255,255,0.35)",
+            color: "#473b31",
+            hover: MAIN_CARD_HOVER,
+        },
+        secondary: {
+            background: "linear-gradient(145deg, #ffffff, #faf6f2)",
+            boxShadow: SECONDARY_CARD_SHADOW,
+            border: "1px solid rgba(255,255,255,0.5)",
+            color: "#473b31",
+            hover: SECONDARY_CARD_HOVER,
+        },
+        floating: {
+            background: "linear-gradient(145deg, #ffffff, #f3ece5)",
+            boxShadow: FLOATING_CARD_SHADOW,
+            border: "1px solid rgba(255,255,255,0.45)",
+            color: "#473b31",
+            hover: FLOATING_CARD_HOVER,
+        },
+    },
+    button: {
+        primary: {
+            background: "linear-gradient(145deg, rgba(255,255,255,0.92), rgba(245,241,237,0.9))",
+            boxShadow: BUTTON_PRIMARY_SHADOW,
+            border: "1px solid rgba(255,255,255,0.4)",
+            hover: MAIN_CARD_HOVER,
+            pressed: BUTTON_PRIMARY_PRESSED,
+        },
+    },
+    icon: {
+        default: {
+            background: "linear-gradient(145deg, #ffffff, #f4eee8)",
+            boxShadow: ICON_DEFAULT_SHADOW,
+            border: "1px solid rgba(255,255,255,0.45)",
+            hover: ICON_DEFAULT_HOVER,
+        },
+    },
+    input: {
+        default: {
+            background: "linear-gradient(145deg, #ffffff, #f7f2ee)",
+            boxShadow: INPUT_DEFAULT_SHADOW,
+            border: "1px solid rgba(255,255,255,0.5)",
+            color: "#473b31",
+            focus: INPUT_DEFAULT_FOCUS,
+        },
+    },
+};

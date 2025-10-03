@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Header, Footer } from "@/app/components/layout";
+import { Header, Footer, CookieConsent } from "@/app/components/layout";
 import { BRAND, SOCIAL } from "@/lib/constants";
 import { publicEnv } from "@/lib/env";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     default: BRAND.name,
     template: `%s · ${BRAND.name}`,
   },
-  description: BRAND.description,
+  description: BRAND.taglineHe,
   metadataBase,
   manifest: "/manifest.webmanifest",
   authors: [{ name: "Ksenia Chudnovskaya" }],
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: BRAND.name,
-    description: BRAND.description,
+    description: BRAND.taglineHe,
     url: metadataBase,
     siteName: BRAND.name,
     images: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: BRAND.name,
-    description: BRAND.description,
+    description: BRAND.taglineHe,
     images: ["/og/share-square.png"],
   },
   alternates: {
@@ -59,9 +59,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="he" dir="rtl" className="scroll-smooth" suppressHydrationWarning>
       <body className="flex min-h-screen flex-col bg-background text-foreground antialiased">
-        <Header />
-        <main className="flex-1 no-bottom-gap">{children}</main>
-        <Footer />
+  <Header />
+  <main className="flex-1 no-bottom-gap">{children}</main>
+  <Footer />
+  <CookieConsent />
       </body>
     </html>
   );

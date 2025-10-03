@@ -1,57 +1,168 @@
-import Link from "next/link";
-import { WEALTH_CONTENT, WEALTH_PAYMENT } from "@/modules/wealth-code/constants";
+"use client";
 
-export function SalesPage() {
-  const copy = WEALTH_CONTENT.sales;
+import { GlassButton } from "@/app/components/shared/GlassButton";
+import { neumorphismStyles } from "@/app/components/lib/neomorphism-styles";
+
+const BACKGROUND_IMAGE = "/og/share-square.png";
+
+interface SalesPageProps {
+  code: string;
+  onMockPurchase: () => void;
+}
+
+export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
+  // Function to get unique digits in ascending order
+  const getUniqueDigits = (codeStr: string): string => {
+    const digits = codeStr.split('').map(Number);
+    const uniqueDigits = Array.from(new Set(digits)).sort((a, b) => a - b);
+    
+    if (uniqueDigits.length === 1) {
+      return `הספרה ${uniqueDigits[0]}`;
+    } else if (uniqueDigits.length === 2) {
+      return `הספרות ${uniqueDigits[0]} ו-${uniqueDigits[1]}`;
+    } else {
+      const lastDigit = uniqueDigits[uniqueDigits.length - 1];
+      const otherDigits = uniqueDigits.slice(0, -1).join(', ');
+      return `הספרות ${otherDigits} ו-${lastDigit}`;
+    }
+  };
+
+  const uniqueDigitsText = getUniqueDigits(code);
+
+  const handlePurchase = () => {
+    window.open('https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ', '_blank');
+  };
+
+  const handleMockPurchase = () => {
+    onMockPurchase();
+  };
 
   return (
-    <section className="py-16">
-      <div className="neuro-card-main mx-auto max-w-4xl rounded-[36px] bg-white/80 p-10 shadow-xl">
-        <header className="text-center">
-          <span className="caption text-brown-mid">תוכנית השפע המלאה</span>
-          <h2 className="mt-2 text-3xl text-brown-heading sm:text-4xl">
-            {copy.card3.title}
+    <div className="relative min-h-[calc(100vh-var(--header-height))] pt-20 sm:pt-24 lg:pt-28 pb-8">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-10"
+        style={{ 
+          backgroundImage: `url(${BACKGROUND_IMAGE})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "top center",
+          backgroundSize: "min(1200px, 90vw)",
+          top: `calc(-1 * env(safe-area-inset-top))`,
+          left: `calc(-1 * env(safe-area-inset-left))`,
+          right: `calc(-1 * env(safe-area-inset-right))`,
+          bottom: `calc(-1 * env(safe-area-inset-bottom))`,
+          width: 'calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right))',
+          height: 'calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom))'
+        }}
+      />
+
+      {/* Overlay */}
+      <div 
+        className="absolute inset-0 -z-10"
+        style={{
+          background: "linear-gradient(180deg, rgba(253,252,251,0.82) 0%, rgba(248,244,240,0.76) 45%, rgba(253,252,251,0.88) 100%)",
+          top: `calc(-1 * env(safe-area-inset-top))`,
+          left: `calc(-1 * env(safe-area-inset-left))`,
+          right: `calc(-1 * env(safe-area-inset-right))`,
+          bottom: `calc(-1 * env(safe-area-inset-bottom))`,
+          width: 'calc(100% + env(safe-area-inset-left) + env(safe-area-inset-right))',
+          height: 'calc(100% + env(safe-area-inset-top) + env(safe-area-inset-bottom))'
+        }}
+      />
+      
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-4xl">
+        
+        {/* Card 1: Understanding the Code */}
+        <section 
+          className="rounded-[32px] sm:rounded-[40px] p-6 sm:p-8 mb-6 border-0 transition-all duration-500"
+          style={neumorphismStyles.card.main}
+        >
+          <h2 className="mb-6 text-center">
+            להבין את הקוד – להבין את עצמך
           </h2>
-          <p className="mt-4 text-brown-dark/80">{copy.card3.description}</p>
-        </header>
+          <p className="text-center">
+            המספרים בקוד אינם צירוף מקרי. הם משקפים דפוסים עמוקים המניעים אותך לאורך חייך. כשאתה מזהה דפוסים אלה, אתה מתחיל לפעול ממקום של מודעות, ולא מתוך תגובתיות אוטומטית. זוהי נקודת המפנה שבה השליטה על חייך חוזרת לידיך.
+          </p>
+          <p className="text-center mt-4">
+            מטרת העבודה עם הקוד היא לחיות חיים מודעים, שבהם כל פעולה הופכת מתגובה לא-מודעת לבחירה מכוונת. הבנה זו מבהירה שאין כוח חיצוני המעכב את התקדמותך, אלא תבניות פנימיות שאתה עצמך יוצר. מתוך תובנה זו, הכוח שב אליך: כל אתגר הופך להזדמנות ללמידה, וכל צעד – גם אם אינו מושלם – הופך לחלק ממסע צמיחה מודע ומשמעותי.
+          </p>
+        </section>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          <div className="space-y-4 rounded-3xl border border-border bg-white/70 p-6 shadow-inner">
-            <h3 className="text-xl font-semibold text-brown-heading">{copy.card1.title}</h3>
-            <ul className="space-y-3 text-right text-sm text-brown-dark/80">
-              {copy.card1.paragraphs.map((paragraph) => (
-                <li key={paragraph}>{paragraph}</li>
-              ))}
+        {/* Card 2: Full Analysis */}
+        <section 
+          className="rounded-[32px] sm:rounded-[40px] p-6 sm:p-8 mb-6 border-0 transition-all duration-500"
+          style={neumorphismStyles.card.main}
+        >
+          <h2 className="mb-4 text-center">
+            הפירוש המלא
+            <br />
+            כל מה שמחכה לכם בפנים
+          </h2>
+          <p className="text-center mb-4" style={{ fontWeight: 'bold', color: '#87674F' }}>
+            ניתוח מעמיק של {uniqueDigitsText} הכולל:
+          </p>
+          <div 
+            className="rounded-2xl p-4 sm:p-6 border-0"
+            style={neumorphismStyles.card.secondary}
+          >
+            <ul className="space-y-1 text-center">
+              <li>•  מהות כל ספרה  •</li>
+              <li>•  מתנות עיקריות  •</li>
+              <li>•  חסימות ואתגרים  •</li>
+              <li>•  נורות אזהרה לזיהוי חוסר איזון  •</li>
+              <li>•  מוקדי צמיחה והתפתחות אישית  •</li>
+              <li>•  תחומי קריירה מתאימים  •</li>
+              <li>•  תרגול יומיומי מעשי  •</li>
             </ul>
+          </div>
+          <p className="text-center mt-4">
+            בנוסף, תמצאו בו הסבר על משמעות הספרות החוזרות או השונות בקוד, לצד הדרכה ברורה כיצד לשלב את הקוד בחיי היומיום.
+          </p>
+        </section>
 
-            <div className="rounded-2xl border border-border bg-white/80 p-4 text-right">
-              <p className="text-sm text-brown-mid">{copy.card3.priceSubtitle}</p>
-              <p className="text-3xl font-bold text-brown-heading">{WEALTH_PAYMENT.grow.priceDisplay}</p>
-              <p className="text-xs text-brown-dark/60">כולל מע״מ ומייל ליווי</p>
-            </div>
+        {/* Card 3: Call to Action */}
+        <section 
+          className="rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 border-0 transition-all duration-500"
+          style={neumorphismStyles.card.main}
+        >
+          <h2 className="mb-6 text-center">
+            הגיע הזמן לגלות מה מספרים מספרים עליך
+          </h2>
+          <p className="text-center mb-6">
+            הפירוש המלא של הקוד מעניק מפתח להבנת הדינמיקות הפנימיות המעצבות את חייך. באמצעותו ניתן לזהות את מקורות הדפוסים החוזרים, להבין כיצד להשתחרר ממעגלי סבל מתמשכים, ולפתח פרספקטיבה חדשה על האתגרים וההזדמנויות הפתוחות בפניך.
+          </p>
+          
+          {/* Price */}
+          <div className="text-center mb-6">
+            <h3 className="mb-2" style={{ color: '#5E4934' }}>
+              עלות הפירוש המלא: ₪ 36.9 בלבד
+            </h3>
+            <p className="caption">
+              לקבלת גישה מיידית לפירוש שלך
+            </p>
           </div>
 
-          <div className="space-y-4 rounded-3xl border border-border bg-white/70 p-6 text-right">
-            <p className="text-brown-dark/80">{copy.brandStory.intro}</p>
-            <p className="text-brown-dark/80">{copy.brandStory.mission}</p>
-            <div className="space-y-3 text-sm text-brown-dark/70">
-              {copy.brandStory.bullets.map((bullet) => (
-                <p key={bullet}>{bullet}</p>
-              ))}
-            </div>
-            <Link
-              href={WEALTH_PAYMENT.grow.url}
-              target="_blank"
-              className="neuro-button active-press block rounded-2xl px-8 py-3 text-center text-lg font-semibold"
-            >
-              {copy.card3.buttons.purchase}
-            </Link>
-            <div className="text-sm text-brown-mid">
-              <p>{copy.card3.securityNotice}</p>
-            </div>
+          {/* Purchase Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
+            <GlassButton onClick={handlePurchase}>
+              מעבר לרכישה
+            </GlassButton>
+            <GlassButton onClick={handleMockPurchase}>
+              דמו תשלום (לבדיקה)
+            </GlassButton>
           </div>
-        </div>
+
+          {/* Security Notice */}
+          <p className="text-center" style={{ 
+            fontSize: '12px',
+            color: '#9f8572',
+            lineHeight: '1.1'
+          }}>
+            תשלום מובטח באמצעות ספק סליקה חיצוני Grow
+          </p>
+        </section>
+
       </div>
-    </section>
+    </div>
   );
 }
