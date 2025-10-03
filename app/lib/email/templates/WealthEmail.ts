@@ -1,46 +1,46 @@
 type EmailVars = {
-  fullName?: string;
-  wealthCode?: string;
-  appUrl: string;               // https://abyk.online
-  interpretationsUrl: string;   // https://abyk.online/#/interpretations?code=...
-  downloadUrl: string;          // https://abyk.online/api/pdf?... (GET)
-  shareUrl: string;             // https://abyk.online
-  instagram?: string;
-  whatsapp?: string;
-  tiktok?: string;
-  price?: string;
-  appName?: string;             // Awakening by Ksenia
+    fullName?: string;
+    wealthCode?: string;
+    appUrl: string;               // https://abyk.online
+    interpretationsUrl: string;   // https://abyk.online/#/interpretations?code=...
+    downloadUrl: string;          // https://abyk.online/api/pdf?... (GET)
+    shareUrl: string;             // https://abyk.online
+    instagram?: string;
+    whatsapp?: string;
+    tiktok?: string;
+    price?: string;
+    appName?: string;             // Awakening by Ksenia
 };
 
 // גרסת טקסט פשוט (fallback)
 export function wealthEmailText(v: EmailVars) {
-  return [
-    "AWAKENING BY KSENIA",
-    "YOUR PERSONAL SPACE FOR GROWTH",
-    "",
-    `קוד העושר שלך: ${v.wealthCode || "-"}`,
-    "תודה על הרכישה!",
-    "",
-    "הפירוש המלא לקוד האישי שלך ממתין לצפייה ולהורדה.",
-    `צפייה באתר: ${v.interpretationsUrl}`,
-    `הורדה ישירה (PDF): ${v.downloadUrl}`,
-    `שיתוף עם חברים: ${v.shareUrl}`,
-    "",
-    `— ${v.appName || "Awakening by Ksenia"}`,
-    v.appUrl
-  ].join("\n");
+    return [
+        "AWAKENING BY KSENIA",
+        "YOUR PERSONAL SPACE FOR GROWTH",
+        "",
+        `קוד העושר שלך: ${v.wealthCode || "-"}`,
+        "תודה על הרכישה!",
+        "",
+        "הפירוש המלא לקוד האישי שלך ממתין לצפייה ולהורדה.",
+        `צפייה באתר: ${v.interpretationsUrl}`,
+        `הורדה ישירה (PDF): ${v.downloadUrl}`,
+        `שיתוף עם חברים: ${v.shareUrl}`,
+        "",
+        `— ${v.appName || "Awakening by Ksenia"}`,
+        v.appUrl
+    ].join("\n");
 }
 
 // HTML עם inline CSS (מותאם לקליינטים של מייל)
 export function wealthEmailHtml(v: EmailVars) {
-  const btn = (href: string, label: string, bg = "#5e4934") => `
+    const btn = (href: string, label: string, bg = "#5e4934") => `
     <a href="${href}" target="_blank" rel="noopener"
        style="display:inline-block; text-decoration:none; background:${bg};
               color:#FDFCFB; padding:14px 22px; border-radius:14px; font-weight:700;">
       ${label}
     </a>`;
 
-  return `<!doctype html>
+    return `<!doctype html>
 <html dir="rtl" lang="he">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -53,8 +53,9 @@ export function wealthEmailHtml(v: EmailVars) {
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#F5F1ED;">
       <tr><td align="center" style="padding:24px;">
         <table role="presentation" width="640" cellspacing="0" cellpadding="0" style="max-width:640px; background:#FDFCFB; border-radius:20px; overflow:hidden; border:1px solid rgba(71,59,49,0.08);">
-          <!-- Header -->
-          <tr><td style="padding:28px 28px 16px 28px; text-align:center;">
+          <!-- Logo Header -->
+          <tr><td style="padding:32px 28px 20px 28px; text-align:center;">
+            <img src="${v.appUrl}/logob.png" alt="ABYK Logo" width="120" height="120" style="display:block; margin:0 auto 16px auto; border-radius:16px;" />
             <div style="font-size:18px; font-weight:800; letter-spacing:.06em; color:#5e4934;">AWAKENING BY KSENIA</div>
             <div style="font-size:12px; color:#87674F; margin-top:6px; letter-spacing:.08em;">YOUR PERSONAL SPACE FOR GROWTH</div>
           </td></tr>
@@ -98,9 +99,9 @@ export function wealthEmailHtml(v: EmailVars) {
             <div style="font-size:12px; color:#87674F; line-height:1.7;">
               מחיר המוצר: ${v.price || ""} ·
               <a href="${v.appUrl}" target="_blank" style="color:#5e4934; text-decoration:none;">אתר</a> ·
-              <a href="https://instagram.com/${(v.instagram||'').replace('@','')}" target="_blank" style="color:#5e4934; text-decoration:none;">Instagram</a> ·
-              <a href="https://t.me/${(v.whatsapp||'').replace(/^\+?/, '')}" target="_blank" style="color:#5e4934; text-decoration:none;">WhatsApp</a> ·
-              <a href="https://www.tiktok.com/${(v.tiktok||'')}" target="_blank" style="color:#5e4934; text-decoration:none;">TikTok</a>
+              <a href="https://instagram.com/${(v.instagram || '').replace('@', '')}" target="_blank" style="color:#5e4934; text-decoration:none;">Instagram</a> ·
+              <a href="https://t.me/${(v.whatsapp || '').replace(/^\+?/, '')}" target="_blank" style="color:#5e4934; text-decoration:none;">WhatsApp</a> ·
+              <a href="https://www.tiktok.com/${(v.tiktok || '')}" target="_blank" style="color:#5e4934; text-decoration:none;">TikTok</a>
             </div>
             <div style="height:6px;"></div>
           </td></tr>
