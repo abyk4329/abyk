@@ -240,6 +240,8 @@
 
   body {
     background: var(--page-gradient);
+    background-attachment: fixed;
+    background-size: 100% 100%;
     color: var(--color-foreground);
     font-family: var(--font-family);
     line-height: 1.1;
@@ -604,13 +606,14 @@
    ============================================ */
 
 .page-bg {
-  background: var(--page-gradient);
+  /* Background set on body with fixed attachment */
 }
 
 .app-shell {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  background: transparent;
 }
 
 .app-main {

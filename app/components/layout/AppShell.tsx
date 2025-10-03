@@ -17,7 +17,7 @@ export function AppShell({ children }: AppShellProps) {
   const isHomePage = pathname === "/";
 
   return (
-    <div className="app-shell page-bg min-h-screen w-full">
+    <div className="app-shell min-h-screen w-full">
       <Header isHomePage={isHomePage} />
       <main className="app-main">
         {!isHomePage && (
