@@ -1,0 +1,50 @@
+{
+  "name": "Awakening by Ksenia",
+  "short_name": "ABYK",
+  "description": "מחשבון נומרולוגיה חכם לגילוי קוד השפע האישי שלך עם דו\"ח PDF מותאם אישית.",
+  "lang": "he",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F5F1ED",
+  "theme_color": "#473B31",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/abyk-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/abyk-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/abyk-icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og/share.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["lifestyle", "personalization", "productivity"],
+  "shortcuts": [
+    {
+      "name": "מחשבון השפע",
+      "short_name": "מחשבון",
+      "url": "/calculator"
+    },
+    {
+      "name": "פירושים מלאים",
+      "short_name": "פירושים",
+      "url": "/interpretations"
+    }
+  ]
+}
