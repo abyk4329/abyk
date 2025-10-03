@@ -3,7 +3,7 @@ import {
   Calculator,
   Hero,
   Interpretations,
-} from "@/modules/wealth-code/components/sections";
+} from "@/modules/wealth-code/components";
 import { DesignShowcaseSection } from "@/app/components/sections";
 
 export default function Home() {
