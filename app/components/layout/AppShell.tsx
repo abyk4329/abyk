@@ -20,13 +20,13 @@ export function AppShell({ children }: AppShellProps) {
     <div className="app-shell min-h-screen w-full">
       <Header isHomePage={isHomePage} />
       <main className="app-main">
-        {!isHomePage && (
-          <div className="mb-6 sm:mb-8">
-            <NavigationButtons />
-          </div>
-        )}
         {children}
       </main>
+      {!isHomePage && (
+        <div className="py-6 sm:py-8">
+          <NavigationButtons />
+        </div>
+      )}
       <Footer />
       <CookieConsent />
     </div>
