@@ -51,7 +51,7 @@ export function RootLayoutClient({ children }: { children: ReactNode }) {
       setCurrentIndex(prev.length);
       return [...prev, pathname];
     });
-  }, [pathname, currentIndex]);
+  }, [pathname]);
 
   // Scroll to top whenever page changes
   useEffect(() => {
@@ -106,9 +106,9 @@ export function RootLayoutClient({ children }: { children: ReactNode }) {
       )}
 
       {!showSplash && (
-        <>
+        <div className="min-h-screen flex flex-col">
           <Header isHomePage={isHomePage} />
-          
+
           {showNavButtons && (
             <NavigationButtons
               onGoBack={handleGoBack}
@@ -118,13 +118,15 @@ export function RootLayoutClient({ children }: { children: ReactNode }) {
               canGoForward={currentIndex < pageHistory.length - 1}
             />
           )}
-          
-          <main className="flex flex-1 flex-col">
+
+          {/* Main grows to fill space; explicit zero margins/padding at bottom to avoid any white strip */}
+          <main className="flex flex-col flex-1 mb-0 pb-0">
             {children}
           </main>
-          
+
+          {/* Footer sits directly after the last section with no extra spacing */}
           <Footer />
-        </>
+        </div>
       )}
     </>
   );

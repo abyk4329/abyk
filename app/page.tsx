@@ -1,19 +1,8 @@
-"use client";
-
-import { Hero } from "./components/sections/Hero";
-import { useRouter } from "next/navigation";
-
 export default function Home() {
-  const router = useRouter();
-  
-  const handleNavigate = () => {
-    router.push('/calculator');
-  };
-  
   return (
-    <div className="flex w-full flex-col items-center">
-      <Hero onNavigate={handleNavigate} />
-      {/* תוכן נוסף של דף הבית יבוא כאן */}
-    </div>
+    <main>
+      <h1>Welcome to your new Next.js skeleton</h1>
+      <p>Start building by editing <code>app/page.tsx</code>.</p>
+    </main>
   );
 }
