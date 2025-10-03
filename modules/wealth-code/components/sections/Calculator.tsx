@@ -2,30 +2,32 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
-import { SendPdfButton } from "@/app/components/SendPdfButton";
 import {
-  NumerologyCalculation,
   calculateWealthCode,
   formatCodeLabel,
   getInterpretation,
-} from "@/lib/utils";
-import { routes } from "@/lib/routes";
+  type NumerologyCalculation,
+} from "@/modules/wealth-code/utils";
+import { WEALTH_CONTENT, WEALTH_ROUTES } from "@/modules/wealth-code/constants";
+import { SendEmailButton } from "../SendEmailButton";
 
-interface CalculatorSectionProps {
-  variant?: "compact" | "full";
+type CalculatorVariant = "compact" | "full";
+
+interface CalculatorProps {
+  variant?: CalculatorVariant;
 }
 
 type FormState = {
   fullName: string;
-  email: string;
   birthDate: string;
+  email: string;
   notes: string;
 };
 
 const INITIAL_STATE: FormState = {
   fullName: "",
-  email: "",
   birthDate: "",
+  email: "",
   notes: "",
 };
 
@@ -33,23 +35,26 @@ const LABEL_CLASSES = "block text-sm font-semibold text-brown-heading mb-2";
 const INPUT_CLASSES =
   "w-full rounded-2xl border border-border bg-white/70 px-4 py-3 text-right text-brown-dark shadow-sm focus:outline-none focus:ring-2 focus:ring-brown-light";
 
-export function CalculatorSection({ variant = "compact" }: CalculatorSectionProps) {
+export function Calculator({ variant = "compact" }: CalculatorProps) {
   const [form, setForm] = useState<FormState>(INITIAL_STATE);
   const [result, setResult] = useState<NumerologyCalculation | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showBreakdown, setShowBreakdown] = useState(false);
+
+  const calculatorCopy = WEALTH_CONTENT.calculator;
+  const sectionTitle = calculatorCopy.variantTitles?.[variant] ?? calculatorCopy.title;
 
   const interpretation = useMemo(() => {
     if (!result) return undefined;
     return getInterpretation(result.code);
   }, [result]);
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
 
     if (!form.fullName || !form.birthDate) {
-      setError("נא להזין שם מלא ותאריך לידה לחישוב מדויק");
+      setError(calculatorCopy.alerts.fillAll);
       return;
     }
 
@@ -61,7 +66,7 @@ export function CalculatorSection({ variant = "compact" }: CalculatorSectionProp
       setResult(calculation);
     } catch (err) {
       console.error(err);
-      setError("אירעה שגיאה בתהליך החישוב. נסי שוב.");
+      setError(calculatorCopy.alerts.calculationError);
     }
   };
 
@@ -69,42 +74,72 @@ export function CalculatorSection({ variant = "compact" }: CalculatorSectionProp
     setForm(INITIAL_STATE);
     setResult(null);
     setError(null);
+    setShowBreakdown(false);
   };
 
-  const sectionTitle =
-    variant === "full" ? "המחשבון המלא" : "מחשבון מהיר לטעימה";
+  const pdfBody = useMemo(() => {
+    if (!result) return [] as string[];
+
+    const lines: string[] = [
+      `שם מלא: ${form.fullName}`,
+      `תאריך לידה: ${form.birthDate}`,
+      `קוד שפע: ${formatCodeLabel(result.code)}`,
+      "",
+    ];
+
+    if (interpretation) {
+      lines.push(`מהות הקוד: ${interpretation.title}`);
+      lines.push(interpretation.description);
+      lines.push("");
+      lines.push("חוזקות עיקריות:");
+      interpretation.strengths.forEach((strength) => lines.push(`• ${strength}`));
+      lines.push("");
+      lines.push("אתגרים אפשריים:");
+      interpretation.challenges.forEach((challenge) => lines.push(`• ${challenge}`));
+      lines.push("");
+      lines.push("צעדים מומלצים:");
+      interpretation.recommendedActions.forEach((action) => lines.push(`• ${action}`));
+      lines.push("");
+      lines.push(`מנטרה: ${interpretation.mantra}`);
+    }
+
+    if (form.notes) {
+      lines.push("", `כוונה לשנה הקרובה: ${form.notes}`);
+    }
+
+    if (showBreakdown) {
+      lines.push("", "פירוט מלא:");
+      result.breakdown.forEach((item) => lines.push(item));
+    }
+
+    return lines;
+  }, [form.fullName, form.birthDate, form.notes, interpretation, result, showBreakdown]);
 
   return (
     <section id="calculator" className="py-16">
       <div className="neuro-card-main mx-auto max-w-4xl rounded-[36px] bg-white/80 p-8 shadow-xl">
         <div className="mb-10 text-center">
           <span className="caption inline-block text-brown-mid">{sectionTitle}</span>
-          <h2 className="mt-2 text-3xl text-brown-heading sm:text-4xl">
-            חשבי את קוד השפע שלך
-          </h2>
-          <p className="mt-4 text-brown-dark/80">
-            הזיני שם מלא (אפשר בעברית או באנגלית) ותאריך לידה. המערכת תחשב את
-            הקוד ותציג לך תובנה ראשונית. רוצה לקבל PDF מלא במייל? הזיני גם כתובת
-            אימייל ולחצי על שליחת הדו&quot;ח.
-          </p>
+          <h2 className="mt-2 text-3xl text-brown-heading sm:text-4xl">{calculatorCopy.title}</h2>
+          <p className="mt-4 text-brown-dark/80">{calculatorCopy.subtitle}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid gap-6 md:grid-cols-2">
             <label className="flex flex-col text-right">
-              <span className={LABEL_CLASSES}>שם מלא</span>
+              <span className={LABEL_CLASSES}>{calculatorCopy.labels.fullName}</span>
               <input
                 type="text"
                 value={form.fullName}
                 onChange={(event) => setForm((prev) => ({ ...prev, fullName: event.target.value }))}
-                placeholder="למשל: קסניה צ'ודנובסקיה"
+                placeholder={calculatorCopy.placeholders.fullName}
                 className={INPUT_CLASSES}
                 required
               />
             </label>
 
             <label className="flex flex-col text-right">
-              <span className={LABEL_CLASSES}>תאריך לידה</span>
+              <span className={LABEL_CLASSES}>{calculatorCopy.labels.birthDate}</span>
               <input
                 type="date"
                 value={form.birthDate}
@@ -115,37 +150,35 @@ export function CalculatorSection({ variant = "compact" }: CalculatorSectionProp
             </label>
 
             <label className="flex flex-col text-right">
-              <span className={LABEL_CLASSES}>אימייל (לא חובה)</span>
+              <span className={LABEL_CLASSES}>{calculatorCopy.labels.email}</span>
               <input
                 type="email"
                 value={form.email}
                 onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
-                placeholder="example@email.com"
+                placeholder={calculatorCopy.placeholders.email}
                 className={INPUT_CLASSES}
               />
             </label>
 
             <label className="flex flex-col text-right">
-              <span className={LABEL_CLASSES}>כוונה או מטרה לשנה הקרובה</span>
+              <span className={LABEL_CLASSES}>{calculatorCopy.labels.notes}</span>
               <input
                 type="text"
                 value={form.notes}
                 onChange={(event) => setForm((prev) => ({ ...prev, notes: event.target.value }))}
-                placeholder="מה היית רוצה לממש בתקופה הקרובה?"
+                placeholder={calculatorCopy.placeholders.notes}
                 className={INPUT_CLASSES}
               />
             </label>
           </div>
 
           {error && (
-            <p className="rounded-2xl border border-rose-200 bg-rose-50/60 p-4 text-rose-800">
-              {error}
-            </p>
+            <p className="rounded-2xl border border-rose-200 bg-rose-50/60 p-4 text-rose-800">{error}</p>
           )}
 
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
             <button type="submit" className="neuro-button rounded-2xl px-8 py-3 font-semibold">
-              חשבי עכשיו
+              {calculatorCopy.buttons.calculate}
             </button>
             {result && (
               <button
@@ -153,7 +186,7 @@ export function CalculatorSection({ variant = "compact" }: CalculatorSectionProp
                 onClick={resetForm}
                 className="neuro-button-secondary rounded-2xl px-8 py-3 font-semibold"
               >
-                ניקוי טופס
+                {calculatorCopy.buttons.reset}
               </button>
             )}
           </div>
@@ -163,20 +196,24 @@ export function CalculatorSection({ variant = "compact" }: CalculatorSectionProp
           <div className="mt-10 space-y-6 rounded-[30px] border border-border bg-white/80 p-8 shadow-inner">
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
               <div className="text-center sm:text-right">
-                <p className="caption text-brown-mid">קוד השפע האישי שלך</p>
-                <p className="text-6xl font-black text-brown-heading">
-                  {formatCodeLabel(result.code)}
-                </p>
+                <p className="caption text-brown-mid">{calculatorCopy.result.caption}</p>
+                <p className="text-6xl font-black text-brown-heading">{formatCodeLabel(result.code)}</p>
               </div>
 
               <div className="text-right text-sm text-brown-dark/80">
-                <p>ערך השם המצומצם: {result.reducedName}</p>
-                <p>ערך תאריך הלידה המצומצם: {result.reducedBirth}</p>
+                <p>
+                  {calculatorCopy.result.reducedNameLabel}: {result.reducedName}
+                </p>
+                <p>
+                  {calculatorCopy.result.reducedBirthLabel}: {result.reducedBirth}
+                </p>
                 <button
                   onClick={() => setShowBreakdown((prev) => !prev)}
                   className="mt-2 text-sm font-semibold text-brown-heading underline"
                 >
-                  {showBreakdown ? "הסתר פירוט" : "הצג פירוט מלא"}
+                  {showBreakdown
+                    ? calculatorCopy.result.hideBreakdown
+                    : calculatorCopy.result.showBreakdown}
                 </button>
               </div>
             </div>
@@ -197,7 +234,9 @@ export function CalculatorSection({ variant = "compact" }: CalculatorSectionProp
 
                   <div className="mt-6 grid gap-4 sm:grid-cols-2">
                     <div className="rounded-2xl border border-border bg-white/60 p-4">
-                      <p className="font-semibold text-brown-heading">חוזקות</p>
+                      <p className="font-semibold text-brown-heading">
+                        {calculatorCopy.result.strengthsLabel}
+                      </p>
                       <ul className="mt-2 space-y-1 text-sm text-brown-dark/80">
                         {interpretation.strengths.map((strength) => (
                           <li key={strength}>• {strength}</li>
@@ -205,7 +244,9 @@ export function CalculatorSection({ variant = "compact" }: CalculatorSectionProp
                       </ul>
                     </div>
                     <div className="rounded-2xl border border-border bg-white/60 p-4">
-                      <p className="font-semibold text-brown-heading">אתגרים אפשריים</p>
+                      <p className="font-semibold text-brown-heading">
+                        {calculatorCopy.result.challengesLabel}
+                      </p>
                       <ul className="mt-2 space-y-1 text-sm text-brown-dark/80">
                         {interpretation.challenges.map((challenge) => (
                           <li key={challenge}>• {challenge}</li>
@@ -216,11 +257,15 @@ export function CalculatorSection({ variant = "compact" }: CalculatorSectionProp
                 </div>
 
                 <div className="flex flex-col gap-4 rounded-3xl border border-border bg-white/70 p-6 text-right text-sm text-brown-dark/80">
-                  <p className="font-semibold text-brown-heading">מנטרה ליישום</p>
+                  <p className="font-semibold text-brown-heading">
+                    {calculatorCopy.result.mantraLabel}
+                  </p>
                   <p className="text-lg text-brown-mid">“{interpretation.mantra}”</p>
 
                   <div>
-                    <p className="font-semibold text-brown-heading">צעדים מומלצים</p>
+                    <p className="font-semibold text-brown-heading">
+                      {calculatorCopy.result.actionsLabel}
+                    </p>
                     <ul className="mt-2 space-y-1">
                       {interpretation.recommendedActions.map((action) => (
                         <li key={action}>• {action}</li>
@@ -233,23 +278,26 @@ export function CalculatorSection({ variant = "compact" }: CalculatorSectionProp
 
             {form.email && (
               <div className="rounded-3xl border border-border bg-white/80 p-6 text-right">
-                <h4 className="text-xl font-semibold text-brown-heading">שליחת דו&quot;ח מפורט למייל</h4>
+                <h4 className="text-xl font-semibold text-brown-heading">
+                  {calculatorCopy.result.emailTitle}
+                </h4>
                 <p className="mt-2 text-sm text-brown-dark/70">
-                  הכניסי את כתובת המייל והדו&quot;ח השלם יישלח אלייך עם PDF מפורט על הקוד שלך.
+                  {calculatorCopy.result.emailDescription}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center justify-end gap-4">
-                  <SendPdfButton
+                  <SendEmailButton
                     to={form.email}
-                    fullName={form.fullName}
-                    email={form.email}
-                    wealthCode={result.code.toString()}
-                    notes={form.notes}
+                    name={form.fullName}
+                    code={result.code.toString()}
+                    body={pdfBody}
+                    shareUrl={WEALTH_ROUTES.interpretations}
+                    label="שלחי PDF למייל"
                   />
                   <Link
-                    href={routes.interpretations}
+                    href={WEALTH_ROUTES.interpretations}
                     className="text-sm font-semibold text-brown-heading underline"
                   >
-                    לגלריית הפירושים המלאה
+                    {calculatorCopy.result.viewInterpretations}
                   </Link>
                 </div>
               </div>

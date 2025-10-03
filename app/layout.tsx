@@ -2,9 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Header, Footer } from "@/app/components/layout";
 import { BRAND, SOCIAL } from "@/lib/constants";
-import { env } from "@/lib/env";
+import { publicEnv } from "@/lib/env";
 
-const metadataBase = env.appUrl ? new URL(env.appUrl) : undefined;
+const metadataBase = publicEnv.appUrl ? new URL(publicEnv.appUrl) : undefined;
 
 export const metadata: Metadata = {
   title: {

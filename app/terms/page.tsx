@@ -1,5 +1,5 @@
-import { TermsPrivacySection } from "@/app/components/sections";
+import { redirect } from "next/navigation";
 
 export default function TermsPage() {
-  return <TermsPrivacySection variant="terms" />;
+  redirect("/wealth-code/terms");
 }

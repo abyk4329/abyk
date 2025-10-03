@@ -1,3 +1,4 @@
+export { ThankYou } from "./sections/ThankYou";
 import Link from "next/link";
 import { SOCIAL } from "@/lib/constants";
 import { routes } from "@/lib/routes";

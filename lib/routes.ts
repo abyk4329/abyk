@@ -20,8 +20,8 @@ export const routes = {
 
     // API
     api: {
-        pdf: "/api/pdf",
-        sendPdf: "/api/send-pdf",
+        generatePdf: "/api/generate-pdf",
+        sendEmail: "/api/send-email",
     },
 } as const;
 
@@ -59,18 +59,6 @@ export function getInterpretationsUrl(wealthCode?: string): string {
     return wealthCode
         ? buildUrl(routes.interpretations, { code: wealthCode })
         : routes.interpretations;
-}
-
-/**
- * URL להורדת PDF
- */
-export function getPdfDownloadUrl(data: {
-    fullName?: string;
-    email?: string;
-    wealthCode?: string;
-    notes?: string;
-}): string {
-    return buildUrl(routes.api.pdf, data);
 }
 
 /**

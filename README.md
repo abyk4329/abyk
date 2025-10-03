@@ -133,14 +133,14 @@ app/
 
 ### Endpoints
 
-**GET/POST** `/api/pdf` - יצירת והורדת PDF
-**POST** `/api/send-pdf` - שליחת מייל עם PDF
+**POST** `/api/generate-pdf` - יצירת PDF והחזרה כ-base64 (ללא data prefix)
+**POST** `/api/send-email` - שליחת מייל עם "הפירוש המלא לקוד האישי שלך" + צירוף PDF
 
 דוגמה:
 ```bash
-curl -X POST http://localhost:3000/api/send-pdf \
+curl -X POST http://localhost:3000/api/send-email \
   -H "Content-Type: application/json" \
-  -d '{"to":"test@example.com","fullName":"קסניה","wealthCode":"A7"}'
+  -d '{"to":"test@example.com","name":"קסניה","pdfBase64":"..."}'
 ```
 
 ## 🧪 Scripts

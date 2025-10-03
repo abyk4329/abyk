@@ -4,4 +4,3 @@
 
 export * from "./format";
 export * from "./fetcher";
-export * from "./numerology";
