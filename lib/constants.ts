@@ -279,11 +279,11 @@ export const ANIMATION = {
 
     // Splash Screen
     splash: {
-        logoDelay: 0.3,
-        logoDuration: 1.2,
-        fadeOutDelay: 2,
-        fadeOutDuration: 0.8,
-        totalDuration: 3000, // ms
+        logoDelay: 0.4,
+        logoDuration: 1.6,
+        fadeOutDelay: 3.8,
+        fadeOutDuration: 1.2,
+        totalDuration: 5000, // ms
     },
 } as const;
 
