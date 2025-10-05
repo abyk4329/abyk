@@ -49,7 +49,7 @@ export function Result({ code, onContinue }: ResultProps) {
 
   return (
     <section 
-      className="relative min-h-[calc(100vh-var(--header-height))] w-full flex items-center justify-center overflow-visible pt-4 pb-14 sm:pt-6 sm:pb-16 lg:pt-10 lg:pb-20"
+      className="relative min-h-[calc(100vh-var(--header-height))] w-full flex items-center justify-center overflow-visible pt-2 pb-12 sm:pt-3 sm:pb-14"
     >
 
       {/* Content */}
@@ -58,25 +58,25 @@ export function Result({ code, onContinue }: ResultProps) {
           
           {/* Neumorphic Card */}
           <div 
-            className="neuro-card-main rounded-[30px] p-6 sm:p-10 lg:p-14 transition-all duration-500 border-0"
+            className="neuro-card-main rounded-[30px] p-5 sm:p-8 lg:p-10 transition-all duration-500 border-0"
           >
             {/* Main Heading */}
-            <h1 className={["mb-6 sm:mb-8 lg:mb-10 text-center", styles.mainHeading].join(" ")}>
+            <h1 className={["mb-3 sm:mb-4 text-center", styles.mainHeading].join(" ")}>
               קוד העושר שלך
             </h1>
 
             {/* The Code - Large Inset Card */}
-            <div className="mb-5 sm:mb-7 text-center">
+            <div className="mb-3 sm:mb-4 text-center">
               <CodeInset code={code} />
             </div>
 
             {/* Code Type */}
-            <h2 className={["mb-2 sm:mb-3 text-center", styles.codeTypeHeading].join(" ")}>
+            <h2 className={["mb-2 sm:mb-2 text-center", styles.codeTypeHeading].join(" ")}>
               {codeInfo.type}
             </h2>
 
             {/* Description */}
-            <p className="caption mb-7 sm:mb-9 max-w-lg mx-auto text-center leading-snug">
+            <p className="caption mb-4 sm:mb-5 max-w-lg mx-auto text-center leading-snug">
               {codeInfo.description}
             </p>
 

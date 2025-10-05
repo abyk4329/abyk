@@ -69,18 +69,19 @@ export function AppShell({ children }: AppShellProps) {
       <main className="app-main" role="main">
         {children}
       </main>
-      {shouldShowNavigation && (
-        <nav aria-label="ניווט משני" className="py-6 sm:py-8">
-          <NavigationButtons
-            onGoBack={goBack}
-            onGoForward={goForward}
-            onGoHome={goHome}
-            canGoBack={canGoBack}
-            canGoForward={canGoForward}
-          />
-        </nav>
-      )}
-      <Footer />
+      <Footer>
+        {shouldShowNavigation && (
+          <nav aria-label="ניווט משני" className="pb-2 sm:pb-3">
+            <NavigationButtons
+              onGoBack={goBack}
+              onGoForward={goForward}
+              onGoHome={goHome}
+              canGoBack={canGoBack}
+              canGoForward={canGoForward}
+            />
+          </nav>
+        )}
+      </Footer>
       <CookieConsent />
     </div>
   );

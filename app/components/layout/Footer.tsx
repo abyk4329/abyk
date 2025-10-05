@@ -2,10 +2,15 @@
 
 import Link from "next/link";
 import { Instagram, Mail } from "lucide-react";
+import { ReactNode } from "react";
 
 import styles from "./Footer.module.css";
 
-export function Footer() {
+interface FooterProps {
+  children?: ReactNode;
+}
+
+export function Footer({ children }: FooterProps = {}) {
   const socialLinks = [
     {
       name: "WhatsApp",
@@ -51,13 +56,16 @@ export function Footer() {
 
   return (
     <footer className={["relative", styles.footer].join(" ")}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 lg:py-12">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
+        {/* Navigation Buttons (if provided) */}
+        {children}
+        
         {/* Legal Link */}
         <div className="text-center mb-6 sm:mb-8">
           <Link
             href="/terms"
             className={[
-              "inline-block px-6 py-2.5 sm:px-8 sm:py-3 rounded-2xl transition-all duration-400 active:scale-95 touch-manipulation border-0 footer-terms-text",
+              "inline-block px-4 py-2.5 sm:px-8 sm:py-3 rounded-2xl transition-all duration-400 active:scale-95 touch-manipulation border-0 footer-terms-text",
               styles.termsButton,
             ].join(" ")}
           >
@@ -91,7 +99,7 @@ export function Footer() {
         {/* Copyright - English text with inset styling */}
         <div className="text-center">
           <div 
-            className={["inline-block px-6 py-2 sm:px-8 sm:py-2.5 rounded-full border-0", styles.copyrightShell].join(" ")}
+            className={["inline-block px-3 py-2 sm:px-8 sm:py-2.5 rounded-full border-0", styles.copyrightShell].join(" ")}
           >
             <p 
               className={["footer-copyright-text", styles.copyrightText].join(" ")}

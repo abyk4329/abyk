@@ -7,7 +7,7 @@
 .inner {
   position: relative;
   border-radius: 28px;
-  padding: 1.5rem 3rem;
+  padding: 1.2rem 2.5rem;
   background: linear-gradient(145deg, #fdfcfb, #f5f1ed);
   box-shadow: inset 8px 8px 16px rgba(159, 133, 114, 0.12),
     inset -8px -8px 16px rgba(255, 255, 255, 0.92),
@@ -44,7 +44,7 @@
 
 @media (max-width: 640px) {
   .inner {
-    padding: 1.2rem 2.4rem;
+    padding: 1rem 2rem;
     border-radius: 24px;
   }
   .sizeXl .code {
