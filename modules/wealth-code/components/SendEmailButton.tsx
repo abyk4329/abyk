@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { sendWealthEmail } from "@/modules/wealth-code/utils/email";
+import styles from "./SendEmailButton.module.css";
 
 type SendEmailButtonProps = {
     to: string;
@@ -51,8 +52,7 @@ export function SendEmailButton({
     return (
         <div className="flex flex-col items-end gap-2">
             <button
-                className="neuro-button rounded-2xl px-5 py-3"
-                style={{ color: "#87674F" }}
+                className={["neuro-button rounded-2xl px-5 py-3", styles.buttonColor].join(" ")}
                 disabled={loading || !to}
                 onClick={handleClick}
                 type="button"

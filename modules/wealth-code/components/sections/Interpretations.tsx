@@ -10,6 +10,7 @@ import { digitInterpretations } from "../../data/digitInterpretations";
 import { dailyApplication } from "../../data/dailyApplication";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import styles from "./Interpretations.module.css";
 
 interface InterpretationsProps {
   code: string;
@@ -152,8 +153,7 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
         {/* Main Card */}
         <section 
           ref={contentRef} 
-          className="rounded-[32px] sm:rounded-[40px] p-6 sm:p-10 mb-8 border-0 transition-all duration-500"
-          style={neumorphismStyles.card.main}
+          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-6 sm:p-10 mb-8 border-0 transition-all duration-500"
         >
           
           {/* קוד העושר */}
@@ -164,27 +164,9 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
           {/* הצגת הקוד */}
           <div className="mb-8 sm:mb-10 text-center">
             <div 
-              className="inline-block px-12 py-6 rounded-3xl border-0"
-              style={{
-                background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240))',
-                boxShadow: `
-                  20px 20px 60px rgba(159, 133, 114, 0.25),
-                  -20px -20px 60px rgba(255, 255, 255, 0.9),
-                  inset 2px 2px 6px rgba(255, 255, 255, 0.8),
-                  inset -2px -2px 6px rgba(211, 198, 189, 0.1)
-                `
-              }}
+              className={["inline-block", "px-12", "py-6", "rounded-3xl", "border-0", styles.codeCard].join(" ")}
             >
-              <div 
-                style={{
-                  fontSize: 'clamp(4rem, 10vw, 7rem)',
-                  fontWeight: '300',
-                  color: '#87674F',
-                  letterSpacing: '0.15em',
-                  textShadow: '0 2px 8px rgba(135, 103, 79, 0.15)',
-                  textAlign: 'center'
-                }}
-              >
+              <div className={styles.codeDisplay}>
                 {code}
               </div>
             </div>
@@ -192,22 +174,22 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
 
           {/* מבוא קבוע */}
           <div className="mb-6">
-            <p className="text-center" style={{ lineHeight: '1.0' }}>
+            <p className={["text-center", styles.tightLineHeight].join(" ")}>
               {codeStructures.intro}
             </p>
           </div>
 
           {/* הסבר על מבנה הקוד */}
-          <div 
-            className="rounded-2xl p-6 mb-6 border-0"
-            style={neumorphismStyles.card.secondary}
+                    {/* Code Display Card */}
+          <div
+            className="neuro-card-secondary rounded-2xl p-6 sm:p-8 mb-8 border-0"
           >
             <h3 className="mb-4 text-center">
               {codeType === "master" && "קוד מאסטר - כל הספרות זהות"}
               {codeType === "repeating" && "קוד עם ספרות חוזרות - אנרגיות מועצמות"}
               {codeType === "diverse" && "קוד מגוון - כל הספרות שונות"}
             </h3>
-            <p className="text-center" style={{ lineHeight: '1.0' }}>
+            <p className={["text-center", styles.tightLineHeight].join(" ")}>
               {structureText}
             </p>
           </div>
@@ -302,13 +284,12 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
               return (
                 <TabsContent key={digit} value={index.toString()} className="mt-6">
                   <div 
-                    className="rounded-2xl p-6 sm:p-8 border-0"
-                    style={neumorphismStyles.card.secondary}
+                    className="neuro-card-secondary rounded-2xl p-6 sm:p-8 border-0"
                   >
                     
                     {/* כותרת הספרה */}
                     <div className="text-center mb-8">
-                      <div className="text-[#5e4934] mb-2" style={{ fontSize: '48px', fontWeight: '300', letterSpacing: '0.15em', textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                      <div className={["text-[#5e4934]", "mb-2", styles.digitNumber].join(" ")}>
                         {digit}
                       </div>
                       <h2 className="text-[#5e4934]">
@@ -318,39 +299,25 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
 
                     {/* מהות הספרה */}
                     <div 
-                      className="rounded-xl p-4 mb-4 border-0"
-                      style={{
-                        background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(250, 248, 246))',
-                        boxShadow: `
-                          inset 4px 4px 8px rgba(159, 133, 114, 0.08),
-                          inset -4px -4px 8px rgba(255, 255, 255, 0.9)
-                        `
-                      }}
+                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">מהות הספרה</h4>
-                      <p className="text-center" style={{ lineHeight: '1.0' }}>{interpretation.essence}</p>
+                      <p className={["text-center", styles.tightLineHeight].join(" ")}>{interpretation.essence}</p>
                     </div>
 
                     {/* מתנות מרכזיות */}
                     <div 
-                      className="rounded-xl p-4 mb-4 border-0"
-                      style={{
-                        background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(250, 248, 246))',
-                        boxShadow: `
-                          inset 4px 4px 8px rgba(159, 133, 114, 0.08),
-                          inset -4px -4px 8px rgba(255, 255, 255, 0.9)
-                        `
-                      }}
+                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">מתנות מרכזיות</h4>
                       <ul className="space-y-2">
                         {interpretation.gifts.map((gift, i) => {
                           const parts = gift.split(' – ');
                           return (
-                            <li key={i} className="text-center" style={{ lineHeight: '1.0' }}>
+                            <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
                               {parts.length >= 2 ? (
                                 <>
-                                  <span style={{ fontWeight: 700 }}>{parts[0]}</span>
+                                  <span className={styles.boldText}>{parts[0]}</span>
                                   {' – '}
                                   {parts.slice(1).join(' – ')}
                                 </>
@@ -365,24 +332,17 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
 
                     {/* חסימות ואתגרים */}
                     <div 
-                      className="rounded-xl p-4 mb-4 border-0"
-                      style={{
-                        background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(250, 248, 246))',
-                        boxShadow: `
-                          inset 4px 4px 8px rgba(159, 133, 114, 0.08),
-                          inset -4px -4px 8px rgba(255, 255, 255, 0.9)
-                        `
-                      }}
+                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">חסימות ואתגרים עיקריים</h4>
                       <ul className="space-y-2">
                         {interpretation.blocks.map((block, i) => {
                           const parts = block.split(' – ');
                           return (
-                            <li key={i} className="text-center" style={{ lineHeight: '1.0' }}>
+                            <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
                               {parts.length >= 2 ? (
                                 <>
-                                  <span style={{ fontWeight: 700 }}>{parts[0]}</span>
+                                  <span className={styles.boldText}>{parts[0]}</span>
                                   {' – '}
                                   {parts.slice(1).join(' – ')}
                                 </>
@@ -397,24 +357,17 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
 
                     {/* נורות אדומות */}
                     <div 
-                      className="rounded-xl p-4 mb-4 border-0"
-                      style={{
-                        background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(250, 248, 246))',
-                        boxShadow: `
-                          inset 4px 4px 8px rgba(159, 133, 114, 0.08),
-                          inset -4px -4px 8px rgba(255, 255, 255, 0.9)
-                        `
-                      }}
+                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">נורות אדומות – סימנים לחוסר איזון</h4>
                       <ul className="space-y-2">
                         {interpretation.redFlags.map((flag, i) => {
                           const parts = flag.split(' – ');
                           return (
-                            <li key={i} className="text-center" style={{ lineHeight: '1.0' }}>
+                            <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
                               {parts.length >= 2 ? (
                                 <>
-                                  <span style={{ fontWeight: 700 }}>{parts[0]}</span>
+                                  <span className={styles.boldText}>{parts[0]}</span>
                                   {' – '}
                                   {parts.slice(1).join(' – ')}
                                 </>
@@ -429,24 +382,17 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
 
                     {/* מוקדי צמיחה */}
                     <div 
-                      className="rounded-xl p-4 mb-4 border-0"
-                      style={{
-                        background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(250, 248, 246))',
-                        boxShadow: `
-                          inset 4px 4px 8px rgba(159, 133, 114, 0.08),
-                          inset -4px -4px 8px rgba(255, 255, 255, 0.9)
-                        `
-                      }}
+                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">מוקדי צמיחה והתפתחות</h4>
                       <ul className="space-y-2">
                         {interpretation.growth.map((growth, i) => {
                           const parts = growth.split(' – ');
                           return (
-                            <li key={i} className="text-center" style={{ lineHeight: '1.0' }}>
+                            <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
                               {parts.length >= 2 ? (
                                 <>
-                                  <span style={{ fontWeight: 700 }}>{parts[0]}</span>
+                                  <span className={styles.boldText}>{parts[0]}</span>
                                   {' – '}
                                   {parts.slice(1).join(' – ')}
                                 </>
@@ -461,24 +407,17 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
 
                     {/* תחומי קריירה */}
                     <div 
-                      className="rounded-xl p-4 mb-4 border-0"
-                      style={{
-                        background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(250, 248, 246))',
-                        boxShadow: `
-                          inset 4px 4px 8px rgba(159, 133, 114, 0.08),
-                          inset -4px -4px 8px rgba(255, 255, 255, 0.9)
-                        `
-                      }}
+                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">תחומים מתאימים לקריירה ולשליחות</h4>
                       <ul className="space-y-2">
                         {interpretation.careers.map((career, i) => {
                           const parts = career.split(' – ');
                           return (
-                            <li key={i} className="text-center" style={{ lineHeight: '1.0' }}>
+                            <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
                               {parts.length >= 2 ? (
                                 <>
-                                  <span style={{ fontWeight: 700 }}>{parts[0]}</span>
+                                  <span className={styles.boldText}>{parts[0]}</span>
                                   {' – '}
                                   {parts.slice(1).join(' – ')}
                                 </>
@@ -493,32 +432,18 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
 
                     {/* דוגמה יומית */}
                     <div 
-                      className="rounded-xl p-4 mb-4 border-0"
-                      style={{
-                        background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(250, 248, 246))',
-                        boxShadow: `
-                          inset 4px 4px 8px rgba(159, 133, 114, 0.08),
-                          inset -4px -4px 8px rgba(255, 255, 255, 0.9)
-                        `
-                      }}
+                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">דוגמה יומית לתרגול</h4>
-                      <p className="text-center" style={{ lineHeight: '1.0' }}>{interpretation.dailyPractice}</p>
+                      <p className={["text-center", styles.tightLineHeight].join(" ")}>{interpretation.dailyPractice}</p>
                     </div>
 
                     {/* בשורה התחתונה */}
                     <div 
-                      className="rounded-xl p-4 border-0"
-                      style={{
-                        background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(250, 248, 246))',
-                        boxShadow: `
-                          inset 4px 4px 8px rgba(159, 133, 114, 0.08),
-                          inset -4px -4px 8px rgba(255, 255, 255, 0.9)
-                        `
-                      }}
+                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">בשורה התחתונה</h4>
-                      <p className="text-center" style={{ lineHeight: '1.0' }}>{interpretation.bottomLine}</p>
+                      <p className={["text-center", styles.tightLineHeight].join(" ")}>{interpretation.bottomLine}</p>
                     </div>
                   </div>
                 </TabsContent>
@@ -528,13 +453,12 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
             {/* יישום יומי */}
             <TabsContent value="daily" className="mt-6">
               <div 
-                className="rounded-2xl p-6 sm:p-8 border-0"
-                style={neumorphismStyles.card.secondary}
+                className="neuro-card-secondary rounded-2xl p-6 sm:p-8 border-0"
               >
                 <h2 className="mb-4 text-center">
                   {dailyApplication.title}
                 </h2>
-                <p className="text-center whitespace-pre-line" style={{ lineHeight: '1.0' }}>
+                <p className={["text-center", "whitespace-pre-line", styles.tightLineHeight].join(" ")}>
                   {dailyApplication.content}
                 </p>
               </div>

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { GlassButton } from "@/app/components/shared/GlassButton";
 
+import styles from "./CookieConsent.module.css";
+
 const STORAGE_KEY = "abyk-cookie-consent";
 
 type ConsentStatus = "accepted" | "dismissed" | null;
@@ -51,24 +53,14 @@ export function CookieConsent() {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-4 z-[60] flex justify-center px-4 sm:px-6"
-      style={{ pointerEvents: "none" }}
+      className={["fixed inset-x-0 bottom-4 z-[60] flex justify-center px-4 sm:px-6", styles.outer].join(" ")}
       aria-live="polite"
     >
       <div
-        className="w-full max-w-xl rounded-[28px] border-0 px-6 py-5 text-center text-sm sm:text-base"
-        style={{
-          pointerEvents: "auto",
-          background:
-            "linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(248, 244, 240, 0.88))",
-          boxShadow:
-            "0 20px 45px rgba(159, 133, 114, 0.18), 0 2px 6px rgba(255, 255, 255, 0.9), inset 2px 2px 6px rgba(255, 255, 255, 0.65)",
-          backdropFilter: "blur(22px)",
-        }}
+        className={["w-full max-w-xl rounded-[28px] border-0 px-6 py-5 text-center text-sm sm:text-base", styles.card].join(" ")}
       >
         <h2
-          className="mb-3 text-base font-semibold sm:text-lg"
-          style={{ color: "#87674f" }}
+          className={["mb-3 text-base font-semibold sm:text-lg", styles.title].join(" ")}
         >
           אנחנו משתמשים בעוגיות (Cookies)
         </h2>
@@ -82,13 +74,7 @@ export function CookieConsent() {
           <button
             type="button"
             onClick={handleDismiss}
-            className="w-full rounded-full border-0 px-4 py-2 text-[#87674f] transition-all duration-200 sm:w-auto"
-            style={{
-              background:
-                "linear-gradient(145deg, rgba(253, 252, 251, 0.6), rgba(245, 241, 237, 0.6))",
-              boxShadow:
-                "inset 4px 4px 8px rgba(159, 133, 114, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.85)",
-            }}
+            className={["w-full rounded-full border-0 px-4 py-2 text-[#87674f] transition-all duration-200 sm:w-auto", styles.dismissButton].join(" ")}
           >
             אולי אחר כך
           </button>

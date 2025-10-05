@@ -1,0 +1,17 @@
+/* Subtitle */
+.subtitle {
+  color: #9f8572;
+  line-height: 1.6;
+}
+
+/* Label */
+.label {
+  color: #9f8572;
+}
+
+/* Input - static styles */
+.input {
+  color: #473b31;
+  direction: ltr;
+  text-align: left;
+}

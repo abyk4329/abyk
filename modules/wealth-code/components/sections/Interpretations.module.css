@@ -1,0 +1,58 @@
+/* Interpretations Component Styles */
+
+/* Text Line Height */
+.tightLineHeight {
+  line-height: 1;
+}
+
+/* Code Display Styles */
+.codeDisplay {
+  font-size: clamp(4rem, 10vw, 7rem);
+  font-weight: 300;
+  color: #87674f;
+  letter-spacing: 0.15em;
+  text-shadow: 0 2px 8px rgba(135, 103, 79, 0.15);
+  text-align: center;
+}
+
+/* Digit Number Display */
+.digitNumber {
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Bold Span for List Items */
+.boldText {
+  font-weight: 700;
+}
+
+/* Code Card Background */
+.codeCard {
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
+  box-shadow: 20px 20px 60px rgba(159, 133, 114, 0.25),
+    -20px -20px 60px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.8),
+    inset -2px -2px 6px rgba(211, 198, 189, 0.1);
+}
+
+/* Tabs List Background */
+.tabsList {
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
+  box-shadow: 12px 12px 24px rgba(159, 133, 114, 0.15),
+    -12px -12px 24px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+/* Section Card Backgrounds */
+.sectionCard {
+  background: linear-gradient(145deg, rgb(253, 252, 251), rgb(245, 241, 237));
+  box-shadow: inset 6px 6px 12px rgba(159, 133, 114, 0.12),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.9);
+}
+
+/* Tab Trigger - use with neumorphism */
+.tabTriggerBase {
+  background: transparent;
+}

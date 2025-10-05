@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PageLayout } from "@/app/components/layout/PageLayout";
+import { NavigationButtons } from "@/app/components/layout/NavigationButtons";
 import {
   Calculator,
   Hero,
@@ -33,6 +34,11 @@ export default function Home() {
 
   const goTo = useCallback((view: ViewType) => {
     setCurrentView(view);
+    
+    // Scroll to top when changing views
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
   }, []);
 
   const viewOrder = useMemo<ViewType[]>(
@@ -193,6 +199,17 @@ export default function Home() {
         <PageLayout className="space-y-12 pb-12 sm:pb-16 lg:pb-20" maxWidth="xl">
           {renderView()}
         </PageLayout>
+        {navigationOverrides.isVisible && (
+          <nav aria-label="ניווט משני" className="py-6 sm:py-8">
+            <NavigationButtons
+              onGoBack={handleGoBack}
+              onGoForward={handleGoForward}
+              onGoHome={handleGoHome}
+              canGoBack={canGoBack}
+              canGoForward={canGoForward}
+            />
+          </nav>
+        )}
       </div>
     </NavigationProvider>
   );

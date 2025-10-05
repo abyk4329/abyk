@@ -1,7 +1,7 @@
 "use client";
 
 import { GlassButton } from "@/app/components/shared/GlassButton";
-import { neumorphismStyles } from "@/app/components/lib/neomorphism-styles";
+import styles from "./SalesPage.module.css";
 
 interface SalesPageProps {
   code: string;
@@ -47,8 +47,7 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
         
         {/* Card 1: Understanding the Code */}
         <section 
-          className="rounded-[32px] sm:rounded-[40px] p-6 sm:p-8 mb-6 border-0 transition-all duration-500"
-          style={neumorphismStyles.card.main}
+          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-6 sm:p-8 mb-6 border-0 transition-all duration-500"
         >
           <h2 className="mb-6 text-center">
             להבין את הקוד – להבין את עצמך
@@ -63,20 +62,18 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
 
         {/* Card 2: Full Analysis */}
         <section 
-          className="rounded-[32px] sm:rounded-[40px] p-6 sm:p-8 mb-6 border-0 transition-all duration-500"
-          style={neumorphismStyles.card.main}
+          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-6 sm:p-8 mb-6 border-0 transition-all duration-500"
         >
           <h2 className="mb-4 text-center">
             הפירוש המלא
             <br />
             כל מה שמחכה לכם בפנים
           </h2>
-          <p className="text-center mb-4" style={{ fontWeight: 'bold', color: '#87674F' }}>
+          <p className={["text-center mb-4", styles.boldIntro].join(" ")}>
             ניתוח מעמיק של {uniqueDigitsText} הכולל:
           </p>
           <div 
-            className="rounded-2xl p-4 sm:p-6 border-0"
-            style={neumorphismStyles.card.secondary}
+            className="neuro-card-secondary rounded-2xl p-4 sm:p-6 border-0"
           >
             <ul className="space-y-1 text-center">
               <li>•  מהות כל ספרה  •</li>
@@ -95,8 +92,7 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
 
         {/* Card 3: Call to Action */}
         <section 
-          className="rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 border-0 transition-all duration-500"
-          style={neumorphismStyles.card.main}
+          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 border-0 transition-all duration-500"
         >
           <h2 className="mb-6 text-center">
             הגיע הזמן לגלות מה מספרים מספרים עליך
@@ -107,7 +103,7 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
           
           {/* Price */}
           <div className="text-center mb-6">
-            <h3 className="mb-2" style={{ color: '#5E4934' }}>
+            <h3 className={["mb-2", styles.priceHeading].join(" ")}>
               עלות הפירוש המלא: ₪ 36.9 בלבד
             </h3>
             <p className="caption">
@@ -126,11 +122,7 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
           </div>
 
           {/* Security Notice */}
-          <p className="text-center" style={{ 
-            fontSize: '12px',
-            color: '#9f8572',
-            lineHeight: '1.1'
-          }}>
+          <p className={["text-center", styles.securityNotice].join(" ")}>
             תשלום מובטח באמצעות ספק סליקה חיצוני Grow
           </p>
         </section>

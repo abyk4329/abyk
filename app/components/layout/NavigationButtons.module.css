@@ -1,0 +1,46 @@
+.shell {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.button {
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
+  box-shadow: 8px 8px 16px rgba(159, 133, 114, 0.2),
+    -8px -8px 16px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 10px 10px 20px rgba(159, 133, 114, 0.25),
+    -10px -10px 20px rgba(255, 255, 255, 1),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.95) translateY(1px);
+  box-shadow: inset 4px 4px 8px rgba(159, 133, 114, 0.18),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.8),
+    1px 1px 3px rgba(159, 133, 114, 0.1);
+}
+
+.icon,
+.iconForward,
+.iconBack,
+.iconHome {
+  color: rgb(135, 103, 79);
+  transition: transform 0.3s ease;
+}
+
+.button:hover:not(:disabled) .iconForward {
+  transform: translateX(4px);
+}
+
+.button:hover:not(:disabled) .iconBack {
+  transform: translateX(-4px);
+}
+
+.button:hover:not(:disabled) .iconHome {
+  transform: scale(1.1);
+}

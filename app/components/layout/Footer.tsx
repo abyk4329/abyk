@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { Instagram, Mail } from "lucide-react";
 
+import styles from "./Footer.module.css";
+
 export function Footer() {
   const socialLinks = [
     {
@@ -48,81 +50,16 @@ export function Footer() {
   ];
 
   return (
-    <footer
-      className="relative"
-      style={{
-        paddingBottom: 'env(safe-area-inset-bottom)',
-        background: 'transparent',
-        boxShadow: `
-          0 -10px 30px rgba(159, 133, 114, 0.15),
-          0 4px 16px rgba(255, 255, 255, 0.8),
-          inset 0 2px 4px rgba(255, 255, 255, 0.9)
-        `,
-        border: 'none',
-        borderTop: 'none'
-      }}
-    >
+    <footer className={["relative", styles.footer].join(" ")}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 lg:py-12">
         {/* Legal Link */}
         <div className="text-center mb-6 sm:mb-8">
-          <Link 
+          <Link
             href="/terms"
-            className="
-              inline-block
-              px-6 py-2.5 sm:px-8 sm:py-3
-              rounded-2xl
-              transition-all duration-400
-              active:scale-95
-              touch-manipulation
-              footer-terms-text
-              border-0
-            "
-            style={{
-              background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240))',
-              boxShadow: `
-                10px 10px 20px rgba(159, 133, 114, 0.15),
-                -10px -10px 20px rgba(255, 255, 255, 0.9),
-                inset 1px 1px 3px rgba(255, 255, 255, 0.7)
-              `,
-              fontFamily: 'Assistant, sans-serif',
-              fontWeight: '600',
-              lineHeight: '1.1',
-              letterSpacing: '0.08em',
-              color: 'rgb(135, 103, 79)',
-              textShadow: '0 1px 2px rgba(0, 0, 0, 0.06)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = `
-                12px 12px 24px rgba(159, 133, 114, 0.18),
-                -12px -12px 24px rgba(255, 255, 255, 1),
-                inset 1px 1px 3px rgba(255, 255, 255, 0.8)
-              `;
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseDown={(e) => {
-              e.currentTarget.style.boxShadow = `
-                inset 5px 5px 10px rgba(159, 133, 114, 0.15),
-                inset -5px -5px 10px rgba(255, 255, 255, 0.8),
-                1px 1px 3px rgba(159, 133, 114, 0.08)
-              `;
-              e.currentTarget.style.transform = 'scale(0.97) translateY(1px)';
-            }}
-            onMouseUp={(e) => {
-              e.currentTarget.style.boxShadow = `
-                12px 12px 24px rgba(159, 133, 114, 0.18),
-                -12px -12px 24px rgba(255, 255, 255, 1),
-                inset 1px 1px 3px rgba(255, 255, 255, 0.8)
-              `;
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = `
-                10px 10px 20px rgba(159, 133, 114, 0.15),
-                -10px -10px 20px rgba(255, 255, 255, 0.9),
-                inset 1px 1px 3px rgba(255, 255, 255, 0.7)
-              `;
-              e.currentTarget.style.transform = '';
-            }}
+            className={[
+              "inline-block px-6 py-2.5 sm:px-8 sm:py-3 rounded-2xl transition-all duration-400 active:scale-95 touch-manipulation border-0 footer-terms-text",
+              styles.termsButton,
+            ].join(" ")}
           >
             תנאי שימוש ומדיניות פרטיות
           </Link>
@@ -136,66 +73,14 @@ export function Footer() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="
-                group relative
-                p-3 sm:p-4
-                rounded-full
-                transition-all duration-400
-                touch-manipulation
-                border-0
-              "
-              style={{
-                background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240))',
-                boxShadow: `
-                  10px 10px 20px rgba(159, 133, 114, 0.15),
-                  -10px -10px 20px rgba(255, 255, 255, 0.9),
-                  inset 2px 2px 5px rgba(255, 255, 255, 0.7),
-                  inset -2px -2px 5px rgba(211, 198, 189, 0.08)
-                `
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = `
-                  12px 12px 24px rgba(159, 133, 114, 0.18),
-                  -12px -12px 24px rgba(255, 255, 255, 1),
-                  inset 2px 2px 5px rgba(255, 255, 255, 0.8),
-                  inset -2px -2px 5px rgba(211, 198, 189, 0.1)
-                `;
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseDown={(e) => {
-                e.currentTarget.style.boxShadow = `
-                  inset 6px 6px 12px rgba(159, 133, 114, 0.15),
-                  inset -6px -6px 12px rgba(255, 255, 255, 0.8),
-                  2px 2px 6px rgba(159, 133, 114, 0.08)
-                `;
-                e.currentTarget.style.transform = 'scale(0.95) translateY(1px)';
-              }}
-              onMouseUp={(e) => {
-                e.currentTarget.style.boxShadow = `
-                  12px 12px 24px rgba(159, 133, 114, 0.18),
-                  -12px -12px 24px rgba(255, 255, 255, 1),
-                  inset 2px 2px 5px rgba(255, 255, 255, 0.8),
-                  inset -2px -2px 5px rgba(211, 198, 189, 0.1)
-                `;
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = `
-                  10px 10px 20px rgba(159, 133, 114, 0.15),
-                  -10px -10px 20px rgba(255, 255, 255, 0.9),
-                  inset 2px 2px 5px rgba(255, 255, 255, 0.7),
-                  inset -2px -2px 5px rgba(211, 198, 189, 0.08)
-                `;
-                e.currentTarget.style.transform = '';
-              }}
+              className={[
+                "group relative p-3 sm:p-4 rounded-full transition-all duration-400 touch-manipulation border-0",
+                styles.socialButton,
+              ].join(" ")}
               aria-label={link.label}
             >
               <span 
-                className="block transition-all duration-300 group-hover:scale-110" 
-                style={{ 
-                  color: 'rgb(135, 103, 79)',
-                  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))'
-                }}
+                className={["block transition-all duration-300", styles.socialIcon].join(" ")}
               >
                 {link.icon}
               </span>
@@ -206,25 +91,10 @@ export function Footer() {
         {/* Copyright - English text with inset styling */}
         <div className="text-center">
           <div 
-            className="inline-block px-6 py-2 sm:px-8 sm:py-2.5 rounded-full border-0"
-            style={{
-              background: 'linear-gradient(145deg, rgb(245, 241, 237), rgb(253, 252, 251))',
-              boxShadow: `
-                inset 8px 8px 16px rgba(159, 133, 114, 0.15),
-                inset -8px -8px 16px rgba(255, 255, 255, 0.9),
-                1px 1px 3px rgba(159, 133, 114, 0.06)
-              `
-            }}
+            className={["inline-block px-6 py-2 sm:px-8 sm:py-2.5 rounded-full border-0", styles.copyrightShell].join(" ")}
           >
             <p 
-              className="footer-copyright-text"
-              style={{ 
-                color: 'rgb(94, 73, 52)',
-                fontWeight: '700',
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                textShadow: '0 1px 2px rgba(0, 0, 0, 0.06)'
-              }}
+              className={["footer-copyright-text", styles.copyrightText].join(" ")}
             >
               Awakening by Ksenia © 2025
             </p>

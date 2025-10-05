@@ -40,34 +40,26 @@ export function AppShell({ children }: AppShellProps) {
 
   const isHomePage = homePaths.has(effectivePath);
   const navigationOverrides = useOptionalNavigationOverrides();
-  const goBack = navigationOverrides?.onGoBack ?? (() => {
-    if (typeof window !== "undefined") {
-      window.history.back();
-    }
-  });
-  const goForward = navigationOverrides?.onGoForward ?? (() => {
-    if (typeof window !== "undefined") {
-      window.history.forward();
-    }
-  });
-  const goHome = navigationOverrides?.onGoHome ?? (() => {
-    if (typeof window !== "undefined") {
-      window.location.hash = "#/";
-    }
-  });
-  const canGoBack = navigationOverrides?.canGoBack ?? true;
-  const canGoForward = navigationOverrides?.canGoForward ?? true;
-  const showNavigation = navigationOverrides?.isVisible ?? true;
+  const {
+    onGoBack: goBack,
+    onGoForward: goForward,
+    onGoHome: goHome,
+    canGoBack,
+    canGoForward,
+    isVisible,
+  } = navigationOverrides ?? {};
+  const showNavigation = isVisible ?? true;
+  const shouldShowNavigation = showNavigation && (!isHomePage || navigationOverrides);
 
+  // Scroll to top on route change
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
     }
 
-    window.requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    });
-  }, [effectivePath]);
+    // Scroll immediately and smoothly to top
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]); // Changed from effectivePath to pathname for more reliable detection
 
   return (
     <div className="app-shell min-h-screen w-full">
@@ -75,7 +67,7 @@ export function AppShell({ children }: AppShellProps) {
       <main className="app-main" role="main">
         {children}
       </main>
-      {showNavigation && !isHomePage && (
+      {shouldShowNavigation && (
         <nav aria-label="ניווט משני" className="py-6 sm:py-8">
           <NavigationButtons
             onGoBack={goBack}

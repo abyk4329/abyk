@@ -1,8 +1,8 @@
 "use client";
 
 import { GlassButton } from "@/app/components/shared/GlassButton";
-import { neumorphismStyles } from "@/app/components/lib/neomorphism-styles";
 import { Calculator, MessageCircle, Instagram, Mail, Music } from "lucide-react";
+import styles from "./ThankYou.module.css";
 
 interface ThankYouProps {
   onViewInterpretations: () => void;
@@ -78,8 +78,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
         
         {/* Main Thank You Card */}
         <section 
-          className="rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 mb-8 border-0 transition-all duration-500"
-          style={neumorphismStyles.card.main}
+          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 mb-8 border-0 transition-all duration-500"
         >
           <h1 className="mb-6 text-center">
             תודה על הרכישה!
@@ -114,51 +113,23 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
           {/* Divider */}
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
-              <div 
-                className="w-full"
-                style={{
-                  height: '2px',
-                  background: 'linear-gradient(90deg, transparent, rgba(159, 133, 114, 0.2) 50%, transparent)'
-                }}
-              ></div>
+              <div className={["w-full", styles.dividerLine].join(" ")}></div>
             </div>
             <div className="relative flex justify-center">
               <button
                 onClick={handleShare}
-                className="
-                  px-4 py-1.5
-                  rounded-full
-                  caption
-                  border-0
-                  transition-all duration-300
-                  hover:scale-105
-                  active:scale-95
-                  cursor-pointer
-                  touch-manipulation
-                "
-                style={{
-                  fontSize: '14px',
-                  background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240))',
-                  boxShadow: `
-                    8px 8px 16px rgba(159, 133, 114, 0.15),
-                    -8px -8px 16px rgba(255, 255, 255, 0.9),
-                    inset 1px 1px 2px rgba(255, 255, 255, 0.6)
-                  `
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `
-                    10px 10px 20px rgba(159, 133, 114, 0.18),
-                    -10px -10px 20px rgba(255, 255, 255, 1),
-                    inset 1px 1px 2px rgba(255, 255, 255, 0.7)
-                  `;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = `
-                    8px 8px 16px rgba(159, 133, 114, 0.15),
-                    -8px -8px 16px rgba(255, 255, 255, 0.9),
-                    inset 1px 1px 2px rgba(255, 255, 255, 0.6)
-                  `;
-                }}
+                className={[
+                  "px-4 py-1.5",
+                  "rounded-full",
+                  "caption",
+                  "border-0",
+                  "transition-all duration-300",
+                  "hover:scale-105",
+                  "active:scale-95",
+                  "cursor-pointer",
+                  "touch-manipulation",
+                  styles.shareButton
+                ].join(" ")}
               >
                 שתפו עם חברים
               </button>
@@ -169,13 +140,12 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <button
               onClick={handleGoToWhatsApp}
-              className="rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
-              style={neumorphismStyles.card.secondary}
+              className="neuro-card-secondary rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
               aria-label="צור קשר ב-WhatsApp"
             >
               <div className="flex flex-col items-center gap-2">
-                <MessageCircle className="w-6 h-6" style={{ color: '#87674F' }} />
-                <span className="caption" style={{ fontSize: '12px', color: '#87674F' }}>
+                <MessageCircle className={["w-6 h-6", styles.socialIcon].join(" ")} />
+                <span className={["caption", styles.socialCaption].join(" ")}>
                   WhatsApp
                 </span>
               </div>
@@ -183,13 +153,12 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
 
             <button
               onClick={handleGoToInstagram}
-              className="rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
-              style={neumorphismStyles.card.secondary}
+              className="neuro-card-secondary rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
               aria-label="עקבו אחרי ב-Instagram"
             >
               <div className="flex flex-col items-center gap-2">
-                <Instagram className="w-6 h-6" style={{ color: '#87674F' }} />
-                <span className="caption" style={{ fontSize: '12px', color: '#87674F' }}>
+                <Instagram className={["w-6 h-6", styles.socialIcon].join(" ")} />
+                <span className={["caption", styles.socialCaption].join(" ")}>
                   Instagram
                 </span>
               </div>
@@ -197,13 +166,12 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
 
             <button
               onClick={handleGoToTikTok}
-              className="rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
-              style={neumorphismStyles.card.secondary}
+              className="neuro-card-secondary rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
               aria-label="עקבו אחרי ב-TikTok"
             >
               <div className="flex flex-col items-center gap-2">
-                <Music className="w-6 h-6" style={{ color: '#87674F' }} />
-                <span className="caption" style={{ fontSize: '12px', color: '#87674F' }}>
+                <Music className={["w-6 h-6", styles.socialIcon].join(" ")} />
+                <span className={["caption", styles.socialCaption].join(" ")}>
                   TikTok
                 </span>
               </div>
@@ -211,13 +179,12 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
 
             <button
               onClick={handleGoToEmail}
-              className="rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
-              style={neumorphismStyles.card.secondary}
+              className="neuro-card-secondary rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
               aria-label="שלחו מייל"
             >
               <div className="flex flex-col items-center gap-2">
-                <Mail className="w-7 h-7" style={{ color: '#87674F' }} />
-                <span className="caption" style={{ fontSize: '12px', color: '#87674F' }}>
+                <Mail className={["w-7 h-7", styles.socialIcon].join(" ")} />
+                <span className={["caption", styles.socialCaption].join(" ")}>
                   Email
                 </span>
               </div>

@@ -130,7 +130,7 @@ export function TabsTrigger({ value, children, className, ...rest }: TabsTrigger
     <button
       type="button"
       role="tab"
-      aria-selected={isActive}
+      aria-selected={isActive ? true : false}
       aria-controls={`tab-panel-${value}`}
       data-state={isActive ? "active" : "inactive"}
       className={cn("outline-none", className)}

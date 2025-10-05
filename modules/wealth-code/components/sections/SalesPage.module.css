@@ -1,0 +1,17 @@
+/* Bold intro text */
+.boldIntro {
+  font-weight: bold;
+  color: #87674f;
+}
+
+/* Price heading */
+.priceHeading {
+  color: #5e4934;
+}
+
+/* Security notice */
+.securityNotice {
+  font-size: 12px;
+  color: #9f8572;
+  line-height: 1.1;
+}

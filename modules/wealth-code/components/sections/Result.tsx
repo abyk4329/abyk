@@ -1,7 +1,7 @@
 "use client";
 
 import { GlassButton } from "@/app/components/shared/GlassButton";
-import { neumorphismStyles } from "@/app/components/lib/neomorphism-styles";
+import styles from "./Result.module.css";
 
 interface ResultProps {
   code: string;
@@ -57,45 +57,24 @@ export function Result({ code, onContinue }: ResultProps) {
           
           {/* Neumorphic Card */}
           <div 
-            className="rounded-[32px] p-8 sm:p-12 lg:p-14 transition-all duration-500 border-0"
-            style={neumorphismStyles.card.main}
+            className="neuro-card-main rounded-[32px] p-8 sm:p-12 lg:p-14 transition-all duration-500 border-0"
           >
             {/* Main Heading */}
-            <h1 className="mb-8 sm:mb-10 lg:mb-12 text-center" style={{ color: '#9f8572', textShadow: '0 1px 3px rgba(0, 0, 0, 0.08)' }}>
+            <h1 className={["mb-8 sm:mb-10 lg:mb-12 text-center", styles.mainHeading].join(" ")}>
               קוד העושר שלך
             </h1>
 
             {/* The Code - Large Display */}
             <div className="mb-6 sm:mb-8 text-center bg-[rgba(0,0,0,0)]">
-              <div 
-                className="inline-block px-12 py-6 rounded-3xl border-0"
-                style={{
-                  background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240))',
-                  boxShadow: `
-                    20px 20px 60px rgba(159, 133, 114, 0.25),
-                    -20px -20px 60px rgba(255, 255, 255, 0.9),
-                    inset 2px 2px 6px rgba(255, 255, 255, 0.8),
-                    inset -2px -2px 6px rgba(211, 198, 189, 0.1)
-                  `
-                }}
-              >
-                <div 
-                  style={{
-                    fontSize: 'clamp(4rem, 10vw, 7rem)',
-                    fontWeight: '300',
-                    color: '#87674F',
-                    letterSpacing: '0.15em',
-                    textShadow: '0 2px 8px rgba(135, 103, 79, 0.15)',
-                    textAlign: 'center'
-                  }}
-                >
+              <div className={["inline-block px-12 py-6 rounded-3xl border-0", styles.codeDisplay].join(" ")}>
+                <div className={styles.codeNumber}>
                   {code}
                 </div>
               </div>
             </div>
 
             {/* Code Type */}
-            <h2 className="mb-3 sm:mb-4 text-center" style={{ color: '#87674F', textShadow: '0 1px 2px rgba(0, 0, 0, 0.07)' }}>
+            <h2 className={["mb-3 sm:mb-4 text-center", styles.codeTypeHeading].join(" ")}>
               {codeInfo.type}
             </h2>
 

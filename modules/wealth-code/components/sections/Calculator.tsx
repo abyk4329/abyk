@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { GlassButton } from "@/app/components/shared/GlassButton";
-import { neumorphismStyles, getBoxShadow } from "@/app/components/lib/neomorphism-styles";
+import styles from "./Calculator.module.css";
 
 interface CalculatorProps {
   onCalculate: (code: string) => void;
@@ -74,8 +74,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
         <div className="max-w-full sm:max-w-3xl mx-auto">
           {/* Neumorphic Card */}
           <div
-            className="rounded-[32px] p-8 sm:p-12 lg:p-14 transition-all duration-500 border-0"
-            style={neumorphismStyles.card.main}
+            className="neuro-card-main rounded-[32px] p-8 sm:p-12 lg:p-14 transition-all duration-500 border-0"
           >
             {/* Main Heading */}
             <h1 className="mb-4 sm:mb-6 text-center">
@@ -84,8 +83,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
 
             {/* Subtitle */}
             <p
-              className="mb-4 sm:mb-6 max-w-xl mx-auto text-center"
-              style={{ color: "#9f8572", lineHeight: "1.6" }}
+              className={["mb-4 sm:mb-6 max-w-xl mx-auto text-center", styles.subtitle].join(" ")}
             >
               הזינו את תאריך הלידה שלכם וגלו את הקוד האישי
             </p>
@@ -98,8 +96,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
               {/* Day - First (Left) */}
               <div dir="ltr">
                 <label
-                  className="block mb-3 caption text-center"
-                  style={{ color: "#9f8572" }}
+                  className={["block mb-3 caption text-center", styles.label].join(" ")}
                 >
                   יום
                 </label>
@@ -111,31 +108,14 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setDay(e.target.value)}
                   placeholder="DD"
                   dir="ltr"
-                  className="w-full rounded-2xl px-4 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0"
-                  style={{
-                    color: "#473b31",
-                    direction: "ltr",
-                    textAlign: "left",
-                    ...neumorphismStyles.input.default,
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(
-                      neumorphismStyles.input.default.focus
-                    );
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(
-                      neumorphismStyles.input.default.boxShadow
-                    );
-                  }}
+                  className={["neuro-input-default w-full rounded-2xl px-4 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
                 />
               </div>
 
               {/* Month - Middle */}
               <div dir="ltr">
                 <label
-                  className="block mb-3 caption text-center"
-                  style={{ color: "#9f8572" }}
+                  className={["block mb-3 caption text-center", styles.label].join(" ")}
                 >
                   חודש
                 </label>
@@ -147,31 +127,14 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setMonth(e.target.value)}
                   placeholder="MM"
                   dir="ltr"
-                  className="w-full rounded-2xl px-4 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0"
-                  style={{
-                    color: "#473b31",
-                    direction: "ltr",
-                    textAlign: "left",
-                    ...neumorphismStyles.input.default,
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(
-                      neumorphismStyles.input.default.focus
-                    );
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(
-                      neumorphismStyles.input.default.boxShadow
-                    );
-                  }}
+                  className={["neuro-input-default w-full rounded-2xl px-4 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
                 />
               </div>
 
               {/* YEAR - Last (Right) */}
               <div dir="ltr">
                 <label
-                  className="block mb-3 caption text-center"
-                  style={{ color: "#9f8572" }}
+                  className={["block mb-3 caption text-center", styles.label].join(" ")}
                 >
                   שנה
                 </label>
@@ -183,23 +146,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setYear(e.target.value)}
                   placeholder="YYYY"
                   dir="ltr"
-                  className="w-full rounded-2xl px-4 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0"
-                  style={{
-                    color: "#473b31",
-                    direction: "ltr",
-                    textAlign: "left",
-                    ...neumorphismStyles.input.default,
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(
-                      neumorphismStyles.input.default.focus
-                    );
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(
-                      neumorphismStyles.input.default.boxShadow
-                    );
-                  }}
+                  className={["neuro-input-default w-full rounded-2xl px-4 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
                 />
               </div>
             </div>
@@ -226,6 +173,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
           {/* Info Card */}
         </div>
       </div>
+
     </section>
   );
 }

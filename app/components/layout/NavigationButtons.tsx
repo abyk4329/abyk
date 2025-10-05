@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ArrowRight, ArrowLeft, Home } from "lucide-react";
 
+import styles from "./NavigationButtons.module.css";
+
 import { routes } from "@/lib/routes";
 
 interface NavigationButtonsProps {
@@ -110,6 +112,8 @@ export function NavigationButtons({
     canGoForward ??
     (hasSequenceMatch ? sequenceIndex < orderedRoutes.length - 1 : navigationState.canGoForward);
 
+  const hasHistoryBack = navigationState.canGoBack;
+
   const handleGoBack = useCallback(() => {
     if (!effectiveCanGoBack) {
       return;
@@ -126,9 +130,15 @@ export function NavigationButtons({
       return;
     }
 
-    router.back();
+    if (hasHistoryBack) {
+      router.back();
+      window.setTimeout(updateNavigationState, 300);
+      return;
+    }
+
+    router.push(routes.home);
     window.setTimeout(updateNavigationState, 300);
-  }, [effectiveCanGoBack, onGoBack, router, updateNavigationState, hasSequenceMatch, sequenceIndex, orderedRoutes]);
+  }, [effectiveCanGoBack, onGoBack, router, updateNavigationState, hasSequenceMatch, sequenceIndex, orderedRoutes, hasHistoryBack]);
 
   const handleGoForward = useCallback(() => {
     if (!effectiveCanGoForward) {
@@ -164,41 +174,8 @@ export function NavigationButtons({
     return ["w-full mb-4 sm:mb-6", className].filter(Boolean).join(" ");
   }, [className]);
 
-  const buttonStyle = {
-    background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240))',
-    boxShadow: `
-      8px 8px 16px rgba(159, 133, 114, 0.2),
-      -8px -8px 16px rgba(255, 255, 255, 0.9),
-      inset 1px 1px 3px rgba(255, 255, 255, 0.7)
-    `
-  };
-
-  const hoverShadow = `
-    10px 10px 20px rgba(159, 133, 114, 0.25),
-    -10px -10px 20px rgba(255, 255, 255, 1),
-    inset 1px 1px 3px rgba(255, 255, 255, 0.8)
-  `;
-
-  const pressedShadow = `
-    inset 4px 4px 8px rgba(159, 133, 114, 0.18),
-    inset -4px -4px 8px rgba(255, 255, 255, 0.8),
-    1px 1px 3px rgba(159, 133, 114, 0.1)
-  `;
-
-  const normalShadow = `
-    8px 8px 16px rgba(159, 133, 114, 0.2),
-    -8px -8px 16px rgba(255, 255, 255, 0.9),
-    inset 1px 1px 3px rgba(255, 255, 255, 0.7)
-  `;
-
   return (
-    <div 
-      className={containerClassName}
-      style={{
-        paddingLeft: 'env(safe-area-inset-left)',
-        paddingRight: 'env(safe-area-inset-right)',
-      }}
-    >
+    <div className={[containerClassName, styles.shell].join(" ")}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Forward Button - חץ ימינה (קדימה) - בצד שמאל */}
@@ -206,43 +183,24 @@ export function NavigationButtons({
             type="button"
             onClick={handleGoForward}
             disabled={!effectiveCanGoForward}
-            className={`
-              group relative
-              p-3 sm:p-3.5
-              rounded-full
-              transition-all duration-400
-              touch-manipulation
-              border-0
-              ${!effectiveCanGoForward ? 'opacity-40 cursor-not-allowed' : ''}
-            `}
-            style={buttonStyle}
-            onMouseEnter={(e) => {
-              if (effectiveCanGoForward) {
-                e.currentTarget.style.boxShadow = hoverShadow;
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }
-            }}
-            onMouseDown={(e) => {
-              if (effectiveCanGoForward) {
-                e.currentTarget.style.boxShadow = pressedShadow;
-                e.currentTarget.style.transform = 'scale(0.95) translateY(1px)';
-              }
-            }}
-            onMouseUp={(e) => {
-              if (effectiveCanGoForward) {
-                e.currentTarget.style.boxShadow = hoverShadow;
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = normalShadow;
-              e.currentTarget.style.transform = '';
-            }}
+            className={[
+              "group relative",
+              "p-3 sm:p-3.5",
+              "rounded-full",
+              "transition-all duration-400",
+              "touch-manipulation",
+              "border-0",
+              !effectiveCanGoForward ? "opacity-40 cursor-not-allowed" : "",
+              styles.button,
+            ].filter(Boolean).join(" ")}
             aria-label="קדימה לדף הבא"
           >
             <ArrowRight 
-              className="w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 group-hover:translate-x-1" 
-              style={{ color: 'rgb(135, 103, 79)' }}
+              className={[
+                "w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300",
+                styles.icon,
+                styles.iconForward,
+              ].join(" ")}
             />
           </button>
 
@@ -250,36 +208,23 @@ export function NavigationButtons({
           <button
             type="button"
             onClick={handleGoHome}
-            className="
-              group relative
-              p-3 sm:p-3.5
-              rounded-full
-              transition-all duration-400
-              touch-manipulation
-              border-0
-            "
-            style={buttonStyle}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = hoverShadow;
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseDown={(e) => {
-              e.currentTarget.style.boxShadow = pressedShadow;
-              e.currentTarget.style.transform = 'scale(0.95) translateY(1px)';
-            }}
-            onMouseUp={(e) => {
-              e.currentTarget.style.boxShadow = hoverShadow;
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = normalShadow;
-              e.currentTarget.style.transform = '';
-            }}
+            className={[
+              "group relative",
+              "p-3 sm:p-3.5",
+              "rounded-full",
+              "transition-all duration-400",
+              "touch-manipulation",
+              "border-0",
+              styles.button,
+            ].join(" ")}
             aria-label="חזרה לדף הבית"
           >
             <Home 
-              className="w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 group-hover:scale-110" 
-              style={{ color: 'rgb(135, 103, 79)' }}
+              className={[
+                "w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300",
+                styles.icon,
+                styles.iconHome,
+              ].join(" ")}
             />
           </button>
 
@@ -288,43 +233,24 @@ export function NavigationButtons({
             type="button"
             onClick={handleGoBack}
             disabled={!effectiveCanGoBack}
-            className={`
-              group relative
-              p-3 sm:p-3.5
-              rounded-full
-              transition-all duration-400
-              touch-manipulation
-              border-0
-              ${!effectiveCanGoBack ? 'opacity-40 cursor-not-allowed' : ''}
-            `}
-            style={buttonStyle}
-            onMouseEnter={(e) => {
-              if (effectiveCanGoBack) {
-                e.currentTarget.style.boxShadow = hoverShadow;
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }
-            }}
-            onMouseDown={(e) => {
-              if (effectiveCanGoBack) {
-                e.currentTarget.style.boxShadow = pressedShadow;
-                e.currentTarget.style.transform = 'scale(0.95) translateY(1px)';
-              }
-            }}
-            onMouseUp={(e) => {
-              if (effectiveCanGoBack) {
-                e.currentTarget.style.boxShadow = hoverShadow;
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = normalShadow;
-              e.currentTarget.style.transform = '';
-            }}
+            className={[
+              "group relative",
+              "p-3 sm:p-3.5",
+              "rounded-full",
+              "transition-all duration-400",
+              "touch-manipulation",
+              "border-0",
+              !effectiveCanGoBack ? "opacity-40 cursor-not-allowed" : "",
+              styles.button,
+            ].filter(Boolean).join(" ")}
             aria-label="חזרה לדף הקודם"
           >
             <ArrowLeft 
-              className="w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 group-hover:-translate-x-1" 
-              style={{ color: 'rgb(135, 103, 79)' }}
+              className={[
+                "w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300",
+                styles.icon,
+                styles.iconBack,
+              ].join(" ")}
             />
           </button>
         </div>

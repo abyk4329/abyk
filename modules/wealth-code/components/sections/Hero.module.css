@@ -1,0 +1,25 @@
+/* Card additional styles */
+.card {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 32px;
+}
+
+/* Shadow effect */
+.shadow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(159, 133, 114, 0.22),
+    rgba(159, 133, 114, 0.14) 45%,
+    rgba(159, 133, 114, 0.08) 65%,
+    rgba(255, 255, 255, 0) 82%
+  );
+  filter: blur(36px);
+  opacity: 0.95;
+  transform: scaleX(1.1) translateY(6px);
+}
+
+/* Icon color */
+.iconColor {
+  color: #87674f;
+}

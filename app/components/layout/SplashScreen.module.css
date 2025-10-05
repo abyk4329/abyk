@@ -1,0 +1,125 @@
+.splashScreen {
+  background: radial-gradient(
+    circle at top,
+    #fefdfc 0%,
+    #f5f1ed 45%,
+    #e7ded7 100%
+  );
+}
+
+.lightOverlay {
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 255, 255, 0.8),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(255, 255, 255, 0.65),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(255, 255, 255, 0.6),
+      transparent 42%
+    );
+}
+
+.orb {
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.97),
+    rgba(213, 192, 177, 0.48)
+  );
+}
+
+.orbPrimary {
+  width: 360px;
+  height: 360px;
+  filter: blur(135px) hue-rotate(12deg) brightness(1.06);
+  top: 6%;
+  right: -12%;
+}
+
+.orbSecondary {
+  width: 420px;
+  height: 420px;
+  filter: blur(185px) hue-rotate(-8deg) brightness(1.06);
+  bottom: -18%;
+  left: -10%;
+}
+
+.orbTertiary {
+  width: 280px;
+  height: 280px;
+  filter: blur(105px) hue-rotate(18deg) brightness(1.06);
+  top: 56%;
+  left: 52%;
+}
+
+.orbQuaternary {
+  width: 230px;
+  height: 230px;
+  filter: blur(82px) hue-rotate(6deg) brightness(1.06);
+  top: 24%;
+  left: 17%;
+}
+
+.haloRing {
+  border-radius: 9999px;
+  filter: blur(0.2px);
+}
+
+.haloRingPrimary {
+  width: 360px;
+  height: 360px;
+  border: 1.5px solid rgba(159, 133, 114, 0.32);
+  box-shadow: 0 0 45px rgba(159, 133, 114, 0.256);
+}
+
+.haloRingSecondary {
+  width: 480px;
+  height: 480px;
+  border: 1.5px solid rgba(159, 133, 114, 0.22);
+  box-shadow: 0 0 45px rgba(159, 133, 114, 0.176);
+}
+
+.logoCard {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.99),
+    rgba(245, 241, 237, 0.94)
+  );
+  box-shadow: 32px 32px 95px rgba(159, 133, 114, 0.3),
+    -42px -42px 115px rgba(255, 255, 255, 1),
+    inset 5px 5px 14px rgba(255, 255, 255, 0.88),
+    inset -5px -5px 14px rgba(211, 198, 189, 0.18);
+  backdrop-filter: blur(28px);
+}
+
+.logoImage {
+  filter: drop-shadow(0 14px 35px rgba(94, 73, 52, 0.28));
+}
+
+.tagline {
+  color: rgba(135, 103, 79, 0.88);
+  font-size: clamp(0.85rem, 2.4vw, 1.1rem);
+  font-weight: 300;
+  text-shadow: 0 4px 14px rgba(94, 73, 52, 0.2);
+}
+
+.progressDot {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(
+    145deg,
+    rgba(248, 244, 240, 0.98),
+    rgba(255, 255, 255, 0.92)
+  );
+  box-shadow: 0 6px 18px rgba(94, 73, 52, 0.22),
+    inset 6px 6px 12px rgba(159, 133, 114, 0.2),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+}

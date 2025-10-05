@@ -4,6 +4,9 @@
 
 @import "tailwindcss";
 
+/* Neumorphism Design System */
+@import "./styles/neumorphism.css";
+
 /* Tailwind v4: enable the dark: variant to use .dark class */
 @variant dark (&:where(.dark, .dark *));
 
