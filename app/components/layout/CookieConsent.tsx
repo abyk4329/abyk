@@ -57,10 +57,10 @@ export function CookieConsent() {
         <h2
           className={["mb-3 text-base font-semibold sm:text-lg", styles.title].join(" ")}
         >
-          האתר שלי משתמש בקובצי קוקיז
+          אני משתמשת בקובצי קוקיז באתר
         </h2>
         <p className="mx-auto mb-4 max-w-[38ch] text-xs leading-snug text-[#473b31] sm:text-sm">
-          האתר שלי משתמש בקובצי קוקיז כדי לשפר את החוויה שלך, לאסוף מידע סטטיסטי ולמטרות שיווק (כולל TikTok Pixel). 
+          אני משתמשת בקובצי קוקיז כדי לשפר את החוויה שלך, לאסוף מידע סטטיסטי ולמטרות שיווק (כולל TikTok Pixel). 
           לחיצה על &quot;אני מאשר&quot; מהווה הסכמה לשימוש בקוקיז.
         </p>
         <div className="flex flex-col items-center justify-center gap-3">
