@@ -7,6 +7,7 @@ import { Header } from "@/app/components/layout/Header";
 import { Footer } from "@/app/components/layout/Footer";
 import { CookieConsent } from "@/app/components/layout/CookieConsent";
 import { NavigationButtons } from "@/app/components/layout/NavigationButtons";
+import { TikTokPixel } from "@/app/components/analytics/TikTokPixel";
 import { WEALTH_BASE } from "@/lib/constants";
 import { useOptionalNavigationOverrides } from "@/app/lib/navigation";
 
@@ -63,6 +64,7 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <div className="app-shell min-h-screen w-full">
+      <TikTokPixel />
       <Header isHomePage={isHomePage} />
       <main className="app-main" role="main">
         {children}

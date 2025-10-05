@@ -35,16 +35,11 @@ export function CookieConsent() {
     }
 
     setStatus("accepted");
-  };
-
-  const handleDismiss = () => {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, "dismissed");
-    } catch (error) {
-      console.warn("Failed to persist cookie consent status", error);
+    
+    // Trigger TikTok Pixel initialization after consent
+    if (typeof window !== "undefined" && window.ttq) {
+      window.ttq.page();
     }
-
-    setStatus("dismissed");
   };
 
   if (!isMounted || status === "accepted") {
@@ -62,22 +57,16 @@ export function CookieConsent() {
         <h2
           className={["mb-3 text-base font-semibold sm:text-lg", styles.title].join(" ")}
         >
-          אנחנו משתמשים בעוגיות (Cookies)
+          האתר שלי משתמש בקובצי קוקיז
         </h2>
-        <p className="mx-auto mb-4 max-w-[32ch] text-xs leading-snug text-[#473b31] sm:text-sm">
-          אנו משתמשים בעוגיות כדי להעניק לך חוויה מותאמת אישית ולמדוד ביצועים. ניתן לעיין במדיניות שלנו כדי ללמוד עוד.
+        <p className="mx-auto mb-4 max-w-[38ch] text-xs leading-snug text-[#473b31] sm:text-sm">
+          האתר שלי משתמש בקובצי קוקיז כדי לשפר את החוויה שלך, לאסוף מידע סטטיסטי ולמטרות שיווק (כולל TikTok Pixel). 
+          לחיצה על &quot;אני מאשר&quot; מהווה הסכמה לשימוש בקוקיז.
         </p>
-        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+        <div className="flex flex-col items-center justify-center gap-3">
           <GlassButton onClick={handleAccept} className="w-full sm:w-auto">
-            אני מאשר/ת
+            אני מאשר
           </GlassButton>
-          <button
-            type="button"
-            onClick={handleDismiss}
-            className={["w-full rounded-full border-0 px-4 py-2 text-[#87674f] transition-all duration-200 sm:w-auto", styles.dismissButton].join(" ")}
-          >
-            אולי אחר כך
-          </button>
         </div>
         <div className="mt-3 text-xs text-[#9f8572]">
           <Link href="/terms" className="underline underline-offset-2">
