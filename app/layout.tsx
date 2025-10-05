@@ -58,6 +58,17 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="he" dir="rtl" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        {/* Fullscreen & Safe-Area immersion */}
+        <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        {/* Light/Dark adaptive theme-color for Android Chrome status bar blending */}
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F5F1ED" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1814" />
+        {/* iOS notch safe-area background color */}
+        <meta name="background-color" content="#F5F1ED" />
+      </head>
       <body className="page-bg text-foreground antialiased">
         <AppShell>{children}</AppShell>
       </body>
