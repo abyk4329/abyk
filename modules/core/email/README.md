@@ -27,7 +27,7 @@ modules/my-new-tool/
     └── template.ts
 ```
 
-2. **השתמש בתבנית הבסיסית:**
+1. **השתמש בתבנית הבסיסית:**
 
 ```typescript
 // modules/my-new-tool/email/MyToolEmail.ts
@@ -68,7 +68,7 @@ export function myToolEmailHtml(data: MyToolEmailData): string {
 }
 ```
 
-3. **שלב ב-API endpoint:**
+1. **שלב ב-API endpoint:**
 
 ```typescript
 // app/api/send-my-tool-email/route.ts

@@ -94,6 +94,7 @@ const WEALTH_EMAIL_STYLES = `
     gap: 16px;
     margin-bottom: 32px;
     padding: 0 16px;
+    text-align: center;
   }
   
   @media (max-width: 600px) {
@@ -128,6 +129,10 @@ function generateWealthContent(data: WealthEmailData): string {
     const whatsappConsultation =
         "https://wa.me/972544490440?text=היי%20קסניה%2C%20אשמח%20לתיאום%20יעוץ%20אישי";
 
+    const BTN_BASE = "display:block;width:100%;max-width:520px;margin:0 auto 12px;text-decoration:none;border-radius:9999px;font-family:'Assistant', Arial, sans-serif;font-size:18px;line-height:1.2;padding:16px 24px;font-weight:700;text-align:center;letter-spacing:0.02em;border:1px solid #efe9e3;";
+    const PRIMARY_BTN_STYLE = BTN_BASE + "background:linear-gradient(145deg,#ffffff,#f8f4f0);color:#5e4934;box-shadow:0 6px 16px rgba(159,133,114,0.15),inset 0 1px 0 rgba(255,255,255,0.8);";
+    const SECONDARY_BTN_STYLE = BTN_BASE + "background:linear-gradient(145deg,#f5f1ed,#fdfcfb);color:#5e4934;box-shadow:inset 0 1px 0 rgba(255,255,255,0.8);";
+
     return `
     <h1 class="main-title">תודה על הרכישה!</h1>
     
@@ -143,21 +148,13 @@ function generateWealthContent(data: WealthEmailData): string {
   </p>
     
     <div class="buttons-container">
-        <a href="${interpretationsUrl}" class="button button-primary">
-            לצפייה באתר
-        </a>
+        <a href="${interpretationsUrl}" style="${PRIMARY_BTN_STYLE}">לצפייה באתר</a>
         
-    <a href="${shareButtonUrl}" class="button button-primary">
-            שתפו עם חברים
-        </a>
+        <a href="${shareButtonUrl}" style="${PRIMARY_BTN_STYLE}">שתפו עם חברים</a>
         
-        <a href="${calculatorUrl}" class="button button-secondary">
-            לחישוב קוד נוסף
-        </a>
+        <a href="${calculatorUrl}" style="${SECONDARY_BTN_STYLE}">לחישוב קוד נוסף</a>
         
-        <a href="${whatsappConsultation}" class="button button-secondary">
-            לתיאום יעוץ אישי
-        </a>
+        <a href="${whatsappConsultation}" style="${SECONDARY_BTN_STYLE}">לתיאום יעוץ אישי</a>
     </div>
   `;
 }

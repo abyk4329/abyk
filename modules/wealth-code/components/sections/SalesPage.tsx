@@ -75,15 +75,9 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
           <div 
             className="neuro-card-secondary rounded-2xl p-4 sm:p-6 border-0"
           >
-            <ul className="space-y-1 text-center">
-              <li>•  מהות כל ספרה  •</li>
-              <li>•  מתנות עיקריות  •</li>
-              <li>•  חסימות ואתגרים  •</li>
-              <li>•  נורות אזהרה לזיהוי חוסר איזון  •</li>
-              <li>•  מוקדי צמיחה והתפתחות אישית  •</li>
-              <li>•  תחומי קריירה מתאימים  •</li>
-              <li>•  תרגול יומיומי מעשי  •</li>
-            </ul>
+            <p className="text-center">
+              מהות כל ספרה | מתנות עיקריות | חסימות ואתגרים | נורות אזהרה לזיהוי חוסר איזון | מוקדי צמיחה והתפתחות אישית | תחומי קריירה מתאימים | תרגול יומיומי מעשי
+            </p>
           </div>
           <p className="text-center mt-4">
             בנוסף, תמצאו בו הסבר על משמעות הספרות החוזרות או השונות בקוד, לצד הדרכה ברורה כיצד לשלב את הקוד בחיי היומיום.

@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
   useEffect,
+  useId,
   type HTMLAttributes,
   type ReactNode,
   type KeyboardEvent as ReactKeyboardEvent,
@@ -14,12 +15,13 @@ import {
 const cn = (...values: Array<string | false | undefined | null>) =>
   values.filter(Boolean).join(" ");
 
-const getTriggerId = (value: string) => `tab-trigger-${value}`;
-const getPanelId = (value: string) => `tab-panel-${value}`;
+const getTriggerId = (baseId: string, value: string) => `${baseId}-tab-trigger-${value}`;
+const getPanelId = (baseId: string, value: string) => `${baseId}-tab-panel-${value}`;
 
 type TabsContextValue = {
   value: string;
   setValue: (nextValue: string) => void;
+  baseId: string;
 };
 
 const TabsContext = createContext<TabsContextValue | null>(null);
@@ -54,6 +56,8 @@ export function Tabs({
 
   const currentValue = isControlled ? value ?? "" : internalValue;
 
+  const baseId = useId();
+
   useEffect(() => {
     if (!isControlled && defaultValue !== undefined) {
       setInternalValue(defaultValue);
@@ -69,8 +73,9 @@ export function Tabs({
         }
         onValueChange?.(next);
       },
+      baseId,
     }),
-    [currentValue, isControlled, onValueChange]
+    [currentValue, isControlled, onValueChange, baseId]
   );
 
   return (
@@ -104,10 +109,10 @@ export interface TabsTriggerProps extends HTMLAttributes<HTMLButtonElement> {
 }
 
 export function TabsTrigger({ value, children, className, ...rest }: TabsTriggerProps) {
-  const { value: activeValue, setValue } = useTabsContext();
+  const { value: activeValue, setValue, baseId } = useTabsContext();
   const isActive = activeValue === value;
-  const triggerId = getTriggerId(value);
-  const panelId = getPanelId(value);
+  const triggerId = getTriggerId(baseId, value);
+  const panelId = getPanelId(baseId, value);
 
   const handleKeyDown = (e: ReactKeyboardEvent<HTMLButtonElement>) => {
     // Get all tab triggers in the same TabsList
@@ -166,10 +171,10 @@ export interface TabsContentProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function TabsContent({ value, children, className, ...rest }: TabsContentProps) {
-  const { value: activeValue } = useTabsContext();
+  const { value: activeValue, baseId } = useTabsContext();
   const isActive = activeValue === value;
-  const panelId = getPanelId(value);
-  const labelledBy = getTriggerId(value);
+  const panelId = getPanelId(baseId, value);
+  const labelledBy = getTriggerId(baseId, value);
 
   return (
     <div

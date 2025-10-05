@@ -158,7 +158,7 @@ export function WealthReport({ code, userName }: WealthReportProps) {
               ))}
 
               <Text style={styles.sectionSubtitle}>סימני אזהרה</Text>
-              {interp.redFlags.map((flag, idx) => (
+              {interp.redFlags.split(' | ').map((flag, idx) => (
                 <Text key={idx} style={styles.bulletItem}>
                   • {flag}
                 </Text>
@@ -179,7 +179,7 @@ export function WealthReport({ code, userName }: WealthReportProps) {
               ))}
 
               <Text style={styles.sectionSubtitle}>מסלולי קריירה</Text>
-              {interp.careers.map((career, idx) => (
+              {interp.careers.split(' | ').map((career, idx) => (
                 <Text key={idx} style={styles.bulletItem}>
                   • {career}
                 </Text>
