@@ -14,7 +14,10 @@ echo "▶ Cleaning old installs…"
 rm -rf node_modules .next package-lock.json
 
 echo "▶ Install deps from lockfile…"
-pnpm install
+pnpm install || {
+  echo "❌ Failed to install dependencies. Check your network and pnpm-lock.yaml"
+  exit 1
+}
 
 # ---- TAILWIND v4 / POSTCSS ----
 echo "▶ Ensuring Tailwind v4 + PostCSS plugin…"

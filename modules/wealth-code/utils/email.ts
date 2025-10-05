@@ -24,15 +24,21 @@ type SendWealthEmailSuccess = {
 export async function sendWealthEmail(params: SendWealthEmailParams): Promise<SendWealthEmailSuccess> {
     const cleanedBody = params.body?.filter((line) => Boolean(line?.trim())) ?? [];
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
     const pdfResponse = await fetch("/api/generate-pdf", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
             title: "הפירוש המלא לקוד האישי שלך",
             code: params.code,
             body: cleanedBody,
         }),
     });
+
+    clearTimeout(timeoutId);
 
     const pdfJson = await pdfResponse.json();
     if (!pdfResponse.ok || !pdfJson.ok) {

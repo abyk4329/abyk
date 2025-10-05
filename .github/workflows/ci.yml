@@ -42,7 +42,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run lint
-        run: pnpm lint || echo "Lint warnings found (non-blocking)"
+        run: pnpm lint
 
       - name: Build project
         run: pnpm build

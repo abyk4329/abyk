@@ -9,7 +9,7 @@
       "nodeGypDependencies": true
     },
     "ghcr.io/devcontainers-extra/features/pnpm:1": {
-      "version": "latest"
+      "version": "9"
     }
   },
 

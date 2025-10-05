@@ -59,26 +59,22 @@ export function NavigationButtons({
     [orderedRoutes]
   );
 
-  const updateNavigationState = useCallback(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+useEffect(() => {
+  updateNavigationState();
 
-    const historyState = window.history.state as { idx?: number } | null;
-    const currentIndex = historyState?.idx ?? 0;
-    const totalEntries = window.history.length ?? 1;
+  window.addEventListener("popstate", updateNavigationState);
+  // Listen to Next.js route changes
+  const handleRouteChange = () => {
+    // Small delay to ensure history state is updated
+    requestAnimationFrame(updateNavigationState);
+  };
+  router.events?.on('routeChangeComplete', handleRouteChange);
 
-    const sequenceIndex = getSequenceIndex(window.location?.pathname);
-
-    setNavigationState({
-      canGoBack:
-        sequenceIndex > 0 ? true : currentIndex > 0,
-      canGoForward:
-        sequenceIndex >= 0 && sequenceIndex < orderedRoutes.length - 1
-          ? true
-          : currentIndex < totalEntries - 1,
-    });
-  }, [getSequenceIndex, orderedRoutes.length]);
+  return () => {
+    window.removeEventListener("popstate", updateNavigationState);
+    router.events?.off('routeChangeComplete', handleRouteChange);
+  };
+}, [updateNavigationState]);
 
   useEffect(() => {
     updateNavigationState();

@@ -8,6 +8,7 @@ import { Footer } from "@/app/components/layout/Footer";
 import { CookieConsent } from "@/app/components/layout/CookieConsent";
 import { NavigationButtons } from "@/app/components/layout/NavigationButtons";
 import { WEALTH_BASE } from "@/lib/constants";
+import { useOptionalNavigationOverrides } from "@/app/lib/navigation";
 
 interface AppShellProps {
   children: ReactNode;
@@ -33,10 +34,29 @@ export function AppShell({ children }: AppShellProps) {
   }, []);
 
   const normalizedPath = normalizePath(pathname);
-  const fallbackPath = typeof window !== "undefined" ? normalizePath(window.location.pathname) : undefined;
+  const effectivePath = normalizedPath ?? "/";
   const effectivePath = normalizedPath ?? fallbackPath ?? "/";
 
   const isHomePage = homePaths.has(effectivePath);
+  const navigationOverrides = useOptionalNavigationOverrides();
+  const goBack = navigationOverrides?.onGoBack ?? (() => {
+    if (typeof window !== "undefined") {
+      window.history.back();
+    }
+  });
+  const goForward = navigationOverrides?.onGoForward ?? (() => {
+    if (typeof window !== "undefined") {
+      window.history.forward();
+    }
+  });
+  const goHome = navigationOverrides?.onGoHome ?? (() => {
+    if (typeof window !== "undefined") {
+      window.location.hash = "#/";
+    }
+  });
+  const canGoBack = navigationOverrides?.canGoBack ?? true;
+  const canGoForward = navigationOverrides?.canGoForward ?? true;
+  const showNavigation = navigationOverrides?.isVisible ?? true;
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -54,9 +74,15 @@ export function AppShell({ children }: AppShellProps) {
       <main className="app-main" role="main">
         {children}
       </main>
-      {!isHomePage && (
+      {showNavigation && !isHomePage && (
         <nav aria-label="ניווט משני" className="py-6 sm:py-8">
-          <NavigationButtons />
+          <NavigationButtons
+            onGoBack={goBack}
+            onGoForward={goForward}
+            onGoHome={goHome}
+            canGoBack={canGoBack}
+            canGoForward={canGoForward}
+          />
         </nav>
       )}
       <Footer />

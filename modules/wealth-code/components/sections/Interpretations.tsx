@@ -68,36 +68,52 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
         // החלף לטאב הנוכחי
         setActiveTab(tabValue);
         
-        // חכה שה-DOM יתעדכן
-        await new Promise(resolve => setTimeout(resolve, 300));
+-       // חכה שה-DOM יתעדכן
+       // חכה שה-DOM יתעדכן בתיאום עם מסגרת האנימציה
+       await new Promise(resolve => requestAnimationFrame(() => {
+         setTimeout(resolve, 300);
+       }));
         
         const element = contentRef.current;
-        if (!element) continue;
+       if (!element) {
+         console.warn('Element unmounted during PDF generation');
+         break;
+       }
         
-        // הוסף class זמני להסרת backdrop-filter לגוף הדף
-        document.body.classList.add('pdf-rendering');
-        element.classList.add('pdf-rendering');
-        
-        // המתן שה-CSS יתעדכן
-        await new Promise(resolve => setTimeout(resolve, 200));
-        
-        // צלם את האלמנט
-        const canvas = await html2canvas(element, {
-          scale: 2,
-          useCORS: true,
-          logging: false,
-          backgroundColor: '#fdfcfb',
-          windowWidth: element.scrollWidth,
-          windowHeight: element.scrollHeight,
-          removeContainer: true,
-          imageTimeout: 0,
-          foreignObjectRendering: false,
-          allowTaint: true
-        });
-        
-        // הסר את ה-class
-        element.classList.remove('pdf-rendering');
-        document.body.classList.remove('pdf-rendering');
+       try {
+          // הוסף class זמני להסרת backdrop-filter לגוף הדף
+          document.body.classList.add('pdf-rendering');
+          element.classList.add('pdf-rendering');
+          
+-         // המתן שה-CSS יתעדכן
+         // המתן שה-CSS יתעדכן בתיאום עם מסגרת האנימציה
+         await new Promise(resolve => requestAnimationFrame(() => {
+           setTimeout(resolve, 200);
+         }));
+          
+          // צלם את האלמנט
+          const canvas = await html2canvas(element, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#fdfcfb',
+            windowWidth: element.scrollWidth,
+            windowHeight: element.scrollHeight,
+            removeContainer: true,
+            imageTimeout: 0,
+            foreignObjectRendering: false,
+            allowTaint: true
+          });
+          
+-         // הסר את ה-class
+-         element.classList.remove('pdf-rendering');
+         // ... rest of PDF logic
+       } finally {
+         // Always cleanup classes even if an error occurs
+         element.classList.remove('pdf-rendering');
+         document.body.classList.remove('pdf-rendering');
+       }
+      }
         
         const imgData = canvas.toDataURL('image/png');
         const imgWidth = 210; // A4 width in mm

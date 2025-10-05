@@ -1,10 +1,10 @@
 export const ENV = {
-    RESEND_API_KEY: process.env.RESEND_API_KEY,
-    EMAIL_FROM: process.env.EMAIL_FROM,
-    SMTP_HOST: process.env.SMTP_HOST,
-    SMTP_PORT: process.env.SMTP_PORT,
-    EMAIL_USER: process.env.EMAIL_USER,
-    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
+    RESEND_API_KEY: process.env.RESEND_API_KEY as string | undefined,
+    EMAIL_FROM: process.env.EMAIL_FROM as string | undefined,
+    SMTP_HOST: process.env.SMTP_HOST as string | undefined,
+    SMTP_PORT: process.env.SMTP_PORT as string | undefined,
+    EMAIL_USER: process.env.EMAIL_USER as string | undefined,
+    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD as string | undefined,
 } as const;
 
 export function requireEnv<K extends keyof typeof ENV>(key: K): string {

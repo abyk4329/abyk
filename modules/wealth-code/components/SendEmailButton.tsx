@@ -41,7 +41,7 @@ export function SendEmailButton({
             setStatus("success");
             onSent?.();
         } catch (error) {
-            console.error("sendWealthEmail error", error);
+            console.error("Failed to send wealth email");
             setStatus("error");
         } finally {
             setLoading(false);

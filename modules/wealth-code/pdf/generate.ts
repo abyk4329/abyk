@@ -7,7 +7,9 @@ export async function generateWealthPdf(params: {
 }) {
     const pdfDoc = await PDFDocument.create();
     const page = pdfDoc.addPage([595.28, 841.89]);
-    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    // Embed a font that supports Hebrew (you'll need to include the font file)
+    const fontBytes = await fetch('/fonts/NotoSansHebrew-Regular.ttf').then(res => res.arrayBuffer());
+    const font = await pdfDoc.embedFont(fontBytes);
 
     const { width, height } = page.getSize();
     const margin = 50;

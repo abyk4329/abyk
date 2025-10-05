@@ -15,6 +15,6 @@ const compat = new FlatCompat({
 export default defineConfig([
   {
     ignores: ["**/.next/**", "node_modules/**", "figmawebdesign/**"],
-    extends: compat.extends("next/core-web-vitals"),
   },
+  ...compat.extends("next/core-web-vitals"),
 ]);

@@ -36,11 +36,12 @@ export function Calculator({ onCalculate }: CalculatorProps) {
       return;
     }
 
+    // Validate date using Date API (months are 0-indexed)
+    const date = new Date(yearNum, monthNum - 1, dayNum);
     if (
-      dayNum < 1 ||
-      dayNum > 31 ||
-      monthNum < 1 ||
-      monthNum > 12 ||
+      date.getDate() !== dayNum ||
+      date.getMonth() !== monthNum - 1 ||
+      date.getFullYear() !== yearNum ||
       yearNum < 1900 ||
       yearNum > 2100
     ) {

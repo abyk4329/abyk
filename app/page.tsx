@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { PageLayout } from "@/app/components/layout/PageLayout";
 import {
   Calculator,
@@ -11,6 +11,7 @@ import {
   ThankYou,
 } from "@/modules/wealth-code/components";
 import { SplashScreen } from "@/app/components/layout/SplashScreen";
+import { NavigationProvider } from "@/app/lib/navigation";
 
 type ViewType = "hero" | "calculator" | "result" | "sales" | "interpretations" | "thankyou";
 
@@ -33,6 +34,29 @@ export default function Home() {
   const goTo = useCallback((view: ViewType) => {
     setCurrentView(view);
   }, []);
+
+  const viewOrder = useMemo<ViewType[]>(
+    () => ["hero", "calculator", "result", "sales", "thankyou", "interpretations"],
+    []
+  );
+
+  const currentIndex = useMemo(() => viewOrder.indexOf(currentView), [currentView, viewOrder]);
+
+  const goToIndex = useCallback(
+    (index: number) => {
+      const nextView = viewOrder[index];
+      if (!nextView) {
+        return;
+      }
+
+      if (nextView === "hero") {
+        setWealthCode("");
+      }
+
+      goTo(nextView);
+    },
+    [goTo, viewOrder]
+  );
 
   const handleSplashComplete = useCallback(() => {
     if (typeof window !== "undefined") {
@@ -64,6 +88,58 @@ export default function Home() {
     setWealthCode("");
     goTo("calculator");
   };
+
+  const handleGoBack = useCallback(() => {
+    if (currentIndex <= 0) {
+      goTo("hero");
+      setWealthCode("");
+      return;
+    }
+
+    goToIndex(currentIndex - 1);
+  }, [currentIndex, goTo, goToIndex]);
+
+  const handleGoForward = useCallback(() => {
+    if (currentIndex < 0 || currentIndex >= viewOrder.length - 1) {
+      return;
+    }
+
+    if (currentView === "calculator" && !wealthCode) {
+      return;
+    }
+
+    goToIndex(currentIndex + 1);
+  }, [currentIndex, currentView, goToIndex, viewOrder, wealthCode]);
+
+  const handleGoHome = useCallback(() => {
+    setWealthCode("");
+    goTo("hero");
+  }, [goTo]);
+
+  const canGoBack = currentIndex > 0;
+  const canGoForward = useMemo(() => {
+    if (currentIndex < 0 || currentIndex >= viewOrder.length - 1) {
+      return false;
+    }
+
+    if (currentView === "calculator") {
+      return Boolean(wealthCode);
+    }
+
+    return true;
+  }, [currentIndex, currentView, viewOrder, wealthCode]);
+
+  const navigationOverrides = useMemo(
+    () => ({
+      isVisible: currentView !== "hero",
+      canGoBack,
+      canGoForward,
+      onGoBack: handleGoBack,
+      onGoForward: handleGoForward,
+      onGoHome: handleGoHome,
+    }),
+    [currentView, canGoBack, canGoForward, handleGoBack, handleGoForward, handleGoHome]
+  );
 
   const renderView = () => {
     switch (currentView) {
@@ -111,11 +187,13 @@ export default function Home() {
   };
 
   return (
-    <div className="relative w-full flex-1 overflow-hidden">
-      {isSplashVisible && <SplashScreen onComplete={handleSplashComplete} />}
-      <PageLayout className="space-y-12 pb-12 sm:pb-16 lg:pb-20" maxWidth="xl">
-        {renderView()}
-      </PageLayout>
-    </div>
+    <NavigationProvider value={navigationOverrides}>
+      <div className="relative w-full flex-1 overflow-hidden">
+        {isSplashVisible && <SplashScreen onComplete={handleSplashComplete} />}
+        <PageLayout className="space-y-12 pb-12 sm:pb-16 lg:pb-20" maxWidth="xl">
+          {renderView()}
+        </PageLayout>
+      </div>
+    </NavigationProvider>
   );
 }

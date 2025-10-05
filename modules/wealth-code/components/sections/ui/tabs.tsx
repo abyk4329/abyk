@@ -96,6 +96,36 @@ export function TabsTrigger({ value, children, className, ...rest }: TabsTrigger
   const { value: activeValue, setValue } = useTabsContext();
   const isActive = activeValue === value;
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    // Get all tab triggers in the same TabsList
+    const tablist = e.currentTarget.closest('[role="tablist"]');
+    if (!tablist) return;
+    
+    const triggers = Array.from(tablist.querySelectorAll('[role="tab"]'));
+    const currentIndex = triggers.indexOf(e.currentTarget);
+    
+    let nextIndex = currentIndex;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      nextIndex = (currentIndex + 1) % triggers.length;
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      nextIndex = currentIndex - 1 < 0 ? triggers.length - 1 : currentIndex - 1;
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      nextIndex = 0;
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      nextIndex = triggers.length - 1;
+    } else {
+      return;
+    }
+    
+    const nextTrigger = triggers[nextIndex] as HTMLButtonElement;
+    nextTrigger.focus();
+    nextTrigger.click();
+  };
+
   return (
     <button
       type="button"
@@ -105,6 +135,8 @@ export function TabsTrigger({ value, children, className, ...rest }: TabsTrigger
       data-state={isActive ? "active" : "inactive"}
       className={cn("outline-none", className)}
       onClick={() => setValue(value)}
+      onKeyDown={handleKeyDown}
+      tabIndex={isActive ? 0 : -1}
       {...rest}
     >
       {children}

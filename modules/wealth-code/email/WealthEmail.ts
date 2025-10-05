@@ -5,8 +5,26 @@ export function wealthEmailHtml({
     name: string;
     shareUrl: string;
 }): string {
-    const safeName = (name ?? "").trim();
-    const safeShareUrl = (shareUrl || "https://abyk.online/").trim() || "https://abyk.online/";
+    function escapeHtml(text: string): string {
+        return text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    export function wealthEmailHtml({
+        name,
+        shareUrl,
+    }: {
+        name: string;
+        shareUrl: string;
+    }): string {
+        const safeName = escapeHtml((name ?? "").trim());
+        const safeShareUrl = (shareUrl || "https://abyk.online/").trim() || "https://abyk.online/";
+        // …the rest of your template generation…
+    }
     const preheader = "הפירוש המלא לקוד האישי שלך ממתין לך לצפייה ולהורדה.";
 
     return `<!DOCTYPE html>

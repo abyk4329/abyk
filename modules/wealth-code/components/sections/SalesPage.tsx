@@ -11,6 +11,12 @@ interface SalesPageProps {
 export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
   // Function to get unique digits in ascending order
   const getUniqueDigits = (codeStr: string): string => {
+    // Validate input contains only digits
+    if (!/^\d+$/.test(codeStr)) {
+      console.warn('Invalid code format:', codeStr);
+      return 'הספרות בקוד';
+    }
+
     const digits = codeStr.split('').map(Number);
     const uniqueDigits = Array.from(new Set(digits)).sort((a, b) => a - b);
     
