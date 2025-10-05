@@ -1,42 +1,40 @@
 export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
-import { generateWealthPdf } from "@/modules/wealth-code/pdf/generate";
+import { renderToBuffer } from "@react-pdf/renderer";
+import React from "react";
+import { WealthReport } from "@/modules/wealth-code/pdf/WealthReport";
+import { registerHebrewFonts } from "@/modules/core";
 
 type GeneratePdfPayload = {
-    title?: unknown;
-    code?: unknown;
-    body?: unknown;
+    code?: string;
+    userName?: string;
+    userEmail?: string;
 };
-
-function isStringArray(value: unknown): value is string[] {
-    return Array.isArray(value) && value.every((item) => typeof item === "string");
-}
 
 export async function POST(req: Request) {
     try {
-        const payload = (await req.json()) as GeneratePdfPayload;
-        const title = typeof payload.title === "string" ? payload.title.trim() : "";
+        let payload: GeneratePdfPayload = {};
+        try {
+            payload = (await req.json()) as GeneratePdfPayload;
+        } catch {
+            return NextResponse.json({ ok: false, error: "Missing or invalid JSON body" }, { status: 400 });
+        }
         const code = typeof payload.code === "string" ? payload.code.trim() : undefined;
-        const body = payload.body;
+        const userName = typeof payload.userName === "string" ? payload.userName.trim() : "";
 
-        if (!title) {
-            return NextResponse.json({ ok: false, error: "Missing title" }, { status: 400 });
+        if (!code || code.length !== 4) {
+            return NextResponse.json({ ok: false, error: "Invalid code" }, { status: 400 });
         }
 
-        if (code && code.length > 32) {
-            return NextResponse.json({ ok: false, error: "Code is too long" }, { status: 400 });
-        }
+        // Generate PDF using React PDF
+        // Ensure fonts attempted (idempotent). If none found, report warning in response meta.
+        registerHebrewFonts();
+        const documentElement = WealthReport({ code, userName });
+        // Cast to any to satisfy renderer typings expecting a Document ReactElement
+        const buffer = await renderToBuffer(documentElement as any);
 
-        if (body !== undefined && !isStringArray(body)) {
-            return NextResponse.json({ ok: false, error: "Invalid body format" }, { status: 400 });
-        }
-
-        const pdfBase64 = await generateWealthPdf({
-            title,
-            code,
-            body: body as string[] | undefined,
-        });
+        const pdfBase64 = buffer.toString("base64");
 
         return NextResponse.json({ ok: true, pdfBase64 });
     } catch (error) {

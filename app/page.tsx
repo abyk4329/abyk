@@ -82,8 +82,57 @@ export default function Home() {
     goTo("sales");
   };
 
-  const handleMockPurchaseComplete = () => {
-    goTo("thankyou");
+  const handleMockPurchaseComplete = async () => {
+    // First, generate PDF
+    try {
+      const pdfResponse = await fetch("/api/generate-pdf", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: wealthCode,
+          userName: "", // Add user name if available from form
+          userEmail: "", // Add user email if available from form
+        }),
+      });
+
+      if (!pdfResponse.ok) {
+        console.error("Failed to generate PDF");
+        goTo("thankyou");
+        return;
+      }
+
+      const pdfData = await pdfResponse.json();
+      
+      if (!pdfData.ok || !pdfData.pdfBase64) {
+        console.error("Invalid PDF response");
+        goTo("thankyou");
+        return;
+      }
+
+      // Then, send email with PDF attachment
+      const emailResponse = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "", // Add recipient email from form
+          subject: `הפירוט המלא שלך לקוד ${wealthCode}`,
+          pdfBase64: pdfData.pdfBase64,
+        }),
+      });
+
+      if (!emailResponse.ok) {
+        console.error("Failed to send email");
+      }
+    } catch (error) {
+      console.error("Error in purchase flow:", error);
+    } finally {
+      // Always navigate to thank you page
+      goTo("thankyou");
+    }
   };
 
   const handleViewInterpretations = () => {

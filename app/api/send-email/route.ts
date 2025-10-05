@@ -12,6 +12,7 @@ const FORCE_TEST_MODE = process.env.MAIL_TEST_MODE === "1";
 type Body = {
     to?: string;
     name?: string;
+    code?: string;
     shareUrl?: string;
     subject?: string;
     replyTo?: string;
@@ -52,7 +53,12 @@ export async function POST(req: Request) {
 
         const subject = (body.subject ?? DEFAULT_SUBJECT).trim() || DEFAULT_SUBJECT;
         const shareUrl = (body.shareUrl ?? DEFAULT_SHARE_URL).trim() || DEFAULT_SHARE_URL;
-        const html = wealthEmailHtml({ name: body.name ?? "", shareUrl });
+        const code = body.code ?? "0000";
+        const html = wealthEmailHtml({
+            name: body.name ?? "",
+            code,
+            shareUrl
+        });
         const attachments = normalizeAttachments({
             attachments: body.attachments,
             pdfBase64: body.pdfBase64,

@@ -5,12 +5,17 @@ import {
   useContext,
   useMemo,
   useState,
+  useEffect,
   type HTMLAttributes,
   type ReactNode,
+  type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 
 const cn = (...values: Array<string | false | undefined | null>) =>
   values.filter(Boolean).join(" ");
+
+const getTriggerId = (value: string) => `tab-trigger-${value}`;
+const getPanelId = (value: string) => `tab-panel-${value}`;
 
 type TabsContextValue = {
   value: string;
@@ -48,6 +53,12 @@ export function Tabs({
   const [internalValue, setInternalValue] = useState(defaultValue ?? "");
 
   const currentValue = isControlled ? value ?? "" : internalValue;
+
+  useEffect(() => {
+    if (!isControlled && defaultValue !== undefined) {
+      setInternalValue(defaultValue);
+    }
+  }, [defaultValue, isControlled]);
 
   const contextValue = useMemo<TabsContextValue>(
     () => ({
@@ -95,14 +106,18 @@ export interface TabsTriggerProps extends HTMLAttributes<HTMLButtonElement> {
 export function TabsTrigger({ value, children, className, ...rest }: TabsTriggerProps) {
   const { value: activeValue, setValue } = useTabsContext();
   const isActive = activeValue === value;
+  const triggerId = getTriggerId(value);
+  const panelId = getPanelId(value);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+  const handleKeyDown = (e: ReactKeyboardEvent<HTMLButtonElement>) => {
     // Get all tab triggers in the same TabsList
     const tablist = e.currentTarget.closest('[role="tablist"]');
     if (!tablist) return;
     
-    const triggers = Array.from(tablist.querySelectorAll('[role="tab"]'));
+    const triggers = Array.from(tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    if (triggers.length === 0) return;
     const currentIndex = triggers.indexOf(e.currentTarget);
+    if (currentIndex === -1) return;
     
     let nextIndex = currentIndex;
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -121,7 +136,7 @@ export function TabsTrigger({ value, children, className, ...rest }: TabsTrigger
       return;
     }
     
-    const nextTrigger = triggers[nextIndex] as HTMLButtonElement;
+    const nextTrigger = triggers[nextIndex];
     nextTrigger.focus();
     nextTrigger.click();
   };
@@ -130,8 +145,9 @@ export function TabsTrigger({ value, children, className, ...rest }: TabsTrigger
     <button
       type="button"
       role="tab"
-      aria-selected={isActive ? true : false}
-      aria-controls={`tab-panel-${value}`}
+      id={triggerId}
+      aria-selected={isActive}
+      aria-controls={panelId}
       data-state={isActive ? "active" : "inactive"}
       className={cn("outline-none", className)}
       onClick={() => setValue(value)}
@@ -152,15 +168,17 @@ export interface TabsContentProps extends HTMLAttributes<HTMLDivElement> {
 export function TabsContent({ value, children, className, ...rest }: TabsContentProps) {
   const { value: activeValue } = useTabsContext();
   const isActive = activeValue === value;
-
-  if (!isActive) {
-    return null;
-  }
+  const panelId = getPanelId(value);
+  const labelledBy = getTriggerId(value);
 
   return (
     <div
       role="tabpanel"
-      id={`tab-panel-${value}`}
+      id={panelId}
+      aria-labelledby={labelledBy}
+      aria-hidden={isActive ? undefined : true}
+      hidden={!isActive}
+      data-state={isActive ? "active" : "inactive"}
       className={className}
       {...rest}
     >

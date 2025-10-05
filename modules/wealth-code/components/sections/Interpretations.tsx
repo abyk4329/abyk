@@ -2,14 +2,11 @@
 
 import { useState, useRef } from "react";
 import { GlassButton } from "@/app/components/shared/GlassButton";
-import { neumorphismStyles } from "@/app/components/lib/neomorphism-styles";
 import { Calculator, MessageCircle, Download, Share2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { codeStructures } from "../../data/codeStructures";
 import { digitInterpretations } from "../../data/digitInterpretations";
 import { dailyApplication } from "../../data/dailyApplication";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import styles from "./Interpretations.module.css";
 
 interface InterpretationsProps {
@@ -42,90 +39,55 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
 
   // פונקציה להורדת PDF
   const handleDownload = async () => {
-    if (!contentRef.current || isGeneratingPDF) {
-      return;
-    }
-
-    const currentTab = activeTab;
     setIsGeneratingPDF(true);
 
-    const tabsToCapture = [...uniqueDigits.map((_, index) => index.toString()), "daily"];
-    const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-
     try {
-      let isFirstPage = true;
+      // Call the PDF generation API
+      const response = await fetch("/api/generate-pdf", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code,
+          userName: "", // Add user name if available
+          userEmail: "", // Add user email if available
+        }),
+      });
 
-      for (const tabValue of tabsToCapture) {
-        setActiveTab(tabValue);
-
-        await new Promise<void>((resolve) => requestAnimationFrame(() => setTimeout(resolve, 300)));
-
-        const element = contentRef.current;
-        if (!element) {
-          throw new Error("Element unmounted during PDF generation");
-        }
-
-        document.body.classList.add("pdf-rendering");
-        element.classList.add("pdf-rendering");
-
-        await new Promise<void>((resolve) => requestAnimationFrame(() => setTimeout(resolve, 200)));
-
-        let canvas: HTMLCanvasElement;
-
-        try {
-          canvas = await html2canvas(element, {
-            scale: 2,
-            useCORS: true,
-            logging: false,
-            backgroundColor: "#fdfcfb",
-            windowWidth: element.scrollWidth,
-            windowHeight: element.scrollHeight,
-            removeContainer: true,
-            imageTimeout: 0,
-            foreignObjectRendering: false,
-            allowTaint: true,
-          });
-        } finally {
-          element.classList.remove("pdf-rendering");
-          document.body.classList.remove("pdf-rendering");
-        }
-
-        const imgData = canvas.toDataURL("image/png");
-        const imgWidth = 210;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        if (!isFirstPage) {
-          pdf.addPage();
-        }
-        isFirstPage = false;
-
-        if (imgHeight > 297) {
-          let heightLeft = imgHeight;
-          let position = 0;
-
-          while (heightLeft > 0) {
-            if (position > 0) {
-              pdf.addPage();
-            }
-
-            pdf.addImage(imgData, "PNG", 0, -position, imgWidth, imgHeight);
-            heightLeft -= 297;
-            position += 297;
-          }
-        } else {
-          pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-        }
+      if (!response.ok) {
+        throw new Error("Failed to generate PDF");
       }
 
-      pdf.save(`קוד-עושר-${code}.pdf`);
+      const data = await response.json();
+      
+      if (!data.ok || !data.pdfBase64) {
+        throw new Error(data.error || "Failed to generate PDF");
+      }
+
+      // Convert base64 to blob
+      const byteCharacters = atob(data.pdfBase64);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: "application/pdf" });
+
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `wealth-code-${code}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error("Error generating PDF:", error);
-      alert("אירעה שגיאה ביצירת ה-PDF. אנא נסה שוב.");
+      console.error("Failed to generate PDF:", error);
+      alert("Failed to generate PDF. Please try again.");
     } finally {
-      setActiveTab(currentTab);
       setIsGeneratingPDF(false);
-      document.body.classList.remove("pdf-rendering");
-      contentRef.current?.classList.remove("pdf-rendering");
     }
   };
 
