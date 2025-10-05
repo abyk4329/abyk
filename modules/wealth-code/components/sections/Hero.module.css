@@ -14,24 +14,61 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  /* Expanded radial & smoother vertical blend to avoid a visible seam on narrow (mobile) viewports */
   background:
     radial-gradient(
-      circle at 50% 0%,
-      rgba(159,133,114,0.10) 0%,
-      rgba(159,133,114,0.06) 22%,
-      rgba(159,133,114,0.04) 40%,
-      rgba(253,252,251,0.0) 70%
+      circle at 50% 2%,
+      rgba(159,133,114,0.11) 0%,
+      rgba(159,133,114,0.07) 26%,
+      rgba(159,133,114,0.045) 46%,
+      rgba(159,133,114,0.03) 62%,
+      rgba(253,252,251,0.015) 78%,
+      rgba(253,252,251,0) 92%
     ),
     linear-gradient(
       180deg,
-      rgba(255,255,255,0.65) 0%,
-      rgba(250,248,246,0.55) 40%,
-      rgba(245,241,237,0.45) 70%,
-      rgba(245,241,237,0.30) 100%
+      rgba(255,255,255,0.68) 0%,
+      rgba(251,249,247,0.60) 34%,
+      rgba(247,244,241,0.52) 58%,
+      rgba(245,241,237,0.42) 76%,
+      rgba(245,241,237,0.34) 88%,
+      rgba(245,241,237,0.26) 100%
     );
-  filter: blur(40px);
-  opacity: 0.9;
+  filter: blur(46px) saturate(102%);
+  opacity: 0.95;
   z-index: 0;
+}
+
+/* Mobile fine-tuning to eliminate edge line */
+@media (max-width: 640px) {
+  .sectionWrapper::before {
+    background:
+      radial-gradient(
+        circle at 50% 4%,
+        rgba(159,133,114,0.12) 0%,
+        rgba(159,133,114,0.075) 30%,
+        rgba(159,133,114,0.05) 55%,
+        rgba(159,133,114,0.035) 72%,
+        rgba(253,252,251,0.02) 86%,
+        rgba(253,252,251,0) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255,255,255,0.72) 0%,
+        rgba(252,251,249,0.64) 32%,
+        rgba(248,245,242,0.56) 56%,
+        rgba(245,241,237,0.46) 74%,
+        rgba(245,241,237,0.36) 88%,
+        rgba(245,241,237,0.28) 100%
+      );
+    filter: blur(54px) saturate(104%);
+    opacity: 0.97;
+  }
+  .shadow {
+    filter: blur(52px);
+    opacity: 0.78;
+    transform: scaleX(1.35) translateY(10px);
+  }
 }
 
 /* Elevate content above blend layer */
@@ -63,18 +100,16 @@
 /* Inset circular icon wrapper for calculator */
 .iconInsetWrapper {
   background: linear-gradient(145deg, #fdfcfb, #f5f1ed);
-  box-shadow:
-    inset 6px 6px 12px rgba(159,133,114,0.10),
-    inset -6px -6px 12px rgba(255,255,255,0.90),
-    1px 1px 2px rgba(255,255,255,0.60);
+  box-shadow: inset 6px 6px 12px rgba(159, 133, 114, 0.1),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.9),
+    1px 1px 2px rgba(255, 255, 255, 0.6);
   border-radius: 9999px;
   transition: box-shadow 0.5s ease, transform 0.5s ease;
 }
 
 .iconInsetWrapper:hover {
-  box-shadow:
-    inset 7px 7px 14px rgba(159,133,114,0.14),
-    inset -7px -7px 14px rgba(255,255,255,0.95),
-    2px 2px 3px rgba(255,255,255,0.65);
+  box-shadow: inset 7px 7px 14px rgba(159, 133, 114, 0.14),
+    inset -7px -7px 14px rgba(255, 255, 255, 0.95),
+    2px 2px 3px rgba(255, 255, 255, 0.65);
   transform: translateY(-2px) scale(1.04);
 }
