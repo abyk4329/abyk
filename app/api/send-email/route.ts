@@ -1,77 +1,65 @@
 export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
-import { ENV, requireEnv } from "@/lib/env";
-import { wealthEmailHtml } from "@/modules/wealth-code/email/template";
+import { normalizeAttachments, sendEmail } from "@/lib/email/transport";
+import { wealthEmailHtml } from "@/modules/wealth-code/email/WealthEmail";
 
-type SendEmailPayload = {
+const DEFAULT_SUBJECT = "הפירוש המלא לקוד האישי שלך";
+const DEFAULT_SHARE_URL = "https://abyk.online/";
+const TEST_EMAIL = process.env.TEST_EMAIL || "kseniachud@gmail.com";
+const FORCE_TEST_MODE = process.env.MAIL_TEST_MODE === "1";
+
+type Body = {
     to?: string;
     name?: string;
-    pdfBase64?: string;
     shareUrl?: string;
+    subject?: string;
+    replyTo?: string;
+    attachments?: Array<{ filename?: string; content?: string; contentType?: string }>;
+    pdfBase64?: string;
+    test?: boolean;
 };
-
-const SUBJECT = "הפירוש המלא לקוד האישי שלך";
 
 export async function POST(req: Request) {
     try {
-        const { to, name, pdfBase64, shareUrl }: SendEmailPayload = await req.json();
+        const body: Body = await req.json();
+        const url = new URL(req.url);
 
-        if (!to) {
+        if (!body?.to) {
             return NextResponse.json({ ok: false, error: 'Missing "to"' }, { status: 400 });
         }
 
-        const html = wealthEmailHtml({ name, shareUrl });
-        const attachment = pdfBase64
-            ? [{ filename: "wealth-code.pdf", content: Buffer.from(pdfBase64, "base64") }]
-            : undefined;
+        const isProd = process.env.NODE_ENV === "production";
+        const isHeaderTest = req.headers.get("x-mail-test") === "1";
+        const isQueryTest = url.searchParams.get("test") === "1";
+        const isTest = FORCE_TEST_MODE || !isProd || body.test === true || isHeaderTest || isQueryTest;
+        const toEffective = isTest ? TEST_EMAIL : body.to;
 
-        if (ENV.RESEND_API_KEY) {
-            const { Resend } = await import("resend");
-            const resend = new Resend(requireEnv("RESEND_API_KEY"));
-            const { error } = await resend.emails.send({
-                from: requireEnv("EMAIL_FROM"),
-                to,
-                subject: SUBJECT,
-                html,
-                attachments: attachment,
-            });
+        const subject = (body.subject ?? DEFAULT_SUBJECT).trim() || DEFAULT_SUBJECT;
+        const shareUrl = (body.shareUrl ?? DEFAULT_SHARE_URL).trim() || DEFAULT_SHARE_URL;
+        const html = wealthEmailHtml({ name: body.name ?? "", shareUrl });
+        const attachments = normalizeAttachments({
+            attachments: body.attachments,
+            pdfBase64: body.pdfBase64,
+        });
 
-            if (error) {
-                throw error;
-            }
-        } else {
-            const hasSmtpConfig = ENV.SMTP_HOST && ENV.EMAIL_USER && ENV.EMAIL_PASSWORD;
-            if (!hasSmtpConfig) {
-                throw new Error("Missing env var: SMTP credentials");
-            }
+        const result = await sendEmail({
+            to: toEffective,
+            subject,
+            html,
+            replyTo: body.replyTo,
+            attachments,
+        });
 
-            const nodemailer = await import("nodemailer");
-            const smtpHost = requireEnv("SMTP_HOST");
-            const smtpPort = requireEnv("SMTP_PORT");
-            const smtpUser = requireEnv("EMAIL_USER");
-            const smtpPass = requireEnv("EMAIL_PASSWORD");
-            const emailFrom = requireEnv("EMAIL_FROM");
-            const transporter = nodemailer.createTransport({
-                host: smtpHost,
-                port: smtpPort,
-                secure: smtpPort === 465,
-                auth: {
-                    user: smtpUser,
-                    pass: smtpPass,
-                },
-            });
-
-            await transporter.sendMail({
-                from: emailFrom,
-                to,
-                subject: SUBJECT,
-                html,
-                attachments: attachment,
-            });
-        }
-
-        return NextResponse.json({ ok: true });
+        return NextResponse.json({
+            ok: true,
+            transport: result.transport,
+            fallbackUsed: result.fallbackUsed,
+            toEffective,
+            wasTest: isTest,
+            id: result.id,
+            error: result.error,
+        });
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         return NextResponse.json({ ok: false, error: message }, { status: 500 });

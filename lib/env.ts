@@ -1,17 +1,13 @@
 export const ENV = {
-    APP_NAME: process.env.NEXT_PUBLIC_APP_NAME ?? "Awakening by Ksenia",
-    APP_URL: process.env.NEXT_PUBLIC_APP_URL ?? "https://abyk.online",
-
-    RESEND_API_KEY: process.env.RESEND_API_KEY ?? "re_QNeCx5Kd_CpL3M55WPqNzbzR9zvTmXGo5",
-    EMAIL_FROM: process.env.EMAIL_FROM ?? "AWAKENING BY KSENIA <no-reply@abyk.online>",
-
-    SMTP_HOST: process.env.SMTP_HOST ?? "",
-    SMTP_PORT: +(process.env.SMTP_PORT ?? 465),
-    EMAIL_USER: process.env.EMAIL_USER ?? "",
-    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD ?? "",
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    EMAIL_FROM: process.env.EMAIL_FROM,
+    SMTP_HOST: process.env.SMTP_HOST,
+    SMTP_PORT: process.env.SMTP_PORT,
+    EMAIL_USER: process.env.EMAIL_USER,
+    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
 } as const;
 
-export function requireEnv<K extends keyof typeof ENV>(key: K): (typeof ENV)[K] {
+export function requireEnv<K extends keyof typeof ENV>(key: K): string {
     const value = ENV[key];
     if (!value) {
         throw new Error(`Missing env var: ${key}`);
@@ -20,6 +16,6 @@ export function requireEnv<K extends keyof typeof ENV>(key: K): (typeof ENV)[K] 
 }
 
 export const publicEnv = {
-    appName: ENV.APP_NAME,
-    appUrl: ENV.APP_URL,
+    appName: process.env.NEXT_PUBLIC_APP_NAME ?? "Awakening by Ksenia",
+    appUrl: process.env.NEXT_PUBLIC_APP_URL ?? "https://abyk.online",
 } as const;

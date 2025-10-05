@@ -7,12 +7,15 @@ Next.js 15 + React 19 + Tailwind v4 מערכת מקצועית למחשבון נ�
 **Awakening by Ksenia** - YOUR PERSONAL SPACE FOR GROWTH
 
 ### לוגו ואייקונים
+
 - `logob.png` - לוגו ראשי ABYK
 - `abyk-icon-*.png` - אייקונים (192, 512, 1024)
 - תמונות שיתוף (1080x1080, 1200x630)
 
 ### עיצוב Neumorphic
+
 פלטת צבעים חמה ונעימה:
+
 - `#473B31` - טקסט ראשי (חום כהה)
 - `#5e4934` - כותרות
 - `#87674F` - טקסט משני
@@ -29,6 +32,7 @@ Next.js 15 + React 19 + Tailwind v4 מערכת מקצועית למחשבון נ�
 - **pnpm 9.11.0** - Package manager
 
 ### תשתית מייל ו-PDF
+
 - **Resend** - Modern email API
 - **Nodemailer** - SMTP fallback (Gmail)
 - **@react-pdf/renderer** - PDF generation
@@ -66,14 +70,18 @@ pnpm dev
 
 ```bash
 # Email Provider
-RESEND_API_KEY=""  # או השתמש ב-Gmail SMTP למטה
-EMAIL_FROM="AWAKENING BY KSENIA <awakening.by.ksenia@gmail.com>"
+RESEND_API_KEY="re_************************"
+EMAIL_FROM="AWAKENING BY KSENIA <no-reply@abyk.online>"
 
 # Gmail SMTP (Fallback)
 SMTP_HOST="smtp.gmail.com"
 SMTP_PORT="465"
 EMAIL_USER="awakening.by.ksenia@gmail.com"
 EMAIL_PASSWORD="your_gmail_app_password"
+
+# Test overrides
+TEST_EMAIL="kseniachud@gmail.com"
+MAIL_TEST_MODE="0"   # הגדר ל-1 כדי לאכוף שליחת מבחן בכל מצב
 
 # Public Metadata
 NEXT_PUBLIC_APP_NAME="Awakening by Ksenia"
@@ -88,26 +96,34 @@ NEXT_PUBLIC_PRODUCT_PRICE="36.9 ש״ח"
 
 ```text
 app/
-├── globals.css              # עיצוב Neumorphic + Tailwind v4
-├── layout.tsx               # Root layout (RTL)
-├── page.tsx                 # Home page
-├── lib/
-│   ├── pdf/
-│   │   └── WealthReport.tsx       # PDF template
-│   └── email/
-│       ├── transport.ts           # Email provider
-│       └── templates/
-│           └── WealthEmail.ts     # Email HTML/text
 ├── api/
-│   ├── pdf/route.ts               # PDF generation
-│   └── send-pdf/route.ts          # Email sending
-└── components/
-    └── SendPdfButton.tsx          # Email button component
+│   ├── generate-pdf/
+│   │   └── route.ts           # יצירת PDF
+│   └── send-email/
+│       └── route.ts           # שליחת מייל (Resend → SMTP fallback)
+├── components/…              # UI sections וכפתורים
+├── globals.css               # עיצוב Neumorphic + Tailwind v4
+└── page.tsx                  # דף הבית
+
+lib/
+├── email/
+│   └── transport.ts          # sendViaResend / sendViaSMTP / sendEmail
+└── utils/
+  └── base64.ts             # stripBase64Prefix + blobToBase64
+
+modules/
+└── wealth-code/
+  ├── email/
+  │   ├── WealthEmail.ts    # תבנית HTML ראשית
+  │   └── template.ts       # re-export עבור תאימות
+  └── utils/
+    └── email.ts          # sendWealthEmail client helper
 ```
 
 ## 🎯 תכונות עיקריות
 
 ### ✉️ מערכת מייל מלאה
+
 - שליחת מיילים מעוצבים בעברית (RTL)
 - בחירה אוטומטית: Resend או Gmail SMTP
 - תבניות HTML מקצועיות
@@ -115,12 +131,14 @@ app/
 - צרוף PDF אוטומטי
 
 ### 📄 יצירת PDF
+
 - מסמכים מעוצבים בעברית
 - פונט Assistant מותאם
 - עיצוב Neumorphic
 - תוכן דינמי מותאם אישית
 
 ### 🎨 עיצוב מתקדם
+
 - Tailwind v4 עם @import syntax
 - CSS Variables לעיצוב Neumorphic
 - תמיכה מלאה ב-RTL
@@ -137,10 +155,49 @@ app/
 **POST** `/api/send-email` - שליחת מייל עם "הפירוש המלא לקוד האישי שלך" + צירוף PDF
 
 דוגמה:
+
 ```bash
 curl -X POST http://localhost:3000/api/send-email \
   -H "Content-Type: application/json" \
-  -d '{"to":"test@example.com","name":"קסניה","pdfBase64":"..."}'
+  -d '{
+    "to": "test@example.com",
+    "name": "קסניה",
+    "shareUrl": "https://abyk.online/result/123",
+    "replyTo": "support@abyk.online",
+    "attachments": [
+      {
+        "filename": "wealth-code.pdf",
+        "contentType": "application/pdf",
+        "content": "... base64 without data prefix ..."
+      }
+    ]
+  }'
+```
+
+> טיפ: אם יש לך רק מחרוזת Base64 אחת, אפשר לשלוח את השדה `pdfBase64` במקום מערך `attachments`. ה-API יסיר אוטומטית prefix מסוג `data:*;base64,` במידת הצורך.
+
+### 🔬 בדיקות שליחת מייל
+
+#### Local DEV (always routes to TEST_EMAIL)
+
+```bash
+curl -X POST http://localhost:3000/api/send-email \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "ignored@example.com",
+    "name": "קסניה",
+    "shareUrl": "https://abyk.online/",
+    "subject": "הפירוש המלא לקוד האישי שלך",
+    "test": true
+  }'
+```
+
+#### Production test via query
+
+```bash
+curl -X POST "https://abyk.online/api/send-email?test=1" \
+  -H "Content-Type: application/json" \
+  -d '{"to":"ignored@example.com","name":"קסניה","shareUrl":"https://abyk.online/"}'
 ```
 
 ## 🧪 Scripts
@@ -161,6 +218,7 @@ pnpm lint         # ESLint check
 ## 🌐 Deployment
 
 ### Vercel (מומלץ)
+
 ```bash
 vercel --prod
 ```
@@ -168,6 +226,7 @@ vercel --prod
 הוסף את משתני הסביבה ב-Vercel Dashboard.
 
 ### Docker
+
 ```bash
 docker build -t abyk .
 docker run -p 3000:3000 abyk
@@ -186,4 +245,4 @@ docker run -p 3000:3000 abyk
 
 ---
 
-**Built with ❤️ by Awakening by Ksenia**
+### Built with ❤️ by Awakening by Ksenia
