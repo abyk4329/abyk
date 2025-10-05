@@ -322,24 +322,9 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
                       className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">נורות אדומות – סימנים לחוסר איזון</h4>
-                      <ul className="space-y-2">
-                        {interpretation.redFlags.map((flag, i) => {
-                          const parts = flag.split(' – ');
-                          return (
-                            <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
-                              {parts.length >= 2 ? (
-                                <>
-                                  <span className={styles.boldText}>{parts[0]}</span>
-                                  {' – '}
-                                  {parts.slice(1).join(' – ')}
-                                </>
-                              ) : (
-                                flag
-                              )}
-                            </li>
-                          );
-                        })}
-                      </ul>
+                      <p className={["text-center", styles.tightLineHeight].join(" ")}>
+                        {interpretation.redFlags}
+                      </p>
                     </div>
 
                     {/* מוקדי צמיחה */}
@@ -372,24 +357,9 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
                       className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">תחומים מתאימים לקריירה ולשליחות</h4>
-                      <ul className="space-y-2">
-                        {interpretation.careers.map((career, i) => {
-                          const parts = career.split(' – ');
-                          return (
-                            <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
-                              {parts.length >= 2 ? (
-                                <>
-                                  <span className={styles.boldText}>{parts[0]}</span>
-                                  {' – '}
-                                  {parts.slice(1).join(' – ')}
-                                </>
-                              ) : (
-                                career
-                              )}
-                            </li>
-                          );
-                        })}
-                      </ul>
+                      <p className={["text-center", styles.tightLineHeight].join(" ")}>
+                        {interpretation.careers}
+                      </p>
                     </div>
 
                     {/* דוגמה יומית */}

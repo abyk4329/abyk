@@ -127,71 +127,53 @@ export function WealthReport({ code, userName }: WealthReportProps) {
         </Text>
       </Page>
 
-      {/* Full Interpretation for Each Digit - All content in order */}
+      {/* Full Interpretation for Each Digit - All content on ONE page */}
       {uniqueDigits.map((digit) => {
         const interp = digitInterpretations[digit];
         if (!interp) return null;
 
         return (
-          <React.Fragment key={digit}>
-            {/* Page 1: Essence, Gifts, Blocks, Red Flags */}
-            <Page size="A4" style={styles.page}>
-              <Text style={styles.sectionTitle}>
-                {interp.number}. {interp.title}
+          <Page key={digit} size="A4" style={styles.page}>
+            <Text style={styles.sectionTitle}>
+              {interp.number}. {interp.title}
+            </Text>
+
+            <Text style={styles.sectionSubtitle}>מהות הספרה</Text>
+            <Text style={styles.paragraph}>{interp.essence}</Text>
+
+            <Text style={styles.sectionSubtitle}>מתנות מרכזיות</Text>
+            {interp.gifts.map((gift, idx) => (
+              <Text key={idx} style={styles.bulletItem}>
+                • {gift}
               </Text>
+            ))}
 
-              <Text style={styles.sectionSubtitle}>מהות</Text>
-              <Text style={styles.paragraph}>{interp.essence}</Text>
-
-              <Text style={styles.sectionSubtitle}>מתנות עיקריות</Text>
-              {interp.gifts.map((gift, idx) => (
-                <Text key={idx} style={styles.bulletItem}>
-                  • {gift}
-                </Text>
-              ))}
-
-              <Text style={styles.sectionSubtitle}>חסמים ואתגרים</Text>
-              {interp.blocks.map((block, idx) => (
-                <Text key={idx} style={styles.bulletItem}>
-                  • {block}
-                </Text>
-              ))}
-
-              <Text style={styles.sectionSubtitle}>סימני אזהרה</Text>
-              {interp.redFlags.split(' | ').map((flag, idx) => (
-                <Text key={idx} style={styles.bulletItem}>
-                  • {flag}
-                </Text>
-              ))}
-            </Page>
-
-            {/* Page 2: Growth, Careers, Daily Practice, Bottom Line */}
-            <Page size="A4" style={styles.page}>
-              <Text style={styles.sectionTitle}>
-                {interp.number}. {interp.title} (המשך)
+            <Text style={styles.sectionSubtitle}>חסימות ואתגרים עיקריים</Text>
+            {interp.blocks.map((block, idx) => (
+              <Text key={idx} style={styles.bulletItem}>
+                • {block}
               </Text>
+            ))}
 
-              <Text style={styles.sectionSubtitle}>תחומי צמיחה</Text>
-              {interp.growth.map((item, idx) => (
-                <Text key={idx} style={styles.bulletItem}>
-                  • {item}
-                </Text>
-              ))}
+            <Text style={styles.sectionSubtitle}>נורות אדומות – סימנים לחוסר איזון</Text>
+            <Text style={styles.paragraph}>{interp.redFlags}</Text>
 
-              <Text style={styles.sectionSubtitle}>מסלולי קריירה</Text>
-              {interp.careers.split(' | ').map((career, idx) => (
-                <Text key={idx} style={styles.bulletItem}>
-                  • {career}
-                </Text>
-              ))}
+            <Text style={styles.sectionSubtitle}>מוקדי צמיחה והתפתחות</Text>
+            {interp.growth.map((item, idx) => (
+              <Text key={idx} style={styles.bulletItem}>
+                • {item}
+              </Text>
+            ))}
 
-              <Text style={styles.sectionSubtitle}>תרגול יומי</Text>
-              <Text style={styles.paragraph}>{interp.dailyPractice}</Text>
+            <Text style={styles.sectionSubtitle}>תחומים מתאימים לקריירה ולשליחות</Text>
+            <Text style={styles.paragraph}>{interp.careers}</Text>
 
-              <Text style={styles.sectionSubtitle}>שורה תחתונה</Text>
-              <Text style={styles.paragraph}>{interp.bottomLine}</Text>
-            </Page>
-          </React.Fragment>
+            <Text style={styles.sectionSubtitle}>דוגמה יומית לתרגול</Text>
+            <Text style={styles.paragraph}>{interp.dailyPractice}</Text>
+
+            <Text style={styles.sectionSubtitle}>שורה תחתונה</Text>
+            <Text style={styles.paragraph}>{interp.bottomLine}</Text>
+          </Page>
         );
       })}
 
