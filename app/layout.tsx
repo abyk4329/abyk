@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { AppShell } from "@/app/components/layout";
-import { BRAND, SOCIAL } from "@/lib/constants";
+import { BRAND, SOCIAL, SURFACE } from "@/lib/constants";
 import { publicEnv } from "@/lib/env";
 
 const metadataBase = publicEnv.appUrl ? new URL(publicEnv.appUrl) : undefined;
@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   description: BRAND.taglineHe,
   metadataBase,
   manifest: "/manifest.webmanifest",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: SURFACE.header },
+    { media: "(prefers-color-scheme: dark)", color: SURFACE.headerDark },
+  ],
   authors: [{ name: "Ksenia Chudnovskaya" }],
   keywords: [
     "נומרולוגיה",
@@ -62,12 +66,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Fullscreen & Safe-Area immersion */}
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        {/* Light/Dark adaptive theme-color for Android Chrome status bar blending */}
-        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F5F1ED" />
-        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1814" />
-        {/* iOS notch safe-area background color */}
-        <meta name="background-color" content="#F5F1ED" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="ABYK" />
+  {/* iOS notch safe-area background color */}
+        <meta name="background-color" content={SURFACE.header} />
       </head>
       <body className="page-bg text-foreground antialiased">
         <AppShell>{children}</AppShell>

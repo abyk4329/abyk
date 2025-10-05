@@ -151,6 +151,14 @@ export const COLORS = {
 } as const;
 
 /**
+ * Surface colors used for structural UI elements like the header/status bar.
+ */
+export const SURFACE = {
+    header: "#F8F6F2",
+    headerDark: "#1C1814",
+} as const;
+
+/**
  * ============================================
  * Typography Settings
  * ============================================
@@ -495,8 +503,8 @@ export const PWA = {
     name: "Awakening by Ksenia",
     shortName: "ABYK",
     description: "מרחב אישי שמעניק לך כלים פשוטים לחיים מודעים",
-    themeColor: "#fdfcfb",        // קרם - תואם לרקע
-    backgroundColor: "#fdfcfb",   // קרם - תואם לרקע
+    themeColor: SURFACE.header,     // צבע תואם הדר עבור immersive status bar
+    backgroundColor: SURFACE.header,
     display: "standalone",        // מסתיר את הדפדפן
     orientation: "portrait",      // מצב אנכי בלבד
     icons: {

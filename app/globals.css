@@ -75,8 +75,12 @@
   --font-family: "Assistant", sans-serif;
 
   /* Layout */
-  --bg-start: #fdfcfb;
-  --bg-end: #f5f1ed;
+  /* Header/status bar base color — update together with SURFACE.header in lib/constants.ts */
+  --header-surface: #f8f6f2;
+  --header-surface-strong: #f3ede6;
+  --status-bar-dark: #1c1814;
+  --bg-start: var(--header-surface);
+  --bg-end: var(--header-surface-strong);
   --page-gradient: linear-gradient(
     135deg,
     var(--bg-start) 0%,
@@ -148,6 +152,9 @@
 
 /* Dark scheme (no Tailwind v4 variants; plain CSS vars override) */
 .dark {
+  --header-surface: #1c1814;
+  --header-surface-strong: #17130f;
+  --status-bar-dark: #0f0c0a;
   --background: #292524;
   --foreground: #fafaf9;
   --card: #292524;
@@ -237,12 +244,15 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100dvh;
+    height: 100%;
     overflow-x: hidden;
+    overscroll-behavior: none;
   }
 
   body {
     background: var(--page-gradient);
+    background-color: var(--header-surface);
     background-attachment: fixed;
     background-size: 100% 100%;
     color: var(--color-foreground);
@@ -250,6 +260,32 @@
     line-height: 1.1;
     text-align: center;
     direction: rtl;
+  }
+
+  .safe-top {
+    width: 100%;
+    height: env(safe-area-inset-top);
+    min-height: env(safe-area-inset-top);
+    background: var(--header-surface);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 49;
+    pointer-events: none;
+  }
+
+  .safe-bottom {
+    width: 100%;
+    height: env(safe-area-inset-bottom);
+    min-height: env(safe-area-inset-bottom);
+    background: var(--header-surface);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 39;
+    pointer-events: none;
   }
 
   /* Set a default border color without relying on v4 tokens */
@@ -640,7 +676,7 @@
   padding-bottom: calc(
     180px + env(safe-area-inset-bottom)
   ); /* Reserve space for fixed footer with navigation */
-  min-height: calc(100dvh - var(--header-height) - env(safe-area-inset-top));
+  min-height: calc(100dvh - var(--header-height) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
 }
 
 @media (min-width: 640px) {
