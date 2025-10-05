@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ArrowRight, ArrowLeft, Home } from "lucide-react";
 
+import { routes } from "@/lib/routes";
+
 interface NavigationButtonsProps {
   onGoBack?: () => void;
   onGoForward?: () => void;
@@ -33,6 +35,30 @@ export function NavigationButtons({
     canGoForward: false,
   });
 
+  const orderedRoutes = useMemo(
+    () => [
+      routes.calculator,
+      routes.result,
+      routes.sales,
+      routes.thankYou,
+      routes.interpretations,
+    ],
+    []
+  );
+
+  const getSequenceIndex = useCallback(
+    (path: string | undefined) => {
+      if (!path) {
+        return -1;
+      }
+
+      return orderedRoutes.findIndex(
+        (routePath) => path === routePath || path.startsWith(`${routePath}/`)
+      );
+    },
+    [orderedRoutes]
+  );
+
   const updateNavigationState = useCallback(() => {
     if (typeof window === "undefined") {
       return;
@@ -42,11 +68,17 @@ export function NavigationButtons({
     const currentIndex = historyState?.idx ?? 0;
     const totalEntries = window.history.length ?? 1;
 
+    const sequenceIndex = getSequenceIndex(window.location?.pathname);
+
     setNavigationState({
-      canGoBack: currentIndex > 0,
-      canGoForward: currentIndex < totalEntries - 1,
+      canGoBack:
+        sequenceIndex > 0 ? true : currentIndex > 0,
+      canGoForward:
+        sequenceIndex >= 0 && sequenceIndex < orderedRoutes.length - 1
+          ? true
+          : currentIndex < totalEntries - 1,
     });
-  }, []);
+  }, [getSequenceIndex, orderedRoutes.length]);
 
   useEffect(() => {
     updateNavigationState();
@@ -59,8 +91,13 @@ export function NavigationButtons({
     updateNavigationState();
   }, [pathname, updateNavigationState]);
 
-  const effectiveCanGoBack = canGoBack ?? navigationState.canGoBack;
-  const effectiveCanGoForward = canGoForward ?? navigationState.canGoForward;
+  const sequenceIndex = useMemo(() => getSequenceIndex(pathname), [getSequenceIndex, pathname]);
+  const hasSequenceMatch = sequenceIndex >= 0;
+  const effectiveCanGoBack =
+    canGoBack ?? (hasSequenceMatch ? sequenceIndex > 0 : navigationState.canGoBack);
+  const effectiveCanGoForward =
+    canGoForward ??
+    (hasSequenceMatch ? sequenceIndex < orderedRoutes.length - 1 : navigationState.canGoForward);
 
   const handleGoBack = useCallback(() => {
     if (!effectiveCanGoBack) {
@@ -72,9 +109,15 @@ export function NavigationButtons({
       return;
     }
 
+    if (hasSequenceMatch && sequenceIndex > 0) {
+      router.push(orderedRoutes[sequenceIndex - 1]);
+      window.setTimeout(updateNavigationState, 300);
+      return;
+    }
+
     router.back();
     window.setTimeout(updateNavigationState, 300);
-  }, [effectiveCanGoBack, onGoBack, router, updateNavigationState]);
+  }, [effectiveCanGoBack, onGoBack, router, updateNavigationState, hasSequenceMatch, sequenceIndex, orderedRoutes]);
 
   const handleGoForward = useCallback(() => {
     if (!effectiveCanGoForward) {
@@ -86,9 +129,15 @@ export function NavigationButtons({
       return;
     }
 
+    if (hasSequenceMatch && sequenceIndex < orderedRoutes.length - 1) {
+      router.push(orderedRoutes[sequenceIndex + 1]);
+      window.setTimeout(updateNavigationState, 300);
+      return;
+    }
+
     router.forward();
     window.setTimeout(updateNavigationState, 300);
-  }, [effectiveCanGoForward, onGoForward, router, updateNavigationState]);
+  }, [effectiveCanGoForward, onGoForward, router, updateNavigationState, hasSequenceMatch, sequenceIndex, orderedRoutes]);
 
   const handleGoHome = useCallback(() => {
     if (onGoHome) {

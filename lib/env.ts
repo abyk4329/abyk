@@ -2,9 +2,8 @@ export const ENV = {
     APP_NAME: process.env.NEXT_PUBLIC_APP_NAME ?? "Awakening by Ksenia",
     APP_URL: process.env.NEXT_PUBLIC_APP_URL ?? "https://abyk.online",
 
-    RESEND_API_KEY: process.env.RESEND_API_KEY ?? "",
-    EMAIL_FROM:
-        process.env.EMAIL_FROM ?? "AWAKENING BY KSENIA <awakening.by.ksenia@gmail.com>",
+    RESEND_API_KEY: process.env.RESEND_API_KEY ?? "re_QNeCx5Kd_CpL3M55WPqNzbzR9zvTmXGo5",
+    EMAIL_FROM: process.env.EMAIL_FROM ?? "AWAKENING BY KSENIA <no-reply@abyk.online>",
 
     SMTP_HOST: process.env.SMTP_HOST ?? "",
     SMTP_PORT: +(process.env.SMTP_PORT ?? 465),

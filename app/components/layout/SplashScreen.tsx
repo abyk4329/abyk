@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from "react";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -20,14 +21,37 @@ type Orb = {
   bottom?: string;
   left?: string;
   right?: string;
+  opacityRange?: [number, number, number];
 };
 
 const ORBS: readonly Orb[] = [
-  { size: 320, blur: 140, top: "8%", right: "-10%", hueRotate: "15deg", delay: 0 },
-  { size: 380, blur: 180, bottom: "-16%", left: "-8%", hueRotate: "-10deg", delay: 0.3 },
-  { size: 260, blur: 110, top: "55%", left: "50%", hueRotate: "20deg", delay: 0.6 },
-  { size: 200, blur: 85, top: "25%", left: "15%", hueRotate: "8deg", delay: 0.9 },
+  { size: 360, blur: 135, top: "6%", right: "-12%", hueRotate: "12deg", delay: 0, opacityRange: [0.28, 0.58, 0.28] },
+  { size: 420, blur: 185, bottom: "-18%", left: "-10%", hueRotate: "-8deg", delay: 0.35, opacityRange: [0.22, 0.5, 0.22] },
+  { size: 280, blur: 105, top: "56%", left: "52%", hueRotate: "18deg", delay: 0.65, opacityRange: [0.26, 0.6, 0.26] },
+  { size: 230, blur: 82, top: "24%", left: "17%", hueRotate: "6deg", delay: 0.95, opacityRange: [0.3, 0.64, 0.3] },
 ];
+
+type HaloRing = {
+  size: number;
+  borderOpacity: number;
+  delay: number;
+  duration: number;
+};
+
+const HALO_RINGS: readonly HaloRing[] = [
+  { size: 360, borderOpacity: 0.32, delay: 0.6, duration: 5.8 },
+  { size: 480, borderOpacity: 0.22, delay: 0.9, duration: 6.4 },
+];
+
+const PROGRESS_DOT_SIZE = 18;
+const PROGRESS_DOT_STYLE: CSSProperties = {
+  width: `${PROGRESS_DOT_SIZE}px`,
+  height: `${PROGRESS_DOT_SIZE}px`,
+  background: "linear-gradient(145deg, rgba(248, 244, 240, 0.98), rgba(255, 255, 255, 0.92))",
+  boxShadow:
+    "0 6px 18px rgba(94, 73, 52, 0.22), inset 6px 6px 12px rgba(159, 133, 114, 0.2), inset -6px -6px 12px rgba(255, 255, 255, 0.85)",
+  border: "1px solid rgba(255, 255, 255, 0.42)",
+};
 
 export function SplashScreen({ onComplete }: SplashScreenProps) {
   useEffect(() => {
@@ -65,7 +89,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
             className="absolute"
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{
-              opacity: [0.3, 0.6, 0.3],
+              opacity: orb.opacityRange ?? [0.3, 0.6, 0.3],
               scale: [0.92, 1.08, 0.92],
               rotate: [0, 12, 0],
             }}
@@ -78,10 +102,11 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
             style={{
               width: orb.size,
               height: orb.size,
-              filter: `blur(${orb.blur}px) hue-rotate(${orb.hueRotate}) brightness(1.05)`,
+              filter: `blur(${orb.blur}px) hue-rotate(${orb.hueRotate}) brightness(1.06)`,
+              mixBlendMode: "screen",
               borderRadius: "50%",
               background:
-                "linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(213, 192, 177, 0.4))",
+                "linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(213, 192, 177, 0.48))",
               top: orb.top,
               bottom: orb.bottom,
               left: orb.left,
@@ -92,6 +117,32 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center text-center">
+        <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
+          {HALO_RINGS.map((ring, index) => (
+            <motion.div
+              key={index}
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{
+                scale: [0.96, 1.04, 0.96],
+                opacity: [0.1, ring.borderOpacity, 0.1],
+              }}
+              transition={{
+                duration: ring.duration,
+                ease: "easeInOut",
+                repeat: Infinity,
+                delay: ring.delay,
+              }}
+              style={{
+                width: ring.size,
+                height: ring.size,
+                borderRadius: "9999px",
+                border: `1.5px solid rgba(159, 133, 114, ${ring.borderOpacity})`,
+                boxShadow: `0 0 45px rgba(159, 133, 114, ${ring.borderOpacity * 0.8})`,
+                filter: "blur(0.2px)",
+              }}
+            />
+          ))}
+        </div>
         <motion.div
           className="relative flex items-center justify-center"
           initial={{ opacity: 0, scale: 0.7 }}
@@ -173,23 +224,21 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
           {[0, 1, 2].map((index) => (
             <motion.span
               key={index}
-              className="h-3.5 w-3.5 rounded-full border-0"
+              className="rounded-full border-0"
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{
                 opacity: [0.35, 1, 0.35],
                 scale: [0.88, 1.15, 0.88],
+                filter: ["brightness(1.02)", "brightness(1.22)", "brightness(1.02)"],
               }}
               transition={{
-                duration: 1.4,
+                duration: 1.6,
                 ease: "easeInOut",
                 repeat: Infinity,
                 delay: index * 0.2,
               }}
               style={{
-                background:
-                  "linear-gradient(145deg, rgba(248, 244, 240, 0.98), rgba(255, 255, 255, 0.88))",
-                boxShadow:
-                  "inset 5px 5px 10px rgba(159, 133, 114, 0.18), inset -5px -5px 10px rgba(255, 255, 255, 0.85)",
+                ...PROGRESS_DOT_STYLE,
               }}
             />
           ))}

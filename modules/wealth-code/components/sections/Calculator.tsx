@@ -67,7 +67,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   };
 
   return (
-    <section className="relative min-h-[calc(100vh-var(--header-height))] w-full flex items-center justify-center overflow-hidden py-6 sm:py-8 lg:py-12">
+    <section className="relative min-h-[calc(100vh-var(--header-height))] w-full flex items-center justify-center overflow-visible py-6 sm:py-8 lg:py-12">
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-full sm:max-w-3xl mx-auto">

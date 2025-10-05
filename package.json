@@ -10,6 +10,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
+    "@react-email/components": "^0.5.5",
     "@react-pdf/renderer": "^4.3.1",
     "@types/html2canvas": "^1.0.0",
     "framer-motion": "^12.23.22",

@@ -107,19 +107,19 @@ export const createPressHandlers = (
 };
 
 const MAIN_CARD_SHADOW =
-    "20px 20px 50px rgba(159,133,114,0.25), -20px -20px 50px rgba(255,255,255,0.95), inset 2px 2px 6px rgba(255,255,255,0.7), inset -2px -2px 6px rgba(211,198,189,0.35)";
+    "22px 22px 52px rgba(159,133,114,0.22), -22px -22px 52px rgba(255,255,255,0.94), inset 2px 2px 6px rgba(255,255,255,0.65), inset -2px -2px 6px rgba(211,198,189,0.28)";
 const MAIN_CARD_HOVER =
-    "24px 24px 55px rgba(159,133,114,0.3), -24px -24px 55px rgba(255,255,255,1), inset 2px 2px 8px rgba(255,255,255,0.75), inset -2px -2px 8px rgba(211,198,189,0.4)";
+    "26px 26px 58px rgba(159,133,114,0.26), -26px -26px 58px rgba(255,255,255,0.98), inset 2px 2px 8px rgba(255,255,255,0.7), inset -2px -2px 8px rgba(211,198,189,0.34)";
 
 const SECONDARY_CARD_SHADOW =
-    "12px 12px 30px rgba(159,133,114,0.18), -12px -12px 30px rgba(255,255,255,0.9), inset 1px 1px 3px rgba(255,255,255,0.6)";
+    "14px 14px 34px rgba(159,133,114,0.18), -14px -14px 34px rgba(255,255,255,0.92), inset 1px 1px 4px rgba(255,255,255,0.55)";
 const SECONDARY_CARD_HOVER =
-    "15px 15px 34px rgba(159,133,114,0.22), -15px -15px 34px rgba(255,255,255,0.95), inset 1px 1px 4px rgba(255,255,255,0.68)";
+    "18px 18px 40px rgba(159,133,114,0.22), -18px -18px 40px rgba(255,255,255,0.97), inset 1px 1px 5px rgba(255,255,255,0.62)";
 
 const FLOATING_CARD_SHADOW =
-    "25px 25px 60px rgba(159,133,114,0.25), -25px -25px 60px rgba(255,255,255,0.95), inset 3px 3px 8px rgba(255,255,255,0.6), inset -3px -3px 8px rgba(211,198,189,0.4)";
+    "28px 28px 64px rgba(159,133,114,0.24), -28px -28px 64px rgba(255,255,255,0.95), inset 3px 3px 9px rgba(255,255,255,0.6), inset -3px -3px 9px rgba(211,198,189,0.36)";
 const FLOATING_CARD_HOVER =
-    "28px 28px 65px rgba(159,133,114,0.3), -28px -28px 65px rgba(255,255,255,1), inset 3px 3px 10px rgba(255,255,255,0.7), inset -3px -3px 10px rgba(211,198,189,0.45)";
+    "32px 32px 70px rgba(159,133,114,0.28), -32px -32px 70px rgba(255,255,255,0.99), inset 3px 3px 11px rgba(255,255,255,0.68), inset -3px -3px 11px rgba(211,198,189,0.42)";
 
 const BUTTON_PRIMARY_SHADOW =
     "10px 10px 24px rgba(94,73,52,0.22), -8px -8px 20px rgba(255,255,255,0.9), inset 1px 1px 3px rgba(255,255,255,0.4)";
@@ -156,21 +156,18 @@ export const neumorphismStyles: {
         main: {
             background: "linear-gradient(145deg, #ffffff, #f8f4f0)",
             boxShadow: MAIN_CARD_SHADOW,
-            border: "1px solid rgba(255,255,255,0.35)",
             color: "#473b31",
             hover: MAIN_CARD_HOVER,
         },
         secondary: {
             background: "linear-gradient(145deg, #ffffff, #faf6f2)",
             boxShadow: SECONDARY_CARD_SHADOW,
-            border: "1px solid rgba(255,255,255,0.5)",
             color: "#473b31",
             hover: SECONDARY_CARD_HOVER,
         },
         floating: {
             background: "linear-gradient(145deg, #ffffff, #f3ece5)",
             boxShadow: FLOATING_CARD_SHADOW,
-            border: "1px solid rgba(255,255,255,0.45)",
             color: "#473b31",
             hover: FLOATING_CARD_HOVER,
         },
