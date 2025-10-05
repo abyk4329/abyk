@@ -24,6 +24,20 @@ export interface WealthEmailData {
 }
 
 /**
+ * Build email subject with the specific code
+ */
+export function buildWealthEmailSubject(code: string): string {
+    return `הפירוש המלא לקוד ${code} - ${BRAND.appName}`;
+}
+
+/**
+ * Build email preheader with the specific code
+ */
+export function buildWealthEmailPreheader(code: string): string {
+    return `קוד העושר שלך ${code} - הפירוש המלא ממתין לך`;
+}
+
+/**
  * Wealth-specific email styles - Clean centered design
  */
 const WEALTH_EMAIL_STYLES = `
@@ -209,10 +223,10 @@ export function wealthEmailHtml(data: WealthEmailData): string {
     const normalizedShareUrl = normalizeShareUrl(data.shareUrl);
 
     return generateBaseEmail({
-        title: `הפירוש המלא לקוד האישי שלך - ${BRAND.appName}`,
+        title: buildWealthEmailSubject(data.code),
         customStyles: WEALTH_EMAIL_STYLES,
         content: generateWealthContent(data),
         socialLinks: getWealthSocialLinks(normalizedShareUrl, data.code),
-        preheader: `קוד העושר שלך ${data.code} - הפירוש המלא ממתין לך`,
+        preheader: buildWealthEmailPreheader(data.code),
     });
 }

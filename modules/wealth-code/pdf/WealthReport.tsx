@@ -13,19 +13,20 @@ const styles = StyleSheet.create({
     padding: 40,
     backgroundColor: PDF_COLORS.bg,
     color: PDF_COLORS.text,
-    fontFamily: "Assistant", // registered in core config if fonts exist
+    fontFamily: "Assistant",
     direction: "rtl",
   },
   title: {
     fontSize: 24,
     fontWeight: 700,
     marginBottom: 12,
-  color: PDF_COLORS.accent,
+    color: "#473B31",
     textAlign: "center",
   },
   subtitle: {
     fontSize: 14,
-  color: PDF_COLORS.accentLight,
+    fontWeight: 700,
+    color: "#5e4934",
     marginBottom: 24,
     textAlign: "center",
   },
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     marginTop: 20,
     marginBottom: 12,
-    color: PDF_COLORS.accent,
+    color: "#473B31",
     textAlign: "right",
     direction: "rtl",
   },
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     marginTop: 16,
     marginBottom: 8,
-    color: PDF_COLORS.accentLight,
+    color: "#5e4934",
     textAlign: "right",
     direction: "rtl",
   },
@@ -74,16 +75,17 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   codeBox: {
-  backgroundColor: PDF_COLORS.surfaceAlt,
-    padding: 16,
-    borderRadius: 8,
+    backgroundColor: "#f5f1ed",
+    padding: 24,
+    borderRadius: 12,
     marginBottom: 20,
     textAlign: "center",
   },
   codeText: {
-    fontSize: 20,
-    fontWeight: 700,
-  color: PDF_COLORS.accent,
+    fontSize: 36,
+    fontWeight: 300,
+    letterSpacing: 8,
+    color: "#5e4934",
   },
 });
 
@@ -102,93 +104,117 @@ function getCodeType(code: string): "master" | "repeating" | "diverse" {
 export function WealthReport({ code, userName }: WealthReportProps) {
   const uniqueDigits = Array.from(new Set(code.split("").map(Number)));
   const codeType = getCodeType(code);
+  
+  // Get code type label in Hebrew
+  const codeTypeLabel = 
+    codeType === "master" ? "קוד מאסטר" :
+    codeType === "repeating" ? "קוד עם ספרות חוזרות" :
+    "קוד מגוון";
 
   return (
     <Document title={`Wealth Code Report - ${code}`}>
       {/* Cover Page */}
       <Page size="A4" style={styles.page}>
-  <Text style={styles.title}>{BRAND.appName.toUpperCase()}</Text>
+        <Text style={styles.title}>AWAKENING BY KSENIA</Text>
         <Text style={styles.subtitle}>הפירוש המלא לקוד העושר האישי שלך</Text>
 
         <View style={styles.codeBox}>
-          <Text style={styles.codeText}>קוד העושר שלך: {code}</Text>
-          {userName && <Text style={[styles.paragraph, { textAlign: "center", marginTop: 8 }]}>עבור: {userName}</Text>}
+          <Text style={styles.codeText}>{code}</Text>
+          {userName && <Text style={[styles.paragraph, { textAlign: "center", marginTop: 12 }]}>עבור: {userName}</Text>}
         </View>
 
-        <Text style={styles.sectionTitle}>מבנה הקוד</Text>
+        <View style={styles.divider} />
+
+        <Text style={[styles.footer, { marginTop: 40 }]}>
+          Awakening by Ksenia © 2025{"\n"}
+          לשימוש אישי בלבד{"\n"}
+          אין להפיץ או למכור מחדש את התוכן ללא אישור מפורש
+        </Text>
+      </Page>
+
+      {/* Code Structure & Daily Application Page */}
+      <Page size="A4" style={styles.page}>
+        <Text style={styles.sectionTitle}>משמעות הספרות בקוד האישי</Text>
+        <Text style={styles.paragraph}>{codeStructures.intro}</Text>
+
+        <Text style={styles.sectionSubtitle}>{codeTypeLabel}</Text>
         <Text style={styles.paragraph}>{codeStructures[codeType]}</Text>
 
         <View style={styles.divider} />
 
-        <Text style={styles.footer}>
-          {BRAND.appName}{"\n"}
-          {BRAND.ownerEmail}{"\n"}
-          {BRAND.disclaimer}
-        </Text>
+        <Text style={styles.sectionTitle}>יישום הקוד בחיי היומיום</Text>
+        <Text style={styles.paragraph}>{dailyApplication.content}</Text>
       </Page>
 
-      {/* Full Interpretation for Each Digit - All content on ONE page */}
+      {/* Full Interpretation for Each Digit - Split across TWO pages */}
       {uniqueDigits.map((digit) => {
         const interp = digitInterpretations[digit];
         if (!interp) return null;
 
         return (
-          <Page key={digit} size="A4" style={styles.page}>
-            <Text style={styles.sectionTitle}>
-              {interp.number}. {interp.title}
-            </Text>
-
-            <Text style={styles.sectionSubtitle}>מהות הספרה</Text>
-            <Text style={styles.paragraph}>{interp.essence}</Text>
-
-            <Text style={styles.sectionSubtitle}>מתנות מרכזיות</Text>
-            {interp.gifts.map((gift, idx) => (
-              <Text key={idx} style={styles.bulletItem}>
-                • {gift}
+          <React.Fragment key={digit}>
+            {/* Page 1: Digit, Essence, Gifts, Blocks, Red Flags, Growth */}
+            <Page size="A4" style={styles.page}>
+              <Text style={styles.sectionTitle}>
+                {interp.number}. {interp.title}
               </Text>
-            ))}
 
-            <Text style={styles.sectionSubtitle}>חסימות ואתגרים עיקריים</Text>
-            {interp.blocks.map((block, idx) => (
-              <Text key={idx} style={styles.bulletItem}>
-                • {block}
+              <Text style={styles.sectionSubtitle}>מהות הספרה</Text>
+              <Text style={styles.paragraph}>{interp.essence}</Text>
+
+              <Text style={styles.sectionSubtitle}>מתנות מרכזיות</Text>
+              {interp.gifts.map((gift, idx) => (
+                <Text key={idx} style={styles.bulletItem}>
+                  • {gift}
+                </Text>
+              ))}
+
+              <Text style={styles.sectionSubtitle}>חסימות ואתגרים עיקריים</Text>
+              {interp.blocks.map((block, idx) => (
+                <Text key={idx} style={styles.bulletItem}>
+                  • {block}
+                </Text>
+              ))}
+
+              <Text style={styles.sectionSubtitle}>נורות אדומות – סימנים לחוסר איזון</Text>
+              <Text style={styles.paragraph}>{interp.redFlags}</Text>
+
+              <Text style={styles.sectionSubtitle}>מוקדי צמיחה והתפתחות</Text>
+              {interp.growth.map((item, idx) => (
+                <Text key={idx} style={styles.bulletItem}>
+                  • {item}
+                </Text>
+              ))}
+            </Page>
+
+            {/* Page 2: Careers, Daily Practice, Bottom Line */}
+            <Page size="A4" style={styles.page}>
+              <Text style={styles.sectionTitle}>
+                {interp.number}. {interp.title} (המשך)
               </Text>
-            ))}
 
-            <Text style={styles.sectionSubtitle}>נורות אדומות – סימנים לחוסר איזון</Text>
-            <Text style={styles.paragraph}>{interp.redFlags}</Text>
+              <Text style={styles.sectionSubtitle}>תחומים מתאימים לקריירה ולשליחות</Text>
+              <Text style={styles.paragraph}>{interp.careers}</Text>
 
-            <Text style={styles.sectionSubtitle}>מוקדי צמיחה והתפתחות</Text>
-            {interp.growth.map((item, idx) => (
-              <Text key={idx} style={styles.bulletItem}>
-                • {item}
-              </Text>
-            ))}
+              <Text style={styles.sectionSubtitle}>דוגמה יומית לתרגול</Text>
+              <Text style={styles.paragraph}>{interp.dailyPractice}</Text>
 
-            <Text style={styles.sectionSubtitle}>תחומים מתאימים לקריירה ולשליחות</Text>
-            <Text style={styles.paragraph}>{interp.careers}</Text>
-
-            <Text style={styles.sectionSubtitle}>דוגמה יומית לתרגול</Text>
-            <Text style={styles.paragraph}>{interp.dailyPractice}</Text>
-
-            <Text style={styles.sectionSubtitle}>שורה תחתונה</Text>
-            <Text style={styles.paragraph}>{interp.bottomLine}</Text>
-          </Page>
+              <Text style={styles.sectionSubtitle}>שורה תחתונה</Text>
+              <Text style={styles.paragraph}>{interp.bottomLine}</Text>
+            </Page>
+          </React.Fragment>
         );
       })}
 
-      {/* Daily Application Page */}
+      {/* Footer Page with Copyright */}
       <Page size="A4" style={styles.page}>
-        <Text style={styles.sectionTitle}>יישום יומי</Text>
-        <Text style={styles.sectionSubtitle}>{dailyApplication.title}</Text>
-        <Text style={styles.paragraph}>{dailyApplication.content}</Text>
-
-        <View style={styles.divider} />
-
-        <Text style={styles.footer}>
-          © {BRAND.year} {BRAND.copyrightHolder}{"\n"}
-          {BRAND.disclaimer}
-        </Text>
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <Text style={[styles.footer, { textAlign: "center", direction: "rtl" }]}>
+            Awakening by Ksenia © 2025{"\n\n"}
+            לשימוש אישי בלבד{"\n"}
+            אין להפיץ או למכור מחדש את התוכן ללא אישור מפורש
+          </Text>
+        </View>
       </Page>
     </Document>
   );

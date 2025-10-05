@@ -63,6 +63,7 @@ export async function sendWealthEmail(params: SendWealthEmailParams): Promise<Se
         body: JSON.stringify({
             to: params.to,
             name: params.name,
+            code: params.code, // Required! Must be 4 digits
             shareUrl,
             replyTo: params.replyTo,
             subject: params.subject,

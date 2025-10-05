@@ -119,8 +119,10 @@ export default function Home() {
         },
         body: JSON.stringify({
           to: "", // Add recipient email from form
-          subject: `הפירוט המלא שלך לקוד ${wealthCode}`,
+          code: wealthCode, // Required! Must be 4 digits
+          subject: `הפירוש המלא שלך לקוד ${wealthCode}`,
           pdfBase64: pdfData.pdfBase64,
+          test: true, // Change to false in production
         }),
       });
 

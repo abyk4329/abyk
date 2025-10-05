@@ -1,1 +1,5 @@
-export { wealthEmailHtml } from "./WealthEmail";
+export {
+  wealthEmailHtml,
+  buildWealthEmailSubject,
+  buildWealthEmailPreheader,
+} from "./WealthEmail";

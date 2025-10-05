@@ -2,7 +2,10 @@ export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
 import { normalizeAttachments, sendEmail } from "@/lib/email/transport";
-import { wealthEmailHtml } from "@/modules/wealth-code/email/template";
+import {
+    wealthEmailHtml,
+    buildWealthEmailSubject,
+} from "@/modules/wealth-code/email/template";
 
 const DEFAULT_SUBJECT = "הפירוש המלא לקוד האישי שלך";
 const DEFAULT_SHARE_URL = "https://abyk.online/";
@@ -51,9 +54,19 @@ export async function POST(req: Request) {
             return NextResponse.json({ ok: false, error: "Invalid recipient address" }, { status: 400 });
         }
 
-        const subject = (body.subject ?? DEFAULT_SUBJECT).trim() || DEFAULT_SUBJECT;
+        // Validate code - must be provided and be 4 digits
+        const code = body.code?.trim();
+        if (!code || !/^\d{4}$/.test(code)) {
+            return NextResponse.json(
+                { ok: false, error: 'Invalid or missing "code" - must be exactly 4 digits' },
+                { status: 400 }
+            );
+        }
+
+        // Build subject dynamically with the code, or use provided subject
+        const subject = body.subject?.trim() || buildWealthEmailSubject(code);
         const shareUrl = (body.shareUrl ?? DEFAULT_SHARE_URL).trim() || DEFAULT_SHARE_URL;
-        const code = body.code ?? "0000";
+
         const html = wealthEmailHtml({
             name: body.name ?? "",
             code,
