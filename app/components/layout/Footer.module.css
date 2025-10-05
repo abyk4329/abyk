@@ -85,3 +85,20 @@
   text-transform: uppercase;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
+
+/* Responsive shrink so the entire line fits on one row in narrow mobile */
+@media (max-width: 480px) {
+  .copyrightText {
+    font-size: clamp(9px, 2.3vw, 11px);
+    letter-spacing: 0.18em; /* Slightly larger tracking compensates smaller size visually */
+    line-height: 1;
+    white-space: nowrap; /* Force single line */
+  }
+}
+
+@media (max-width: 360px) {
+  .copyrightText {
+    font-size: clamp(8px, 2.6vw, 10px);
+    letter-spacing: 0.2em;
+  }
+}
