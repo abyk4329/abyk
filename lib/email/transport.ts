@@ -1,3 +1,5 @@
+import type { CreateEmailOptions } from "resend";
+
 import { stripBase64Prefix } from "@/lib/utils";
 
 const DEFAULT_ATTACHMENT_NAME = "WealthCode.pdf";
@@ -98,14 +100,16 @@ export async function sendViaResend(payload: SendEmailPayload) {
         }))
         : undefined;
 
-    const { data, error } = await resend.emails.send({
+    const resendPayload = {
         from: payload.from ?? getFromAddress(),
         to: payload.to,
         subject: payload.subject,
         html: payload.html,
-        replyTo: payload.replyTo,
         attachments: attachmentPayload,
-    });
+        ...(payload.replyTo ? { reply_to: payload.replyTo } : {}),
+    } satisfies CreateEmailOptions;
+
+    const { data, error } = await resend.emails.send(resendPayload);
 
     if (error) {
         throw new Error(error.message ?? "Resend send failed");

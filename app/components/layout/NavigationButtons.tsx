@@ -59,28 +59,43 @@ export function NavigationButtons({
     [orderedRoutes]
   );
 
-useEffect(() => {
-  updateNavigationState();
+  const updateNavigationState = useCallback(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
 
-  window.addEventListener("popstate", updateNavigationState);
-  // Listen to Next.js route changes
-  const handleRouteChange = () => {
-    // Small delay to ensure history state is updated
-    requestAnimationFrame(updateNavigationState);
-  };
-  router.events?.on('routeChangeComplete', handleRouteChange);
+    const historyState = window.history.state as { idx?: number } | null;
+    const historyLength = window.history.length;
+    const currentIndex = typeof historyState?.idx === "number" ? historyState.idx : null;
 
-  return () => {
-    window.removeEventListener("popstate", updateNavigationState);
-    router.events?.off('routeChangeComplete', handleRouteChange);
-  };
-}, [updateNavigationState]);
+    const canGoBack = currentIndex != null ? currentIndex > 0 : historyLength > 1;
+    const canGoForward = currentIndex != null ? currentIndex < historyLength - 1 : false;
+
+    setNavigationState((prev) => {
+      if (prev.canGoBack === canGoBack && prev.canGoForward === canGoForward) {
+        return prev;
+      }
+      return { canGoBack, canGoForward };
+    });
+  }, []);
 
   useEffect(() => {
     updateNavigationState();
+  }, [updateNavigationState]);
 
-    window.addEventListener("popstate", updateNavigationState);
-    return () => window.removeEventListener("popstate", updateNavigationState);
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const handlePopState = () => {
+      window.requestAnimationFrame(updateNavigationState);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
   }, [updateNavigationState]);
 
   useEffect(() => {

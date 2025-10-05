@@ -34,8 +34,9 @@ export function AppShell({ children }: AppShellProps) {
   }, []);
 
   const normalizedPath = normalizePath(pathname);
-  const effectivePath = normalizedPath ?? "/";
-  const effectivePath = normalizedPath ?? fallbackPath ?? "/";
+  const fallbackPath = normalizePath(WEALTH_BASE);
+  const preferredPath = normalizedPath ?? fallbackPath;
+  const effectivePath = preferredPath ?? "/";
 
   const isHomePage = homePaths.has(effectivePath);
   const navigationOverrides = useOptionalNavigationOverrides();

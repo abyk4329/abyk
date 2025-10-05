@@ -57,3 +57,5 @@ next-env.d.ts
 
 # Figma export (reference only, not needed in production)
 figmawebdesign/
+
+/lib/generated/prisma

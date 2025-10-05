@@ -41,120 +41,90 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
 
   // פונקציה להורדת PDF
   const handleDownload = async () => {
-    if (!contentRef.current || isGeneratingPDF) return;
-    
+    if (!contentRef.current || isGeneratingPDF) {
+      return;
+    }
+
+    const currentTab = activeTab;
     setIsGeneratingPDF(true);
-    
+
+    const tabsToCapture = [...uniqueDigits.map((_, index) => index.toString()), "daily"];
+    const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
     try {
-      // שמירת הטאב הנוכחי
-      const currentTab = activeTab;
-      
-      // יצירת array של כל הטאבים שצריך לצלם
-      const tabsToCapture = [
-        ...uniqueDigits.map((_, index) => index.toString()),
-        "daily"
-      ];
-      
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-      });
-      
       let isFirstPage = true;
-      
-      // עבור על כל טאב וצלם אותו
+
       for (const tabValue of tabsToCapture) {
-        // החלף לטאב הנוכחי
         setActiveTab(tabValue);
-        
--       // חכה שה-DOM יתעדכן
-       // חכה שה-DOM יתעדכן בתיאום עם מסגרת האנימציה
-       await new Promise(resolve => requestAnimationFrame(() => {
-         setTimeout(resolve, 300);
-       }));
-        
+
+        await new Promise<void>((resolve) => requestAnimationFrame(() => setTimeout(resolve, 300)));
+
         const element = contentRef.current;
-       if (!element) {
-         console.warn('Element unmounted during PDF generation');
-         break;
-       }
-        
-       try {
-          // הוסף class זמני להסרת backdrop-filter לגוף הדף
-          document.body.classList.add('pdf-rendering');
-          element.classList.add('pdf-rendering');
-          
--         // המתן שה-CSS יתעדכן
-         // המתן שה-CSS יתעדכן בתיאום עם מסגרת האנימציה
-         await new Promise(resolve => requestAnimationFrame(() => {
-           setTimeout(resolve, 200);
-         }));
-          
-          // צלם את האלמנט
-          const canvas = await html2canvas(element, {
+        if (!element) {
+          throw new Error("Element unmounted during PDF generation");
+        }
+
+        document.body.classList.add("pdf-rendering");
+        element.classList.add("pdf-rendering");
+
+        await new Promise<void>((resolve) => requestAnimationFrame(() => setTimeout(resolve, 200)));
+
+        let canvas: HTMLCanvasElement;
+
+        try {
+          canvas = await html2canvas(element, {
             scale: 2,
             useCORS: true,
             logging: false,
-            backgroundColor: '#fdfcfb',
+            backgroundColor: "#fdfcfb",
             windowWidth: element.scrollWidth,
             windowHeight: element.scrollHeight,
             removeContainer: true,
             imageTimeout: 0,
             foreignObjectRendering: false,
-            allowTaint: true
+            allowTaint: true,
           });
-          
--         // הסר את ה-class
--         element.classList.remove('pdf-rendering');
-         // ... rest of PDF logic
-       } finally {
-         // Always cleanup classes even if an error occurs
-         element.classList.remove('pdf-rendering');
-         document.body.classList.remove('pdf-rendering');
-       }
-      }
-        
-        const imgData = canvas.toDataURL('image/png');
-        const imgWidth = 210; // A4 width in mm
+        } finally {
+          element.classList.remove("pdf-rendering");
+          document.body.classList.remove("pdf-rendering");
+        }
+
+        const imgData = canvas.toDataURL("image/png");
+        const imgWidth = 210;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        
-        // אם זה לא העמוד הראשון, הוסף עמוד חדש
+
         if (!isFirstPage) {
           pdf.addPage();
         }
         isFirstPage = false;
-        
-        // אם התוכן גבוה מדי, חלק אותו לעמודים
-        if (imgHeight > 297) { // A4 height
+
+        if (imgHeight > 297) {
           let heightLeft = imgHeight;
           let position = 0;
-          
+
           while (heightLeft > 0) {
             if (position > 0) {
               pdf.addPage();
             }
-            
-            pdf.addImage(imgData, 'PNG', 0, -position, imgWidth, imgHeight);
+
+            pdf.addImage(imgData, "PNG", 0, -position, imgWidth, imgHeight);
             heightLeft -= 297;
             position += 297;
           }
         } else {
-          pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+          pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
         }
       }
-      
-      // שמירת ה-PDF
+
       pdf.save(`קוד-עושר-${code}.pdf`);
-      
-      // החזר לטאב המקורי
-      setActiveTab(currentTab);
-      
     } catch (error) {
-      console.error('Error generating PDF:', error);
-      alert('אירעה שגיאה ביצירת ה-PDF. אנא נסה שוב.');
+      console.error("Error generating PDF:", error);
+      alert("אירעה שגיאה ביצירת ה-PDF. אנא נסה שוב.");
     } finally {
+      setActiveTab(currentTab);
       setIsGeneratingPDF(false);
+      document.body.classList.remove("pdf-rendering");
+      contentRef.current?.classList.remove("pdf-rendering");
     }
   };
 
