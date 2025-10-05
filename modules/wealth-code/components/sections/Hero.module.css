@@ -5,18 +5,54 @@
   border-radius: 32px;
 }
 
-/* Shadow effect */
+/* New hero section wrapper for background blending */
+.sectionWrapper {
+  position: relative;
+}
+.sectionWrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(159,133,114,0.10) 0%,
+      rgba(159,133,114,0.06) 22%,
+      rgba(159,133,114,0.04) 40%,
+      rgba(253,252,251,0.0) 70%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.65) 0%,
+      rgba(250,248,246,0.55) 40%,
+      rgba(245,241,237,0.45) 70%,
+      rgba(245,241,237,0.30) 100%
+    );
+  filter: blur(40px);
+  opacity: 0.9;
+  z-index: 0;
+}
+
+/* Elevate content above blend layer */
+.contentLayer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Shadow effect - soft and blended */
 .shadow {
   background: radial-gradient(
-    circle at 50% 50%,
-    rgba(159, 133, 114, 0.22),
-    rgba(159, 133, 114, 0.14) 45%,
-    rgba(159, 133, 114, 0.08) 65%,
-    rgba(255, 255, 255, 0) 82%
+    ellipse at 50% 50%,
+    rgba(159, 133, 114, 0.12),
+    rgba(159, 133, 114, 0.08) 35%,
+    rgba(159, 133, 114, 0.04) 55%,
+    rgba(159, 133, 114, 0.02) 70%,
+    rgba(255, 255, 255, 0) 90%
   );
-  filter: blur(36px);
-  opacity: 0.95;
-  transform: scaleX(1.1) translateY(6px);
+  filter: blur(48px);
+  opacity: 0.75;
+  transform: scaleX(1.3) translateY(8px);
 }
 
 /* Icon color */
