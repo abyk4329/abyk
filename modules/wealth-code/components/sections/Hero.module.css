@@ -15,51 +15,71 @@
   inset: 0;
   pointer-events: none;
   /* Expanded radial & smoother vertical blend to avoid a visible seam on narrow (mobile) viewports */
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at 50% 2%,
-      rgba(159,133,114,0.11) 0%,
-      rgba(159,133,114,0.07) 26%,
-      rgba(159,133,114,0.045) 46%,
-      rgba(159,133,114,0.03) 62%,
-      rgba(253,252,251,0.015) 78%,
-      rgba(253,252,251,0) 92%
+      rgba(159, 133, 114, 0.11) 0%,
+      rgba(159, 133, 114, 0.07) 26%,
+      rgba(159, 133, 114, 0.045) 46%,
+      rgba(159, 133, 114, 0.03) 62%,
+      rgba(253, 252, 251, 0.015) 78%,
+      rgba(253, 252, 251, 0) 92%
     ),
     linear-gradient(
       180deg,
-      rgba(255,255,255,0.68) 0%,
-      rgba(251,249,247,0.60) 34%,
-      rgba(247,244,241,0.52) 58%,
-      rgba(245,241,237,0.42) 76%,
-      rgba(245,241,237,0.34) 88%,
-      rgba(245,241,237,0.26) 100%
+      rgba(255, 255, 255, 0.68) 0%,
+      rgba(251, 249, 247, 0.6) 34%,
+      rgba(247, 244, 241, 0.52) 58%,
+      rgba(245, 241, 237, 0.42) 76%,
+      rgba(245, 241, 237, 0.34) 88%,
+      rgba(245, 241, 237, 0.26) 100%
     );
   filter: blur(46px) saturate(102%);
   opacity: 0.95;
   z-index: 0;
 }
 
+/* Extra bottom fade extension to avoid shadow cutoff on very short mobile viewports */
+.sectionWrapper::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -18vh; /* extend visually below */
+  height: 22vh;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(245,241,237,0.20) 0%,
+    rgba(245,241,237,0.16) 18%,
+    rgba(245,241,237,0.10) 40%,
+    rgba(245,241,237,0.06) 60%,
+    rgba(245,241,237,0.03) 78%,
+    rgba(245,241,237,0) 100%
+  );
+  filter: blur(42px);
+  z-index: 0;
+}
+
 /* Mobile fine-tuning to eliminate edge line */
 @media (max-width: 640px) {
   .sectionWrapper::before {
-    background:
-      radial-gradient(
+    background: radial-gradient(
         circle at 50% 4%,
-        rgba(159,133,114,0.12) 0%,
-        rgba(159,133,114,0.075) 30%,
-        rgba(159,133,114,0.05) 55%,
-        rgba(159,133,114,0.035) 72%,
-        rgba(253,252,251,0.02) 86%,
-        rgba(253,252,251,0) 100%
+        rgba(159, 133, 114, 0.12) 0%,
+        rgba(159, 133, 114, 0.075) 30%,
+        rgba(159, 133, 114, 0.05) 55%,
+        rgba(159, 133, 114, 0.035) 72%,
+        rgba(253, 252, 251, 0.02) 86%,
+        rgba(253, 252, 251, 0) 100%
       ),
       linear-gradient(
         180deg,
-        rgba(255,255,255,0.72) 0%,
-        rgba(252,251,249,0.64) 32%,
-        rgba(248,245,242,0.56) 56%,
-        rgba(245,241,237,0.46) 74%,
-        rgba(245,241,237,0.36) 88%,
-        rgba(245,241,237,0.28) 100%
+        rgba(255, 255, 255, 0.72) 0%,
+        rgba(252, 251, 249, 0.64) 32%,
+        rgba(248, 245, 242, 0.56) 56%,
+        rgba(245, 241, 237, 0.46) 74%,
+        rgba(245, 241, 237, 0.36) 88%,
+        rgba(245, 241, 237, 0.28) 100%
       );
     filter: blur(54px) saturate(104%);
     opacity: 0.97;
@@ -68,6 +88,11 @@
     filter: blur(52px);
     opacity: 0.78;
     transform: scaleX(1.35) translateY(10px);
+  }
+  .sectionWrapper::after {
+    bottom: -24vh;
+    height: 28vh;
+    filter: blur(50px);
   }
 }
 
