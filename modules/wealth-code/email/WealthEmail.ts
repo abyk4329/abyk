@@ -44,6 +44,7 @@ const WEALTH_EMAIL_STYLES = `
   .glass-card {
     padding: 40px 24px;
     border-radius: 32px;
+    max-width: 100%;
   }
 
   .main-title {
@@ -69,10 +70,14 @@ const WEALTH_EMAIL_STYLES = `
   }
   
   .code-container {
-    display: inline-block;
+    display: block;
+    width: 100%;
+    max-width: 360px;
     padding: 20px 48px;
     border-radius: 24px;
     margin-bottom: 32px;
+    margin-left: auto;
+    margin-right: auto;
     background: linear-gradient(145deg, rgb(253, 252, 251), rgb(245, 241, 237));
     box-shadow: 
       inset 12px 12px 24px rgba(159, 133, 114, 0.15),
@@ -84,7 +89,7 @@ const WEALTH_EMAIL_STYLES = `
     font-family: 'Assistant', sans-serif;
     font-size: 48px;
     font-weight: 300;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     color: rgb(94, 73, 52);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
     text-align: center;
@@ -109,23 +114,73 @@ const WEALTH_EMAIL_STYLES = `
     margin-bottom: 32px;
     padding: 0 16px;
     text-align: center;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   @media (max-width: 600px) {
     .main-title {
-      font-size: 26px;
+      font-size: 24px;
     }
-    
+
     .code-container {
-      padding: 16px 32px;
+      padding: 16px 24px;
+      max-width: 300px;
+      border-radius: 20px;
     }
-    
+
     .code-display {
-      font-size: 36px;
+      font-size: 34px;
+      letter-spacing: 0.08em;
     }
-    
+
     .message {
-      font-size: 16px;
+      font-size: 15px;
+      padding: 0 6px;
+    }
+
+    .buttons-container {
+      padding: 0;
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .main-title {
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .code-container {
+      padding: 14px 18px;
+      max-width: 260px;
+    }
+
+    .code-display {
+      font-size: 30px;
+      letter-spacing: 0.06em;
+    }
+
+    .message {
+      font-size: 15px;
+      line-height: 1.55;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .code-container {
+      padding: 12px 16px;
+      max-width: 230px;
+    }
+
+    .code-display {
+      font-size: 28px;
+      letter-spacing: 0.04em;
+    }
+
+    .buttons-container {
+      margin-bottom: 24px;
     }
   }
 `;
@@ -143,7 +198,7 @@ function generateWealthContent(data: WealthEmailData): string {
     const whatsappConsultation =
         "https://wa.me/972544490440?text=היי%20קסניה%2C%20אשמח%20לתיאום%20יעוץ%20אישי";
 
-    const BTN_BASE = "display:block;width:100%;max-width:520px;margin:0 auto 12px;text-decoration:none;border-radius:9999px;font-family:'Assistant', Arial, sans-serif;font-size:18px;line-height:1.2;padding:16px 24px;font-weight:700;text-align:center;letter-spacing:0.02em;border:1px solid #efe9e3;";
+  const BTN_BASE = "display:block;width:100%;max-width:480px;margin:0 auto 14px;text-decoration:none;border-radius:9999px;font-family:'Assistant', Arial, sans-serif;font-size:17px;line-height:1.35;padding:15px 20px;font-weight:700;text-align:center;letter-spacing:0.02em;border:1px solid #efe9e3;box-sizing:border-box;";
     const PRIMARY_BTN_STYLE = BTN_BASE + "background:linear-gradient(145deg,#ffffff,#f8f4f0);color:#5e4934;box-shadow:0 6px 16px rgba(159,133,114,0.15),inset 0 1px 0 rgba(255,255,255,0.8);";
     const SECONDARY_BTN_STYLE = BTN_BASE + "background:linear-gradient(145deg,#f5f1ed,#fdfcfb);color:#5e4934;box-shadow:inset 0 1px 0 rgba(255,255,255,0.8);";
 

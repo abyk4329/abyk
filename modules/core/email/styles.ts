@@ -25,8 +25,10 @@ export const EMAIL_BASE_STYLES = `
   }
   
   .email-container {
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
+    padding: 0 24px;
     background: linear-gradient(135deg, rgb(253, 252, 251) 0%, rgb(245, 241, 237) 100%);
   }
 `;
@@ -65,6 +67,8 @@ export const EMAIL_HEADER_STYLES = `
 export const EMAIL_CONTENT_STYLES = `
   .main-content {
     padding: 48px 20px;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .glass-card {
@@ -72,6 +76,8 @@ export const EMAIL_CONTENT_STYLES = `
     border: none;
     border-radius: 32px;
     padding: 40px 24px;
+    width: 100%;
+    box-sizing: border-box;
     box-shadow: 
       30px 30px 90px rgba(159, 133, 114, 0.25),
       -30px -30px 90px rgba(255, 255, 255, 0.9),
@@ -83,13 +89,16 @@ export const EMAIL_CONTENT_STYLES = `
 
 export const EMAIL_BUTTON_STYLES = `
   .buttons-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    display: block;
     margin-bottom: 32px;
     padding: 0 16px;
   }
-  
+
+  .buttons-container > a,
+  .buttons-container > .button {
+    display: block;
+  }
+
   .button {
     display: inline-block;
     text-decoration: none;
@@ -241,9 +250,51 @@ export const EMAIL_FOOTER_STYLES = `
 
 export const EMAIL_RESPONSIVE_STYLES = `
   @media (max-width: 600px) {
+    body {
+      padding: 0 !important;
+    }
+
+    .email-container {
+      padding: 0 16px !important;
+    }
+
+    .header {
+      padding: 20px 16px !important;
+    }
+
+    .header-title {
+      font-size: 18px !important;
+      letter-spacing: 0.12em !important;
+    }
+
+    .header-subtitle {
+      font-size: 10px !important;
+      letter-spacing: 0.11em !important;
+    }
+
+    .main-content {
+      padding: 32px 12px !important;
+    }
+
+    .glass-card {
+      padding: 28px 16px !important;
+      border-radius: 28px !important;
+    }
+
+    .buttons-container {
+      padding: 0 !important;
+      margin-bottom: 28px !important;
+    }
+
+    .buttons-container > a,
+    .buttons-container > .button {
+      font-size: 16px !important;
+      padding: 14px 18px !important;
+    }
+
     .button {
       font-size: 16px;
-      padding: 14px 24px;
+      padding: 14px 20px;
     }
     
     .social-button {
@@ -257,6 +308,24 @@ export const EMAIL_RESPONSIVE_STYLES = `
     
     .footer-copyright-text {
       font-size: 10px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .email-container {
+      padding: 0 12px !important;
+    }
+
+    .glass-card {
+      padding: 24px 12px !important;
+      border-radius: 24px !important;
+    }
+
+    .buttons-container > a,
+    .buttons-container > .button {
+      font-size: 15px !important;
+      padding: 12px 16px !important;
+      line-height: 1.4 !important;
     }
   }
 `;
