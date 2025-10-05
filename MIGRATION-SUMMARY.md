@@ -62,22 +62,35 @@ Added `"use client"` to all interactive components:
 - ✅ All lint checks passing: `pnpm lint` ✓
 - ✅ Production build succeeding: `pnpm build` ✓
 
+### 9. **Constants Cleanup**
+- ✅ Refactored `modules/wealth-code/constants.ts` to config-only
+- ✅ Removed UI copy constants: `WEALTH_CONTENT`, `WEALTH_SHARE`, `WEALTH_USER_FLOW`
+- ✅ Kept only configuration values:
+  - `WEALTH_ROUTES` - Route definitions
+  - `WEALTH_PAYMENT` - Payment configuration (Grow link, price)
+  - `WEALTH_VALIDATION` - Validation rules (date/code constraints)
+  - `WEALTH_API` - API endpoints
+  - `WealthCodeType` - Type definition
+- ✅ Reduced file from 223 lines to 52 lines
+- ✅ Build and lint passing after cleanup
+
 ---
 
 ## 📊 Build Results
 
 ```
+
 Route (app)                                 Size  First Load JS
-┌ ○ /                                     193 kB         305 kB
+┌ ○ /                                     238 kB         343 kB
 ├ ○ /_not-found                            997 B         103 kB
-├ ƒ /api/generate-pdf                      139 B         103 kB
-├ ƒ /api/send-email                        139 B         103 kB
-├ ○ /design                                165 B         113 kB
-├ ○ /privacy                               165 B         113 kB
-├ ○ /result                                139 B         103 kB
-├ ○ /sales                                 139 B         103 kB
-├ ○ /terms                                 139 B         103 kB
-└ ○ /thank-you                             139 B         103 kB
+├ ƒ /api/generate-pdf                      137 B         103 kB
+├ ƒ /api/send-email                        137 B         103 kB
+├ ○ /design                                10 kB         112 kB
+├ ○ /privacy                               241 B         103 kB
+├ ○ /result                                137 B         103 kB
+├ ○ /sales                                 137 B         103 kB
+├ ○ /terms                                 241 B         103 kB
+└ ○ /thank-you                             137 B         103 kB
 
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
@@ -92,14 +105,17 @@ Route (app)                                 Size  First Load JS
 ## 🎯 Current State
 
 ### Working Features
-1. **Dev Server Running** at `http://localhost:3000`
+1. **Dev Server Running** at `http://localhost:3001`
 2. **Shared UI Components** - GlassButton with variants
-3. **Neumorphic Styling** - Consistent shadow/interaction patterns
+3. **Neumorphic Styling** - Global CSS classes with consistent patterns
 4. **PDF Generation** - Dependencies installed and ready
 5. **Type Safety** - All TypeScript errors resolved
 6. **Client Interactivity** - All sections properly marked
+7. **Clean Constants** - Config-only module structure
+8. **Scroll Restoration** - All pages open from top on navigation
 
 ### Architecture
+
 ```
 app/
 ├── components/
@@ -123,6 +139,7 @@ modules/wealth-code/
 │       ├── SalesPage.tsx             ← Product offer
 │       ├── Interpretations.tsx       ← Full analysis
 │       └── ThankYou.tsx              ← Post-purchase
+
 ```
 
 ---
@@ -142,6 +159,7 @@ modules/wealth-code/
 The current `app/page.tsx` uses local state to manage views. Consider:
 - **Option A (Hash-based):** Update sections to use `window.location.hash` and listen for `hashchange` events
 - **Option B (Next.js routing):** Create proper routes under `app/` directory:
+
   ```
   app/
   ├── page.tsx              (Hero)
@@ -151,6 +169,7 @@ The current `app/page.tsx` uses local state to manage views. Consider:
   ├── interpretations/page.tsx
   └── thank-you/page.tsx
   ```
+
 - **Current sections** (Result, SalesPage, etc.) use hash navigation like `window.location.hash = '#/sales'` which won't work with the current state-based approach
 
 **Recommendation:** יש לבחור באחת מהאסטרטגיות ולהתאים את כל הקומפוננטות בהתאם
@@ -167,10 +186,12 @@ The current `app/page.tsx` uses local state to manage views. Consider:
 
 #### 3. **Environment Variables**
 Verify `.env.local` has:
+
 ```env
 RESEND_API_KEY=re_xxxxx
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 # או URL ייצור
+
 ```
 
 #### 4. **Payment Integration**
@@ -211,6 +232,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 ## 📦 Dependencies Summary
 
 ### Added in this session
+
 ```json
 {
   "html2canvas": "^1.4.x",
@@ -219,6 +241,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
 ### Already present
+
 ```json
 {
   "next": "^15.5.4",
@@ -256,14 +279,17 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 - `modules/wealth-code/components/sections/ui/tabs.tsx`
 
 ### Modified
-- `app/page.tsx` (added view state management)
+- `app/page.tsx` (added view state management + scroll-to-top)
 - `app/layout.tsx` (fixed metadata)
 - `app/design/page.tsx` (fixed export name)
+- `app/privacy/page.tsx` (added metadata)
+- `app/components/layout/AppShell.tsx` (added scroll-to-top on route changes)
 - `app/components/sections/DesignShowcase.tsx` (added "use client", fixed types)
-- `modules/wealth-code/components/sections/*.tsx` (all 6 sections - added "use client", fixed types)
+- `modules/wealth-code/components/sections/*.tsx` (all 6 sections - converted to CSS classes)
+- `modules/wealth-code/constants.ts` (cleaned to config-only, removed UI copy)
 - `tsconfig.json` (updated moduleResolution and removed baseUrl)
 - `package.json` (added html2canvas, jspdf)
+- `eslint.config.mjs` (added rules for tabs.tsx)
 
 ---
 
-**End of Migration Summary** 🎉

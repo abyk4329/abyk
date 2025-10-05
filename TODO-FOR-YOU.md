@@ -22,6 +22,7 @@
 **הבעיה:** הקומפוננטות משתמשות ב-hash navigation (`window.location.hash = '#/sales'`) אבל `app/page.tsx` משתמש ב-state.
 
 **פתרון A - Hash-based (הכי פשוט):**
+
 ```tsx
 // app/page.tsx
 "use client";
@@ -49,6 +50,7 @@ export default function Home() {
 
 **פתרון B - Next.js Routes (מומלץ לטווח ארוך):**
 צרי תיקיות:
+
 ```
 app/
 ├── page.tsx                    (Hero)
@@ -86,6 +88,7 @@ app/
    - פרטי קשר
 
 **דוגמה:**
+
 ```tsx
 // modules/wealth-code/email/template.ts
 export const wealthCodeEmailTemplate = (code: string, pdfUrl: string) => `
@@ -181,6 +184,7 @@ export async function POST(request: NextRequest) {
 **קובץ:** `modules/wealth-code/components/sections/SalesPage.tsx`
 
 נכון להיום:
+
 ```tsx
 const handlePurchase = () => {
   window.open('https://pay.grow.link/...', '_blank');
@@ -197,6 +201,7 @@ const handleMockPurchase = () => {
 3. **העברת הקוד** - איך ThankYou יודע איזה קוד להציג?
 
 **פתרון מומלץ:**
+
 ```tsx
 const handlePurchase = () => {
   // Save code to sessionStorage before redirect
@@ -209,6 +214,7 @@ const handlePurchase = () => {
 ```
 
 וב-ThankYou:
+
 ```tsx
 useEffect(() => {
   const savedCode = sessionStorage.getItem("wealthCode");
@@ -232,6 +238,7 @@ useEffect(() => {
 **קובץ:** `.env.local`
 
 וודאי שקיימים:
+
 ```env
 # Resend (for emails)
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -296,6 +303,7 @@ GROW_WEBHOOK_SECRET=xxxxx
 **קבצים לעדכן:**
 
 #### `app/layout.tsx`
+
 ```tsx
 export const metadata: Metadata = {
   title: BRAND.name,
@@ -305,6 +313,7 @@ export const metadata: Metadata = {
 ```
 
 #### כל `page.tsx` (אם תעברי ל-Next.js routes):
+
 ```tsx
 // app/calculator/page.tsx
 export const metadata: Metadata = {
@@ -314,6 +323,7 @@ export const metadata: Metadata = {
 ```
 
 #### `public/robots.txt` (אם לא קיים):
+
 ```txt
 User-agent: *
 Allow: /
@@ -322,6 +332,7 @@ Sitemap: https://abyk.online/sitemap.xml
 ```
 
 #### `app/sitemap.ts` (אם לא קיים):
+
 ```tsx
 import { MetadataRoute } from 'next';
 
@@ -385,13 +396,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
 **כשהכל עובד locally:**
 
 #### A. Build בדיקה אחרונה
+
 ```bash
 pnpm build
 pnpm start
 ```
+
 גלשי ל-http://localhost:3000 ובדקי שהכל עובד ב-production mode.
 
 #### B. העלאה ל-Vercel/Netlify
+
 ```bash
 # Vercel
 vercel --prod
@@ -440,6 +454,7 @@ netlify deploy --prod
 ## 💡 טיפים
 
 1. **Git Commits:** עשי commit אחרי כל שינוי קטן
+
    ```bash
    git add .
    git commit -m "Fix: navigation flow"
