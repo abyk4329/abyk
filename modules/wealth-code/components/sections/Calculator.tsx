@@ -68,35 +68,35 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   };
 
   return (
-    <section className="relative min-h-[calc(100vh-var(--header-height))] w-full flex items-center justify-center overflow-visible py-6 sm:py-8 lg:py-12">
+    <section className="relative w-full flex items-center justify-center overflow-visible pt-3 pb-14 sm:pt-5 sm:pb-16 lg:pt-8 lg:pb-20">
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-full sm:max-w-3xl mx-auto">
           {/* Neumorphic Card */}
           <div
-            className="neuro-card-main rounded-[32px] p-8 sm:p-12 lg:p-14 transition-all duration-500 border-0"
+            className="neuro-card-main rounded-[28px] p-5 sm:p-7 lg:p-10 transition-all duration-500 border-0"
           >
             {/* Main Heading */}
-            <h1 className="mb-4 sm:mb-6 text-center">
+            <h1 className="mb-2 sm:mb-3 text-center">
               מחשבון קוד העושר
             </h1>
 
             {/* Subtitle */}
             <p
-              className={["mb-4 sm:mb-6 max-w-xl mx-auto text-center", styles.subtitle].join(" ")}
+              className={["mb-3 sm:mb-4 max-w-md mx-auto text-center leading-snug", styles.subtitle].join(" ")}
             >
               הזינו את תאריך הלידה שלכם וגלו את הקוד האישי
             </p>
 
             {/* Date Inputs Grid - LTR Format (DD/MM/YYYY) */}
             <div
-              className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-5 mb-8 sm:mb-10"
+              className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-5 mb-4 sm:mb-6"
               dir="ltr"
             >
               {/* Day - First (Left) */}
               <div dir="ltr">
                 <label
-                  className={["block mb-3 caption text-center", styles.label].join(" ")}
+                  className={["block mb-2 caption text-center", styles.label].join(" ")}
                 >
                   יום
                 </label>
@@ -108,14 +108,14 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setDay(e.target.value)}
                   placeholder="DD"
                   dir="ltr"
-                  className={["neuro-input-default w-full rounded-2xl px-4 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
+                  className={["neuro-input-default w-full rounded-2xl px-3 py-3 sm:py-4 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
                 />
               </div>
 
               {/* Month - Middle */}
               <div dir="ltr">
                 <label
-                  className={["block mb-3 caption text-center", styles.label].join(" ")}
+                  className={["block mb-2 caption text-center", styles.label].join(" ")}
                 >
                   חודש
                 </label>
@@ -127,14 +127,14 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setMonth(e.target.value)}
                   placeholder="MM"
                   dir="ltr"
-                  className={["neuro-input-default w-full rounded-2xl px-4 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
+                  className={["neuro-input-default w-full rounded-2xl px-3 py-3 sm:py-4 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
                 />
               </div>
 
               {/* YEAR - Last (Right) */}
               <div dir="ltr">
                 <label
-                  className={["block mb-3 caption text-center", styles.label].join(" ")}
+                  className={["block mb-2 caption text-center", styles.label].join(" ")}
                 >
                   שנה
                 </label>
@@ -146,13 +146,13 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setYear(e.target.value)}
                   placeholder="YYYY"
                   dir="ltr"
-                  className={["neuro-input-default w-full rounded-2xl px-4 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
+                  className={["neuro-input-default w-full rounded-2xl px-3 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
                 />
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 max-w-sm mx-auto mt-1">
               <GlassButton
                 onClick={calculateWealthCode}
                 className="w-full sm:flex-1"
