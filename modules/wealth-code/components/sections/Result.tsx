@@ -1,6 +1,7 @@
 "use client";
 
 import { GlassButton } from "@/app/components/shared/GlassButton";
+import { CodeInset } from "../shared/CodeInset";
 import styles from "./Result.module.css";
 
 interface ResultProps {
@@ -48,7 +49,7 @@ export function Result({ code, onContinue }: ResultProps) {
 
   return (
     <section 
-      className="relative min-h-[calc(100vh-var(--header-height))] w-full flex items-center justify-center overflow-visible py-6 sm:py-8 lg:py-12"
+      className="relative min-h-[calc(100vh-var(--header-height))] w-full flex items-center justify-center overflow-visible py-4 sm:py-8 lg:py-12"
     >
 
       {/* Content */}
@@ -64,13 +65,9 @@ export function Result({ code, onContinue }: ResultProps) {
               קוד העושר שלך
             </h1>
 
-            {/* The Code - Large Display */}
-            <div className="mb-6 sm:mb-8 text-center bg-[rgba(0,0,0,0)]">
-              <div className={["inline-block px-12 py-6 rounded-3xl border-0", styles.codeDisplay].join(" ")}>
-                <div className={styles.codeNumber}>
-                  {code}
-                </div>
-              </div>
+            {/* The Code - Large Inset Card */}
+            <div className="mb-6 sm:mb-8 text-center">
+              <CodeInset code={code} />
             </div>
 
             {/* Code Type */}

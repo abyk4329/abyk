@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { GlassButton } from "@/app/components/shared/GlassButton";
 import { Calculator, MessageCircle, Download, Share2 } from "lucide-react";
+import { CodeInset } from "../shared/CodeInset";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { codeStructures } from "../../data/codeStructures";
 import { digitInterpretations } from "../../data/digitInterpretations";
@@ -109,7 +110,7 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-var(--header-height))] pb-8">
+  <div className="relative min-h-[calc(100vh-var(--header-height))] pb-6 pt-2 sm:pt-4">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-5xl">
         
         {/* Main Card */}
@@ -123,15 +124,9 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
             קוד העושר שלך
           </h1>
           
-          {/* הצגת הקוד */}
+          {/* הצגת הקוד - כרטיסיה שקועה משותפת */}
           <div className="mb-8 sm:mb-10 text-center">
-            <div 
-              className={["inline-block", "px-12", "py-6", "rounded-3xl", "border-0", styles.codeCard].join(" ")}
-            >
-              <div className={styles.codeDisplay}>
-                {code}
-              </div>
-            </div>
+            <CodeInset code={code} />
           </div>
 
           {/* מבוא קבוע */}
