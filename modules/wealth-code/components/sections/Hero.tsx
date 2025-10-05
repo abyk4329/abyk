@@ -1,7 +1,7 @@
 "use client";
 
 import { GlassButton } from "@/app/components/shared/GlassButton";
-import { Sparkles } from "lucide-react";
+import { Calculator } from "lucide-react";
 import styles from "./Hero.module.css";
 
 interface HeroProps {
@@ -27,9 +27,9 @@ export function Hero({ onNavigate }: HeroProps) {
             <div className="relative space-y-4 sm:space-y-5">
               <div className="flex justify-center">
                 <div
-                  className="neuro-icon-default inline-flex h-14 w-14 items-center justify-center rounded-full border-0 transition-all duration-500 sm:h-16 sm:w-16"
+                  className={["inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center", styles.iconInsetWrapper].join(" ")}
                 >
-                  <Sparkles className={["h-7 w-7 sm:h-8 sm:w-8", styles.iconColor].join(" ")} />
+                  <Calculator strokeWidth={1} className={["h-7 w-7 sm:h-8 sm:w-8", styles.iconColor].join(" ")} />
                 </div>
               </div>
 
