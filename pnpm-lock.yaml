@@ -54,6 +54,9 @@ importers:
         specifier: ^3.5.0
         version: 3.5.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     devDependencies:
+      '@eslint/js':
+        specifier: 9.36.0
+        version: 9.36.0
       '@tailwindcss/postcss':
         specifier: ^4.1.14
         version: 4.1.14
