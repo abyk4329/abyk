@@ -21,6 +21,15 @@ export default function Home() {
   const [wealthCode, setWealthCode] = useState<string>("");
   const [isSplashVisible, setIsSplashVisible] = useState<boolean>(true);
 
+  // Views that should be full screen (no vertical scrolling)
+  const fullScreenViews = useMemo(() => new Set<ViewType>(["hero", "calculator", "result"]), []);
+  
+  // Views that should have minimal layout (no header/footer, only bottom navigation)
+  const minimalViews = useMemo(() => new Set<ViewType>(["sales", "interpretations", "thankyou"]), []);
+
+  const isFullScreenView = fullScreenViews.has(currentView);
+  const isMinimalView = minimalViews.has(currentView);
+
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
@@ -198,8 +207,10 @@ export default function Home() {
       onGoBack: handleGoBack,
       onGoForward: handleGoForward,
       onGoHome: handleGoHome,
+      showHeader: !isMinimalView,
+      showFooter: !isMinimalView,
     }),
-    [currentView, canGoBack, canGoForward, handleGoBack, handleGoForward, handleGoHome]
+    [currentView, canGoBack, canGoForward, handleGoBack, handleGoForward, handleGoHome, isMinimalView]
   );
 
   const renderView = () => {
@@ -228,11 +239,10 @@ export default function Home() {
       
       case "interpretations":
         return (
-          <div>
-            {/* Interpretations component needs to return JSX */}
-            <p>Interpretations view for code: {wealthCode}</p>
-            <button onClick={handleResetFlow}>Calculate Another</button>
-          </div>
+          <Interpretations
+            code={wealthCode}
+            onCalculateAnother={handleResetFlow}
+          />
         );
       
       case "thankyou":
@@ -255,17 +265,6 @@ export default function Home() {
         <PageLayout className="space-y-12 pb-12 sm:pb-16 lg:pb-20" maxWidth="xl">
           {renderView()}
         </PageLayout>
-        {navigationOverrides.isVisible && (
-          <nav aria-label="ניווט משני" className="py-6 sm:py-8">
-            <NavigationButtons
-              onGoBack={handleGoBack}
-              onGoForward={handleGoForward}
-              onGoHome={handleGoHome}
-              canGoBack={canGoBack}
-              canGoForward={canGoForward}
-            />
-          </nav>
-        )}
       </div>
     </NavigationProvider>
   );

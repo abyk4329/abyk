@@ -325,8 +325,33 @@
     transform: translateZ(0);
   }
 
+  h4 {
+    font-family: "Assistant", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: 0em;
+    color: var(--brown-bronze);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07),
+      0 2px 4px rgba(255, 255, 255, 0.8), 0 -1px 2px rgba(255, 255, 255, 0.45);
+    transform: translateZ(0);
+  }
+
+  .subheading-h3 {
+    font-family: "Assistant", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: 0em;
+    color: var(--brown-bronze);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07),
+      0 2px 4px rgba(255, 255, 255, 0.8), 0 -1px 2px rgba(255, 255, 255, 0.45);
+    transform: translateZ(0);
+  }
+
   .caption {
     font-size: 16px !important;
+    color: #9f8572 !important;
   }
   .footer-terms-text {
     font-size: 12px;
@@ -347,10 +372,14 @@
       font-size: 32px;
     }
     h4 {
-      font-size: 28px;
+      font-size: 36px;
     }
     h5 {
       font-size: 24px;
+    }
+
+    .subheading-h3 {
+      font-size: 36px;
     }
 
     p,
@@ -365,6 +394,7 @@
 
     .caption {
       font-size: 18px !important;
+      color: #9f8572 !important;
     }
     .footer-terms-text {
       font-size: 12px;
@@ -517,6 +547,21 @@
 .neuro-input::placeholder {
   color: #9f8572;
   opacity: 0.6;
+}
+
+/* Inset Card - Pressed/Sunken Style */
+.neuro-card-inset {
+  background: linear-gradient(145deg, rgb(253, 252, 251), rgb(245, 241, 237));
+  box-shadow: inset 12px 12px 24px rgba(159, 133, 114, 0.15),
+    inset -12px -12px 24px rgba(255, 255, 255, 0.9),
+    1px 1px 3px rgba(159, 133, 114, 0.05);
+  border: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.neuro-card-inset:hover {
+  box-shadow: inset 14px 14px 28px rgba(159, 133, 114, 0.18),
+    inset -14px -14px 28px rgba(255, 255, 255, 0.95),
+    1px 1px 3px rgba(159, 133, 114, 0.08);
 }
 
 /* Legacy Glass Classes (compat) */

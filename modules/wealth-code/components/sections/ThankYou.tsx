@@ -1,7 +1,7 @@
 "use client";
 
 import { GlassButton } from "@/app/components/shared/GlassButton";
-import { Calculator, MessageCircle, Instagram, Mail, Music } from "lucide-react";
+import { Calculator, MessageCircle, Instagram, Mail, Music, Eye } from "lucide-react";
 import styles from "./ThankYou.module.css";
 import { SOCIAL } from "@/lib/constants";
 
@@ -88,6 +88,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
           <div className="space-y-4 mb-8">
             <GlassButton onClick={handleViewInterpretation} className="w-full">
               <div className="flex items-center justify-center gap-2">
+                <Eye className="w-5 h-5" />
                 <span>לצפייה באתר</span>
               </div>
             </GlassButton>

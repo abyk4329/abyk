@@ -35,12 +35,35 @@ export function AppShell({ children }: AppShellProps) {
     return new Set(["/", basePath ?? "/"]);
   }, []);
 
+  // Pages that should show full screen with header/footer only (no vertical scrolling)
+  const fullScreenPages = useMemo(() => {
+    const basePath = normalizePath(WEALTH_BASE);
+    return new Set([
+      "/",
+      basePath ?? "/",
+      `${basePath}/calculator`,
+      `${basePath}/result`,
+    ]);
+  }, []);
+
+  // Pages that should hide header/footer completely, show only minimized navigation
+  const minimalPages = useMemo(() => {
+    const basePath = normalizePath(WEALTH_BASE);
+    return new Set([
+      `${basePath}/sales`,
+      `${basePath}/thankyou`,
+      `${basePath}/interpretations`,
+    ]);
+  }, []);
+
   const normalizedPath = normalizePath(pathname);
   const fallbackPath = normalizePath(WEALTH_BASE);
   const preferredPath = normalizedPath ?? fallbackPath;
   const effectivePath = preferredPath ?? "/";
 
   const isHomePage = homePaths.has(effectivePath);
+  const isFullScreenPage = fullScreenPages.has(effectivePath);
+  const isMinimalPage = minimalPages.has(effectivePath);
   const navigationOverrides = useOptionalNavigationOverrides();
   const {
     onGoBack: goBack,
@@ -49,9 +72,15 @@ export function AppShell({ children }: AppShellProps) {
     canGoBack,
     canGoForward,
     isVisible,
+    showHeader,
+    showFooter,
   } = navigationOverrides ?? {};
   const showNavigation = isVisible ?? true;
   const shouldShowNavigation = showNavigation && (!isHomePage || navigationOverrides);
+
+  // Use navigation overrides for header/footer visibility, fallback to route-based logic
+  const shouldShowHeader = showHeader ?? !isMinimalPage;
+  const shouldShowFooter = showFooter ?? !isMinimalPage;
 
   // Scroll to top on route change
   useEffect(() => {
@@ -77,13 +106,28 @@ export function AppShell({ children }: AppShellProps) {
     <div className="app-shell min-h-[100dvh] w-full">
       <TikTokPixel />
       <div className="safe-top" aria-hidden="true" />
-      <Header isHomePage={isHomePage} />
-      <main className="app-main" role="main">
+      {shouldShowHeader && <Header isHomePage={isHomePage} />}
+      <main className={`app-main ${isFullScreenPage ? 'no-bottom-gap' : ''}`} role="main">
         {children}
       </main>
-      <Footer>
-        {shouldShowNavigation && (
-          <nav aria-label="ניווט משני" className="pb-2 sm:pb-3">
+      {shouldShowFooter && (
+        <Footer>
+          {shouldShowNavigation && (
+            <nav aria-label="ניווט משני" className="pb-2 sm:pb-3">
+              <NavigationButtons
+                onGoBack={goBack}
+                onGoForward={goForward}
+                onGoHome={goHome}
+                canGoBack={canGoBack}
+                canGoForward={canGoForward}
+              />
+            </nav>
+          )}
+        </Footer>
+      )}
+      {!shouldShowFooter && shouldShowNavigation && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-transparent">
+          <nav aria-label="ניווט ממוזער" className="pb-safe-bottom">
             <NavigationButtons
               onGoBack={goBack}
               onGoForward={goForward}
@@ -92,8 +136,8 @@ export function AppShell({ children }: AppShellProps) {
               canGoForward={canGoForward}
             />
           </nav>
-        )}
-      </Footer>
+        </div>
+      )}
       <div className="safe-bottom" aria-hidden="true" />
       <CookieConsent />
     </div>

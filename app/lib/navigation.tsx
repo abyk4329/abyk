@@ -9,6 +9,8 @@ export interface NavigationOverrides {
   canGoForward?: boolean;
   onGoForward?: () => void;
   onGoHome?: () => void;
+  showHeader?: boolean;
+  showFooter?: boolean;
 }
 
 const NavigationContext = createContext<NavigationOverrides | undefined>(undefined);

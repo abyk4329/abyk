@@ -138,9 +138,9 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
           {/* הסבר על מבנה הקוד */}
           {/* Code Display Card */}
           <div
-            className="neuro-card-secondary rounded-2xl p-6 sm:p-8 mb-8 border-0"
+            className="neuro-card-inset rounded-2xl p-6 sm:p-8 mb-8 border-0"
           >
-            <h3 className="mb-4 text-center">
+            <h3 className="mb-4 text-center subheading-h3">
               {codeType === "master" && "קוד מאסטר - כל הספרות זהות"}
               {codeType === "repeating" && "קוד עם ספרות חוזרות - אנרגיות מועצמות"}
               {codeType === "diverse" && "קוד מגוון - כל הספרות שונות"}

@@ -126,7 +126,7 @@ export function WealthReport({ code, userName }: WealthReportProps) {
         <View style={styles.divider} />
 
         <Text style={[styles.footer, { marginTop: 40 }]}>
-          Awakening by Ksenia © 2025{"\n"}
+          © 2025 Awakening by Ksenia{"\n"}
           לשימוש אישי בלבד{"\n"}
           אין להפיץ או למכור מחדש את התוכן ללא אישור מפורש
         </Text>
@@ -142,8 +142,10 @@ export function WealthReport({ code, userName }: WealthReportProps) {
 
         <View style={styles.divider} />
 
-        <Text style={styles.sectionTitle}>יישום הקוד בחיי היומיום</Text>
-        <Text style={styles.paragraph}>{dailyApplication.content}</Text>
+        <Text style={styles.sectionTitle}>{dailyApplication.title}</Text>
+        {dailyApplication.content.split('\n\n').map((paragraph, idx) => (
+          <Text key={idx} style={styles.paragraph}>{paragraph.trim()}</Text>
+        ))}
       </Page>
 
       {/* Full Interpretation for Each Digit - Split across TWO pages */}
@@ -210,7 +212,7 @@ export function WealthReport({ code, userName }: WealthReportProps) {
       <Page size="A4" style={styles.page}>
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
           <Text style={[styles.footer, { textAlign: "center", direction: "rtl" }]}>
-            Awakening by Ksenia © 2025{"\n\n"}
+            © 2025 Awakening by Ksenia{"\n\n"}
             לשימוש אישי בלבד{"\n"}
             אין להפיץ או למכור מחדש את התוכן ללא אישור מפורש
           </Text>

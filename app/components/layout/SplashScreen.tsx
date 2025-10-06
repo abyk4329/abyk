@@ -13,10 +13,8 @@ interface SplashScreenProps {
 }
 
 const ORBS = [
-  { className: styles.orbPrimary, delay: 0, opacityRange: [0.28, 0.58, 0.28] as [number, number, number] },
-  { className: styles.orbSecondary, delay: 0.35, opacityRange: [0.22, 0.5, 0.22] as [number, number, number] },
-  { className: styles.orbTertiary, delay: 0.65, opacityRange: [0.26, 0.6, 0.26] as [number, number, number] },
-  { className: styles.orbQuaternary, delay: 0.95, opacityRange: [0.3, 0.64, 0.3] as [number, number, number] },
+  { className: styles.orbPrimary, delay: 0, opacityRange: [0.4, 0.7, 0.4] as [number, number, number] },
+  { className: styles.orbSecondary, delay: 0.5, opacityRange: [0.35, 0.65, 0.35] as [number, number, number] },
 ] as const;
 
 type HaloRing = {
@@ -27,8 +25,7 @@ type HaloRing = {
 };
 
 const HALO_RINGS: readonly HaloRing[] = [
-  { className: styles.haloRingPrimary, borderOpacity: 0.32, delay: 0.6, duration: 5.8 },
-  { className: styles.haloRingSecondary, borderOpacity: 0.22, delay: 0.9, duration: 6.4 },
+  { className: styles.haloRingPrimary, borderOpacity: 0.25, delay: 0.8, duration: 6.0 },
 ];
 
 export function SplashScreen({ onComplete }: SplashScreenProps) {
@@ -47,13 +44,6 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       transition={{ duration: ANIMATION.splash.fadeOutDuration, ease: "easeInOut", delay: ANIMATION.splash.fadeOutDelay }}
     >
       <div className="absolute inset-0">
-        <motion.div
-          className={["absolute inset-0", styles.lightOverlay].join(" ")}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        />
-
         {ORBS.map((orb, index) => (
           <motion.div
             key={index}

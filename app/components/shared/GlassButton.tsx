@@ -16,22 +16,28 @@ export interface GlassButtonProps
 
 const BASE_CLASSES = cn(
   "group relative inline-flex min-w-[100px] items-center justify-center overflow-hidden rounded-full px-4 py-2",
-  "transition-all duration-300 backdrop-blur-xl touch-manipulation select-none",
+  "transition-all duration-300 touch-manipulation select-none border-0",
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#87674F]",
-  "active:scale-95 active:shadow-inner disabled:cursor-not-allowed disabled:opacity-60",
+  "disabled:cursor-not-allowed disabled:opacity-60",
   "disabled:hover:scale-100 disabled:active:scale-100"
 );
 
 const VARIANT_CLASSES: Record<GlassButtonVariant, string> = {
   primary: cn(
-    "bg-white/20 shadow-[0_8px_32px_rgba(94,73,52,0.2),inset_0_2px_8px_rgba(255,255,255,0.3)]",
-    "hover:bg-white/30 hover:backdrop-blur-2xl hover:shadow-[0_12px_40px_rgba(94,73,52,0.3),inset_0_2px_12px_rgba(255,255,255,0.4)]",
-    "before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-br before:from-white/20 before:to-transparent",
-    "before:opacity-0 before:transition-opacity before:duration-300 before:content-[''] hover:before:opacity-100"
+    "bg-[linear-gradient(145deg,rgb(255,255,255),rgb(248,244,240))]",
+    "shadow-[10px_10px_20px_rgba(159,133,114,0.15),-10px_-10px_20px_rgba(255,255,255,0.9),inset_1px_1px_3px_rgba(255,255,255,0.7)]",
+    "hover:shadow-[12px_12px_24px_rgba(159,133,114,0.18),-12px_-12px_24px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(255,255,255,0.8)]",
+    "hover:transform hover:translate-y-[-2px]",
+    "active:shadow-[inset_5px_5px_10px_rgba(159,133,114,0.15),inset_-5px_-5px_10px_rgba(255,255,255,0.8),1px_1px_3px_rgba(159,133,114,0.08)]",
+    "active:transform active:scale-[0.97] active:translate-y-[1px]"
   ),
   secondary: cn(
-    "bg-white/15 shadow-[0_6px_24px_rgba(94,73,52,0.15),inset_0_1px_4px_rgba(255,255,255,0.25)]",
-    "hover:bg-white/25 hover:shadow-[0_10px_32px_rgba(94,73,52,0.22),inset_0_1px_6px_rgba(255,255,255,0.35)]"
+    "bg-[linear-gradient(145deg,rgb(255,255,255),rgb(248,244,240))]",
+    "shadow-[10px_10px_20px_rgba(159,133,114,0.15),-10px_-10px_20px_rgba(255,255,255,0.9),inset_1px_1px_3px_rgba(255,255,255,0.7)]",
+    "hover:shadow-[12px_12px_24px_rgba(159,133,114,0.18),-12px_-12px_24px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(255,255,255,0.8)]",
+    "hover:transform hover:translate-y-[-2px]",
+    "active:shadow-[inset_5px_5px_10px_rgba(159,133,114,0.15),inset_-5px_-5px_10px_rgba(255,255,255,0.8),1px_1px_3px_rgba(159,133,114,0.08)]",
+    "active:transform active:scale-[0.97] active:translate-y-[1px]"
   ),
 };
 
@@ -47,7 +53,7 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
         className={cn(BASE_CLASSES, VARIANT_CLASSES[variant], className)}
         {...props}
       >
-        <span className="relative z-10 transition-colors duration-300 group-hover:text-[#87674F] group-active:text-[#5e4934]">
+        <span className="relative z-10 transition-colors duration-300 text-[#87674F] font-semibold text-shadow-sm">
           {children}
         </span>
       </button>
