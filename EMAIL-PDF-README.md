@@ -74,7 +74,7 @@ NEXT_PUBLIC_APP_URL="https://abyk.online"
 
 # --- Social Media ---
 NEXT_PUBLIC_INSTAGRAM_HANDLE="@awakening.by.ksenia"
-NEXT_PUBLIC_WHATSAPP_NUMBER="972524616121"
+NEXT_PUBLIC_WHATSAPP_NUMBER="0524616121"
 NEXT_PUBLIC_TIKTOK_HANDLE="@awakening.by.ksenia"
 NEXT_PUBLIC_TIKTOK_PIXEL_ID="D3C3JDBC77UEJB9H374G"
 
@@ -346,7 +346,7 @@ curl -X POST http://localhost:3000/api/send-pdf \
 
 לשאלות או בעיות:
 - 📧 Email: awakening.by.ksenia@gmail.com
-- 📱 WhatsApp: +972524616121
+- 📱 WhatsApp: 052-461-6121
 - 📸 Instagram: @awakening.by.ksenia
 - 🎵 TikTok: @awakening.by.ksenia
 

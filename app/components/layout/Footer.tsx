@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Instagram, Mail } from "lucide-react";
 import { ReactNode } from "react";
 
+import { SOCIAL } from "@/lib/constants";
+
 import styles from "./Footer.module.css";
 
 interface FooterProps {
@@ -14,7 +16,7 @@ export function Footer({ children }: FooterProps = {}) {
   const socialLinks = [
     {
       name: "WhatsApp",
-      href: "https://wa.me/972524616121",
+      href: SOCIAL.whatsapp.url,
       icon: (
         <svg
           viewBox="0 0 24 24"

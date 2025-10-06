@@ -60,14 +60,17 @@
  * Brand & Contact Information
  * ============================================
  */
+const WHATSAPP_LOCAL_NUMBER = "0524616121" as const;
+const WHATSAPP_INTERNATIONAL_NUMBER = "972524616121" as const;
+
 export const BRAND = {
     name: "AWAKENING BY KSENIA",
     tagline: "YOUR PERSONAL SPACE FOR GROWTH",
     taglineHe: "מרחב אישי שמעניק לך כלים פשוטים לחיים מודעים",
     owner: "קסניה אוריה צודנובסקי",
     email: "awakening.by.ksenia@gmail.com",
-    phone: "972524616121",
-    phoneDisplay: "+972-52-461-6121",
+    phone: WHATSAPP_LOCAL_NUMBER,
+    phoneDisplay: "052-461-6121",
     // לוגו לאתר ולאימיילים (תחת public/)
     logo: "/brand/logo-brown.png",
     emailLogo: "/email/logo-email.png",
@@ -80,11 +83,12 @@ export const BRAND = {
  */
 export const SOCIAL = {
     whatsapp: {
-        number: "972524616121",
-        url: "https://wa.me/972524616121",
+        number: WHATSAPP_LOCAL_NUMBER,
+        internationalNumber: WHATSAPP_INTERNATIONAL_NUMBER,
+        url: `https://wa.me/${WHATSAPP_INTERNATIONAL_NUMBER}`,
         messageDefault: "היי, אשמח לתיאום יעוץ אישי",
         getUrl: (message?: string) =>
-            `https://wa.me/972524616121?text=${encodeURIComponent(message || SOCIAL.whatsapp.messageDefault)}`,
+            `https://wa.me/${WHATSAPP_INTERNATIONAL_NUMBER}?text=${encodeURIComponent(message || SOCIAL.whatsapp.messageDefault)}`,
     },
     instagram: {
         handle: "@awakening.by.ksenia",

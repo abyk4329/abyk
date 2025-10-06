@@ -5,7 +5,11 @@
   right: 0;
   z-index: 40;
   padding-bottom: env(safe-area-inset-bottom);
-  background: linear-gradient(145deg, var(--header-surface), var(--header-surface-strong));
+  background: linear-gradient(
+    145deg,
+    var(--header-surface),
+    var(--header-surface-strong)
+  );
   background-color: var(--header-surface);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);

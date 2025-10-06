@@ -3,6 +3,7 @@
 import { GlassButton } from "@/app/components/shared/GlassButton";
 import { Calculator, MessageCircle, Instagram, Mail, Music } from "lucide-react";
 import styles from "./ThankYou.module.css";
+import { SOCIAL } from "@/lib/constants";
 
 interface ThankYouProps {
   onViewInterpretations: () => void;
@@ -22,9 +23,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
   };
 
   const handleConsultation = () => {
-    const whatsappNumber = "972524616121";
-    const message = encodeURIComponent("היי, אשמח לתיאום יעוץ אישי");
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+    window.open(SOCIAL.whatsapp.getUrl(), '_blank');
   };
 
   // Social Links - קישורים לעמודים שלי
@@ -41,9 +40,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
   };
 
   const handleGoToWhatsApp = () => {
-    const whatsappNumber = "972524616121";
-    const message = encodeURIComponent("היי, אשמח לתיאום יעוץ אישי");
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+    window.open(SOCIAL.whatsapp.getUrl(), '_blank');
   };
 
   // Share function - כפתור השיתוף היחיד שמשתף את האתר

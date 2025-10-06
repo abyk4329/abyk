@@ -237,7 +237,7 @@ docker run -p 3000:3000 abyk
 - 🌐 Website: [abyk.online](https://abyk.online)
 - 📸 Instagram: [@awakening.by.ksenia](https://instagram.com/awakening.by.ksenia)
 - 🎵 TikTok: [@awakening.by.ksenia](https://tiktok.com/@awakening.by.ksenia)
-- 💬 WhatsApp: [+972524616121](https://wa.me/972524616121)
+- 💬 WhatsApp: [052-461-6121](https://wa.me/972524616121)
 
 ## 📄 License
 

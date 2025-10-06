@@ -196,9 +196,9 @@ function generateWealthContent(data: WealthEmailData): string {
     const calculatorUrl = normalizedShareUrl;
     const shareButtonUrl = normalizedShareUrl;
     const whatsappConsultation =
-        "https://wa.me/972544490440?text=היי%20קסניה%2C%20אשמח%20לתיאום%20יעוץ%20אישי";
+        "https://wa.me/972524616121?text=היי%20קסניה%2C%20אשמח%20לתיאום%20יעוץ%20אישי";
 
-  const BTN_BASE = "display:block;width:100%;max-width:480px;margin:0 auto 14px;text-decoration:none;border-radius:9999px;font-family:'Assistant', Arial, sans-serif;font-size:17px;line-height:1.35;padding:15px 20px;font-weight:700;text-align:center;letter-spacing:0.02em;border:1px solid #efe9e3;box-sizing:border-box;";
+    const BTN_BASE = "display:block;width:100%;max-width:480px;margin:0 auto 14px;text-decoration:none;border-radius:9999px;font-family:'Assistant', Arial, sans-serif;font-size:17px;line-height:1.35;padding:15px 20px;font-weight:700;text-align:center;letter-spacing:0.02em;border:1px solid #efe9e3;box-sizing:border-box;";
     const PRIMARY_BTN_STYLE = BTN_BASE + "background:linear-gradient(145deg,#ffffff,#f8f4f0);color:#5e4934;box-shadow:0 6px 16px rgba(159,133,114,0.15),inset 0 1px 0 rgba(255,255,255,0.8);";
     const SECONDARY_BTN_STYLE = BTN_BASE + "background:linear-gradient(145deg,#f5f1ed,#fdfcfb);color:#5e4934;box-shadow:inset 0 1px 0 rgba(255,255,255,0.8);";
 

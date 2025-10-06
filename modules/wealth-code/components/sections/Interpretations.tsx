@@ -9,6 +9,7 @@ import { codeStructures } from "../../data/codeStructures";
 import { digitInterpretations } from "../../data/digitInterpretations";
 import { dailyApplication } from "../../data/dailyApplication";
 import styles from "./Interpretations.module.css";
+import { SOCIAL } from "@/lib/constants";
 
 interface InterpretationsProps {
   code: string;
@@ -97,9 +98,7 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
   };
 
   const handleConsultation = () => {
-    const whatsappNumber = "972524616121";
-    const message = encodeURIComponent("היי, אשמח לתיאום יעוץ אישי");
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+    window.open(SOCIAL.whatsapp.getUrl(), "_blank");
   };
 
   const handleShare = () => {

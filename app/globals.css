@@ -676,7 +676,10 @@
   padding-bottom: calc(
     180px + env(safe-area-inset-bottom)
   ); /* Reserve space for fixed footer with navigation */
-  min-height: calc(100dvh - var(--header-height) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  min-height: calc(
+    100dvh - var(--header-height) - env(safe-area-inset-top) -
+      env(safe-area-inset-bottom)
+  );
 }
 
 @media (min-width: 640px) {
