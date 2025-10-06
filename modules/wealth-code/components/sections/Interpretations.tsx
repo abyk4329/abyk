@@ -10,6 +10,7 @@ import { digitInterpretations } from "../../data/digitInterpretations";
 import { dailyApplication } from "../../data/dailyApplication";
 import styles from "./Interpretations.module.css";
 import { SOCIAL } from "@/lib/constants";
+import { publicEnv } from "@/lib/env";
 
 interface InterpretationsProps {
   code: string;
@@ -96,22 +97,19 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
   const handleCalculateAnother = () => {
     onCalculateAnother();
   };
-
   const handleConsultation = () => {
     window.open(SOCIAL.whatsapp.getUrl(), "_blank");
   };
 
-import { publicEnv } from "@/lib/env";
-
-const handleShare = () => {
-  const shareUrl = publicEnv.appUrl || "https://abyk.online/";
-  const shareText = "גלו את קוד העושר הנומרולוגי שלכם! מסע מרתק להכרה עצמית וצמיחה אישית";
-  const message = encodeURIComponent(`${shareText}\n${shareUrl}`);
-  window.open(`https://wa.me/?text=${message}`, '_blank');
-};
+  const handleShare = () => {
+    const shareUrl = publicEnv.appUrl || "https://abyk.online/";
+    const shareText = "גלו את קוד העושר הנומרולוגי שלכם! מסע מרתק להכרה עצמית וצמיחה אישית";
+    const message = encodeURIComponent(`${shareText}\n${shareUrl}`);
+    window.open(`https://wa.me/?text=${message}`, '_blank');
+  };
 
   return (
-  <div className="relative min-h-[calc(100vh-var(--header-height))] pb-6 pt-2 sm:pt-4">
+    <div className="relative min-h-[calc(100vh-var(--header-height))] pb-6 pt-2 sm:pt-4">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-5xl">
         
         {/* Main Card */}
@@ -138,7 +136,7 @@ const handleShare = () => {
           </div>
 
           {/* הסבר על מבנה הקוד */}
-                    {/* Code Display Card */}
+          {/* Code Display Card */}
           <div
             className="neuro-card-secondary rounded-2xl p-6 sm:p-8 mb-8 border-0"
           >

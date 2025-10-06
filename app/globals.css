@@ -325,15 +325,14 @@
     transform: translateZ(0);
   }
 
-    .caption {
-      font-size: 16px !important;
-    }
-    .footer-terms-text {
-      font-size: 12px;
-    }
-    .footer-copyright-text {
-      font-size: 11px;
-    }
+  .caption {
+    font-size: 16px !important;
+  }
+  .footer-terms-text {
+    font-size: 12px;
+  }
+  .footer-copyright-text {
+    font-size: 11px;
   }
 
   /* Desktop - 1024px and up */
@@ -639,6 +638,7 @@
   body.pdf-rendering div:not([class*="badge"]):not([class*="alert"]) {
     color: rgb(71, 59, 49) !important;
   }
+}
 
 /* ============================================
    Utilities (custom)

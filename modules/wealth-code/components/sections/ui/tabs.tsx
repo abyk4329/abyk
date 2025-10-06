@@ -12,8 +12,25 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 
-const cn = (...values: Array<string | false | undefined | null>) =>
-  values.filter(Boolean).join(" ");
+const cn = (...classes: (string | string[] | Record<string, boolean> | undefined | null | false)[]): string => {
+  const result: string[] = [];
+
+  for (const cls of classes) {
+    if (!cls) continue;
+
+    if (typeof cls === 'string') {
+      result.push(cls);
+    } else if (Array.isArray(cls)) {
+      result.push(...cls.filter(Boolean));
+    } else if (typeof cls === 'object') {
+      for (const [key, value] of Object.entries(cls)) {
+        if (value) result.push(key);
+      }
+    }
+  }
+
+  return result.join(' ');
+};
 
 const getTriggerId = (baseId: string, value: string) => `${baseId}-tab-trigger-${value}`;
 const getPanelId = (baseId: string, value: string) => `${baseId}-tab-panel-${value}`;
@@ -96,6 +113,7 @@ export function TabsList({ children, className, ...rest }: TabsListProps) {
     <div
       role="tablist"
       className={className}
+      aria-orientation="horizontal"
       {...rest}
     >
       {children}
@@ -115,7 +133,6 @@ export function TabsTrigger({ value, children, className, ...rest }: TabsTrigger
   const panelId = getPanelId(baseId, value);
 
   const handleKeyDown = (e: ReactKeyboardEvent<HTMLButtonElement>) => {
-    // Get all tab triggers in the same TabsList
     const tablist = e.currentTarget.closest('[role="tablist"]');
     if (!tablist) return;
     
@@ -137,13 +154,21 @@ export function TabsTrigger({ value, children, className, ...rest }: TabsTrigger
     } else if (e.key === 'End') {
       e.preventDefault();
       nextIndex = triggers.length - 1;
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setValue(value);
+      return;
     } else {
       return;
     }
     
     const nextTrigger = triggers[nextIndex];
     nextTrigger.focus();
-    nextTrigger.click();
+    // Use the value from the component props instead of DOM attribute
+    const nextValue = nextTrigger.getAttribute('data-value');
+    if (nextValue) {
+      setValue(nextValue);
+    }
   };
 
   return (
@@ -151,9 +176,10 @@ export function TabsTrigger({ value, children, className, ...rest }: TabsTrigger
       type="button"
       role="tab"
       id={triggerId}
-      aria-selected={isActive}
+      aria-selected={isActive ? "true" : "false"}
       aria-controls={panelId}
       data-state={isActive ? "active" : "inactive"}
+      data-value={value}
       className={cn("outline-none", className)}
       onClick={() => setValue(value)}
       onKeyDown={handleKeyDown}
@@ -184,6 +210,7 @@ export function TabsContent({ value, children, className, ...rest }: TabsContent
       aria-hidden={isActive ? undefined : true}
       hidden={!isActive}
       data-state={isActive ? "active" : "inactive"}
+      tabIndex={isActive ? 0 : -1}
       className={className}
       {...rest}
     >

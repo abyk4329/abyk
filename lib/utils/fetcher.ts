@@ -19,7 +19,7 @@ export class FetchError extends Error {
 export async function fetcher<T = any>(
     url: string,
     options?: RequestInit
-): Promise<T> {
+): Promise<T | null> {
     try {
         const response = await fetch(url, options);
 
@@ -32,25 +32,50 @@ export async function fetcher<T = any>(
             );
         }
 
-        export async function fetcher<T = any>(
-            url: string,
-            options?: RequestInit
-        ): Promise<T | null> {
-            // If response is empty (204 No Content)
-            if (response.status === 204) {
-                return null as T;
-            }
-            // …rest of implementation…
+        // If response is empty (204 No Content or 205 Reset Content)
+        if (response.status === 204 || response.status === 205) {
+            return null;
         }
 
         const contentType = response.headers.get("content-type");
 
-        // Parse JSON
-        if (contentType?.includes("application/json")) {
-            return await response.json();
+        // Handle empty response body
+        const contentLength = response.headers.get("content-length");
+        if (contentLength === "0") {
+            return null;
         }
 
-        // Return text for non-JSON responses
+        // Parse JSON
+        if (contentType?.includes("application/json")) {
+            const text = await response.text();
+            if (!text.trim()) {
+                return null;
+            }
+            try {
+                return JSON.parse(text);
+            } catch (parseError) {
+                throw new FetchError(
+                    response.status,
+                    "Invalid JSON",
+                    "Response contains invalid JSON"
+                );
+            }
+        }
+
+        // Handle other content types
+        if (contentType?.includes("text/")) {
+            return (await response.text()) as T;
+        }
+
+        // For binary data or unknown content types, return as blob
+        if (contentType?.includes("application/octet-stream") || 
+            contentType?.includes("image/") || 
+            contentType?.includes("video/") || 
+            contentType?.includes("audio/")) {
+            return (await response.blob()) as T;
+        }
+
+        // Default: try to parse as text
         return (await response.text()) as T;
     } catch (error) {
         if (error instanceof FetchError) {
@@ -65,7 +90,7 @@ export async function fetcher<T = any>(
 /**
  * GET request
  */
-export async function get<T = any>(url: string): Promise<T> {
+export async function get<T = any>(url: string): Promise<T | null> {
     return fetcher<T>(url, { method: "GET" });
 }
 
@@ -75,7 +100,7 @@ export async function get<T = any>(url: string): Promise<T> {
 export async function post<T = any>(
     url: string,
     data?: any
-): Promise<T> {
+): Promise<T | null> {
     return fetcher<T>(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -89,7 +114,7 @@ export async function post<T = any>(
 export async function put<T = any>(
     url: string,
     data?: any
-): Promise<T> {
+): Promise<T | null> {
     return fetcher<T>(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -100,7 +125,7 @@ export async function put<T = any>(
 /**
  * DELETE request
  */
-export async function del<T = any>(url: string): Promise<T> {
+export async function del<T = any>(url: string): Promise<T | null> {
     return fetcher<T>(url, { method: "DELETE" });
 }
 
