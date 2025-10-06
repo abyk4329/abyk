@@ -52,6 +52,7 @@ export const EMAIL_HEADER_STYLES = `
     color: #5e4934;
     margin-bottom: 4px;
     text-transform: uppercase;
+    text-align: center;
   }
   
   .header-subtitle {
@@ -61,6 +62,7 @@ export const EMAIL_HEADER_STYLES = `
     letter-spacing: 0.13em;
     color: #9f8572;
     text-transform: uppercase;
+    text-align: center;
   }
 `;
 
@@ -211,6 +213,7 @@ export const EMAIL_FOOTER_STYLES = `
     color: #87674F;
     line-height: 1.6;
     margin-bottom: 12px;
+    text-align: center;
   }
   
   .footer-link {

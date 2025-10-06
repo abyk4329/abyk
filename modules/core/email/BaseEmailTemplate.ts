@@ -128,10 +128,10 @@ export function generateBaseEmail(options: BaseEmailOptions): string {
         
         <!-- Footer -->
         <div class="footer">
-            <p class="footer-text">
+            <p class="footer-text" style="text-align: center;">
                 <a href="${BRAND.siteUrl}/#/terms-privacy" class="footer-link">תנאי שימוש ומדיניות פרטיות</a>
             </p>
-            <p class="footer-text" style="margin-top: 16px; font-size: 12px; color: #9f8572;">
+            <p class="footer-text" style="margin-top: 16px; font-size: 12px; color: #9f8572; text-align: center;">
                 מייל זה נשלח אליך כי ביצעת רכישה באתר שלנו.<br>
                 לשאלות ובירורים: ${BRAND.ownerEmail}
             </p>
