@@ -208,16 +208,6 @@ export function WealthReport({ code, userName }: WealthReportProps) {
         );
       })}
 
-      {/* Footer Page with Copyright */}
-      <Page size="A4" style={styles.page}>
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <Text style={[styles.footer, { textAlign: "center", direction: "rtl" }]}>
-            © 2025 Awakening by Ksenia{"\n\n"}
-            לשימוש אישי בלבד{"\n"}
-            אין להפיץ או למכור מחדש את התוכן ללא אישור מפורש
-          </Text>
-        </View>
-      </Page>
     </Document>
   );
 }
