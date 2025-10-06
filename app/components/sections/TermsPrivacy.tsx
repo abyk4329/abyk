@@ -1,24 +1,26 @@
 import styles from './TermsPrivacy.module.css';
+import { NavigationProvider } from "@/app/lib/navigation";
 
 export function TermsPrivacy() {
   return (
-    <div className="relative min-h-[calc(100vh-var(--header-height))] pb-8">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-4xl">
-        {/* Header */}
-        <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-[0_4px_24px_0_rgba(94,73,52,0.12),inset_0_1px_3px_0_rgba(255,255,255,0.4)] p-8 sm:p-12 mb-8">
-          <h1 className={["mb-4", "text-center", styles.tightLineHeight].join(" ")}>
-            תנאי שימוש ומדיניות פרטיות
-          </h1>
-          <p className={["caption", "text-center", "mb-2", styles.tightLineHeight].join(" ")}>
-            Awakening by Ksenia
-          </p>
-          <p className={["caption", "text-center", styles.tightLineHeight].join(" ")}>
-            תאריך עדכון אחרון: 01.10.2025
-          </p>
-          <p className={["caption", "text-center", styles.tightLineHeight].join(" ")}>
-            נכנסו לתוקף בתאריך: 26.09.2025
-          </p>
-        </div>
+    <NavigationProvider value={{ showHeader: false, showFooter: false }}>
+      <div className="relative min-h-[calc(100vh-var(--header-height))] pb-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-4xl">
+          {/* Header */}
+          <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-[0_4px_24px_0_rgba(94,73,52,0.12),inset_0_1px_3px_0_rgba(255,255,255,0.4)] p-8 sm:p-12 mb-8">
+            <h1 className={["mb-4", "text-center", styles.tightLineHeight].join(" ")}>
+              תנאי שימוש ומדיניות פרטיות
+            </h1>
+            <p className={["caption", "text-center", "mb-2", styles.tightLineHeight].join(" ")}>
+              Awakening by Ksenia
+            </p>
+            <p className={["caption", "text-center", styles.tightLineHeight].join(" ")}>
+              תאריך עדכון אחרון: 01.10.2025
+            </p>
+            <p className={["caption", "text-center", styles.tightLineHeight].join(" ")}>
+              נכנסו לתוקף בתאריך: 26.09.2025
+            </p>
+          </div>
 
         {/* Terms of Service */}
         <section className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-[0_4px_24px_0_rgba(94,73,52,0.12),inset_0_1px_3px_0_rgba(255,255,255,0.4)] p-6 sm:p-8 mb-6">
@@ -34,7 +36,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 1. אופי השירות
               </h3>
               <div className={["space-y-2", "text-right", styles.tightLineHeight].join(" ")}>
@@ -45,7 +47,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 2. רכישה ואספקה
               </h3>
               <div className={["space-y-2", "text-right", styles.tightLineHeight].join(" ")}>
@@ -55,7 +57,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 3. זכויות יוצרים
               </h3>
               <div className={["space-y-2", "text-right", styles.tightLineHeight].join(" ")}>
@@ -65,7 +67,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 4. אחריות מוגבלת
               </h3>
               <div className={["space-y-2", "text-right", styles.tightLineHeight].join(" ")}>
@@ -76,7 +78,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 5. דין וסמכות שיפוט
               </h3>
               <div className={["space-y-2", "text-right", styles.tightLineHeight].join(" ")}>
@@ -86,7 +88,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 6. יצירת קשר
               </h3>
               <p className={["text-right", styles.tightLineHeight].join(" ")}>
@@ -107,7 +109,7 @@ export function TermsPrivacy() {
           
           <div className="space-y-6">
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 1. זהות האחראית על המידע
               </h3>
               <p className={["text-right", "mb-2", styles.tightLineHeight].join(" ")}>
@@ -122,7 +124,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 2. סוגי המידע הנאסף
               </h3>
               <div className={["space-y-2", "text-right", styles.tightLineHeight].join(" ")}>
@@ -132,7 +134,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 3. מטרות השימוש במידע
               </h3>
               <div className={["space-y-2", "text-right", styles.tightLineHeight].join(" ")}>
@@ -144,7 +146,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 4. שימוש בעוגיות (Cookies)
               </h3>
               <div className={["space-y-2", "text-right", styles.tightLineHeight].join(" ")}>
@@ -156,7 +158,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 5. פיקסל TikTok
               </h3>
               <div className={["space-y-2", "text-right", styles.tightLineHeight].join(" ")}>
@@ -168,7 +170,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 6. שיתוף מידע עם צדדים שלישיים
               </h3>
               <div className={["space-y-2", "text-right", styles.tightLineHeight].join(" ")}>
@@ -179,7 +181,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 7. אבטחת מידע
               </h3>
               <p className={["text-right", styles.tightLineHeight].join(" ")}>
@@ -188,7 +190,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 8. תקופת שמירת מידע
               </h3>
               <p className={["text-right", styles.tightLineHeight].join(" ")}>
@@ -197,7 +199,7 @@ export function TermsPrivacy() {
             </div>
 
             <div className="backdrop-blur-xl bg-white/15 rounded-xl p-4 sm:p-6 shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.3),0_2px_8px_0_rgba(94,73,52,0.08)]">
-              <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+              <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
                 9. זכויות המשתמש/ת
               </h3>
               <div className={["space-y-2", "text-right", "mb-4", styles.tightLineHeight].join(" ")}>
@@ -217,7 +219,7 @@ export function TermsPrivacy() {
 
         {/* Updates Notice */}
         <section className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-[0_4px_24px_0_rgba(94,73,52,0.12),inset_0_1px_3px_0_rgba(255,255,255,0.4)] p-6 sm:p-8">
-          <h3 className={["mb-3", "text-right", styles.tightLineHeight].join(" ")}>
+          <h3 className={["mb-3", "text-right", styles.subheading].join(" ")}>
             עדכוני מדיניות
           </h3>
           <p className={["text-right", styles.tightLineHeight].join(" ")}>
@@ -227,5 +229,6 @@ export function TermsPrivacy() {
 
       </div>
     </div>
+    </NavigationProvider>
   );
 }
