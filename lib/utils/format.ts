@@ -8,6 +8,10 @@
 export function formatDate(date: Date | string): string {
     const d = typeof date === "string" ? new Date(date) : date;
 
+    if (isNaN(d.getTime())) {
+        throw new Error("Invalid date provided");
+    }
+
     return new Intl.DateTimeFormat("he-IL", {
         year: "numeric",
         month: "long",
@@ -20,6 +24,10 @@ export function formatDate(date: Date | string): string {
  */
 export function formatDateTime(date: Date | string): string {
     const d = typeof date === "string" ? new Date(date) : date;
+
+    if (isNaN(d.getTime())) {
+        throw new Error("Invalid date provided");
+    }
 
     return new Intl.DateTimeFormat("he-IL", {
         year: "numeric",
@@ -145,7 +153,7 @@ export function delay(ms: number): Promise<void> {
  * גנרציה של ID ייחודי
  */
 export function generateId(): string {
-    return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 }
 
 /**

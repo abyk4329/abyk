@@ -23,6 +23,10 @@ export async function POST(req: Request) {
         const code = typeof payload.code === "string" ? payload.code.trim() : undefined;
         const userName = typeof payload.userName === "string" ? payload.userName.trim() : "";
 
+        if (!code || code.length !== 4 || !/^\d{4}$/.test(code)) {
+            return NextResponse.json({ ok: false, error: "Invalid code" }, { status: 400 });
+        }
+
         if (!code || code.length !== 4) {
             return NextResponse.json({ ok: false, error: "Invalid code" }, { status: 400 });
         }

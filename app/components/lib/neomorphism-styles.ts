@@ -37,7 +37,7 @@ const applyShadow = (element: HTMLElement, value?: string) => {
 export const getBoxShadow = (value: string | string[] | undefined): string => {
     if (!value) return '';
     if (typeof value === 'string') return value;
-    return String(value);
+    return Array.isArray(value) ? value.join(', ') : String(value);
 };
 
 export const createHoverHandlers = (

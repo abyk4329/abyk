@@ -29,7 +29,7 @@ let fontsRegistered = false;
 export function registerHebrewFonts(opts: HebrewFontOptions = {}) {
     if (fontsRegistered) return;
 
-    const fontsDir = path.join(process.cwd(), "public", "fonts", "Assistant ", "static");
+    const fontsDir = path.join(process.cwd(), "public", "fonts", "Assistant", "static");
 
     // Register Assistant font family with all available weights (200-800)
     const weights = [

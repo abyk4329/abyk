@@ -4,6 +4,18 @@
 
 function normalizeHexColor(hex: string): string {
     const value = hex.trim();
+    const withoutHash = value.startsWith("#") ? value.slice(1) : value;
+
+    // Validate hex characters
+    if (!/^[0-9A-Fa-f]+$/.test(withoutHash)) {
+        throw new Error(`Invalid hex color: ${hex}`);
+    }
+
+    // Validate length
+    if (withoutHash.length !== 3 && withoutHash.length !== 6) {
+        throw new Error(`Invalid hex color length: ${hex}`);
+    }
+
     if (value.startsWith("#")) {
         return value.length === 4
             ? `#${value[1]}${value[1]}${value[2]}${value[2]}${value[3]}${value[3]}`
@@ -11,8 +23,8 @@ function normalizeHexColor(hex: string): string {
     }
 
     const expanded = value.length === 3
-        ? `${value[0]}${value[0]}${value[1]}${value[1]}${value[2]}${value[2]}`
-        : value;
+        ? `${withoutHash[0]}${withoutHash[0]}${withoutHash[1]}${withoutHash[1]}${withoutHash[2]}${withoutHash[2]}`
+        : withoutHash;
 
     return `#${expanded.toUpperCase()}`;
 }

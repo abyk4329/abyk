@@ -307,7 +307,7 @@
     font-weight: 700;
     line-height: 0.9;
     letter-spacing: 0em;
-    color: #5e4934;
+    color: var(--brown-heading);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08),
       0 2px 4px rgba(255, 255, 255, 0.85), 0 -1px 2px rgba(255, 255, 255, 0.5);
     transform: translateZ(0);
@@ -319,107 +319,11 @@
     font-weight: 800;
     line-height: 0.9;
     letter-spacing: 0em;
-    color: #87674f;
+    color: var(--brown-bronze);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07),
       0 2px 4px rgba(255, 255, 255, 0.8), 0 -1px 2px rgba(255, 255, 255, 0.45);
     transform: translateZ(0);
   }
-
-  h3 {
-    font-family: "Assistant", sans-serif;
-    font-size: 22px;
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: 0em;
-    color: #87674f;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06),
-      0 2px 4px rgba(255, 255, 255, 0.75), 0 -1px 2px rgba(255, 255, 255, 0.4);
-    transform: translateZ(0);
-  }
-
-  h4 {
-    font-family: "Assistant", sans-serif;
-    font-size: 20px;
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: 0em;
-    color: #87674f;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
-      0 2px 3px rgba(255, 255, 255, 0.7), 0 -1px 1px rgba(255, 255, 255, 0.35);
-    transform: translateZ(0);
-  }
-
-  h5 {
-    font-family: "Assistant", sans-serif;
-    font-size: 18px;
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: 0em;
-    color: #9f8572;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  }
-
-  /* Body Text */
-  p,
-  label,
-  input,
-  textarea {
-    font-family: "Assistant", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: 0em;
-    color: #473b31;
-    text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.04);
-  }
-
-  button {
-    font-family: "Assistant", sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: 0em;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06),
-      0 2px 3px rgba(255, 255, 255, 0.75), 0 -1px 1px rgba(255, 255, 255, 0.4);
-    transform: translateZ(0);
-  }
-
-  /* Caption Style */
-  .caption {
-    font-family: "Assistant", sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    line-height: 1.1 !important;
-    letter-spacing: 0.13em !important;
-    color: #9f8572 !important;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) !important;
-  }
-
-  /* Footer Text Styles */
-  .footer-terms-text {
-    font-size: 14px;
-  }
-  .footer-copyright-text {
-    font-size: 14px;
-  }
-
-  /* Tablet - 640px and up */
-  @media (min-width: 640px) {
-    h1 {
-      font-size: 36px;
-    }
-    h2 {
-      font-size: 30px;
-    }
-    h3 {
-      font-size: 26px;
-    }
-    h4 {
-      font-size: 24px;
-    }
-    h5 {
-      font-size: 20px;
-    }
 
     .caption {
       font-size: 16px !important;
@@ -729,65 +633,12 @@
    PDF Rendering Mode Overrides
    ============================================ */
 @layer base {
-  /* Remove backdrop filters and use solid backgrounds for PDF */
-  body.pdf-rendering .neuro-card-main,
-  body.pdf-rendering .glass-card-main,
-  .pdf-rendering.neuro-card-main,
-  .pdf-rendering .neuro-card-main {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: rgb(253, 252, 251) !important;
-    border: 2px solid rgb(211, 198, 189) !important;
-    box-shadow: 0 4px 12px rgba(94, 73, 52, 0.15) !important;
-  }
-
-  body.pdf-rendering .neuro-card-secondary,
-  body.pdf-rendering .glass-card-secondary,
-  .pdf-rendering.neuro-card-secondary,
-  .pdf-rendering .neuro-card-secondary {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: rgb(245, 241, 237) !important;
-    border: 1px solid rgb(211, 198, 189) !important;
-    box-shadow: 0 2px 8px rgba(94, 73, 52, 0.1) !important;
-  }
-
-  /* Remove ALL backdrop filters in PDF mode */
-  body.pdf-rendering *,
-  .pdf-rendering * {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  /* Override transparent backgrounds */
-  body.pdf-rendering [class*="bg-white/"] {
-    background: rgb(255, 255, 255) !important;
-  }
-
   /* Force RGB colors (avoid oklab) */
-  body.pdf-rendering * {
+  body.pdf-rendering p,
+  body.pdf-rendering span,
+  body.pdf-rendering div:not([class*="badge"]):not([class*="alert"]) {
     color: rgb(71, 59, 49) !important;
   }
-  body.pdf-rendering h1 {
-    color: rgb(94, 73, 52) !important;
-  }
-  body.pdf-rendering h2,
-  body.pdf-rendering h3,
-  body.pdf-rendering h4 {
-    color: rgb(135, 103, 79) !important;
-  }
-  body.pdf-rendering .caption {
-    color: rgb(159, 133, 114) !important;
-  }
-
-  /* Simplify shadows for PDF */
-  body.pdf-rendering .neuro-card-main,
-  body.pdf-rendering .neuro-card-secondary,
-  body.pdf-rendering .neuro-button,
-  body.pdf-rendering .neuro-input {
-    box-shadow: 0 4px 12px rgba(94, 73, 52, 0.15) !important;
-  }
-}
 
 /* ============================================
    Utilities (custom)

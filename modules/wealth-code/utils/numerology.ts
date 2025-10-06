@@ -144,7 +144,7 @@ export function calculateWealthCode(input: NumerologyInput): NumerologyCalculati
     const total = name.reduced + birth.reduced;
     const code = reduceNumber(total);
 
-    const codeLabel = MASTER_NUMBERS.has(code) ? `${code}` : code === 0 ? "0" : code.toString();
+    const codeLabel = formatCodeLabel(code);
 
     const breakdown: string[] = [];
     if (input.fullName) {

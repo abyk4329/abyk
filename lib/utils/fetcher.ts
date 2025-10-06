@@ -32,9 +32,15 @@ export async function fetcher<T = any>(
             );
         }
 
-        // If response is empty (204 No Content)
-        if (response.status === 204) {
-            return null as T;
+        export async function fetcher<T = any>(
+            url: string,
+            options?: RequestInit
+        ): Promise<T | null> {
+            // If response is empty (204 No Content)
+            if (response.status === 204) {
+                return null as T;
+            }
+            // …rest of implementation…
         }
 
         const contentType = response.headers.get("content-type");
@@ -105,6 +111,10 @@ export async function downloadFile(
     url: string,
     filename: string
 ): Promise<void> {
+    if (typeof window === "undefined" || typeof document === "undefined") {
+        throw new Error("downloadFile can only be used in browser environments");
+    }
+
     try {
         const response = await fetch(url);
 

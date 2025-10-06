@@ -148,6 +148,10 @@ export default function Home() {
 
   const handleGoBack = useCallback(() => {
     if (currentIndex <= 0) {
+      // Already at hero, no need to reset
+      if (currentView === "hero") {
+        return;
+      }
       goTo("hero");
       setWealthCode("");
       return;
