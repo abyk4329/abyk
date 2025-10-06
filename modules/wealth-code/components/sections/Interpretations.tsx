@@ -119,7 +119,7 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
         >
           
           {/* קוד העושר */}
-          <h1 className="mb-8 sm:mb-10 text-center">
+          <h1 className={["mb-8 sm:mb-10 text-center", styles.mainHeading].join(" ")}>
             קוד העושר שלך
           </h1>
           

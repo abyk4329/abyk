@@ -1,5 +1,11 @@
 /* Interpretations Component Styles */
 
+/* Main Heading Color */
+.mainHeading {
+  color: #5e4934;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
 /* Text Line Height */
 .tightLineHeight {
   line-height: 1;
