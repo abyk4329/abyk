@@ -9,9 +9,143 @@
   color: #9f8572;
 }
 
-/* Input - static styles */
-.input {
+/* Input grid helpers */
+.inputGrid {
+  align-items: flex-end;
+}
+
+.inputField {
+  appearance: none;
+  height: 3.5rem;
+  min-height: 3.5rem;
+  border-radius: 22px;
+  padding: 0 1rem;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(248, 244, 240, 0.88)
+  );
+  box-shadow: inset 4px 4px 8px rgba(159, 133, 114, 0.16),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.92);
+  border: none;
   color: #473b31;
-  direction: ltr;
-  text-align: left;
+  text-align: center;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.inputField::placeholder {
+  color: rgba(135, 103, 79, 0.6);
+  text-transform: uppercase;
+}
+
+.inputField:focus-visible {
+  outline: 2px solid rgba(135, 103, 79, 0.35);
+  outline-offset: 3px;
+  box-shadow: inset 5px 5px 10px rgba(159, 133, 114, 0.2),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.95);
+}
+
+.inputField:active {
+  transform: translateY(1px);
+}
+
+@media (min-width: 640px) {
+  .inputField {
+    height: 3.75rem;
+    min-height: 3.75rem;
+    font-size: 1.05rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .inputField {
+    height: 4rem;
+    min-height: 4rem;
+    font-size: 1.1rem;
+  }
+}
+
+.buttonGroup {
+  align-items: stretch;
+}
+
+.primaryButton,
+.secondaryButton {
+  border: none;
+  border-radius: 9999px;
+  padding: 0.85rem 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  touch-action: manipulation;
+  font-size: 0.95rem;
+}
+
+.primaryButton {
+  background: linear-gradient(145deg, #b89274, #87674f);
+  color: #fffaf4;
+  box-shadow: 10px 10px 20px rgba(159, 133, 114, 0.22),
+    -10px -10px 20px rgba(255, 255, 255, 0.95);
+}
+
+.primaryButton:hover,
+.primaryButton:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 12px 12px 26px rgba(159, 133, 114, 0.25),
+    -12px -12px 26px rgba(255, 255, 255, 1);
+}
+
+.primaryButton:focus-visible {
+  outline: 2px solid rgba(135, 103, 79, 0.45);
+  outline-offset: 3px;
+}
+
+.primaryButton:active {
+  transform: translateY(1px);
+}
+
+.secondaryButton {
+  background: linear-gradient(
+    145deg,
+    rgba(253, 252, 251, 0.75),
+    rgba(245, 241, 237, 0.68)
+  );
+  color: #5e4934;
+  box-shadow: inset 5px 5px 12px rgba(159, 133, 114, 0.16),
+    inset -5px -5px 12px rgba(255, 255, 255, 0.92);
+}
+
+.secondaryButton:hover,
+.secondaryButton:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: inset 6px 6px 14px rgba(159, 133, 114, 0.18),
+    inset -6px -6px 14px rgba(255, 255, 255, 0.95);
+}
+
+.secondaryButton:focus-visible {
+  outline: 2px solid rgba(135, 103, 79, 0.35);
+  outline-offset: 3px;
+}
+
+.secondaryButton:active {
+  transform: translateY(1px);
+}
+
+@media (min-width: 640px) {
+  .primaryButton,
+  .secondaryButton {
+    font-size: 1rem;
+    padding: 0.9rem 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .primaryButton,
+  .secondaryButton {
+    font-size: 1.05rem;
+    padding: 1rem 2rem;
+  }
 }

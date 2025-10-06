@@ -1,6 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { assistant } from "./fonts";
 import { AppShell } from "@/app/components/layout";
+import { NavigationRoot } from "@/app/lib/navigation";
 import { BRAND, SOCIAL, SURFACE } from "@/lib/constants";
 import { publicEnv } from "@/lib/env";
 
@@ -61,7 +63,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="he" dir="rtl" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="he" dir="rtl" className={[assistant.variable, "scroll-smooth"].join(" ")} suppressHydrationWarning>
       <head>
         {/* Fullscreen & Safe-Area immersion */}
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
@@ -71,8 +73,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   {/* iOS notch safe-area background color */}
         <meta name="background-color" content={SURFACE.header} />
       </head>
-      <body className="page-bg text-foreground antialiased">
-        <AppShell>{children}</AppShell>
+      <body className={[assistant.className, "page-bg text-foreground antialiased"].join(" ")}>
+        <NavigationRoot>
+          <AppShell>{children}</AppShell>
+        </NavigationRoot>
       </body>
     </html>
   );

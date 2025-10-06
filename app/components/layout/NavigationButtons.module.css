@@ -33,6 +33,45 @@
   transition: transform 0.3s ease;
 }
 
+.centerButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding-inline: 1.1rem;
+  min-width: 4.5rem;
+}
+
+.label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(135, 103, 79, 0.92);
+  transition: color 0.2s ease, opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.centerButton[data-active="true"] {
+  box-shadow: 10px 10px 24px rgba(159, 133, 114, 0.28),
+    -10px -10px 24px rgba(255, 255, 255, 1),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.88);
+}
+
+.centerButton[data-active="true"] .iconHome {
+  color: rgb(94, 73, 52);
+}
+
+.centerButton[data-active="false"] .label {
+  opacity: 0.6;
+}
+
+@media (min-width: 640px) {
+  .label {
+    font-size: 0.75rem;
+  }
+}
+
 .button:hover:not(:disabled) .iconForward {
   transform: translateX(4px);
 }

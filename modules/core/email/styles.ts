@@ -337,7 +337,7 @@ export const EMAIL_RESPONSIVE_STYLES = `
  * Combines all base email styles
  */
 export function getBaseEmailStyles(): string {
-    return `
+  return `
     ${EMAIL_FONTS}
     ${EMAIL_BASE_STYLES}
     ${EMAIL_HEADER_STYLES}

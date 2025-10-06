@@ -48,6 +48,19 @@ export function NavigationButtons({
     []
   );
 
+  const stageLabels = useMemo<Record<string, string>>(
+    () => ({
+      [routes.calculator]: "מחשבון",
+      [routes.result]: "תוצאה",
+      [routes.sales]: "דף מכירה",
+      [routes.thankYou]: "דף תודה",
+      [routes.interpretations]: "פירושים",
+      [routes.terms]: "תנאים",
+      [routes.home]: "בית",
+    }),
+    []
+  );
+
   const getSequenceIndex = useCallback(
     (path: string | undefined) => {
       if (!path) {
@@ -106,6 +119,20 @@ export function NavigationButtons({
 
   const sequenceIndex = useMemo(() => getSequenceIndex(pathname), [getSequenceIndex, pathname]);
   const hasSequenceMatch = sequenceIndex >= 0;
+  const directStageMatch = pathname && stageLabels[pathname] ? pathname : undefined;
+  const currentStageKey = directStageMatch ?? (hasSequenceMatch ? orderedRoutes[sequenceIndex] : undefined);
+  const isHomeRoute = pathname === routes.home;
+  const currentStageLabel = useMemo(() => {
+    if (isHomeRoute) {
+      return stageLabels[routes.home];
+    }
+
+    if (currentStageKey) {
+      return stageLabels[currentStageKey] ?? stageLabels[routes.home];
+    }
+
+    return stageLabels[routes.home];
+  }, [currentStageKey, isHomeRoute, stageLabels]);
   const effectiveCanGoBack =
     canGoBack ?? (hasSequenceMatch ? sequenceIndex > 0 : navigationState.canGoBack);
   const effectiveCanGoForward =
@@ -171,11 +198,19 @@ export function NavigationButtons({
   }, [onGoHome, router, updateNavigationState]);
 
   const containerClassName = useMemo(() => {
-    return ["w-full mb-4 sm:mb-6", className].filter(Boolean).join(" ");
+    return ["w-full", className].filter(Boolean).join(" ");
   }, [className]);
 
+  const homeAriaLabel = isHomeRoute
+    ? "אתם נמצאים בדף הבית"
+    : `חזרה לדף הבית · שלב נוכחי: ${currentStageLabel}`;
+  const centerButtonActive = isHomeRoute || Boolean(currentStageKey);
+
   return (
-    <div className={[containerClassName, styles.shell].join(" ")}>
+    <div
+      className={[containerClassName, styles.shell].join(" ")}
+      data-stage={currentStageKey ?? (isHomeRoute ? routes.home : "other")}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Forward Button - חץ ימינה (קדימה) - בצד שמאל */}
@@ -216,16 +251,22 @@ export function NavigationButtons({
               "touch-manipulation",
               "border-0",
               styles.button,
+              styles.centerButton,
             ].join(" ")}
-            aria-label="חזרה לדף הבית"
+            data-active={centerButtonActive ? "true" : "false"}
+            aria-label={homeAriaLabel}
+            aria-current={isHomeRoute ? "page" : undefined}
           >
-            <Home 
+            <Home
               className={[
                 "w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300",
                 styles.icon,
                 styles.iconHome,
               ].join(" ")}
             />
+            <span className={styles.label} aria-live="polite">
+              {currentStageLabel}
+            </span>
           </button>
 
           {/* Back Button - חץ שמאלה (אחורה) - בצד ימין */}

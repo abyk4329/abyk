@@ -213,6 +213,10 @@ export default function Home() {
     [currentView, canGoBack, canGoForward, handleGoBack, handleGoForward, handleGoHome, isMinimalView]
   );
 
+  const layoutClassName = isFullScreenView
+    ? "min-h-[calc(100dvh-var(--header-height)-env(safe-area-inset-top)-env(safe-area-inset-bottom))] justify-center gap-0 py-6 sm:py-8"
+    : "space-y-12 pb-12 sm:pb-16 lg:pb-20";
+
   const renderView = () => {
     switch (currentView) {
       case "hero":
@@ -262,7 +266,7 @@ export default function Home() {
     <NavigationProvider value={navigationOverrides}>
       <div className="relative w-full flex-1 overflow-hidden">
         {isSplashVisible && <SplashScreen onComplete={handleSplashComplete} />}
-        <PageLayout className="space-y-12 pb-12 sm:pb-16 lg:pb-20" maxWidth="xl">
+        <PageLayout className={layoutClassName} maxWidth="xl">
           {renderView()}
         </PageLayout>
       </div>

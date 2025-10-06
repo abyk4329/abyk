@@ -49,7 +49,7 @@ export function Result({ code, onContinue }: ResultProps) {
 
   return (
     <section 
-      className="relative min-h-[calc(100vh-var(--header-height))] w-full flex items-center justify-center overflow-visible pt-3 pb-14 sm:pt-5 sm:pb-16 lg:pt-8 lg:pb-20"
+      className="relative w-full flex flex-1 items-center justify-center overflow-visible py-6 sm:py-8 lg:py-10"
     >
 
       {/* Content */}

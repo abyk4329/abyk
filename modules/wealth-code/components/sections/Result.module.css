@@ -1,6 +1,6 @@
 /* Main heading */
 .mainHeading {
-  color: #5e4934;
+  color: #87674f;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
@@ -17,7 +17,7 @@
 .codeNumber {
   font-size: clamp(4rem, 10vw, 7rem);
   font-weight: 300;
-  color: #87674f;
+  color: #5e4934;
   letter-spacing: 0.15em;
   text-shadow: 0 2px 8px rgba(135, 103, 79, 0.15);
   text-align: center;

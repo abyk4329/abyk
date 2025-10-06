@@ -68,7 +68,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   };
 
   return (
-    <section className="relative w-full flex items-center justify-center overflow-visible pt-3 pb-14 sm:pt-5 sm:pb-16 lg:pt-8 lg:pb-20">
+    <section className="relative w-full flex flex-1 items-center justify-center overflow-visible py-6 sm:py-8 lg:py-10">
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-full sm:max-w-3xl mx-auto">
@@ -90,7 +90,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
 
             {/* Date Inputs Grid - LTR Format (DD/MM/YYYY) */}
             <div
-              className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-5 mb-4 sm:mb-6"
+              className={["grid grid-cols-3 gap-2 sm:gap-4 lg:gap-5 mb-4 sm:mb-6", styles.inputGrid].join(" ")}
               dir="ltr"
             >
               {/* Day - First (Left) */}
@@ -108,7 +108,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setDay(e.target.value)}
                   placeholder="DD"
                   dir="ltr"
-                  className={["neuro-input-default w-full rounded-2xl px-3 py-3 sm:py-4 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
+                  className={["w-full", styles.inputField].join(" ")}
                 />
               </div>
 
@@ -127,7 +127,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setMonth(e.target.value)}
                   placeholder="MM"
                   dir="ltr"
-                  className={["neuro-input-default w-full rounded-2xl px-3 py-3 sm:py-4 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
+                  className={["w-full", styles.inputField].join(" ")}
                 />
               </div>
 
@@ -146,27 +146,28 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setYear(e.target.value)}
                   placeholder="YYYY"
                   dir="ltr"
-                  className={["neuro-input-default w-full rounded-2xl px-3 py-4 sm:py-5 transition-all duration-300 focus:outline-none border-0", styles.input].join(" ")}
+                  className={["w-full", styles.inputField].join(" ")}
                 />
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 max-w-sm mx-auto mt-1">
-              <GlassButton
+            <div className={["flex flex-col sm:flex-row gap-3 sm:gap-5 max-w-sm mx-auto mt-1", styles.buttonGroup].join(" ")}>
+              <button
+                type="button"
                 onClick={calculateWealthCode}
-                className="w-full sm:flex-1"
+                className={["w-full sm:flex-1", styles.primaryButton].join(" ")}
               >
                 חשב קוד
-              </GlassButton>
+              </button>
 
-              <GlassButton
+              <button
+                type="button"
                 onClick={handleReset}
-                variant="secondary"
-                className="w-full sm:flex-1"
+                className={["w-full sm:flex-1", styles.secondaryButton].join(" ")}
               >
                 אפס
-              </GlassButton>
+              </button>
             </div>
           </div>
 
