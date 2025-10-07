@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { GlassButton } from "@/app/components/shared/GlassButton";
 import { Calculator } from "lucide-react";
 import styles from "./Hero.module.css";
@@ -9,8 +10,18 @@ interface HeroProps {
 }
 
 export function Hero({ onNavigate }: HeroProps) {
+  useEffect(() => {
+    document.body.classList.add("no-scroll");
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, []);
+
   return (
   <section className={["hero-shell", styles.sectionWrapper].join(" ")}> 
+      <div className="absolute inset-0 overflow-visible" aria-hidden="true">
+        <div className={styles.blurField} />
+      </div>
       <div className={["relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center", styles.contentLayer].join(" ")}>
         <div className="relative mx-auto max-w-full sm:max-w-3xl">
           <div

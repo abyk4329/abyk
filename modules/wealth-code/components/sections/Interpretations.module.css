@@ -67,7 +67,85 @@
 .viewportFrame {
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(var(--space-3), 4vw, var(--space-4));
+  padding: calc(
+      env(safe-area-inset-top) + clamp(var(--space-3), 6vw, var(--space-4))
+    )
+    clamp(var(--space-2), 6vw, var(--space-4))
+    calc(
+      env(safe-area-inset-bottom) + clamp(var(--space-4), 8vw, var(--space-5))
+    );
   min-height: calc(100dvh - env(safe-area-inset-bottom));
-  padding-top: calc(env(safe-area-inset-top) + clamp(1.5rem, 4vw, 2.5rem));
-  padding-bottom: clamp(2.5rem, 6vw, 3.5rem);
+  background: #f8f6f2;
+  background-image: radial-gradient(
+      70% 50% at 50% 0%,
+      rgba(184, 146, 116, 0.08),
+      transparent 68%
+    ),
+    radial-gradient(
+      110% 85% at 50% 100%,
+      rgba(255, 255, 255, 0.92),
+      transparent 78%
+    );
+  background-repeat: no-repeat;
+  background-size: 160% 160%;
+  background-position: center;
+  overflow: hidden;
+}
+
+.viewportFrame::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -22vh;
+  height: 26vh;
+  pointer-events: none;
+  background: transparent;
+  z-index: -1;
+}
+
+.contentContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--space-3), 4.5vw, var(--space-4));
+  width: 100%;
+  max-width: calc(100vw - 1rem);
+  margin-inline: auto;
+  padding-inline: 0.5rem;
+}
+
+.contentContainer > section {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .viewportFrame {
+    gap: clamp(var(--space-2), 6vw, var(--space-3));
+    padding-top: calc(
+      env(safe-area-inset-top) + clamp(var(--space-2), 8vw, var(--space-3))
+    );
+    padding-bottom: calc(
+      env(safe-area-inset-bottom) + clamp(var(--space-3), 10vw, var(--space-4))
+    );
+    padding-left: calc(env(safe-area-inset-left) + 0.5rem);
+    padding-right: calc(env(safe-area-inset-right) + 0.5rem);
+  }
+
+  .viewportFrame::after {
+    bottom: -28vh;
+    height: 32vh;
+  }
+
+  .contentContainer {
+    max-width: calc(100vw - 1rem);
+    padding-inline: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

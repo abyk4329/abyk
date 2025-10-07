@@ -3,8 +3,14 @@
   position: relative;
   width: 100%;
   min-height: calc(100dvh - env(safe-area-inset-bottom));
-  padding: calc(env(safe-area-inset-top) + clamp(2.75rem, 6vw, 4.5rem))
-    clamp(1.25rem, 4vw, 3rem) clamp(3.25rem, 7vw, 4.75rem);
+  padding: calc(env(safe-area-inset-top) + var(--space-4))
+    calc(
+      env(safe-area-inset-right) + clamp(var(--space-2), 5vw, var(--space-4))
+    )
+    calc(
+      env(safe-area-inset-bottom) + clamp(var(--space-4), 8vw, var(--space-5))
+    )
+    calc(env(safe-area-inset-left) + clamp(var(--space-2), 5vw, var(--space-4)));
   display: flex;
   justify-content: center;
   margin: 0;
@@ -20,20 +26,30 @@
       transparent 78%
     );
   background-repeat: no-repeat;
+  background-size: 160% 160%;
   background-position: center;
-  background-size: 140% 140%;
-  background-attachment: fixed;
   overflow: hidden;
+}
+
+.salesShell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: transparent;
+  pointer-events: none;
 }
 
 .content {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 1000px;
+  max-width: calc(100vw - 1rem);
+  margin-inline: auto;
+  padding-inline: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: clamp(2.5rem, 5vw, 3.75rem);
+  gap: clamp(2.25rem, 4.5vw, 3.5rem);
   background-color: transparent;
 }
 
@@ -41,17 +57,20 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: clamp(1.5rem, 3vw, 2.25rem);
+  gap: clamp(1.4rem, 3vw, 2.1rem);
+  width: 100%;
+  max-width: calc(100vw - 1rem);
+  margin-inline: auto;
   border: 0;
-  border-radius: 36px;
+  border-radius: 40px;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.98),
+    rgba(255, 255, 255, 0.985),
     rgba(248, 246, 242, 0.94)
   );
-  box-shadow: 18px 18px 44px rgba(159, 133, 114, 0.18),
-    -18px -18px 44px rgba(255, 255, 255, 0.9),
-    inset 0 1px 3px rgba(255, 255, 255, 0.7);
+  box-shadow: 26px 26px 60px rgba(159, 133, 114, 0.22),
+    -26px -26px 60px rgba(255, 255, 255, 0.92),
+    inset 0 1px 4px rgba(255, 255, 255, 0.75);
 }
 
 .cardHeader {
@@ -109,14 +128,17 @@
 }
 
 .ctaCard {
+  width: 100%;
+  max-width: calc(100vw - 1rem);
+  margin-inline: auto;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.98),
-    rgba(248, 246, 242, 0.96)
+    rgba(255, 255, 255, 0.985),
+    rgba(248, 246, 242, 0.955)
   );
-  box-shadow: 22px 22px 52px rgba(159, 133, 114, 0.18),
-    -22px -22px 52px rgba(255, 255, 255, 0.92),
-    inset 0 1px 4px rgba(255, 255, 255, 0.7);
+  box-shadow: 30px 30px 68px rgba(159, 133, 114, 0.22),
+    -30px -30px 68px rgba(255, 255, 255, 0.94),
+    inset 0 1px 4px rgba(255, 255, 255, 0.78);
 }
 
 .ctaPanel {
@@ -124,11 +146,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  gap: clamp(var(--space-1-5), 3vw, var(--space-3));
   padding: clamp(1.2rem, 2.5vw, 1.8rem);
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 16px 36px -18px rgba(66, 47, 27, 0.28),
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 16px 32px -18px rgba(66, 47, 27, 0.24),
     inset 0 1px 0 rgba(255, 255, 255, 0.75);
 }
 
@@ -149,7 +171,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-2);
 }
 
 .actionButton {
@@ -160,8 +182,24 @@
 
 @media (min-width: 640px) {
   .salesShell {
-    padding-left: clamp(2rem, 5vw, 3.5rem);
-    padding-right: clamp(2rem, 5vw, 3.5rem);
+    padding-left: calc(
+      env(safe-area-inset-left) + clamp(var(--space-3), 5vw, var(--space-5))
+    );
+    padding-right: calc(
+      env(safe-area-inset-right) + clamp(var(--space-3), 5vw, var(--space-5))
+    );
+  }
+
+  .actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 640px) {
+  .salesShell {
+    padding-left: calc(env(safe-area-inset-left) + 0.5rem);
+    padding-right: calc(env(safe-area-inset-right) + 0.5rem);
   }
 
   .actions {
@@ -172,15 +210,16 @@
 
 @media (max-width: 640px) {
   .content {
-    gap: clamp(2rem, 6vw, 3rem);
+    max-width: calc(100vw - 1rem);
+    padding-inline: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .heroText {
-    text-align: center;
-  }
-
-  .cardHeader {
-    align-items: center;
-    text-align: center;
+  .card,
+  .ctaCard {
+    max-width: calc(100vw - 1rem);
+    margin-left: auto;
+    margin-right: auto;
   }
 }

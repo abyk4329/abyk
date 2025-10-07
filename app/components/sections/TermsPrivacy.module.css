@@ -31,6 +31,21 @@
   min-height: calc(100dvh - env(safe-area-inset-bottom));
   padding-top: calc(env(safe-area-inset-top) + clamp(2rem, 5vw, 3rem));
   padding-bottom: clamp(3rem, 7vw, 4rem);
+  background: #f8f6f2;
+  background-image: radial-gradient(
+      70% 50% at 50% 0%,
+      rgba(184, 146, 116, 0.08),
+      transparent 68%
+    ),
+    radial-gradient(
+      110% 85% at 50% 100%,
+      rgba(255, 255, 255, 0.92),
+      transparent 78%
+    );
+  background-repeat: no-repeat;
+  background-size: 160% 160%;
+  background-position: center;
+  overflow: hidden;
 }
 
 /* Desktop responsive for subheadings */

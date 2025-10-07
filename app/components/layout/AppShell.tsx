@@ -186,9 +186,9 @@ export function AppShell({ children }: AppShellProps) {
         {shouldShowHeader && <Header isHomePage={isHomePage} />}
         {/* Top-attached navigation under header for calculator/result pages */}
         {isCalculatorOrResult && shouldShowNavigation && (
-          <div className="w-full border-0 mb-2 sm:mb-3">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <nav aria-label="ניווט שלבים" role="navigation">
+          <div className="top-attached-nav w-full border-0">
+            <div className="mx-auto flex w-full max-w-screen-xl justify-center px-2 sm:px-4 lg:px-6">
+              <nav aria-label="ניווט שלבים" role="navigation" className="w-full">
                 <NavigationButtons
                   onGoBack={goBack}
                   onGoForward={goForward}

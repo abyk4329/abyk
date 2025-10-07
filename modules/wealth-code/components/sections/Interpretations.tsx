@@ -109,9 +109,13 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
   };
 
   return (
-    <div className={styles.viewportFrame}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-5xl">
-        
+    <section className={["hero-shell", styles.viewportFrame].join(" ")}>
+      <div
+        className={[
+          "relative z-10 mx-auto w-full px-0",
+          styles.contentContainer,
+        ].join(" ")}
+      >
         {/* Main Card */}
         <section 
           ref={contentRef} 
@@ -436,6 +440,6 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
           </div>
         </section>
       </div>
-    </div>
+    </section>
   );
 }

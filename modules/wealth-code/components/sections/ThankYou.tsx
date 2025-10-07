@@ -77,12 +77,13 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
   };
 
   return (
-    <section className={[styles.viewportFrame, "no-scroll-section"].join(" ")}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-3xl">
+    <section className={styles.viewportFrame}>
+      <div className={["hero-shell", styles.shellBackground].join(" ")}>
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-3xl">
         
         {/* Main Thank You Card */}
         <section 
-          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 border-0 transition-all duration-500"
+          className="neuro-card-main hero-card rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 border-0"
         >
           <h1 className="mb-6 text-center">
             תודה על הרכישה!
@@ -129,8 +130,6 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
                   "caption",
                   "border-0",
                   "transition-all duration-300",
-                  "hover:scale-105",
-                  "active:scale-95",
                   "cursor-pointer",
                   "touch-manipulation",
                   styles.shareButton
@@ -145,7 +144,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <button
               onClick={handleGoToWhatsApp}
-              className="neuro-card-secondary rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
+              className="neuro-card-secondary rounded-xl p-4 border-0"
               aria-label="צור קשר ב-WhatsApp"
             >
               <div className="flex flex-col items-center gap-2">
@@ -158,7 +157,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
 
             <button
               onClick={handleGoToInstagram}
-              className="neuro-card-secondary rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
+              className="neuro-card-secondary rounded-xl p-4 border-0"
               aria-label="עקבו אחרי ב-Instagram"
             >
               <div className="flex flex-col items-center gap-2">
@@ -171,7 +170,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
 
             <button
               onClick={handleGoToTikTok}
-              className="neuro-card-secondary rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
+              className="neuro-card-secondary rounded-xl p-4 border-0"
               aria-label="עקבו אחרי ב-TikTok"
             >
               <div className="flex flex-col items-center gap-2">
@@ -184,7 +183,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
 
             <button
               onClick={handleGoToEmail}
-              className="neuro-card-secondary rounded-xl p-4 border-0 transition-all duration-300 hover:scale-105 active:scale-95 touch-manipulation"
+              className="neuro-card-secondary rounded-xl p-4 border-0"
               aria-label="שלחו מייל"
             >
               <div className="flex flex-col items-center gap-2">
@@ -196,7 +195,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
             </button>
           </div>
         </section>
-
+        </div>
       </div>
     </section>
   );

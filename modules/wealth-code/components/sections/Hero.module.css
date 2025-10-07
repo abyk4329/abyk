@@ -14,27 +14,7 @@
   position: fixed;
   inset: 0;
   pointer-events: none;
-  /* Expanded radial & smoother vertical blend to avoid a visible seam on narrow (mobile) viewports */
-  background: radial-gradient(
-      circle at 50% 2%,
-      rgba(159, 133, 114, 0.11) 0%,
-      rgba(159, 133, 114, 0.07) 26%,
-      rgba(159, 133, 114, 0.045) 46%,
-      rgba(159, 133, 114, 0.03) 62%,
-      rgba(253, 252, 251, 0.015) 78%,
-      rgba(253, 252, 251, 0) 92%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.68) 0%,
-      rgba(251, 249, 247, 0.6) 34%,
-      rgba(247, 244, 241, 0.52) 58%,
-      rgba(245, 241, 237, 0.42) 76%,
-      rgba(245, 241, 237, 0.34) 88%,
-      rgba(245, 241, 237, 0.26) 100%
-    );
-  filter: blur(46px) saturate(102%);
-  opacity: 0.95;
+  background: transparent;
   z-index: -1;
 }
 
@@ -47,42 +27,14 @@
   bottom: -18vh; /* extend visually below */
   height: 22vh;
   pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(245, 241, 237, 0.2) 0%,
-    rgba(245, 241, 237, 0.16) 18%,
-    rgba(245, 241, 237, 0.1) 40%,
-    rgba(245, 241, 237, 0.06) 60%,
-    rgba(245, 241, 237, 0.03) 78%,
-    rgba(245, 241, 237, 0) 100%
-  );
-  filter: blur(42px);
+  background: transparent;
   z-index: 0;
 }
 
 /* Mobile fine-tuning to eliminate edge line */
 @media (max-width: 640px) {
   .sectionWrapper::before {
-    background: radial-gradient(
-        circle at 50% 4%,
-        rgba(159, 133, 114, 0.12) 0%,
-        rgba(159, 133, 114, 0.075) 30%,
-        rgba(159, 133, 114, 0.05) 55%,
-        rgba(159, 133, 114, 0.035) 72%,
-        rgba(253, 252, 251, 0.02) 86%,
-        rgba(253, 252, 251, 0) 100%
-      ),
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.72) 0%,
-        rgba(252, 251, 249, 0.64) 32%,
-        rgba(248, 245, 242, 0.56) 56%,
-        rgba(245, 241, 237, 0.46) 74%,
-        rgba(245, 241, 237, 0.36) 88%,
-        rgba(245, 241, 237, 0.28) 100%
-      );
-    filter: blur(54px) saturate(104%);
-    opacity: 0.97;
+    background: transparent;
   }
   .shadow {
     filter: blur(52px);
@@ -92,7 +44,6 @@
   .sectionWrapper::after {
     bottom: -24vh;
     height: 28vh;
-    filter: blur(50px);
   }
 }
 
@@ -105,16 +56,57 @@
 /* Shadow effect - soft and blended */
 .shadow {
   background: radial-gradient(
-    ellipse at 50% 50%,
-    rgba(159, 133, 114, 0.12),
-    rgba(159, 133, 114, 0.08) 35%,
-    rgba(159, 133, 114, 0.04) 55%,
-    rgba(159, 133, 114, 0.02) 70%,
-    rgba(255, 255, 255, 0) 90%
+    ellipse at 50% 55%,
+    rgba(159, 133, 114, 0.16) 0%,
+    rgba(159, 133, 114, 0.11) 30%,
+    rgba(159, 133, 114, 0.07) 55%,
+    rgba(159, 133, 114, 0.04) 72%,
+    rgba(159, 133, 114, 0.02) 82%,
+    rgba(255, 255, 255, 0) 100%
   );
-  filter: blur(48px);
-  opacity: 0.75;
-  transform: scaleX(1.3) translateY(8px);
+  filter: blur(86px) saturate(105%);
+  opacity: 0.85;
+  transform: scaleX(1.75) translateY(6px);
+}
+
+/* Wide blur wrapper for full-width card illusion */
+.blurField {
+  position: absolute;
+  inset: -12vh -25vw -14vh -25vw;
+  background: radial-gradient(
+      65% 55% at 50% 35%,
+      rgba(159, 133, 114, 0.2),
+      rgba(159, 133, 114, 0.12) 28%,
+      rgba(159, 133, 114, 0.06) 52%,
+      rgba(159, 133, 114, 0.035) 70%,
+      rgba(159, 133, 114, 0.015) 82%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(250, 248, 246, 0.5) 46%,
+      rgba(247, 244, 241, 0.42) 68%,
+      rgba(245, 241, 237, 0.32) 82%,
+      rgba(245, 241, 237, 0.26) 100%
+    );
+  filter: blur(120px) saturate(108%);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 640px) {
+  .blurField {
+    inset: -16vh -40vw -20vh -40vw;
+    filter: blur(140px) saturate(110%);
+    opacity: 0.9;
+  }
+  .shadow {
+    filter: blur(110px) saturate(110%);
+    transform: scaleX(2) translateY(4px);
+    opacity: 0.9;
+  }
 }
 
 /* Icon color */
