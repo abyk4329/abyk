@@ -109,7 +109,7 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-var(--header-height))] pb-6 pt-2 sm:pt-4">
+    <div className={styles.viewportFrame}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-5xl">
         
         {/* Main Card */}

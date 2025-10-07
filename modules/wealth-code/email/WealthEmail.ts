@@ -4,16 +4,18 @@
  */
 
 import { BRAND, generateBaseEmail } from "@/modules/core";
+import { buildUrl, routes } from "@/lib/routes";
 
 /**
  * Normalize the share URL to ensure it's valid
  */
 function normalizeShareUrl(shareUrl?: string): string {
-  if (!shareUrl) return BRAND.siteUrl;
+  const siteBase = BRAND.siteUrl.replace(/\/+$/, "");
+  if (!shareUrl) return `${siteBase}/`;
   if (shareUrl.startsWith("http://") || shareUrl.startsWith("https://")) {
     return shareUrl;
   }
-  return `${BRAND.siteUrl}${shareUrl.startsWith("/") ? "" : "/"}${shareUrl}`;
+  return `${siteBase}${shareUrl.startsWith("/") ? "" : "/"}${shareUrl}`;
 }
 
 export interface WealthEmailData {
@@ -24,17 +26,17 @@ export interface WealthEmailData {
 }
 
 /**
- * Build email subject with the specific code
+ * Build the fixed subject line for the wealth email
  */
-export function buildWealthEmailSubject(code: string): string {
-  return `הפירוש המלא לקוד ${code} - ${BRAND.appName}`;
+export function buildWealthEmailSubject(): string {
+  return "הפירוש המלא לקוד האישי שלך";
 }
 
 /**
  * Build email preheader with the specific code
  */
 export function buildWealthEmailPreheader(code: string): string {
-  return `קוד העושר שלך ${code} - הפירוש המלא ממתין לך`;
+  return `קוד העושר שלך ${code} מחכה לך לצפייה באתר`;
 }
 
 /**
@@ -232,13 +234,12 @@ const WEALTH_EMAIL_STYLES = `
  * Generates the wealth code email content HTML - Modern neumorphic design
  */
 function generateWealthContent(data: WealthEmailData): string {
-  const { code, shareUrl } = data;
+  const { code } = data;
 
-  const normalizedShareUrl = normalizeShareUrl(shareUrl);
-  const interpretationsUrl = `${normalizedShareUrl}/result?code=${code}`;
-  const calculatorUrl = normalizedShareUrl;
-  const purchaseUrl = `${normalizedShareUrl}/sales?code=${code}`;
-  const shareButtonUrl = normalizedShareUrl;
+  const siteBase = BRAND.siteUrl.replace(/\/+$/, "");
+  const interpretationsUrl = `${siteBase}${buildUrl(routes.interpretations, { code })}`;
+  const calculatorUrl = `${siteBase}${routes.calculator}`;
+  const shareButtonUrl = normalizeShareUrl(data.shareUrl);
   const whatsappConsultation =
     "https://wa.me/972524616121?text=היי%20קסניה%2C%20אשמח%20לתיאום%20יעוץ%20אישי";
 
@@ -251,9 +252,9 @@ function generateWealthContent(data: WealthEmailData): string {
   const BTN_RESET_SECONDARY = "box-shadow:6px 6px 14px rgba(159,133,114,0.14),-6px -6px 14px rgba(255,255,255,0.88),inset 1px 1px 2px rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.45);";
 
   return `
-    <h1 class="main-title">תודה רבה על הרכישה! 🙏</h1>
-    
-    <div class="code-label">קוד העושר האישי שלך</div>
+    <h1 class="main-title">תודה על הרכישה!</h1>
+
+    <div class="code-label">קוד העושר שלך</div>
     <div style="text-align: center;">
         <div class="code-container">
             <div class="code-display">${code}</div>
@@ -261,27 +262,17 @@ function generateWealthContent(data: WealthEmailData): string {
     </div>
     
     <p class="message">
-      הפירוש המלא והמקיף של הקוד האישי שלך ממתין לך<br>
-      לצפייה באתר ולהורדה בקובץ PDF
+      הפירוש המלא לקוד האישי שלך ממתין לך לצפייה באתר
     </p>
-
-    <div class="info-card">
-      <p class="info-text">
-        💡 הפירוש כולל: משמעות כל ספרה, מתנות עיקריות, חסימות ואתגרים,<br>
-        מוקדי צמיחה, תחומי קריירה מתאימים ותרגול יומיומי מעשי
-      </p>
-    </div>
     
     <div class="buttons-container">
-        <a href="${interpretationsUrl}" style="${PRIMARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_PRIMARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_PRIMARY}'">📖 לצפייה בפירוש המלא</a>
-        
-        <a href="${purchaseUrl}" style="${PRIMARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_PRIMARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_PRIMARY}'">🎁 לרכישת פירוש נוסף</a>
-        
-        <a href="${shareButtonUrl}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">✨ שתפו עם חברים</a>
-        
-        <a href="${calculatorUrl}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">🔢 לחישוב קוד נוסף</a>
-        
-        <a href="${whatsappConsultation}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">💬 יעוץ אישי בווטסאפ</a>
+        <a href="${interpretationsUrl}" style="${PRIMARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_PRIMARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_PRIMARY}'">צפייה באתר</a>
+
+        <a href="${shareButtonUrl}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">שתפו עם חברים</a>
+
+        <a href="${calculatorUrl}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">לחישוב קוד נוסף</a>
+
+        <a href="${whatsappConsultation}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">לתיאום יעוץ אישי</a>
     </div>
   `;
 }
@@ -336,7 +327,7 @@ export function wealthEmailHtml(data: WealthEmailData): string {
   const normalizedShareUrl = normalizeShareUrl(data.shareUrl);
 
   return generateBaseEmail({
-    title: buildWealthEmailSubject(data.code),
+    title: buildWealthEmailSubject(),
     customStyles: WEALTH_EMAIL_STYLES,
     content: generateWealthContent(data),
     socialLinks: getWealthSocialLinks(normalizedShareUrl, data.code),

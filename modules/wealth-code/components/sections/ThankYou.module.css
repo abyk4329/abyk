@@ -34,3 +34,11 @@
   font-size: 12px;
   color: #87674f;
 }
+
+.viewportFrame {
+  position: relative;
+  width: 100%;
+  min-height: calc(100dvh - env(safe-area-inset-bottom));
+  padding-top: calc(env(safe-area-inset-top) + clamp(1.75rem, 5vw, 2.75rem));
+  padding-bottom: clamp(3rem, 7vw, 4rem);
+}

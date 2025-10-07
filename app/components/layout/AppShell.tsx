@@ -134,7 +134,25 @@ export function AppShell({ children }: AppShellProps) {
       return;
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    const { history } = window;
+    if ("scrollRestoration" in history) {
+      const previous = history.scrollRestoration as ScrollRestoration;
+      history.scrollRestoration = "manual";
+
+      return () => {
+        history.scrollRestoration = previous ?? "auto";
+      };
+    }
+
+    return undefined;
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [pathname]);
 
   useEffect(() => {

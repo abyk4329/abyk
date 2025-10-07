@@ -46,7 +46,7 @@ export default function Home() {
     
     // Scroll to top when changing views
     if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     }
   }, []);
 

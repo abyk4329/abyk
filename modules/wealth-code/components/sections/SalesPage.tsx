@@ -1,6 +1,7 @@
 "use client";
 
 import { GlassButton } from "@/app/components/shared/GlassButton";
+import { CodeInset } from "../shared/CodeInset";
 import styles from "./SalesPage.module.css";
 
 interface SalesPageProps {
@@ -52,52 +53,40 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
   };
 
   return (
-    <div className={["relative min-h-[calc(100vh-var(--header-height))] pb-8", styles.salesShell].join(" ")}>
-      <div className={["mx-auto px-3 sm:px-6 lg:px-8 w-full", styles.content].join(" ")}>
-        
-        {/* Card 1: Understanding the Code */}
-        <section
-          className={[
-            "neuro-card-shell transition-all duration-500",
-            styles.card,
-            styles.cardIntro,
-          ].join(" ")}
-        >
+    <section className={styles.salesShell}>
+      <div className={styles.content}>
+        {/* Card 1: Context & Code */}
+        <article className={["neuro-card-main", styles.card, styles.cardIntro].join(" ")}>
           <header className={styles.cardHeader}>
-            <h2 className={["text-center", styles.cardTitle].join(" ")}>
-            להבין את הקוד – להבין את עצמך
-            </h2>
+            <span className={styles.cardMeta}>Awakening by Ksenia</span>
+            <h1 className={styles.pageTitle}>להבין את הקוד – להבין את עצמך</h1>
           </header>
           <div className={styles.cardBody}>
-            <p>
+            <div className={styles.codeShowcase}>
+              <CodeInset code={code} />
+              <p className={styles.codeNote}>הספרות המרכזיות בקוד שלך: {uniqueDigitsText}</p>
+            </div>
+            <p className={styles.heroText}>
               המספרים בקוד אינם צירוף מקרי. הם משקפים דפוסים עמוקים המניעים אותך לאורך חייך. כשאתה מזהה דפוסים אלה, אתה מתחיל לפעול ממקום של מודעות, ולא מתוך תגובתיות אוטומטית. זוהי נקודת המפנה שבה השליטה על חייך חוזרת לידיך.
             </p>
-            <p>
+            <p className={styles.heroText}>
               מטרת העבודה עם הקוד היא לחיות חיים מודעים, שבהם כל פעולה הופכת מתגובה לא-מודעת לבחירה מכוונת. הבנה זו מבהירה שאין כוח חיצוני המעכב את התקדמותך, אלא תבניות פנימיות שאתה עצמך יוצר. מתוך תובנה זו, הכוח שב אליך: כל אתגר הופך להזדמנות ללמידה, וכל צעד – גם אם אינו מושלם – הופך לחלק ממסע צמיחה מודע ומשמעותי.
             </p>
           </div>
-        </section>
+        </article>
 
-        {/* Card 2: Full Analysis */}
-        <section
-          className={[
-            "neuro-card-shell transition-all duration-500",
-            styles.card,
-            styles.cardAnalysis,
-          ].join(" ")}
-        >
+        {/* Card 2: Analysis Highlights */}
+        <article className={["neuro-card-shell", styles.card, styles.cardAnalysis].join(" ")}>
           <header className={styles.cardHeader}>
-            <h2 className={["text-center", styles.cardTitle].join(" ")}>
-              הפירוש המלא
-              <br />
-              כל מה שמחכה לכם בפנים
+            <h2 className={styles.cardTitle}>
+              מה מחכה לכם בפירוש המלא
             </h2>
+            <p className={styles.cardSubtitle}>
+              ניתוח מעמיק של {uniqueDigitsText} וההשלכות בחיי היום-יום
+            </p>
           </header>
           <div className={styles.cardBody}>
-            <p className={styles.boldIntro}>
-              ניתוח מעמיק של {uniqueDigitsText} – מה כולל הפירוש:
-            </p>
-            <div className={["neuro-card-inset-lite border-0", styles.featurePanel].join(" ")}>            
+            <div className={["neuro-card-inset-lite", styles.featurePanel].join(" ")}>
               <div className={styles.dividerList} role="list">
                 {analysisHighlights.map((item) => (
                   <div role="listitem" key={item} className={styles.dividedItem}>
@@ -106,62 +95,48 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
                 ))}
               </div>
             </div>
-            <p>
-              בנוסף, תמצאו בו הסבר על משמעות הספרות החוזרות או השונות בקוד, לצד הדרכה ברורה כיצד לשלב את הקוד בחיי היומיום.
+            <p className={styles.analysisNote}>
+              בנוסף תמצאו הסבר ברור על ספרות שחוזרות או משתנות בקוד, יחד עם דרך יישומית לשלב את המסקנות בשגרה היומיומית.
             </p>
           </div>
-        </section>
+        </article>
 
         {/* Card 3: Call to Action */}
-        <section
-          className={[
-            "neuro-card-cta transition-all duration-500",
-            styles.card,
-            styles.cardCta,
-          ].join(" ")}
-        >
+        <article className={["neuro-card-cta", styles.card, styles.cardCta].join(" ")}>
           <header className={styles.cardHeader}>
-            <h2 className={["text-center", styles.cardTitle].join(" ")}>
-              הגיע הזמן לגלות מה מספרים מספרים עליך
-            </h2>
+            <h2 className={styles.cardTitle}>הגיע הזמן לגלות מה מספרים מספרים עליך</h2>
+            <p className={styles.cardSubtitle}>
+              הכלים המדויקים להתחבר לעוצמות שלך ולהפסיק לחזור על אותם מעגלים
+            </p>
           </header>
           <div className={styles.cardBody}>
             <p>
-              הפירוש המלא של הקוד מעניק מפתח להבנת הדינמיקות הפנימיות המעצבות את חייך. באמצעותו ניתן לזהות את מקורות הדפוסים החוזרים, להבין כיצד להשתחרר ממעגלי סבל מתמשכים, ולפתח פרספקטיבה חדשה על האתגרים וההזדמנויות הפתוחות בפניך.
+              הפירוש המלא מעניק הסבר עמוק לדינמיקות הפנימיות שמעצבות את חייך, ממפה את נקודות החסימה ומציע מסלול התקדמות ברור לשינוי אמיתי ומתמשך.
             </p>
-          
-          {/* Price */}
-          <div className={styles.priceBlock}>
-            <h3 className={styles.priceHeading}>
-              עלות הפירוש המלא: ₪ 36.9 בלבד
-            </h3>
-            <p className="caption">
-              לקבלת גישה מיידית לפירוש שלך
-            </p>
-          </div>
 
-          {/* Purchase Buttons */}
-          <div className={styles.actions}>
-            <GlassButton className={styles.actionButton} onClick={handlePurchase}>
-              מעבר לרכישה
-            </GlassButton>
-            <GlassButton
-              className={styles.actionButton}
-              variant="secondary"
-              onClick={handleMockPurchase}
-            >
-              דמו תשלום (לבדיקה)
-            </GlassButton>
-          </div>
+            <div className={["neuro-card-inset-lite", styles.actionSurface].join(" ")}>
+              <div className={styles.priceBlock}>
+                <h3 className={styles.priceHeading}>עלות הפירוש המלא: ₪ 36.9</h3>
+                <p className="caption">גישה מיידית לקובץ והפירוש האישי</p>
+              </div>
 
-          {/* Security Notice */}
-          <p className={styles.securityNotice}>
-            תשלום מובטח באמצעות ספק סליקה חיצוני Grow
-          </p>
+              <div className={styles.actions}>
+                <GlassButton className={styles.actionButton} onClick={handlePurchase}>
+                  מעבר לרכישה
+                </GlassButton>
+                <GlassButton
+                  className={styles.actionButton}
+                  variant="secondary"
+                  onClick={handleMockPurchase}
+                >
+                  דמו תשלום (לבדיקה)
+                </GlassButton>
+              </div>
+              <p className={styles.securityNotice}>תשלום מאובטח באמצעות ספק הסליקה Grow</p>
+            </div>
           </div>
-        </section>
-
+        </article>
       </div>
-    </div>
+    </section>
   );
 }

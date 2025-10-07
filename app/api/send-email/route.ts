@@ -7,7 +7,7 @@ import {
     buildWealthEmailSubject,
 } from "@/modules/wealth-code/email/template";
 
-const DEFAULT_SUBJECT = "הפירוש המלא לקוד האישי שלך";
+const DEFAULT_SUBJECT = buildWealthEmailSubject();
 const DEFAULT_SHARE_URL = "https://abyk.online/";
 const TEST_EMAIL = process.env.TEST_EMAIL?.trim() || "kseniachud@gmail.com";
 const FORCE_TEST_MODE = process.env.MAIL_TEST_MODE === "1";
@@ -63,8 +63,8 @@ export async function POST(req: Request) {
             );
         }
 
-        // Build subject dynamically with the code, or use provided subject
-        const subject = body.subject?.trim() || buildWealthEmailSubject(code);
+        // Build subject (constant default) or honor provided override
+        const subject = body.subject?.trim() || DEFAULT_SUBJECT;
         const shareUrl = (body.shareUrl ?? DEFAULT_SHARE_URL).trim() || DEFAULT_SHARE_URL;
 
         const html = wealthEmailHtml({

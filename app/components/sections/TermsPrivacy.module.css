@@ -25,6 +25,14 @@
   transform: translateZ(0);
 }
 
+.viewportFrame {
+  position: relative;
+  width: 100%;
+  min-height: calc(100dvh - env(safe-area-inset-bottom));
+  padding-top: calc(env(safe-area-inset-top) + clamp(2rem, 5vw, 3rem));
+  padding-bottom: clamp(3rem, 7vw, 4rem);
+}
+
 /* Desktop responsive for subheadings */
 @media (min-width: 1024px) {
   .subheading {

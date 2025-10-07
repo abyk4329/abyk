@@ -63,3 +63,11 @@
 .tabTriggerBase {
   background: transparent;
 }
+
+.viewportFrame {
+  position: relative;
+  width: 100%;
+  min-height: calc(100dvh - env(safe-area-inset-bottom));
+  padding-top: calc(env(safe-area-inset-top) + clamp(1.5rem, 4vw, 2.5rem));
+  padding-bottom: clamp(2.5rem, 6vw, 3.5rem);
+}

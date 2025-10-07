@@ -4,7 +4,7 @@ import { NavigationProvider } from "@/app/lib/navigation";
 export function TermsPrivacy() {
   return (
     <NavigationProvider value={{ showHeader: false, showFooter: false }}>
-  <div className="relative min-h-[calc(100vh-var(--header-height))] pb-8">
+  <div className={styles.viewportFrame}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-5xl">
           {/* Header */}
           <div className="neuro-card-shell mb-10">
