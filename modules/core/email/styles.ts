@@ -5,7 +5,7 @@
  */
 
 export const EMAIL_FONTS = `
-  @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');
+  /* Gmail strips @import rules; rely on system fallbacks for maximum compatibility. */
 `;
 
 export const EMAIL_BASE_STYLES = `

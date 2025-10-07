@@ -62,6 +62,25 @@ export const DEFAULT_SOCIAL_LINKS: SocialLink[] = [
     },
 ];
 
+const INLINE_STYLES = {
+    body: "margin:0;padding:0;background-color:#f8f6f2;direction:rtl;text-align:center;font-family:'Assistant', Arial, sans-serif;",
+    container: "width:100%;max-width:600px;margin:0 auto;padding:0 24px;background-color:#f8f6f2;",
+    header: "background-color:#f8f6f2;padding:24px 20px;border:none;box-shadow:5px 5px 10px #d1cfcc,-5px -5px 10px #ffffff;",
+    headerTitle: "font-family:'Assistant', Arial, sans-serif;font-size:20px;font-weight:700;letter-spacing:0.15em;color:#5e4934;margin-bottom:4px;text-transform:uppercase;text-align:center;text-shadow:1px 1px 2px rgba(255,255,255,0.9);",
+    headerSubtitle: "font-family:'Assistant', Arial, sans-serif;font-size:11px;font-weight:500;letter-spacing:0.13em;color:#9f8572;text-transform:uppercase;text-align:center;",
+    mainContent: "padding:48px 20px;width:100%;box-sizing:border-box;",
+    glassCard: "background:#f8f6f2;border:none;border-radius:32px;padding:40px 24px;width:100%;box-sizing:border-box;box-shadow:15px 15px 30px #d1cfcc,-15px -15px 30px #ffffff;margin:0 auto;",
+    shareSection: "margin-top:32px;padding-top:24px;border-top:1px solid rgba(209,207,204,0.5);",
+    socialLinks: "display:flex;justify-content:center;gap:16px;flex-wrap:wrap;",
+    socialButton: "display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:#f8f6f2;border:none;text-decoration:none;box-shadow:8px 8px 16px #d1cfcc,-8px -8px 16px #ffffff;margin:0 8px 12px;",
+    footer: "background-color:#f8f6f2;padding:32px 20px;border:none;box-shadow:0 -5px 10px #d1cfcc,0 5px 10px #ffffff;",
+    footerText: "font-family:'Assistant', Arial, sans-serif;font-size:14px;font-weight:400;color:#87674F;line-height:1.6;margin-bottom:12px;text-align:center;",
+    footerSecondaryText: "font-family:'Assistant', Arial, sans-serif;font-size:12px;font-weight:400;color:#9f8572;line-height:1.6;margin-top:16px;text-align:center;",
+    footerLink: "color:#87674F;text-decoration:none;border-bottom:1px solid rgba(135,103,79,0.3);",
+    copyright: "display:inline-block;background:#f8f6f2;box-shadow:inset 5px 5px 10px #d1cfcc,inset -5px -5px 10px #ffffff;padding:8px 24px;border-radius:24px;border:none;",
+    copyrightText: "font-family:'Assistant', Arial, sans-serif;font-size:11px;font-weight:700;color:#5e4934;letter-spacing:0.15em;text-transform:uppercase;text-shadow:1px 1px 2px rgba(255,255,255,0.9);margin:0;",
+};
+
 /**
  * Generates the social links section HTML
  */
@@ -69,7 +88,7 @@ function generateSocialLinks(links: SocialLink[]): string {
     const socialButtons = links
         .map(
             (link) => `
-    <a href="${link.href}" class="social-button" title="${link.title}">
+        <a href="${link.href}" class="social-button" title="${link.title}" style="${INLINE_STYLES.socialButton}">
       ${link.icon}
     </a>
   `
@@ -77,8 +96,8 @@ function generateSocialLinks(links: SocialLink[]): string {
         .join("");
 
     return `
-    <div class="share-section">
-      <div class="social-links">
+        <div class="share-section" style="${INLINE_STYLES.shareSection}">
+            <div class="social-links" style="${INLINE_STYLES.socialLinks}">
         ${socialButtons}
       </div>
     </div>
@@ -106,19 +125,19 @@ export function generateBaseEmail(options: BaseEmailOptions): string {
         ${customStyles}
     </style>
 </head>
-<body>
+<body style="${INLINE_STYLES.body}">
     ${preheader ? `<div style="display:none;font-size:1px;color:#fefefe;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">${preheader}</div>` : ""}
     
-    <div class="email-container">
+    <div class="email-container" style="${INLINE_STYLES.container}">
         <!-- Header -->
-        <div class="header">
-            <div class="header-title">${BRAND.appName.toUpperCase()}</div>
-            <div class="header-subtitle">YOUR PERSONAL SPACE FOR GROWTH</div>
+        <div class="header" style="${INLINE_STYLES.header}">
+            <div class="header-title" style="${INLINE_STYLES.headerTitle}">${BRAND.appName.toUpperCase()}</div>
+            <div class="header-subtitle" style="${INLINE_STYLES.headerSubtitle}">YOUR PERSONAL SPACE FOR GROWTH</div>
         </div>
         
         <!-- Main Content -->
-        <div class="main-content">
-            <div class="glass-card">
+        <div class="main-content" style="${INLINE_STYLES.mainContent}">
+            <div class="glass-card" style="${INLINE_STYLES.glassCard}">
                 ${content}
                 
                 <!-- Social Links -->
@@ -127,19 +146,19 @@ export function generateBaseEmail(options: BaseEmailOptions): string {
         </div>
         
         <!-- Footer -->
-        <div class="footer">
-            <p class="footer-text" style="text-align: center;">
-                <a href="${BRAND.siteUrl}/#/terms-privacy" class="footer-link">תנאי שימוש ומדיניות פרטיות</a>
+        <div class="footer" style="${INLINE_STYLES.footer}">
+            <p class="footer-text" style="${INLINE_STYLES.footerText}">
+                <a href="${BRAND.siteUrl}/#/terms-privacy" class="footer-link" style="${INLINE_STYLES.footerLink}">תנאי שימוש ומדיניות פרטיות</a>
             </p>
-            <p class="footer-text" style="margin-top: 16px; font-size: 12px; color: #9f8572; text-align: center;">
+            <p class="footer-text" style="${INLINE_STYLES.footerSecondaryText}">
                 מייל זה נשלח אליך כי ביצעת רכישה באתר שלנו.<br>
                 לשאלות ובירורים: ${BRAND.ownerEmail}
             </p>
             
             <!-- Copyright -->
             <div style="text-align: center; margin-top: 24px;">
-                <div class="footer-copyright">
-                    <p class="footer-copyright-text">
+                <div class="footer-copyright" style="${INLINE_STYLES.copyright}">
+                    <p class="footer-copyright-text" style="${INLINE_STYLES.copyrightText}">
                         ${BRAND.copyrightHolder} © ${BRAND.year}
                     </p>
                 </div>

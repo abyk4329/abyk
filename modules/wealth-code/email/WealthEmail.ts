@@ -230,6 +230,22 @@ const WEALTH_EMAIL_STYLES = `
   }
 `;
 
+const INLINE_CONTENT_STYLES = {
+  mainTitle:
+    "font-family:'Assistant', Arial, sans-serif;font-size:36px;font-weight:800;line-height:1.15;color:#5e4934;margin-bottom:24px;text-shadow:0 1px 2px rgba(255,255,255,0.8);text-align:center;direction:rtl;",
+  codeLabel:
+    "font-family:'Assistant', Arial, sans-serif;font-size:19px;font-weight:700;color:#87674F;margin-bottom:18px;text-align:center;direction:rtl;letter-spacing:0.01em;",
+  codeContainerWrap: "text-align:center;",
+  codeContainer:
+    "display:block;width:100%;max-width:380px;padding:24px 52px;border-radius:28px;margin:0 auto 36px;background:linear-gradient(145deg,#f6f2ee,#ffffff);box-shadow:inset 10px 10px 20px rgba(159,133,114,0.20),inset -10px -10px 20px rgba(255,255,255,0.88),2px 2px 4px rgba(159,133,114,0.08);border:1px solid rgba(255,255,255,0.5);",
+  codeDisplay:
+    "font-family:'Assistant', Arial, sans-serif;font-size:52px;font-weight:300;letter-spacing:0.14em;color:rgb(94,73,52);text-shadow:1px 1px 2px rgba(255,255,255,0.9);text-align:center;direction:ltr;",
+  message:
+    "font-family:'Assistant', Arial, sans-serif;font-size:19px;font-weight:500;line-height:1.65;color:rgb(71,59,49);margin-bottom:40px;padding:0 20px;text-align:center;direction:rtl;",
+  buttonsContainer:
+    "display:block;margin-bottom:36px;padding:0 20px;text-align:center;max-width:500px;margin-left:auto;margin-right:auto;",
+};
+
 /**
  * Generates the wealth code email content HTML - Modern neumorphic design
  */
@@ -252,20 +268,20 @@ function generateWealthContent(data: WealthEmailData): string {
   const BTN_RESET_SECONDARY = "box-shadow:6px 6px 14px rgba(159,133,114,0.14),-6px -6px 14px rgba(255,255,255,0.88),inset 1px 1px 2px rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.45);";
 
   return `
-    <h1 class="main-title">תודה על הרכישה!</h1>
+    <h1 class="main-title" style="${INLINE_CONTENT_STYLES.mainTitle}">תודה על הרכישה!</h1>
 
-    <div class="code-label">קוד העושר שלך</div>
-    <div style="text-align: center;">
-        <div class="code-container">
-            <div class="code-display">${code}</div>
+    <div class="code-label" style="${INLINE_CONTENT_STYLES.codeLabel}">קוד העושר שלך</div>
+    <div style="${INLINE_CONTENT_STYLES.codeContainerWrap}">
+        <div class="code-container" style="${INLINE_CONTENT_STYLES.codeContainer}">
+            <div class="code-display" style="${INLINE_CONTENT_STYLES.codeDisplay}">${code}</div>
         </div>
     </div>
     
-    <p class="message">
+    <p class="message" style="${INLINE_CONTENT_STYLES.message}">
       הפירוש המלא לקוד האישי שלך ממתין לך לצפייה באתר
     </p>
-    
-    <div class="buttons-container">
+
+    <div class="buttons-container" style="${INLINE_CONTENT_STYLES.buttonsContainer}">
         <a href="${interpretationsUrl}" style="${PRIMARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_PRIMARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_PRIMARY}'">צפייה באתר</a>
 
         <a href="${shareButtonUrl}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">שתפו עם חברים</a>

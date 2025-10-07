@@ -3,13 +3,27 @@
   position: relative;
   width: 100%;
   min-height: calc(100dvh - env(safe-area-inset-bottom));
-  padding: calc(env(safe-area-inset-top) + clamp(2.75rem, 6vw, 4.5rem)) clamp(1.25rem, 4vw, 3rem) clamp(3.25rem, 7vw, 4.75rem);
+  padding: calc(env(safe-area-inset-top) + clamp(2.75rem, 6vw, 4.5rem))
+    clamp(1.25rem, 4vw, 3rem) clamp(3.25rem, 7vw, 4.75rem);
   display: flex;
   justify-content: center;
+  margin: 0;
   background: #f8f6f2;
-  background-image:
-    radial-gradient(70% 50% at 50% 0%, rgba(184, 146, 116, 0.12), transparent 68%),
-    radial-gradient(110% 85% at 50% 100%, rgba(255, 255, 255, 0.92), transparent 78%);
+  background-image: radial-gradient(
+      70% 50% at 50% 0%,
+      rgba(184, 146, 116, 0.08),
+      transparent 68%
+    ),
+    radial-gradient(
+      110% 85% at 50% 100%,
+      rgba(255, 255, 255, 0.92),
+      transparent 78%
+    );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 140% 140%;
+  background-attachment: fixed;
+  overflow: hidden;
 }
 
 .content {
@@ -20,6 +34,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(2.5rem, 5vw, 3.75rem);
+  background-color: transparent;
 }
 
 .card {
@@ -28,6 +43,15 @@
   flex-direction: column;
   gap: clamp(1.5rem, 3vw, 2.25rem);
   border: 0;
+  border-radius: 36px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(248, 246, 242, 0.94)
+  );
+  box-shadow: 18px 18px 44px rgba(159, 133, 114, 0.18),
+    -18px -18px 44px rgba(255, 255, 255, 0.9),
+    inset 0 1px 3px rgba(255, 255, 255, 0.7);
 }
 
 .cardHeader {
@@ -36,26 +60,14 @@
   align-items: center;
   gap: 0.75rem;
   text-align: center;
-}
-
-.cardMeta {
-  font-size: 0.85rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(94, 73, 52, 0.55);
-}
-
-.pageTitle {
-  font-size: clamp(1.95rem, 5.2vw, 2.8rem);
-  color: #5e4934;
-  line-height: 1.1;
-  margin: 0;
+  direction: rtl;
 }
 
 .cardTitle {
   font-size: clamp(1.75rem, 4.6vw, 2.4rem);
   color: #5e4934;
   margin: 0;
+  text-align: center;
 }
 
 .cardSubtitle {
@@ -72,6 +84,7 @@
   color: rgba(71, 59, 49, 0.9);
   font-size: clamp(1rem, 2.4vw, 1.1rem);
   line-height: 1.8;
+  direction: rtl;
 }
 
 .cardBody p {
@@ -92,55 +105,31 @@
 }
 
 .heroText {
-  text-align: right;
-}
-
-.featurePanel {
-  margin: 0 auto;
-  max-width: 44rem;
-  border: 0;
-  padding: clamp(1.2rem, 2.5vw, 1.8rem);
-}
-
-.dividerList {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  direction: rtl;
-  text-align: right;
-  color: rgba(71, 59, 49, 0.95);
-  font-weight: 600;
-}
-
-.dividedItem {
-  padding: 0.6rem 0.3rem 0.7rem;
-  line-height: 1.45;
-}
-
-.dividedItem + .dividedItem {
-  border-top: 1px solid rgba(135, 103, 79, 0.18);
-  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.55) inset;
-}
-
-.analysisNote {
-  text-align: right;
-}
-
-.actionSurface {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: center;
   text-align: center;
-  border: 0;
 }
 
-.priceBlock {
+.ctaCard {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(248, 246, 242, 0.96)
+  );
+  box-shadow: 22px 22px 52px rgba(159, 133, 114, 0.18),
+    -22px -22px 52px rgba(255, 255, 255, 0.92),
+    inset 0 1px 4px rgba(255, 255, 255, 0.7);
+}
+
+.ctaPanel {
+  direction: rtl;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
   align-items: center;
+  gap: 1.25rem;
+  padding: clamp(1.2rem, 2.5vw, 1.8rem);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 16px 36px -18px rgba(66, 47, 27, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
 }
 
 .priceHeading {
@@ -148,6 +137,12 @@
   font-size: clamp(1.35rem, 3.2vw, 1.7rem);
   font-weight: 700;
   margin: 0;
+}
+
+.captionText {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(94, 73, 52, 0.75);
 }
 
 .actions {
@@ -161,13 +156,6 @@
   min-width: min(260px, 100%);
   justify-content: center;
   font-size: 1rem;
-}
-
-.securityNotice {
-  font-size: 0.85rem;
-  color: #9f8572;
-  line-height: 1.5;
-  letter-spacing: 0.04em;
 }
 
 @media (min-width: 640px) {
@@ -187,8 +175,12 @@
     gap: clamp(2rem, 6vw, 3rem);
   }
 
-  .heroText,
-  .analysisNote {
+  .heroText {
+    text-align: center;
+  }
+
+  .cardHeader {
+    align-items: center;
     text-align: center;
   }
 }

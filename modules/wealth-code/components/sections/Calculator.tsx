@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GlassButton } from "@/app/components/shared/GlassButton";
 import styles from "./Calculator.module.css";
 
@@ -12,6 +12,13 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
+
+  useEffect(() => {
+    document.body.classList.add("no-scroll");
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, []);
 
   // פונקציה לחישוב ספרה בודדת מספר
   const reduceToSingleDigit = (num: number): number => {
@@ -68,14 +75,14 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   };
 
   return (
-  <section className="relative w-full flex flex-1 items-center justify-center overflow-visible py-3 sm:py-4 no-scroll-section">
+  <section className={"hero-shell"}>
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Navigation removed – now rendered globally just under the header for consistency */}
         <div className="max-w-full sm:max-w-3xl mx-auto">
           {/* Neumorphic Card */}
           <div
-            className="neuro-card-main rounded-[28px] p-5 sm:p-7 lg:p-10 transition-all duration-500 border-0"
+            className="neuro-card-main hero-card rounded-[28px] p-5 sm:p-7 lg:p-10 border-0"
           >
             {/* Main Heading */}
             <h1 className="mb-2 sm:mb-3 text-center">

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { GlassButton } from "@/app/components/shared/GlassButton";
 import { CodeInset } from "../shared/CodeInset";
 import styles from "./Result.module.css";
@@ -10,6 +11,13 @@ interface ResultProps {
 }
 
 export function Result({ code, onContinue }: ResultProps) {
+  useEffect(() => {
+    document.body.classList.add("no-scroll");
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, []);
+
   // זיהוי סוג הקוד
   const getCodeType = (code: string) => {
     const digits = code.split('');
@@ -48,18 +56,16 @@ export function Result({ code, onContinue }: ResultProps) {
   const codeInfo = getCodeType(code);
 
   return (
-    <section
-      className="relative w-full flex flex-1 items-center justify-center overflow-visible py-3 sm:py-4 no-scroll-section"
-    >
+    <section className="hero-shell">
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Navigation removed – now provided globally under the header */}
         <div className="max-w-full sm:max-w-3xl mx-auto">
           
           {/* Neumorphic Card */}
           <div 
-            className="neuro-card-main rounded-[30px] p-5 sm:p-8 lg:p-10 transition-all duration-500 border-0"
+            className="neuro-card-main hero-card rounded-[30px] p-5 sm:p-8 lg:p-10 border-0"
           >
             {/* Main Heading */}
             <h1 className={["mb-3 sm:mb-4 text-center", styles.mainHeading].join(" ")}>

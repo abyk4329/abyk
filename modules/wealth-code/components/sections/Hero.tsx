@@ -10,7 +10,7 @@ interface HeroProps {
 
 export function Hero({ onNavigate }: HeroProps) {
   return (
-  <section className={["relative flex w-full flex-1 items-center justify-center overflow-visible py-6 sm:py-8 lg:py-10", styles.sectionWrapper].join(" ")}> 
+  <section className={["hero-shell", styles.sectionWrapper].join(" ")}> 
       <div className={["relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center", styles.contentLayer].join(" ")}>
         <div className="relative mx-auto max-w-full sm:max-w-3xl">
           <div
@@ -18,7 +18,7 @@ export function Hero({ onNavigate }: HeroProps) {
             aria-hidden="true"
           />
           <div
-            className={["neuro-card-main relative overflow-hidden px-6 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-12 transition-all duration-500 border-0", styles.card].join(" ")}
+            className={["neuro-card-main hero-card relative overflow-hidden px-6 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-12 border-0", styles.card].join(" ")}
           >
             <div className="absolute inset-x-10 top-10 hidden sm:block opacity-60 blur-2xl" aria-hidden="true">
               <div className="h-20 rounded-full bg-gradient-to-r from-amber-100/50 via-white/60 to-amber-100/50" />

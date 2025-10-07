@@ -91,60 +91,11 @@ export default function Home() {
     goTo("sales");
   };
 
-  const handleMockPurchaseComplete = async () => {
-    // First, generate PDF
-    try {
-      const pdfResponse = await fetch("/api/generate-pdf", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          code: wealthCode,
-          userName: "", // Add user name if available from form
-          userEmail: "", // Add user email if available from form
-        }),
-      });
-
-      if (!pdfResponse.ok) {
-        console.error("Failed to generate PDF");
-        goTo("thankyou");
-        return;
-      }
-
-      const pdfData = await pdfResponse.json();
-      
-      if (!pdfData.ok || !pdfData.pdfBase64) {
-        console.error("Invalid PDF response");
-        goTo("thankyou");
-        return;
-      }
-
-      // Then, send email with PDF attachment
-      const emailResponse = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          to: "", // Add recipient email from form
-          code: wealthCode, // Required! Must be 4 digits
-          subject: `הפירוש המלא שלך לקוד ${wealthCode}`,
-          pdfBase64: pdfData.pdfBase64,
-          test: true, // Change to false in production
-        }),
-      });
-
-      if (!emailResponse.ok) {
-        console.error("Failed to send email");
-      }
-    } catch (error) {
-      console.error("Error in purchase flow:", error);
-    } finally {
-      // Always navigate to thank you page
-      goTo("thankyou");
-    }
+  const handleMockPurchase = () => {
+    goTo("thankyou");
   };
+
+  
 
   const handleViewInterpretations = () => {
     goTo("interpretations");
@@ -214,7 +165,7 @@ export default function Home() {
   );
 
   const layoutClassName = isFullScreenView
-    ? "min-h-[calc(100dvh-var(--header-height)-env(safe-area-inset-top)-env(safe-area-inset-bottom))] justify-center gap-0 py-6 sm:py-8"
+    ? "flex-1 min-h-[calc(100dvh-var(--header-height)-env(safe-area-inset-top)-env(safe-area-inset-bottom))] justify-center items-center gap-0 py-0"
     : "space-y-12 pb-12 sm:pb-16 lg:pb-20";
 
   const renderView = () => {
@@ -235,10 +186,7 @@ export default function Home() {
       
       case "sales":
         return (
-          <SalesPage
-            code={wealthCode}
-            onMockPurchase={handleMockPurchaseComplete}
-          />
+          <SalesPage code={wealthCode} onMockPurchase={handleMockPurchase} />
         );
       
       case "interpretations":

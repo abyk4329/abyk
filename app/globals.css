@@ -249,10 +249,12 @@
   }
 
   body {
-    background: var(--page-gradient);
-    background-color: var(--header-surface);
+    background-color: #f8f6f2;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     background-attachment: fixed;
-    background-size: 100% 100%;
     color: var(--color-foreground);
     font-family: var(--font-family);
     line-height: 1.1;
@@ -260,29 +262,73 @@
     direction: rtl;
   }
 
+  body.no-scroll {
+    overflow: hidden;
+    height: 100dvh;
+    position: relative;
+  }
+
   /* Full-screen no-scroll container adjustments */
   .app-shell[data-route="/wealth-code/calculator"],
   .app-shell[data-route="/wealth-code/result"],
+  .app-shell[data-route="/wealth-code/thankyou"],
   .app-shell[data-route="/calculator"],
-  .app-shell[data-route="/result"] {
+  .app-shell[data-route="/result"],
+  .app-shell[data-route="/thankyou"] {
     /* Ensure the main region fills remaining viewport without self scroll */
   }
 
   .app-shell[data-route="/wealth-code/calculator"] main.app-main,
   .app-shell[data-route="/wealth-code/result"] main.app-main,
+  .app-shell[data-route="/wealth-code/thankyou"] main.app-main,
   .app-shell[data-route="/calculator"] main.app-main,
-  .app-shell[data-route="/result"] main.app-main {
+  .app-shell[data-route="/result"] main.app-main,
+  .app-shell[data-route="/thankyou"] main.app-main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: calc(100dvh - var(--header-height) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    min-height: calc(
+      100dvh - var(--header-height) - env(safe-area-inset-top) -
+        env(safe-area-inset-bottom)
+    );
     overflow: hidden;
     padding-bottom: 0;
   }
 
   .no-scroll-section {
+    --no-scroll-padding: clamp(1.25rem, 5vw, 2.75rem);
     width: 100%;
     max-width: 100%;
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--no-scroll-padding);
+    overflow: visible;
+    box-sizing: border-box;
+  }
+
+  .hero-shell {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    flex: 1 0 auto;
+    min-height: calc(100dvh - env(safe-area-inset-bottom));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(env(safe-area-inset-top) + clamp(1.25rem, 3vw, 2rem))
+      clamp(1rem, 4vw, 2rem)
+      calc(env(safe-area-inset-bottom) + clamp(1.25rem, 3vw, 2rem));
+    margin: 0;
+    background: #f8f6f2;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
   }
 
   .safe-top {
@@ -442,7 +488,7 @@
   border: 0;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.neuro-card-main:hover {
+.neuro-card-main:not(.hero-card):hover {
   box-shadow: 35px 35px 100px rgba(159, 133, 114, 0.3),
     -35px -35px 100px rgba(255, 255, 255, 1),
     inset 2px 2px 6px rgba(255, 255, 255, 0.9),
@@ -633,7 +679,12 @@
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: transparent;
+  background-color: #f8f6f2;
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
   position: relative;
 }
 
@@ -776,5 +827,19 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .hero-card {
+    transition: none;
+  }
+
+  .hero-shell .hero-card {
+    transform: translateY(-4vh);
+  }
+
+  @media (max-width: 640px) {
+    .hero-shell .hero-card {
+      transform: translateY(-5vh);
+    }
   }
 }

@@ -512,10 +512,10 @@ export const PWA = {
     display: "standalone",        // מסתיר את הדפדפן
     orientation: "portrait",      // מצב אנכי בלבד
     icons: {
-        favicon: "/icon.png",
-        apple: "/apple-icon.png",
-        manifest192: "/icons/manifest-icon-192.png",
-        manifest512: "/icons/manifest-icon-512.png",
+        favicon: "/אייקון.png",
+        apple: "/אייקון.png",
+        manifest192: "/אייקון.png",
+        manifest512: "/אייקון.png",
     },
 } as const;
 

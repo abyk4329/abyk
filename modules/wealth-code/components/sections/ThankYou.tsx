@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { GlassButton } from "@/app/components/shared/GlassButton";
 import { Calculator, MessageCircle, Instagram, Mail, Music, Eye } from "lucide-react";
 import styles from "./ThankYou.module.css";
@@ -13,6 +14,12 @@ interface ThankYouProps {
 export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYouProps) {
   const shareUrl = "https://abyk.online/";
   const shareText = "גלו את קוד העושר הנומרולוגי שלכם! מסע מרתק להכרה עצמית וצמיחה אישית";
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+  }, []);
 
   const handleViewInterpretation = () => {
     onViewInterpretations();
@@ -70,12 +77,12 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
   };
 
   return (
-    <div className={styles.viewportFrame}>
+    <section className={[styles.viewportFrame, "no-scroll-section"].join(" ")}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-3xl">
         
         {/* Main Thank You Card */}
         <section 
-          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 mb-8 border-0 transition-all duration-500"
+          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 border-0 transition-all duration-500"
         >
           <h1 className="mb-6 text-center">
             תודה על הרכישה!
@@ -191,6 +198,6 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
         </section>
 
       </div>
-    </div>
+    </section>
   );
 }

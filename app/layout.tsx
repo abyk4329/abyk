@@ -9,13 +9,15 @@ import { publicEnv } from "@/lib/env";
 const metadataBase = publicEnv.appUrl ? new URL(publicEnv.appUrl) : undefined;
 
 export const metadata: Metadata = {
-  title: {
-    default: BRAND.name,
-    template: `%s · ${BRAND.name}`,
-  },
+  title: BRAND.name,
   description: BRAND.taglineHe,
   metadataBase,
   manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/אייקון.png",
+    shortcut: "/אייקון.png",
+    apple: "/אייקון.png",
+  },
   authors: [{ name: "Ksenia Chudnovskaya" }],
   keywords: [
     "נומרולוגיה",

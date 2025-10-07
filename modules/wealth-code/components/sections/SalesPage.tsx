@@ -1,7 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
 import { GlassButton } from "@/app/components/shared/GlassButton";
-import { CodeInset } from "../shared/CodeInset";
 import styles from "./SalesPage.module.css";
 
 interface SalesPageProps {
@@ -10,62 +10,42 @@ interface SalesPageProps {
 }
 
 export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
-  // Function to get unique digits in ascending order
-  const getUniqueDigits = (codeStr: string): string => {
-    // Validate input contains only digits
-    if (!/^\d+$/.test(codeStr)) {
-      console.warn('Invalid code format:', codeStr);
-      return 'הספרות בקוד';
+  const digitsDescription = useMemo(() => {
+    if (!code || !/^\d+$/.test(code)) {
+      return "הספרות בקוד";
     }
 
-    const digits = codeStr.split('').map(Number);
-    const uniqueDigits = Array.from(new Set(digits)).sort((a, b) => a - b);
-    
-    if (uniqueDigits.length === 1) {
-      return `הספרה ${uniqueDigits[0]}`;
-    } else if (uniqueDigits.length === 2) {
-      return `הספרות ${uniqueDigits[0]} ו-${uniqueDigits[1]}`;
-    } else {
-      const lastDigit = uniqueDigits[uniqueDigits.length - 1];
-      const otherDigits = uniqueDigits.slice(0, -1).join(', ');
-      return `הספרות ${otherDigits} ו-${lastDigit}`;
+    const digits = Array.from(new Set(code.split("").map(Number))).sort((a, b) => a - b);
+
+    if (digits.length === 0) {
+      return "הספרות בקוד";
     }
-  };
 
-  const uniqueDigitsText = getUniqueDigits(code);
+    const label = digits.length === 1 ? "הספרה" : "הספרות";
+    if (digits.length === 1) {
+      return `${label} ${digits[0]}`;
+    }
 
-  const analysisHighlights = [
-    "מהות כל ספרה",
-    "מתנות עיקריות",
-    "חסימות ואתגרים",
-    "נורות אזהרה לזיהוי חוסר איזון",
-    "מוקדי צמיחה והתפתחות אישית",
-    "תחומי קריירה מתאימים",
-    "תרגול יומיומי מעשי",
-  ];
+    const lastDigit = digits[digits.length - 1];
+    const otherDigits = digits.slice(0, -1).join(", ");
+    return `${label} ${otherDigits} ו-${lastDigit}`;
+  }, [code]);
 
   const handlePurchase = () => {
-    window.open('https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ', '_blank');
-  };
-
-  const handleMockPurchase = () => {
-    onMockPurchase();
+    window.open(
+      "https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ",
+      "_blank"
+    );
   };
 
   return (
     <section className={styles.salesShell}>
       <div className={styles.content}>
-        {/* Card 1: Context & Code */}
-        <article className={["neuro-card-main", styles.card, styles.cardIntro].join(" ")}>
+        <article className={["neuro-card-shell", styles.card].join(" ")}>
           <header className={styles.cardHeader}>
-            <span className={styles.cardMeta}>Awakening by Ksenia</span>
-            <h1 className={styles.pageTitle}>להבין את הקוד – להבין את עצמך</h1>
+            <h2 className={styles.cardTitle}>להבין את הקוד – להבין את עצמך</h2>
           </header>
           <div className={styles.cardBody}>
-            <div className={styles.codeShowcase}>
-              <CodeInset code={code} />
-              <p className={styles.codeNote}>הספרות המרכזיות בקוד שלך: {uniqueDigitsText}</p>
-            </div>
             <p className={styles.heroText}>
               המספרים בקוד אינם צירוף מקרי. הם משקפים דפוסים עמוקים המניעים אותך לאורך חייך. כשאתה מזהה דפוסים אלה, אתה מתחיל לפעול ממקום של מודעות, ולא מתוך תגובתיות אוטומטית. זוהי נקודת המפנה שבה השליטה על חייך חוזרת לידיך.
             </p>
@@ -75,51 +55,28 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
           </div>
         </article>
 
-        {/* Card 2: Analysis Highlights */}
-        <article className={["neuro-card-shell", styles.card, styles.cardAnalysis].join(" ")}>
+        <article className={["neuro-card-shell", styles.card].join(" ")}>
           <header className={styles.cardHeader}>
-            <h2 className={styles.cardTitle}>
-              מה מחכה לכם בפירוש המלא
-            </h2>
-            <p className={styles.cardSubtitle}>
-              ניתוח מעמיק של {uniqueDigitsText} וההשלכות בחיי היום-יום
-            </p>
+            <h2 className={styles.cardTitle}>הפירוש המלא – כל מה שמחכה לכם בפנים</h2>
           </header>
           <div className={styles.cardBody}>
-            <div className={["neuro-card-inset-lite", styles.featurePanel].join(" ")}>
-              <div className={styles.dividerList} role="list">
-                {analysisHighlights.map((item) => (
-                  <div role="listitem" key={item} className={styles.dividedItem}>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <p className={styles.analysisNote}>
-              בנוסף תמצאו הסבר ברור על ספרות שחוזרות או משתנות בקוד, יחד עם דרך יישומית לשלב את המסקנות בשגרה היומיומית.
+            <p className={styles.heroText}>
+              ניתוח מעמיק של {digitsDescription} הכולל: מהות כל ספרה, חסימות ואתגרים, נורות אזהרה לזיהוי חוסר איזון, מוקדי צמיחה והתפתחות אישית, תחומי קריירה מתאימים ותרגול יומיומי מעשי. בנוסף, תמצאו בו הסבר על משמעות הספרות החוזרות או השונות בקוד, לצד הדרכה ברורה כיצד לשלב את הקוד בחיי היומיום.
             </p>
           </div>
         </article>
 
-        {/* Card 3: Call to Action */}
-        <article className={["neuro-card-cta", styles.card, styles.cardCta].join(" ")}>
+        <article className={["neuro-card-shell", styles.card, styles.ctaCard].join(" ")}>
           <header className={styles.cardHeader}>
             <h2 className={styles.cardTitle}>הגיע הזמן לגלות מה מספרים מספרים עליך</h2>
-            <p className={styles.cardSubtitle}>
-              הכלים המדויקים להתחבר לעוצמות שלך ולהפסיק לחזור על אותם מעגלים
-            </p>
           </header>
           <div className={styles.cardBody}>
-            <p>
-              הפירוש המלא מעניק הסבר עמוק לדינמיקות הפנימיות שמעצבות את חייך, ממפה את נקודות החסימה ומציע מסלול התקדמות ברור לשינוי אמיתי ומתמשך.
+            <p className={styles.heroText}>
+              הפירוש המלא של הקוד מעניק מפתח להבנת הדינמיקות הפנימיות המעצבות את חייך. באמצעותו ניתן לזהות את מקורות הדפוסים החוזרים, להבין כיצד להשתחרר ממעגלי סבל מתמשכים, ולפתח פרספקטיבה חדשה על האתגרים וההזדמנויות הפתוחות בפניך.
             </p>
-
-            <div className={["neuro-card-inset-lite", styles.actionSurface].join(" ")}>
-              <div className={styles.priceBlock}>
-                <h3 className={styles.priceHeading}>עלות הפירוש המלא: ₪ 36.9</h3>
-                <p className="caption">גישה מיידית לקובץ והפירוש האישי</p>
-              </div>
-
+            <div className={styles.ctaPanel}>
+              <p className={styles.priceHeading}>עלות הפירוש המלא: ₪36.90 בלבד</p>
+              <p className={styles.captionText}>לקבלת גישה מיידית לפירוש שלך (caption)</p>
               <div className={styles.actions}>
                 <GlassButton className={styles.actionButton} onClick={handlePurchase}>
                   מעבר לרכישה
@@ -127,12 +84,11 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
                 <GlassButton
                   className={styles.actionButton}
                   variant="secondary"
-                  onClick={handleMockPurchase}
+                  onClick={onMockPurchase}
                 >
-                  דמו תשלום (לבדיקה)
+                  דמו
                 </GlassButton>
               </div>
-              <p className={styles.securityNotice}>תשלום מאובטח באמצעות ספק הסליקה Grow</p>
             </div>
           </div>
         </article>
