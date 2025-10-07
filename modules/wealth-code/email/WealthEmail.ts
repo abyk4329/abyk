@@ -38,7 +38,7 @@ export function buildWealthEmailPreheader(code: string): string {
 }
 
 /**
- * Wealth-specific email styles - Clean centered design
+ * Wealth-specific email styles - Modern neumorphic design matching site
  */
 const WEALTH_EMAIL_STYLES = `
   .email-body {
@@ -46,53 +46,62 @@ const WEALTH_EMAIL_STYLES = `
   }
 
   .glass-card {
-    background: #f8f6f2;
-    border-radius: 32px;
-    padding: 40px 24px;
-    box-shadow: 10px 10px 20px #d1cfcc, -10px -10px 20px #ffffff;
+    background: linear-gradient(145deg, #ffffff, #f8f4f0);
+    border-radius: 40px;
+    padding: 48px 32px;
+    box-shadow: 
+      18px 18px 36px rgba(159,133,114,0.18),
+      -18px -18px 36px rgba(255,255,255,0.95),
+      inset 1px 1px 3px rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.5);
     max-width: 100%;
   }
 
   .main-title {
     font-family: 'Assistant', sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.2;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.15;
     color: #5e4934;
-    margin-bottom: 20px;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+    margin-bottom: 24px;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
     text-align: center;
     direction: rtl;
   }
   
   .code-label {
     font-family: 'Assistant', sans-serif;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 19px;
+    font-weight: 700;
     color: #87674F;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     text-align: center;
     direction: rtl;
+    letter-spacing: 0.01em;
   }
   
   .code-container {
     display: block;
     width: 100%;
-    max-width: 360px;
-    padding: 20px 48px;
-    border-radius: 24px;
-    margin-bottom: 32px;
+    max-width: 380px;
+    padding: 24px 52px;
+    border-radius: 28px;
+    margin-bottom: 36px;
     margin-left: auto;
     margin-right: auto;
-    background: #f8f6f2;
-    box-shadow: inset 8px 8px 16px #d1cfcc, inset -8px -8px 16px #ffffff;
+    background: linear-gradient(145deg, #f6f2ee, #ffffff);
+    box-shadow:
+      inset 10px 10px 20px rgba(159,133,114,0.20),
+      inset -10px -10px 20px rgba(255,255,255,0.88),
+      2px 2px 4px rgba(159,133,114,0.08);
+    border: 1px solid rgba(255,255,255,0.5);
   }
   
   .code-display {
     font-family: 'Assistant', sans-serif;
-    font-size: 48px;
+    font-size: 52px;
     font-weight: 300;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     color: rgb(94, 73, 52);
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
     text-align: center;
@@ -101,40 +110,106 @@ const WEALTH_EMAIL_STYLES = `
   
   .message {
     font-family: 'Assistant', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.6;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.65;
     color: rgb(71, 59, 49);
-    margin-bottom: 32px;
-    padding: 0 16px;
+    margin-bottom: 40px;
+    padding: 0 20px;
     text-align: center;
     direction: rtl;
   }
 
+  .info-card {
+    background: linear-gradient(150deg, rgba(255,255,255,0.75), rgba(248,244,240,0.65));
+    border-radius: 24px;
+    padding: 20px 24px;
+    margin: 0 auto 32px;
+    max-width: 520px;
+    box-shadow:
+      inset 4px 4px 10px rgba(159,133,114,0.12),
+      inset -4px -4px 10px rgba(255,255,255,0.85),
+      0 0 0 1px rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.5);
+    text-align: center;
+    direction: rtl;
+  }
+
+  .info-text {
+    font-family: 'Assistant', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: #87674F;
+    margin: 0;
+  }
+
   .buttons-container {
     gap: 16px;
-    margin-bottom: 32px;
-    padding: 0 16px;
+    margin-bottom: 36px;
+    padding: 0 20px;
     text-align: center;
-    max-width: 480px;
+    max-width: 500px;
     margin-left: auto;
     margin-right: auto;
   }
   
   @media (max-width: 600px) {
     .glass-card {
-      padding: 24px 16px;
-      box-shadow: 5px 5px 10px #d1cfcc, -5px -5px 10px #ffffff;
+      padding: 32px 20px;
+      border-radius: 32px;
+      box-shadow: 
+        12px 12px 24px rgba(159,133,114,0.16),
+        -12px -12px 24px rgba(255,255,255,0.92),
+        inset 1px 1px 2px rgba(255,255,255,0.4);
     }
 
     .main-title {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .code-container {
+      padding: 18px 32px;
+      max-width: 320px;
+      border-radius: 24px;
+    }
+
+    .code-display {
+      font-size: 38px;
+      letter-spacing: 0.10em;
+    }
+
+    .message {
+      font-size: 16px;
+      padding: 0 12px;
+      margin-bottom: 32px;
+    }
+
+    .info-card {
+      padding: 16px 20px;
+      margin-bottom: 28px;
+    }
+
+    .info-text {
+      font-size: 15px;
+    }
+
+    .buttons-container {
+      padding: 0 8px;
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .main-title {
       font-size: 24px;
+      line-height: 1.2;
     }
 
     .code-container {
       padding: 16px 24px;
-      max-width: 300px;
-      border-radius: 20px;
+      max-width: 280px;
     }
 
     .code-display {
@@ -144,56 +219,17 @@ const WEALTH_EMAIL_STYLES = `
 
     .message {
       font-size: 15px;
-      padding: 0 6px;
+      line-height: 1.6;
     }
 
-    .buttons-container {
-      padding: 0;
-      max-width: 100%;
-    }
-  }
-
-  @media (max-width: 420px) {
-    .main-title {
-      font-size: 22px;
-      line-height: 1.25;
-    }
-
-    .code-container {
-      padding: 14px 18px;
-      max-width: 260px;
-    }
-
-    .code-display {
-      font-size: 30px;
-      letter-spacing: 0.06em;
-    }
-
-    .message {
-      font-size: 15px;
-      line-height: 1.55;
-    }
-  }
-
-  @media (max-width: 360px) {
-    .code-container {
-      padding: 12px 16px;
-      max-width: 230px;
-    }
-
-    .code-display {
-      font-size: 28px;
-      letter-spacing: 0.04em;
-    }
-
-    .buttons-container {
-      margin-bottom: 24px;
+    .info-text {
+      font-size: 14px;
     }
   }
 `;
 
 /**
- * Generates the wealth code email content HTML - Clean centered design
+ * Generates the wealth code email content HTML - Modern neumorphic design
  */
 function generateWealthContent(data: WealthEmailData): string {
   const { code, shareUrl } = data;
@@ -201,36 +237,51 @@ function generateWealthContent(data: WealthEmailData): string {
   const normalizedShareUrl = normalizeShareUrl(shareUrl);
   const interpretationsUrl = `${normalizedShareUrl}/result?code=${code}`;
   const calculatorUrl = normalizedShareUrl;
+  const purchaseUrl = `${normalizedShareUrl}/sales?code=${code}`;
   const shareButtonUrl = normalizedShareUrl;
   const whatsappConsultation =
     "https://wa.me/972524616121?text=היי%20קסניה%2C%20אשמח%20לתיאום%20יעוץ%20אישי";
 
-  const BTN_BASE = "display:block;width:100%;max-width:480px;margin:0 auto 16px;text-decoration:none;border-radius:9999px;font-family:'Assistant', Arial, sans-serif;font-size:17px;line-height:1.35;padding:15px 20px;font-weight:700;text-align:center;letter-spacing:0.02em;border:none;box-sizing:border-box;transition:all 0.2s ease;";
-  const PRIMARY_BTN_STYLE = BTN_BASE + "background:#f8f6f2;color:#5e4934;box-shadow: 5px 5px 10px #d1cfcc, -5px -5px 10px #ffffff;";
-  const SECONDARY_BTN_STYLE = BTN_BASE + "background:#f8f6f2;color:#5e4934;box-shadow: 3px 3px 6px #d1cfcc, -3px -3px 6px #ffffff;";
+  const BTN_BASE = "display:block;width:100%;max-width:500px;margin:0 auto 18px;text-decoration:none;border-radius:9999px;font-family:'Assistant', Arial, sans-serif;font-size:18px;line-height:1.4;padding:16px 24px;font-weight:700;text-align:center;letter-spacing:0.01em;border:none;box-sizing:border-box;transition:all 0.25s ease;";
+  const PRIMARY_BTN_STYLE = BTN_BASE + "background:linear-gradient(145deg,#ffffff,#f5f1ed);color:#5e4934;box-shadow:8px 8px 18px rgba(159,133,114,0.16),-8px -8px 18px rgba(255,255,255,0.92),inset 1px 1px 2px rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.5);";
+  const SECONDARY_BTN_STYLE = BTN_BASE + "background:linear-gradient(145deg,#faf6f2,#f0ece8);color:#5e4934;box-shadow:6px 6px 14px rgba(159,133,114,0.14),-6px -6px 14px rgba(255,255,255,0.88),inset 1px 1px 2px rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.45);";
+  const BTN_HOVER_PRIMARY = "box-shadow:inset 8px 8px 18px rgba(159,133,114,0.18),inset -8px -8px 18px rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.6);";
+  const BTN_HOVER_SECONDARY = "box-shadow:inset 6px 6px 14px rgba(159,133,114,0.16),inset -6px -6px 14px rgba(255,255,255,0.82);border:1px solid rgba(255,255,255,0.55);";
+  const BTN_RESET_PRIMARY = "box-shadow:8px 8px 18px rgba(159,133,114,0.16),-8px -8px 18px rgba(255,255,255,0.92),inset 1px 1px 2px rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.5);";
+  const BTN_RESET_SECONDARY = "box-shadow:6px 6px 14px rgba(159,133,114,0.14),-6px -6px 14px rgba(255,255,255,0.88),inset 1px 1px 2px rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.45);";
 
   return `
-    <h1 class="main-title">תודה על הרכישה!</h1>
+    <h1 class="main-title">תודה רבה על הרכישה! 🙏</h1>
     
-    <div class="code-label">קוד העושר שלך</div>
+    <div class="code-label">קוד העושר האישי שלך</div>
     <div style="text-align: center;">
         <div class="code-container">
             <div class="code-display">${code}</div>
         </div>
     </div>
     
-  <p class="message">
-    הפירוש המלא לקוד האישי שלך ממתין לך לצפייה ולהורדה
-  </p>
+    <p class="message">
+      הפירוש המלא והמקיף של הקוד האישי שלך ממתין לך<br>
+      לצפייה באתר ולהורדה בקובץ PDF
+    </p>
+
+    <div class="info-card">
+      <p class="info-text">
+        💡 הפירוש כולל: משמעות כל ספרה, מתנות עיקריות, חסימות ואתגרים,<br>
+        מוקדי צמיחה, תחומי קריירה מתאימים ותרגול יומיומי מעשי
+      </p>
+    </div>
     
     <div class="buttons-container">
-        <a href="${interpretationsUrl}" style="${PRIMARY_BTN_STYLE} margin-bottom: 20px;" onmouseover="this.style.boxShadow='inset 5px 5px 10px #d1cfcc, inset -5px -5px 10px #ffffff';" onmouseout="this.style.boxShadow='5px 5px 10px #d1cfcc, -5px -5px 10px #ffffff';">לצפייה באתר</a>
+        <a href="${interpretationsUrl}" style="${PRIMARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_PRIMARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_PRIMARY}'">📖 לצפייה בפירוש המלא</a>
         
-        <a href="${shareButtonUrl}" style="${PRIMARY_BTN_STYLE}" onmouseover="this.style.boxShadow='inset 5px 5px 10px #d1cfcc, inset -5px -5px 10px #ffffff';" onmouseout="this.style.boxShadow='5px 5px 10px #d1cfcc, -5px -5px 10px #ffffff';">שתפו עם חברים</a>
+        <a href="${purchaseUrl}" style="${PRIMARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_PRIMARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_PRIMARY}'">🎁 לרכישת פירוש נוסף</a>
         
-        <a href="${calculatorUrl}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.boxShadow='inset 3px 3px 6px #d1cfcc, inset -3px -3px 6px #ffffff';" onmouseout="this.style.boxShadow='3px 3px 6px #d1cfcc, -3px -3px 6px #ffffff';">לחישוב קוד נוסף</a>
+        <a href="${shareButtonUrl}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">✨ שתפו עם חברים</a>
         
-        <a href="${whatsappConsultation}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.boxShadow='inset 3px 3px 6px #d1cfcc, inset -3px -3px 6px #ffffff';" onmouseout="this.style.boxShadow='3px 3px 6px #d1cfcc, -3px -3px 6px #ffffff';">לתיאום יעוץ אישי</a>
+        <a href="${calculatorUrl}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">🔢 לחישוב קוד נוסף</a>
+        
+        <a href="${whatsappConsultation}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">💬 יעוץ אישי בווטסאפ</a>
     </div>
   `;
 }
