@@ -53,8 +53,7 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
 
   return (
     <div className={["relative min-h-[calc(100vh-var(--header-height))] pb-8", styles.salesShell].join(" ")}>
-      <div className={styles.backgroundGlow} aria-hidden="true" />
-  <div className={["mx-auto px-3 sm:px-6 lg:px-8 w-full", styles.content].join(" ")}>
+      <div className={["mx-auto px-3 sm:px-6 lg:px-8 w-full", styles.content].join(" ")}>
         
         {/* Card 1: Understanding the Code */}
         <section
@@ -96,17 +95,16 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
           </header>
           <div className={styles.cardBody}>
             <p className={styles.boldIntro}>
-              ניתוח מעמיק של {uniqueDigitsText} הכולל:
+              ניתוח מעמיק של {uniqueDigitsText} – מה כולל הפירוש:
             </p>
-            <div className={["neuro-card-inset-lite border-0", styles.featurePanel].join(" ")}>
-              <ul className={styles.featureList}>
+            <div className={["neuro-card-inset-lite border-0", styles.featurePanel].join(" ")}>            
+              <div className={styles.dividerList} role="list">
                 {analysisHighlights.map((item) => (
-                  <li key={item}>
-                    <span className={styles.featureBullet} aria-hidden="true" />
-                    <span>{item}</span>
-                  </li>
+                  <div role="listitem" key={item} className={styles.dividedItem}>
+                    {item}
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
             <p>
               בנוסף, תמצאו בו הסבר על משמעות הספרות החוזרות או השונות בקוד, לצד הדרכה ברורה כיצד לשלב את הקוד בחיי היומיום.
