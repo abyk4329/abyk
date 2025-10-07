@@ -68,9 +68,10 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   };
 
   return (
-    <section className="relative w-full flex flex-1 items-center justify-center overflow-visible py-6 sm:py-8 lg:py-10">
+  <section className="relative w-full flex flex-1 items-center justify-center overflow-visible py-3 sm:py-4 no-scroll-section">
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Navigation removed – now rendered globally just under the header for consistency */}
         <div className="max-w-full sm:max-w-3xl mx-auto">
           {/* Neumorphic Card */}
           <div

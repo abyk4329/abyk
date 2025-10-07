@@ -70,7 +70,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-var(--header-height))] pb-8">
+    <div className="relative min-h-screen pb-8 pt-4 sm:pt-6">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-3xl">
         
         {/* Main Thank You Card */}

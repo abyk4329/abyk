@@ -46,31 +46,19 @@ function withBase(path: string): string | undefined {
   return normalizePathValue(`${basePrefix}${normalizedPath}`);
 }
 
-function useIsMobileViewport(): boolean {
-  const [isMobile, setIsMobile] = useState<boolean>(() => {
-    if (typeof window === "undefined") {
-      return false;
-    }
-
-    return window.matchMedia(MOBILE_VIEWPORT_QUERY).matches;
-  });
+// Return null on first render (both SSR and initial hydration) to keep
+// server and client markup identical; compute real value after mount.
+function useIsMobileViewport(): boolean | null {
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const mediaQueryList = window.matchMedia(MOBILE_VIEWPORT_QUERY);
-    const handleChange = (event: MediaQueryListEvent) => {
-      setIsMobile(event.matches);
-    };
-
-    setIsMobile(mediaQueryList.matches);
-
-    mediaQueryList.addEventListener("change", handleChange);
-    return () => {
-      mediaQueryList.removeEventListener("change", handleChange);
-    };
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia(MOBILE_VIEWPORT_QUERY);
+    const apply = () => setIsMobile(mq.matches);
+    apply();
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
   }, []);
 
   return isMobile;
@@ -118,7 +106,7 @@ export function AppShell({ children }: AppShellProps) {
   const isHomePage = homePaths.has(effectivePath);
   const isFullScreenPage = fullScreenPages.has(effectivePath);
   const isMinimalPage = minimalPages.has(effectivePath);
-  const shouldCollapseForMobile = isMinimalPage && isMobileViewport;
+  const shouldCollapseForMobile = isMinimalPage && isMobileViewport === true;
 
   const navigationOverrides = useOptionalNavigationOverrides();
   const {
@@ -133,7 +121,8 @@ export function AppShell({ children }: AppShellProps) {
   } = navigationOverrides ?? {};
 
   const showNavigation = isVisible ?? true;
-  const mustShowNavigation = effectivePath === calculatorPath || effectivePath === resultPath;
+  const isCalculatorOrResult = effectivePath === calculatorPath || effectivePath === resultPath;
+  const mustShowNavigation = isCalculatorOrResult;
   const shouldShowNavigation =
     (showNavigation && (!isHomePage || navigationOverrides)) || mustShowNavigation;
 
@@ -170,30 +159,51 @@ export function AppShell({ children }: AppShellProps) {
   return (
     <CookieConsentProvider>
       <div
-        className="app-shell min-h-[100dvh] w-full"
-        data-mobile-layout={shouldCollapseForMobile ? "minimal" : "standard"}
+  className="app-shell min-h-[100dvh] w-full"
+  data-mobile-layout={shouldCollapseForMobile ? "minimal" : "standard"}
         data-route={effectivePath}
       >
         <TikTokPixel />
         <div className="safe-top" aria-hidden="true" />
         {shouldShowHeader && <Header isHomePage={isHomePage} />}
-        <main className={mainClassName} role="main">
-          {children}
-        </main>
-        {shouldShowFooter && (
-          <Footer>
-            {shouldShowNavigation && (
-              <nav aria-label="ניווט משני" role="navigation" className="pt-2 sm:pt-3">
+        {/* Top-attached navigation under header for calculator/result pages */}
+        {isCalculatorOrResult && shouldShowNavigation && (
+          <div className="w-full border-0 mb-2 sm:mb-3">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <nav aria-label="ניווט שלבים" role="navigation">
                 <NavigationButtons
                   onGoBack={goBack}
                   onGoForward={goForward}
                   onGoHome={goHome}
                   canGoBack={canGoBack}
                   canGoForward={canGoForward}
+                  className="justify-center"
                 />
               </nav>
+            </div>
+          </div>
+        )}
+        <main className={mainClassName} role="main">
+          {children}
+        </main>
+        {shouldShowFooter && (
+          <>
+            {/* Footer navigation only for pages that are not calculator/result */}
+            {shouldShowNavigation && !isCalculatorOrResult && (
+              <div className="container mx-auto px-2 sm:px-4 lg:px-6 pt-2 sm:pt-3">
+                <nav aria-label="ניווט משני" role="navigation">
+                  <NavigationButtons
+                    onGoBack={goBack}
+                    onGoForward={goForward}
+                    onGoHome={goHome}
+                    canGoBack={canGoBack}
+                    canGoForward={canGoForward}
+                  />
+                </nav>
+              </div>
             )}
-          </Footer>
+            <Footer />
+          </>
         )}
         {showFixedNavigation && (
           <div className="fixed bottom-0 left-0 right-0 z-40">

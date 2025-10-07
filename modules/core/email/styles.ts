@@ -17,7 +17,7 @@ export const EMAIL_BASE_STYLES = `
   
   body {
     font-family: 'Assistant', sans-serif;
-    background: linear-gradient(135deg, rgb(253, 252, 251) 0%, rgb(245, 241, 237) 100%);
+    background-color: #f8f6f2;
     direction: rtl;
     text-align: center;
     padding: 0;
@@ -29,19 +29,36 @@ export const EMAIL_BASE_STYLES = `
     max-width: 600px;
     margin: 0 auto;
     padding: 0 24px;
-    background: linear-gradient(135deg, rgb(253, 252, 251) 0%, rgb(245, 241, 237) 100%);
+    background-color: #f8f6f2;
+  }
+
+  a {
+    color: #87674F;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+
+  a:hover, a:focus-visible {
+    color: #5e4934;
+    text-decoration-color: #5e4934;
+  }
+
+  hr.email-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(135,103,79,0) 0%, rgba(135,103,79,0.25) 50%, rgba(135,103,79,0) 100%);
+    margin: 32px auto;
+    width: 82%;
   }
 `;
 
 export const EMAIL_HEADER_STYLES = `
   .header {
-    background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
+    background-color: #f8f6f2;
     padding: 24px 20px;
     border: none;
-    box-shadow: 
-      0 10px 30px rgba(159, 133, 114, 0.15),
-      0 4px 16px rgba(255, 255, 255, 0.8),
-      inset 0 2px 4px rgba(255, 255, 255, 0.9);
+    box-shadow: 5px 5px 10px #d1cfcc, -5px -5px 10px #ffffff;
   }
   
   .header-title {
@@ -53,6 +70,7 @@ export const EMAIL_HEADER_STYLES = `
     margin-bottom: 4px;
     text-transform: uppercase;
     text-align: center;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
   }
   
   .header-subtitle {
@@ -74,17 +92,13 @@ export const EMAIL_CONTENT_STYLES = `
   }
   
   .glass-card {
-    background: linear-gradient(145deg, rgb(255, 255, 255), rgb(242, 238, 234));
+    background: #f8f6f2;
     border: none;
     border-radius: 32px;
     padding: 40px 24px;
     width: 100%;
     box-sizing: border-box;
-    box-shadow: 
-      30px 30px 90px rgba(159, 133, 114, 0.25),
-      -30px -30px 90px rgba(255, 255, 255, 0.9),
-      inset 2px 2px 6px rgba(255, 255, 255, 0.8),
-      inset -2px -2px 6px rgba(211, 198, 189, 0.1);
+    box-shadow: 15px 15px 30px #d1cfcc, -15px -15px 30px #ffffff;
     margin: 0 auto;
   }
 `;
@@ -109,46 +123,29 @@ export const EMAIL_BUTTON_STYLES = `
     font-weight: 600;
     padding: 14px 28px;
     border-radius: 50px;
-    transition: all 0.5s ease;
+    transition: all 0.2s ease;
     text-align: center;
+    border: none;
   }
   
   .button-primary {
-    background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
+    background: #f8f6f2;
     color: rgb(94, 73, 52);
-    border: none;
-    box-shadow: 
-      12px 12px 24px rgba(159, 133, 114, 0.2),
-      -12px -12px 24px rgba(255, 255, 255, 0.9),
-      inset 1px 1px 3px rgba(255, 255, 255, 0.6);
+    box-shadow: 8px 8px 16px #d1cfcc, -8px -8px 16px #ffffff;
   }
   
   .button-primary:hover {
-    background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
-    transform: translateY(-2px);
-    box-shadow: 
-      14px 14px 28px rgba(159, 133, 114, 0.25),
-      -14px -14px 28px rgba(255, 255, 255, 1),
-      inset 1px 1px 3px rgba(255, 255, 255, 0.7);
+    box-shadow: inset 8px 8px 16px #d1cfcc, inset -8px -8px 16px #ffffff;
   }
   
   .button-secondary {
-    background: linear-gradient(145deg, rgb(255, 255, 255), rgb(245, 241, 237));
+    background: #f8f6f2;
     color: rgb(94, 73, 52);
-    border: none;
-    box-shadow: 
-      10px 10px 20px rgba(159, 133, 114, 0.15),
-      -10px -10px 20px rgba(255, 255, 255, 0.9),
-      inset 1px 1px 3px rgba(255, 255, 255, 0.6);
+    box-shadow: 5px 5px 10px #d1cfcc, -5px -5px 10px #ffffff;
   }
   
   .button-secondary:hover {
-    background: linear-gradient(145deg, rgb(255, 255, 255), rgb(245, 241, 237));
-    transform: translateY(-1px);
-    box-shadow: 
-      12px 12px 24px rgba(159, 133, 114, 0.2),
-      -12px -12px 24px rgba(255, 255, 255, 1),
-      inset 1px 1px 3px rgba(255, 255, 255, 0.7);
+    box-shadow: inset 5px 5px 10px #d1cfcc, inset -5px -5px 10px #ffffff;
   }
 `;
 
@@ -156,7 +153,7 @@ export const EMAIL_SOCIAL_STYLES = `
   .share-section {
     margin-top: 32px;
     padding-top: 24px;
-    border-top: 1px solid rgba(159, 133, 114, 0.1);
+    border-top: 1px solid rgba(209, 207, 204, 0.5);
   }
   
   .social-links {
@@ -173,37 +170,24 @@ export const EMAIL_SOCIAL_STYLES = `
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
+    background: #f8f6f2;
     border: none;
     text-decoration: none;
-    transition: all 0.4s ease;
-    box-shadow: 
-      10px 10px 20px rgba(159, 133, 114, 0.15),
-      -10px -10px 20px rgba(255, 255, 255, 0.9),
-      inset 2px 2px 5px rgba(255, 255, 255, 0.7),
-      inset -2px -2px 5px rgba(211, 198, 189, 0.08);
+    transition: all 0.2s ease;
+    box-shadow: 8px 8px 16px #d1cfcc, -8px -8px 16px #ffffff;
   }
   
   .social-button:hover {
-    background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
-    transform: translateY(-2px);
-    box-shadow: 
-      12px 12px 24px rgba(159, 133, 114, 0.18),
-      -12px -12px 24px rgba(255, 255, 255, 1),
-      inset 2px 2px 5px rgba(255, 255, 255, 0.8),
-      inset -2px -2px 5px rgba(211, 198, 189, 0.1);
+    box-shadow: inset 8px 8px 16px #d1cfcc, inset -8px -8px 16px #ffffff;
   }
 `;
 
 export const EMAIL_FOOTER_STYLES = `
   .footer {
-    background: linear-gradient(180deg, rgb(250, 248, 246) 0%, rgb(253, 252, 251) 100%);
+    background-color: #f8f6f2;
     padding: 32px 20px;
     border: none;
-    box-shadow: 
-      0 -10px 30px rgba(159, 133, 114, 0.15),
-      0 4px 16px rgba(255, 255, 255, 0.8),
-      inset 0 2px 4px rgba(255, 255, 255, 0.9);
+    box-shadow: 0 -5px 10px #d1cfcc, 0 5px 10px #ffffff;
   }
   
   .footer-text {
@@ -229,11 +213,8 @@ export const EMAIL_FOOTER_STYLES = `
   
   .footer-copyright {
     display: inline-block;
-    background: linear-gradient(145deg, rgb(245, 241, 237), rgb(253, 252, 251));
-    box-shadow: 
-      inset 8px 8px 16px rgba(159, 133, 114, 0.15),
-      inset -8px -8px 16px rgba(255, 255, 255, 0.9),
-      1px 1px 3px rgba(159, 133, 114, 0.06);
+    background: #f8f6f2;
+    box-shadow: inset 5px 5px 10px #d1cfcc, inset -5px -5px 10px #ffffff;
     padding: 8px 24px;
     border-radius: 24px;
     border: none;
@@ -246,7 +227,7 @@ export const EMAIL_FOOTER_STYLES = `
     color: #5e4934;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
     margin: 0;
   }
 `;

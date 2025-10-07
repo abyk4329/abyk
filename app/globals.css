@@ -260,6 +260,31 @@
     direction: rtl;
   }
 
+  /* Full-screen no-scroll container adjustments */
+  .app-shell[data-route="/wealth-code/calculator"],
+  .app-shell[data-route="/wealth-code/result"],
+  .app-shell[data-route="/calculator"],
+  .app-shell[data-route="/result"] {
+    /* Ensure the main region fills remaining viewport without self scroll */
+  }
+
+  .app-shell[data-route="/wealth-code/calculator"] main.app-main,
+  .app-shell[data-route="/wealth-code/result"] main.app-main,
+  .app-shell[data-route="/calculator"] main.app-main,
+  .app-shell[data-route="/result"] main.app-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100dvh - var(--header-height) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow: hidden;
+    padding-bottom: 0;
+  }
+
+  .no-scroll-section {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .safe-top {
     width: 100%;
     height: env(safe-area-inset-top);

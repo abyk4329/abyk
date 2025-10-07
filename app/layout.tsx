@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { assistant } from "./fonts";
 import { AppShell } from "@/app/components/layout";
 import { NavigationRoot } from "@/app/lib/navigation";
@@ -16,10 +16,6 @@ export const metadata: Metadata = {
   description: BRAND.taglineHe,
   metadataBase,
   manifest: "/manifest.webmanifest",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: SURFACE.header },
-    { media: "(prefers-color-scheme: dark)", color: SURFACE.headerDark },
-  ],
   authors: [{ name: "Ksenia Chudnovskaya" }],
   keywords: [
     "נומרולוגיה",
@@ -59,6 +55,14 @@ export const metadata: Metadata = {
     instagram: SOCIAL.instagram.url,
     whatsapp: SOCIAL.whatsapp.url,
   },
+};
+
+// Next.js 15: themeColor must be defined in a separate viewport export.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: SURFACE.header },
+    { media: "(prefers-color-scheme: dark)", color: SURFACE.headerDark },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

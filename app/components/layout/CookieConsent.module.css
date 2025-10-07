@@ -1,22 +1,29 @@
-.outer {
-  position: relative;
+.standardOverlay {
+  width: 100%;
+  pointer-events: none;
+}
+
+/* Banner attached to top (non-home) */
+.topBannerWrapper {
   pointer-events: none;
   width: 100%;
 }
 
-.standardOverlay {
-  pointer-events: none;
+.topBannerWrapper .card {
+  pointer-events: auto;
 }
 
 .homeOverlay {
   pointer-events: auto;
   padding-left: max(env(safe-area-inset-left), 1.25rem);
   padding-right: max(env(safe-area-inset-right), 1.25rem);
-  padding-bottom: max(env(safe-area-inset-bottom), 2rem);
+  padding-top: max(env(safe-area-inset-top), 3rem);
+  padding-bottom: max(env(safe-area-inset-bottom), 3rem);
+  min-height: 100dvh;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
 }
 
@@ -24,11 +31,12 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(248, 246, 242, 0.92) 0%,
-    rgba(248, 246, 242, 0.75) 40%,
-    rgba(248, 246, 242, 0) 100%
+  background: radial-gradient(
+    circle at 50% 35%,
+    rgba(248, 246, 242, 0.88) 0%,
+    rgba(248, 246, 242, 0.76) 45%,
+    rgba(248, 246, 242, 0.62) 70%,
+    rgba(248, 246, 242, 0.15) 100%
   );
   pointer-events: none;
   z-index: 0;
@@ -52,6 +60,13 @@
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   border: none;
+  font-family: var(--font-assistant, "Assistant", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+}
+
+/* Slightly stronger blur variant when attached top without overlay */
+.cardTopAttached {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .title {
@@ -158,6 +173,7 @@
   flex-direction: column;
   gap: 1.5rem;
   border: none;
+  font-family: var(--font-assistant, "Assistant", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
 }
 
 .modalHeader {
@@ -184,22 +200,28 @@
   gap: 1rem;
 }
 
-.categoryItem {
+
+.categoryList {
   display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.categoryItem {
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.2rem 1.35rem;
-  border-radius: 26px;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
   background: linear-gradient(
     145deg,
-    rgba(253, 252, 251, 0.9),
-    rgba(245, 241, 237, 0.9)
+    rgba(255, 255, 255, 0.82),
+    rgba(248, 244, 240, 0.78)
   );
   box-shadow: inset 5px 5px 12px rgba(159, 133, 114, 0.12),
     inset -5px -5px 12px rgba(255, 255, 255, 0.88);
   cursor: pointer;
-  min-height: 110px;
+  min-height: 116px;
 }
 
 .categoryItem:hover,
@@ -230,8 +252,8 @@
 
 .toggle {
   appearance: none;
-  width: 3.25rem;
-  height: 1.8rem;
+  width: 3.4rem;
+  height: 1.9rem;
   border-radius: 999px;
   background: rgba(135, 103, 79, 0.25);
   position: relative;
@@ -242,10 +264,10 @@
 .toggle::after {
   content: "";
   position: absolute;
-  top: 0.2rem;
-  right: 0.25rem;
-  width: 1.35rem;
-  height: 1.35rem;
+  top: 0.22rem;
+  right: 0.28rem;
+  width: 1.38rem;
+  height: 1.38rem;
   border-radius: 50%;
   background: linear-gradient(145deg, #ffffff, #f8f4f0);
   box-shadow: 3px 3px 6px rgba(159, 133, 114, 0.22),
@@ -258,7 +280,7 @@
 }
 
 .toggle:checked::after {
-  transform: translateX(-1.5rem);
+  transform: translateX(-1.55rem);
 }
 
 .toggle:focus-visible {

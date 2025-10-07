@@ -20,6 +20,8 @@ import styles from "./CookieConsent.module.css";
 const STORAGE_KEY = "cookieConsent:v2";
 const LEGACY_KEY = "abyk-cookie-consent";
 const CONSENT_VERSION = 2;
+const COOKIE_KEY = "abyk_cookie_consent_v2";
+const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365; // 12 חודשים
 
 export type ConsentCategory =
   | "essential"
@@ -124,6 +126,97 @@ function normalizePreferences(
   };
 }
 
+function arePreferencesEqual(a: ConsentPreferences, b: ConsentPreferences): boolean {
+  return (
+    a.status === b.status &&
+    a.categories.essential === b.categories.essential &&
+    a.categories.statistics === b.categories.statistics &&
+    a.categories.marketing === b.categories.marketing &&
+    a.categories.personalization === b.categories.personalization
+  );
+}
+
+function readPreferencesFromCookie(): ConsentPreferences | null {
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  const cookieMatch = document.cookie.match(
+    new RegExp(`(?:^|;\\s*)${COOKIE_KEY}=([^;]*)`),
+  );
+
+  if (!cookieMatch) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(decodeURIComponent(cookieMatch[1])) as
+      | Partial<ConsentPreferences>
+      | null;
+    if (!parsed || parsed.version !== CONSENT_VERSION) {
+      return null;
+    }
+    return normalizePreferences(parsed);
+  } catch (error) {
+    console.warn("CookieConsent: Failed to parse consent cookie", error);
+    return null;
+  }
+}
+
+function persistPreferencesToLocalStorage(preferences: ConsentPreferences) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  try {
+    const payload = JSON.stringify({
+      ...preferences,
+      updatedAt: new Date().toISOString(),
+    });
+    window.localStorage.setItem(STORAGE_KEY, payload);
+  } catch (error) {
+    console.warn("CookieConsent: Failed to persist preferences to localStorage", error);
+  }
+}
+
+function persistPreferencesToCookie(preferences: ConsentPreferences) {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  try {
+    const payload = encodeURIComponent(
+      JSON.stringify({
+        ...preferences,
+        updatedAt: new Date().toISOString(),
+      }),
+    );
+    document.cookie = `${COOKIE_KEY}=${payload};path=/;max-age=${COOKIE_MAX_AGE_SECONDS};SameSite=Lax;Secure`;
+  } catch (error) {
+    console.warn("CookieConsent: Failed to persist preferences to cookie", error);
+  }
+}
+
+function clearPreferencesCookie() {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  document.cookie = `${COOKIE_KEY}=;path=/;max-age=0;SameSite=Lax;Secure`;
+}
+
+function clearStoredPreferences() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  try {
+    window.localStorage.removeItem(STORAGE_KEY);
+  } catch (error) {
+    console.warn("CookieConsent: Failed to clear stored preferences", error);
+  }
+}
+
 function migrateLegacyConsent(value: string | null): ConsentPreferences | null {
   if (!value) {
     return null;
@@ -165,49 +258,59 @@ function loadPreferencesFromStorage(): ConsentPreferences {
     return { ...defaultPreferences };
   }
 
+  const cookiePreferences = readPreferencesFromCookie();
+  let storedPreferences: ConsentPreferences | null = null;
+
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<ConsentPreferences> | null;
       if (parsed && parsed.version === CONSENT_VERSION) {
-        return normalizePreferences(parsed);
+        storedPreferences = normalizePreferences(parsed);
       }
     }
   } catch (error) {
     console.warn("CookieConsent: Failed to parse stored preferences", error);
   }
 
-  try {
-    const legacyRaw = window.localStorage.getItem(LEGACY_KEY);
-    if (legacyRaw) {
-      const migrated = migrateLegacyConsent(legacyRaw);
-      window.localStorage.removeItem(LEGACY_KEY);
-      if (migrated) {
-        persistPreferences(migrated);
-        return migrated;
+  if (!storedPreferences) {
+    try {
+      const legacyRaw = window.localStorage.getItem(LEGACY_KEY);
+      if (legacyRaw) {
+        const migrated = migrateLegacyConsent(legacyRaw);
+        window.localStorage.removeItem(LEGACY_KEY);
+        if (migrated) {
+          persistPreferences(migrated);
+          return migrated;
+        }
       }
+    } catch (error) {
+      console.warn("CookieConsent: Failed to read legacy preferences", error);
     }
-  } catch (error) {
-    console.warn("CookieConsent: Failed to read legacy preferences", error);
+  }
+
+  if (cookiePreferences) {
+    if (!storedPreferences || !arePreferencesEqual(storedPreferences, cookiePreferences)) {
+      persistPreferencesToLocalStorage(cookiePreferences);
+    }
+    return cookiePreferences;
+  }
+
+  if (storedPreferences) {
+    if (storedPreferences.status !== "pending") {
+      clearPreferencesCookie();
+      clearStoredPreferences();
+      return { ...defaultPreferences };
+    }
+    return storedPreferences;
   }
 
   return { ...defaultPreferences };
 }
 
 function persistPreferences(preferences: ConsentPreferences) {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  try {
-    const payload = JSON.stringify({
-      ...preferences,
-      updatedAt: new Date().toISOString(),
-    });
-    window.localStorage.setItem(STORAGE_KEY, payload);
-  } catch (error) {
-    console.warn("CookieConsent: Failed to persist preferences", error);
-  }
+  persistPreferencesToLocalStorage(preferences);
+  persistPreferencesToCookie(preferences);
 }
 
 interface CookieConsentProviderProps {
@@ -378,24 +481,31 @@ function ConsentBanner() {
     return null;
   }
 
+  // We force banner to attach to top on all pages; on home we can optionally center below header (hero) by using margin-top if needed.
+  // Reason footer overlap: previous wrapper used relative stacking context and only appeared after scroll because layout height pushed it below fold.
+  // Solution: always fixed top with full width, internal max-width for card; optional overlay only on home.
   return (
     <div
       className={[
-        "fixed inset-x-0 z-[70] flex justify-center px-4 sm:px-6",
-        isHomeRoute ? "bottom-0" : "bottom-4",
-        styles.outer,
-        isHomeRoute ? styles.homeOverlay : styles.standardOverlay,
+        "fixed top-0 inset-x-0 z-[120] flex justify-center px-4 sm:px-6 pt-4 sm:pt-6",
+        isHomeRoute ? styles.homeOverlay : styles.topBannerWrapper,
       ].join(" ")}
       aria-live="polite"
+      role="region"
+      aria-label="הודעת שימוש בקוקיז"
     >
       <div
-        className={["w-full max-w-3xl rounded-[28px] border-0 px-6 py-5 text-center text-sm sm:text-base", styles.card].join(" ")}
+        className={[
+          "w-full max-w-3xl rounded-[28px] border-0 px-6 py-5 text-center text-sm sm:text-base shadow-lg",
+          styles.card,
+          !isHomeRoute ? styles.cardTopAttached : ""
+        ].join(" ")}
       >
         <h2 className={["mb-3 text-base font-semibold sm:text-lg", styles.title].join(" ")}>
-          אנחנו משתמשים בקובצי קוקיז באתר
+          אני משתמשת בקובצי קוקיז באתר שלי
         </h2>
         <p className="mx-auto mb-4 max-w-2xl text-xs leading-snug text-[#473b31] sm:text-sm">
-          כדי לשפר את חוויית השימוש באתר, אנחנו נעזרים בקובצי קוקיז לאיסוף מידע סטטיסטי, להתאמת תוכן אישי ולמדידת ביצועים (כולל TikTok Pixel). בלחיצה על &quot;מאשר/ת&quot; אתם מסכימים לשימוש בקוקיז בהתאם למדיניות הפרטיות ותנאי השימוש. המידע שנאסף אינו מועבר לגורמים חיצוניים ומשמש לשיפור מתמשך בלבד.
+          כדי להעניק לכם חוויית גלישה מדויקת ונוחה, אני נעזרת בקובצי קוקיז לאיסוף נתונים סטטיסטיים, להתאמת תוכן אישי ולמדידת אפקטיביות של הפעילות שלי (כולל TikTok Pixel). בלחיצה על &quot;מאשר/ת&quot; אתם מסכימים לשימוש הזה בהתאם למדיניות הפרטיות ותנאי השימוש. המידע נשאר אצלי בלבד ומיועד לשיפור מתמשך של האתר.
         </p>
         <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
           <GlassButton onClick={acceptAll} className="w-full sm:w-auto">
@@ -417,15 +527,15 @@ function ConsentBanner() {
 const CATEGORY_CONTENT: Record<NonEssentialCategory, { title: string; description: string }> = {
   statistics: {
     title: "סטטיסטיקה",
-    description: "מסייע להבין כיצד משתמשים באתר ולמדוד שיפור בחוויית המשתמשים.",
+    description: "עוזר לי להבין איך אתם משתמשים באתר וכיצד לשפר את חוויית הגלישה.",
   },
   marketing: {
     title: "שיווק (כולל TikTok Pixel)",
-    description: "מאפשר למדוד קמפיינים ולהציג מסרים רלוונטיים יותר.",
+    description: "מסייע לי למדוד קמפיינים ולהתאים מסרים שיווקיים לרגע הנכון עבורכם.",
   },
   personalization: {
     title: "התאמה אישית",
-    description: "משמש להתאמת תוכן והמלצות לצרכים שלכם.",
+    description: "מאפשר לי להציע תוכן והמלצות שמדויקים יותר עבורכם באופן אישי.",
   },
 };
 
@@ -522,9 +632,9 @@ function CookieSettingsModal() {
         ref={modalRef}
       >
         <div className={styles.modalHeader}>
-          <h2 id="cookie-settings-title">ניהול הגדרות קוקיז</h2>
+          <h2 id="cookie-settings-title">העדפות הקוקיז שלכם</h2>
           <p id="cookie-settings-description">
-            בחרו אילו סוגי קובצי קוקיז לאשר. קוקיז חיוניים מופעלים תמיד כדי שהאתר יעבוד כראוי.
+            בחרו אילו סוגי קובצי קוקיז תרצו שאפעיל עבורכם. את הקוקיז החיוניים אני משאירה פעילים תמיד כדי שהאתר יעבוד כמו שצריך.
           </p>
         </div>
         <div className={styles.categoryList}>

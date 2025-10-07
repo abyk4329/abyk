@@ -33,6 +33,16 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
 
   const uniqueDigitsText = getUniqueDigits(code);
 
+  const analysisHighlights = [
+    "מהות כל ספרה",
+    "מתנות עיקריות",
+    "חסימות ואתגרים",
+    "נורות אזהרה לזיהוי חוסר איזון",
+    "מוקדי צמיחה והתפתחות אישית",
+    "תחומי קריירה מתאימים",
+    "תרגול יומיומי מעשי",
+  ];
+
   const handlePurchase = () => {
     window.open('https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ', '_blank');
   };
@@ -42,62 +52,89 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-var(--header-height))] pb-8">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-4xl">
+    <div className={["relative min-h-[calc(100vh-var(--header-height))] pb-8", styles.salesShell].join(" ")}>
+      <div className={styles.backgroundGlow} aria-hidden="true" />
+  <div className={["mx-auto px-3 sm:px-6 lg:px-8 w-full", styles.content].join(" ")}>
         
         {/* Card 1: Understanding the Code */}
-        <section 
-          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-6 sm:p-8 mb-6 border-0 transition-all duration-500"
+        <section
+          className={[
+            "neuro-card-shell transition-all duration-500",
+            styles.card,
+            styles.cardIntro,
+          ].join(" ")}
         >
-          <h2 className="mb-6 text-center">
+          <header className={styles.cardHeader}>
+            <h2 className={["text-center", styles.cardTitle].join(" ")}>
             להבין את הקוד – להבין את עצמך
-          </h2>
-          <p className="text-center">
-            המספרים בקוד אינם צירוף מקרי. הם משקפים דפוסים עמוקים המניעים אותך לאורך חייך. כשאתה מזהה דפוסים אלה, אתה מתחיל לפעול ממקום של מודעות, ולא מתוך תגובתיות אוטומטית. זוהי נקודת המפנה שבה השליטה על חייך חוזרת לידיך.
-          </p>
-          <p className="text-center mt-4">
-            מטרת העבודה עם הקוד היא לחיות חיים מודעים, שבהם כל פעולה הופכת מתגובה לא-מודעת לבחירה מכוונת. הבנה זו מבהירה שאין כוח חיצוני המעכב את התקדמותך, אלא תבניות פנימיות שאתה עצמך יוצר. מתוך תובנה זו, הכוח שב אליך: כל אתגר הופך להזדמנות ללמידה, וכל צעד – גם אם אינו מושלם – הופך לחלק ממסע צמיחה מודע ומשמעותי.
-          </p>
+            </h2>
+          </header>
+          <div className={styles.cardBody}>
+            <p>
+              המספרים בקוד אינם צירוף מקרי. הם משקפים דפוסים עמוקים המניעים אותך לאורך חייך. כשאתה מזהה דפוסים אלה, אתה מתחיל לפעול ממקום של מודעות, ולא מתוך תגובתיות אוטומטית. זוהי נקודת המפנה שבה השליטה על חייך חוזרת לידיך.
+            </p>
+            <p>
+              מטרת העבודה עם הקוד היא לחיות חיים מודעים, שבהם כל פעולה הופכת מתגובה לא-מודעת לבחירה מכוונת. הבנה זו מבהירה שאין כוח חיצוני המעכב את התקדמותך, אלא תבניות פנימיות שאתה עצמך יוצר. מתוך תובנה זו, הכוח שב אליך: כל אתגר הופך להזדמנות ללמידה, וכל צעד – גם אם אינו מושלם – הופך לחלק ממסע צמיחה מודע ומשמעותי.
+            </p>
+          </div>
         </section>
 
         {/* Card 2: Full Analysis */}
-        <section 
-          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-6 sm:p-8 mb-6 border-0 transition-all duration-500"
+        <section
+          className={[
+            "neuro-card-shell transition-all duration-500",
+            styles.card,
+            styles.cardAnalysis,
+          ].join(" ")}
         >
-          <h2 className="mb-4 text-center">
-            הפירוש המלא
-            <br />
-            כל מה שמחכה לכם בפנים
-          </h2>
-          <p className={["text-center mb-4", styles.boldIntro].join(" ")}>
-            ניתוח מעמיק של {uniqueDigitsText} הכולל:
-          </p>
-          <div 
-            className="neuro-card-secondary rounded-2xl p-4 sm:p-6 border-0"
-          >
-            <p className="text-center">
-              מהות כל ספרה | מתנות עיקריות | חסימות ואתגרים | נורות אזהרה לזיהוי חוסר איזון | מוקדי צמיחה והתפתחות אישית | תחומי קריירה מתאימים | תרגול יומיומי מעשי
+          <header className={styles.cardHeader}>
+            <h2 className={["text-center", styles.cardTitle].join(" ")}>
+              הפירוש המלא
+              <br />
+              כל מה שמחכה לכם בפנים
+            </h2>
+          </header>
+          <div className={styles.cardBody}>
+            <p className={styles.boldIntro}>
+              ניתוח מעמיק של {uniqueDigitsText} הכולל:
+            </p>
+            <div className={["neuro-card-inset-lite border-0", styles.featurePanel].join(" ")}>
+              <ul className={styles.featureList}>
+                {analysisHighlights.map((item) => (
+                  <li key={item}>
+                    <span className={styles.featureBullet} aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p>
+              בנוסף, תמצאו בו הסבר על משמעות הספרות החוזרות או השונות בקוד, לצד הדרכה ברורה כיצד לשלב את הקוד בחיי היומיום.
             </p>
           </div>
-          <p className="text-center mt-4">
-            בנוסף, תמצאו בו הסבר על משמעות הספרות החוזרות או השונות בקוד, לצד הדרכה ברורה כיצד לשלב את הקוד בחיי היומיום.
-          </p>
         </section>
 
         {/* Card 3: Call to Action */}
-        <section 
-          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 border-0 transition-all duration-500"
+        <section
+          className={[
+            "neuro-card-cta transition-all duration-500",
+            styles.card,
+            styles.cardCta,
+          ].join(" ")}
         >
-          <h2 className="mb-6 text-center">
-            הגיע הזמן לגלות מה מספרים מספרים עליך
-          </h2>
-          <p className="text-center mb-6">
-            הפירוש המלא של הקוד מעניק מפתח להבנת הדינמיקות הפנימיות המעצבות את חייך. באמצעותו ניתן לזהות את מקורות הדפוסים החוזרים, להבין כיצד להשתחרר ממעגלי סבל מתמשכים, ולפתח פרספקטיבה חדשה על האתגרים וההזדמנויות הפתוחות בפניך.
-          </p>
+          <header className={styles.cardHeader}>
+            <h2 className={["text-center", styles.cardTitle].join(" ")}>
+              הגיע הזמן לגלות מה מספרים מספרים עליך
+            </h2>
+          </header>
+          <div className={styles.cardBody}>
+            <p>
+              הפירוש המלא של הקוד מעניק מפתח להבנת הדינמיקות הפנימיות המעצבות את חייך. באמצעותו ניתן לזהות את מקורות הדפוסים החוזרים, להבין כיצד להשתחרר ממעגלי סבל מתמשכים, ולפתח פרספקטיבה חדשה על האתגרים וההזדמנויות הפתוחות בפניך.
+            </p>
           
           {/* Price */}
-          <div className="text-center mb-6">
-            <h3 className={["mb-2", styles.priceHeading].join(" ")}>
+          <div className={styles.priceBlock}>
+            <h3 className={styles.priceHeading}>
               עלות הפירוש המלא: ₪ 36.9 בלבד
             </h3>
             <p className="caption">
@@ -106,19 +143,24 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
           </div>
 
           {/* Purchase Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
-            <GlassButton onClick={handlePurchase}>
+          <div className={styles.actions}>
+            <GlassButton className={styles.actionButton} onClick={handlePurchase}>
               מעבר לרכישה
             </GlassButton>
-            <GlassButton onClick={handleMockPurchase}>
+            <GlassButton
+              className={styles.actionButton}
+              variant="secondary"
+              onClick={handleMockPurchase}
+            >
               דמו תשלום (לבדיקה)
             </GlassButton>
           </div>
 
           {/* Security Notice */}
-          <p className={["text-center", styles.securityNotice].join(" ")}>
+          <p className={styles.securityNotice}>
             תשלום מובטח באמצעות ספק סליקה חיצוני Grow
           </p>
+          </div>
         </section>
 
       </div>

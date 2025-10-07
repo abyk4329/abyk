@@ -11,7 +11,7 @@
 }
 .sectionWrapper::before {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
   /* Expanded radial & smoother vertical blend to avoid a visible seam on narrow (mobile) viewports */
@@ -35,7 +35,7 @@
     );
   filter: blur(46px) saturate(102%);
   opacity: 0.95;
-  z-index: 0;
+  z-index: -1;
 }
 
 /* Extra bottom fade extension to avoid shadow cutoff on very short mobile viewports */

@@ -85,26 +85,35 @@
 }
 
 .primaryButton {
-  background: linear-gradient(145deg, #b89274, #87674f);
-  color: #fffaf4;
-  box-shadow: 10px 10px 20px rgba(159, 133, 114, 0.22),
-    -10px -10px 20px rgba(255, 255, 255, 0.95);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(247, 243, 238, 0.88)
+  );
+  color: #5e4934;
+  box-shadow:
+    10px 10px 22px rgba(159, 133, 114, 0.18),
+    -10px -10px 22px rgba(255, 255, 255, 0.95);
 }
 
 .primaryButton:hover,
 .primaryButton:focus-visible {
   transform: translateY(-1px);
-  box-shadow: 12px 12px 26px rgba(159, 133, 114, 0.25),
+  box-shadow:
+    12px 12px 26px rgba(159, 133, 114, 0.22),
     -12px -12px 26px rgba(255, 255, 255, 1);
 }
 
 .primaryButton:focus-visible {
-  outline: 2px solid rgba(135, 103, 79, 0.45);
+  outline: 2px solid rgba(135, 103, 79, 0.35);
   outline-offset: 3px;
 }
 
 .primaryButton:active {
   transform: translateY(1px);
+  box-shadow:
+    6px 6px 14px rgba(159, 133, 114, 0.2),
+    -6px -6px 14px rgba(255, 255, 255, 0.9);
 }
 
 .secondaryButton {
