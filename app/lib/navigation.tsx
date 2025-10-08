@@ -20,6 +20,7 @@ export interface NavigationOverrides {
   onGoHome?: () => void;
   showHeader?: boolean;
   showFooter?: boolean;
+  lockScroll?: boolean;
 }
 
 type NavigationSetter = (overrides: NavigationOverrides | undefined) => void;

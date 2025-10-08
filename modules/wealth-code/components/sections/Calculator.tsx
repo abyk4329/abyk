@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { GlassButton } from "@/app/components/shared/GlassButton";
 import styles from "./Calculator.module.css";
 
@@ -12,12 +12,14 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
+  const baseId = useId();
+  const dayInputId = `${baseId}-day`;
+  const monthInputId = `${baseId}-month`;
+  const yearInputId = `${baseId}-year`;
 
+  // Centralized scroll lock in AppShell; only ensure top.
   useEffect(() => {
-    document.body.classList.add("no-scroll");
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
+    window?.scrollTo?.({ top: 0, left: 0, behavior: "auto" });
   }, []);
 
   // פונקציה לחישוב ספרה בודדת מספר
@@ -82,7 +84,8 @@ export function Calculator({ onCalculate }: CalculatorProps) {
         <div className="max-w-full sm:max-w-3xl mx-auto">
           {/* Neumorphic Card */}
           <div
-            className="neuro-card-main hero-card rounded-[28px] p-5 sm:p-7 lg:p-10 border-0"
+            data-hero-group="a"
+            className="neuro-card-main hero-card rounded-[28px] border-0"
           >
             {/* Main Heading */}
             <h1 className="mb-2 sm:mb-3 text-center">
@@ -105,6 +108,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
               <div dir="ltr">
                 <label
                   className={["block mb-2 caption text-center", styles.label].join(" ")}
+                  htmlFor={dayInputId}
                 >
                   יום
                 </label>
@@ -116,6 +120,8 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setDay(e.target.value)}
                   placeholder="DD"
                   dir="ltr"
+                  id={dayInputId}
+                  name="birth-day"
                   className={["w-full", styles.inputField].join(" ")}
                 />
               </div>
@@ -124,6 +130,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
               <div dir="ltr">
                 <label
                   className={["block mb-2 caption text-center", styles.label].join(" ")}
+                  htmlFor={monthInputId}
                 >
                   חודש
                 </label>
@@ -135,6 +142,8 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setMonth(e.target.value)}
                   placeholder="MM"
                   dir="ltr"
+                  id={monthInputId}
+                  name="birth-month"
                   className={["w-full", styles.inputField].join(" ")}
                 />
               </div>
@@ -143,6 +152,7 @@ export function Calculator({ onCalculate }: CalculatorProps) {
               <div dir="ltr">
                 <label
                   className={["block mb-2 caption text-center", styles.label].join(" ")}
+                  htmlFor={yearInputId}
                 >
                   שנה
                 </label>
@@ -154,6 +164,8 @@ export function Calculator({ onCalculate }: CalculatorProps) {
                   onChange={(e) => setYear(e.target.value)}
                   placeholder="YYYY"
                   dir="ltr"
+                  id={yearInputId}
+                  name="birth-year"
                   className={["w-full", styles.inputField].join(" ")}
                 />
               </div>

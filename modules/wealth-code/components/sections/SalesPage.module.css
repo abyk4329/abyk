@@ -1,55 +1,40 @@
 .salesShell {
-  isolation: isolate;
   position: relative;
   width: 100%;
-  min-height: calc(100dvh - env(safe-area-inset-bottom));
-  padding: calc(env(safe-area-inset-top) + var(--space-4))
-    calc(
-      env(safe-area-inset-right) + clamp(var(--space-2), 5vw, var(--space-4))
-    )
-    calc(
-      env(safe-area-inset-bottom) + clamp(var(--space-4), 8vw, var(--space-5))
-    )
-    calc(env(safe-area-inset-left) + clamp(var(--space-2), 5vw, var(--space-4)));
+  min-height: inherit;
+  padding: 0;
+  background: transparent;
   display: flex;
   justify-content: center;
-  margin: 0;
-  background: #f8f6f2;
-  background-image: radial-gradient(
-      70% 50% at 50% 0%,
-      rgba(184, 146, 116, 0.08),
-      transparent 68%
-    ),
-    radial-gradient(
-      110% 85% at 50% 100%,
-      rgba(255, 255, 255, 0.92),
-      transparent 78%
-    );
-  background-repeat: no-repeat;
-  background-size: 160% 160%;
-  background-position: center;
-  overflow: hidden;
 }
 
-.salesShell::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: transparent;
-  pointer-events: none;
+.salesShell.hero-shell {
+  padding-block-start: calc(
+    env(safe-area-inset-top) + clamp(1.75rem, 5vw, 3.5rem)
+  );
+  padding-block-end: calc(
+    env(safe-area-inset-bottom) + clamp(3.25rem, 7vw, 4.75rem)
+  );
+  padding-inline-start: calc(
+    env(safe-area-inset-left) + clamp(1.25rem, 4vw, 3rem)
+  );
+  padding-inline-end: calc(
+    env(safe-area-inset-right) + clamp(1.25rem, 4vw, 3rem)
+  );
 }
 
 .content {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: calc(100vw - 1rem);
+  max-width: min(100%, 1080px);
   margin-inline: auto;
-  padding-inline: 0.5rem;
+  padding-inline: clamp(0.75rem, 4vw, 2.75rem);
   display: flex;
   flex-direction: column;
-  gap: clamp(2.25rem, 4.5vw, 3.5rem);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
 }
 
@@ -58,9 +43,12 @@
   display: flex;
   flex-direction: column;
   gap: clamp(1.4rem, 3vw, 2.1rem);
-  width: 100%;
-  max-width: calc(100vw - 1rem);
+  width: var(--primary-card-width);
+  max-width: var(--primary-card-width);
   margin-inline: auto;
+  padding-inline: var(--primary-card-gutter);
+  padding-block: var(--primary-card-padding-block);
+  box-sizing: border-box;
   border: 0;
   border-radius: 40px;
   background: linear-gradient(
@@ -100,14 +88,18 @@
   flex-direction: column;
   gap: clamp(1.25rem, 3.2vw, 2rem);
   text-align: center;
-  color: rgba(71, 59, 49, 0.9);
+  color: #473b31;
   font-size: clamp(1rem, 2.4vw, 1.1rem);
-  line-height: 1.8;
+  font-weight: 400;
+  line-height: 1.6;
   direction: rtl;
 }
 
 .cardBody p {
   margin: 0;
+  color: inherit;
+  font-weight: inherit;
+  line-height: inherit;
 }
 
 .codeShowcase {
@@ -125,12 +117,17 @@
 
 .heroText {
   text-align: center;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 .ctaCard {
-  width: 100%;
-  max-width: calc(100vw - 1rem);
+  width: var(--primary-card-width);
+  max-width: var(--primary-card-width);
   margin-inline: auto;
+  padding-inline: var(--primary-card-gutter);
+  padding-block: var(--primary-card-padding-block);
+  box-sizing: border-box;
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.985),
@@ -172,6 +169,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  align-items: stretch;
 }
 
 .actionButton {
@@ -181,45 +179,38 @@
 }
 
 @media (min-width: 640px) {
-  .salesShell {
-    padding-left: calc(
-      env(safe-area-inset-left) + clamp(var(--space-3), 5vw, var(--space-5))
-    );
-    padding-right: calc(
-      env(safe-area-inset-right) + clamp(var(--space-3), 5vw, var(--space-5))
-    );
-  }
-
   .actions {
     flex-direction: row;
     justify-content: center;
-  }
-}
-
-@media (min-width: 640px) {
-  .salesShell {
-    padding-left: calc(env(safe-area-inset-left) + 0.5rem);
-    padding-right: calc(env(safe-area-inset-right) + 0.5rem);
-  }
-
-  .actions {
-    flex-direction: row;
-    justify-content: center;
+    gap: clamp(1rem, 3vw, 1.75rem);
   }
 }
 
 @media (max-width: 640px) {
   .content {
-    max-width: calc(100vw - 1rem);
-    padding-inline: 0.5rem;
+    padding-inline: clamp(0.5rem, 4vw, 1.25rem);
     margin-left: auto;
     margin-right: auto;
   }
 
   .card,
   .ctaCard {
-    max-width: calc(100vw - 1rem);
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .salesShell {
+    padding-inline-start: calc(
+      env(safe-area-inset-left) + clamp(1.75rem, 5vw, 4rem)
+    );
+    padding-inline-end: calc(
+      env(safe-area-inset-right) + clamp(1.75rem, 5vw, 4rem)
+    );
+  }
+
+  .content {
+    max-width: min(100%, 1160px);
   }
 }

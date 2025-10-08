@@ -83,7 +83,8 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
         
         {/* Main Thank You Card */}
         <section 
-          className="neuro-card-main hero-card rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 border-0"
+          data-hero-group="b"
+          className="neuro-card-main hero-card rounded-[32px] sm:rounded-[40px] border-0"
         >
           <h1 className="mb-6 text-center">
             תודה על הרכישה!

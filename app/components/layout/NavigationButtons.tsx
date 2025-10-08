@@ -212,7 +212,7 @@ export function NavigationButtons({
       data-stage={currentStageKey ?? (isHomeRoute ? routes.home : "other")}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
           {/* Forward Button - חץ ימינה (קדימה) - בצד שמאל */}
           <button
             type="button"

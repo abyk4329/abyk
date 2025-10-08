@@ -69,11 +69,18 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="he" dir="rtl" className={[assistant.variable, "scroll-smooth"].join(" ")} suppressHydrationWarning>
+    <html
+      lang="he"
+      dir="rtl"
+      className={[assistant.variable, "scroll-smooth"].join(" ")}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <head>
         {/* Fullscreen & Safe-Area immersion */}
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="ABYK" />
   {/* iOS notch safe-area background color */}

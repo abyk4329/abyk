@@ -8,6 +8,13 @@
 /* New hero section wrapper for background blending */
 .sectionWrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: inherit;
+  gap: clamp(1.5rem, 3vh, 3rem);
 }
 .sectionWrapper::before {
   content: "";
@@ -16,19 +23,6 @@
   pointer-events: none;
   background: transparent;
   z-index: -1;
-}
-
-/* Extra bottom fade extension to avoid shadow cutoff on very short mobile viewports */
-.sectionWrapper::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -18vh; /* extend visually below */
-  height: 22vh;
-  pointer-events: none;
-  background: transparent;
-  z-index: 0;
 }
 
 /* Mobile fine-tuning to eliminate edge line */
@@ -41,16 +35,13 @@
     opacity: 0.78;
     transform: scaleX(1.35) translateY(10px);
   }
-  .sectionWrapper::after {
-    bottom: -24vh;
-    height: 28vh;
-  }
 }
 
 /* Elevate content above blend layer */
 .contentLayer {
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 /* Shadow effect - soft and blended */
@@ -129,4 +120,17 @@
     inset -7px -7px 14px rgba(255, 255, 255, 0.95),
     2px 2px 3px rgba(255, 255, 255, 0.65);
   transform: translateY(-2px) scale(1.04);
+}
+
+.sectionWrapper > .relative,
+.sectionWrapper > :global(.container) {
+  width: min(100%, 1080px);
+  margin-inline: auto;
+}
+
+.cardFrame {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-inline: auto;
 }

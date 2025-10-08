@@ -132,6 +132,15 @@
   --switch-background: #d3c6bd;
   --ring: #87674f;
 
+  /* Primary card sizing (mobile-first) */
+  --primary-card-max-width: 880px;
+  --primary-card-gutter: clamp(1rem, 4.5vw, 2.5rem);
+  --primary-card-padding-block: clamp(2.25rem, 8vw, 3.75rem);
+  --primary-card-width: min(
+    var(--primary-card-max-width),
+    calc(100% - 2 * var(--primary-card-gutter))
+  );
+
   /* Charts */
   --chart-1: #d97706;
   --chart-2: #0891b2;
@@ -155,6 +164,30 @@
   /* Font Weights */
   --font-weight-medium: 600;
   --font-weight-normal: 400;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --primary-card-max-width: 960px;
+    --primary-card-gutter: clamp(1.25rem, 3.5vw, 2.5rem);
+    --primary-card-padding-block: clamp(2.5rem, 6vw, 4rem);
+    --primary-card-width: min(
+      var(--primary-card-max-width),
+      calc(100% - 2 * var(--primary-card-gutter))
+    );
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --primary-card-max-width: 1040px;
+    --primary-card-gutter: clamp(1.75rem, 3vw, 3rem);
+    --primary-card-padding-block: clamp(2.75rem, 5vw, 4.25rem);
+    --primary-card-width: min(
+      var(--primary-card-max-width),
+      calc(100% - 2 * var(--primary-card-gutter))
+    );
+  }
 }
 
 /* Dark scheme (no Tailwind v4 variants; plain CSS vars override) */
@@ -233,13 +266,34 @@
 }
 
 /* ============================================
-   Base Styles - Reset & Global (v3 safe)
+   CSS Resets & Global Styles
    ============================================ */
 @layer base {
+  /* Adding universal box-sizing to prevent layout issues on the left side
+     Ensure that all elements inherit correct sizing so nothing gets cut off */
+  html {
+    box-sizing: border-box;
+  }
   *,
   *::before,
   *::after {
-    box-sizing: border-box;
+    box-sizing: inherit;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    background: radial-gradient(
+        140% 140% at 50% 0%,
+        #faf7f4 0%,
+        #f3efe9 55%,
+        #efe9e2 85%,
+        #ebe4dc 100%
+      )
+      fixed;
+    background-repeat: no-repeat;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   html {
@@ -298,6 +352,12 @@
     isolation: isolate;
   }
 
+  html.no-scroll {
+    overflow: hidden;
+    height: 100dvh;
+    overscroll-behavior: none;
+  }
+
   body.no-scroll {
     overflow: hidden;
     height: 100dvh;
@@ -306,12 +366,30 @@
 
   /* Hero shell for home, calculator, result, thank-you pages */
   .hero-shell {
-    min-height: calc(100dvh - env(safe-area-inset-bottom));
+    /* Fill the entire viewport while accounting for safe areas; padding stays within border-box */
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: calc(
+      100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    );
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: calc(env(safe-area-inset-top) + 1rem) 0.5rem
-      calc(env(safe-area-inset-bottom) + 1rem);
+    padding-block-start: calc(
+      var(--header-height) + env(safe-area-inset-top) +
+        clamp(0.75rem, 2.5vw, 2rem)
+    );
+    padding-block-end: calc(
+      env(safe-area-inset-bottom) + clamp(1.5rem, 5vh, 4rem)
+    );
+    padding-inline-start: calc(
+      env(safe-area-inset-right) + clamp(1rem, 4vw, 2.5rem)
+    );
+    padding-inline-end: calc(
+      env(safe-area-inset-left) + clamp(1rem, 4vw, 2.5rem)
+    );
+    width: 100%;
+    flex: 1 1 auto;
     position: relative;
     isolation: isolate;
   }
@@ -363,31 +441,63 @@
     }
   }
 
-  /* Hero card positioning – elevated and centered */
-  .hero-card {
-    transform: translateY(-4vh);
+  /* ==============================================
+     Hero Card Vertical Positioning
+     ----------------------------------------------
+     We define two elevation groups using CSS vars:
+       --hero-offset-group-a : Home / Calculator / Result (slightly higher)
+       --hero-offset-group-b : Sales / Interpretations / ThankYou / Terms
+     Mobile gets a slightly larger negative translate for better visual centering.
+  =============================================== */
+  :root {
+    /* Tuned offsets after visual QA to lift cards higher */
+    --hero-offset-group-a: -12vh; /* desktop & tablet */
+    --hero-offset-group-b: -8vh; /* desktop & tablet */
+    --hero-offset-group-a-mobile: -15vh;
+    --hero-offset-group-b-mobile: -11vh;
+  }
+
+  /* Base hero-card neutral (width handled later section) */
+  .hero-card[data-hero-group="a"],
+  .hero-shell .hero-card[data-hero-group="a"] {
+    transform: translateY(var(--hero-offset-group-a));
+  }
+  .hero-card[data-hero-group="b"],
+  .hero-shell .hero-card[data-hero-group="b"] {
+    transform: translateY(var(--hero-offset-group-b));
   }
 
   @media (max-width: 640px) {
-    .hero-card {
-      transform: translateY(-5vh);
+    .hero-card[data-hero-group="a"],
+    .hero-shell .hero-card[data-hero-group="a"] {
+      transform: translateY(var(--hero-offset-group-a-mobile));
     }
-  } /* Full-screen no-scroll container adjustments */
+    .hero-card[data-hero-group="b"],
+    .hero-shell .hero-card[data-hero-group="b"] {
+      transform: translateY(var(--hero-offset-group-b-mobile));
+    }
+  }
+
+  /* Full-screen no-scroll container adjustments */
+  .app-shell[data-route="/"],
+  .app-shell[data-route="/wealth-code"],
   .app-shell[data-route="/wealth-code/calculator"],
   .app-shell[data-route="/wealth-code/result"],
-  .app-shell[data-route="/wealth-code/thankyou"],
+  .app-shell[data-route="/wealth-code/thank-you"],
   .app-shell[data-route="/calculator"],
   .app-shell[data-route="/result"],
-  .app-shell[data-route="/thankyou"] {
+  .app-shell[data-route="/thank-you"] {
     /* Ensure the main region fills remaining viewport without self scroll */
   }
 
+  .app-shell[data-route="/"] main.app-main,
+  .app-shell[data-route="/wealth-code"] main.app-main,
   .app-shell[data-route="/wealth-code/calculator"] main.app-main,
   .app-shell[data-route="/wealth-code/result"] main.app-main,
-  .app-shell[data-route="/wealth-code/thankyou"] main.app-main,
+  .app-shell[data-route="/wealth-code/thank-you"] main.app-main,
   .app-shell[data-route="/calculator"] main.app-main,
   .app-shell[data-route="/result"] main.app-main,
-  .app-shell[data-route="/thankyou"] main.app-main {
+  .app-shell[data-route="/thank-you"] main.app-main {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -396,7 +506,9 @@
         env(safe-area-inset-bottom)
     );
     overflow: hidden;
-    padding-bottom: 0;
+    padding-top: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    gap: 0;
   }
 
   .no-scroll-section {
@@ -413,39 +525,7 @@
     box-sizing: border-box;
   }
 
-  .hero-shell {
-    position: relative;
-    isolation: isolate;
-    width: 100%;
-    flex: 1 0 auto;
-    min-height: calc(100dvh - env(safe-area-inset-bottom));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: calc(env(safe-area-inset-top) + 1rem) 0.5rem
-      calc(env(safe-area-inset-bottom) + 1rem);
-    margin: 0;
-    background: transparent;
-    overflow: visible;
-  }
-
-  .hero-shell::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: radial-gradient(
-        145% 110% at 50% 0%,
-        rgba(255, 255, 255, 0.94),
-        transparent 78%
-      ),
-      radial-gradient(
-        130% 120% at 50% 100%,
-        rgba(184, 146, 116, 0.08),
-        transparent 82%
-      );
-    pointer-events: none;
-  }
+  /* (Removed duplicate hero-shell block; consolidated above) */
 
   .safe-top {
     width: 100%;
@@ -808,21 +888,33 @@
   overflow: visible;
 }
 
+.app-shell--full-bleed {
+  padding-left: max(env(safe-area-inset-left), 0px);
+  padding-right: max(env(safe-area-inset-right), 0px);
+}
+
 .app-shell::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
   border-radius: 0;
+  /* Soft dual radial wash blending with page background */
   background: radial-gradient(
-      140% 120% at 50% 0%,
-      rgba(255, 255, 255, 0.9),
-      transparent 75%
+      160% 130% at 50% 0%,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.75) 40%,
+      rgba(250, 248, 246, 0.55) 65%,
+      rgba(245, 240, 236, 0.25) 82%,
+      rgba(240, 234, 228, 0) 100%
     ),
     radial-gradient(
-      120% 120% at 50% 100%,
-      rgba(184, 146, 116, 0.08),
-      transparent 80%
+      140% 140% at 50% 100%,
+      rgba(184, 146, 116, 0.12) 0%,
+      rgba(184, 146, 116, 0.06) 45%,
+      rgba(184, 146, 116, 0.03) 70%,
+      rgba(184, 146, 116, 0.015) 82%,
+      rgba(184, 146, 116, 0) 100%
     );
   pointer-events: none;
 }
@@ -905,6 +997,67 @@
   margin-bottom: 0 !important;
 }
 
+/* Global resets and layout fixes added by Copilot */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #fff; /* Uniform background to avoid stripes or gradients */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Ensure that the main sections cover the full viewport height */
+.section-full {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Class to disable vertical scrolling on specific pages (apply on body or main container) */
+.no-scroll {
+  overflow: hidden !important;
+}
+
+/* Safe area handling for mobile devices */
+html {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+/* Navigation buttons styling for calculator and result pages */
+.nav-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 1000;
+}
+
+/* Consistent typography: center align all headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+/* Ensure footer attaches cleanly with no extra margin*/
+footer {
+  margin: 0;
+  padding: 0;
+}
+
 /* ============================================
    PDF Rendering Mode Overrides
    ============================================ */
@@ -973,19 +1126,11 @@
 
   .hero-card {
     transition: none;
-    width: calc(100vw - 1rem);
-    max-width: calc(100vw - 1rem);
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-shell .hero-card {
-    transform: translateY(-4vh);
-  }
-
-  @media (max-width: 640px) {
-    .hero-shell .hero-card {
-      transform: translateY(-5vh);
-    }
+    width: var(--primary-card-width);
+    max-width: var(--primary-card-width);
+    margin-inline: auto;
+    box-sizing: border-box;
+    padding-inline: var(--primary-card-gutter);
+    padding-block: var(--primary-card-padding-block);
   }
 }

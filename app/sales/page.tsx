@@ -1,5 +1,12 @@
-import { redirect } from "next/navigation";
+import { SalesPageClient } from "./SalesPageClient";
 
-export default function SalesPage() {
-  redirect("/wealth-code/sales");
+interface SalesPageProps {
+  searchParams?: Record<string, string | string[] | undefined>;
+}
+
+export default function SalesPage({ searchParams }: SalesPageProps) {
+  const rawCode = searchParams?.code;
+  const code = Array.isArray(rawCode) ? rawCode[0] : rawCode;
+
+  return <SalesPageClient code={code} />;
 }

@@ -119,7 +119,8 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
         {/* Main Card */}
         <section 
           ref={contentRef} 
-          className="neuro-card-main rounded-[32px] sm:rounded-[40px] p-6 sm:p-10 mb-8 border-0 transition-all duration-500"
+          data-hero-group="b"
+          className="neuro-card-main hero-card rounded-[32px] sm:rounded-[40px] mb-8 border-0 transition-all duration-500"
         >
           
           {/* קוד העושר */}

@@ -11,11 +11,9 @@ interface ResultProps {
 }
 
 export function Result({ code, onContinue }: ResultProps) {
+  // Central scroll lock now handled by AppShell.
   useEffect(() => {
-    document.body.classList.add("no-scroll");
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
+    window?.scrollTo?.({ top: 0, left: 0, behavior: "auto" });
   }, []);
 
   // זיהוי סוג הקוד
@@ -65,7 +63,8 @@ export function Result({ code, onContinue }: ResultProps) {
           
           {/* Neumorphic Card */}
           <div 
-            className="neuro-card-main hero-card rounded-[30px] p-5 sm:p-8 lg:p-10 border-0"
+            data-hero-group="a"
+            className="neuro-card-main hero-card rounded-[30px] border-0"
           >
             {/* Main Heading */}
             <h1 className={["mb-3 sm:mb-4 text-center", styles.mainHeading].join(" ")}>

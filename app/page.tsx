@@ -22,7 +22,10 @@ export default function Home() {
   const [isSplashVisible, setIsSplashVisible] = useState<boolean>(true);
 
   // Views that should be full screen (no vertical scrolling)
-  const fullScreenViews = useMemo(() => new Set<ViewType>(["hero", "calculator", "result"]), []);
+  const fullScreenViews = useMemo(
+    () => new Set<ViewType>(["hero", "calculator", "result", "thankyou"]),
+    []
+  );
   
   // Views that should have minimal layout (no header/footer, only bottom navigation)
   const minimalViews = useMemo(() => new Set<ViewType>(["sales", "interpretations", "thankyou"]), []);
@@ -160,8 +163,18 @@ export default function Home() {
       onGoHome: handleGoHome,
       showHeader: !isMinimalView,
       showFooter: !isMinimalView,
+      lockScroll: isFullScreenView,
     }),
-    [currentView, canGoBack, canGoForward, handleGoBack, handleGoForward, handleGoHome, isMinimalView]
+    [
+      currentView,
+      canGoBack,
+      canGoForward,
+      handleGoBack,
+      handleGoForward,
+      handleGoHome,
+      isMinimalView,
+      isFullScreenView,
+    ]
   );
 
   const layoutClassName = isFullScreenView
@@ -214,7 +227,11 @@ export default function Home() {
     <NavigationProvider value={navigationOverrides}>
       <div className="relative w-full flex-1 overflow-hidden">
         {isSplashVisible && <SplashScreen onComplete={handleSplashComplete} />}
-        <PageLayout className={layoutClassName} maxWidth="xl">
+        <PageLayout
+          className={layoutClassName}
+          maxWidth={isFullScreenView ? "full" : "xl"}
+          padded={!isFullScreenView}
+        >
           {renderView()}
         </PageLayout>
       </div>

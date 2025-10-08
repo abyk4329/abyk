@@ -1,10 +1,32 @@
-import styles from './TermsPrivacy.module.css';
+"use client";
+
+import { useMemo } from "react";
+import { useRouter } from "next/navigation";
+
+import styles from "./TermsPrivacy.module.css";
 import { NavigationProvider } from "@/app/lib/navigation";
+import { routes } from "@/lib/routes";
 
 export function TermsPrivacy() {
+  const router = useRouter();
+
+  const navigationOverrides = useMemo(
+    () => ({
+      isVisible: true,
+      showHeader: false,
+      showFooter: false,
+      lockScroll: false,
+      canGoBack: true,
+      onGoBack: () => router.push(routes.home),
+      onGoHome: () => router.push(routes.home),
+      canGoForward: false,
+    }),
+    [router]
+  );
+
   return (
-    <NavigationProvider value={{ showHeader: false, showFooter: false }}>
-  <div className={styles.viewportFrame}>
+    <NavigationProvider value={navigationOverrides}>
+      <div className={styles.viewportFrame}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-5xl">
           {/* Header */}
           <div className="neuro-card-shell mb-10">

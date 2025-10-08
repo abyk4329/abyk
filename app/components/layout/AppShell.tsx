@@ -86,10 +86,15 @@ export function AppShell({ children }: AppShellProps) {
     []
   );
 
+  const thankYouPath = useMemo(
+    () => withBase(routes.thankYou) ?? normalizePathValue(routes.thankYou) ?? routes.thankYou,
+    []
+  );
+
   const fullScreenPages = useMemo(() => {
-    const entries = ["/", basePrefix || undefined, calculatorPath, resultPath];
+    const entries = ["/", basePrefix || undefined, calculatorPath, resultPath, thankYouPath];
     return new Set(entries.filter((value): value is string => Boolean(value)));
-  }, [calculatorPath, resultPath]);
+  }, [calculatorPath, resultPath, thankYouPath]);
 
   const minimalPages = useMemo(() => {
     const specialRoutes = [routes.sales, routes.terms, routes.privacy, routes.thankYou, routes.interpretations];
@@ -118,6 +123,7 @@ export function AppShell({ children }: AppShellProps) {
     isVisible,
     showHeader,
     showFooter,
+    lockScroll: lockScrollOverride,
   } = navigationOverrides ?? {};
 
   const showNavigation = isVisible ?? true;
@@ -174,11 +180,48 @@ export function AppShell({ children }: AppShellProps) {
     .filter(Boolean)
     .join(" ");
 
+  const shellClassName = [
+    "app-shell",
+    "min-h-[100dvh]",
+    "w-full",
+    isFullScreenPage ? "app-shell--full-bleed" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  // Central scroll locking for defined full-screen pages (Home / Calculator / Result / ThankYou)
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const body = document.body;
+    const root = document.documentElement;
+    const lockRoutes = new Set(
+      [
+        withBase("/") ?? "/",
+        basePrefix || undefined,
+        calculatorPath,
+        resultPath,
+        withBase(routes.thankYou) ?? routes.thankYou,
+      ].filter(Boolean)
+    );
+
+    const shouldLock =
+      typeof lockScrollOverride === "boolean"
+        ? lockScrollOverride
+        : lockRoutes.has(effectivePath);
+    body.classList.toggle("no-scroll", shouldLock);
+    root.classList.toggle("no-scroll", shouldLock);
+
+    return () => {
+      body.classList.remove("no-scroll");
+      root.classList.remove("no-scroll");
+    };
+  }, [effectivePath, calculatorPath, resultPath, thankYouPath, lockScrollOverride]);
+
   return (
     <CookieConsentProvider>
       <div
-  className="app-shell min-h-[100dvh] w-full"
-  data-mobile-layout={shouldCollapseForMobile ? "minimal" : "standard"}
+        className={shellClassName}
+        data-mobile-layout={shouldCollapseForMobile ? "minimal" : "standard"}
         data-route={effectivePath}
       >
         <TikTokPixel />
@@ -204,25 +247,21 @@ export function AppShell({ children }: AppShellProps) {
         <main className={mainClassName} role="main">
           {children}
         </main>
-        {shouldShowFooter && (
-          <>
-            {/* Footer navigation only for pages that are not calculator/result */}
-            {shouldShowNavigation && !isCalculatorOrResult && (
-              <div className="container mx-auto px-2 sm:px-4 lg:px-6 pt-2 sm:pt-3">
-                <nav aria-label="ניווט משני" role="navigation">
-                  <NavigationButtons
-                    onGoBack={goBack}
-                    onGoForward={goForward}
-                    onGoHome={goHome}
-                    canGoBack={canGoBack}
-                    canGoForward={canGoForward}
-                  />
-                </nav>
-              </div>
-            )}
-            <Footer />
-          </>
+        {shouldShowNavigation && shouldShowFooter && (
+          <div className="container mx-auto px-2 sm:px-4 lg:px-6 pt-2 sm:pt-3">
+            <nav aria-label="ניווט משני" role="navigation">
+              <NavigationButtons
+                onGoBack={goBack}
+                onGoForward={goForward}
+                onGoHome={goHome}
+                canGoBack={canGoBack}
+                canGoForward={canGoForward}
+                className={isCalculatorOrResult ? "justify-center" : undefined}
+              />
+            </nav>
+          </div>
         )}
+        {shouldShowFooter && <Footer />}
         {showFixedNavigation && (
           <div className="fixed bottom-0 left-0 right-0 z-40">
             <nav aria-label="ניווט ממוזער" role="navigation">

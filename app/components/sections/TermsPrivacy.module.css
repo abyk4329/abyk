@@ -29,8 +29,16 @@
   position: relative;
   width: 100%;
   min-height: calc(100dvh - env(safe-area-inset-bottom));
-  padding-top: calc(env(safe-area-inset-top) + clamp(2rem, 5vw, 3rem));
-  padding-bottom: clamp(3rem, 7vw, 4rem);
+  padding-top: calc(
+    var(--header-height) + env(safe-area-inset-top) + clamp(2rem, 5vw, 3rem)
+  );
+  padding-bottom: calc(env(safe-area-inset-bottom) + clamp(3rem, 7vw, 4.5rem));
+  padding-inline-start: calc(
+    env(safe-area-inset-left) + clamp(1.5rem, 4.5vw, 3.5rem)
+  );
+  padding-inline-end: calc(
+    env(safe-area-inset-right) + clamp(1.5rem, 4.5vw, 3.5rem)
+  );
   background: #f8f6f2;
   background-image: radial-gradient(
       70% 50% at 50% 0%,

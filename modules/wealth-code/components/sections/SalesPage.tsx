@@ -39,7 +39,7 @@ export function SalesPage({ code, onMockPurchase }: SalesPageProps) {
   };
 
   return (
-    <section className={styles.salesShell}>
+    <section className={["hero-shell", styles.salesShell].join(" ")}>
       <div className={styles.content}>
         <article className={["neuro-card-shell", styles.card].join(" ")}>
           <header className={styles.cardHeader}>
