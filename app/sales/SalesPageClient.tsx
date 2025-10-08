@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { NavigationProvider } from "@/app/lib/navigation";
 import { SalesPage as SalesSection } from "@/modules/wealth-code/components";
+import { sendDemoAccessEmail } from "@/modules/wealth-code/utils";
 import { routes } from "@/lib/routes";
 
 interface SalesPageClientProps {
@@ -37,6 +38,18 @@ export function SalesPageClient({ code }: SalesPageClientProps) {
 
   const handleMockPurchase = () => {
     const search = code ? `?code=${encodeURIComponent(code)}` : "";
+
+    const normalizedCode = (code ?? "").trim();
+    if (normalizedCode && /^\d{4}$/.test(normalizedCode)) {
+      void sendDemoAccessEmail({ code: normalizedCode, to: "kseniachud@gmail.com" }).catch(
+        (error) => {
+          console.error("Failed to send demo email:", error);
+        }
+      );
+    } else {
+      console.warn("Skipping demo email send due to missing or invalid code", code);
+    }
+
     router.push(`${routes.thankYou}${search}`);
   };
 

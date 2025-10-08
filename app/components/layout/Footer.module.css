@@ -5,6 +5,8 @@
   right: 0;
   z-index: 40;
   padding-bottom: env(safe-area-inset-bottom);
+  font-size: 0.875rem;
+  line-height: 1.45;
   background: linear-gradient(
     145deg,
     var(--header-surface),
@@ -28,7 +30,6 @@
   }
   .termsButton {
     padding: 0.5rem 1rem;
-    font-size: 11px;
   }
   .socialButton {
     padding: 0.55rem;
@@ -36,6 +37,10 @@
   .copyrightShell {
     padding: 0.35rem 0.85rem !important;
   }
+}
+
+.footer > .container {
+  font-size: inherit;
 }
 
 .termsButton {
@@ -50,6 +55,7 @@
   color: rgb(135, 103, 79);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: clamp(0.875rem, 0.6vw + 0.75rem, 1rem);
 }
 
 .termsButton:hover {
@@ -114,21 +120,30 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  font-size: clamp(0.875rem, 0.5vw + 0.75rem, 0.975rem);
+  white-space: nowrap;
 }
 
-/* Responsive shrink so the entire line fits on one row in narrow mobile */
-@media (max-width: 480px) {
-  .copyrightText {
-    font-size: clamp(10px, 2.8vw, 13px);
-    letter-spacing: 0.15em;
-    line-height: 1;
-    white-space: nowrap; /* Force single line */
+@media (min-width: 768px) {
+  .footer {
+    font-size: 0.9375rem;
+  }
+
+  .termsButton {
+    letter-spacing: 0.09em;
   }
 }
 
-@media (max-width: 360px) {
+@media (min-width: 1024px) {
+  .footer {
+    font-size: 1rem;
+  }
+
+  .termsButton {
+    font-size: clamp(0.95rem, 0.4vw + 0.8rem, 1.05rem);
+  }
+
   .copyrightText {
-    font-size: clamp(9px, 3vw, 11px);
-    letter-spacing: 0.14em;
+    font-size: clamp(0.95rem, 0.35vw + 0.8rem, 1.05rem);
   }
 }

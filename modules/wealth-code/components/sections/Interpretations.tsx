@@ -120,7 +120,7 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
         <section 
           ref={contentRef} 
           data-hero-group="b"
-          className="neuro-card-main hero-card rounded-[32px] sm:rounded-[40px] mb-8 border-0 transition-all duration-500"
+          className={["neuro-card-main", "hero-card", styles.heroCardAdjust, "rounded-[32px]", "sm:rounded-[40px]", "mb-8", "border-0", "transition-all", "duration-500"].join(" ")}
         >
           
           {/* קוד העושר */}
@@ -155,132 +155,81 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
             </p>
           </div>
 
-          {/* Tabs לפירושים */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} dir="rtl" className="w-full">
-            <TabsList 
-              className="w-full flex flex-wrap justify-center gap-2 p-3 rounded-2xl mb-6 border-0"
-              style={{
-                background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240))',
-                boxShadow: `
-                  12px 12px 24px rgba(159, 133, 114, 0.15),
-                  -12px -12px 24px rgba(255, 255, 255, 0.9),
-                  inset 1px 1px 2px rgba(255, 255, 255, 0.6)
-                `
-              }}
-            >
+        </section>
+
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          dir="rtl"
+          className={styles.tabsRoot}
+        >
+          <section
+            className={[
+              "neuro-card-main",
+              "border-0",
+              "rounded-[32px]",
+              styles.tabsCard,
+            ].join(" ")}
+          >
+            <TabsList className={styles.tabsList}>
               {uniqueDigits.map((digit, index) => (
                 <TabsTrigger
                   key={digit}
                   value={index.toString()}
-                  className="
-                    border-0
-                    data-[state=active]:text-[#473B31]
-                    text-[#87674F]
-                    active:scale-95
-                    rounded-lg px-4 py-2
-                    transition-all duration-300
-                    touch-manipulation
-                  "
-                  style={{
-                    background: 'transparent'
-                  }}
-                  data-state={activeTab === index.toString() ? 'active' : 'inactive'}
-                  onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    if (activeTab !== index.toString()) {
-                      e.currentTarget.style.background = 'linear-gradient(145deg, rgb(253, 252, 251), rgb(245, 241, 237))';
-                      e.currentTarget.style.boxShadow = `
-                        inset 3px 3px 6px rgba(159, 133, 114, 0.08),
-                        inset -3px -3px 6px rgba(255, 255, 255, 0.8)
-                      `;
-                    }
-                  }}
-                  onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    if (activeTab !== index.toString()) {
-                      e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }
-                  }}
+                  className={styles.tabTrigger}
                 >
                   {digit}
                 </TabsTrigger>
               ))}
-              <TabsTrigger
-                value="daily"
-                className="
-                  border-0
-                  data-[state=active]:text-[#473B31]
-                  text-[#87674F]
-                  active:scale-95
-                  rounded-lg px-4 py-2
-                  transition-all duration-300
-                  touch-manipulation
-                "
-                style={{
-                  background: 'transparent'
-                }}
-                data-state={activeTab === 'daily' ? 'active' : 'inactive'}
-                onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  if (activeTab !== 'daily') {
-                    e.currentTarget.style.background = 'linear-gradient(145deg, rgb(253, 252, 251), rgb(245, 241, 237))';
-                    e.currentTarget.style.boxShadow = `
-                      inset 3px 3px 6px rgba(159, 133, 114, 0.08),
-                      inset -3px -3px 6px rgba(255, 255, 255, 0.8)
-                    `;
-                  }
-                }}
-                onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  if (activeTab !== 'daily') {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }
-                }}
-              >
+              <TabsTrigger value="daily" className={styles.tabTrigger}>
                 יישום יומי
               </TabsTrigger>
             </TabsList>
+          </section>
 
-            {/* תוכן כל ספרה */}
-            {uniqueDigits.map((digit, index) => {
-              const interpretation = digitInterpretations[digit];
-              return (
-                <TabsContent key={digit} value={index.toString()} className="mt-6">
-                  <div 
-                    className="neuro-card-secondary rounded-2xl p-6 sm:p-8 border-0"
-                  >
-                    
-                    {/* כותרת הספרה */}
-                    <div className="text-center mb-8">
-                      <div className={["text-[#5e4934]", "mb-2", styles.digitNumber].join(" ")}>
-                        {digit}
-                      </div>
-                      <h2 className="text-[#5e4934]">
-                        {interpretation.title}
-                      </h2>
+          {uniqueDigits.map((digit, index) => {
+            const interpretation = digitInterpretations[digit];
+            return (
+              <TabsContent key={digit} value={index.toString()} className={styles.tabPanel}>
+                <section
+                  className={[
+                    "neuro-card-main",
+                    "border-0",
+                    "rounded-[32px]",
+                    styles.digitCard,
+                  ].join(" ")}
+                >
+                  <div className={styles.digitHeader}>
+                    <div className={["text-[#5e4934]", styles.digitNumber].join(" ")}>
+                      {digit}
                     </div>
+                    <h2 className="text-[#5e4934]">{interpretation.title}</h2>
+                  </div>
 
-                    {/* מהות הספרה */}
-                    <div 
-                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
+                  <div className={styles.digitSections}>
+                    <div
+                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">מהות הספרה</h4>
-                      <p className={["text-center", styles.tightLineHeight].join(" ")}>{interpretation.essence}</p>
+                      <p className={["text-center", styles.tightLineHeight].join(" ")}>
+                        {interpretation.essence}
+                      </p>
                     </div>
 
-                    {/* מתנות מרכזיות */}
-                    <div 
-                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
+                    <div
+                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">מתנות מרכזיות</h4>
                       <ul className="space-y-2">
                         {interpretation.gifts.map((gift, i) => {
-                          const parts = gift.split(' – ');
+                          const parts = gift.split(" – ");
                           return (
                             <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
                               {parts.length >= 2 ? (
                                 <>
                                   <span className={styles.boldText}>{parts[0]}</span>
-                                  {' – '}
-                                  {parts.slice(1).join(' – ')}
+                                  {" – "}
+                                  {parts.slice(1).join(" – ")}
                                 </>
                               ) : (
                                 gift
@@ -291,21 +240,20 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
                       </ul>
                     </div>
 
-                    {/* חסימות ואתגרים */}
-                    <div 
-                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
+                    <div
+                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">חסימות ואתגרים עיקריים</h4>
                       <ul className="space-y-2">
                         {interpretation.blocks.map((block, i) => {
-                          const parts = block.split(' – ');
+                          const parts = block.split(" – ");
                           return (
                             <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
                               {parts.length >= 2 ? (
                                 <>
                                   <span className={styles.boldText}>{parts[0]}</span>
-                                  {' – '}
-                                  {parts.slice(1).join(' – ')}
+                                  {" – "}
+                                  {parts.slice(1).join(" – ")}
                                 </>
                               ) : (
                                 block
@@ -316,9 +264,8 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
                       </ul>
                     </div>
 
-                    {/* נורות אדומות */}
-                    <div 
-                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
+                    <div
+                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">נורות אדומות – סימנים לחוסר איזון</h4>
                       <p className={["text-center", styles.tightLineHeight].join(" ")}>
@@ -326,21 +273,20 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
                       </p>
                     </div>
 
-                    {/* מוקדי צמיחה */}
-                    <div 
-                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
+                    <div
+                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">מוקדי צמיחה והתפתחות</h4>
                       <ul className="space-y-2">
                         {interpretation.growth.map((growth, i) => {
-                          const parts = growth.split(' – ');
+                          const parts = growth.split(" – ");
                           return (
                             <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
                               {parts.length >= 2 ? (
                                 <>
                                   <span className={styles.boldText}>{parts[0]}</span>
-                                  {' – '}
-                                  {parts.slice(1).join(' – ')}
+                                  {" – "}
+                                  {parts.slice(1).join(" – ")}
                                 </>
                               ) : (
                                 growth
@@ -351,9 +297,8 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
                       </ul>
                     </div>
 
-                    {/* תחומי קריירה */}
-                    <div 
-                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
+                    <div
+                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">תחומים מתאימים לקריירה ולשליחות</h4>
                       <p className={["text-center", styles.tightLineHeight].join(" ")}>
@@ -361,46 +306,66 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
                       </p>
                     </div>
 
-                    {/* דוגמה יומית */}
-                    <div 
-                      className={["rounded-xl", "p-4", "mb-4", "border-0", styles.sectionCard].join(" ")}
+                    <div
+                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">דוגמה יומית לתרגול</h4>
-                      <p className={["text-center", styles.tightLineHeight].join(" ")}>{interpretation.dailyPractice}</p>
+                      <p className={["text-center", styles.tightLineHeight].join(" ")}>
+                        {interpretation.dailyPractice}
+                      </p>
                     </div>
 
-                    {/* בשורה התחתונה */}
-                    <div 
+                    <div
                       className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
                     >
                       <h4 className="mb-3 text-center">בשורה התחתונה</h4>
-                      <p className={["text-center", styles.tightLineHeight].join(" ")}>{interpretation.bottomLine}</p>
+                      <p className={["text-center", styles.tightLineHeight].join(" ")}>
+                        {interpretation.bottomLine}
+                      </p>
                     </div>
                   </div>
-                </TabsContent>
-              );
-            })}
+                </section>
+              </TabsContent>
+            );
+          })}
 
-            {/* יישום יומי */}
-            <TabsContent value="daily" className="mt-6">
-              <div 
-                className="neuro-card-secondary rounded-2xl p-6 sm:p-8 border-0"
+          <TabsContent value="daily" className={styles.tabPanel}>
+            <section
+              className={[
+                "neuro-card-main",
+                "border-0",
+                "rounded-[32px]",
+                styles.digitCard,
+              ].join(" ")}
+            >
+              <div className={styles.digitHeader}>
+                <h2 className="text-[#5e4934]">{dailyApplication.title}</h2>
+              </div>
+              <div
+                className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
               >
-                <h2 className="mb-4 text-center">
-                  {dailyApplication.title}
-                </h2>
-                <p className={["text-center", "whitespace-pre-line", styles.tightLineHeight].join(" ")}>
+                <p
+                  className={["text-center", "whitespace-pre-line", styles.tightLineHeight].join(" ")}
+                >
                   {dailyApplication.content}
                 </p>
               </div>
-            </TabsContent>
-          </Tabs>
+            </section>
+          </TabsContent>
+        </Tabs>
 
-          {/* כפתורים */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-            <GlassButton 
-              onClick={handleDownload} 
-              className="w-full"
+        <section
+          className={[
+            "neuro-card-main",
+            "border-0",
+            "rounded-[32px]",
+            styles.actionsCard,
+          ].join(" ")}
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <GlassButton
+              onClick={handleDownload}
+              className={["w-full", styles.actionButton].join(" ")}
               disabled={isGeneratingPDF}
             >
               <div className="flex items-center justify-center gap-2">
@@ -418,21 +383,30 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
               </div>
             </GlassButton>
 
-            <GlassButton onClick={handleCalculateAnother} className="w-full">
+            <GlassButton
+              onClick={handleCalculateAnother}
+              className={["w-full", styles.actionButton].join(" ")}
+            >
               <div className="flex items-center justify-center gap-2">
                 <Calculator className="w-5 h-5" />
                 <span>לחישוב קוד נוסף</span>
               </div>
             </GlassButton>
 
-            <GlassButton onClick={handleConsultation} className="w-full">
+            <GlassButton
+              onClick={handleConsultation}
+              className={["w-full", styles.actionButton].join(" ")}
+            >
               <div className="flex items-center justify-center gap-2">
                 <MessageCircle className="w-5 h-5" />
                 <span>לתיאום יעוץ אישי</span>
               </div>
             </GlassButton>
 
-            <GlassButton onClick={handleShare} className="w-full">
+            <GlassButton
+              onClick={handleShare}
+              className={["w-full", styles.actionButton].join(" ")}
+            >
               <div className="flex items-center justify-center gap-2">
                 <Share2 className="w-5 h-5" />
                 <span>שתפו עם חברים</span>

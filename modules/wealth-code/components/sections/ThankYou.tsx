@@ -79,7 +79,7 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
   return (
     <section className={styles.viewportFrame}>
       <div className={["hero-shell", styles.shellBackground].join(" ")}>
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-full sm:max-w-3xl">
+        <div className="relative z-10 flex w-full justify-center">
         
         {/* Main Thank You Card */}
         <section 

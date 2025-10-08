@@ -44,7 +44,7 @@
 }
 
 .label {
-  font-size: 0.68rem;
+  font-size: clamp(0.75rem, 0.6vw + 0.6rem, 0.9rem);
   font-weight: 600;
   letter-spacing: 0.05em;
   color: rgba(135, 103, 79, 0.92);
@@ -64,12 +64,6 @@
 
 .centerButton[data-active="false"] .label {
   opacity: 0.6;
-}
-
-@media (min-width: 640px) {
-  .label {
-    font-size: 0.75rem;
-  }
 }
 
 .button:hover:not(:disabled) .iconForward {

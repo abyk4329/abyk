@@ -18,11 +18,11 @@ export function Hero({ onNavigate }: HeroProps) {
 
   return (
     <section className={["hero-shell", styles.sectionWrapper].join(" ")}>
-      <div className="absolute inset-0 overflow-visible" aria-hidden="true">
+      <div className={"absolute inset-0 overflow-visible"} aria-hidden="true">
         <div className={styles.blurField} />
       </div>
-      <div className={["relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center", styles.contentLayer].join(" ")}>
-        <div className={["relative mx-auto max-w-full sm:max-w-3xl", styles.cardFrame].join(" ")}>
+      <div className={["relative z-10 flex w-full justify-center text-center", styles.contentLayer].join(" ")}>
+        <div className={["relative hero-card-frame", styles.cardFrame].join(" ")}>
           <div
             className={["pointer-events-none absolute inset-x-4 -bottom-12 h-24 sm:inset-x-12 sm:-bottom-14 sm:h-28 lg:inset-x-16 lg:-bottom-16 lg:h-32", styles.shadow].join(" ")}
             aria-hidden="true"
@@ -50,7 +50,9 @@ export function Hero({ onNavigate }: HeroProps) {
               </div>
 
               <div className="flex justify-center">
-                <GlassButton onClick={onNavigate}>מחשבון קוד העושר</GlassButton>
+                <GlassButton className={styles.calculatorButton} onClick={onNavigate}>
+                  מחשבון קוד העושר
+                </GlassButton>
               </div>
             </div>
           </div>

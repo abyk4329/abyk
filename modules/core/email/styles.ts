@@ -15,6 +15,15 @@ export const EMAIL_BASE_STYLES = `
     box-sizing: border-box;
   }
   
+  table {
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+  td {
+    vertical-align: top;
+  }
+  
   body {
     font-family: 'Assistant', sans-serif;
     background-color: #f8f6f2;
@@ -155,14 +164,7 @@ export const EMAIL_SOCIAL_STYLES = `
     padding-top: 24px;
     border-top: 1px solid rgba(209, 207, 204, 0.5);
   }
-  
-  .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  
+
   .social-button {
     display: inline-flex;
     align-items: center;

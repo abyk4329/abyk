@@ -57,9 +57,9 @@ export function Result({ code, onContinue }: ResultProps) {
     <section className="hero-shell">
 
       {/* Content */}
-  <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <div className="relative z-10 flex w-full justify-center text-center">
         {/* Navigation removed – now provided globally under the header */}
-        <div className="max-w-full sm:max-w-3xl mx-auto">
+        <div className="hero-card-frame">
           
           {/* Neumorphic Card */}
           <div 

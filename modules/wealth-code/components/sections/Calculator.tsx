@@ -78,10 +78,10 @@ export function Calculator({ onCalculate }: CalculatorProps) {
 
   return (
   <section className={"hero-shell"}>
-      {/* Content */}
-  <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Navigation removed – now rendered globally just under the header for consistency */}
-        <div className="max-w-full sm:max-w-3xl mx-auto">
+    {/* Content */}
+  <div className="relative z-10 flex w-full justify-center text-center">
+    {/* Navigation removed – now rendered globally just under the header for consistency */}
+    <div className="hero-card-frame">
           {/* Neumorphic Card */}
           <div
             data-hero-group="a"

@@ -259,13 +259,9 @@ function generateWealthContent(data: WealthEmailData): string {
   const whatsappConsultation =
     "https://wa.me/972524616121?text=היי%20קסניה%2C%20אשמח%20לתיאום%20יעוץ%20אישי";
 
-  const BTN_BASE = "display:block;width:100%;max-width:500px;margin:0 auto 18px;text-decoration:none;border-radius:9999px;font-family:'Assistant', Arial, sans-serif;font-size:18px;line-height:1.4;padding:16px 24px;font-weight:700;text-align:center;letter-spacing:0.01em;border:none;box-sizing:border-box;transition:all 0.25s ease;";
+  const BTN_BASE = "display:block;width:100%;max-width:500px;margin:0 auto 18px;text-decoration:none;border-radius:9999px;font-family:'Assistant', Arial, sans-serif;font-size:18px;line-height:1.4;padding:16px 24px;font-weight:700;text-align:center;letter-spacing:0.01em;border:none;box-sizing:border-box;";
   const PRIMARY_BTN_STYLE = BTN_BASE + "background:linear-gradient(145deg,#ffffff,#f5f1ed);color:#5e4934;box-shadow:8px 8px 18px rgba(159,133,114,0.16),-8px -8px 18px rgba(255,255,255,0.92),inset 1px 1px 2px rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.5);";
   const SECONDARY_BTN_STYLE = BTN_BASE + "background:linear-gradient(145deg,#faf6f2,#f0ece8);color:#5e4934;box-shadow:6px 6px 14px rgba(159,133,114,0.14),-6px -6px 14px rgba(255,255,255,0.88),inset 1px 1px 2px rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.45);";
-  const BTN_HOVER_PRIMARY = "box-shadow:inset 8px 8px 18px rgba(159,133,114,0.18),inset -8px -8px 18px rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.6);";
-  const BTN_HOVER_SECONDARY = "box-shadow:inset 6px 6px 14px rgba(159,133,114,0.16),inset -6px -6px 14px rgba(255,255,255,0.82);border:1px solid rgba(255,255,255,0.55);";
-  const BTN_RESET_PRIMARY = "box-shadow:8px 8px 18px rgba(159,133,114,0.16),-8px -8px 18px rgba(255,255,255,0.92),inset 1px 1px 2px rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.5);";
-  const BTN_RESET_SECONDARY = "box-shadow:6px 6px 14px rgba(159,133,114,0.14),-6px -6px 14px rgba(255,255,255,0.88),inset 1px 1px 2px rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.45);";
 
   return `
     <h1 class="main-title" style="${INLINE_CONTENT_STYLES.mainTitle}">תודה על הרכישה!</h1>
@@ -282,13 +278,13 @@ function generateWealthContent(data: WealthEmailData): string {
     </p>
 
     <div class="buttons-container" style="${INLINE_CONTENT_STYLES.buttonsContainer}">
-        <a href="${interpretationsUrl}" style="${PRIMARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_PRIMARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_PRIMARY}'">צפייה באתר</a>
+        <a href="${interpretationsUrl}" style="${PRIMARY_BTN_STYLE}" target="_blank" rel="noopener noreferrer">צפייה באתר</a>
 
-        <a href="${shareButtonUrl}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">שתפו עם חברים</a>
+        <a href="${shareButtonUrl}" style="${SECONDARY_BTN_STYLE}" target="_blank" rel="noopener noreferrer">שתפו עם חברים</a>
 
-        <a href="${calculatorUrl}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">לחישוב קוד נוסף</a>
+        <a href="${calculatorUrl}" style="${SECONDARY_BTN_STYLE}" target="_blank" rel="noopener noreferrer">לחישוב קוד נוסף</a>
 
-        <a href="${whatsappConsultation}" style="${SECONDARY_BTN_STYLE}" onmouseover="this.style.cssText='${BTN_BASE}${BTN_HOVER_SECONDARY}'" onmouseout="this.style.cssText='${BTN_BASE}${BTN_RESET_SECONDARY}'">לתיאום יעוץ אישי</a>
+        <a href="${whatsappConsultation}" style="${SECONDARY_BTN_STYLE}" target="_blank" rel="noopener noreferrer">לתיאום יעוץ אישי</a>
     </div>
   `;
 }

@@ -15,9 +15,9 @@ const INTRO_CARD_HOVER_SHADOW =
   "34px 34px 100px rgba(159,133,114,0.24), -34px -34px 100px rgba(255,255,255,0.97), inset 2px 2px 7px rgba(255,255,255,0.9), inset -2px -2px 7px rgba(211,198,189,0.12)";
 
 const OUTER_CARD_BASE_SHADOW =
-  "18px 18px 54px rgba(159,133,114,0.17), -18px -18px 54px rgba(255,255,255,0.95), inset 2px 2px 6px rgba(255,255,255,0.82), inset -2px -2px 6px rgba(211,198,189,0.07)";
+  "20px 24px 72px rgba(159,133,114,0.16), -20px -24px 72px rgba(255,255,255,0.94), inset 1px 1px 2px rgba(255,255,255,0.65)";
 const OUTER_CARD_HOVER_SHADOW =
-  "22px 22px 64px rgba(159,133,114,0.22), -22px -22px 64px rgba(255,255,255,0.97), inset 2px 2px 7px rgba(255,255,255,0.87), inset -2px -2px 7px rgba(211,198,189,0.11)";
+  "24px 28px 82px rgba(159,133,114,0.2), -24px -28px 82px rgba(255,255,255,0.97), inset 1px 1px 3px rgba(255,255,255,0.72)";
 
 type Paragraph = {
   content: string;
@@ -357,23 +357,33 @@ export function TermsPrivacy() {
               <div className="flex flex-col space-y-6">
                 <div
                   className={cn(
-                    "space-y-3",
-                    "text-center",
-                    styles.tightLineHeight
+                    styles.innerCard,
+                    "p-5",
+                    "sm:p-6",
+                    "transition-all",
+                    "duration-500"
                   )}
                 >
-                  {TERMS_INTRO_PARAGRAPHS.map((paragraph) => (
-                    <p
-                      key={`lead-${paragraph.content}`}
-                      className={cn(
-                        paragraph.isLead && styles.leadParagraph,
-                        styles.tightLineHeight,
-                        "text-center"
-                      )}
-                    >
-                      {paragraph.content}
-                    </p>
-                  ))}
+                  <div
+                    className={cn(
+                      "space-y-3",
+                      "text-center",
+                      styles.tightLineHeight
+                    )}
+                  >
+                    {TERMS_INTRO_PARAGRAPHS.map((paragraph) => (
+                      <p
+                        key={`lead-${paragraph.content}`}
+                        className={cn(
+                          paragraph.isLead && styles.leadParagraph,
+                          styles.tightLineHeight,
+                          "text-center"
+                        )}
+                      >
+                        {paragraph.content}
+                      </p>
+                    ))}
+                  </div>
                 </div>
 
                 {TERMS_SUBSECTIONS.map((section) => (
@@ -523,14 +533,24 @@ export function TermsPrivacy() {
               </h2>
               <div
                 className={cn(
-                  "space-y-3",
-                  "text-center",
-                  styles.tightLineHeight
+                  styles.innerCard,
+                  "p-5",
+                  "sm:p-6",
+                  "transition-all",
+                  "duration-500"
                 )}
               >
-                {POLICY_UPDATE_PARAGRAPHS.map((paragraph) => (
-                  <p key={paragraph.content}>{paragraph.content}</p>
-                ))}
+                <div
+                  className={cn(
+                    "space-y-3",
+                    "text-center",
+                    styles.tightLineHeight
+                  )}
+                >
+                  {POLICY_UPDATE_PARAGRAPHS.map((paragraph) => (
+                    <p key={paragraph.content}>{paragraph.content}</p>
+                  ))}
+                </div>
               </div>
             </section>
           </div>

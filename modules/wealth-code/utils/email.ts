@@ -11,7 +11,7 @@ type SendWealthEmailParams = {
     test?: boolean;
 };
 
-type SendWealthEmailSuccess = {
+export type SendWealthEmailSuccess = {
     ok: true;
     transport: "resend" | "smtp";
     fallbackUsed: boolean;
@@ -19,6 +19,15 @@ type SendWealthEmailSuccess = {
     wasTest: boolean;
     id?: string;
     error?: string;
+};
+
+type SendDemoAccessEmailParams = {
+    code: string;
+    to?: string;
+    shareUrl?: string;
+    subject?: string;
+    replyTo?: string;
+    test?: boolean;
 };
 
 export async function sendWealthEmail(params: SendWealthEmailParams): Promise<SendWealthEmailSuccess> {
@@ -78,4 +87,36 @@ export async function sendWealthEmail(params: SendWealthEmailParams): Promise<Se
     }
 
     return sendJson;
+}
+
+export async function sendDemoAccessEmail(
+    params: SendDemoAccessEmailParams
+): Promise<SendWealthEmailSuccess> {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+    try {
+        const response = await fetch("/api/send-email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            signal: controller.signal,
+            body: JSON.stringify({
+                to: params.to,
+                code: params.code,
+                shareUrl: params.shareUrl,
+                subject: params.subject,
+                replyTo: params.replyTo,
+                test: params.test,
+            }),
+        });
+
+        const json = await response.json();
+        if (!response.ok || !json?.ok) {
+            throw new Error(json?.error || "Email send failed");
+        }
+
+        return json;
+    } finally {
+        clearTimeout(timeoutId);
+    }
 }
