@@ -283,15 +283,8 @@
   html,
   body {
     min-height: 100%;
-    background: radial-gradient(
-        140% 140% at 50% 0%,
-        #faf7f4 0%,
-        #f3efe9 55%,
-        #efe9e2 85%,
-        #ebe4dc 100%
-      )
-      fixed;
-    background-repeat: no-repeat;
+    background-color: var(--header-surface);
+    background-image: none;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -319,7 +312,8 @@
     line-height: 1.1;
     text-align: center;
     direction: rtl;
-    background-image: var(--page-gradient);
+    background-color: var(--header-surface);
+    background-image: none;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -350,6 +344,7 @@
     min-height: 100dvh;
     width: 100%;
     isolation: isolate;
+    background-color: var(--header-surface);
   }
 
   html.no-scroll {
@@ -488,6 +483,12 @@
   .app-shell[data-route="/result"],
   .app-shell[data-route="/thank-you"] {
     /* Ensure the main region fills remaining viewport without self scroll */
+  }
+
+  .app-shell[data-route="/terms"],
+  .app-shell[data-route="/privacy"] {
+    padding-left: max(env(safe-area-inset-left), 0px);
+    padding-right: max(env(safe-area-inset-right), 0px);
   }
 
   .app-shell[data-route="/"] main.app-main,
@@ -886,6 +887,14 @@
     env(safe-area-inset-right) + clamp(var(--space-2), 4vw, var(--space-4))
   );
   overflow: visible;
+  background-color: var(--header-surface);
+  background-image: none;
+}
+
+.app-shell[data-route="/terms"],
+.app-shell[data-route="/privacy"] {
+  padding-left: max(env(safe-area-inset-left), 0px);
+  padding-right: max(env(safe-area-inset-right), 0px);
 }
 
 .app-shell--full-bleed {
@@ -958,6 +967,14 @@
   padding-bottom: calc(140px + env(safe-area-inset-bottom));
 }
 
+/* Remove vertical offsets when header/footer intentionally hidden */
+.app-main--no-header {
+  padding-top: calc(env(safe-area-inset-top));
+}
+.app-main--no-footer {
+  padding-bottom: calc(env(safe-area-inset-bottom));
+}
+
 @media (min-width: 640px) {
   .app-main--floating-nav {
     padding-bottom: calc(160px + env(safe-area-inset-bottom));
@@ -1003,7 +1020,8 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #fff; /* Uniform background to avoid stripes or gradients */
+  background: var(--header-surface);
+  background-color: var(--header-surface);
   overflow-x: hidden; /* Prevent horizontal scroll */
 }
 

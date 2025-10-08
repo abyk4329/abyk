@@ -55,7 +55,7 @@ export function NavigationButtons({
       [routes.sales]: "דף מכירה",
       [routes.thankYou]: "דף תודה",
       [routes.interpretations]: "פירושים",
-      [routes.terms]: "תנאים",
+  [routes.terms]: "בית",
       [routes.home]: "בית",
     }),
     []

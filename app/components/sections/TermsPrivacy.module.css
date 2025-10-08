@@ -12,10 +12,34 @@
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
 }
 
+/* Document Icon Wrapper */
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(64px, 10vw, 80px);
+  height: clamp(64px, 10vw, 80px);
+  margin-bottom: clamp(0.5rem, 1vw, 1rem);
+  border-radius: 9999px;
+  background: linear-gradient(145deg, rgb(250, 248, 246), rgb(253, 252, 251));
+  box-shadow: inset 10px 10px 20px rgba(159, 133, 114, 0.15),
+    inset -10px -10px 20px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 4px rgba(211, 198, 189, 0.1),
+    2px 2px 6px rgba(159, 133, 114, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.docIcon {
+  width: clamp(32px, 5vw, 40px);
+  height: clamp(32px, 5vw, 40px);
+  color: #87674f;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
 /* Subheading - Match h2/h4 page header styles */
 .subheading {
   font-family: "Assistant", sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
   line-height: 0.9;
   letter-spacing: 0em;
@@ -25,40 +49,183 @@
   transform: translateZ(0);
 }
 
-.viewportFrame {
+/* Neuomorphic Terms Shell - Full-Page Container */
+.termsShell {
+  --nav-clearance: clamp(7rem, 18vh, 9.5rem);
+  align-items: flex-start;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding-block-start: calc(
+    env(safe-area-inset-top) + clamp(1.5rem, 5vw, 2.75rem)
+  );
+  padding-block-end: calc(env(safe-area-inset-bottom) + var(--nav-clearance));
+  scroll-padding-bottom: calc(
+    env(safe-area-inset-bottom) + var(--nav-clearance)
+  );
+  padding-inline-start: max(env(safe-area-inset-left), clamp(1rem, 3vw, 2rem));
+  padding-inline-end: max(env(safe-area-inset-right), clamp(1rem, 3vw, 2rem));
+  overflow-y: auto;
+  background: linear-gradient(135deg, #f5f1ed 0%, #f8f4f0 100%);
   position: relative;
+}
+
+.termsShell::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 15%;
+  background: linear-gradient(to right, rgba(159, 133, 114, 0.04), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contentWrap {
   width: 100%;
-  min-height: calc(100dvh - env(safe-area-inset-bottom));
-  padding-top: calc(
-    var(--header-height) + env(safe-area-inset-top) + clamp(2rem, 5vw, 3rem)
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  position: relative;
+  z-index: 1;
+}
+
+/* Intro Card (independent top card) */
+.introCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+  direction: rtl;
+  position: relative;
+  width: min(1020px, 100%);
+  border-radius: clamp(24px, 5vw, 32px);
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(251, 249, 246));
+  box-shadow: 30px 30px 90px rgba(159, 133, 114, 0.18),
+    -30px -30px 90px rgba(255, 255, 255, 0.95),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.85),
+    inset -2px -2px 6px rgba(211, 198, 189, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  isolation: isolate;
+}
+
+.introCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0)
   );
-  padding-bottom: calc(env(safe-area-inset-bottom) + clamp(3rem, 7vw, 4.5rem));
-  padding-inline-start: calc(
-    env(safe-area-inset-left) + clamp(1.5rem, 4.5vw, 3.5rem)
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.introMeta {
+  font-weight: 500;
+  color: #473b31 !important;
+}
+
+.leadParagraph {
+  color: #473b31;
+}
+
+/* Container that holds the topic outer cards (not styled as a card) */
+.cardsStack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  width: min(1020px, 100%);
+  direction: rtl;
+}
+
+/* Outer Card (Main Topic Card) - Raised with Soft Shadow */
+.outerCard {
+  position: relative;
+  border-radius: clamp(24px, 5vw, 32px);
+  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(251, 249, 246));
+  box-shadow: 18px 18px 54px rgba(159, 133, 114, 0.17),
+    -18px -18px 54px rgba(255, 255, 255, 0.95),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.82),
+    inset -2px -2px 6px rgba(211, 198, 189, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #473b31;
+}
+
+.outerCard p {
+  color: #473b31;
+}
+
+.outerCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0)
   );
-  padding-inline-end: calc(
-    env(safe-area-inset-right) + clamp(1.5rem, 4.5vw, 3.5rem)
-  );
-  background: #f8f6f2;
-  background-image: radial-gradient(
-      70% 50% at 50% 0%,
-      rgba(184, 146, 116, 0.08),
-      transparent 68%
-    ),
-    radial-gradient(
-      110% 85% at 50% 100%,
-      rgba(255, 255, 255, 0.92),
-      transparent 78%
-    );
-  background-repeat: no-repeat;
-  background-size: 160% 160%;
-  background-position: center;
-  overflow: hidden;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+/* Inner Card (Subsection Card) - Inset with Gentle Depth */
+.innerCard {
+  position: relative;
+  border-radius: clamp(24px, 5vw, 32px);
+  background: linear-gradient(145deg, rgb(250, 248, 246), rgb(253, 252, 251));
+  box-shadow: inset 10px 10px 20px rgba(159, 133, 114, 0.12),
+    inset -10px -10px 20px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 4px rgba(211, 198, 189, 0.08),
+    2px 2px 8px rgba(159, 133, 114, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  z-index: 1;
+}
+
+/* Remove old unused classes */
+.sectionPlain,
+.blockPlain {
+  display: none;
 }
 
 /* Desktop responsive for subheadings */
 @media (min-width: 1024px) {
   .subheading {
-    font-size: 36px;
+    font-size: 28px;
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+  .contentWrap {
+    padding-block: clamp(1rem, 2vw, 1.5rem);
+  }
+  .termsShell {
+    padding-inline-start: max(env(safe-area-inset-left), 0.75rem);
+    padding-inline-end: max(env(safe-area-inset-right), 0.75rem);
+  }
+  .outerCard {
+    padding: clamp(1.25rem, 2.5vw, 1.5rem);
+    gap: 8px;
+  }
+  .innerCard {
+    padding: clamp(1rem, 2vw, 1.25rem);
   }
 }

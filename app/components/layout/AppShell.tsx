@@ -176,6 +176,8 @@ export function AppShell({ children }: AppShellProps) {
     isFullScreenPage ? "no-bottom-gap" : "",
     showFixedNavigation ? "app-main--floating-nav" : "",
     !shouldShowNavigation ? "app-main--spacious" : "",
+    !shouldShowHeader ? "app-main--no-header" : "",
+    !shouldShowFooter ? "app-main--no-footer" : "",
   ]
     .filter(Boolean)
     .join(" ");
