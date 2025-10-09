@@ -6,9 +6,10 @@ import styles from "./Calculator.module.css";
 
 interface CalculatorProps {
   onCalculate: (code: string) => void;
+  onGoHome?: () => void;
 }
 
-export function Calculator({ onCalculate }: CalculatorProps) {
+export function Calculator({ onCalculate, onGoHome }: CalculatorProps) {
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
@@ -77,124 +78,136 @@ export function Calculator({ onCalculate }: CalculatorProps) {
   };
 
   return (
-  <section className={"hero-shell"}>
-    {/* Content */}
-  <div className="relative z-10 flex w-full justify-center text-center">
-    {/* Navigation removed – now rendered globally just under the header for consistency */}
-    <div className="hero-card-frame">
-          {/* Neumorphic Card */}
-          <div
-            data-hero-group="a"
-            className="neuro-card-main hero-card rounded-[28px] border-0"
-          >
-            {/* Main Heading */}
-            <h1 className="mb-2 sm:mb-3 text-center">
-              מחשבון קוד העושר
-            </h1>
-
-            {/* Subtitle */}
-            <p
-              className={["mb-3 sm:mb-4 max-w-md mx-auto text-center leading-snug", styles.subtitle].join(" ")}
+    <section className={"hero-shell"}>
+      <div className={styles.sectionBody}>
+        {onGoHome && (
+          <div className={styles.homeButtonWrap}>
+            <GlassButton
+              variant="secondary"
+              className={styles.homeButton}
+              onClick={onGoHome}
             >
-              הזינו את תאריך הלידה שלכם וגלו את הקוד האישי
-            </p>
-
-            {/* Date Inputs Grid - LTR Format (DD/MM/YYYY) */}
-            <div
-              className={["grid grid-cols-3 gap-2 sm:gap-4 lg:gap-5 mb-4 sm:mb-6", styles.inputGrid].join(" ")}
-              dir="ltr"
-            >
-              {/* Day - First (Left) */}
-              <div dir="ltr">
-                <label
-                  className={["block mb-2 caption text-center", styles.label].join(" ")}
-                  htmlFor={dayInputId}
-                >
-                  יום
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  max="31"
-                  value={day}
-                  onChange={(e) => setDay(e.target.value)}
-                  placeholder="DD"
-                  dir="ltr"
-                  id={dayInputId}
-                  name="birth-day"
-                  className={["w-full", styles.inputField].join(" ")}
-                />
-              </div>
-
-              {/* Month - Middle */}
-              <div dir="ltr">
-                <label
-                  className={["block mb-2 caption text-center", styles.label].join(" ")}
-                  htmlFor={monthInputId}
-                >
-                  חודש
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  max="12"
-                  value={month}
-                  onChange={(e) => setMonth(e.target.value)}
-                  placeholder="MM"
-                  dir="ltr"
-                  id={monthInputId}
-                  name="birth-month"
-                  className={["w-full", styles.inputField].join(" ")}
-                />
-              </div>
-
-              {/* YEAR - Last (Right) */}
-              <div dir="ltr">
-                <label
-                  className={["block mb-2 caption text-center", styles.label].join(" ")}
-                  htmlFor={yearInputId}
-                >
-                  שנה
-                </label>
-                <input
-                  type="number"
-                  min="1900"
-                  max="2100"
-                  value={year}
-                  onChange={(e) => setYear(e.target.value)}
-                  placeholder="YYYY"
-                  dir="ltr"
-                  id={yearInputId}
-                  name="birth-year"
-                  className={["w-full", styles.inputField].join(" ")}
-                />
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className={["flex flex-col sm:flex-row gap-3 sm:gap-5 max-w-sm mx-auto mt-1", styles.buttonGroup].join(" ")}>
-              <button
-                type="button"
-                onClick={calculateWealthCode}
-                className={["w-full sm:flex-1", styles.primaryButton].join(" ")}
-              >
-                חשב קוד
-              </button>
-
-              <button
-                type="button"
-                onClick={handleReset}
-                className={["w-full sm:flex-1", styles.secondaryButton].join(" ")}
-              >
-                אפס
-              </button>
-            </div>
+              עמוד הבית
+            </GlassButton>
           </div>
+        )}
+        <div className="relative z-10 flex w-full justify-center text-center">
+          {/* Navigation removed – now rendered globally just under the header for consistency */}
+          <div className="hero-card-frame">
+            {/* Neumorphic Card */}
+            <div
+              data-hero-group="a"
+              className="neuro-card-main hero-card rounded-[28px] border-0"
+            >
+              {/* Main Heading */}
+              <h1 className="mb-2 sm:mb-3 text-center">
+                מחשבון קוד העושר
+              </h1>
 
-          {/* Info Card */}
+              {/* Subtitle */}
+              <p
+                className={["mb-3 sm:mb-4 max-w-md mx-auto text-center leading-snug", styles.subtitle].join(" ")}
+              >
+                הזינו את תאריך הלידה שלכם וגלו את הקוד האישי
+              </p>
+
+              {/* Date Inputs Grid - LTR Format (DD/MM/YYYY) */}
+              <div
+                className={["grid grid-cols-3 gap-2 sm:gap-4 lg:gap-5 mb-4 sm:mb-6", styles.inputGrid].join(" ")}
+                dir="ltr"
+              >
+                {/* Day - First (Left) */}
+                <div dir="ltr">
+                  <label
+                    className={["block mb-2 caption text-center", styles.label].join(" ")}
+                    htmlFor={dayInputId}
+                  >
+                    יום
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="31"
+                    value={day}
+                    onChange={(e) => setDay(e.target.value)}
+                    placeholder="DD"
+                    dir="ltr"
+                    id={dayInputId}
+                    name="birth-day"
+                    className={["w-full", styles.inputField].join(" ")}
+                  />
+                </div>
+
+                {/* Month - Middle */}
+                <div dir="ltr">
+                  <label
+                    className={["block mb-2 caption text-center", styles.label].join(" ")}
+                    htmlFor={monthInputId}
+                  >
+                    חודש
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="12"
+                    value={month}
+                    onChange={(e) => setMonth(e.target.value)}
+                    placeholder="MM"
+                    dir="ltr"
+                    id={monthInputId}
+                    name="birth-month"
+                    className={["w-full", styles.inputField].join(" ")}
+                  />
+                </div>
+
+                {/* YEAR - Last (Right) */}
+                <div dir="ltr">
+                  <label
+                    className={["block mb-2 caption text-center", styles.label].join(" ")}
+                    htmlFor={yearInputId}
+                  >
+                    שנה
+                  </label>
+                  <input
+                    type="number"
+                    min="1900"
+                    max="2100"
+                    value={year}
+                    onChange={(e) => setYear(e.target.value)}
+                    placeholder="YYYY"
+                    dir="ltr"
+                    id={yearInputId}
+                    name="birth-year"
+                    className={["w-full", styles.inputField].join(" ")}
+                  />
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div
+                className={["flex flex-col sm:flex-row gap-3 sm:gap-5 max-w-sm mx-auto mt-1", styles.buttonGroup].join(" ")}
+              >
+                <GlassButton
+                  className={["w-full sm:flex-1", styles.actionButton].join(" ")}
+                  onClick={calculateWealthCode}
+                >
+                  חשב את הקוד
+                </GlassButton>
+
+                <GlassButton
+                  variant="secondary"
+                  className={["w-full sm:flex-1", styles.actionButton].join(" ")}
+                  onClick={handleReset}
+                >
+                  איפוס שדות
+                </GlassButton>
+              </div>
+            </div>
+
+            {/* Info Card */}
+          </div>
         </div>
       </div>
-
     </section>
   );
 }

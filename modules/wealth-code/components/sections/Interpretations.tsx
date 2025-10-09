@@ -98,14 +98,14 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
     onCalculateAnother();
   };
   const handleConsultation = () => {
-    window.open(SOCIAL.whatsapp.getUrl(), "_blank");
+  window.open(SOCIAL.whatsapp.getUrl(), "_blank", "noopener,noreferrer");
   };
 
   const handleShare = () => {
     const shareUrl = publicEnv.appUrl || "https://abyk.online/";
     const shareText = "גלו את קוד העושר הנומרולוגי שלכם! מסע מרתק להכרה עצמית וצמיחה אישית";
     const message = encodeURIComponent(`${shareText}\n${shareUrl}`);
-    window.open(`https://wa.me/?text=${message}`, '_blank');
+  window.open(`https://wa.me/?text=${message}`, '_blank', 'noopener,noreferrer');
   };
 
   return (

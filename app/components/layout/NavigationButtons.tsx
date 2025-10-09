@@ -55,7 +55,7 @@ export function NavigationButtons({
       [routes.sales]: "דף מכירה",
       [routes.thankYou]: "דף תודה",
       [routes.interpretations]: "פירושים",
-  [routes.terms]: "בית",
+      [routes.terms]: "בית",
       [routes.home]: "בית",
     }),
     []
@@ -264,9 +264,6 @@ export function NavigationButtons({
                 styles.iconHome,
               ].join(" ")}
             />
-            <span className={styles.label} aria-live="polite">
-              {currentStageLabel}
-            </span>
           </button>
 
           {/* Back Button - חץ שמאלה (אחורה) - בצד ימין */}

@@ -12,8 +12,8 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/אייקון.png",
-      "sizes": "any",
+      "src": "/ABYKICON.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }

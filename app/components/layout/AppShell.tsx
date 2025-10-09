@@ -262,8 +262,8 @@ export function AppShell({ children }: AppShellProps) {
               />
             </nav>
           </div>
-        )}
-        {shouldShowFooter && <Footer />}
+    )}
+    {shouldShowFooter && <Footer />}
         {showFixedNavigation && (
           <div className="fixed bottom-0 left-0 right-0 z-40">
             <nav aria-label="ניווט ממוזער" role="navigation">

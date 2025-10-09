@@ -1,180 +1,164 @@
+/* Sales page cards aligned with shared neumorphic system */
+
 .salesShell {
-  --nav-clearance: clamp(7rem, 18vh, 9.5rem);
-  align-items: flex-start;
-  justify-content: center;
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  box-sizing: border-box;
+  position: relative;
+  min-height: calc(100dvh - env(safe-area-inset-bottom));
+  --edge-gap: clamp(1rem, 3vw, 2rem);
   padding-block-start: calc(
-    env(safe-area-inset-top) + clamp(1.5rem, 5vw, 2.75rem)
+    env(safe-area-inset-top) + clamp(2.2rem, 6vw, 3.4rem)
   );
-  padding-block-end: calc(env(safe-area-inset-bottom) + var(--nav-clearance));
-  padding-inline-start: max(env(safe-area-inset-left), clamp(1rem, 3vw, 2rem));
-  padding-inline-end: max(env(safe-area-inset-right), clamp(1rem, 3vw, 2rem));
-  overflow-y: auto;
-  background: linear-gradient(135deg, #f5f1ed 0%, #f8f4f0 100%);
+  padding-block-end: calc(
+    env(safe-area-inset-bottom) + clamp(3rem, 9vw, 4.75rem)
+  );
+  padding-inline-start: calc(env(safe-area-inset-right) + var(--edge-gap));
+  padding-inline-end: calc(env(safe-area-inset-left) + var(--edge-gap));
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background: #f8f6f2;
+  background-image: radial-gradient(
+      120% 80% at 50% 0%,
+      rgba(184, 146, 116, 0.14),
+      transparent 70%
+    ),
+    radial-gradient(
+      100% 80% at 50% 100%,
+      rgba(255, 255, 255, 0.88),
+      transparent 75%
+    );
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
-.salesShell::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 15%;
-  background: linear-gradient(to right, rgba(159, 133, 114, 0.04), transparent);
+.blurField {
+  position: absolute;
+  inset: -18vh -32vw -22vh -32vw;
+  background: radial-gradient(
+      70% 60% at 50% 35%,
+      rgba(159, 133, 114, 0.18),
+      rgba(159, 133, 114, 0.08) 60%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(185deg, rgba(255, 255, 255, 0.62), rgba(245, 241, 237, 0.4));
+  filter: blur(120px) saturate(110%);
   pointer-events: none;
   z-index: 0;
 }
 
-.contentWrap {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(1.5rem, 3vw, 2rem);
-  padding-block: clamp(1.5rem, 3vw, 2.5rem);
-  padding-inline: 0;
+.contentLayer {
   position: relative;
   z-index: 1;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
 }
 
-.cardsStack {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1.5rem, 3vw, 2rem);
-  width: min(1020px, 100%);
+.cardStack {
+  --card-stack-max-width: none;
+  width: 100%;
+  max-width: none;
   margin-inline: auto;
+  gap: clamp(1.6rem, 4vw, 2.6rem);
 }
 
 .salesCard {
-  position: relative;
-  width: 100%;
-  max-width: none;
-  margin-inline: 0;
-  padding-inline: clamp(1.75rem, 5vw, 3rem);
-  padding-block: clamp(2.5rem, 6vw, 3.75rem);
-  border-radius: clamp(24px, 5vw, 32px);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.96),
-    rgba(248, 244, 240, 0.92)
-  );
-  box-shadow: 20px 24px 72px rgba(159, 133, 114, 0.16),
-    -20px -24px 72px rgba(255, 255, 255, 0.94),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  color: #473b31;
-  text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: clamp(1.25rem, 3vw, 1.85rem);
-  isolation: isolate;
-  overflow: hidden;
-  border: 0;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.salesCard::before {
-  content: "";
-  position: absolute;
-  inset: 6px;
-  border-radius: inherit;
-  background: radial-gradient(
-    circle at top left,
-    rgba(255, 255, 255, 0.55),
-    transparent 70%
-  );
-  opacity: 0.85;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.cardHeader,
-.cardBody,
-.ctaPanel {
-  position: relative;
-  z-index: 1;
 }
 
 .cardHeader {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.75rem, 2vw, 1.25rem);
   align-items: center;
+  gap: clamp(0.75rem, 2.4vw, 1.25rem);
 }
 
 .sectionHeading {
-  font-family: "Assistant", sans-serif;
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 0.9;
-  color: #5e4934;
   margin: 0;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(255, 255, 255, 0.8),
-    0 -1px 2px rgba(255, 255, 255, 0.45);
+  font-family: "Assistant", sans-serif;
+  font-size: clamp(1.55rem, 3.2vw, 2rem);
+  font-weight: 700;
+  color: #5e4934;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.65);
 }
 
 .cardBody {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  align-items: center;
+  gap: clamp(0.9rem, 2.5vw, 1.25rem);
 }
 
 .bodyText {
   margin: 0;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1;
-  color: #473b31;
+  font-size: clamp(1rem, 2.2vw, 1.12rem);
+  line-height: 1.6;
+  color: rgba(71, 59, 49, 0.92);
 }
 
-.cardBody > * + * {
-  margin-top: 1.3rem;
+.bodyText + .bodyText {
+  margin-top: clamp(0.85rem, 2.4vw, 1.15rem);
+}
+
+.detailHighlights {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(0.6rem, 2vw, 0.9rem);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  margin: clamp(1rem, 2.8vw, 1.6rem) 0 clamp(0.5rem, 1.6vw, 0.9rem);
+  border-radius: clamp(20px, 4vw, 28px);
+  background: linear-gradient(
+    145deg,
+    rgba(253, 252, 251, 0.96),
+    rgba(245, 241, 237, 0.88)
+  );
+  box-shadow: inset 8px 8px 18px rgba(159, 133, 114, 0.14),
+    inset -8px -8px 18px rgba(255, 255, 255, 0.88);
+  list-style: none;
+}
+
+.detailItem {
+  font-size: clamp(0.95rem, 2.1vw, 1.05rem);
+  font-weight: 600;
+  color: #5e4934;
 }
 
 .ctaCard {
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.98),
-    rgba(247, 243, 238, 0.92)
-  );
-  box-shadow: 20px 24px 72px rgba(159, 133, 114, 0.18),
-    -20px -24px 72px rgba(255, 255, 255, 0.95),
-    inset 2px 2px 12px rgba(255, 255, 255, 0.82),
-    inset -2px -2px 9px rgba(211, 198, 189, 0.09);
-}
-
-.ctaCard::before {
-  inset: 8px;
+  gap: clamp(1.4rem, 3.5vw, 2.1rem);
 }
 
 .ctaPanel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(var(--space-1-5), 3vw, var(--space-3));
-  padding: clamp(1.4rem, 3vw, 2rem);
-  border-radius: clamp(20px, 4vw, 26px);
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 16px 32px -18px rgba(66, 47, 27, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  width: 100%;
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.6rem);
+  justify-items: center;
+  padding: clamp(1.4rem, 3.5vw, 2.2rem);
+  border-radius: clamp(22px, 4.2vw, 32px);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.92),
+    rgba(247, 243, 238, 0.88)
+  );
+  box-shadow: inset 10px 10px 24px rgba(202, 190, 178, 0.3),
+    inset -10px -10px 24px rgba(255, 255, 255, 0.75);
 }
 
 .priceHeading {
   margin: 0;
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 0.9;
-  color: #5e4934;
+  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
+  font-weight: 700;
+  color: #87674f;
 }
 
 .captionText {
   margin: 0;
-  font-size: clamp(0.95rem, 2.1vw, 1.05rem);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   color: rgba(94, 73, 52, 0.75);
 }
 
@@ -182,40 +166,44 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: clamp(0.75rem, 2.5vw, 1.1rem);
 }
 
 @media (min-width: 640px) {
   .actions {
     flex-direction: row;
     justify-content: center;
-    gap: clamp(1rem, 3vw, 1.75rem);
   }
 }
 
 .actionButton {
-  min-width: min(260px, 100%);
+  width: 100%;
   justify-content: center;
-  font-size: 1rem;
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
 }
 
-@media (max-width: 768px) {
-  .salesShell {
-    padding-inline-start: max(env(safe-area-inset-left), 0.75rem);
-    padding-inline-end: max(env(safe-area-inset-right), 0.75rem);
-    padding-block-end: calc(
-      env(safe-area-inset-bottom) + clamp(2rem, 8vh, 3.5rem)
-    );
-  }
-
-  .salesCard {
-    padding-inline: clamp(1.25rem, 5vw, 1.75rem);
-    padding-block: clamp(2rem, 7vw, 3rem);
-  }
+.purchaseButton {
+  background: linear-gradient(145deg, #8f7159, #87674f);
+  box-shadow: 12px 12px 24px rgba(108, 85, 66, 0.32),
+    -10px -10px 22px rgba(177, 150, 125, 0.22),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .salesCard {
-    transition: none !important;
-  }
+.purchaseButton:hover {
+  background: linear-gradient(145deg, #997963, #8b6b52);
+  box-shadow: 14px 14px 28px rgba(108, 85, 66, 0.36),
+    -12px -12px 24px rgba(177, 150, 125, 0.26),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.22);
+}
+
+.purchaseButton:active {
+  background: linear-gradient(145deg, #7a5d47, #724f3b);
+  box-shadow: inset 8px 8px 16px rgba(58, 44, 33, 0.5),
+    inset -6px -6px 12px rgba(177, 150, 125, 0.18);
+}
+
+.purchaseButtonLabel {
+  color: #fff9f3;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }

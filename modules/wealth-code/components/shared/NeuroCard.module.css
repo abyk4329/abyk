@@ -1,0 +1,59 @@
+/* Shared neumorphic card layout helpers */
+
+.root {
+  position: relative;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2.8vw, 2.1rem);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.hero {
+  width: var(--primary-card-width, 100%);
+  max-width: var(--primary-card-width, 100%);
+  margin-inline: auto;
+}
+
+.main,
+.cta {
+  border-radius: clamp(28px, 5vw, 40px);
+  padding: clamp(2rem, 5.5vw, 3.4rem);
+}
+
+.secondary {
+  border-radius: clamp(22px, 4vw, 30px);
+  padding: clamp(1.6rem, 4.5vw, 2.6rem);
+}
+
+.inset {
+  border-radius: clamp(20px, 4vw, 26px);
+  padding: clamp(1.4rem, 4vw, 2.1rem);
+}
+
+.cta {
+  padding: clamp(2.25rem, 6vw, 3.75rem);
+}
+
+.interactive {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.interactive:hover,
+.interactive:focus-visible {
+  transform: translateY(-6px);
+}
+
+.stack {
+  width: 100%;
+  max-width: var(--card-stack-max-width, 1080px);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.stackTight {
+  gap: clamp(1.4rem, 3vw, 2.25rem);
+}

@@ -1,3 +1,42 @@
+.sectionBody {
+  width: min(100%, 1080px);
+  margin-inline: auto;
+  padding-top: clamp(1rem, 5vh, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 4vh, 2.5rem);
+}
+
+.homeButtonWrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding-inline: clamp(0.75rem, 3vw, 1.75rem);
+  margin: 0;
+}
+
+.homeButton {
+  min-width: clamp(140px, 32%, 220px);
+  justify-content: center;
+  font-size: clamp(0.9rem, 0.8vw + 0.8rem, 1.05rem);
+}
+
+@media (max-width: 640px) {
+  .sectionBody {
+    gap: clamp(0.75rem, 5vh, 1.75rem);
+    padding-top: clamp(0.75rem, 6vh, 1.5rem);
+  }
+
+  .homeButtonWrap {
+    padding-inline: clamp(0.5rem, 5vw, 1.25rem);
+  }
+
+  .homeButton {
+    min-width: clamp(132px, 50%, 190px);
+  }
+}
+
 /* Subtitle */
 .subtitle {
   color: #9f8572;
@@ -72,89 +111,26 @@
   align-items: stretch;
 }
 
-.primaryButton,
-.secondaryButton {
-  border: none;
-  border-radius: 9999px;
-  padding: 0.85rem 1.5rem;
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionButton :global(span) {
+  font-family: "Assistant", sans-serif;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  touch-action: manipulation;
-  font-size: 0.95rem;
-}
-
-.primaryButton {
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.96),
-    rgba(247, 243, 238, 0.88)
-  );
-  color: #5e4934;
-  box-shadow:
-    10px 10px 22px rgba(159, 133, 114, 0.18),
-    -10px -10px 22px rgba(255, 255, 255, 0.95);
-}
-
-.primaryButton:hover,
-.primaryButton:focus-visible {
-  transform: translateY(-1px);
-  box-shadow:
-    12px 12px 26px rgba(159, 133, 114, 0.22),
-    -12px -12px 26px rgba(255, 255, 255, 1);
-}
-
-.primaryButton:focus-visible {
-  outline: 2px solid rgba(135, 103, 79, 0.35);
-  outline-offset: 3px;
-}
-
-.primaryButton:active {
-  transform: translateY(1px);
-  box-shadow:
-    6px 6px 14px rgba(159, 133, 114, 0.2),
-    -6px -6px 14px rgba(255, 255, 255, 0.9);
-}
-
-.secondaryButton {
-  background: linear-gradient(
-    145deg,
-    rgba(253, 252, 251, 0.75),
-    rgba(245, 241, 237, 0.68)
-  );
-  color: #5e4934;
-  box-shadow: inset 5px 5px 12px rgba(159, 133, 114, 0.16),
-    inset -5px -5px 12px rgba(255, 255, 255, 0.92);
-}
-
-.secondaryButton:hover,
-.secondaryButton:focus-visible {
-  transform: translateY(-1px);
-  box-shadow: inset 6px 6px 14px rgba(159, 133, 114, 0.18),
-    inset -6px -6px 14px rgba(255, 255, 255, 0.95);
-}
-
-.secondaryButton:focus-visible {
-  outline: 2px solid rgba(135, 103, 79, 0.35);
-  outline-offset: 3px;
-}
-
-.secondaryButton:active {
-  transform: translateY(1px);
+  font-size: 18px;
+  letter-spacing: normal;
+  line-height: 1.35;
 }
 
 @media (min-width: 640px) {
-  .primaryButton,
-  .secondaryButton {
-    font-size: 1rem;
-    padding: 0.9rem 1.75rem;
+  .buttonGroup {
+    align-items: center;
   }
-}
 
-@media (min-width: 1024px) {
-  .primaryButton,
-  .secondaryButton {
-    font-size: 1.05rem;
-    padding: 1rem 2rem;
+  .actionButton {
+    flex: 1 1 0%;
   }
 }

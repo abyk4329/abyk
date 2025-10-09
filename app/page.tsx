@@ -11,7 +11,6 @@ import {
   Interpretations,
   ThankYou,
 } from "@/modules/wealth-code/components";
-import { sendDemoAccessEmail } from "@/modules/wealth-code/utils";
 import { SplashScreen } from "@/app/components/layout/SplashScreen";
 import { NavigationProvider } from "@/app/lib/navigation";
 
@@ -95,24 +94,6 @@ export default function Home() {
     goTo("sales");
   };
 
-  const handleMockPurchase = useCallback(() => {
-    const normalizedCode = wealthCode.trim();
-
-    if (normalizedCode && /^\d{4}$/.test(normalizedCode)) {
-      void sendDemoAccessEmail({ code: normalizedCode, to: "kseniachud@gmail.com" }).catch(
-        (error) => {
-          console.error("Failed to send demo email:", error);
-        }
-      );
-    } else {
-      console.warn("Skipping demo email send due to missing or invalid code", wealthCode);
-    }
-
-    goTo("thankyou");
-  }, [goTo, wealthCode]);
-
-  
-
   const handleViewInterpretations = () => {
     goTo("interpretations");
   };
@@ -141,6 +122,10 @@ export default function Home() {
       return;
     }
 
+    if (currentView === "sales") {
+      return;
+    }
+
     if (currentView === "calculator" && !wealthCode) {
       return;
     }
@@ -159,6 +144,10 @@ export default function Home() {
       return false;
     }
 
+    if (currentView === "sales") {
+      return false;
+    }
+
     if (currentView === "calculator") {
       return Boolean(wealthCode);
     }
@@ -168,7 +157,7 @@ export default function Home() {
 
   const navigationOverrides = useMemo(
     () => ({
-      isVisible: currentView !== "hero",
+  isVisible: currentView !== "hero" && currentView !== "sales",
       canGoBack,
       canGoForward,
       onGoBack: handleGoBack,
@@ -191,13 +180,15 @@ export default function Home() {
   );
 
   const isInterpretationsView = currentView === "interpretations";
+  const isSalesView = currentView === "sales";
 
   const layoutClassName = isFullScreenView
     ? "flex-1 min-h-[calc(100dvh-var(--header-height)-env(safe-area-inset-top)-env(safe-area-inset-bottom))] justify-center items-center gap-0 py-0"
     : "space-y-12 pb-12 sm:pb-16 lg:pb-20";
 
-  const layoutMaxWidth = isFullScreenView || isInterpretationsView ? "full" : "xl";
-  const layoutPadded = isFullScreenView ? false : !isInterpretationsView;
+  const layoutMaxWidth =
+    isFullScreenView || isInterpretationsView || isSalesView ? "full" : "xl";
+  const layoutPadded = isFullScreenView ? false : !(isInterpretationsView || isSalesView);
 
   const renderView = () => {
     switch (currentView) {
@@ -205,7 +196,7 @@ export default function Home() {
         return <Hero onNavigate={() => goTo("calculator")} />;
       
       case "calculator":
-        return <Calculator onCalculate={handleCalculate} />;
+        return <Calculator onCalculate={handleCalculate} onGoHome={handleGoHome} />;
       
       case "result":
         return (
@@ -216,9 +207,7 @@ export default function Home() {
         );
       
       case "sales":
-        return (
-          <SalesPage code={wealthCode} onMockPurchase={handleMockPurchase} />
-        );
+        return <SalesPage code={wealthCode} />;
       
       case "interpretations":
         return (

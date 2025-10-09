@@ -1,5 +1,13 @@
-import { redirect } from "next/navigation";
+interface ThankYouPageProps {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}
 
-export default function ThankYouPage() {
-  redirect("/wealth-code/thank-you");
+import { ThankYouPageClient } from "./ThankYouPageClient";
+
+export default async function ThankYouPage({ searchParams }: ThankYouPageProps) {
+  const resolvedParams = searchParams ? await searchParams : undefined;
+  const rawCode = resolvedParams?.code;
+  const code = Array.isArray(rawCode) ? rawCode[0] : rawCode;
+
+  return <ThankYouPageClient code={code} />;
 }

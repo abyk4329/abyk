@@ -30,24 +30,24 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
   };
 
   const handleConsultation = () => {
-    window.open(SOCIAL.whatsapp.getUrl(), '_blank');
+  window.open(SOCIAL.whatsapp.getUrl(), '_blank', 'noopener,noreferrer');
   };
 
   // Social Links - קישורים לעמודים שלי
   const handleGoToInstagram = () => {
-    window.open('https://www.instagram.com/awakening.by.ksenia/', '_blank');
+  window.open('https://www.instagram.com/awakening.by.ksenia/', '_blank', 'noopener,noreferrer');
   };
 
   const handleGoToTikTok = () => {
-    window.open('https://www.tiktok.com/@awakening.by.ksenia', '_blank');
+  window.open('https://www.tiktok.com/@awakening.by.ksenia', '_blank', 'noopener,noreferrer');
   };
 
   const handleGoToEmail = () => {
-    window.open('mailto:awakening.by.ksenia@gmail.com', '_blank');
+  window.open('mailto:awakening.by.ksenia@gmail.com', '_blank', 'noopener,noreferrer');
   };
 
   const handleGoToWhatsApp = () => {
-    window.open(SOCIAL.whatsapp.getUrl(), '_blank');
+  window.open(SOCIAL.whatsapp.getUrl(), '_blank', 'noopener,noreferrer');
   };
 
   // Share function - כפתור השיתוף היחיד שמשתף את האתר
@@ -66,13 +66,13 @@ export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYou
           console.error('Error sharing:', err);
           // Fallback ל-WhatsApp אם יש שגיאה
           const message = encodeURIComponent(`${shareText}\n${shareUrl}`);
-          window.open(`https://wa.me/?text=${message}`, '_blank');
+          window.open(`https://wa.me/?text=${message}`, '_blank', 'noopener,noreferrer');
         }
       }
     } else {
       // Fallback ל-WhatsApp אם Web Share API לא נתמך
       const message = encodeURIComponent(`${shareText}\n${shareUrl}`);
-      window.open(`https://wa.me/?text=${message}`, '_blank');
+  window.open(`https://wa.me/?text=${message}`, '_blank', 'noopener,noreferrer');
     }
   };
 

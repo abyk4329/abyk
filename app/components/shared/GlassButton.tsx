@@ -12,6 +12,7 @@ export interface GlassButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: GlassButtonVariant;
+  textClassName?: string;
 }
 
 const BASE_CLASSES = cn(
@@ -41,9 +42,18 @@ const VARIANT_CLASSES: Record<GlassButtonVariant, string> = {
   ),
 };
 
+const DEFAULT_TEXT_CLASS = "text-[#87674F]";
+
 export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
   (
-    { children, className, variant = "primary", type = "button", ...props },
+    {
+      children,
+      className,
+      variant = "primary",
+      type = "button",
+      textClassName,
+      ...props
+    },
     ref
   ) => {
     return (
@@ -53,7 +63,12 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
         className={cn(BASE_CLASSES, VARIANT_CLASSES[variant], className)}
         {...props}
       >
-        <span className="relative z-10 transition-colors duration-300 text-[#87674F] font-semibold text-shadow-sm">
+        <span
+          className={cn(
+            "relative z-10 transition-colors duration-300 font-semibold text-shadow-sm",
+            textClassName ?? DEFAULT_TEXT_CLASS
+          )}
+        >
           {children}
         </span>
       </button>

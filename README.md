@@ -9,7 +9,7 @@ Next.js 15 + React 19 + Tailwind v4 מערכת מקצועית למחשבון נ�
 ### לוגו ואייקונים
 
 - `logob.png` - לוגו ראשי ABYK
-- `אייקון.png` - אייקון ראשי / Favicon
+- `ABYKICON.png` - אייקון ראשי / Favicon
 - תמונות שיתוף (1080x1080, 1200x630)
 
 ### עיצוב Neumorphic

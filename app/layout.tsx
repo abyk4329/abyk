@@ -14,9 +14,9 @@ export const metadata: Metadata = {
   metadataBase,
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: "/אייקון.png",
-    shortcut: "/אייקון.png",
-    apple: "/אייקון.png",
+    icon: "/ABYKICON.png",
+    shortcut: "/ABYKICON.png",
+    apple: "/ABYKICON.png",
   },
   authors: [{ name: "Ksenia Chudnovskaya" }],
   keywords: [
