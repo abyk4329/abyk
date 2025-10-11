@@ -22,6 +22,7 @@ export const routes = {
     api: {
         generatePdf: "/api/generate-pdf",
         sendEmail: "/api/send-email",
+        growWebhook: "/api/webhooks/grow",
     },
 } as const;
 

@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { GlassButton } from "@/app/components/shared/GlassButton";
 import { CardStack, NeuroCard } from "@/modules/wealth-code/components/shared";
 import styles from "./SalesPage.module.css";
+import { PAYMENT } from "@/lib/constants";
+import { routes } from "@/lib/routes";
 
 interface SalesPageProps {
   code: string;
@@ -18,7 +20,25 @@ const DETAIL_HIGHLIGHTS = [
   "תרגול יומיומי מעשי",
 ];
 
+const LAST_CODE_STORAGE_KEY = "abyk:last-code";
+
+const CALLBACK_PARAM_PRIORITY = [
+  "callback",
+  "success",
+  "success_url",
+  "return",
+  "return_url",
+];
+
 export function SalesPage({ code }: SalesPageProps) {
+  const sanitizedCode = useMemo(() => {
+    if (!code) {
+      return "";
+    }
+    const trimmed = code.trim();
+    return /^\d{4}$/.test(trimmed) ? trimmed : "";
+  }, [code]);
+
   const digitsDescription = useMemo(() => {
     if (!code || !/^\d+$/.test(code)) {
       return "הספרות בקוד";
@@ -40,13 +60,48 @@ export function SalesPage({ code }: SalesPageProps) {
     return `${label} ${otherDigits} ו-${lastDigit}`;
   }, [code]);
 
-  const handlePurchase = () => {
-    window.open(
-      "https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ",
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
+  const handlePurchase = useCallback(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const checkoutUrl = PAYMENT.grow.url;
+
+    if (sanitizedCode) {
+      try {
+        window.sessionStorage.setItem(LAST_CODE_STORAGE_KEY, sanitizedCode);
+      } catch (error) {
+        console.warn("Failed to persist code in sessionStorage", error);
+      }
+    }
+
+    try {
+      const origin = window.location.origin;
+      const thankYouUrl = new URL(routes.thankYou, origin);
+      if (sanitizedCode) {
+        thankYouUrl.searchParams.set("code", sanitizedCode);
+      }
+
+      const targetUrl = new URL(checkoutUrl);
+      let applied = false;
+      for (const param of CALLBACK_PARAM_PRIORITY) {
+        if (!targetUrl.searchParams.has(param)) {
+          targetUrl.searchParams.set(param, thankYouUrl.toString());
+          applied = true;
+          break;
+        }
+      }
+
+      if (!applied) {
+        targetUrl.searchParams.set("callback", thankYouUrl.toString());
+      }
+
+      window.location.assign(targetUrl.toString());
+    } catch (error) {
+      console.error("Failed to redirect to Grow checkout", error);
+      window.open(checkoutUrl, "_blank", "noopener,noreferrer");
+    }
+  }, [sanitizedCode]);
 
   return (
     <section className={["hero-shell", styles.salesShell].join(" ")}>

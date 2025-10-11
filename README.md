@@ -153,6 +153,7 @@ modules/
 
 **POST** `/api/generate-pdf` - יצירת PDF והחזרה כ-base64 (ללא data prefix)
 **POST** `/api/send-email` - שליחת מייל עם "הפירוש המלא לקוד האישי שלך" + צירוף PDF
+**POST** `/api/webhooks/grow` - Webhook מאובטח שמקבל אירועי Grow על תשלום שהושלם, מייצר PDF, ושולח את המייל האוטומטי
 
 דוגמה:
 
@@ -175,6 +176,25 @@ curl -X POST http://localhost:3000/api/send-email \
 ```
 
 > טיפ: אם יש לך רק מחרוזת Base64 אחת, אפשר לשלוח את השדה `pdfBase64` במקום מערך `attachments`. ה-API יסיר אוטומטית prefix מסוג `data:*;base64,` במידת הצורך.
+
+Webhook Grow – דוגמה לאירוע:
+
+```bash
+curl -X POST http://localhost:3000/api/webhooks/grow \
+  -H "Content-Type: application/json" \
+  -H "x-grow-secret: $GROW_WEBHOOK_SECRET" \
+  -d '{
+    "event": "order.paid",
+    "data": {
+      "id": "order_123",
+      "status": "paid",
+      "customer": { "email": "client@example.com", "name": "לקוחה שמחה" },
+      "metadata": { "code": "1234" }
+    }
+  }'
+```
+
+> ⚙️ ה-Webhook מחפש את הקוד בשדות `metadata.code` או `custom_fields` ויוודא שהסטטוס הוא `paid`. על Grow לשלוח את ה-secret בכותרת `x-grow-secret` (אפשר גם Bearer token).
 
 ### 🔬 בדיקות שליחת מייל
 

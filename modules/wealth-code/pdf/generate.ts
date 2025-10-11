@@ -1,7 +1,23 @@
-// Deprecated legacy pdf-lib generator kept only to avoid breaking older imports.
-// The application now uses React-PDF implementation in `WealthReport.tsx` via /api/generate-pdf.
-// Do NOT add new logic here.
+import { renderToBuffer } from "@react-pdf/renderer";
 
-export async function generateWealthPdf() {
-    throw new Error("generateWealthPdf is deprecated. Use /api/generate-pdf endpoint (React-PDF) instead.");
+import { registerHebrewFonts } from "@/modules/core";
+import { WealthReport } from "./WealthReport";
+
+export type GenerateWealthReportOptions = {
+    code: string;
+    userName?: string;
+};
+
+export async function generateWealthReportPdfBase64({ code, userName }: GenerateWealthReportOptions): Promise<string> {
+    const trimmedCode = code?.trim();
+
+    if (!trimmedCode || !/^\d{4}$/.test(trimmedCode)) {
+        throw new Error("Invalid code provided for PDF generation");
+    }
+
+    registerHebrewFonts();
+    const documentElement = WealthReport({ code: trimmedCode, userName });
+    const buffer = await renderToBuffer(documentElement as any);
+
+    return buffer.toString("base64");
 }

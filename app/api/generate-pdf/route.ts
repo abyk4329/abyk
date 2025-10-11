@@ -1,10 +1,7 @@
 export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
-import { renderToBuffer } from "@react-pdf/renderer";
-import React from "react";
-import { WealthReport } from "@/modules/wealth-code/pdf/WealthReport";
-import { registerHebrewFonts } from "@/modules/core";
+import { generateWealthReportPdfBase64 } from "@/modules/wealth-code/pdf/generate";
 
 type GeneratePdfPayload = {
     code?: string;
@@ -27,18 +24,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ ok: false, error: "Invalid code" }, { status: 400 });
         }
 
-        if (!code || code.length !== 4) {
-            return NextResponse.json({ ok: false, error: "Invalid code" }, { status: 400 });
-        }
-
-        // Generate PDF using React PDF
-        // Ensure fonts attempted (idempotent). If none found, report warning in response meta.
-        registerHebrewFonts();
-        const documentElement = WealthReport({ code, userName });
-        // Cast to any to satisfy renderer typings expecting a Document ReactElement
-        const buffer = await renderToBuffer(documentElement as any);
-
-        const pdfBase64 = buffer.toString("base64");
+        const pdfBase64 = await generateWealthReportPdfBase64({ code, userName });
 
         return NextResponse.json({ ok: true, pdfBase64 });
     } catch (error) {
