@@ -77,7 +77,7 @@ pnpm dev
 ### GitHub Copilot
 
 **דרישות:**
-- מנוי פעיל ל-GitHub Copilot ([הרשמה](https://github.com/settings/copilot))
+- מנוי פעיל ל-GitHub Copilot ([ניהול מנוי](https://github.com/settings/copilot))
 - התקנת ההרחבות: `GitHub.copilot` + `GitHub.copilot-chat`
 
 **בדיקת תקינות:**
