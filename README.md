@@ -66,6 +66,41 @@ pnpm dev
 פתח [http://localhost:3000](http://localhost:3000) בדפדפן.
 
 > 📖 **למדריך מפורט**: [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md)
+## 💻 VS Code Setup
+
+הפרויקט מוגדר במיוחד עבור Visual Studio Code עם GitHub Copilot:
+
+### התקנת Extensions מומלצים
+
+1. פתח את הפרויקט ב-VS Code
+2. לחץ על הודעת "Install Recommended Extensions" שתופיע
+3. או: Ctrl+Shift+P → "Extensions: Show Recommended Extensions"
+
+### GitHub Copilot
+
+**דרישות:**
+- מנוי פעיל ל-GitHub Copilot ([ניהול מנוי](https://github.com/settings/copilot))
+- התקנת ההרחבות: `GitHub.copilot` + `GitHub.copilot-chat`
+
+**בדיקת תקינות:**
+1. פתח קובץ TypeScript כלשהו
+2. התחל להקליד - אמור להופיע טקסט אפור עם הצעות
+3. לחץ Tab לקבלת הצעה
+4. Ctrl+Enter (Cmd+Enter ב-Mac) לראות את כל ההצעות
+
+**פתרון בעיות:**
+- בדוק את אייקון Copilot בפינה הימנית התחתונה
+- ודא שאתה מחובר עם חשבון GitHub שלך
+- ראה [.vscode/README.md](.vscode/README.md) למדריך מלא
+
+### הגדרות נוספות
+
+כל ההגדרות נשמרות ב-[.vscode/settings.json](.vscode/settings.json):
+- ✅ פורמט אוטומטי בשמירה (Prettier)
+- ✅ תיקון ESLint אוטומטי
+- ✅ תמיכה בעברית ו-RTL
+- ✅ Tailwind CSS IntelliSense
+- ✅ TypeScript IntelliSense משופר
 
 ## ⚙️ תצורה
 
