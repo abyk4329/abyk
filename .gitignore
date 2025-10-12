@@ -62,7 +62,12 @@ next-env.d.ts
 *.pem
 /lib/generated/prisma
 
+<<<<<<< HEAD
 # ===================================
 # Figma exports (reference only)
 # ===================================
 figmawebdesign/
+=======
+# Sentry Config File
+.env.sentry-build-plugin
+>>>>>>> e9a9115 (Add smoke tests for homepage and legal pages, ensure V2 page loads correctly, and validate Alt environment isolation)

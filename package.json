@@ -4,16 +4,22 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:v2": "next dev",
     "build": "next build",
+    "build:analyze": "NEXT_DEBUG_BUILD=1 next build",
     "start": "next start",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
     "preinstall": "npx only-allow pnpm",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:e2e:smoke": "playwright test tests/e2e/smoke.spec.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.16.3",
     "@react-email/components": "^0.5.5",
     "@react-pdf/renderer": "^4.3.1",
+    "@sentry/nextjs": "^10",
     "@types/html2canvas": "^1.0.0",
     "framer-motion": "^12.23.22",
     "html2canvas": "^1.4.1",
