@@ -1,10 +1,10 @@
-name: CI - Check Build
+name: CI - Build and Test
 
 on:
   push:
-    branches: [main, nextjs-migration]
+    branches: [main, develop]
   pull_request:
-    branches: [main, nextjs-migration]
+    branches: [main, develop]
 
 jobs:
   build:
