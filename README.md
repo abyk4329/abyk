@@ -2,6 +2,8 @@
 
 Next.js 15 + React 19 + Tailwind v4 מערכת מקצועית למחשבון נומרולוגיה עם תשתית מייל ו-PDF מלאה.
 
+> 📚 **תיעוד מלא**: ראה תיקיית [docs/](./docs/) למדריכים מפורטים
+
 ## 🎨 מותג ועיצוב
 
 **Awakening by Ksenia** - YOUR PERSONAL SPACE FOR GROWTH
@@ -28,22 +30,15 @@ Next.js 15 + React 19 + Tailwind v4 מערכת מקצועית למחשבון נ�
 - **React 19.2.0** - Latest version
 - **Tailwind CSS v4.1.14** - @tailwindcss/postcss
 - **TypeScript 5.9.3** - Type safety
-- **ESLint 9.36.0** - Flat Config
-- **pnpm 9.11.0** - Package manager
-
-### תשתית מייל ו-PDF
-
-- **Resend** - Modern email API
-- **Nodemailer** - SMTP fallback (Gmail)
-- **@react-pdf/renderer** - PDF generation
-- Hebrew support + RTL + Assistant font
+- **Resend + Nodemailer** - Email delivery
+- **@react-pdf/renderer** - PDF generation with Hebrew support
 
 ## 📦 התקנה מהירה
 
 ### דרישות מוקדמות
 
-- Node.js >= 20 < 23
-- pnpm >= 9
+- **Node.js 22** (חובה)
+- **pnpm >= 9**
 
 ### התקנה
 
@@ -51,6 +46,12 @@ Next.js 15 + React 19 + Tailwind v4 מערכת מקצועית למחשבון נ�
 # Clone the repository
 git clone https://github.com/abyk4329/abyk.git
 cd abyk
+
+# Install Node.js 22
+sudo n 22
+
+# Install pnpm
+npm install -g pnpm@10.18.0
 
 # Install dependencies
 pnpm install
@@ -63,6 +64,8 @@ pnpm dev
 ```
 
 פתח [http://localhost:3000](http://localhost:3000) בדפדפן.
+
+> 📖 **למדריך מפורט**: [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md)
 
 ## ⚙️ תצורה
 
@@ -95,30 +98,31 @@ NEXT_PUBLIC_PRODUCT_PRICE="36.9 ש״ח"
 ## 📂 מבנה הפרויקט
 
 ```text
-app/
-├── api/
-│   ├── generate-pdf/
-│   │   └── route.ts           # יצירת PDF
-│   └── send-email/
-│       └── route.ts           # שליחת מייל (Resend → SMTP fallback)
-├── components/…              # UI sections וכפתורים
-├── globals.css               # עיצוב Neumorphic + Tailwind v4
-└── page.tsx                  # דף הבית
+app/                      # Next.js App Router
+├── api/                  # API Routes (generate-pdf, send-email, webhooks)
+├── components/           # UI Components (sections, shared, lib)
+├── [pages]/             # Route pages (calculator, result, sales, etc.)
+└── globals.css          # Neumorphic styles + Tailwind
 
-lib/
-├── email/
-│   └── transport.ts          # sendViaResend / sendViaSMTP / sendEmail
-└── utils/
-  └── base64.ts             # stripBase64Prefix + blobToBase64
+lib/                     # Shared utilities
+├── constants.ts         # Config & content
+└── routes.ts            # Route helpers
 
-modules/
-└── wealth-code/
-  ├── email/
-  │   ├── WealthEmail.ts    # תבנית HTML ראשית
-  │   └── template.ts       # re-export עבור תאימות
-  └── utils/
-    └── email.ts          # sendWealthEmail client helper
+modules/                 # Business logic
+└── wealth-code/         # Wealth code calculator & email templates
+
+docs/                    # 📚 Documentation
+├── DEVELOPMENT.md       # Development guide
+├── BRANCHING.md         # Git workflow
+├── ARCHITECTURE.md      # System architecture
+├── guides/              # Specific guides (email, PDF, etc.)
+└── archive/             # Historical documents
+
+design-system/           # 🎨 Dev-only design tools
+public/                  # Static assets (icons, images, fonts)
 ```
+
+> 🏗 **ארכיטקטורה מפורטת**: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
 
 ## 🎯 תכונות עיקריות
 
@@ -147,78 +151,15 @@ modules/
 
 ## 📖 API Documentation
 
-מסמך מפורט: [EMAIL-PDF-README.md](./EMAIL-PDF-README.md)
+מסמך מפורט: [docs/guides/EMAIL-PDF-README.md](./docs/guides/EMAIL-PDF-README.md)
 
-### Endpoints
+### Endpoints Summary
 
-**POST** `/api/generate-pdf` - יצירת PDF והחזרה כ-base64 (ללא data prefix)
-**POST** `/api/send-email` - שליחת מייל עם "הפירוש המלא לקוד האישי שלך" + צירוף PDF
-**POST** `/api/webhooks/grow` - Webhook מאובטח שמקבל אירועי Grow על תשלום שהושלם, מייצר PDF, ושולח את המייל האוטומטי
+- **POST** `/api/generate-pdf` - יצירת PDF והחזרה כ-base64
+- **POST** `/api/send-email` - שליחת מייל עם צירוף PDF
+- **POST** `/api/webhooks/grow` - Webhook לתשלומי Grow
 
-דוגמה:
-
-```bash
-curl -X POST http://localhost:3000/api/send-email \
-  -H "Content-Type: application/json" \
-  -d '{
-    "to": "test@example.com",
-    "name": "קסניה",
-    "shareUrl": "https://abyk.online/result/123",
-    "replyTo": "support@abyk.online",
-    "attachments": [
-      {
-        "filename": "wealth-code.pdf",
-        "contentType": "application/pdf",
-        "content": "... base64 without data prefix ..."
-      }
-    ]
-  }'
-```
-
-> טיפ: אם יש לך רק מחרוזת Base64 אחת, אפשר לשלוח את השדה `pdfBase64` במקום מערך `attachments`. ה-API יסיר אוטומטית prefix מסוג `data:*;base64,` במידת הצורך.
-
-Webhook Grow – דוגמה לאירוע:
-
-```bash
-curl -X POST http://localhost:3000/api/webhooks/grow \
-  -H "Content-Type: application/json" \
-  -H "x-grow-secret: $GROW_WEBHOOK_SECRET" \
-  -d '{
-    "event": "order.paid",
-    "data": {
-      "id": "order_123",
-      "status": "paid",
-      "customer": { "email": "client@example.com", "name": "לקוחה שמחה" },
-      "metadata": { "code": "1234" }
-    }
-  }'
-```
-
-> ⚙️ ה-Webhook מחפש את הקוד בשדות `metadata.code` או `custom_fields` ויוודא שהסטטוס הוא `paid`. על Grow לשלוח את ה-secret בכותרת `x-grow-secret` (אפשר גם Bearer token).
-
-### 🔬 בדיקות שליחת מייל
-
-#### Local DEV (always routes to TEST_EMAIL)
-
-```bash
-curl -X POST http://localhost:3000/api/send-email \
-  -H "Content-Type: application/json" \
-  -d '{
-    "to": "ignored@example.com",
-    "name": "קסניה",
-    "shareUrl": "https://abyk.online/",
-    "subject": "הפירוש המלא לקוד האישי שלך",
-    "test": true
-  }'
-```
-
-#### Production test via query
-
-```bash
-curl -X POST "https://abyk.online/api/send-email?test=1" \
-  -H "Content-Type: application/json" \
-  -d '{"to":"ignored@example.com","name":"קסניה","shareUrl":"https://abyk.online/"}'
-```
+> 🔌 **API מפורט**: [docs/ARCHITECTURE.md#api-endpoints](./docs/ARCHITECTURE.md#-api-endpoints)
 
 ## 🧪 Scripts
 
@@ -227,7 +168,10 @@ pnpm dev          # Development server (port 3000)
 pnpm build        # Production build
 pnpm start        # Production server
 pnpm lint         # ESLint check
+pnpm test:e2e     # Playwright E2E tests
 ```
+
+> 🔧 **פיתוח מתקדם**: [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md)
 
 ## 🔐 אבטחה
 
@@ -235,7 +179,7 @@ pnpm lint         # ESLint check
 - ⚠️ השתמש ב-App Password ל-Gmail (לא סיסמה רגילה)
 - ⚠️ שמור API Keys בסודות CI/CD
 
-## 🌐 Deployment
+## 🚀 Deployment
 
 ### Vercel (מומלץ)
 
@@ -245,12 +189,14 @@ vercel --prod
 
 הוסף את משתני הסביבה ב-Vercel Dashboard.
 
-### Docker
+> 🌿 **Git Workflow**: [docs/BRANCHING.md](./docs/BRANCHING.md) - אסטרטגיית ענפים מפורטת
 
-```bash
-docker build -t abyk .
-docker run -p 3000:3000 abyk
-```
+### Branch Strategy
+- **`main`** - Production (מוגן, דורש approval)
+- **`develop`** - Staging/Integration
+- **`feature/*`** - פיצ'רים חדשים
+
+**האתר הפעיל לא ישתנה ללא אישור מפורש!**
 
 ## 📱 Social Media
 
@@ -262,6 +208,15 @@ docker run -p 3000:3000 abyk
 ## 📄 License
 
 © 2025 Awakening by Ksenia. All rights reserved.
+
+---
+
+## 📚 תיעוד מלא
+
+- 📘 [מדריך פיתוח](./docs/DEVELOPMENT.md) - התקנה, הרצה, ו-troubleshooting
+- 🌿 [אסטרטגיית ענפים](./docs/BRANCHING.md) - Git workflow ושמירה על production
+- 🏗 [ארכיטקטורה](./docs/ARCHITECTURE.md) - מבנה המערכת וזרימת נתונים
+- 📧 [Email & PDF Guide](./docs/guides/EMAIL-PDF-README.md) - מערכת מייל מפורטת
 
 ---
 
