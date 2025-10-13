@@ -2,7 +2,7 @@
 
 Next.js 15 + React 19 + Tailwind v4 מערכת מקצועית למחשבון נומרולוגיה עם תשתית מייל ו-PDF מלאה.
 
-> 📚 **תיעוד מלא**: ראה תיקיית [docs/](./docs/) למדריכים מפורטים
+> 📚 **תיעוד מלא**: ראה תיקיית [docs/](./docs/) למדריכים מפורטים (כולל [PROJECT_STRUCTURE.md](./docs/PROJECT_STRUCTURE.md) כמקור אמת למבנה)
 
 ## 🎨 מותג ועיצוב
 
@@ -91,33 +91,39 @@ NEXT_PUBLIC_INSTAGRAM_HANDLE="@awakening.by.ksenia"
 NEXT_PUBLIC_WHATSAPP_NUMBER="972524616121"
 NEXT_PUBLIC_TIKTOK_HANDLE="@awakening.by.ksenia"
 NEXT_PUBLIC_PRODUCT_PRICE="36.9 ש״ח"
+
+# Observability (Sentry)
+SENTRY_DSN="https://examplePublicKey@o0.ingest.sentry.io/0"
+SENTRY_TRACES_SAMPLE_RATE="0.1"
+SENTRY_PROFILES_SAMPLE_RATE="0.0"
 ```
 
 ## 📂 מבנה הפרויקט
 
 ```text
-app/                      # Next.js App Router
+app/                      # Next.js App Router (UI + API routes)
+├── (marketing)/          # Landing pages וקמפיינים
+├── (funnels)/            # מסע המחשבון (calculator → thank-you)
+├── (legal)/              # מדיניות פרטיות ותנאים
+├── (labs)/               # ניסויים וכלי dev בלבד
 ├── api/                  # API Routes (generate-pdf, send-email, webhooks)
-├── components/           # UI Components (sections, shared, lib)
-├── [pages]/             # Route pages (calculator, result, sales, etc.)
-└── globals.css          # Neumorphic styles + Tailwind
+├── components/           # קומפוננטות משותפות ו-layouts
+└── globals.css           # Tailwind + Neumorphism
 
-lib/                     # Shared utilities
-├── constants.ts         # Config & content
-└── routes.ts            # Route helpers
+features/                 # מודולים עסקיים
+└── wealth-code/          # כל הלוגיקה וה-UI של מחשבון העושר
 
-modules/                 # Business logic
-└── wealth-code/         # Wealth code calculator & email templates
+lib/                      # Utilities, קונפיגורציות מותג, שליחת מיילים, פד"פים
 
-docs/                    # 📚 Documentation
-├── DEVELOPMENT.md       # Development guide
-├── BRANCHING.md         # Git workflow
-├── ARCHITECTURE.md      # System architecture
-├── guides/              # Specific guides (email, PDF, etc.)
-└── archive/             # Historical documents
+docs/                     # תיעוד רשמי (ראה README בתוך התיקייה)
 
-design-system/           # 🎨 Dev-only design tools
-public/                  # Static assets (icons, images, fonts)
+design/                   # קבצי handoff מ-Figma
+
+public/                   # נכסים סטטיים (brand, email, fonts, og)
+
+styles/                   # קבצי CSS ייעודיים (כמו neumorphism.css)
+
+tests/                    # Playwright E2E
 ```
 
 > 🏗 **ארכיטקטורה מפורטת**: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
@@ -190,6 +196,7 @@ vercel --prod
 > 🌿 **Git Workflow**: [docs/BRANCHING.md](./docs/BRANCHING.md) - אסטרטגיית ענפים מפורטת
 
 ### Branch Strategy
+
 - **`main`** - Production (מוגן, דורש approval)
 - **`develop`** - Staging/Integration
 - **`feature/*`** - פיצ'רים חדשים

@@ -10,11 +10,17 @@ import {
   SalesPage,
   Interpretations,
   ThankYou,
-} from "@/modules/wealth-code/components";
+} from "@/features/wealth-code/components";
 import { SplashScreen } from "@/app/components/layout/SplashScreen";
 import { NavigationProvider } from "@/app/lib/navigation";
 
-type ViewType = "hero" | "calculator" | "result" | "sales" | "interpretations" | "thankyou";
+type ViewType =
+  | "hero"
+  | "calculator"
+  | "result"
+  | "sales"
+  | "interpretations"
+  | "thankyou";
 
 export default function Home() {
   const [currentView, setCurrentView] = useState<ViewType>("hero");
@@ -26,9 +32,12 @@ export default function Home() {
     () => new Set<ViewType>(["hero", "calculator", "result", "thankyou"]),
     []
   );
-  
+
   // Views that should have minimal layout (no header/footer, only bottom navigation)
-  const minimalViews = useMemo(() => new Set<ViewType>(["sales", "interpretations", "thankyou"]), []);
+  const minimalViews = useMemo(
+    () => new Set<ViewType>(["sales", "interpretations", "thankyou"]),
+    []
+  );
 
   const isFullScreenView = fullScreenViews.has(currentView);
   const isMinimalView = minimalViews.has(currentView);
@@ -38,7 +47,9 @@ export default function Home() {
       return;
     }
 
-    const hasSeenSplash = window.sessionStorage.getItem("abyk:splash-dismissed");
+    const hasSeenSplash = window.sessionStorage.getItem(
+      "abyk:splash-dismissed"
+    );
     if (hasSeenSplash === "true") {
       setIsSplashVisible(false);
     }
@@ -46,7 +57,7 @@ export default function Home() {
 
   const goTo = useCallback((view: ViewType) => {
     setCurrentView(view);
-    
+
     // Scroll to top when changing views
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
@@ -54,11 +65,21 @@ export default function Home() {
   }, []);
 
   const viewOrder = useMemo<ViewType[]>(
-    () => ["hero", "calculator", "result", "sales", "thankyou", "interpretations"],
+    () => [
+      "hero",
+      "calculator",
+      "result",
+      "sales",
+      "thankyou",
+      "interpretations",
+    ],
     []
   );
 
-  const currentIndex = useMemo(() => viewOrder.indexOf(currentView), [currentView, viewOrder]);
+  const currentIndex = useMemo(
+    () => viewOrder.indexOf(currentView),
+    [currentView, viewOrder]
+  );
 
   const goToIndex = useCallback(
     (index: number) => {
@@ -157,7 +178,7 @@ export default function Home() {
 
   const navigationOverrides = useMemo(
     () => ({
-  isVisible: currentView !== "hero" && currentView !== "sales",
+      isVisible: currentView !== "hero" && currentView !== "sales",
       canGoBack,
       canGoForward,
       onGoBack: handleGoBack,
@@ -188,27 +209,26 @@ export default function Home() {
 
   const layoutMaxWidth =
     isFullScreenView || isInterpretationsView || isSalesView ? "full" : "xl";
-  const layoutPadded = isFullScreenView ? false : !(isInterpretationsView || isSalesView);
+  const layoutPadded = isFullScreenView
+    ? false
+    : !(isInterpretationsView || isSalesView);
 
   const renderView = () => {
     switch (currentView) {
       case "hero":
         return <Hero onNavigate={() => goTo("calculator")} />;
-      
+
       case "calculator":
-        return <Calculator onCalculate={handleCalculate} onGoHome={handleGoHome} />;
-      
-      case "result":
         return (
-          <Result
-            code={wealthCode}
-            onContinue={handleViewSales}
-          />
+          <Calculator onCalculate={handleCalculate} onGoHome={handleGoHome} />
         );
-      
+
+      case "result":
+        return <Result code={wealthCode} onContinue={handleViewSales} />;
+
       case "sales":
         return <SalesPage code={wealthCode} />;
-      
+
       case "interpretations":
         return (
           <Interpretations
@@ -216,7 +236,7 @@ export default function Home() {
             onCalculateAnother={handleResetFlow}
           />
         );
-      
+
       case "thankyou":
         return (
           <ThankYou
@@ -224,7 +244,7 @@ export default function Home() {
             onCalculateAnother={handleResetFlow}
           />
         );
-      
+
       default:
         return <Hero onNavigate={() => goTo("calculator")} />;
     }

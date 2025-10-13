@@ -28,8 +28,7 @@
     "types.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/**/*"
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules", "figmawebdesign"]
 }

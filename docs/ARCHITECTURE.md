@@ -9,6 +9,7 @@ ABYK הוא אפליקציית Next.js מודרנית לחישוב נומרול�
 ## 🎨 Stack טכנולוגי
 
 ### Frontend
+
 - **Next.js 15.5.4** - React framework with App Router
 - **React 19.2.0** - UI library
 - **TypeScript 5.9.3** - Type safety
@@ -16,12 +17,14 @@ ABYK הוא אפליקציית Next.js מודרנית לחישוב נומרול�
 - **Framer Motion** - Animations
 
 ### Backend/API
+
 - **Next.js API Routes** - Serverless functions
 - **Resend** - Email delivery service
 - **Nodemailer** - SMTP fallback
 - **@react-pdf/renderer** - PDF generation
 
 ### Dev Tools
+
 - **ESLint 9** - Code linting
 - **Playwright** - E2E testing
 - **pnpm** - Package manager
@@ -30,26 +33,28 @@ ABYK הוא אפליקציית Next.js מודרנית לחישוב נומרול�
 
 ## 📁 מבנה מודולרי
 
-```
-app/                     # Next.js App Router
-├── api/                 # API endpoints
-├── components/          # UI components
-├── [routes]/           # Page routes
-└── lib/                # Utilities
+```text
+app/                     # Next.js App Router (UI + API)
+├── (marketing)/         # דפי נחיתה וקמפיינים
+├── (funnels)/           # משפך המחשבון המלא
+├── (legal)/             # מדיניות פרטיות ותנאים
+├── (labs)/              # ניסויים וכלי dev בלבד
+├── api/                 # פונקציות שרת (PDF, email, webhooks)
+├── components/          # קומפוננטות Layout, ניווט, UI משותף
+└── globals.css          # Tailwind + Neumorphism global
 
-lib/                    # Shared utilities
-├── constants.ts        # Config & content
-├── routes.ts           # Route helpers
-└── utils/              # Helper functions
+features/                # מודולים עסקיים
+└── wealth-code/         # UI, נתונים, PDF ומיילים למחשבון העושר
 
-modules/                # Business logic
-└── wealth-code/        # Wealth code calculator
-    ├── email/          # Email templates
-    └── utils/          # Calculations
+lib/                     # Utilities ותצורת מותג/Email/PDF משותפת
 
-design-system/          # Dev-only design tools
-public/                 # Static assets
-docs/                   # Documentation
+docs/                    # כל התיעוד (ראה docs/README.md)
+
+design/                  # חבילות handoff וייצוא מ-Figma
+
+public/                  # נכסים סטטיים (brand, email assets, fonts, og)
+
+tests/                   # Playwright E2E
 ```
 
 ---
@@ -58,348 +63,235 @@ docs/                   # Documentation
 
 ### 1. חישוב Wealth Code
 
-```
+````text
 User Input (Birthday)
     ↓
 Calculator Component
     ↓
-Wealth Code Algorithm (modules/wealth-code)
+Wealth Code Algorithm (features/wealth-code)
     ↓
 Result Page (display code)
     ↓
 Sales Page
-    ↓
-Payment (Grow.link)
-    ↓
-Webhook → Generate PDF + Send Email
-    ↓
-Thank You Page
-```
+    ﻿# 🏗 Architecture Overview - סקירת ארכיטקטורה
 
-### 2. Email + PDF Flow
+    מסמך זה מספק תמונת-על של המערכת: אילו טכנולוגיות מרכיבות אותה, כיצד האלמנטים השונים מתחברים, ואילו קבצים חשובים מהווים את מקור האמת.
 
-```
-Payment Complete (Grow webhook)
-    ↓
-/api/webhooks/grow
-    ↓
-Generate PDF (/api/generate-pdf)
-    ↓
-Send Email (/api/send-email)
-    ├─ Try Resend
-    └─ Fallback: Gmail SMTP
-    ↓
-User receives email with PDF
-```
+    ---
 
----
+    ## 🎨 מחסנית טכנולוגית
 
-## 🎨 Design System
+    ### Frontend
 
-### עיצוב Neumorphic
+    - **Next.js 15 (App Router)** — שליטה מלאה ברכיבי שרת ולקוח.
+    - **React 19** — Hooks, Suspense, ו-React Server Components.
+    - **TypeScript 5.9** — בטיחות טיפוסית ברמת הקוד וה-API.
+    - **Tailwind CSS v4** — עיצוב Utility-first עם תמיכה ב-RTL.
+    - **@react-pdf/renderer** — יצירת PDF בעברית (RTL + פונט Assistant).
 
-הפרויקט משתמש בעיצוב **Neumorphic** - גישה מודרנית לעיצוב 3D רך.
+    ### Backend & Delivery
 
-**עקרונות:**
-- צללים כפולים (בהיר + כהה)
-- צבעים חמים וטבעיים
-- רקעים בגוון בז'/קרם
-- אלמנטים "צפים" מעל הרקע
+    - **Next.js API Routes** — פונקציות שרת ל-generating PDF, שליחת מיילים ו-handling webhooks.
+    - **Resend** — ספק המייל הראשי.
+    - **Nodemailer (Gmail SMTP)** — גיבוי כאשר Resend לא זמין.
 
-**קבצים:**
-- `app/components/lib/neomorphism-styles.ts` - סגנונות מרכזיים
-- `app/globals.css` - CSS variables
-- `design-system/` - ספרייה לפיתוח
+    ### Tooling
 
-### פלטת צבעים
+    - **pnpm** — מנהל החבילות.
+    - **ESLint 9 + Prettier** — בקרת איכות קוד.
+    - **Playwright** — בדיקות End-to-End.
+    - **Sentry** — ניטור שגיאות וביצועים (מוגדר עם instrumentation + GlobalError).
 
-```css
---color-text: #473B31          /* חום כהה - טקסט ראשי */
---color-heading: #5e4934       /* חום - כותרות */
---color-secondary: #87674F     /* חום בהיר - טקסט משני */
---color-accent: #D4A574        /* זהב חם - הדגשות */
---color-bg-card: #FDFCFB       /* קרם - רקע כרטיסים */
---color-bg-page: #F5F1ED       /* בז' - רקע עמודים */
-```
+    ---
 
-### Typography
+    ## 📁 תצורת תיקיות מרכזית
 
-- **פונט**: Assistant (Google Fonts)
-- **משקלים**: 200-800
-- **תמיכה**: Latin, Hebrew (RTL)
+    ```text
+    app/                     # Next.js App Router (UI + API)
+    ├── (marketing)/         # דפי נחיתה וקמפיינים
+    ├── (funnels)/           # משפך המחשבון המלא
+    ├── (legal)/             # עמודי מדיניות
+    ├── (labs)/              # ניסויים וכלי dev בלבד
+    ├── api/                 # פונקציות שרת (generate-pdf, send-email, webhooks)
+    ├── components/          # קומפוננטות Layout, ניווט ו-UI משותף
+    └── globals.css          # Tailwind + Neumorphism Global
 
----
+    features/                # מודולים עסקיים מבודדים
+    └── wealth-code/         # UI, נתונים, PDF ומיילים של Wealth Code
 
-## 🔌 API Endpoints
+    lib/                     # Utilities משותפים (branding, email, pdf, env, routes)
 
-### 1. POST `/api/generate-pdf`
+    docs/                    # תיעוד (ראה docs/README.md + PROJECT_STRUCTURE.md)
 
-**תפקיד:** יצירת PDF מותאם אישית
+    design/                  # ייצוא Figma, handoff ו-assets מעיצוב
 
-**Request:**
-```json
-{
-  "code": "1234",
-  "name": "קסניה",
-  "email": "user@example.com"
-}
-```
+    public/                  # נכסים סטטיים (brand, email, fonts, og)
 
-**Response:**
-```json
-{
-  "pdfBase64": "JVBERi0xLjQK..." // no data URI prefix
-}
-```
+    tests/                   # Playwright E2E
+    ```
 
----
+    > לפרטים מלאים על כל תיקייה וקבצי המפתח — ראו `docs/PROJECT_STRUCTURE.md`.
 
-### 2. POST `/api/send-email`
+    ---
 
-**תפקיד:** שליחת מייל עם צירוף PDF
+    ## 🔄 זרימות ליבה
 
-**Request:**
-```json
-{
-  "to": "user@example.com",
-  "name": "קסניה",
-  "shareUrl": "https://abyk.online/result?code=1234",
-  "replyTo": "support@abyk.online",
-  "attachments": [
+    ### מחשבון Wealth Code (Client → PDF/Mail)
+
+    ```text
+    User enters birthday in calculator
+        ↓
+    Client renders result using features/wealth-code/utils
+        ↓
+    Result/Sales steps מוצגים דרך app/(funnels)
+        ↓
+    משתמש משלם דרך Grow.link
+        ↓
+    Webhook מפעיל יצירת PDF ושליחת מייל
+        ↓
+    Thank-you page מציג לינק הורדה ושיתוף
+    ```
+
+    ### פייפליין Email + PDF
+
+    ```text
+    Grow payment webhook (order.paid)
+        ↓
+    /api/webhooks/grow מאמת את הסוד, מושך פרטי לקוח
+        ↓
+    /api/generate-pdf מרכיב PDF עם @react-pdf/renderer
+        ↓
+    /api/send-email שולח את המייל (Resend → Gmail fallback)
+        ↓
+    המשתמש מקבל מייל + PDF מצורף
+    ```
+
+    ---
+
+    ## 📦 מודולי תכונות (features)
+
+    ### `features/wealth-code`
+
+    - **components/** — קטעי UI עבור כל שלב (Hero, Calculator, Result, Sales, ThankYou, Interpretations).
+    - **layout/** — עטיפות מבנה, CardStack, פריסות נוספות.
+    - **data/** — טבלאות, תיאורים ומטא-נתונים לחישובי הקוד.
+    - **utils/** — חישוב קוד, לוגיקת שיתוף, שליחת מיילים.
+    - **pdf/** — קומפוננטות PDF, פונקציית `generateWealthCodePDF`.
+    - **email/** — תבניות HTML וטקסטים למייל.
+    - **constants.ts** — טווחי ערכים, טקסטים וסכומות.
+
+    > כל פיצ'ר עתידי ישכפל מבנה זה לקבלת מודולריות ברורה.
+
+    ---
+
+    ## 🧰 ספריות משותפות (lib)
+
+    - **lib/core/** — מותג, תבניות מייל בסיסיות, הגדרות PDF (צבעים, פונט, margins).
+    - **lib/email/** — שכבת שליחה (Resend/Nodemailer) ופונקציות high-level לשליחת Wealth Email.
+    - **lib/utils/** — כלי עזר כלליים (base64, file helpers, theme, formatters).
+    - **lib/routes.ts** — ריכוז נתיבים עבור ניווט ותיעוד.
+    - **lib/env.ts** — קריאת משתני סביבה עם בדיקת סוג.
+
+    ---
+
+    ## 🔌 API Endpoints עיקריים
+
+    ### POST `/api/generate-pdf`
+
+    - **תפקיד:** ליצור PDF מותאם אישית עבור הקוד שנשלף מן החישוב.
+    - **קלט:** `code`, `name`, `email` (JSON).
+    - **פלט:** `pdfBase64` ללא prefix. משמש גם ב-endpoint המייל.
+
+    ```json
     {
-      "filename": "wealth-code.pdf",
-      "contentType": "application/pdf",
-      "content": "base64-string-without-prefix"
+      "code": "1234",
+      "name": "קסניה",
+      "email": "user@example.com"
     }
-  ]
-}
-```
+    ```
 
-**תהליך:**
-1. ניסיון שליחה דרך Resend
-2. אם נכשל → fallback ל-Gmail SMTP
-3. במצב development → שליחה ל-TEST_EMAIL
+    ### POST `/api/send-email`
 
----
+    - **תפקיד:** שליחת מייל HTML + צירוף PDF.
+    - **תהליך:** ניסוי Resend → fallback Nodemailer (Gmail App Password) → שליחה.
+    - **ב-development:** ניתן לאלץ שליחת טסט ע"י `MAIL_TEST_MODE=1`.
 
-### 3. POST `/api/webhooks/grow`
-
-**תפקיד:** קבלת אירועי תשלום מ-Grow
-
-**Headers:**
-```
-x-grow-secret: your-webhook-secret
-```
-
-**Request:**
-```json
-{
-  "event": "order.paid",
-  "data": {
-    "id": "order_123",
-    "status": "paid",
-    "customer": {
-      "email": "client@example.com",
-      "name": "לקוחה"
-    },
-    "metadata": {
-      "code": "1234"
+    ```json
+    {
+      "to": "user@example.com",
+      "name": "קסניה",
+      "attachments": [{
+        "filename": "wealth-code.pdf",
+        "contentType": "application/pdf",
+        "content": "<base64>"
+      }]
     }
-  }
-}
-```
+    ```
 
-**תהליך:**
-1. אימות secret
-2. וידוא status = "paid"
-3. יצירת PDF עם הקוד
-4. שליחת מייל ללקוח
+    ### POST `/api/webhooks/grow`
 
----
+    - **תפקיד:** תגובה לאירועי `order.paid` מפלטפורמת Grow.
+    - **אימות:** Header `x-grow-secret`.
+    - **תוצר:** הפקת PDF + שליחת מייל + לוג ריצה.
 
-## 🔒 Environment Variables
+    ```json
+    {
+      "event": "order.paid",
+      "data": {
+        "customer": {
+          "email": "user@example.com",
+          "name": "Awakening"
+        },
+        "metadata": { "code": "1234" }
+      }
+    }
+    ```
 
-### קריטיים
+    ---
 
-```bash
-# Email - Resend (primary)
-RESEND_API_KEY="re_..."
-EMAIL_FROM="AWAKENING BY KSENIA <no-reply@abyk.online>"
+    ## 🛡 ניטור ותצפיות (Observability)
 
-# Email - Gmail SMTP (fallback)
-SMTP_HOST="smtp.gmail.com"
-SMTP_PORT="465"
-EMAIL_USER="awakening.by.ksenia@gmail.com"
-EMAIL_PASSWORD="gmail_app_password"
+    - **Sentry** מופעל דרך קבצי הקונפיגורציה `sentry.client|server|edge.config.ts` וה-`instrumentation.ts` של Next.js.
+    - קובץ ה-`app/global-error.tsx` הוא קומפוננטת Client שמדווחת שגיאות React ל-Sentry ומציגה חוויית fallback למשתמש.
+    - משתני הסביבה הרלוונטיים: `SENTRY_DSN`, `SENTRY_TRACES_SAMPLE_RATE`, `SENTRY_PROFILES_SAMPLE_RATE` (ברירת מחדל: 1.0 בדב, 0.1 בפרודקשן).
+    - ב-CI/Production ניתן להשתמש ב-`SENTRY_AUTH_TOKEN` לצורך העלאת Source Maps (הטוקן נשמר רק ב-Vercel).
 
-# Grow Webhook
-GROW_WEBHOOK_SECRET="your-secret"
+    ---
 
-# Testing
-TEST_EMAIL="test@example.com"
-MAIL_TEST_MODE="0"  # 1 = force test mode in all environments
-```
+    ## 🧪 בדיקות ואיכות
 
-### אופציונליים
+    - **Playwright (`tests/e2e/smoke.spec.ts`)** — מאמת את המסע הראשי (Calculator → Result → Sales → Thank-you).
+    - **`pnpm lint`** — ESLint + TypeScript על כל הפרויקט.
+    - **בדיקות ידניות** — תרחישי תשלום, הורדת PDF, שליחת מיילים ב-Gmail.
 
-```bash
-# Public metadata
-NEXT_PUBLIC_APP_NAME="Awakening by Ksenia"
-NEXT_PUBLIC_APP_URL="https://abyk.online"
-NEXT_PUBLIC_SHOW_DESIGN="false"  # true in dev only
-```
+    > הוספת בדיקות חדשות: צרו קובץ תחת `tests/e2e/` והוסיפו אותו לסקריפט ה-ci.
 
----
+    ---
 
-## 🎯 Component Architecture
+    ## 🌐 סביבות ודפלוימנט
 
-### Shared Components
+    - **Local** — `pnpm dev` (עם `.env.local`).
+    - **Preview** — כל Pull Request מקבל Preview ב-Vercel.
+    - **Production** — ענף `main` (מוגן). דפלוימנט מתבצע אוטומטית לאחר Merge מאושר.
 
-**`app/components/shared/GlassButton.tsx`**
-כפתור מעוצב עם אפקטים neumorphic.
+    ```bash
+    pnpm build   # אימות לפני דפלוימנט
+    pnpm start   # הרצת גרסת Production מקומית
+    ```
 
-```tsx
-<GlassButton variant="primary" size="lg" onClick={handleClick}>
-  לחצו כאן
-</GlassButton>
-```
+    משתני סביבה מוגדרים ב-Vercel Dashboard. ראו `docs/DEVELOPMENT.md` לרשימה מלאה.
 
-**Variants:**
-- `primary` - כפתור ראשי (זהב)
-- `secondary` - כפתור משני (קרם)
+    ---
 
----
+    ## 🗺 המשך תחזוקה
 
-### Section Components
+    - הקפידו לעדכן את `docs/PROJECT_STRUCTURE.md` ו-`docs/README.md` עם כל שינוי ארכיטקטוני.
+    - פיצ'רים חדשים → ליצור תיקיית `features/<feature-name>` ולשמור על אותם עקרונות מודולריים.
+    - שינויים במותג או ב-PDF → לעדכן את `lib/core`. שינויים במייל → `lib/email` + `features/<feature>/email`.
 
-**`app/components/sections/`**
-קומפוננטות גדולות המייצגות חלקים עיקריים באפליקציה:
+    ---
 
-- `Hero.tsx` - דף הבית
-- `Calculator.tsx` - מחשבון
-- `Result.tsx` - תוצאות
-- `SalesPage.tsx` - עמוד מכירות
-- `ThankYou.tsx` - תודה
-- `Interpretations.tsx` - פירושים
-
----
-
-## 📦 Modules
-
-### `modules/wealth-code/`
-
-**תפקיד:** לוגיקה עסקית לחישוב Wealth Code
-
-**קבצים:**
-- `email/WealthEmail.tsx` - תבנית HTML למייל
-- `utils/email.ts` - helper functions
-- (עתידי) `calculations.ts` - אלגוריתמים
-
----
-
-## 🎨 Design System (Dev Only)
-
-### מטרה
-ספרייה פנימית לפיתוח ועיצוב - **לא לפרודקשן!**
-
-### מיקום
-```
-design-system/
-├── components/
-│   └── DesignShowcase.tsx
-└── README.md
-```
-
-### גישה
-- Development: `/design` ✅
-- Production: חסום ❌
-
-**שליטה:**
-```bash
-NEXT_PUBLIC_SHOW_DESIGN=false  # block in production
-```
-
----
-
-## 🔄 State Management
-
-### אסטרטגיה
-- **Local State**: React useState/useReducer
-- **URL State**: Next.js routing (query params)
-- **Server State**: API routes (no external state manager)
-
-### דוגמה - Wealth Code State
-
-```tsx
-// URL-based state
-const router = useRouter();
-const { code } = router.query;
-
-// Display based on URL
-<Result wealthCode={code as string} />
-```
-
----
-
-## 🚀 Performance
-
-### Optimizations
-
-1. **Next.js App Router**
-   - Server Components by default
-   - Client Components רק כשצריך
-
-2. **Image Optimization**
-   - Next.js Image component
-   - WebP format
-   - Lazy loading
-
-3. **Code Splitting**
-   - Automatic by Next.js
-   - Dynamic imports לקומפוננטות כבדות
-
-4. **Caching**
-   - Static assets cached on Vercel Edge
-   - API responses can be cached (future)
-
----
-
-## 🧪 Testing Strategy
-
-### E2E Tests (Playwright)
-
-```bash
-tests/
-└── e2e/
-    ├── calculator.spec.ts
-    ├── payment.spec.ts
-    └── email.spec.ts
-```
-
-### Test Coverage
-- ✅ Calculator flow
-- ✅ Payment flow
-- ⏳ Email delivery (manual testing)
-- ⏳ PDF generation (manual testing)
-
----
-
-## 🌐 Deployment
-
-### Vercel (Production)
-
-**Branch → Environment:**
-- `main` → Production (abyk.online)
-- `develop` → Preview (develop.abyk.vercel.app)
-- `feature/*` → Auto Preview URLs
-
-**Build Command:**
-```bash
-pnpm build
-```
-
-**Environment Variables:**
-כל המשתנים מוגדרים ב-Vercel Dashboard.
+    **עודכן לאחרונה:** אוקטובר 2025
 
 ---
 
@@ -427,5 +319,6 @@ pnpm build
 
 ---
 
-**עודכן**: אוקטובר 2025  
+**עודכן**: אוקטובר 2025
 **גרסה**: 1.0.0
+````

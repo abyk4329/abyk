@@ -1,1 +1,1 @@
-export { Hero as HeroSection } from "@/modules/wealth-code/components";
+export { Hero as HeroSection } from "@/features/wealth-code/components";

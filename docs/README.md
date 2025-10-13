@@ -7,7 +7,9 @@
 ## 📖 מדריכים עיקריים
 
 ### 🚀 [DEVELOPMENT.md](./DEVELOPMENT.md)
-**מדריך פיתוח מלא**
+
+#### מדריך פיתוח מלא
+
 - התקנה והגדרה
 - סביבת פיתוח
 - פקודות נפוצות
@@ -15,15 +17,19 @@
 - Testing
 
 ### 🌿 [BRANCHING.md](./BRANCHING.md)
-**אסטרטגיית Git וענפים**
-- מבנה הענפים (main, develop, feature/*)
+
+#### אסטרטגיית Git וענפים
+
+- מבנה הענפים (main, develop, feature/\*)
 - תהליך עבודה עם Git
 - הגנת production
 - דוגמאות מעשיות
 - **חובה לקרוא לפני עבודה על הפרויקט!**
 
 ### 🏗 [ARCHITECTURE.md](./ARCHITECTURE.md)
-**ארכיטקטורת המערכת**
+
+#### ארכיטקטורת המערכת
+
 - Stack טכנולוגי
 - מבנה מודולרי
 - Data flow
@@ -35,39 +41,37 @@
 
 ## 📁 מבנה התיקייה
 
-```
+```text
 docs/
 ├── README.md              # המדריך הזה
 ├── DEVELOPMENT.md         # מדריך פיתוח
 ├── BRANCHING.md           # Git workflow
 ├── ARCHITECTURE.md        # ארכיטקטורה
+├── PROJECT_STRUCTURE.md   # מפת הפרויקט לפי תיקיות
 ├── guides/                # מדריכים ספציפיים
 │   ├── EMAIL-PDF-README.md      # מערכת מייל ו-PDF
 │   ├── HOME-SPACING-GUIDE.md    # עיצוב ורווחים
 │   └── TIKTOK-PIXEL-GUIDE.md    # אינטגרציית TikTok
-└── archive/               # קבצים היסטוריים
-    ├── MIGRATION-SUMMARY.md
-    ├── TODO-FOR-YOU.md
-    ├── EMAIL-MODULAR-SUMMARY.md
-    └── prep-nextjs.sh
+└── (empty)                # הוסף תיקיות חדשות בעת הצורך
 ```
 
 ---
 
 ## 🎯 למי מיועד כל מסמך?
 
-| מסמך | קהל יעד | מתי לקרוא |
-|------|---------|-----------|
-| **DEVELOPMENT.md** | מפתחים חדשים | התחלת עבודה |
-| **BRANCHING.md** | כל מפתח | לפני commit ראשון |
-| **ARCHITECTURE.md** | מפתחים מנוסים | הבנת המערכת |
-| **guides/** | לפי צורך | בעת עבודה על תכונה ספציפית |
+| מסמך                     | קהל יעד       | מתי לקרוא                  |
+| ------------------------ | ------------- | -------------------------- |
+| **PROJECT_STRUCTURE.md** | כל מי שמתחיל  | סקירה על מבנה הפרויקט      |
+| **DEVELOPMENT.md**       | מפתחים חדשים  | התחלת עבודה                |
+| **BRANCHING.md**         | כל מפתח       | לפני commit ראשון          |
+| **ARCHITECTURE.md**      | מפתחים מנוסים | הבנת המערכת                |
+| **guides/**              | לפי צורך      | בעת עבודה על תכונה ספציפית |
 
 ---
 
 ## 🔍 מציאת מידע
 
-### רוצה ללמוד איך...
+### רוצה ללמוד איך?
 
 **להתקין את הפרויקט?**  
 → [DEVELOPMENT.md](./DEVELOPMENT.md)
@@ -86,18 +90,6 @@ docs/
 
 ---
 
-## 🗂 Archive / ארכיון
-
-תיקיית `archive/` מכילה מסמכים היסטוריים שהיו שימושיים בעבר:
-
-- **MIGRATION-SUMMARY.md** - סיכום מעבר ל-Next.js
-- **TODO-FOR-YOU.md** - רשימת משימות מהמיגרציה
-- **EMAIL-MODULAR-SUMMARY.md** - תיעוד מערכת מייל מודולרית
-
-> ⚠️ מסמכים אלו נשמרים לצורך היסטוריה בלבד ואינם מעודכנים.
-
----
-
 ## ✍️ הוספת תיעוד חדש
 
 כשאתה מוסיף תכונה חדשה או משנה ארכיטקטורה:
@@ -113,21 +105,27 @@ docs/
 # 🎯 [שם התכונה] - Guide
 
 ## מטרה
+
 [הסבר קצר על מה המדריך]
 
 ## התקנה/הגדרה
+
 [שלבי התקנה]
 
 ## שימוש
+
 [דוגמאות קוד]
 
 ## API Reference
+
 [אם רלוונטי]
 
 ## Troubleshooting
+
 [בעיות נפוצות]
 
 ---
+
 **עודכן**: [תאריך]
 ```
 
@@ -163,7 +161,7 @@ git push
 1. חפש במסמכים הקיימים
 2. בדוק את הקוד עצמו (TypeScript מתועד היטב)
 3. פתח issue ב-GitHub
-4. פנה לצוות: awakening.by.ksenia@gmail.com
+4. פנה לצוות: [awakening.by.ksenia@gmail.com](mailto:awakening.by.ksenia@gmail.com)
 
 ---
 
