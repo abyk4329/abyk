@@ -1,311 +1,385 @@
-# Project Structure / מבנה הפרויקט
+# מבנה הפרויקט המפורט - ABYK (Awakening by Ksenia)
 
 **עודכן:** אוקטובר 2025  
-**מטרה:** מקור אמת יחיד שמסביר מה יש בכל תיקייה ומה תפקידה.
+**מטרה:** מקור אמת יחיד המתאר את כל הקבצים והתיקיות בפרויקט בצורה מדויקת
 
 ---
 
-## 🗺 מפת על במהירות
+## 🗂 מבנה כללי של הפרויקט
 
-```text
-/ (שורש)
-├── app/                 # Next.js App Router (UI + API)
-├── features/            # מודולים עסקיים ממוקדי דומיין
-├── lib/                 # Utilities משותפים ותצורות ליבה
-├── docs/                # כל התיעוד
-├── design/              # קבצי handoff וייצוא מ-Figma
-├── public/              # נכסים סטטיים (תמונות, פונטים, manifest)
-├── prisma/              # סכמת בסיס נתונים (עתידי)
-├── tests/               # Playwright E2E
-├── app/styles/          # קבצי CSS ייעודיים (Neu utilities)
-├── package.json         # הגדרות הפרויקט והסקריפטים
-├── tsconfig.json        # קומפילציית TypeScript
-└── setup-folders.js     # סקריפט שמוודא שמבנה התיקיות קיים
+```
+ABYK/
+├── 📁 .env*                           # משתני סביבה (לא בקוד)
+├── 📁 .github/                        # GitHub Actions ותבניות
+├── 📁 .next/                          # קבצי Next.js שנוצרים אוטומטית
+├── 📁 .npmrc                          # הגדרות npm
+├── 📁 .vercel/                        # קבצי Vercel
+├── 📁 .vscode/                        # הגדרות VS Code
+├── 📁 node_modules/                   # תלויות מותקנות
+├── 📁 playwright-report/              # דוחות בדיקות E2E
+├── 📁 test-results/                   # תוצאות בדיקות
+├── 📁 app/                            # Next.js App Router - ליבה
+├── 📁 docs/                           # תיעוד מלא
+├── 📁 lib/                            # קוד משותף וכלים
+├── 📁 prisma/                         # סכמת בסיס נתונים
+├── 📁 public/                         # נכסים סטטיים
+├── 📁 tests/                          # בדיקות אוטומטיות
+├── 📄 .env.example                    # דוגמה למשתני סביבה
+├── 📄 .env.local                      # משתני סביבה מקומיים
+├── 📄 .gitignore                      # קבצים להתעלמות ב-git
+├── 📄 CHANGELOG.md                    # יומן שינויים
+├── 📄 CONTRIBUTING.md                 # הנחיות תרומה
+├── 📄 eslint.config.mjs               # הגדרות ESLint
+├── 📄 instrumentation-client.ts       # אינסטרומנטציה לקליינט
+├── 📄 instrumentation.ts              # אינסטרומנטציה לשרת
+├── 📄 next-env.d.ts                   # הגדרות TypeScript ל-Next.js
+├── 📄 next.config.js                  # קונפיגורציית Next.js
+├── 📄 OWNER-GUIDE.md                  # מדריך לבעלים
+├── 📄 package.json                    # הגדרות הפרויקט ותלויות
+├── 📄 playwright.config.ts            # קונפיגורציית Playwright
+├── 📄 pnpm-lock.yaml                  # נעילת גרסאות תלויות
+├── 📄 postcss.config.mjs              # קונפיגורציית PostCSS
+├── 📄 README.md                       # קובץ README ראשי
+├── 📄 sentry.edge.config.ts           # קונפיגורציית Sentry ל-Edge
+├── 📄 sentry.server.config.ts         # קונפיגורציית Sentry לשרת
+├── 📄 tailwind.config.ts              # קונפיגורציית Tailwind CSS
+├── 📄 tsconfig.json                   # קונפיגורציית TypeScript
+├── 📄 tsconfig.tsbuildinfo            # מידע בנייה של TypeScript
+├── 📄 types.d.ts                      # הגדרות טיפוסים גלובליות
+└── 📄 vercel.json                     # קונפיגורציית Vercel
 ```
 
 ---
 
-## תיקיות וקבצים מחוץ ל-`app/`
+## 📁 app/ - Next.js App Router (ליבה)
 
-| נתיב                      | תיאור                                                                                                                            |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `features/`               | מודולים עסקיים מבודדים (כיום `wealth-code`) עם `components`, `data`, `email`, `pdf`, `utils` ועוד – כל Feature הוא יחידה עצמאית. |
-| `lib/`                    | קוד משותף לכלל האפליקציה (קונפיגורציה, env, utilities, שירותי Email/PDF).                                                        |
-| `docs/`                   | תיעוד מלא של המערכת (מבנה, פיתוח, עיצוב, מדריכים נקודתיים).                                                                      |
-| `design/`                 | קבצי handoff, אסטים מ-Figma והפקות עיצוב שאינן נבנות לפרודקשן.                                                                   |
-| `public/`                 | נכסים סטטיים זמינים בפרונטאנד (לוגואים, פונטים, תמונות OG, קבצי Manifest).                                                       |
-| `app/styles/`             | קבצי CSS גלובליים משלימים מחוץ ל-Tailwind (neumorphism וכו').                                                                    |
-| `prisma/`                 | סכמת בסיס נתונים עתידית (`schema.prisma`) – משמשת לתכנון ואינה מחוברת כרגע ל-prod.                                               |
-| `tests/`                  | בדיקות E2E עם Playwright (`e2e/smoke.spec.ts`) ובסיס להרחבה.                                                                     |
-| `components/`             | קומפוננטות UI משותפות מחוץ ל-App Router (לדוגמה `Card`, `IconButton`) לשימוש חוזר בין פיצ'רים.                                   |
-| `setup-folders.js`        | סקריפט Postinstall שמוודא שכל תיקיות החובה קיימות (למשל `public/email`) לפני ריצה מקומית או ב-CI.                                |
-| `instrumentation*.ts`     | קבצי אינסטרומנטציה ל-Sentry (client/server/edge) ו-Hooks גלובליים שנקראים בזמן ריצת Next.js.                                     |
-| `tailwind.config.ts`      | קונפיגורציית Tailwind (שימוש בטוקנים, ערכות צבע, Container ושבירת מסכים RTL).                                                    |
-| `eslint.config.mjs`       | הגדרות ESLint Flat Config – כולל המרות מגרסאות ישנות באמצעות `FlatCompat` ותוספים ייעודיים.                                      |
-| `tsconfig.json`           | תצורת TypeScript מאוחדת לכל מקורות הקוד, כולל Aliases לנתיבים כמו `@features/*` ו-`@lib/*`.                                      |
-| `package.json` / `pnpm-*` | תלויות הפרויקט, סקריפטים (`pnpm dev`, `pnpm lint` וכו') וקבצי נעילה ששומרים על גרסאות עקביות בין סביבות.                         |
-| `vercel.json`             | הגדרות Deployment ל-Vercel (Redirects, Edge Functions, Preview/Production).                                                      |
-| `README.md`               | שער כניסה לפרויקט – קישור למסמכי ההמשך, רשימת דרישות מערכת ותהליך Setup מהיר.                                                    |
-| `CONTRIBUTING.md`         | כללי תרומת קוד, סטייל גייד, בדיקות חובה לפני פתיחת PR.                                                                           |
-| `OWNER-GUIDE.md`          | הנחיות תפעול לבעלת המוצר (ניהול גרסאות, תקלות חירום, תהליכי שחרור).                                                              |
-| `CHANGELOG.md`            | יומן גרסאות – נכתב ידנית בעברית במבנה SemVer לאחר כל שחרור.                                                                      |
-| `playwright.config.ts`    | קונפיגורציה ל-Playwright (Browsers, נתיבי בדיקות, בסיס URL).                                                                     |
+תיקיית ה-app מכילה את כל ממשק המשתמש ואת ה-API routes של Next.js 15.
 
----
-
-## פירוט מלא לפי נתיב
-
-### `features/`
-
-- `wealth-code/` – מודול הדגל. כל קובץ ממופה לפיצ'ר דומייני:
-  - `constants.ts` – משייך URLים מהמערכת המרכזית (`app/lib/routes.ts`) ומייצא סוגי תשלום/ולידציה כדי לאפשר שימוש אחיד בראוטים ובכללים.
-  - `data/`
-    - `codeStructures.ts` – טקסטים קבועים המתארים את שלושת מבני הקוד (Master/Repeating/Diverse).
-    - `dailyApplication.ts` – תזכורות תרגול יומי המושתלות בלשוניות הדוח.
-    - `digitInterpretations.ts` – מאגר תוכן עיקרי: לכל ספרה מוגדרים תיאור, מתנות, אתגרים ופעולות מומלצות.
-  - `components/`
-    - `sections/` – כל שלב בפאנל (Hero, Calculator, Result, Sales, Interpretations, ThankYou) + קבצי CSS צמודים; מבטיח הפרדה בין UI לתוכן.
-    - `shared/` – רכיבים נומורפיים משותפים (כרטיסים, אינסרטים).
-    - `ui/tabs.tsx` – רכיב לשוניות מונגש, מקבל disable של חוקי ESLint ספציפיים.
-    - `SendEmailButton.tsx` – קומפוננטת Client עם סטטוס טעינה/שגיאה שמפעילה שליחת מייל דרך ה-API.
-    - `index.ts` – Barrel exports שמאפשרים `import { Hero } from "@features/wealth-code"`.
-  - `email/`
-    - `WealthEmail.ts` – בונה HTML מלא כולל Preheader, כפתורי שיתוף וקישורי וואטסאפ.
-    - `template.ts` – re-export מסודר של פונקציות הבנייה (HTML, subject, preheader).
-  - `layout/PageWrapper.tsx` – alias אל `app/components/layout/PageLayout.tsx` לשמירת תאימות (אין פריסה ייעודית שונה).
-  - `pdf/`
-    - `WealthReport.tsx` – קומפוננטת React PDF שמציגה דוח אישי בעברית.
-    - `generate.ts` – מייצר Buffer + Base64 לשימוש באימיילים והורדות.
-  - `utils/`
-    - `numerology.ts` – אלגוריתם חישוב הקוד (כולל ניקוי קלט, מפות אותיות, זיהוי Master numbers).
-    - `email.ts` – קריאות fetch ליצירת PDF ולשליחת מייל עם Timeout מובנה ו-cleanup לצרופות.
-    - `share.ts` – Web Share API + fallback לוואטסאפ.
-    - `index.ts` / `algorithm.ts` – Barrel exports ששומרים תאימות לקוד ישן.
-
-### `components/`
-
-- `ui/Card.tsx` – קומפוננטת מעטפת נומורפית כללית (shadow tokens, padding ברירת מחדל).
-- `ui/IconButton.tsx` + `IconButton.module.css` – כפתור אייקון עגול עם Focus Ring ו-Hover scale.
-- `ui/index.ts` – Barrel export להורדת מסלולי import כפולים.
-
-### `lib/`
-
-- השורש `lib/` משמש כקומפטביליות לאחור: `lib/utils/index.ts` מייצא מחדש מתוך `app/lib/utils/*` כדי שלא לשבור חבילות חיצוניות.
-- הקוד האקטיבי יושב תחת `app/lib/`:
-  - `constants.ts` – אוסף קבועים גלובליים (Brand, Social, Pricing, Typography). כל שינוי תוכן מתועד כאן ולא מפוזר בקומפוננטות.
-  - `env.ts` – טעינת Environment + `requireEnv` להבטחת זמינות משתנים.
-  - `routes.ts` – מקור אמת לנתיבים + פונקציות עזר (`buildUrl`, `getResultUrl`).
-  - `utils/`
-    - `base64.ts`, `file.ts` – עיבוד base64 לשילוב PDF במיילים.
-    - `format.ts` – פונקציות פורמט (תאריכים, מטבע, טלפון, אימות Email, copyToClipboard).
-    - `theme.ts`, `cn.ts` – Utilities לניהול Theme ולחיבור classNames.
-  - `email/transport.ts` – שכבת שליחה עם fallback (Resend → SMTP) וניקוי קבצים מצורפים.
-  - `email/wealth.ts` – שירות דומייני: ולידציה לקוד, ניהול TEST mode, בניית HTML.
-  - `core/`
-    - `branding.ts` – פרטי המותג (שם, disclaimer, URL) לשימוש חוזר ב-PDF/Email/Share.
-    - `email/` – בסיס HTML משותף לכל המיילים (`BaseEmailTemplate.ts`, `styles.ts`, README להסבר).
-    - `pdfConfig.ts` – רישום פונטים (Assistant) והגדרות צבע/פריסה למסמכי PDF.
-    - `index.ts` – Barrel exports כדי לצרוך בקלות (`import { registerHebrewFonts } from "@/lib/core"`).
-  - `pdf/WealthReport.tsx` – דוח PDF גנרי שניתן לשימוש גם מחוץ לפיצ'ר Wealth.
-  - `neu-styles.ts` – חישוב צללים וטיפוגרפיה נומורפיים כטוקנים.
-  - `navigation.tsx` – re-export של `NavigationProvider` ממיקום חדש, מונע שגיאת import קיימת.
-
-### `docs/`
-
-- `README.md` – אינדקס למסמכים.
-- `PROJECT_STRUCTURE.md` – המסמך הנוכחי (מקור אמת – אין לעדכן כפילויות במסמכים אחרים).
-- `DEVELOPMENT.md` – הוראות סביבת dev, משתני סביבה, סקריפטים.
-- `BRANCHING.md` – Workflow Git (כולל Solo Mode ללא PRs).
-- `ARCHITECTURE.md` – תיאור זרימות נתונים ומדיניות Server/Client.
-- `guides/` – מדריכים מקצועיים: Email/PDF, TikTok Pixel, spacing לבית.
-- מסמכי הקלט (`MIGRATION-PROGRESS.md`, `STANDARD-PAGE-LAYOUT-MIGRATION.md`) מתעדים רפקטורים – לא לשכפל תוכן שלהם במקומות אחרים.
-
-### `design/`
-
-- `figma/` – יצואי רכיבים, מסכים וטוקנים מהעיצוב (לא נכנסים לדיפלוימנט).
-- `handoff/` – PDF/notes שמועברים למפתחים. נשמרים כחלק מהידע ההיסטורי.
-- סקריפט `setup-folders.js` מוודא שהתיקיות קיימות גם בסביבות CI.
-
-### `public/`
-
-- אייקונים (`abyk-icon-*.png`, `אייקון.png`) – משמשים למסכי בית, favicon ו-PWA.
-- `brand/` – לוגואים רשמיים (כולל גיבוי).
-- `email/` – לוגו בפורמט מותאם אימייל.
-- `fonts/Assistant /` – משקלים סטטיים ו-Variable של Assistant (נצרך ב-PDF ובמיילים). יש לשמור על שם התיקייה עם הרווח להמשכיות.
-- `og/` – תמונות שיתוף; קבצי `.bak` נשמרים כגיבוי.
-- `manifest.webmanifest` – קובע שם האפליקציה, theme color ואייקונים.
-
-### `prisma/`
-
-- `schema.prisma` – מודל משתמש → רכישות (כולל output ל-`lib/generated/prisma`). כרגע לא מחובר ל-prod אך מייצג את התכנון הרשמי.
-
-### `tests/`
-
-- `e2e/smoke.spec.ts` – בדיקת עשן בעברית (טעינת דפי בית/פרטיות/תנאים, בדיקת Alt scope). מרחיבה עם בדיקות נוספות תחת `tests/e2e/`.
-
-### קבצים תומכי תשתית
-
-- `setup-folders.js` – סקריפט bootstrap: יוצר תיקיות חובה, README לכל ספרייה, סורק barrel files ומייצר `scripts/dev-check.js`.
-- `scripts/dev-check.js` (נוצר אוטומטית) – ריצה מהירה: `tsc --noEmit`, `eslint`, בדיקת barrel files.
-- `instrumentation.ts` / `instrumentation-client.ts` – הגדרות Sentry עם דגימות שונות ל-Node/Edge.
-- `sentry.server.config.ts` / `sentry.edge.config.ts` – הגדרות השלמה לסביבות השונות.
-- `tailwind.config.ts` – מגדיר פריסת נומורפיזם, breakpoints (`xs`), ו-Prose RTL.
-- `postcss.config.mjs` – תומך ב-nesting ויציבות Tailwind.
-- `eslint.config.mjs` – Flat config עם הקלות ממוקדות.
-- `tsconfig.json` + `types.d.ts` – path aliases, טיפוסים גלובליים, תמיכה ב-SVG/MD.
-- `package.json` / `pnpm-lock.yaml` – רשימות תלויות וסקריפטים (dev/build/lint/test:e2e).
-- `playwright.config.ts` – הגדרות Playwright (דפדפנים, baseURL, קונפיג שפייה).
-- `vercel.json` – Redirects, headers (למשל noindex ל-`/alt`).
+```text
+app/
+├── 📁 (funnels)/                      # Route Group למשפך המרה
+│   ├── 📁 _components/                # קומפוננטות משותפות למשפך
+│   │   └── 📁 wealth-code/            # קומפוננטות פיצ'ר קוד עושר
+│   │       ├── 📁 sections/           # חלקי UI של המשפך
+│   │       ├── 📁 shared/             # קומפוננטות משותפות
+│   │       ├── 📁 ui/                 # רכיבי UI בסיסיים
+│   │       └── 📄 index.ts            # יצוא מאוחד
+│   ├── 📄 layout.tsx                  # Layout למשפך
+│   └── 📄 page.tsx                    # דף ראשי של המשפך
+├── 📁 (legal)/                        # Route Group לעמודי מדיניות
+│   ├── 📄 layout.tsx                  # Layout לעמודי מדיניות
+│   ├── 📄 page.tsx                    # דף מדיניות פרטיות
+│   └── 📄 terms/                      # עמוד תנאי שימוש
+│       └── 📄 page.tsx
+├── 📁 api/                            # API Routes
+│   ├── 📁 auth/                       # אימות משתמשים
+│   │   ├── 📁 [...nextauth]/          # NextAuth.js routes
+│   │   │   └── 📄 route.ts
+│   │   ├── 📄 register/               # רישום משתמשים
+│   │   │   └── 📄 route.ts
+│   ├── 📁 generate-pdf/               # יצירת PDF
+│   │   └── 📄 route.ts
+│   ├── 📁 send-email/                 # שליחת מיילים
+│   │   └── 📄 route.ts
+│   └── 📁 webhooks/                   # Webhooks מתשלומים
+│       └── 📁 grow/
+│           └── 📄 route.ts
+├── 📁 components/                     # קומפוננטות משותפות
+│   ├── 📁 analytics/                  # קומפוננטות אנליטיקה
+│   ├── 📁 layout/                     # קומפוננטות פריסה
+│   │   ├── 📄 Header.module.css       # סגנונות ל-Header
+│   │   ├── 📄 Header.tsx              # קומפוננט Header
+│   │   ├── 📄 SideMenu.module.css     # סגנונות ל-SideMenu
+│   │   ├── 📄 SideMenu.tsx            # קומפוננט SideMenu
+│   ├── 📁 lib/                        # כלי עזר לקומפוננטות
+│   ├── 📁 neu/                        # קומפוננטות נאומורפיות
+│   │   ├── 📄 Card.tsx                # כרטיס נאומורפי
+│   │   ├── 📄 NeuButton.tsx           # כפתור נאומורפי
+│   │   └── 📁 neumorphic-shadows.css  # צללים נאומורפיים
+│   ├── 📁 providers/                  # Context Providers
+│   ├── 📁 sections/                   # קומפוננטות חלקים
+│   │   ├── 📄 TermsPrivacy.module.css # סגנונות לעמודי מדיניות
+│   │   └── 📄 TermsPrivacy.tsx        # קומפוננט עמודי מדיניות
+│   └── 📁 shared/                     # קומפוננטות משותפות
+│       ├── 📁 ui/                     # רכיבי UI בסיסיים
+│       │   ├── 📄 Field.tsx           # שדה קלט
+│       │   ├── 📄 Input.tsx           # קלט טקסט
+│       │   └── 📄 Stack.tsx           # קונטיינר ערימה
+├── 📁 fonts.ts                        # הגדרות פונטים
+├── 📁 global-error.tsx                # דף שגיאה גלובלי
+├── 📁 globals.css                     # CSS גלובלי
+├── 📁 HomePageClient.tsx              # קומפוננט דף בית לקליינט
+├── 📁 layout.tsx                      # Layout ראשי
+├── 📁 not-found.tsx                   # דף 404
+├── 📁 page.module.css                 # סגנונות לדף ראשי
+├── 📁 page.tsx                        # דף בית ראשי
+├── 📁 reset.css                       # CSS reset
+├── 📁 styles/                         # סגנונות נוספים
+├── 📁 theme.css                       # מערכת עיצוב (בהיר/כהה)
+└── 📁 tokens.css                      # טוקני עיצוב
+```
 
 ---
 
-## app/ — שכבת ה-UI והראוטינג
+## 📁 lib/ - קוד משותף וכלים
 
-- משתמש ב-App Router של Next.js 15.
-- מחולק לקבוצות Route Groups לצרכים שונים.
+תיקיית lib מכילה קוד משותף שאינו תלוי בדומיין ספציפי.
 
-### Route Groups
-
-| תיקייה             | תיאור                                                                                                                                     |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `app/(marketing)/` | דפי קמפיין ונחיתה.                                                                                                                        |
-| `app/(funnels)/`   | תהליך המחשבון המלא: `calculator → interpretations → result → sales → thank-you`. כל שלב מחולק לקומפוננטת Client נפרדת עבור אינטראקטיביות. |
-| `app/(legal)/`     | עמודי מדיניות: `privacy`, `terms`.                                                                                                        |
-| `app/(labs)/`      | ניסויים והדגמות. ניתן להשבית ב-production דרך משתנה סביבה.                                                                                |
-
-### שורש `app/`
-
-| קובץ          | תפקיד                                                 |
-| ------------- | ----------------------------------------------------- |
-| `layout.tsx`  | מעטפת כללית לכל העמודים (Providers, פונט, SEO בסיסי). |
-| `page.tsx`    | דף הבית שמרכיב את שלבי הפאנל לפי המצב.                |
-| `globals.css` | הגדרות Tailwind v4 + שכבת Neumorphism גלובלית.        |
-
-### API Routes
-
-| מסלול                     | קובץ                             | תפקיד                                                        |
-| ------------------------- | -------------------------------- | ------------------------------------------------------------ |
-| `POST /api/generate-pdf`  | `app/api/generate-pdf/route.ts`  | יוצר PDF מותאם אישית ומחזיר base64.                          |
-| `POST /api/send-email`    | `app/api/send-email/route.ts`    | שולח מייל דרך Resend/Nodemailer ומשתמש בתבנית ה-Wealth Code. |
-| `POST /api/webhooks/grow` | `app/api/webhooks/grow/route.ts` | קולט אירועי תשלום מפלטפורמת Grow ומפעיל את הפייפליין.        |
-
----
-
-## features/ — מודולים עסקיים
-
-תיקיית `features/` מכילה כל Feature דומייני בתור חבילה אוטונומית (UI, נתונים, PDF, Email וכו'). נכון לאוקטובר 2025 קיים מודול יחיד:
-
-### `features/wealth-code/`
-
-| תת-תיקייה      | תפקיד                                                                                       |
-| -------------- | ------------------------------------------------------------------------------------------- |
-| `components/`  | UI ספציפי לפאנל העושר. כולל חלוקה לקטעי עמודים (`sections/`), כפתורי פעולה וקומפוננטות עזר. |
-| `constants.ts` | מילונים, טקסטים קבועים והגדרות המוצגות למשתמש.                                              |
-| `data/`        | נתוני מקור לחישובים (לוחות, מיפויים, תיאורי קוד).                                           |
-| `email/`       | תבניות ותצורת HTML למיילים ייעודיים ל-Wealth Code.                                          |
-| `layout/`      | מבני פריסה חוזרים (כרטיסים, wrappers) עבור המסכים השונים.                                   |
-| `pdf/`         | קומפוננטות PDF + פונקציות `generate` היודעות להרכיב מסמך עם תמיכה בעברית.                   |
-| `utils/`       | פונקציות דומייניות: חישוב קוד, שיתוף, שליחת מיילים וכדומה.                                  |
-
-> כאשר מודול חדש נדרש, משכפלים את מבנה התיקייה הזה, מעדכנים תכולה רלוונטית ומרכיבים את הפיצ'ר דרך ה-Route Groups ב-`app/`.
+```text
+lib/
+├── 📁 auth/                           # אימות משתמשים
+├── 📁 core/                           # ליבה משותפת
+│   ├── 📁 email/                      # תבניות מייל בסיסיות
+│   │   ├── 📄 BaseEmailTemplate.ts    # תבנית מייל בסיסית
+│   │   └── 📄 styles.ts               # סגנונות מייל
+│   ├── 📄 branding.ts                 # הגדרות מותג
+│   ├── 📄 index.ts                    # יצוא מאוחד
+│   └── 📄 pdfConfig.ts                # קונפיגורציית PDF
+├── 📁 email/                          # שירותי מייל
+│   ├── 📄 transport.ts                # שכבת תחבורה למיילים
+│   └── 📄 wealth.ts                   # שירות מייל לקוד עושר
+├── 📁 generated/                      # קוד שנוצר אוטומטית
+├── 📁 neu-styles.ts                   # סגנונות נאומורפיים
+├── 📁 routes.ts                       # הגדרות נתיבים
+├── 📁 utils/                          # כלי עזר
+│   ├── 📄 base64.ts                   # עיבוד base64
+│   ├── 📄 cn.ts                       # חיבור classNames
+│   ├── 📄 file.ts                     # עבודה עם קבצים
+│   ├── 📄 format.ts                   # פורמטינג
+│   ├── 📄 theme.ts                    # ניהול עיצוב
+├── 📁 wealth-code/                    # פיצ'ר קוד עושר
+│   ├── 📁 data/                       # נתוני דומיין
+│   │   ├── 📄 codeStructures.ts       # מבני קוד
+│   │   ├── 📄 dailyApplication.ts     # יישום יומי
+│   │   └── 📄 digitInterpretations.ts # פרשנויות ספרות
+│   ├── 📁 email/                      # מיילים לפיצ'ר
+│   │   ├── 📄 template.ts             # תבנית מייל
+│   │   └── 📄 WealthEmail.ts          # מייל קוד עושר
+│   ├── 📁 pdf/                        # PDF לפיצ'ר
+│   │   └── 📄 WealthReport.tsx        # דוח PDF
+│   ├── 📁 utils/                      # כלים לפיצ'ר
+│   │   ├── 📄 email.ts                # שירות מייל
+│   │   ├── 📄 generate.ts             # יצירת תוכן
+│   │   ├── 📄 numerology.ts           # אלגוריתם נומרולוגיה
+│   │   └── 📄 share.ts                # שיתוף
+│   └── 📄 constants.ts                # קבועים לפיצ'ר
+├── 📄 constants.ts                    # קבועים גלובליים
+├── 📄 db.ts                           # חיבור לבסיס נתונים
+├── 📄 env.ts                          # משתני סביבה
+└── 📄 index.ts                        # יצוא מאוחד
+```
 
 ---
 
-## lib/ — שכבת ליבה משותפת
+## 📁 docs/ - תיעוד מלא
 
-הספרייה מיועדת לקוד שאינו תלוי בדומיין ספציפי אך משרת את כל האפליקציה.
+תיקיית docs מכילה את כל התיעוד של הפרויקט.
 
-| מיקום              | תיאור                                                                                        |
-| ------------------ | -------------------------------------------------------------------------------------------- |
-| `lib/constants.ts` | ערכי קונפיגורציה חוצי מערכת (שם המותג, מחירים, קישורים).                                     |
-| `lib/env.ts`       | טעינת משתני סביבה עם בדיקות סוג.                                                             |
-| `lib/routes.ts`    | שמות נתיבים מרוכזים לשימוש ברכיבים ולניווט.                                                  |
-| `lib/index.ts`     | Barrel exports כדי להקל על ייבוא חיצוני.                                                     |
-| `lib/utils/`       | פונקציות עזר כלליות (base64, פורמט תאריכים, עבודה עם קבצים).                                 |
-| `lib/email/`       | שירותי שליחה: `transport.ts` (Resend/Nodemailer) ו-`wealth.ts` (פייפליין שליחת המייל הראשי). |
-| `lib/core/`        | תצורות מותג וכלים משותפים (פירוט בהמשך).                                                     |
-
-**lib/core פירוט:**
-
-- `branding.ts` — צבעים, לוגו וטקסטים גלובליים.
-- `email/` — תבנית המייל הבסיסית (Header/Footer, כפתורים, סגנון משותף).
-- `pdfConfig.ts` — הגדרות טיפוגרפיה וצבע ל-PDF.
-- `index.ts` — Barrel exports למציאת המשאבים האלו בקלות.
-
----
-
-## docs/ — תיעוד
-
-- `README.md` — אינדקס המסביר מה יש בכל מסמך.
-- `PROJECT_STRUCTURE.md` — המסמך הנוכחי, מקור האמת למבנה הפרויקט.
-- `DEVELOPMENT.md` — מדריך התקנה והרצה.
-- `BRANCHING.md` — Git workflow והגנות על production.
-- `ARCHITECTURE.md` — תיאור ארכיטקטוני וטכני מעמיק.
-- `guides/` — מדריכים נקודתיים (Email/PDF, עיצוב, TikTok Pixel ועוד).
-
-> כל מסמך חדש צריך להתווסף לתיקייה זו ולהיות מקושר מ-`docs/README.md`.
-
----
-
-## design/
-
-- קבצי handoff, assets ותוצרים מ-Figma.
-- תת-תיקיות כמו `figma/`, `handoff/` ו-`tokens/` מחזיקות קבצים לכלים חיצוניים.
-- התיקייה אינה נפרסת לייצור אך שומרת על עקביות בין צוות העיצוב לפיתוח.
+```text
+docs/
+├── 📁 guides/                         # מדריכים מקצועיים
+│   ├── 📄 EMAIL-PDF-README.md         # מדריך Email/PDF
+│   └── 📄 ...                         # מדריכים נוספים
+├── 📄 APP_DIRECTORY_GUIDE.md          # מדריך תיקיית app
+├── 📄 ARCHITECTURE.md                 # ארכיטקטורה
+├── 📄 BRANCHING.md                    # Git workflow
+├── 📄 CALCULATOR-DESIGN-COMPARISON.md # השוואת עיצובים
+├── 📄 CALCULATOR-PAGE-DESIGN.md       # עיצוב דף מחשבון
+├── 📄 CHANGELOG.md                    # יומן שינויים
+├── 📄 CONTRIBUTING.md                 # הנחיות תרומה
+├── 📄 COOKIE-BANNER-UPDATE.md         # עדכון באנר עוגיות
+├── 📄 DESIGN-FIX-PROMPTS.md           # פרומפטים לתיקון עיצוב
+├── 📄 DESIGN-SYSTEM-MIGRATION.md      # מיגרציית מערכת עיצוב
+├── 📄 DESIGN-SYSTEM-QUICK-START.md    # התחלה מהירה למערכת עיצוב
+├── 📄 DESIGN-SYSTEM.md                # מערכת עיצוב
+├── 📄 DEVELOPMENT.md                  # פיתוח
+├── 📄 HOMEPAGE-BLUEPRINT.md           # תכנית דף בית
+├── 📄 HOMEPAGE-LAYERS.md              # שכבות דף בית
+├── 📄 ISSUE-PLAYBOOK.md               # ספר משחק בעיות
+├── 📄 MIGRATION-PROGRESS.md           # התקדמות מיגרציה
+├── 📄 NAVIGATION-REMOVAL.md           # הסרת ניווט
+├── 📄 NEUMORPHIC-DESIGN.md            # עיצוב נאומורפי
+├── 📄 OWNER-GUIDE.md                  # מדריך בעלים
+├── 📄 PROJECT_STRUCTURE.md            # מבנה הפרויקט (זה)
+├── 📄 README.md                       # README לתיעוד
+└── 📄 STANDARD-PAGE-LAYOUT-MIGRATION.md # מיגרציית פריסת דפים
+```
 
 ---
 
-## public/
+## 📁 public/ - נכסים סטטיים
 
-| תת-תיקייה              | תיאור                                   |
-| ---------------------- | --------------------------------------- |
-| `brand/`               | לוגואים, אייקונים ושאר נכסי מותג.       |
-| `email/`               | אסטים המוטמעים במיילים (תמונות, רקעים). |
-| `fonts/`               | קבצי הפונט Assistant (טווח משקלים מלא). |
-| `og/`                  | תמונות שיתוף לרשתות חברתיות.            |
-| `manifest.webmanifest` | תצורת PWA בסיסית לדפדפנים.              |
+תיקיית public מכילה קבצים סטטיים הנגישים בדפדפן.
 
----
-
-## app/styles/
-
-- `neumorphism.css` — שכבת CSS משלימה שאינה תלויה ב-Tailwind, בעיקר לאפקטים מיוחדים.
-- נטען לפי צורך מתוך רכיבים או דפים ספציפיים.
-
----
-
-## prisma/
-
-- `schema.prisma` — מגדיר את מבנה הנתונים העתידי. כרגע משמש כבסיס לתכנון ואינו מחובר לפרודקשן.
-
----
-
-## tests/
-
-- `e2e/smoke.spec.ts` — בדיקת עשן עם Playwright שמוודאת שהנתיב המרכזי נטען ונגיש.
-- ניתן להוסיף קבצי בדיקה נוספים תחת תיקייה זו לפי תרחישים נדרשים.
-
----
-
-## סקריפטים וקבצים חשובים בשורש
-
-| קובץ                 | תפקיד                                                                   |
-| -------------------- | ----------------------------------------------------------------------- |
-| `package.json`       | מנהל התלויות, סקריפטים (dev, build, test, lint).                        |
-| `pnpm-lock.yaml`     | נועל גרסאות תלויות.                                                     |
-| `tsconfig.json`      | הגדרות הקומפילציה של TypeScript לכל הפרויקט.                            |
-| `tailwind.config.ts` | קונפיגורציית Tailwind CSS.                                              |
-| `eslint.config.mjs`  | כללי ESLint מותאמים.                                                    |
-| `setup-folders.js`   | רץ כחלק מ-postinstall ומוודא שתיקיות חובה קיימות (למשל `public/email`). |
-| `vercel.json`        | קונפיגורציית דיפלוימנט ל-Vercel.                                        |
+```text
+public/
+├── 📁 brand/                          # נכסי מותג
+│   ├── 📄 abyk-logo.png               # לוגו ראשי
+│   └── 📄 ...                         # לוגואים נוספים
+├── 📁 email/                          # נכסים למיילים
+│   └── 📄 logo-email.png              # לוגו למיילים
+├── 📁 fonts/                          # פונטים
+│   └── 📁 Assistant/                  # פונט Assistant
+│       ├── 📄 Assistant-Bold.woff2    # משקל Bold
+│       ├── 📄 Assistant-Light.woff2   # משקל Light
+│       ├── 📄 Assistant-Medium.woff2  # משקל Medium
+│       ├── 📄 Assistant-Regular.woff2 # משקל Regular
+│       └── 📄 ...                     # משקלים נוספים
+├── 📁 og/                             # תמונות שיתוף
+│   ├── 📄 og-image.png                # תמונת Open Graph
+│   └── 📄 ...                         # תמונות נוספות
+├── 📄 ABYKICON.png                    # אייקון ראשי
+├── 📄 abyk-icon-1024 2.png            # אייקון 1024px (גיבוי)
+├── 📄 abyk-icon-1024.png              # אייקון 1024px
+├── 📄 abyk-icon-192 2.png             # אייקון 192px (גיבוי)
+├── 📄 abyk-icon-192.png               # אייקון 192px
+├── 📄 abyk-icon-512 2.png             # אייקון 512px (גיבוי)
+├── 📄 abyk-icon-512.png               # אייקון 512px
+├── 📄 manifest.webmanifest            # PWA manifest
+└── 📄 אייקון.png                      # אייקון בעברית
+```
 
 ---
 
-## איך לעדכן את המסמך הזה
+## 📁 tests/ - בדיקות אוטומטיות
 
-1. בצעו את השינוי במבנה התיקיות או בקובץ מרכזי.
-2. עדכנו את התיאור הרלוונטי כאן (במידת הצורך הוסיפו סעיף חדש).
-3. הריצו `pnpm lint` כדי לוודא שאין שגיאות Markdown.
-4. בצעו commit עם הודעה בסגנון `docs: refresh project structure`.
+תיקיית tests מכילה את כל הבדיקות האוטומטיות.
 
-> שמירה על המסמך הזה מעודכן מבטיחה שאין כפילויות הסבר ושהצוות כולו עובד עם אותה אמת.
+```
+```text
+tests/
+└── 📁 e2e/                            # בדיקות End-to-End
+    ├── 📄 smoke.spec.ts               # בדיקת עשן
+    └── 📄 ...                         # בדיקות נוספות
+```
+
+---
+
+## 📁 prisma/ - סכמת בסיס נתונים
+
+```text
+prisma/
+└── 📄 schema.prisma                   # סכמת Prisma
+```
+```
+
+---
+
+## 📁 prisma/ - סכמת בסיס נתונים
+
+תיקיית prisma מכילה את סכמת בסיס הנתונים.
+
+```
+prisma/
+└── 📄 schema.prisma                   # סכמת Prisma
+```
+
+---
+
+## 📄 קבצי קונפיגורציה (שורש)
+
+### קבצי סביבה
+
+- **`.env.local`** - משתני סביבה מקומיים (לא בקוד)
+- **`.env.example`** - דוגמה למשתני סביבה נדרשים
+
+### קבצי בנייה וכלים
+
+- **`package.json`** - הגדרות הפרויקט, תלויות וסקריפטים
+- **`pnpm-lock.yaml`** - נעילת גרסאות תלויות
+- **`tsconfig.json`** - קונפיגורציית TypeScript
+- **`tailwind.config.ts`** - קונפיגורציית Tailwind CSS
+- **`eslint.config.mjs`** - הגדרות ESLint
+- **`next.config.js`** - קונפיגורציית Next.js
+- **`postcss.config.mjs`** - קונפיגורציית PostCSS
+- **`playwright.config.ts`** - קונפיגורציית Playwright לבדיקות E2E
+
+### קבצי פריסה ומעקב
+
+- **`vercel.json`** - קונפיגורציית Vercel לפריסה
+- **`sentry.*.config.ts`** - קונפיגורציית Sentry למעקב שגיאות
+- **`instrumentation*.ts`** - אינסטרומנטציה למעקב
+
+### קבצי תיעוד
+
+- **`README.md`** - קובץ README ראשי
+- **`CHANGELOG.md`** - יומן שינויים
+- **`CONTRIBUTING.md`** - הנחיות לתרומה
+- **`OWNER-GUIDE.md`** - מדריך לבעלים
+
+---
+
+## 🔍 פירוט תפקידים לפי תיקיות מרכזיות
+
+### 🎯 app/ - ממשק המשתמש וה-API
+
+- **מטרה**: ממשק המשתמש הראשי וה-API routes
+- **טכנולוגיה**: Next.js 15 App Router, React 19, TypeScript
+- **חלוקה**: Route Groups לפי תחומים (funnels, legal)
+- **קומפוננטות**: נאומורפיות עם Tailwind CSS וטוקנים
+
+### 🛠 lib/ - קוד משותף
+
+- **מטרה**: קוד עסקי משותף וכלי עזר
+- **תוכן**: שירותי מייל, PDF, נומרולוגיה, אימות
+- **ארגון**: לפי דומיין (wealth-code) או לפי פונקציונליות (utils, core)
+
+### 📚 docs/ - תיעוד
+
+- **מטרה**: מקור אמת לכל התיעוד
+- **תוכן**: מדריכי פיתוח, ארכיטקטורה, עיצוב
+- **ארגון**: לפי נושא עם מדריכים מקצועיים בתת-תיקייה
+
+### 🎨 public/ - נכסים סטטיים
+
+- **מטרה**: קבצים הנגישים בדפדפן
+- **תוכן**: תמונות, פונטים, אייקונים, manifest
+- **ארגון**: לפי שימוש (brand, email, fonts, og)
+
+### 🧪 tests/ - בדיקות
+
+- **מטרה**: בדיקות אוטומטיות לאיכות הקוד
+- **טכנולוגיה**: Playwright ל-E2E
+- **תוכן**: בדיקות עשן ותרחישים מרכזיים
+
+### 💾 prisma/ - בסיס נתונים
+
+- **מטרה**: הגדרת מבנה הנתונים
+- **טכנולוגיה**: Prisma ORM
+- **סטטוס**: תכנון עתידי, לא מחובר לפרודקשן
+
+---
+
+## 📋 רשימת קבצים מרכזיים ותפקידיהם
+
+| קובץ/תיקייה | תפקיד | מיקום |
+|-------------|--------|--------|
+| `app/layout.tsx` | Layout ראשי עם Providers | UI |
+| `app/page.tsx` | דף בית ראשי | UI |
+| `app/globals.css` | CSS גלובלי + Tailwind | Styling |
+| `app/tokens.css` | טוקני עיצוב מרכזיים | Styling |
+| `app/theme.css` | מערכת עיצוב בהיר/כהה | Styling |
+| `lib/constants.ts` | קבועים גלובליים | Config |
+| `lib/env.ts` | משתני סביבה | Config |
+| `lib/routes.ts` | הגדרות נתיבים | Config |
+| `lib/wealth-code/` | לוגיקת קוד עושר | Business Logic |
+| `app/api/send-email/` | API לשליחת מיילים | API |
+| `app/api/generate-pdf/` | API ליצירת PDF | API |
+| `app/api/webhooks/grow/` | Webhook לתשלומים | API |
+| `docs/PROJECT_STRUCTURE.md` | מבנה הפרויקט (זה) | Docs |
+| `docs/ARCHITECTURE.md` | ארכיטקטורה טכנית | Docs |
+| `public/manifest.webmanifest` | PWA configuration | Static |
+| `package.json` | תלויות וסקריפטים | Config |
+| `tailwind.config.ts` | Tailwind configuration | Config |
+
+---
+
+## 🔧 איך לעדכן את המסמך
+
+1. בצע שינוי במבנה התיקיות או בקבצים
+2. עדכן את התיאורים הרלוונטיים במסמך זה
+3. הוסף קבצים/תיקיות חדשות עם תיאור תפקידם
+4. הרץ `pnpm lint` לוודא תקינות Markdown
+5. בצע commit עם הודעה: `docs: update project structure`
+
+> המסמך הזה הוא מקור האמת היחיד למבנה הפרויקט
