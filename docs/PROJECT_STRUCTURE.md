@@ -17,11 +17,145 @@
 ├── public/              # נכסים סטטיים (תמונות, פונטים, manifest)
 ├── prisma/              # סכמת בסיס נתונים (עתידי)
 ├── tests/               # Playwright E2E
-├── styles/              # קבצי CSS ייעודיים מחוץ ל-App Router
+├── app/styles/          # קבצי CSS ייעודיים (Neu utilities)
 ├── package.json         # הגדרות הפרויקט והסקריפטים
 ├── tsconfig.json        # קומפילציית TypeScript
 └── setup-folders.js     # סקריפט שמוודא שמבנה התיקיות קיים
 ```
+
+---
+
+## תיקיות וקבצים מחוץ ל-`app/`
+
+| נתיב                      | תיאור                                                                                                                            |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `features/`               | מודולים עסקיים מבודדים (כיום `wealth-code`) עם `components`, `data`, `email`, `pdf`, `utils` ועוד – כל Feature הוא יחידה עצמאית. |
+| `lib/`                    | קוד משותף לכלל האפליקציה (קונפיגורציה, env, utilities, שירותי Email/PDF).                                                        |
+| `docs/`                   | תיעוד מלא של המערכת (מבנה, פיתוח, עיצוב, מדריכים נקודתיים).                                                                      |
+| `design/`                 | קבצי handoff, אסטים מ-Figma והפקות עיצוב שאינן נבנות לפרודקשן.                                                                   |
+| `public/`                 | נכסים סטטיים זמינים בפרונטאנד (לוגואים, פונטים, תמונות OG, קבצי Manifest).                                                       |
+| `app/styles/`             | קבצי CSS גלובליים משלימים מחוץ ל-Tailwind (neumorphism וכו').                                                                    |
+| `prisma/`                 | סכמת בסיס נתונים עתידית (`schema.prisma`) – משמשת לתכנון ואינה מחוברת כרגע ל-prod.                                               |
+| `tests/`                  | בדיקות E2E עם Playwright (`e2e/smoke.spec.ts`) ובסיס להרחבה.                                                                     |
+| `components/`             | קומפוננטות UI משותפות מחוץ ל-App Router (לדוגמה `Card`, `IconButton`) לשימוש חוזר בין פיצ'רים.                                   |
+| `setup-folders.js`        | סקריפט Postinstall שמוודא שכל תיקיות החובה קיימות (למשל `public/email`) לפני ריצה מקומית או ב-CI.                                |
+| `instrumentation*.ts`     | קבצי אינסטרומנטציה ל-Sentry (client/server/edge) ו-Hooks גלובליים שנקראים בזמן ריצת Next.js.                                     |
+| `tailwind.config.ts`      | קונפיגורציית Tailwind (שימוש בטוקנים, ערכות צבע, Container ושבירת מסכים RTL).                                                    |
+| `eslint.config.mjs`       | הגדרות ESLint Flat Config – כולל המרות מגרסאות ישנות באמצעות `FlatCompat` ותוספים ייעודיים.                                      |
+| `tsconfig.json`           | תצורת TypeScript מאוחדת לכל מקורות הקוד, כולל Aliases לנתיבים כמו `@features/*` ו-`@lib/*`.                                      |
+| `package.json` / `pnpm-*` | תלויות הפרויקט, סקריפטים (`pnpm dev`, `pnpm lint` וכו') וקבצי נעילה ששומרים על גרסאות עקביות בין סביבות.                         |
+| `vercel.json`             | הגדרות Deployment ל-Vercel (Redirects, Edge Functions, Preview/Production).                                                      |
+| `README.md`               | שער כניסה לפרויקט – קישור למסמכי ההמשך, רשימת דרישות מערכת ותהליך Setup מהיר.                                                    |
+| `CONTRIBUTING.md`         | כללי תרומת קוד, סטייל גייד, בדיקות חובה לפני פתיחת PR.                                                                           |
+| `OWNER-GUIDE.md`          | הנחיות תפעול לבעלת המוצר (ניהול גרסאות, תקלות חירום, תהליכי שחרור).                                                              |
+| `CHANGELOG.md`            | יומן גרסאות – נכתב ידנית בעברית במבנה SemVer לאחר כל שחרור.                                                                      |
+| `playwright.config.ts`    | קונפיגורציה ל-Playwright (Browsers, נתיבי בדיקות, בסיס URL).                                                                     |
+
+---
+
+## פירוט מלא לפי נתיב
+
+### `features/`
+
+- `wealth-code/` – מודול הדגל. כל קובץ ממופה לפיצ'ר דומייני:
+  - `constants.ts` – משייך URLים מהמערכת המרכזית (`app/lib/routes.ts`) ומייצא סוגי תשלום/ולידציה כדי לאפשר שימוש אחיד בראוטים ובכללים.
+  - `data/`
+    - `codeStructures.ts` – טקסטים קבועים המתארים את שלושת מבני הקוד (Master/Repeating/Diverse).
+    - `dailyApplication.ts` – תזכורות תרגול יומי המושתלות בלשוניות הדוח.
+    - `digitInterpretations.ts` – מאגר תוכן עיקרי: לכל ספרה מוגדרים תיאור, מתנות, אתגרים ופעולות מומלצות.
+  - `components/`
+    - `sections/` – כל שלב בפאנל (Hero, Calculator, Result, Sales, Interpretations, ThankYou) + קבצי CSS צמודים; מבטיח הפרדה בין UI לתוכן.
+    - `shared/` – רכיבים נומורפיים משותפים (כרטיסים, אינסרטים).
+    - `ui/tabs.tsx` – רכיב לשוניות מונגש, מקבל disable של חוקי ESLint ספציפיים.
+    - `SendEmailButton.tsx` – קומפוננטת Client עם סטטוס טעינה/שגיאה שמפעילה שליחת מייל דרך ה-API.
+    - `index.ts` – Barrel exports שמאפשרים `import { Hero } from "@features/wealth-code"`.
+  - `email/`
+    - `WealthEmail.ts` – בונה HTML מלא כולל Preheader, כפתורי שיתוף וקישורי וואטסאפ.
+    - `template.ts` – re-export מסודר של פונקציות הבנייה (HTML, subject, preheader).
+  - `layout/PageWrapper.tsx` – alias אל `app/components/layout/PageLayout.tsx` לשמירת תאימות (אין פריסה ייעודית שונה).
+  - `pdf/`
+    - `WealthReport.tsx` – קומפוננטת React PDF שמציגה דוח אישי בעברית.
+    - `generate.ts` – מייצר Buffer + Base64 לשימוש באימיילים והורדות.
+  - `utils/`
+    - `numerology.ts` – אלגוריתם חישוב הקוד (כולל ניקוי קלט, מפות אותיות, זיהוי Master numbers).
+    - `email.ts` – קריאות fetch ליצירת PDF ולשליחת מייל עם Timeout מובנה ו-cleanup לצרופות.
+    - `share.ts` – Web Share API + fallback לוואטסאפ.
+    - `index.ts` / `algorithm.ts` – Barrel exports ששומרים תאימות לקוד ישן.
+
+### `components/`
+
+- `ui/Card.tsx` – קומפוננטת מעטפת נומורפית כללית (shadow tokens, padding ברירת מחדל).
+- `ui/IconButton.tsx` + `IconButton.module.css` – כפתור אייקון עגול עם Focus Ring ו-Hover scale.
+- `ui/index.ts` – Barrel export להורדת מסלולי import כפולים.
+
+### `lib/`
+
+- השורש `lib/` משמש כקומפטביליות לאחור: `lib/utils/index.ts` מייצא מחדש מתוך `app/lib/utils/*` כדי שלא לשבור חבילות חיצוניות.
+- הקוד האקטיבי יושב תחת `app/lib/`:
+  - `constants.ts` – אוסף קבועים גלובליים (Brand, Social, Pricing, Typography). כל שינוי תוכן מתועד כאן ולא מפוזר בקומפוננטות.
+  - `env.ts` – טעינת Environment + `requireEnv` להבטחת זמינות משתנים.
+  - `routes.ts` – מקור אמת לנתיבים + פונקציות עזר (`buildUrl`, `getResultUrl`).
+  - `utils/`
+    - `base64.ts`, `file.ts` – עיבוד base64 לשילוב PDF במיילים.
+    - `format.ts` – פונקציות פורמט (תאריכים, מטבע, טלפון, אימות Email, copyToClipboard).
+    - `theme.ts`, `cn.ts` – Utilities לניהול Theme ולחיבור classNames.
+  - `email/transport.ts` – שכבת שליחה עם fallback (Resend → SMTP) וניקוי קבצים מצורפים.
+  - `email/wealth.ts` – שירות דומייני: ולידציה לקוד, ניהול TEST mode, בניית HTML.
+  - `core/`
+    - `branding.ts` – פרטי המותג (שם, disclaimer, URL) לשימוש חוזר ב-PDF/Email/Share.
+    - `email/` – בסיס HTML משותף לכל המיילים (`BaseEmailTemplate.ts`, `styles.ts`, README להסבר).
+    - `pdfConfig.ts` – רישום פונטים (Assistant) והגדרות צבע/פריסה למסמכי PDF.
+    - `index.ts` – Barrel exports כדי לצרוך בקלות (`import { registerHebrewFonts } from "@/lib/core"`).
+  - `pdf/WealthReport.tsx` – דוח PDF גנרי שניתן לשימוש גם מחוץ לפיצ'ר Wealth.
+  - `neu-styles.ts` – חישוב צללים וטיפוגרפיה נומורפיים כטוקנים.
+  - `navigation.tsx` – re-export של `NavigationProvider` ממיקום חדש, מונע שגיאת import קיימת.
+
+### `docs/`
+
+- `README.md` – אינדקס למסמכים.
+- `PROJECT_STRUCTURE.md` – המסמך הנוכחי (מקור אמת – אין לעדכן כפילויות במסמכים אחרים).
+- `DEVELOPMENT.md` – הוראות סביבת dev, משתני סביבה, סקריפטים.
+- `BRANCHING.md` – Workflow Git (כולל Solo Mode ללא PRs).
+- `ARCHITECTURE.md` – תיאור זרימות נתונים ומדיניות Server/Client.
+- `guides/` – מדריכים מקצועיים: Email/PDF, TikTok Pixel, spacing לבית.
+- מסמכי הקלט (`MIGRATION-PROGRESS.md`, `STANDARD-PAGE-LAYOUT-MIGRATION.md`) מתעדים רפקטורים – לא לשכפל תוכן שלהם במקומות אחרים.
+
+### `design/`
+
+- `figma/` – יצואי רכיבים, מסכים וטוקנים מהעיצוב (לא נכנסים לדיפלוימנט).
+- `handoff/` – PDF/notes שמועברים למפתחים. נשמרים כחלק מהידע ההיסטורי.
+- סקריפט `setup-folders.js` מוודא שהתיקיות קיימות גם בסביבות CI.
+
+### `public/`
+
+- אייקונים (`abyk-icon-*.png`, `אייקון.png`) – משמשים למסכי בית, favicon ו-PWA.
+- `brand/` – לוגואים רשמיים (כולל גיבוי).
+- `email/` – לוגו בפורמט מותאם אימייל.
+- `fonts/Assistant /` – משקלים סטטיים ו-Variable של Assistant (נצרך ב-PDF ובמיילים). יש לשמור על שם התיקייה עם הרווח להמשכיות.
+- `og/` – תמונות שיתוף; קבצי `.bak` נשמרים כגיבוי.
+- `manifest.webmanifest` – קובע שם האפליקציה, theme color ואייקונים.
+
+### `prisma/`
+
+- `schema.prisma` – מודל משתמש → רכישות (כולל output ל-`lib/generated/prisma`). כרגע לא מחובר ל-prod אך מייצג את התכנון הרשמי.
+
+### `tests/`
+
+- `e2e/smoke.spec.ts` – בדיקת עשן בעברית (טעינת דפי בית/פרטיות/תנאים, בדיקת Alt scope). מרחיבה עם בדיקות נוספות תחת `tests/e2e/`.
+
+### קבצים תומכי תשתית
+
+- `setup-folders.js` – סקריפט bootstrap: יוצר תיקיות חובה, README לכל ספרייה, סורק barrel files ומייצר `scripts/dev-check.js`.
+- `scripts/dev-check.js` (נוצר אוטומטית) – ריצה מהירה: `tsc --noEmit`, `eslint`, בדיקת barrel files.
+- `instrumentation.ts` / `instrumentation-client.ts` – הגדרות Sentry עם דגימות שונות ל-Node/Edge.
+- `sentry.server.config.ts` / `sentry.edge.config.ts` – הגדרות השלמה לסביבות השונות.
+- `tailwind.config.ts` – מגדיר פריסת נומורפיזם, breakpoints (`xs`), ו-Prose RTL.
+- `postcss.config.mjs` – תומך ב-nesting ויציבות Tailwind.
+- `eslint.config.mjs` – Flat config עם הקלות ממוקדות.
+- `tsconfig.json` + `types.d.ts` – path aliases, טיפוסים גלובליים, תמיכה ב-SVG/MD.
+- `package.json` / `pnpm-lock.yaml` – רשימות תלויות וסקריפטים (dev/build/lint/test:e2e).
+- `playwright.config.ts` – הגדרות Playwright (דפדפנים, baseURL, קונפיג שפייה).
+- `vercel.json` – Redirects, headers (למשל noindex ל-`/alt`).
 
 ---
 
@@ -133,7 +267,7 @@
 
 ---
 
-## styles/
+## app/styles/
 
 - `neumorphism.css` — שכבת CSS משלימה שאינה תלויה ב-Tailwind, בעיקר לאפקטים מיוחדים.
 - נטען לפי צורך מתוך רכיבים או דפים ספציפיים.

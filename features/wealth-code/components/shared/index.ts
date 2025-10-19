@@ -1,2 +1,2 @@
 export { CodeInset } from "./CodeInset";
-export { NeuroCard, CardStack } from "./NeuroCard";
+export { NeuroCard } from "./NeuroCard";

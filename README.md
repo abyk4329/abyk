@@ -121,7 +121,7 @@ design/                   # קבצי handoff מ-Figma
 
 public/                   # נכסים סטטיים (brand, email, fonts, og)
 
-styles/                   # קבצי CSS ייעודיים (כמו neumorphism.css)
+app/styles/               # קבצי CSS ייעודיים (neumorphism.css, neu.module.css)
 
 tests/                    # Playwright E2E
 ```

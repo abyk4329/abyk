@@ -1,203 +1,198 @@
 "use client";
 
-import { useEffect } from "react";
-import { GlassButton } from "@/app/components/shared/GlassButton";
-import { Calculator, MessageCircle, Instagram, Mail, Music, Eye } from "lucide-react";
-import styles from "./ThankYou.module.css";
+import { useCallback, useEffect } from "react";
+import {
+  Calculator,
+  Eye,
+  Instagram,
+  Mail,
+  MessageCircle,
+  Share2,
+} from "lucide-react";
+
+import { PageShell } from "@/app/components/layout";
+import { Stack } from "@/app/components/shared";
+import { Button, Card } from "@/components/neu";
 import { SOCIAL } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+import { TikTokIcon, WhatsAppIcon } from "@/app/components/layout/SocialIcons";
+import styles from "./ThankYou.module.css";
 
 interface ThankYouProps {
   onViewInterpretations: () => void;
   onCalculateAnother: () => void;
 }
 
-export function ThankYou({ onViewInterpretations, onCalculateAnother }: ThankYouProps) {
-  const shareUrl = "https://abyk.online/";
-  const shareText = "גלו את קוד העושר הנומרולוגי שלכם! מסע מרתק להכרה עצמית וצמיחה אישית";
+const SHARE_URL = "https://abyk.online/";
+const SHARE_TEXT =
+  "גלו את קוד העושר הנומרולוגי שלכם! מסע מרתק להכרה עצמית וצמיחה אישית";
+const SHARE_TITLE = "Awakening by Ksenia";
 
+const SOCIAL_LINKS = [
+  {
+    label: "WhatsApp",
+    icon: WhatsAppIcon,
+    href: () => SOCIAL.whatsapp.getUrl(),
+  },
+  {
+    label: "Instagram",
+    icon: Instagram,
+    href: () => "https://www.instagram.com/awakening.by.ksenia/",
+  },
+  {
+    label: "TikTok",
+    icon: TikTokIcon,
+    href: () => "https://www.tiktok.com/@awakening.by.ksenia",
+  },
+  {
+    label: "Email",
+    icon: Mail,
+    href: () => "mailto:awakening.by.ksenia@gmail.com",
+  },
+];
+
+export function ThankYou({
+  onViewInterpretations,
+  onCalculateAnother,
+}: ThankYouProps) {
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    }
+    window?.scrollTo?.({ top: 0, left: 0, behavior: "auto" });
   }, []);
 
-  const handleViewInterpretation = () => {
+  const openExternal = useCallback((target: string) => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    window.open(target, "_blank", "noopener,noreferrer");
+  }, []);
+
+  const handleViewInterpretation = useCallback(() => {
     onViewInterpretations();
-  };
+  }, [onViewInterpretations]);
 
-  const handleCalculateAnother = () => {
+  const handleCalculateAnother = useCallback(() => {
     onCalculateAnother();
-  };
+  }, [onCalculateAnother]);
 
-  const handleConsultation = () => {
-  window.open(SOCIAL.whatsapp.getUrl(), '_blank', 'noopener,noreferrer');
-  };
+  const handleConsultation = useCallback(() => {
+    openExternal(SOCIAL.whatsapp.getUrl());
+  }, [openExternal]);
 
-  // Social Links - קישורים לעמודים שלי
-  const handleGoToInstagram = () => {
-  window.open('https://www.instagram.com/awakening.by.ksenia/', '_blank', 'noopener,noreferrer');
-  };
+  const handleShare = useCallback(async () => {
+    const shareFallback = () => {
+      const message = encodeURIComponent(`${SHARE_TEXT}\n${SHARE_URL}`);
+      openExternal(`https://wa.me/?text=${message}`);
+    };
 
-  const handleGoToTikTok = () => {
-  window.open('https://www.tiktok.com/@awakening.by.ksenia', '_blank', 'noopener,noreferrer');
-  };
-
-  const handleGoToEmail = () => {
-  window.open('mailto:awakening.by.ksenia@gmail.com', '_blank', 'noopener,noreferrer');
-  };
-
-  const handleGoToWhatsApp = () => {
-  window.open(SOCIAL.whatsapp.getUrl(), '_blank', 'noopener,noreferrer');
-  };
-
-  // Share function - כפתור השיתוף היחיד שמשתף את האתר
-  const handleShare = async () => {
-    // Web Share API - אם נתמך (רוב הדפדפנים במובייל)
-    if (navigator.share) {
+    if (typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({
-          title: 'Awakening by Ksenia',
-          text: shareText,
-          url: shareUrl
+          title: SHARE_TITLE,
+          text: SHARE_TEXT,
+          url: SHARE_URL,
         });
-      } catch (err) {
-        // אם המשתמש ביטל את השיתוף, לא נעשה כלום
-        if (err instanceof Error && err.name !== 'AbortError') {
-          console.error('Error sharing:', err);
-          // Fallback ל-WhatsApp אם יש שגיאה
-          const message = encodeURIComponent(`${shareText}\n${shareUrl}`);
-          window.open(`https://wa.me/?text=${message}`, '_blank', 'noopener,noreferrer');
+        return;
+      } catch (error) {
+        if (error instanceof Error && error.name === "AbortError") {
+          return;
         }
+        console.error("Error sharing", error);
       }
-    } else {
-      // Fallback ל-WhatsApp אם Web Share API לא נתמך
-      const message = encodeURIComponent(`${shareText}\n${shareUrl}`);
-  window.open(`https://wa.me/?text=${message}`, '_blank', 'noopener,noreferrer');
     }
-  };
+
+    shareFallback();
+  }, [openExternal]);
 
   return (
-    <section className={styles.viewportFrame}>
-      <div className={["hero-shell", styles.shellBackground].join(" ")}>
-        <div className="relative z-10 flex w-full justify-center">
-        
-        {/* Main Thank You Card */}
-        <section 
-          data-hero-group="b"
-          className="neuro-card-main hero-card rounded-[32px] sm:rounded-[40px] border-0"
-        >
-          <h1 className="mb-6 text-center">
-            תודה על הרכישה!
-          </h1>
-          <p className="text-center mb-8">
-            הפירוש המלא לקוד האישי שלך נשלח במייל וממתין לך לצפייה ולהורדה.
-          </p>
+    <PageShell
+      heading="תודה"
+      accent="על הרכישה"
+      subtitle="הפירוש המלא כבר בדרך אליך"
+      maxWidth="lg"
+      contentSpacing="tight"
+    >
+      <Stack className={styles.stack}>
+        <Card className={styles.panel}>
+          <Stack tight className={styles.panelStack}>
+            <h2 className={styles.panelTitle}>הפירוש מחכה לך במייל</h2>
+            <p className={styles.panelText}>
+              שלחנו אליך את הפירוש המלא הרשמי של קוד העושר האישי שלך. הוא כולל
+              את כל ההסברים, המסרים והדגשים שיסייעו לך להמשיך את המסע מתוך
+              מודעות והכוונה.
+            </p>
+            <p className={styles.panelText}>
+              ההודעה נשלחה אל כתובת המייל שהזנת ברכישה. אם היא לא מופיעה בתיבה
+              הראשית, כדאי לבדוק גם בספאם או בתקייה החברתית.
+            </p>
+          </Stack>
+        </Card>
 
-          {/* Action Buttons */}
-          <div className="space-y-4 mb-8">
-            <GlassButton onClick={handleViewInterpretation} className="w-full">
-              <div className="flex items-center justify-center gap-2">
-                <Eye className="w-5 h-5" />
-                <span>לצפייה באתר</span>
-              </div>
-            </GlassButton>
-
-            <GlassButton onClick={handleCalculateAnother} className="w-full">
-              <div className="flex items-center justify-center gap-2">
-                <Calculator className="w-5 h-5" />
-                <span>לחישוב קוד נוסף</span>
-              </div>
-            </GlassButton>
-
-            <GlassButton onClick={handleConsultation} className="w-full">
-              <div className="flex items-center justify-center gap-2">
-                <MessageCircle className="w-5 h-5" />
-                <span>לתיאום יעוץ אישי</span>
-              </div>
-            </GlassButton>
-          </div>
-
-          {/* Divider */}
-          <div className="relative my-8">
-            <div className="absolute inset-0 flex items-center">
-              <div className={["w-full", styles.dividerLine].join(" ")}></div>
-            </div>
-            <div className="relative flex justify-center">
-              <button
-                onClick={handleShare}
-                className={[
-                  "px-4 py-1.5",
-                  "rounded-full",
-                  "caption",
-                  "border-0",
-                  "transition-all duration-300",
-                  "cursor-pointer",
-                  "touch-manipulation",
-                  styles.shareButton
-                ].join(" ")}
+        <Card className={styles.panel}>
+          <Stack tight className={styles.panelStack}>
+            <h2 className={styles.panelTitle}>מה תרצו לעשות עכשיו?</h2>
+            <Stack tight className={styles.actionStack}>
+              <Button
+                onClick={handleViewInterpretation}
+                className={styles.actionButton}
               >
-                שתפו עם חברים
-              </button>
+                <Eye className={styles.actionIcon} aria-hidden="true" />
+                <span>לצפייה באתר</span>
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={handleCalculateAnother}
+                className={styles.actionButton}
+              >
+                <Calculator className={styles.actionIcon} aria-hidden="true" />
+                <span>לחישוב קוד נוסף</span>
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={handleConsultation}
+                className={styles.actionButton}
+              >
+                <MessageCircle
+                  className={styles.actionIcon}
+                  aria-hidden="true"
+                />
+                <span>לתיאום יעוץ אישי</span>
+              </Button>
+            </Stack>
+          </Stack>
+        </Card>
+
+        <Card className={cn(styles.panel, styles.sharePanel)}>
+          <Stack tight className={styles.panelStack}>
+            <h2 className={styles.panelTitle}>שתפו את הגילוי עם חברים</h2>
+            <p className={styles.panelText}>
+              הפירוש שלכם יכול להאיר גם אחרים. שתפו את החוויה כדי עוד אנשים יגלו
+              את הכוח החבוי במספרים שלהם.
+            </p>
+            <Button
+              onClick={handleShare}
+              className={cn(styles.actionButton, styles.shareButton)}
+            >
+              <Share2 className={styles.actionIcon} aria-hidden="true" />
+              <span>שתפו עם חברים</span>
+            </Button>
+            <div className={styles.shareDivider} aria-hidden="true" />
+            <div className={styles.socialGrid}>
+              {SOCIAL_LINKS.map(({ label, icon: Icon, href }) => (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => openExternal(href())}
+                  className={styles.socialButton}
+                  aria-label={label}
+                >
+                  <Icon className={styles.socialIcon} aria-hidden="true" />
+                  <span className={styles.socialLabel}>{label}</span>
+                </button>
+              ))}
             </div>
-          </div>
-
-          {/* Social Links Buttons - קישורים לעמודים שלי */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <button
-              onClick={handleGoToWhatsApp}
-              className="neuro-card-secondary rounded-xl p-4 border-0"
-              aria-label="צור קשר ב-WhatsApp"
-            >
-              <div className="flex flex-col items-center gap-2">
-                <MessageCircle className={["w-6 h-6", styles.socialIcon].join(" ")} />
-                <span className={["caption", styles.socialCaption].join(" ")}>
-                  WhatsApp
-                </span>
-              </div>
-            </button>
-
-            <button
-              onClick={handleGoToInstagram}
-              className="neuro-card-secondary rounded-xl p-4 border-0"
-              aria-label="עקבו אחרי ב-Instagram"
-            >
-              <div className="flex flex-col items-center gap-2">
-                <Instagram className={["w-6 h-6", styles.socialIcon].join(" ")} />
-                <span className={["caption", styles.socialCaption].join(" ")}>
-                  Instagram
-                </span>
-              </div>
-            </button>
-
-            <button
-              onClick={handleGoToTikTok}
-              className="neuro-card-secondary rounded-xl p-4 border-0"
-              aria-label="עקבו אחרי ב-TikTok"
-            >
-              <div className="flex flex-col items-center gap-2">
-                <Music className={["w-6 h-6", styles.socialIcon].join(" ")} />
-                <span className={["caption", styles.socialCaption].join(" ")}>
-                  TikTok
-                </span>
-              </div>
-            </button>
-
-            <button
-              onClick={handleGoToEmail}
-              className="neuro-card-secondary rounded-xl p-4 border-0"
-              aria-label="שלחו מייל"
-            >
-              <div className="flex flex-col items-center gap-2">
-                <Mail className={["w-7 h-7", styles.socialIcon].join(" ")} />
-                <span className={["caption", styles.socialCaption].join(" ")}>
-                  Email
-                </span>
-              </div>
-            </button>
-          </div>
-        </section>
-        </div>
-      </div>
-    </section>
+          </Stack>
+        </Card>
+      </Stack>
+    </PageShell>
   );
 }

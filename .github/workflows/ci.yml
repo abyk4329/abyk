@@ -47,10 +47,9 @@ jobs:
       - name: Build project
         run: pnpm build
         env:
-          # Provide dummy values for build-time env vars
           NEXT_PUBLIC_APP_NAME: "Awakening by Ksenia"
           NEXT_PUBLIC_APP_URL: "https://abyk.online"
-          NEXT_PUBLIC_GROW_PAYMENT_LINK: "https://pay.grow.link/test"
-          NEXT_PUBLIC_PRODUCT_PRICE: "34"
-          NEXT_PUBLIC_WHATSAPP_NUMBER: "972525606008"
-          RESEND_API_KEY: "dummy_key_for_build"
+          NEXT_PUBLIC_PRODUCT_PRICE: "36.9"
+          NEXT_PUBLIC_GROW_PAYMENT_LINK: ${{ vars.NEXT_PUBLIC_GROW_PAYMENT_LINK }}
+          NEXT_PUBLIC_WHATSAPP_NUMBER: "972524616121"
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}

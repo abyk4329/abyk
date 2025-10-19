@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { StandardPageLayout } from "@/app/components/layout/StandardPageLayout";
 import { TermsPrivacy } from "@/app/components/sections";
 
 export const metadata: Metadata = {
@@ -9,5 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default function TermsPage() {
-  return <TermsPrivacy />;
+  return (
+    <StandardPageLayout maxWidth="lg">
+      <TermsPrivacy />
+    </StandardPageLayout>
+  );
 }

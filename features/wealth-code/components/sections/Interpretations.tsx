@@ -1,60 +1,87 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { GlassButton } from "@/app/components/shared/GlassButton";
-import { Calculator, MessageCircle, Download, Share2 } from "lucide-react";
-import { CodeInset } from "../shared/CodeInset";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { codeStructures } from "../../data/codeStructures";
-import { digitInterpretations } from "../../data/digitInterpretations";
-import { dailyApplication } from "../../data/dailyApplication";
-import styles from "./Interpretations.module.css";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Calculator, Download, MessageCircle, Share2 } from "lucide-react";
+
+import { PageShell } from "@/app/components/layout";
+import { Stack } from "@/app/components/shared";
+import { Button, Card } from "@/components/neu";
 import { SOCIAL } from "@/lib/constants";
 import { publicEnv } from "@/lib/env";
+import { cn } from "@/lib/utils";
+import { codeStructures } from "../../data/codeStructures";
+import { dailyApplication } from "../../data/dailyApplication";
+import { digitInterpretations } from "../../data/digitInterpretations";
+import { CodeInset } from "../shared/CodeInset";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import styles from "./Interpretations.module.css";
 
 interface InterpretationsProps {
   code: string;
   onCalculateAnother: () => void;
 }
 
-export function Interpretations({ code, onCalculateAnother }: InterpretationsProps) {
-  const [activeTab, setActiveTab] = useState<string>("0");
+const SHARE_TITLE = "Awakening by Ksenia";
+const SHARE_TEXT =
+  "גלו את קוד העושר הנומרולוגי שלכם! מסע מרתק להכרה עצמית וצמיחה אישית";
+
+const CODE_TYPE_HEADING: Record<"master" | "repeating" | "diverse", string> = {
+  master: "קוד מאסטר – כל הספרות זהות",
+  repeating: "קוד עם ספרות חוזרות – אנרגיות מועצמות",
+  diverse: "קוד מגוון – כל הספרות שונות",
+};
+
+export function Interpretations({
+  code,
+  onCalculateAnother,
+}: InterpretationsProps) {
+  const [activeTab, setActiveTab] = useState("0");
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
 
-  // קבלת ספרות ייחודיות בסדר עולה
-  const uniqueDigits = Array.from(new Set(code.split("")))
-    .sort()
-    .map(d => parseInt(d));
-  
-  // זיהוי סוג הקוד
-  const getCodeType = (): "master" | "repeating" | "diverse" => {
-    const digits = code.split("");
-    const uniqueCount = new Set(digits).size;
-    
-    if (uniqueCount === 1) return "master";
-    if (uniqueCount === 4) return "diverse";
-    return "repeating";
-  };
+  useEffect(() => {
+    window?.scrollTo?.({ top: 0, left: 0, behavior: "auto" });
+  }, [code]);
 
-  const codeType = getCodeType();
+  const shareUrl = publicEnv.appUrl;
+
+  const uniqueDigits = useMemo(() => {
+    return Array.from(new Set(code.split("")))
+      .map((digit) => Number.parseInt(digit, 10))
+      .filter((digit) => Number.isFinite(digit))
+      .sort((a, b) => a - b);
+  }, [code]);
+
+  useEffect(() => {
+    setActiveTab(uniqueDigits.length > 0 ? "0" : "daily");
+  }, [code, uniqueDigits.length]);
+
+  const codeType = useMemo(() => {
+    const uniqueCount = new Set(code.split("")).size;
+
+    if (uniqueCount === 1) {
+      return "master" as const;
+    }
+
+    if (uniqueCount === 4) {
+      return "diverse" as const;
+    }
+
+    return "repeating" as const;
+  }, [code]);
+
   const structureText = codeStructures[codeType];
 
-  // פונקציה להורדת PDF
-  const handleDownload = async () => {
+  const handleDownload = useCallback(async () => {
     setIsGeneratingPDF(true);
 
     try {
-      // Call the PDF generation API
       const response = await fetch("/api/generate-pdf", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           code,
-          userName: "", // Add user name if available
-          userEmail: "", // Add user email if available
+          userName: "",
+          userEmail: "",
         }),
       });
 
@@ -63,21 +90,19 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
       }
 
       const data = await response.json();
-      
       if (!data.ok || !data.pdfBase64) {
         throw new Error(data.error || "Failed to generate PDF");
       }
 
-      // Convert base64 to blob
       const byteCharacters = atob(data.pdfBase64);
       const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      for (let index = 0; index < byteCharacters.length; index += 1) {
+        byteNumbers[index] = byteCharacters.charCodeAt(index);
       }
+
       const byteArray = new Uint8Array(byteNumbers);
       const blob = new Blob([byteArray], { type: "application/pdf" });
 
-      // Create download link
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -87,90 +112,89 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error("Failed to generate PDF:", error);
-      alert("Failed to generate PDF. Please try again.");
+      console.error("Failed to generate PDF", error);
+      alert("נוצרה בעיה ביצירת הקובץ. נסו שוב בעוד רגע.");
     } finally {
       setIsGeneratingPDF(false);
     }
-  };
+  }, [code]);
 
-  const handleCalculateAnother = () => {
+  const handleShare = useCallback(async () => {
+    const fallbackShare = () => {
+      const message = encodeURIComponent(`${SHARE_TEXT}\n${shareUrl}`);
+      if (typeof window !== "undefined") {
+        window.open(
+          `https://wa.me/?text=${message}`,
+          "_blank",
+          "noopener,noreferrer"
+        );
+      }
+    };
+
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: SHARE_TITLE,
+          text: SHARE_TEXT,
+          url: shareUrl,
+        });
+        return;
+      } catch (error) {
+        if (error instanceof Error && error.name === "AbortError") {
+          return;
+        }
+        console.error("Share failed", error);
+      }
+    }
+
+    fallbackShare();
+  }, [shareUrl]);
+
+  const handleConsultation = useCallback(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    window.open(SOCIAL.whatsapp.getUrl(), "_blank", "noopener,noreferrer");
+  }, []);
+
+  const handleCalculateAnother = useCallback(() => {
     onCalculateAnother();
-  };
-  const handleConsultation = () => {
-  window.open(SOCIAL.whatsapp.getUrl(), "_blank", "noopener,noreferrer");
-  };
-
-  const handleShare = () => {
-    const shareUrl = publicEnv.appUrl || "https://abyk.online/";
-    const shareText = "גלו את קוד העושר הנומרולוגי שלכם! מסע מרתק להכרה עצמית וצמיחה אישית";
-    const message = encodeURIComponent(`${shareText}\n${shareUrl}`);
-  window.open(`https://wa.me/?text=${message}`, '_blank', 'noopener,noreferrer');
-  };
+  }, [onCalculateAnother]);
 
   return (
-    <section className={["hero-shell", styles.viewportFrame].join(" ")}>
-      <div
-        className={[
-          "relative z-10 mx-auto w-full px-0",
-          styles.contentContainer,
-        ].join(" ")}
-      >
-        {/* Main Card */}
-        <section 
-          ref={contentRef} 
-          data-hero-group="b"
-          className={["neuro-card-main", "hero-card", styles.heroCardAdjust, "rounded-[32px]", "sm:rounded-[40px]", "mb-8", "border-0", "transition-all", "duration-500"].join(" ")}
-        >
-          
-          {/* קוד העושר */}
-          <h1 className={["mb-8 sm:mb-10 text-center", styles.mainHeading].join(" ")}>
-            קוד העושר שלך
-          </h1>
-          
-          {/* הצגת הקוד - כרטיסיה שקועה משותפת */}
-          <div className="mb-8 sm:mb-10 text-center">
-            <CodeInset code={code} />
-          </div>
+    <PageShell
+      heading="הפירוש"
+      accent="המלא"
+      subtitle="המסע עם קוד העושר האישי שלך"
+      maxWidth="xl"
+      contentSpacing="tight"
+    >
+      <Stack className={styles.stack}>
+        <Card className={styles.panel}>
+          <Stack tight className={styles.panelStack}>
+            <h2 className={styles.panelTitle}>קוד העושר שלך</h2>
+            <p className={styles.panelText}>{codeStructures.intro}</p>
+            <div className={styles.codeInset}>
+              <CodeInset code={code} />
+            </div>
+          </Stack>
+        </Card>
 
-          {/* מבוא קבוע */}
-          <div className="mb-6">
-            <p className={["text-center", styles.tightLineHeight].join(" ")}>
-              {codeStructures.intro}
-            </p>
-          </div>
-
-          {/* הסבר על מבנה הקוד */}
-          {/* Code Display Card */}
-          <div
-            className="neuro-card-inset rounded-2xl p-6 sm:p-8 mb-8 border-0"
-          >
-            <h3 className="mb-4 text-center subheading-h3">
-              {codeType === "master" && "קוד מאסטר - כל הספרות זהות"}
-              {codeType === "repeating" && "קוד עם ספרות חוזרות - אנרגיות מועצמות"}
-              {codeType === "diverse" && "קוד מגוון - כל הספרות שונות"}
-            </h3>
-            <p className={["text-center", styles.tightLineHeight].join(" ")}>
-              {structureText}
-            </p>
-          </div>
-
-        </section>
+        <Card className={styles.panel}>
+          <Stack tight className={styles.panelStack}>
+            <h2 className={styles.panelTitle}>{CODE_TYPE_HEADING[codeType]}</h2>
+            <p className={styles.panelText}>{structureText}</p>
+          </Stack>
+        </Card>
 
         <Tabs
+          dir="rtl"
           value={activeTab}
           onValueChange={setActiveTab}
-          dir="rtl"
-          className={styles.tabsRoot}
+          className={styles.tabs}
         >
-          <section
-            className={[
-              "neuro-card-main",
-              "border-0",
-              "rounded-[32px]",
-              styles.tabsCard,
-            ].join(" ")}
-          >
+          <Card className={cn(styles.panel, styles.tabsHeader)}>
             <TabsList className={styles.tabsList}>
               {uniqueDigits.map((digit, index) => (
                 <TabsTrigger
@@ -185,236 +209,236 @@ export function Interpretations({ code, onCalculateAnother }: InterpretationsPro
                 יישום יומי
               </TabsTrigger>
             </TabsList>
-          </section>
+          </Card>
 
           {uniqueDigits.map((digit, index) => {
             const interpretation = digitInterpretations[digit];
+            if (!interpretation) {
+              return null;
+            }
+
             return (
-              <TabsContent key={digit} value={index.toString()} className={styles.tabPanel}>
-                <section
-                  className={[
-                    "neuro-card-main",
-                    "border-0",
-                    "rounded-[32px]",
-                    styles.digitCard,
-                  ].join(" ")}
-                >
-                  <div className={styles.digitHeader}>
-                    <div className={["text-[#5e4934]", styles.digitNumber].join(" ")}>
-                      {digit}
-                    </div>
-                    <h2 className="text-[#5e4934]">{interpretation.title}</h2>
-                  </div>
+              <TabsContent
+                key={digit}
+                value={index.toString()}
+                className={styles.tabPanel}
+              >
+                <Card className={cn(styles.panel, styles.digitPanel)}>
+                  <Stack
+                    tight
+                    className={cn(styles.panelStack, styles.panelStackStart)}
+                  >
+                    <div className={styles.digitBadge}>{digit}</div>
+                    <h3 className={styles.digitTitle}>
+                      {interpretation.title}
+                    </h3>
+                    <div className={styles.sectionGrid}>
+                      <div className={styles.sectionCard}>
+                        <h4 className={styles.sectionTitle}>מהות הספרה</h4>
+                        <p className={styles.sectionText}>
+                          {interpretation.essence}
+                        </p>
+                      </div>
 
-                  <div className={styles.digitSections}>
-                    <div
-                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
-                    >
-                      <h4 className="mb-3 text-center">מהות הספרה</h4>
-                      <p className={["text-center", styles.tightLineHeight].join(" ")}>
-                        {interpretation.essence}
-                      </p>
-                    </div>
+                      <div className={styles.sectionCard}>
+                        <h4 className={styles.sectionTitle}>מתנות מרכזיות</h4>
+                        <ul className={styles.sectionList}>
+                          {interpretation.gifts.map((gift, giftIndex) => {
+                            const [label, ...rest] = gift.split(" – ");
+                            return (
+                              <li
+                                key={giftIndex}
+                                className={styles.sectionListItem}
+                              >
+                                {rest.length > 0 ? (
+                                  <>
+                                    <span className={styles.sectionListLabel}>
+                                      {label}
+                                    </span>
+                                    {" – "}
+                                    {rest.join(" – ")}
+                                  </>
+                                ) : (
+                                  gift
+                                )}
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
 
-                    <div
-                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
-                    >
-                      <h4 className="mb-3 text-center">מתנות מרכזיות</h4>
-                      <ul className="space-y-2">
-                        {interpretation.gifts.map((gift, i) => {
-                          const parts = gift.split(" – ");
-                          return (
-                            <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
-                              {parts.length >= 2 ? (
-                                <>
-                                  <span className={styles.boldText}>{parts[0]}</span>
-                                  {" – "}
-                                  {parts.slice(1).join(" – ")}
-                                </>
-                              ) : (
-                                gift
-                              )}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
+                      <div className={styles.sectionCard}>
+                        <h4 className={styles.sectionTitle}>
+                          חסימות ואתגרים עיקריים
+                        </h4>
+                        <ul className={styles.sectionList}>
+                          {interpretation.blocks.map((block, blockIndex) => {
+                            const [label, ...rest] = block.split(" – ");
+                            return (
+                              <li
+                                key={blockIndex}
+                                className={styles.sectionListItem}
+                              >
+                                {rest.length > 0 ? (
+                                  <>
+                                    <span className={styles.sectionListLabel}>
+                                      {label}
+                                    </span>
+                                    {" – "}
+                                    {rest.join(" – ")}
+                                  </>
+                                ) : (
+                                  block
+                                )}
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
 
-                    <div
-                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
-                    >
-                      <h4 className="mb-3 text-center">חסימות ואתגרים עיקריים</h4>
-                      <ul className="space-y-2">
-                        {interpretation.blocks.map((block, i) => {
-                          const parts = block.split(" – ");
-                          return (
-                            <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
-                              {parts.length >= 2 ? (
-                                <>
-                                  <span className={styles.boldText}>{parts[0]}</span>
-                                  {" – "}
-                                  {parts.slice(1).join(" – ")}
-                                </>
-                              ) : (
-                                block
-                              )}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
+                      <div className={styles.sectionCard}>
+                        <h4 className={styles.sectionTitle}>
+                          נורות אדומות – סימנים לחוסר איזון
+                        </h4>
+                        <p className={styles.sectionText}>
+                          {interpretation.redFlags}
+                        </p>
+                      </div>
 
-                    <div
-                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
-                    >
-                      <h4 className="mb-3 text-center">נורות אדומות – סימנים לחוסר איזון</h4>
-                      <p className={["text-center", styles.tightLineHeight].join(" ")}>
-                        {interpretation.redFlags}
-                      </p>
-                    </div>
+                      <div className={styles.sectionCard}>
+                        <h4 className={styles.sectionTitle}>
+                          מוקדי צמיחה והתפתחות
+                        </h4>
+                        <ul className={styles.sectionList}>
+                          {interpretation.growth.map((growth, growthIndex) => {
+                            const [label, ...rest] = growth.split(" – ");
+                            return (
+                              <li
+                                key={growthIndex}
+                                className={styles.sectionListItem}
+                              >
+                                {rest.length > 0 ? (
+                                  <>
+                                    <span className={styles.sectionListLabel}>
+                                      {label}
+                                    </span>
+                                    {" – "}
+                                    {rest.join(" – ")}
+                                  </>
+                                ) : (
+                                  growth
+                                )}
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
 
-                    <div
-                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
-                    >
-                      <h4 className="mb-3 text-center">מוקדי צמיחה והתפתחות</h4>
-                      <ul className="space-y-2">
-                        {interpretation.growth.map((growth, i) => {
-                          const parts = growth.split(" – ");
-                          return (
-                            <li key={i} className={["text-center", styles.tightLineHeight].join(" ")}>
-                              {parts.length >= 2 ? (
-                                <>
-                                  <span className={styles.boldText}>{parts[0]}</span>
-                                  {" – "}
-                                  {parts.slice(1).join(" – ")}
-                                </>
-                              ) : (
-                                growth
-                              )}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
+                      <div className={styles.sectionCard}>
+                        <h4 className={styles.sectionTitle}>
+                          תחומים מתאימים לקריירה ולשליחות
+                        </h4>
+                        <p className={styles.sectionText}>
+                          {interpretation.careers}
+                        </p>
+                      </div>
 
-                    <div
-                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
-                    >
-                      <h4 className="mb-3 text-center">תחומים מתאימים לקריירה ולשליחות</h4>
-                      <p className={["text-center", styles.tightLineHeight].join(" ")}>
-                        {interpretation.careers}
-                      </p>
-                    </div>
+                      <div className={styles.sectionCard}>
+                        <h4 className={styles.sectionTitle}>
+                          דוגמה יומית לתרגול
+                        </h4>
+                        <p className={styles.sectionText}>
+                          {interpretation.dailyPractice}
+                        </p>
+                      </div>
 
-                    <div
-                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
-                    >
-                      <h4 className="mb-3 text-center">דוגמה יומית לתרגול</h4>
-                      <p className={["text-center", styles.tightLineHeight].join(" ")}>
-                        {interpretation.dailyPractice}
-                      </p>
+                      <div className={styles.sectionCard}>
+                        <h4 className={styles.sectionTitle}>בשורה התחתונה</h4>
+                        <p className={styles.sectionText}>
+                          {interpretation.bottomLine}
+                        </p>
+                      </div>
                     </div>
-
-                    <div
-                      className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
-                    >
-                      <h4 className="mb-3 text-center">בשורה התחתונה</h4>
-                      <p className={["text-center", styles.tightLineHeight].join(" ")}>
-                        {interpretation.bottomLine}
-                      </p>
-                    </div>
-                  </div>
-                </section>
+                  </Stack>
+                </Card>
               </TabsContent>
             );
           })}
 
           <TabsContent value="daily" className={styles.tabPanel}>
-            <section
-              className={[
-                "neuro-card-main",
-                "border-0",
-                "rounded-[32px]",
-                styles.digitCard,
-              ].join(" ")}
-            >
-              <div className={styles.digitHeader}>
-                <h2 className="text-[#5e4934]">{dailyApplication.title}</h2>
-              </div>
-              <div
-                className={["rounded-xl", "p-4", "border-0", styles.sectionCard].join(" ")}
+            <Card className={cn(styles.panel, styles.digitPanel)}>
+              <Stack
+                tight
+                className={cn(styles.panelStack, styles.panelStackStart)}
               >
-                <p
-                  className={["text-center", "whitespace-pre-line", styles.tightLineHeight].join(" ")}
-                >
-                  {dailyApplication.content}
-                </p>
-              </div>
-            </section>
+                <h3 className={styles.digitTitle}>{dailyApplication.title}</h3>
+                <div className={styles.sectionCard}>
+                  <p className={cn(styles.sectionText, styles.sectionTextPre)}>
+                    {dailyApplication.content}
+                  </p>
+                </div>
+              </Stack>
+            </Card>
           </TabsContent>
         </Tabs>
 
-        <section
-          className={[
-            "neuro-card-main",
-            "border-0",
-            "rounded-[32px]",
-            styles.actionsCard,
-          ].join(" ")}
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <GlassButton
-              onClick={handleDownload}
-              className={["w-full", styles.actionButton].join(" ")}
-              disabled={isGeneratingPDF}
-            >
-              <div className="flex items-center justify-center gap-2">
+        <Card className={cn(styles.panel, styles.actionsPanel)}>
+          <Stack
+            tight
+            className={cn(styles.panelStack, styles.panelStackStart)}
+          >
+            <h2 className={styles.panelTitle}>המשך המסע</h2>
+            <div className={styles.actionGrid}>
+              <Button
+                onClick={handleDownload}
+                className={styles.actionButton}
+                disabled={isGeneratingPDF}
+              >
                 {isGeneratingPDF ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                    <span className={styles.spinner} aria-hidden="true" />
                     <span>יוצר PDF...</span>
                   </>
                 ) : (
                   <>
-                    <Download className="w-5 h-5" />
+                    <Download
+                      className={styles.actionIcon}
+                      aria-hidden="true"
+                    />
                     <span>להורדה כ-PDF</span>
                   </>
                 )}
-              </div>
-            </GlassButton>
+              </Button>
 
-            <GlassButton
-              onClick={handleCalculateAnother}
-              className={["w-full", styles.actionButton].join(" ")}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <Calculator className="w-5 h-5" />
-                <span>לחישוב קוד נוסף</span>
-              </div>
-            </GlassButton>
-
-            <GlassButton
-              onClick={handleConsultation}
-              className={["w-full", styles.actionButton].join(" ")}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <MessageCircle className="w-5 h-5" />
-                <span>לתיאום יעוץ אישי</span>
-              </div>
-            </GlassButton>
-
-            <GlassButton
-              onClick={handleShare}
-              className={["w-full", styles.actionButton].join(" ")}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <Share2 className="w-5 h-5" />
+              <Button onClick={handleShare} className={styles.actionButton}>
+                <Share2 className={styles.actionIcon} aria-hidden="true" />
                 <span>שתפו עם חברים</span>
-              </div>
-            </GlassButton>
-          </div>
-        </section>
-      </div>
-    </section>
+              </Button>
+
+              <Button
+                variant="ghost"
+                onClick={handleConsultation}
+                className={styles.actionButton}
+              >
+                <MessageCircle
+                  className={styles.actionIcon}
+                  aria-hidden="true"
+                />
+                <span>לתיאום יעוץ אישי</span>
+              </Button>
+
+              <Button
+                variant="ghost"
+                onClick={handleCalculateAnother}
+                className={styles.actionButton}
+              >
+                <Calculator className={styles.actionIcon} aria-hidden="true" />
+                <span>לחישוב קוד נוסף</span>
+              </Button>
+            </div>
+          </Stack>
+        </Card>
+      </Stack>
+    </PageShell>
   );
 }

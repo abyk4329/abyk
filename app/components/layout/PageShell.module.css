@@ -1,0 +1,159 @@
+.shell {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  background-image: none;
+
+  /* Local layout tokens (responsive gutters) */
+  --shell-pad-x: clamp(var(--neu-space-md), 5vw, var(--neu-space-xl));
+  --shell-pad-y: clamp(var(--neu-space-xl), 6vw, var(--neu-space-2xl));
+
+  padding-block: var(--shell-pad-y);
+  padding-inline: var(--shell-pad-x);
+}
+
+.shell[data-single-child="true"] {
+  min-height: 100dvh;
+  justify-content: center;
+  padding-block: clamp(var(--neu-space-sm), 5vh, var(--neu-space-lg));
+  overflow-x: clip;
+  overflow-y: visible;
+  scroll-padding-block-end: clamp(
+    var(--neu-space-xl),
+    14vh,
+    var(--neu-space-3xl)
+  );
+}
+
+.shell[data-single-child="true"] .shellInner {
+  transform: translateY(calc(-1 * clamp(2.75rem, 10vw, 6rem)));
+}
+
+.shell[data-single-child="true"] .shellContent {
+  align-items: stretch;
+  max-height: none;
+}
+
+@media (max-height: 760px) {
+  .shell[data-single-child="true"] {
+    padding-block: clamp(var(--neu-space-sm), 3vh, var(--neu-space-lg));
+    scroll-padding-block-end: clamp(
+      var(--neu-space-lg),
+      12vh,
+      var(--neu-space-2xl)
+    );
+  }
+
+  .shell[data-single-child="true"] .shellInner {
+    transform: none;
+  }
+}
+
+.shellInner {
+  width: min(100%, var(--shell-max-width, 100%));
+  max-width: var(--shell-max-width, 100%);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--neu-space-lg), 2.5vw, var(--neu-space-2xl));
+}
+
+/* Max-width variants (use rem + allow token override) */
+.shellMaxSm {
+  --shell-max-width: var(--shell-max-sm, 32.5rem);
+} /* 520px */
+.shellMaxMd {
+  --shell-max-width: var(--shell-max-md, 42.5rem);
+} /* 680px */
+.shellMaxLg {
+  --shell-max-width: var(--shell-max-lg, 55rem);
+} /* 880px */
+.shellMaxXl {
+  --shell-max-width: var(--shell-max-xl, 68.75rem);
+} /* 1100px */
+.shellMaxFull {
+  --shell-max-width: 100%;
+}
+
+.shellHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--neu-space-sm);
+  text-align: center;
+}
+
+.shellHeaderStart {
+  align-items: flex-start;
+  text-align: start;
+}
+
+.shellLeading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shellTitle {
+  margin: 0;
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-lg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--neu-text-primary);
+}
+
+.shellTitleAccent {
+  color: var(--neu-accent);
+  font-weight: 700;
+}
+
+.shellSubtitle {
+  margin: 0;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--heading-subtitle-color);
+}
+
+.shellActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--neu-space-sm);
+}
+
+.shellActionsStart {
+  justify-content: flex-start;
+}
+
+.shellContent {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--neu-space-md), 2vw, var(--neu-space-xl));
+}
+
+.shellContentStart {
+  align-items: flex-start;
+}
+
+.shellContentTight {
+  gap: clamp(var(--neu-space-sm), 1.5vw, var(--neu-space-lg));
+}
+
+@media (max-width: 640px) {
+  .shell {
+    padding-inline: var(--neu-space-md);
+    padding-block: var(--neu-space-lg);
+  }
+
+  .shell[data-single-child="true"] .shellInner {
+    transform: translateY(calc(-1 * clamp(1.75rem, 8vw, 4rem)));
+  }
+
+  .shellActions {
+    flex-direction: column;
+  }
+}

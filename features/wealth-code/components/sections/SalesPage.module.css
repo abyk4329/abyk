@@ -1,209 +1,99 @@
-/* Sales page cards aligned with shared neumorphic system */
-
-.salesShell {
-  position: relative;
-  min-height: calc(100dvh - env(safe-area-inset-bottom));
-  --edge-gap: clamp(1rem, 3vw, 2rem);
-  padding-block-start: calc(
-    env(safe-area-inset-top) + clamp(2.2rem, 6vw, 3.4rem)
-  );
-  padding-block-end: calc(
-    env(safe-area-inset-bottom) + clamp(3rem, 9vw, 4.75rem)
-  );
-  padding-inline-start: calc(env(safe-area-inset-right) + var(--edge-gap));
-  padding-inline-end: calc(env(safe-area-inset-left) + var(--edge-gap));
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  background: #f8f6f2;
-  background-image: radial-gradient(
-      120% 80% at 50% 0%,
-      rgba(184, 146, 116, 0.14),
-      transparent 70%
-    ),
-    radial-gradient(
-      100% 80% at 50% 100%,
-      rgba(255, 255, 255, 0.88),
-      transparent 75%
-    );
-  background-repeat: no-repeat;
-  overflow: hidden;
-}
-
-.blurField {
-  position: absolute;
-  inset: -18vh -32vw -22vh -32vw;
-  background: radial-gradient(
-      70% 60% at 50% 35%,
-      rgba(159, 133, 114, 0.18),
-      rgba(159, 133, 114, 0.08) 60%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    linear-gradient(185deg, rgba(255, 255, 255, 0.62), rgba(245, 241, 237, 0.4));
-  filter: blur(120px) saturate(110%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.contentLayer {
-  position: relative;
-  z-index: 1;
+.stack {
   width: 100%;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
+  gap: var(--neu-space-xl);
 }
 
-.cardStack {
-  --card-stack-max-width: none;
-  width: 100%;
-  max-width: none;
-  margin-inline: auto;
-  gap: clamp(1.6rem, 4vw, 2.6rem);
-}
-
-.salesCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.panel {
   text-align: center;
-  gap: clamp(1.25rem, 3vw, 1.85rem);
 }
 
-.cardHeader {
-  display: flex;
-  flex-direction: column;
+.panelStack {
   align-items: center;
-  gap: clamp(0.75rem, 2.4vw, 1.25rem);
+  gap: var(--neu-space-md);
 }
 
-.sectionHeading {
+.panelTitle {
   margin: 0;
-  font-family: "Assistant", sans-serif;
-  font-size: clamp(1.55rem, 3.2vw, 2rem);
-  font-weight: 700;
-  color: #5e4934;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.65);
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-sm);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--neu-text-primary);
 }
 
-.cardBody {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(0.9rem, 2.5vw, 1.25rem);
-}
-
-.bodyText {
+.panelText {
   margin: 0;
-  font-size: clamp(1rem, 2.2vw, 1.12rem);
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
   line-height: 1.6;
-  color: rgba(71, 59, 49, 0.92);
+  letter-spacing: 0.04em;
+  color: var(--neu-text-secondary);
 }
 
-.bodyText + .bodyText {
-  margin-top: clamp(0.85rem, 2.4vw, 1.15rem);
-}
-
-.detailHighlights {
+.detailList {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: clamp(0.6rem, 2vw, 0.9rem);
-  padding: clamp(1rem, 3vw, 1.5rem);
-  margin: clamp(1rem, 2.8vw, 1.6rem) 0 clamp(0.5rem, 1.6vw, 0.9rem);
-  border-radius: clamp(20px, 4vw, 28px);
-  background: linear-gradient(
-    145deg,
-    rgba(253, 252, 251, 0.96),
-    rgba(245, 241, 237, 0.88)
-  );
-  box-shadow: inset 8px 8px 18px rgba(159, 133, 114, 0.14),
-    inset -8px -8px 18px rgba(255, 255, 255, 0.88);
+  gap: var(--neu-space-sm);
   list-style: none;
+  margin: 0;
+  padding: var(--neu-space-md);
+  border-radius: var(--neu-radius-md);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
 }
 
 .detailItem {
-  font-size: clamp(0.95rem, 2.1vw, 1.05rem);
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
   font-weight: 600;
-  color: #5e4934;
-}
-
-.ctaCard {
-  gap: clamp(1.4rem, 3.5vw, 2.1rem);
+  color: var(--neu-text-primary);
 }
 
 .ctaPanel {
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-raised), var(--shadow-inset-strong);
+}
+
+.purchasePanel {
   width: 100%;
   display: grid;
-  gap: clamp(1rem, 3vw, 1.6rem);
+  gap: var(--neu-space-sm);
   justify-items: center;
-  padding: clamp(1.4rem, 3.5vw, 2.2rem);
-  border-radius: clamp(22px, 4.2vw, 32px);
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.92),
-    rgba(247, 243, 238, 0.88)
-  );
-  box-shadow: inset 10px 10px 24px rgba(202, 190, 178, 0.3),
-    inset -10px -10px 24px rgba(255, 255, 255, 0.75);
+  padding: var(--neu-space-lg);
+  border-radius: var(--neu-radius-lg);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
 }
 
-.priceHeading {
+.price {
   margin: 0;
-  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
-  font-weight: 700;
-  color: #87674f;
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-sm);
+  font-weight: 600;
+  color: var(--neu-accent);
 }
 
-.captionText {
+.caption {
   margin: 0;
-  font-size: clamp(0.95rem, 2vw, 1.05rem);
-  color: rgba(94, 73, 52, 0.75);
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-caption-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--neu-text-tertiary);
 }
 
-.actions {
+.ctaButton {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.75rem, 2.5vw, 1.1rem);
 }
 
-@media (min-width: 640px) {
-  .actions {
-    flex-direction: row;
-    justify-content: center;
+@media (min-width: 768px) {
+  .stack {
+    gap: var(--neu-space-2xl);
   }
-}
 
-.actionButton {
-  width: 100%;
-  justify-content: center;
-  font-size: clamp(1rem, 2.4vw, 1.15rem);
-}
-
-.purchaseButton {
-  background: linear-gradient(145deg, #8f7159, #87674f);
-  box-shadow: 12px 12px 24px rgba(108, 85, 66, 0.32),
-    -10px -10px 22px rgba(177, 150, 125, 0.22),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.purchaseButton:hover {
-  background: linear-gradient(145deg, #997963, #8b6b52);
-  box-shadow: 14px 14px 28px rgba(108, 85, 66, 0.36),
-    -12px -12px 24px rgba(177, 150, 125, 0.26),
-    inset 1px 1px 3px rgba(255, 255, 255, 0.22);
-}
-
-.purchaseButton:active {
-  background: linear-gradient(145deg, #7a5d47, #724f3b);
-  box-shadow: inset 8px 8px 16px rgba(58, 44, 33, 0.5),
-    inset -6px -6px 12px rgba(177, 150, 125, 0.18);
-}
-
-.purchaseButtonLabel {
-  color: #fff9f3;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  .panelStack {
+    gap: var(--neu-space-lg);
+  }
 }

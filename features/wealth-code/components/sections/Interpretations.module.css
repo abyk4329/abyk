@@ -1,247 +1,223 @@
-/* Interpretations Component Styles */
-
-/* Main Heading Color */
-.mainHeading {
-  color: #87674f;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+.stack {
+  width: 100%;
+  gap: var(--neu-space-xl);
 }
 
-/* Text Line Height */
-.tightLineHeight {
-  line-height: 1;
-}
-
-/* Code Display Styles */
-.codeDisplay {
-  font-size: clamp(4rem, 10vw, 7rem);
-  font-weight: 300;
-  color: #5e4934;
-  letter-spacing: 0.15em;
-  text-shadow: 0 2px 8px rgba(135, 103, 79, 0.15);
+.panel {
+  width: 100%;
   text-align: center;
 }
 
-/* Digit Number Display */
-.digitNumber {
-  font-size: 48px;
-  font-weight: 300;
-  letter-spacing: 0.15em;
-  color: #5e4934;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.panelStack {
+  align-items: center;
+  gap: var(--neu-space-md);
 }
 
-/* Bold Span for List Items */
-.boldText {
-  font-weight: 700;
+.panelStackStart {
+  align-items: stretch;
+  text-align: start;
 }
 
-/* Code Card Background */
-.codeCard {
-  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
-  box-shadow: 20px 20px 60px rgba(159, 133, 114, 0.25),
-    -20px -20px 60px rgba(255, 255, 255, 0.9),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.8),
-    inset -2px -2px 6px rgba(211, 198, 189, 0.1);
+.panelTitle {
+  margin: 0;
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-sm);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--neu-text-primary);
 }
 
-/* Tabs List Background */
-.tabsRoot {
+.panelText {
+  margin: 0;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: var(--neu-text-secondary);
+}
+
+.codeInset {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: clamp(var(--space-3), 4vw, var(--space-4));
-}
-
-.tabsCard {
-  padding: clamp(var(--space-2), 3vw, var(--space-3));
-}
-
-.tabsList {
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: clamp(var(--space-1), 2vw, var(--space-2));
-  padding: clamp(var(--space-2), 3vw, var(--space-3));
-  border: 0;
-  border-radius: 24px;
-  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
-  box-shadow: 12px 12px 24px rgba(159, 133, 114, 0.15),
-    -12px -12px 24px rgba(255, 255, 255, 0.9),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.6);
+  margin-top: var(--neu-space-sm);
 }
 
-/* Section Card Backgrounds */
-.sectionCard {
-  background: linear-gradient(145deg, rgb(253, 252, 251), rgb(245, 241, 237));
-  box-shadow: inset 6px 6px 12px rgba(159, 133, 114, 0.12),
-    inset -6px -6px 12px rgba(255, 255, 255, 0.9);
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--neu-space-lg);
 }
 
-/* Tab Trigger - use with neumorphism */
-.tabTriggerBase {
-  background: transparent;
+.tabsHeader {
+  padding: var(--neu-space-md) var(--neu-space-lg);
 }
 
 .tabTrigger {
-  composes: tabTriggerBase;
-  border: 0;
-  border-radius: 16px;
-  padding: 0.5rem 1.25rem;
-  color: #87674f;
-  background: transparent;
-  transition: transform 160ms ease, background 200ms ease, box-shadow 200ms ease;
-  box-shadow: none;
+  border: none;
+  border-radius: var(--neu-radius-md);
+  padding: var(--neu-space-xs) var(--neu-space-md);
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  letter-spacing: 0.06em;
+  color: var(--neu-text-secondary);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
+  transition: transform var(--neu-transition-default),
+    box-shadow var(--neu-transition-default),
+    color var(--neu-transition-default);
+}
+.tabTrigger[data-state="active"] {
+  color: var(--neu-text-primary);
+  box-shadow: var(--shadow-inset-pressed);
 }
 
 .tabTrigger:hover {
   transform: translateY(-1px);
 }
 
-.tabTrigger[data-state="active"] {
-  color: #473b31;
-  background: linear-gradient(145deg, rgb(253, 252, 251), rgb(245, 241, 237));
-  box-shadow: inset 4px 4px 8px rgba(159, 133, 114, 0.12),
-    inset -4px -4px 8px rgba(255, 255, 255, 0.9);
-}
-
-.tabTrigger:not([data-state="active"]):hover {
-  background: linear-gradient(145deg, rgb(253, 252, 251), rgb(245, 241, 237));
-  box-shadow: inset 3px 3px 6px rgba(159, 133, 114, 0.08),
-    inset -3px -3px 6px rgba(255, 255, 255, 0.8);
-}
-
 .tabPanel {
-  margin-top: clamp(var(--space-2), 3vw, var(--space-3));
+  margin-top: var(--neu-space-sm);
 }
 
-.digitCard {
-  padding: clamp(var(--space-3), 4vw, var(--space-4));
-  display: flex;
-  flex-direction: column;
-  gap: clamp(var(--space-3), 4vw, var(--space-4));
+.digitPanel {
+  text-align: start;
 }
 
-.digitHeader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--space-2);
-}
-
-.digitSections {
+.digitBadge {
+  width: 56px;
+  height: 56px;
   display: grid;
-  gap: clamp(var(--space-2), 3vw, var(--space-3));
+  place-items: center;
+  margin-inline: auto;
+  border-radius: 999px;
+  font-family: var(--neu-font-sans);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--neu-accent);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
 }
 
-@media (min-width: 1024px) {
-  .digitSections {
+.digitTitle {
+  margin: 0;
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-sm);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--neu-text-primary);
+  text-align: center;
+}
+
+.sectionGrid {
+  display: grid;
+  gap: var(--neu-space-md);
+}
+
+.sectionCard {
+  padding: var(--neu-space-md);
+  border-radius: var(--neu-radius-md);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
+}
+
+.sectionTitle {
+  margin: 0 0 var(--neu-space-xs);
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-xs);
+  font-weight: 600;
+  color: var(--neu-text-primary);
+}
+
+.sectionText {
+  margin: 0;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  line-height: 1.65;
+  color: var(--neu-text-secondary);
+}
+
+.sectionTextPre {
+  white-space: pre-line;
+}
+
+.sectionList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--neu-space-xs);
+}
+
+.sectionListItem {
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  line-height: 1.6;
+  color: var(--neu-text-secondary);
+}
+
+.sectionListLabel {
+  font-weight: 700;
+  color: var(--neu-text-primary);
+}
+
+.actionsPanel {
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-raised), var(--shadow-inset-strong);
+}
+
+.actionGrid {
+  display: grid;
+  gap: var(--neu-space-sm);
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--neu-space-xs);
+}
+
+.actionIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--neu-shadow-light);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 768px) {
+  .stack {
+    gap: var(--neu-space-2xl);
+  }
+
+  .tabsHeader {
+    padding: var(--neu-space-lg) var(--neu-space-xl);
+  }
+
+  .sectionGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .actionGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-.actionsCard {
-  padding: clamp(var(--space-3), 4vw, var(--space-4));
-  margin-bottom: clamp(var(--space-4), 12vw, var(--space-6));
-}
-
-.actionButton {
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.heroCardAdjust {
-  transform: translateY(0) !important;
-  margin-top: clamp(var(--space-2), 5vw, var(--space-3));
-}
-
-.viewportFrame {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: clamp(var(--space-2), 3.5vw, var(--space-3));
-  padding: calc(
-      env(safe-area-inset-top) + clamp(var(--space-3), 6vw, var(--space-4))
-    )
-    clamp(var(--space-2), 6vw, var(--space-4))
-    calc(
-      env(safe-area-inset-bottom) + clamp(var(--space-4), 8vw, var(--space-5))
-    );
-  min-height: calc(100dvh - env(safe-area-inset-bottom));
-  background: #f8f6f2;
-  background-image: radial-gradient(
-      70% 50% at 50% 0%,
-      rgba(184, 146, 116, 0.08),
-      transparent 68%
-    ),
-    radial-gradient(
-      110% 85% at 50% 100%,
-      rgba(255, 255, 255, 0.92),
-      transparent 78%
-    );
-  background-repeat: no-repeat;
-  background-size: 160% 160%;
-  background-position: center;
-  overflow: hidden;
-}
-
-.viewportFrame::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -22vh;
-  height: 26vh;
-  pointer-events: none;
-  background: transparent;
-  z-index: -1;
-}
-
-.contentContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(var(--space-2), 3.5vw, var(--space-3));
-  width: 100%;
-  max-width: calc(100vw - 1rem);
-  margin-inline: auto;
-  padding-inline: 0.5rem;
-  padding-bottom: clamp(var(--space-4), 10vw, var(--space-6));
-}
-
-.contentContainer > section {
-  width: 100%;
-}
-
-@media (max-width: 640px) {
-  .viewportFrame {
-    gap: clamp(var(--space-2), 5vw, var(--space-3));
-    padding-top: calc(
-      env(safe-area-inset-top) + clamp(var(--space-2), 8vw, var(--space-3))
-    );
-    padding-bottom: calc(
-      env(safe-area-inset-bottom) + clamp(var(--space-3), 10vw, var(--space-4))
-    );
-    padding-left: calc(env(safe-area-inset-left) + 0.5rem);
-    padding-right: calc(env(safe-area-inset-right) + 0.5rem);
-  }
-
-  .viewportFrame::after {
-    bottom: -28vh;
-    height: 32vh;
-  }
-
-  .contentContainer {
-    max-width: calc(100vw - 1rem);
-    padding-inline: 0.5rem;
-    margin-left: auto;
-    margin-right: auto;
-    gap: clamp(var(--space-2), 5vw, var(--space-3));
-    padding-bottom: clamp(var(--space-4), 18vw, var(--space-7));
+@media (min-width: 1024px) {
+  .sectionGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

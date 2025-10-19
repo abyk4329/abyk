@@ -95,5 +95,36 @@
   },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": [
+    "ABYKICON",
+    "Ksenia",
+    "אישית",
+    "בהיר",
+    "התפתחות",
+    "למצב",
+    "מחשבון",
+    "מעבר",
+    "נומרולוגיה",
+    "ניווט",
+    "סגירת",
+    "פתיחת",
+    "תנאים",
+    "תפריט"
+  ],
+  "chat.agent.thinkingStyle": "expanded",
+  "chat.agentSessionsViewLocation": "view",
+  "chat.editor.wordWrap": "off",
+  "chat.editRequests": "input",
+  "chat.edits2.enabled": true,
+  "files.autoSave": "onWindowChange",
+  "workbench.colorTheme": "Copilot Theme - Higher Contrast",
+  "editor.mouseWheelZoom": true,
+  "inlineChat.notebookAgent": true,
+  "inlineChat.finishOnType": true,
+  "inlineChat.hideOnRequest": true,
+  "inlineChat.lineEmptyHint": true,
+  "chat.tools.terminal.terminalProfile.windows": {
+    "color": "terminal.ansiYellow"
   }
 }

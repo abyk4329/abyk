@@ -25,7 +25,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
         ].join(" ")}
       >
         <div className="flex min-h-screen items-center justify-center px-6 py-12">
-          <div className="max-w-md space-y-6 rounded-3xl bg-white/80 p-8 text-center shadow-lg backdrop-blur">
+          <div className="max-w-md space-y-6 rounded-3xl bg-white p-8 text-center shadow-lg">
             <div className="space-y-2">
               <p className="text-sm font-semibold uppercase tracking-widest text-amber-700">
                 משהו השתבש

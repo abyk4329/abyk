@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { NavigationProvider } from "@/app/lib/navigation";
 import { ThankYou } from "@/features/wealth-code/components";
 import { getInterpretationsUrl, routes } from "@/lib/routes";
+
+import { FunnelPage } from "../_components/FunnelPage";
 
 interface ThankYouPageClientProps {
   code?: string;
@@ -52,35 +53,6 @@ export function ThankYouPageClient({ code }: ThankYouPageClientProps) {
     }
   }, [code, resolvedCode]);
 
-  const search = resolvedCode
-    ? `?code=${encodeURIComponent(resolvedCode)}`
-    : "";
-
-  const navigationOverrides = useMemo(
-    () => ({
-      isVisible: true,
-      showHeader: false,
-      showFooter: false,
-      lockScroll: true,
-      canGoBack: true,
-      onGoBack: () => {
-        router.push(`${routes.sales}${search}`);
-      },
-      canGoForward: true,
-      onGoForward: () => {
-        if (resolvedCode) {
-          router.push(getInterpretationsUrl(resolvedCode));
-        } else {
-          router.push(routes.interpretations);
-        }
-      },
-      onGoHome: () => {
-        router.push(routes.home);
-      },
-    }),
-    [resolvedCode, router, search]
-  );
-
   const handleViewInterpretations = () => {
     if (resolvedCode) {
       router.push(getInterpretationsUrl(resolvedCode));
@@ -94,11 +66,11 @@ export function ThankYouPageClient({ code }: ThankYouPageClientProps) {
   };
 
   return (
-    <NavigationProvider value={navigationOverrides}>
+    <FunnelPage maxWidth="md">
       <ThankYou
         onViewInterpretations={handleViewInterpretations}
         onCalculateAnother={handleCalculateAnother}
       />
-    </NavigationProvider>
+    </FunnelPage>
   );
 }

@@ -1,0 +1,255 @@
+/* ========================================
+   Button Component - Neumorphic Design
+   ======================================== */
+
+/* Base Button Styles */
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding-inline: var(--button-padding-inline);
+  padding-block: var(--button-padding-block);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-assistant, "Assistant", sans-serif);
+  font-weight: 600;
+  font-size: var(--button-font-size);
+  letter-spacing: var(--button-letter-spacing);
+  text-align: center;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 1.25rem;
+  background-color: var(--neu-card);
+  color: var(--neu-text-primary);
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--neu-accent);
+  outline-offset: 2px;
+}
+
+/* Hover Effect */
+.button:not(:disabled):hover {
+  transform: scale(1.02);
+}
+
+/* Active/Pressed State */
+.button:not(:disabled):active,
+.button.pressed {
+  transform: scale(0.98);
+}
+
+/* Disabled State */
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Full Width */
+.button.fullWidth {
+  width: 100%;
+}
+
+/* Icon Styles */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.text {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ========================================
+   Variant: Primary (כפתור ראשי)
+   ======================================== */
+.variantPrimary {
+  background: var(--neu-card);
+  color: var(--neu-text-primary);
+  box-shadow: none;
+}
+
+.variantPrimary:not(:disabled):hover {
+  box-shadow: none;
+}
+
+.variantPrimary:not(:disabled):active,
+.variantPrimary.pressed {
+  box-shadow: none;
+}
+
+/* ========================================
+   Variant: Secondary (כפתור משני)
+   ======================================== */
+.variantSecondary {
+  background: var(--neu-card);
+  color: var(--neu-text-secondary);
+  box-shadow: var(--shadow-raised);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.variantSecondary:not(:disabled):hover {
+  box-shadow: var(--shadow-raised-hover);
+  color: var(--neu-text-primary);
+}
+
+/* Secondary לא צריך pressed effect */
+.variantSecondary:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+/* ========================================
+   Variant: Ghost (כפתור מינימליסטי)
+   ======================================== */
+.variantGhost {
+  background: transparent;
+  color: var(--neu-text-secondary);
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.variantGhost:not(:disabled):hover {
+  color: var(--neu-text-primary);
+  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.variantGhost:not(:disabled):active,
+.variantGhost.pressed {
+  background: rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .variantGhost {
+  color: var(--neu-text-tertiary);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .variantGhost:not(:disabled):hover {
+  color: var(--neu-text-primary);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .variantGhost:not(:disabled):active,
+[data-theme="dark"] .variantGhost.pressed {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* ========================================
+   Variant: Gold (כפתור זהב - CTA)
+   ======================================== */
+.variantGold {
+  background: var(--neu-accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-raised-strong);
+}
+
+.variantGold:not(:disabled):hover {
+  box-shadow: var(--shadow-raised-emphasis);
+}
+
+.variantGold:not(:disabled):active,
+.variantGold.pressed {
+  background: var(--neu-accent);
+  box-shadow: inset 0 0 0 1px var(--neu-cta-press),
+    inset 0 8px 18px color-mix(in srgb, var(--neu-cta-press) 32%, transparent);
+}
+
+/* ========================================
+   Size: Small
+   ======================================== */
+.sizeSm {
+  font-size: 0.875rem;
+  gap: 0.5rem;
+  border-radius: 1rem;
+}
+
+.sizeSm .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* ========================================
+   Size: Medium (Default)
+   ======================================== */
+.sizeMd {
+  font-size: 1rem;
+  gap: 0.75rem;
+  border-radius: 1.25rem;
+}
+
+.sizeMd .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ========================================
+   Size: Large
+   ======================================== */
+.sizeLg {
+  font-size: 1.125rem;
+  gap: 0.875rem;
+  border-radius: 1.5rem;
+}
+
+.sizeLg .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* ========================================
+   Dark Mode Overrides
+   ======================================== */
+[data-theme="dark"] .variantSecondary {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .variantGold {
+  background: var(--neu-accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-raised-strong);
+}
+
+/* ========================================
+   Responsive Adjustments
+   ======================================== */
+@media (max-width: 640px) {
+  .sizeLg {
+    font-size: 1rem;
+  }
+
+  .sizeMd {
+    font-size: 0.9375rem;
+  }
+
+  .sizeSm {
+    font-size: 0.8125rem;
+  }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .button:not(:disabled):hover {
+    transform: none;
+  }
+
+  .button:not(:disabled):active,
+  .button.pressed {
+    transform: none;
+  }
+}

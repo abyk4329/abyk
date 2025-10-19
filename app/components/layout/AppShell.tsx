@@ -3,14 +3,11 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 
-import { Header } from "@/app/components/layout/Header";
-import { Footer } from "@/app/components/layout/Footer";
 import { CookieConsentProvider } from "@/app/components/layout/CookieConsent";
-import { NavigationButtons } from "@/app/components/layout/NavigationButtons";
 import { TikTokPixel } from "@/app/components/analytics/TikTokPixel";
 import { SURFACE, WEALTH_BASE } from "@/lib/constants";
 import { routes } from "@/lib/routes";
-import { useOptionalNavigationOverrides } from "@/app/lib/navigation";
+import { useOptionalNavigationOverrides } from "@/app/components/providers";
 import { setDarkThemeColor, setThemeColor } from "@/lib/utils";
 
 interface AppShellProps {
@@ -29,7 +26,10 @@ function normalizePathValue(value?: string | null): string | undefined {
   }
 
   const sanitized = value.replace(/\/+/g, "/");
-  const trimmed = sanitized.endsWith("/") && sanitized !== "/" ? sanitized.slice(0, -1) : sanitized;
+  const trimmed =
+    sanitized.endsWith("/") && sanitized !== "/"
+      ? sanitized.slice(0, -1)
+      : sanitized;
   return trimmed || "/";
 }
 
@@ -78,26 +78,46 @@ export function AppShell({ children }: AppShellProps) {
   }, []);
 
   const calculatorPath = useMemo(
-    () => withBase(routes.calculator) ?? normalizePathValue(routes.calculator) ?? routes.calculator,
+    () =>
+      withBase(routes.calculator) ??
+      normalizePathValue(routes.calculator) ??
+      routes.calculator,
     []
   );
   const resultPath = useMemo(
-    () => withBase(routes.result) ?? normalizePathValue(routes.result) ?? routes.result,
+    () =>
+      withBase(routes.result) ??
+      normalizePathValue(routes.result) ??
+      routes.result,
     []
   );
 
   const thankYouPath = useMemo(
-    () => withBase(routes.thankYou) ?? normalizePathValue(routes.thankYou) ?? routes.thankYou,
+    () =>
+      withBase(routes.thankYou) ??
+      normalizePathValue(routes.thankYou) ??
+      routes.thankYou,
     []
   );
 
   const fullScreenPages = useMemo(() => {
-    const entries = ["/", basePrefix || undefined, calculatorPath, resultPath, thankYouPath];
+    const entries = [
+      "/",
+      basePrefix || undefined,
+      calculatorPath,
+      resultPath,
+      thankYouPath,
+    ];
     return new Set(entries.filter((value): value is string => Boolean(value)));
   }, [calculatorPath, resultPath, thankYouPath]);
 
   const minimalPages = useMemo(() => {
-    const specialRoutes = [routes.sales, routes.terms, routes.privacy, routes.thankYou, routes.interpretations];
+    const specialRoutes = [
+      routes.sales,
+      routes.terms,
+      routes.privacy,
+      routes.interpretations,
+    ];
     const entries = specialRoutes
       .map((path) => withBase(path) ?? normalizePathValue(path))
       .filter((value): value is string => Boolean(value));
@@ -111,7 +131,8 @@ export function AppShell({ children }: AppShellProps) {
   const isHomePage = homePaths.has(effectivePath);
   const isFullScreenPage = fullScreenPages.has(effectivePath);
   const isMinimalPage = minimalPages.has(effectivePath);
-  const shouldCollapseForMobile = isMinimalPage && isMobileViewport === true;
+  const shouldCollapseForMobile =
+    !isFullScreenPage && isMinimalPage && isMobileViewport === true;
 
   const navigationOverrides = useOptionalNavigationOverrides();
   const {
@@ -127,10 +148,12 @@ export function AppShell({ children }: AppShellProps) {
   } = navigationOverrides ?? {};
 
   const showNavigation = isVisible ?? true;
-  const isCalculatorOrResult = effectivePath === calculatorPath || effectivePath === resultPath;
+  const isCalculatorOrResult =
+    effectivePath === calculatorPath || effectivePath === resultPath;
   const mustShowNavigation = isCalculatorOrResult;
   const shouldShowNavigation =
-    (showNavigation && (!isHomePage || navigationOverrides)) || mustShowNavigation;
+    (showNavigation && (!isHomePage || navigationOverrides)) ||
+    mustShowNavigation;
 
   const shouldShowHeader = showHeader ?? !shouldCollapseForMobile;
   const shouldShowFooter = showFooter ?? !shouldCollapseForMobile;
@@ -142,7 +165,8 @@ export function AppShell({ children }: AppShellProps) {
 
     const { history } = window;
     if ("scrollRestoration" in history) {
-      const previous = history.scrollRestoration as ScrollRestoration;
+      const previous =
+        (history.scrollRestoration as "auto" | "manual") ?? "auto";
       history.scrollRestoration = "manual";
 
       return () => {
@@ -173,7 +197,6 @@ export function AppShell({ children }: AppShellProps) {
   const showFixedNavigation = !shouldShowFooter && shouldShowNavigation;
   const mainClassName = [
     "app-main",
-    isFullScreenPage ? "no-bottom-gap" : "",
     showFixedNavigation ? "app-main--floating-nav" : "",
     !shouldShowNavigation ? "app-main--spacious" : "",
     !shouldShowHeader ? "app-main--no-header" : "",
@@ -200,84 +223,62 @@ export function AppShell({ children }: AppShellProps) {
       [
         withBase("/") ?? "/",
         basePrefix || undefined,
-        calculatorPath,
+        // calculatorPath, // Allow scroll on calculator page
         resultPath,
         withBase(routes.thankYou) ?? routes.thankYou,
       ].filter(Boolean)
     );
 
-    const shouldLock =
-      typeof lockScrollOverride === "boolean"
-        ? lockScrollOverride
-        : lockRoutes.has(effectivePath);
-    body.classList.toggle("no-scroll", shouldLock);
-    root.classList.toggle("no-scroll", shouldLock);
+    const applyLock = () => {
+      const baseDecision =
+        typeof lockScrollOverride === "boolean"
+          ? lockScrollOverride
+          : lockRoutes.has(effectivePath);
+      const viewportHeight =
+        typeof window !== "undefined" ? window.innerHeight : undefined;
+      const allowLock = viewportHeight ? viewportHeight > 740 : true;
+      const shouldLock = baseDecision && allowLock;
+      body.classList.toggle("no-scroll", shouldLock);
+      root.classList.toggle("no-scroll", shouldLock);
+    };
+
+    applyLock();
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", applyLock);
+    }
 
     return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", applyLock);
+      }
       body.classList.remove("no-scroll");
       root.classList.remove("no-scroll");
     };
-  }, [effectivePath, calculatorPath, resultPath, thankYouPath, lockScrollOverride]);
+  }, [
+    effectivePath,
+    calculatorPath,
+    resultPath,
+    thankYouPath,
+    lockScrollOverride,
+  ]);
 
   return (
     <CookieConsentProvider>
       <div
         className={shellClassName}
+        dir="rtl"
         data-mobile-layout={shouldCollapseForMobile ? "minimal" : "standard"}
         data-route={effectivePath}
+        data-has-nav={shouldShowNavigation ? "true" : "false"}
+        data-has-header={shouldShowHeader ? "true" : "false"}
+        data-has-footer={shouldShowFooter ? "true" : "false"}
       >
         <TikTokPixel />
         <div className="safe-top" aria-hidden="true" />
-        {shouldShowHeader && <Header isHomePage={isHomePage} />}
-        {/* Top-attached navigation under header for calculator/result pages */}
-        {isCalculatorOrResult && shouldShowNavigation && (
-          <div className="top-attached-nav w-full border-0">
-            <div className="mx-auto flex w-full max-w-screen-xl justify-center px-2 sm:px-4 lg:px-6">
-              <nav aria-label="ניווט שלבים" role="navigation" className="w-full">
-                <NavigationButtons
-                  onGoBack={goBack}
-                  onGoForward={goForward}
-                  onGoHome={goHome}
-                  canGoBack={canGoBack}
-                  canGoForward={canGoForward}
-                  className="justify-center"
-                />
-              </nav>
-            </div>
-          </div>
-        )}
         <main className={mainClassName} role="main">
           {children}
         </main>
-        {shouldShowNavigation && shouldShowFooter && (
-          <div className="container mx-auto px-2 sm:px-4 lg:px-6 pt-2 sm:pt-3">
-            <nav aria-label="ניווט משני" role="navigation">
-              <NavigationButtons
-                onGoBack={goBack}
-                onGoForward={goForward}
-                onGoHome={goHome}
-                canGoBack={canGoBack}
-                canGoForward={canGoForward}
-                className={isCalculatorOrResult ? "justify-center" : undefined}
-              />
-            </nav>
-          </div>
-    )}
-    {shouldShowFooter && <Footer />}
-        {showFixedNavigation && (
-          <div className="fixed bottom-0 left-0 right-0 z-40">
-            <nav aria-label="ניווט ממוזער" role="navigation">
-              <NavigationButtons
-                onGoBack={goBack}
-                onGoForward={goForward}
-                onGoHome={goHome}
-                canGoBack={canGoBack}
-                canGoForward={canGoForward}
-                className="floating-nav"
-              />
-            </nav>
-          </div>
-        )}
         <div className="safe-bottom" aria-hidden="true" />
       </div>
     </CookieConsentProvider>

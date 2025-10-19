@@ -1,30 +1,32 @@
-/* Main heading */
-.mainHeading {
-  color: #87674f;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-
-/* Code display container */
-.codeDisplay {
-  background: linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240));
-  box-shadow: 20px 20px 60px rgba(159, 133, 114, 0.25),
-    -20px -20px 60px rgba(255, 255, 255, 0.9),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.8),
-    inset -2px -2px 6px rgba(211, 198, 189, 0.1);
-}
-
-/* Code number itself */
-.codeNumber {
-  font-size: clamp(4rem, 10vw, 7rem);
-  font-weight: 300;
-  color: #5e4934;
-  letter-spacing: 0.15em;
-  text-shadow: 0 2px 8px rgba(135, 103, 79, 0.15);
+.card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   text-align: center;
 }
 
-/* Code type heading */
-.codeTypeHeading {
-  color: #9f8572;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+.stack {
+  width: min(100%, 480px);
+  margin-inline: auto;
+  align-items: center;
+  gap: var(--neu-space-lg);
+}
+
+.codeWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  color: var(--neu-text-secondary);
+}
+
+.cta {
+  width: 100%;
 }

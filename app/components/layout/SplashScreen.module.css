@@ -1,15 +1,11 @@
 .splashScreen {
-  background: linear-gradient(145deg, #fdfcfb 0%, #f8f4f0 100%);
+  background-color: var(--neu-card);
 }
 
 .orb {
   border-radius: 50%;
   mix-blend-mode: soft-light;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.95),
-    rgba(245, 241, 237, 0.6)
-  );
+  background: none;
   box-shadow: 0 0 60px rgba(159, 133, 114, 0.15),
     inset 0 0 40px rgba(255, 255, 255, 0.8);
 }
@@ -19,7 +15,7 @@
   height: 320px;
   filter: blur(80px) brightness(1.05);
   top: 15%;
-  right: -8%;
+  inset-inline-end: -8%;
 }
 
 .orbSecondary {
@@ -27,7 +23,7 @@
   height: 280px;
   filter: blur(70px) brightness(1.03);
   bottom: -5%;
-  left: -5%;
+  inset-inline-start: -5%;
 }
 
 .haloRing {
@@ -46,16 +42,11 @@
 }
 
 .logoCard {
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.98),
-    rgba(248, 244, 240, 0.95)
-  );
+  background-color: var(--neu-card);
   box-shadow: 25px 25px 75px rgba(159, 133, 114, 0.2),
     -25px -25px 75px rgba(255, 255, 255, 0.95),
     inset 3px 3px 8px rgba(255, 255, 255, 0.9),
     inset -3px -3px 8px rgba(211, 198, 189, 0.12);
-  backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -75,11 +66,7 @@
 .progressDot {
   width: 16px;
   height: 16px;
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.95),
-    rgba(248, 244, 240, 0.9)
-  );
+  background-color: var(--neu-card);
   box-shadow: 6px 6px 18px rgba(159, 133, 114, 0.15),
     -6px -6px 18px rgba(255, 255, 255, 0.9),
     inset 2px 2px 4px rgba(255, 255, 255, 0.8),

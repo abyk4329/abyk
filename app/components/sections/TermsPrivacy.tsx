@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { FileText } from "lucide-react";
 
 import styles from "./TermsPrivacy.module.css";
-import { NavigationProvider } from "@/app/lib/navigation";
+import { NavigationProvider } from "@/app/components/providers";
+import { ICON_STROKE } from "@/lib/constants";
 import { routes } from "@/lib/routes";
 import { createHoverHandlers } from "@/app/components/lib/neomorphism-styles";
 
@@ -33,7 +34,7 @@ type Section = {
 const TERMS_INTRO_PARAGRAPHS: Paragraph[] = [
   {
     content:
-      "האתר Awakening by Ksenia (\"האתר\") מופעל על ידי צ׳ודנובסקי קסניה אוריה (\"המפעילה\"). שימוש באתר, לרבות רכישת מוצרים דיגיטליים, מהווה הסכמה מלאה ומפורשת לתנאי שימוש אלה.",
+      'האתר Awakening by Ksenia ("האתר") מופעל על ידי צ׳ודנובסקי קסניה אוריה ("המפעילה"). שימוש באתר, לרבות רכישת מוצרים דיגיטליים, מהווה הסכמה מלאה ומפורשת לתנאי שימוש אלה.',
     isLead: true,
   },
   {
@@ -47,13 +48,16 @@ const TERMS_SUBSECTIONS: Section[] = [
     heading: "אופי השירות",
     paragraphs: [
       {
-        content: "האתר מציע מוצרים דיגיטליים ייחודיים, לרבות פירוש אישי לקוד העושר.",
+        content:
+          "האתר מציע מוצרים דיגיטליים ייחודיים, לרבות פירוש אישי לקוד העושר.",
       },
       {
-        content: "התכנים והשירותים באתר נועדו לספק הכוונה, השראה וכלים להתפתחות אישית ורוחנית.",
+        content:
+          "התכנים והשירותים באתר נועדו לספק הכוונה, השראה וכלים להתפתחות אישית ורוחנית.",
       },
       {
-        content: "התכנים אינם מהווים תחליף לייעוץ רפואי, משפטי או פיננסי מוסמך.",
+        content:
+          "התכנים אינם מהווים תחליף לייעוץ רפואי, משפטי או פיננסי מוסמך.",
       },
     ],
   },
@@ -62,10 +66,11 @@ const TERMS_SUBSECTIONS: Section[] = [
     paragraphs: [
       {
         content:
-          "לאחר השלמת התשלום, תיפתח למשתמש/ת גישה מיידית להורדה, והעותק יישלח לכתובת הדוא\"ל שנמסרה בעת ההזמנה.",
+          'לאחר השלמת התשלום, תיפתח למשתמש/ת גישה מיידית להורדה, והעותק יישלח לכתובת הדוא"ל שנמסרה בעת ההזמנה.',
       },
       {
-        content: "מאחר שמדובר במוצר דיגיטלי הנמסר באופן מיידי, לא ניתן לבטל את העסקה ולא יינתן החזר כספי.",
+        content:
+          "מאחר שמדובר במוצר דיגיטלי הנמסר באופן מיידי, לא ניתן לבטל את העסקה ולא יינתן החזר כספי.",
       },
     ],
   },
@@ -73,7 +78,8 @@ const TERMS_SUBSECTIONS: Section[] = [
     heading: "זכויות יוצרים",
     paragraphs: [
       {
-        content: "כל הזכויות בתכנים, בקבצים, בעיצוב ובמיתוג – שייכות ל-Awakening by Ksenia.",
+        content:
+          "כל הזכויות בתכנים, בקבצים, בעיצוב ובמיתוג – שייכות ל-Awakening by Ksenia.",
       },
       {
         content:
@@ -85,10 +91,11 @@ const TERMS_SUBSECTIONS: Section[] = [
     heading: "אחריות מוגבלת",
     paragraphs: [
       {
-        content: "המוצרים נמסרים \"As Is\".",
+        content: 'המוצרים נמסרים "As Is".',
       },
       {
-        content: "האחריות המלאה על אופן היישום והשימוש בתכנים מוטלת על המשתמש/ת בלבד.",
+        content:
+          "האחריות המלאה על אופן היישום והשימוש בתכנים מוטלת על המשתמש/ת בלבד.",
       },
       {
         content:
@@ -103,7 +110,8 @@ const TERMS_SUBSECTIONS: Section[] = [
         content: "תנאי שימוש אלה כפופים לדין הישראלי בלבד.",
       },
       {
-        content: "במקרה של מחלוקת, הסמכות הבלעדית תהיה נתונה לבתי המשפט המוסמכים בישראל.",
+        content:
+          "במקרה של מחלוקת, הסמכות הבלעדית תהיה נתונה לבתי המשפט המוסמכים בישראל.",
       },
     ],
   },
@@ -111,7 +119,7 @@ const TERMS_SUBSECTIONS: Section[] = [
     heading: "יצירת קשר",
     paragraphs: [
       {
-        content: "לשאלות או פניות ניתן ליצור קשר בדוא\"ל:",
+        content: 'לשאלות או פניות ניתן ליצור קשר בדוא"ל:',
       },
       {
         content: "awakening.by.ksenia@gmail.com",
@@ -126,7 +134,7 @@ const PRIVACY_SUBSECTIONS: Section[] = [
     heading: "זהות האחראית על המידע",
     paragraphs: [
       { content: "המפעילה: צ׳ודנובסקי קסניה אוריה." },
-      { content: "דוא\"ל לפניות בנושא פרטיות:" },
+      { content: 'דוא"ל לפניות בנושא פרטיות:' },
       { content: "awakening.by.ksenia@gmail.com", isCaption: true },
     ],
   },
@@ -135,7 +143,7 @@ const PRIVACY_SUBSECTIONS: Section[] = [
     paragraphs: [
       {
         content:
-          "פרטים שנמסרו על ידי המשתמש/ת: שם, כתובת דוא\"ל, פרטי הזמנה ותשלום (המעובדים על ידי ספק הסליקה החיצוני).",
+          'פרטים שנמסרו על ידי המשתמש/ת: שם, כתובת דוא"ל, פרטי הזמנה ותשלום (המעובדים על ידי ספק הסליקה החיצוני).',
       },
       {
         content:
@@ -147,7 +155,7 @@ const PRIVACY_SUBSECTIONS: Section[] = [
     heading: "מטרות השימוש במידע",
     paragraphs: [
       { content: "אספקת המוצרים הדיגיטליים ושירות לקוחות." },
-      { content: "שליחת הפירוש או הקובץ לכתובת הדוא\"ל." },
+      { content: 'שליחת הפירוש או הקובץ לכתובת הדוא"ל.' },
       { content: "שיפור חוויית השימוש ואבטחת האתר." },
       {
         content:
@@ -163,8 +171,7 @@ const PRIVACY_SUBSECTIONS: Section[] = [
           "האתר משתמש בקובצי קוקיז לצורך שיפור החוויה, איסוף מידע סטטיסטי ומטרות שיווק.",
       },
       {
-        content:
-          "השימוש בקוקיז כולל גם שימוש בפיקסל של TikTok למדידה ושיווק.",
+        content: "השימוש בקוקיז כולל גם שימוש בפיקסל של TikTok למדידה ושיווק.",
       },
       {
         content:
@@ -200,7 +207,8 @@ const PRIVACY_SUBSECTIONS: Section[] = [
           "המידע עלול להימסר אם קיימת חובה חוקית או דרישה של רשות מוסמכת.",
       },
       {
-        content: "המידע עשוי להימסר לצורך הגנה על זכויות משפטיות, אם יתעורר צורך בכך.",
+        content:
+          "המידע עשוי להימסר לצורך הגנה על זכויות משפטיות, אם יתעורר צורך בכך.",
       },
     ],
   },
@@ -217,7 +225,8 @@ const PRIVACY_SUBSECTIONS: Section[] = [
     heading: "תקופת שמירת מידע",
     paragraphs: [
       {
-        content: "המידע נשמר רק ככל שנדרש למימוש מטרות המדיניות או בהתאם לחובות שמטיל הדין החל.",
+        content:
+          "המידע נשמר רק ככל שנדרש למימוש מטרות המדיניות או בהתאם לחובות שמטיל הדין החל.",
       },
     ],
   },
@@ -235,7 +244,8 @@ const PRIVACY_SUBSECTIONS: Section[] = [
 
 const POLICY_UPDATE_PARAGRAPHS: Paragraph[] = [
   {
-    content: "מסמך זה עשוי להתעדכן מעת לעת. תאריך העדכון האחרון יופיע בראש העמוד.",
+    content:
+      "מסמך זה עשוי להתעדכן מעת לעת. תאריך העדכון האחרון יופיע בראש העמוד.",
   },
 ];
 
@@ -280,7 +290,10 @@ export function TermsPrivacy() {
           >
             <header className="flex flex-col items-center gap-2 text-center">
               <div className={styles.iconWrapper}>
-                <FileText strokeWidth={1} className={styles.docIcon} />
+                <FileText
+                  strokeWidth={ICON_STROKE.decorative}
+                  className={styles.docIcon}
+                />
               </div>
               <h1
                 className={cn(
@@ -345,13 +358,7 @@ export function TermsPrivacy() {
                 OUTER_CARD_HOVER_SHADOW
               )}
             >
-              <h2
-                className={cn(
-                  "mb-4",
-                  "text-center",
-                  styles.sectionHeading
-                )}
-              >
+              <h2 className={cn("mb-4", "text-center", styles.sectionHeading)}>
                 תנאי שימוש
               </h2>
               <div className="flex flex-col space-y-6">
@@ -398,11 +405,7 @@ export function TermsPrivacy() {
                     )}
                   >
                     <h3
-                      className={cn(
-                        "mb-3",
-                        "text-center",
-                        styles.subheading
-                      )}
+                      className={cn("mb-3", "text-center", styles.subheading)}
                     >
                       {section.heading}
                     </h3>
@@ -449,13 +452,7 @@ export function TermsPrivacy() {
                 OUTER_CARD_HOVER_SHADOW
               )}
             >
-              <h2
-                className={cn(
-                  "mb-4",
-                  "text-center",
-                  styles.sectionHeading
-                )}
-              >
+              <h2 className={cn("mb-4", "text-center", styles.sectionHeading)}>
                 מדיניות פרטיות
               </h2>
               <div className="flex flex-col space-y-6">
@@ -471,11 +468,7 @@ export function TermsPrivacy() {
                     )}
                   >
                     <h3
-                      className={cn(
-                        "mb-3",
-                        "text-center",
-                        styles.subheading
-                      )}
+                      className={cn("mb-3", "text-center", styles.subheading)}
                     >
                       {section.heading}
                     </h3>
@@ -522,13 +515,7 @@ export function TermsPrivacy() {
                 OUTER_CARD_HOVER_SHADOW
               )}
             >
-              <h2
-                className={cn(
-                  "mb-4",
-                  "text-center",
-                  styles.sectionHeading
-                )}
-              >
+              <h2 className={cn("mb-4", "text-center", styles.sectionHeading)}>
                 עדכוני מדיניות
               </h2>
               <div

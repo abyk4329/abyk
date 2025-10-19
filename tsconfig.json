@@ -15,6 +15,9 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
+      "@/lib/*": ["./lib/*"],
+      "@/styles/*": ["./app/styles/*"],
+      "@/components/*": ["./app/components/*"],
       "@/*": ["./*"]
     },
     "plugins": [

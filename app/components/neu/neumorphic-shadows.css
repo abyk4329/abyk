@@ -1,0 +1,322 @@
+/* ========================================
+   Neumorphic Shadow System - 4 סוגים עיקריים
+   
+   מערכת הצללות neumorphic מלאה המשתמשת בצבעים הקיימים בפרויקט.
+   כל סוג הצללה מגיע ב-3 גדלים: sm, md, lg
+   
+   4 סוגים עיקריים:
+   1. neu-raised (בולט) - אלמנט שצף מעל המשטח
+   2. neu-flat-raised (בולט שטוח) - אלמנט בולט עדין יותר
+   3. neu-inset (שקוע) - אלמנט שקוע לתוך המשטח
+   4. neu-flat-inset (שקוע שטוח) - אלמנט שקוע עדין יותר
+   
+   צבעים מתוך הפרויקט:
+   Light Mode: --neu-shadow-light (white), --neu-shadow-dark (gray)
+   Dark Mode: מתעדכן אוטומטית
+   ======================================== */
+
+/* ========================================
+   1. RAISED (בולט) - אלמנט שצף מעל המשטח
+   ======================================== */
+
+/* Small - כפתורים קטנים, איקונים */
+.neu-raised-sm {
+  box-shadow: 6px 6px 12px var(--neu-shadow-dark),
+    -6px -6px 12px var(--neu-shadow-light),
+    inset 0.5px 0.5px 1px var(--neu-shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-raised-sm:hover {
+  box-shadow: 8px 8px 16px var(--neu-shadow-dark),
+    -8px -8px 16px var(--neu-shadow-light),
+    inset 0.5px 0.5px 2px var(--neu-shadow-light);
+  transform: translateY(-1px);
+}
+
+.neu-raised-sm:active {
+  box-shadow: 4px 4px 8px var(--neu-shadow-dark),
+    -4px -4px 8px var(--neu-shadow-light),
+    inset 0.5px 0.5px 1px var(--neu-shadow-light);
+  transform: translateY(0);
+}
+
+/* Medium - כפתורים רגילים, כרטיסים קטנים */
+.neu-raised-md {
+  box-shadow: 12px 12px 24px var(--neu-shadow-dark),
+    -12px -12px 24px var(--neu-shadow-light),
+    inset 1px 1px 2px var(--neu-shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-raised-md:hover {
+  box-shadow: 16px 16px 32px var(--neu-shadow-dark),
+    -16px -16px 32px var(--neu-shadow-light),
+    inset 1px 1px 3px var(--neu-shadow-light);
+  transform: translateY(-2px);
+}
+
+.neu-raised-md:active {
+  box-shadow: 8px 8px 16px var(--neu-shadow-dark),
+    -8px -8px 16px var(--neu-shadow-light),
+    inset 1px 1px 2px var(--neu-shadow-light);
+  transform: translateY(0);
+}
+
+/* Large - כרטיסים גדולים, מודלים */
+.neu-raised-lg {
+  box-shadow: 20px 20px 40px var(--neu-shadow-dark),
+    -20px -20px 40px var(--neu-shadow-light),
+    inset 2px 2px 4px var(--neu-shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-raised-lg:hover {
+  box-shadow: 24px 24px 48px var(--neu-shadow-dark),
+    -24px -24px 48px var(--neu-shadow-light),
+    inset 2px 2px 5px var(--neu-shadow-light);
+  transform: translateY(-3px);
+}
+
+.neu-raised-lg:active {
+  box-shadow: 16px 16px 32px var(--neu-shadow-dark),
+    -16px -16px 32px var(--neu-shadow-light),
+    inset 2px 2px 4px var(--neu-shadow-light);
+  transform: translateY(0);
+}
+
+/* ========================================
+   2. FLAT RAISED (בולט שטוח) - בולט עדין
+   ======================================== */
+
+/* Small */
+.neu-flat-raised-sm {
+  box-shadow: 4px 4px 8px var(--neu-shadow-dark),
+    -4px -4px 8px var(--neu-shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-flat-raised-sm:hover {
+  box-shadow: 6px 6px 12px var(--neu-shadow-dark),
+    -6px -6px 12px var(--neu-shadow-light);
+  transform: translateY(-1px);
+}
+
+.neu-flat-raised-sm:active {
+  box-shadow: 2px 2px 4px var(--neu-shadow-dark),
+    -2px -2px 4px var(--neu-shadow-light);
+  transform: translateY(0);
+}
+
+/* Medium */
+.neu-flat-raised-md {
+  box-shadow: 8px 8px 16px var(--neu-shadow-dark),
+    -8px -8px 16px var(--neu-shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-flat-raised-md:hover {
+  box-shadow: 10px 10px 20px var(--neu-shadow-dark),
+    -10px -10px 20px var(--neu-shadow-light);
+  transform: translateY(-2px);
+}
+
+.neu-flat-raised-md:active {
+  box-shadow: 4px 4px 8px var(--neu-shadow-dark),
+    -4px -4px 8px var(--neu-shadow-light);
+  transform: translateY(0);
+}
+
+/* Large */
+.neu-flat-raised-lg {
+  box-shadow: 14px 14px 28px var(--neu-shadow-dark),
+    -14px -14px 28px var(--neu-shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-flat-raised-lg:hover {
+  box-shadow: 18px 18px 36px var(--neu-shadow-dark),
+    -18px -18px 36px var(--neu-shadow-light);
+  transform: translateY(-2px);
+}
+
+.neu-flat-raised-lg:active {
+  box-shadow: 10px 10px 20px var(--neu-shadow-dark),
+    -10px -10px 20px var(--neu-shadow-light);
+  transform: translateY(0);
+}
+
+/* ========================================
+   3. INSET (שקוע) - אלמנט שקוע לתוך המשטח
+   ======================================== */
+
+/* Small - אינפוטים קטנים */
+.neu-inset-sm {
+  box-shadow: inset 4px 4px 8px var(--neu-shadow-dark),
+    inset -4px -4px 8px var(--neu-shadow-light),
+    0.5px 0.5px 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-inset-sm:focus,
+.neu-inset-sm:hover {
+  box-shadow: inset 5px 5px 10px var(--neu-shadow-dark),
+    inset -5px -5px 10px var(--neu-shadow-light),
+    0.5px 0.5px 2px rgba(255, 255, 255, 0.15);
+}
+
+/* Medium - אינפוטים רגילים, קלפים שקועים */
+.neu-inset-md {
+  box-shadow: inset 8px 8px 16px var(--neu-shadow-dark),
+    inset -8px -8px 16px var(--neu-shadow-light),
+    1px 1px 2px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-inset-md:focus,
+.neu-inset-md:hover {
+  box-shadow: inset 10px 10px 20px var(--neu-shadow-dark),
+    inset -10px -10px 20px var(--neu-shadow-light),
+    1px 1px 3px rgba(255, 255, 255, 0.15);
+}
+
+/* Large - אזורי תוכן גדולים שקועים */
+.neu-inset-lg {
+  box-shadow: inset 12px 12px 24px var(--neu-shadow-dark),
+    inset -12px -12px 24px var(--neu-shadow-light),
+    2px 2px 4px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-inset-lg:focus,
+.neu-inset-lg:hover {
+  box-shadow: inset 14px 14px 28px var(--neu-shadow-dark),
+    inset -14px -14px 28px var(--neu-shadow-light),
+    2px 2px 5px rgba(255, 255, 255, 0.15);
+}
+
+/* ========================================
+   4. FLAT INSET (שקוע שטוח) - שקוע עדין
+   ======================================== */
+
+/* Small */
+.neu-flat-inset-sm {
+  box-shadow: inset 3px 3px 6px var(--neu-shadow-dark),
+    inset -3px -3px 6px var(--neu-shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-flat-inset-sm:focus,
+.neu-flat-inset-sm:hover {
+  box-shadow: inset 4px 4px 8px var(--neu-shadow-dark),
+    inset -4px -4px 8px var(--neu-shadow-light);
+}
+
+/* Medium */
+.neu-flat-inset-md {
+  box-shadow: inset 6px 6px 12px var(--neu-shadow-dark),
+    inset -6px -6px 12px var(--neu-shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-flat-inset-md:focus,
+.neu-flat-inset-md:hover {
+  box-shadow: inset 8px 8px 16px var(--neu-shadow-dark),
+    inset -8px -8px 16px var(--neu-shadow-light);
+}
+
+/* Large */
+.neu-flat-inset-lg {
+  box-shadow: inset 10px 10px 20px var(--neu-shadow-dark),
+    inset -10px -10px 20px var(--neu-shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-flat-inset-lg:focus,
+.neu-flat-inset-lg:hover {
+  box-shadow: inset 12px 12px 24px var(--neu-shadow-dark),
+    inset -12px -12px 24px var(--neu-shadow-light);
+}
+
+/* ========================================
+   UTILITY CLASSES - שימושים נוספים
+   ======================================== */
+
+/* ללא אפקט hover */
+.neu-no-hover:hover {
+  transform: none !important;
+}
+
+/* רקע neumorphic בסיסי */
+.neu-bg {
+  background-color: var(--neu-card);
+}
+
+/* צבע טקסט neumorphic */
+.neu-text {
+  color: var(--neu-text-primary);
+}
+
+/* צבע accent */
+.neu-accent-text {
+  color: var(--neu-accent);
+}
+
+/* דוגמאות שימוש:
+   
+   כפתור בולט קטן:
+   <button class="neu-raised-sm neu-bg rounded-lg px-4 py-2">לחץ כאן</button>
+   
+   כרטיס בולט בינוני:
+   <div class="neu-raised-md neu-bg rounded-2xl p-6">תוכן</div>
+   
+   אינפוט שקוע:
+   <input class="neu-inset-md neu-bg rounded-lg px-4 py-2" />
+   
+   קלף שקוע שטוח:
+   <div class="neu-flat-inset-lg neu-bg rounded-xl p-8">תוכן</div>
+*/
+
+/* ========================================
+   דוגמאות מיוחדות
+   ======================================== */
+
+/* כפתור זהב (בולט + צבע) */
+.neu-button-gold {
+  background: linear-gradient(
+    145deg,
+    var(--neu-accent-bright),
+    var(--neu-accent)
+  );
+  color: var(--on-accent);
+  font-weight: 600;
+}
+
+.neu-button-gold.neu-raised-md:hover {
+  background: linear-gradient(
+    145deg,
+    var(--neu-accent-light),
+    var(--neu-accent-bright)
+  );
+}
+
+/* איקון עגול */
+.neu-icon-circle {
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Toggle switch neumorphic */
+.neu-toggle {
+  background-color: var(--neu-card);
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+}
+
+.neu-toggle-knob {
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

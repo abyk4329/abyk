@@ -1,0 +1,68 @@
+.headerBar {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: var(--z-header, 140);
+  pointer-events: none;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.headerBar[data-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.inner {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+  padding-block-start: calc(env(safe-area-inset-top) + 0.75rem);
+  padding-block-end: 0.75rem;
+  min-height: calc(var(--header-height) + env(safe-area-inset-top));
+  background: transparent;
+  pointer-events: auto;
+  border: none;
+  box-shadow: none;
+}
+
+.controlsOnly {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  margin-inline: 0;
+  pointer-events: auto;
+  background: transparent;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.themeTrigger,
+.railTrigger {
+  pointer-events: auto;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.themeTrigger[data-hidden="true"],
+.railTrigger[data-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .inner {
+    padding-inline: clamp(0.75rem, 5vw, 1.5rem);
+    border-radius: 0 0 22px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    transition: none;
+  }
+}

@@ -1,8 +1,13 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { assistant } from "./fonts";
-import { AppShell } from "@/app/components/layout";
-import { NavigationRoot } from "@/app/lib/navigation";
+import {
+  AppShell,
+  DrawerProvider,
+  HeaderBar,
+  SideMenu,
+} from "@/app/components/layout";
+import { AuthProvider, NavigationRoot } from "@/app/components/providers";
 import { BRAND, SOCIAL, SURFACE } from "@/lib/constants";
 import { publicEnv } from "@/lib/env";
 
@@ -67,7 +72,11 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="he"
@@ -78,18 +87,44 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head>
         {/* Fullscreen & Safe-Area immersion */}
-        <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1,viewport-fit=cover"
+        />
+        {/* Prevent iOS from auto-detecting and formatting phone numbers, emails, etc. to avoid hydration mismatches */}
+        <meta
+          name="format-detection"
+          content="telephone=no, date=no, email=no, address=no"
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
         <meta name="apple-mobile-web-app-title" content="ABYK" />
-  {/* iOS notch safe-area background color */}
-        <meta name="background-color" content={SURFACE.header} />
+        {/* 
+          Note: Safe-area background colors are handled via:
+          1. The themeColor in viewport export (for status bar)
+          2. CSS environment variables in globals.css (for safe areas)
+          The non-standard "background-color" meta tag has been removed.
+        */}
       </head>
-      <body className={[assistant.className, "page-bg text-foreground antialiased"].join(" ")}>
-        <NavigationRoot>
-          <AppShell>{children}</AppShell>
-        </NavigationRoot>
+      <body
+        className={[
+          assistant.className,
+          "page-bg text-foreground antialiased",
+        ].join(" ")}
+      >
+        <AuthProvider>
+          <DrawerProvider>
+            <HeaderBar />
+            <SideMenu />
+            <NavigationRoot>
+              <AppShell>{children}</AppShell>
+            </NavigationRoot>
+          </DrawerProvider>
+        </AuthProvider>
       </body>
     </html>
   );

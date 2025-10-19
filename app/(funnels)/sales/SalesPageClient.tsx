@@ -1,28 +1,17 @@
 "use client";
 
-import { useMemo } from "react";
-
-import { NavigationProvider } from "@/app/lib/navigation";
 import { SalesPage as SalesSection } from "@/features/wealth-code/components";
+
+import { FunnelPage } from "../_components/FunnelPage";
 
 interface SalesPageClientProps {
   code?: string;
 }
 
 export function SalesPageClient({ code }: SalesPageClientProps) {
-  const navigationOverrides = useMemo(
-    () => ({
-      isVisible: false,
-      showHeader: false,
-      showFooter: false,
-      lockScroll: false,
-    }),
-    []
-  );
-
   return (
-    <NavigationProvider value={navigationOverrides}>
+    <FunnelPage maxWidth="lg">
       <SalesSection code={code ?? ""} />
-    </NavigationProvider>
+    </FunnelPage>
   );
 }

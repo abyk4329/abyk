@@ -8,7 +8,7 @@
   position: relative;
   border-radius: 28px;
   padding: 1.2rem 2.5rem;
-  background: linear-gradient(145deg, #fdfcfb, #f5f1ed);
+  background-color: var(--neu-card);
   box-shadow: inset 8px 8px 16px rgba(159, 133, 114, 0.12),
     inset -8px -8px 16px rgba(255, 255, 255, 0.92),
     2px 2px 4px rgba(255, 255, 255, 0.6),

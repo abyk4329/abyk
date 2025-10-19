@@ -1,7 +1,7 @@
 "use client";
 
-import { DesignShowcase } from "@/design-system/components/DesignShowcase";
 import { redirect } from "next/navigation";
+import { DesignShowcase } from "@/components/sections/DesignShowcase";
 
 export default function DesignPage() {
   // Block access in production

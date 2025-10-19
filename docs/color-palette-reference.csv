@@ -1,0 +1,22 @@
+מצב,שם הטוקן,HEX,שימוש
+בהיר,--neu-base,#f5f5f5,רקע עמוד כללי
+בהיר,--neu-card,#f5f5f5,כרטיסיות ותיבות תוכן
+בהיר,--neu-text-primary,#5e4934,טקסט ראשי וכותרות
+בהיר,--neu-text-secondary,#75614c,טקסט משני ופסקאות
+בהיר,--neu-text-tertiary,#9f8572,תוויות מודגשות קלות
+בהיר,--neu-accent,#a87f58,כפתורים ראשיים וקישורי CTA
+בהיר,--neu-accent-light,#b9a695,היילייטים וטבעות פוקוס
+בהיר,--neu-accent-dark,#6e563f,מצבי hover לכפתורים
+בהיר,--neu-cta-press,#8a6b4f,מצב לחיצה פעיל
+בהיר,--destructive,#d4183d,פעולות הרס ואזהרות
+כהה,--neu-base,#2d3436,רקע עמוד כללי
+כהה,--neu-card,#2d3436,כרטיסיות ותיבות תוכן
+כהה,--neu-text-primary,#e8dfd5,טקסט ראשי וכותרות
+כהה,--neu-text-secondary,#d4c9be,טקסט משני ופסקאות
+כהה,--neu-text-tertiary,#c9a882,תוויות מודגשות קלות
+כהה,--neu-accent,#c9a882,כפתורים ראשיים וקישורי CTA
+כהה,--neu-accent-light,#e5b885,היילייטים וטבעות פוקוס
+כהה,--neu-accent-dark,#8a6b4f,מצבי hover לכפתורים
+כהה,--neu-accent-bright,#d4a574,הדגשות משניות
+כהה,--destructive,#f25f77,פעולות הרס ואזהרות
+כהה,--status-bar-dark,#0c1012,שכבות עליונות ותוספי עומק

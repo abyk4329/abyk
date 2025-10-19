@@ -1,11 +1,14 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
-import { GlassButton } from "@/app/components/shared/GlassButton";
-import { CardStack, NeuroCard } from "@/features/wealth-code/components/shared";
-import styles from "./SalesPage.module.css";
+
+import { PageShell } from "@/app/components/layout";
+import { Stack } from "@/app/components/shared";
+import { Button, Card } from "@/components/neu";
 import { PAYMENT } from "@/lib/constants";
 import { routes } from "@/lib/routes";
+import { cn } from "@/lib/utils";
+import styles from "./SalesPage.module.css";
 
 interface SalesPageProps {
   code: string;
@@ -106,100 +109,76 @@ export function SalesPage({ code }: SalesPageProps) {
   }, [sanitizedCode]);
 
   return (
-    <section className={["hero-shell", styles.salesShell].join(" ")}>
-      <div className={styles.blurField} aria-hidden="true" />
-      <div className={styles.contentLayer}>
-        <CardStack className={styles.cardStack}>
-          <NeuroCard variant="main" className={styles.salesCard} interactive>
-            <header className={styles.cardHeader}>
-              <h2 className={styles.sectionHeading}>
-                להבין את הקוד – להבין את עצמך
-              </h2>
-            </header>
-            <div className={styles.cardBody}>
-              <p className={styles.bodyText}>
-                המספרים בקוד אינם צירוף מקרי. הם משקפים דפוסים עמוקים המניעים
-                אותך לאורך חייך. כשאתה מזהה דפוסים אלה, אתה מתחיל לפעול ממקום של
-                מודעות, ולא מתוך תגובתיות אוטומטית. זוהי נקודת המפנה שבה השליטה
-                על חייך חוזרת לידיך.
-              </p>
-              <p className={styles.bodyText}>
-                מטרת העבודה עם הקוד היא לחיות חיים מודעים, שבהם כל פעולה הופכת
-                מתגובה לא-מודעת לבחירה מכוונת. הבנה זו מבהירה שאין כוח חיצוני
-                המעכב את התקדמותך, אלא תבניות פנימיות שאתה עצמך יוצר. מתוך תובנה
-                זו, הכוח שב אליך: כל אתגר הופך להזדמנות ללמידה, וכל צעד – גם אם
-                אינו מושלם – הופך לחלק ממסע צמיחה מודע ומשמעותי.
-              </p>
-            </div>
-          </NeuroCard>
+    <PageShell
+      heading="הפירוש"
+      accent="המלא"
+      subtitle="להבין לעומק את קוד העושר האישי שלך"
+      maxWidth="lg"
+      contentSpacing="tight"
+    >
+      <Stack className={styles.stack}>
+        <Card className={styles.panel}>
+          <Stack tight className={styles.panelStack}>
+            <h2 className={styles.panelTitle}>להבין את הקוד – להבין את עצמך</h2>
+            <p className={styles.panelText}>
+              המספרים בקוד אינם צירוף מקרי. הם משקפים דפוסים עמוקים המניעים אותך
+              לאורך חייך. כשאתה מזהה דפוסים אלה, אתה מתחיל לפעול ממקום של
+              מודעות, ולא מתוך תגובתיות אוטומטית. זוהי נקודת המפנה שבה השליטה על
+              חייך חוזרת לידיך.
+            </p>
+            <p className={styles.panelText}>
+              מטרת העבודה עם הקוד היא לחיות חיים מודעים, שבהם כל פעולה הופכת
+              מתגובה לא-מודעת לבחירה מכוונת. הבנה זו מבהירה שאין כוח חיצוני
+              המעכב את התקדמותך, אלא תבניות פנימיות שאתה עצמך יוצר. מתוך תובנה
+              זו, הכוח שב אליך: כל אתגר הופך להזדמנות ללמידה, וכל צעד – גם אם
+              אינו מושלם – הופך לחלק ממסע צמיחה מודע ומשמעותי.
+            </p>
+          </Stack>
+        </Card>
 
-          <NeuroCard
-            variant="secondary"
-            className={styles.salesCard}
-            interactive
-          >
-            <header className={styles.cardHeader}>
-              <h2 className={styles.sectionHeading}>
-                הפירוש המלא – כל מה שמחכה לכם בפנים
-              </h2>
-            </header>
-            <div className={styles.cardBody}>
-              <p className={styles.bodyText}>
-                ניתוח מעמיק של {digitsDescription} הכולל:
-              </p>
-              <ul className={styles.detailHighlights}>
-                {DETAIL_HIGHLIGHTS.map((item) => (
-                  <li key={item} className={styles.detailItem}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p className={styles.bodyText}>
-                בנוסף, תמצאו בו הסבר על משמעות הספרות החוזרות או השונות בקוד,
-                לצד הדרכה ברורה כיצד לשלב את הקוד בחיי היומיום.
-              </p>
-            </div>
-          </NeuroCard>
+        <Card className={styles.panel}>
+          <Stack tight className={styles.panelStack}>
+            <h2 className={styles.panelTitle}>
+              הפירוש המלא – כל מה שמחכה לכם בפנים
+            </h2>
+            <p className={styles.panelText}>
+              ניתוח מעמיק של {digitsDescription} הכולל:
+            </p>
+            <ul className={styles.detailList}>
+              {DETAIL_HIGHLIGHTS.map((item) => (
+                <li key={item} className={styles.detailItem}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className={styles.panelText}>
+              בנוסף, תמצאו בו הסבר על משמעות הספרות החוזרות או השונות בקוד, לצד
+              הדרכה ברורה כיצד לשלב את הקוד בחיי היומיום.
+            </p>
+          </Stack>
+        </Card>
 
-          <NeuroCard
-            variant="cta"
-            className={[styles.salesCard, styles.ctaCard].join(" ")}
-            interactive
-          >
-            <header className={styles.cardHeader}>
-              <h2 className={styles.sectionHeading}>
-                הגיע הזמן לגלות מה מספרים מספרים עליך
-              </h2>
-            </header>
-            <div className={styles.cardBody}>
-              <p className={styles.bodyText}>
-                הפירוש המלא של הקוד מעניק מפתח להבנת הדינמיקות הפנימיות המעצבות
-                את חייך. באמצעותו ניתן לזהות את מקורות הדפוסים החוזרים, להבין
-                כיצד להשתחרר ממעגלי סבל מתמשכים, ולפתח פרספקטיבה חדשה על האתגרים
-                וההזדמנויות הפתוחות בפניך.
-              </p>
-              <div className={styles.ctaPanel}>
-                <p className={styles.priceHeading}>עלות הפירוש המלא: ₪36.90</p>
-                <p className={styles.captionText}>
-                  לקבלת גישה מיידית לפירוש שלך
-                </p>
-                <div className={styles.actions}>
-                  <GlassButton
-                    className={[
-                      styles.actionButton,
-                      styles.purchaseButton,
-                    ].join(" ")}
-                    textClassName={styles.purchaseButtonLabel}
-                    onClick={handlePurchase}
-                  >
-                    מעבר לרכישה
-                  </GlassButton>
-                </div>
-              </div>
+        <Card className={cn(styles.panel, styles.ctaPanel)}>
+          <Stack tight className={styles.panelStack}>
+            <h2 className={styles.panelTitle}>
+              הגיע הזמן לגלות מה מספרים מספרים עליך
+            </h2>
+            <p className={styles.panelText}>
+              הפירוש המלא של הקוד מעניק מפתח להבנת הדינמיקות הפנימיות המעצבות את
+              חייך. באמצעותו ניתן לזהות את מקורות הדפוסים החוזרים, להבין כיצד
+              להשתחרר ממעגלי סבל מתמשכים, ולפתח פרספקטיבה חדשה על האתגרים
+              וההזדמנויות הפתוחות בפניך.
+            </p>
+            <div className={styles.purchasePanel}>
+              <p className={styles.price}>עלות הפירוש המלא: ₪36.90</p>
+              <p className={styles.caption}>קבלו גישה מיידית לפירוש שלכם</p>
+              <Button onClick={handlePurchase} className={styles.ctaButton}>
+                מעבר לרכישה
+              </Button>
             </div>
-          </NeuroCard>
-        </CardStack>
-      </div>
-    </section>
+          </Stack>
+        </Card>
+      </Stack>
+    </PageShell>
   );
 }

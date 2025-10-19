@@ -1,0 +1,84 @@
+"use client";
+
+import { useCallback } from "react";
+import { ChevronsDown, Lightbulb } from "lucide-react";
+
+import { ICON_STROKE } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+
+import { IconButton } from "@/components/neu";
+import styles from "./HeaderBar.module.css";
+import { useDrawer } from "./DrawerProvider";
+import { useThemePreference } from "./useThemePreference";
+
+export function HeaderBar() {
+  const { open, railOpen, openRail, closeRail } = useDrawer();
+  const drawerOpen = open;
+  const anyMenuOpen = open || railOpen;
+  const { mode: themeMode, toggleTheme } = useThemePreference();
+
+  const quickLabel = "פתיחת תפריט מהיר";
+  const themeLabel = themeMode === "dark" ? "מעבר למצב בהיר" : "מעבר למצב כהה";
+
+  const handleToggleRail = useCallback(() => {
+    if (railOpen) {
+      closeRail();
+      return;
+    }
+
+    openRail();
+  }, [railOpen, closeRail, openRail]);
+
+  return (
+    <header
+      className={styles.headerBar}
+      role="banner"
+      data-hidden={anyMenuOpen}
+      data-cookie-element="header"
+    >
+      <div
+        className={cn(
+          styles.inner,
+          styles.controlsOnly,
+          "header-only-controls"
+        )}
+      >
+        <IconButton
+          aria-label={quickLabel}
+          title={quickLabel}
+          onClick={handleToggleRail}
+          size="md"
+          className={cn(styles.railTrigger, "rail-trigger")}
+          style={{ borderRadius: "50%" }}
+          data-rail-trigger="true"
+          data-hidden={anyMenuOpen}
+          aria-haspopup="dialog"
+          aria-expanded={railOpen}
+        >
+          <ChevronsDown
+            strokeWidth={ICON_STROKE.default}
+            className="h-7 w-7"
+            aria-hidden="true"
+          />
+        </IconButton>
+
+        <IconButton
+          aria-label={themeLabel}
+          title={themeLabel}
+          onClick={toggleTheme}
+          size="md"
+          className={cn(styles.themeTrigger, "theme-trigger")}
+          style={{ borderRadius: "50%" }}
+          data-hidden={anyMenuOpen}
+          aria-pressed={themeMode === "dark"}
+        >
+          <Lightbulb
+            strokeWidth={ICON_STROKE.default}
+            className="h-6 w-6"
+            aria-hidden="true"
+          />
+        </IconButton>
+      </div>
+    </header>
+  );
+}

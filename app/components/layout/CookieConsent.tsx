@@ -6,14 +6,16 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GlassButton } from "@/app/components/shared/GlassButton";
-import { routes } from "@/lib/routes";
+import { Cookie } from "lucide-react";
+import { Button } from "@/components/neu";
+import { ICON_STROKE, WEALTH_BASE } from "@/lib/constants";
 
 import styles from "./CookieConsent.module.css";
 
@@ -22,6 +24,31 @@ const LEGACY_KEY = "abyk-cookie-consent";
 const CONSENT_VERSION = 2;
 const COOKIE_KEY = "abyk_cookie_consent_v2";
 const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365; // 12 חודשים
+
+function normalizePathValue(value?: string | null): string | undefined {
+  if (value == null) {
+    return undefined;
+  }
+
+  if (value === "" || value === "/") {
+    return "/";
+  }
+
+  const sanitized = value.replace(/\/+/g, "/");
+  const trimmed =
+    sanitized.endsWith("/") && sanitized !== "/"
+      ? sanitized.slice(0, -1)
+      : sanitized;
+  return trimmed || "/";
+}
+
+const basePrefix = (() => {
+  const normalized = normalizePathValue(WEALTH_BASE);
+  if (!normalized || normalized === "/") {
+    return "";
+  }
+  return normalized;
+})();
 
 export type ConsentCategory =
   | "essential"
@@ -53,11 +80,11 @@ interface CookieConsentContextValue {
 }
 
 const focusableSelectors = [
-  'a[href]',
-  'button:not([disabled])',
-  'input:not([disabled])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
   '[tabindex]:not([tabindex="-1"])',
 ].join(",");
 
@@ -73,19 +100,23 @@ const defaultPreferences: ConsentPreferences = {
   updatedAt: new Date(0).toISOString(),
 };
 
-const CookieConsentContext = createContext<CookieConsentContextValue | undefined>(
-  undefined,
-);
+const CookieConsentContext = createContext<
+  CookieConsentContextValue | undefined
+>(undefined);
 
 export function useCookieConsent(): CookieConsentContextValue {
   const ctx = useContext(CookieConsentContext);
   if (!ctx) {
-    throw new Error("useCookieConsent must be used within CookieConsentProvider");
+    throw new Error(
+      "useCookieConsent must be used within CookieConsentProvider"
+    );
   }
   return ctx;
 }
 
-function ensureEssentialTrue(categories: Partial<ConsentCategories> | undefined) {
+function ensureEssentialTrue(
+  categories: Partial<ConsentCategories> | undefined
+) {
   return {
     essential: true,
     statistics: Boolean(categories?.statistics),
@@ -95,7 +126,11 @@ function ensureEssentialTrue(categories: Partial<ConsentCategories> | undefined)
 }
 
 function computeStatus(categories: ConsentCategories): ConsentStatus {
-  const flags = [categories.statistics, categories.marketing, categories.personalization];
+  const flags = [
+    categories.statistics,
+    categories.marketing,
+    categories.personalization,
+  ];
   if (flags.every(Boolean)) {
     return "granted";
   }
@@ -106,7 +141,7 @@ function computeStatus(categories: ConsentCategories): ConsentStatus {
 }
 
 function normalizePreferences(
-  preferences: Partial<ConsentPreferences> | null,
+  preferences: Partial<ConsentPreferences> | null
 ): ConsentPreferences {
   if (!preferences) {
     return { ...defaultPreferences };
@@ -114,9 +149,7 @@ function normalizePreferences(
 
   const categories = ensureEssentialTrue(preferences.categories);
   const status =
-    preferences.status === "pending"
-      ? "pending"
-      : computeStatus(categories);
+    preferences.status === "pending" ? "pending" : computeStatus(categories);
 
   return {
     version: CONSENT_VERSION,
@@ -126,7 +159,10 @@ function normalizePreferences(
   };
 }
 
-function arePreferencesEqual(a: ConsentPreferences, b: ConsentPreferences): boolean {
+function arePreferencesEqual(
+  a: ConsentPreferences,
+  b: ConsentPreferences
+): boolean {
   return (
     a.status === b.status &&
     a.categories.essential === b.categories.essential &&
@@ -142,7 +178,7 @@ function readPreferencesFromCookie(): ConsentPreferences | null {
   }
 
   const cookieMatch = document.cookie.match(
-    new RegExp(`(?:^|;\\s*)${COOKIE_KEY}=([^;]*)`),
+    new RegExp(`(?:^|;\\s*)${COOKIE_KEY}=([^;]*)`)
   );
 
   if (!cookieMatch) {
@@ -150,9 +186,9 @@ function readPreferencesFromCookie(): ConsentPreferences | null {
   }
 
   try {
-    const parsed = JSON.parse(decodeURIComponent(cookieMatch[1])) as
-      | Partial<ConsentPreferences>
-      | null;
+    const parsed = JSON.parse(
+      decodeURIComponent(cookieMatch[1])
+    ) as Partial<ConsentPreferences> | null;
     if (!parsed || parsed.version !== CONSENT_VERSION) {
       return null;
     }
@@ -175,7 +211,10 @@ function persistPreferencesToLocalStorage(preferences: ConsentPreferences) {
     });
     window.localStorage.setItem(STORAGE_KEY, payload);
   } catch (error) {
-    console.warn("CookieConsent: Failed to persist preferences to localStorage", error);
+    console.warn(
+      "CookieConsent: Failed to persist preferences to localStorage",
+      error
+    );
   }
 }
 
@@ -189,11 +228,14 @@ function persistPreferencesToCookie(preferences: ConsentPreferences) {
       JSON.stringify({
         ...preferences,
         updatedAt: new Date().toISOString(),
-      }),
+      })
     );
     document.cookie = `${COOKIE_KEY}=${payload};path=/;max-age=${COOKIE_MAX_AGE_SECONDS};SameSite=Lax;Secure`;
   } catch (error) {
-    console.warn("CookieConsent: Failed to persist preferences to cookie", error);
+    console.warn(
+      "CookieConsent: Failed to persist preferences to cookie",
+      error
+    );
   }
 }
 
@@ -290,7 +332,10 @@ function loadPreferencesFromStorage(): ConsentPreferences {
   }
 
   if (cookiePreferences) {
-    if (!storedPreferences || !arePreferencesEqual(storedPreferences, cookiePreferences)) {
+    if (
+      !storedPreferences ||
+      !arePreferencesEqual(storedPreferences, cookiePreferences)
+    ) {
       persistPreferencesToLocalStorage(cookiePreferences);
     }
     return cookiePreferences;
@@ -317,7 +362,9 @@ interface CookieConsentProviderProps {
   children: ReactNode;
 }
 
-export function CookieConsentProvider({ children }: CookieConsentProviderProps) {
+export function CookieConsentProvider({
+  children,
+}: CookieConsentProviderProps) {
   const [preferences, setPreferences] = useState<ConsentPreferences>({
     ...defaultPreferences,
   });
@@ -341,7 +388,7 @@ export function CookieConsentProvider({ children }: CookieConsentProviderProps) 
         wasBannerVisibleRef.current = false;
       }
     },
-    [],
+    []
   );
 
   const acceptAll = useCallback(() => {
@@ -357,7 +404,7 @@ export function CookieConsentProvider({ children }: CookieConsentProviderProps) 
         },
         updatedAt: new Date().toISOString(),
       },
-      { hideBanner: true },
+      { hideBanner: true }
     );
     setSettingsOpen(false);
   }, [updatePreferences]);
@@ -375,13 +422,14 @@ export function CookieConsentProvider({ children }: CookieConsentProviderProps) 
         },
         updatedAt: new Date().toISOString(),
       },
-      { hideBanner: true },
+      { hideBanner: true }
     );
     setSettingsOpen(false);
   }, [updatePreferences]);
 
   const openSettings = useCallback(() => {
-    wasBannerVisibleRef.current = isBannerVisible || preferences.status === "pending";
+    wasBannerVisibleRef.current =
+      isBannerVisible || preferences.status === "pending";
     setSettingsOpen(true);
     setBannerVisible(false);
   }, [isBannerVisible, preferences.status]);
@@ -404,11 +452,11 @@ export function CookieConsentProvider({ children }: CookieConsentProviderProps) 
           categories: normalizedCategories,
           updatedAt: new Date().toISOString(),
         },
-        { hideBanner: true },
+        { hideBanner: true }
       );
       setSettingsOpen(false);
     },
-    [updatePreferences],
+    [updatePreferences]
   );
 
   const contextValue = useMemo(
@@ -431,7 +479,7 @@ export function CookieConsentProvider({ children }: CookieConsentProviderProps) 
       openSettings,
       closeSettings,
       saveSettings,
-    ],
+    ]
   );
 
   return (
@@ -443,95 +491,162 @@ export function CookieConsentProvider({ children }: CookieConsentProviderProps) 
   );
 }
 
-interface ConsentBannerButtonProps {
-  onClick: () => void;
-  children: ReactNode;
-}
-
-function SecondaryButton({ onClick, children }: ConsentBannerButtonProps) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={styles.ghostButton}
-    >
-      {children}
-    </button>
-  );
-}
-
-function LinkButton({ onClick, children }: ConsentBannerButtonProps) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={styles.linkButton}
-    >
-      {children}
-    </button>
-  );
-}
-
 function ConsentBanner() {
-  const { isBannerVisible, acceptAll, rejectAll, openSettings } = useCookieConsent();
+  const { isBannerVisible, acceptAll, rejectAll } = useCookieConsent();
   const pathname = usePathname();
-  const isHomeRoute = pathname === routes.home;
+
+  const homePaths = useMemo(() => {
+    const set = new Set<string>();
+    set.add("/");
+    if (basePrefix) {
+      set.add(basePrefix);
+    }
+    return set;
+  }, []);
+
+  const normalizedPath = useMemo(
+    () => normalizePathValue(pathname) ?? "/",
+    [pathname]
+  );
+  const isHomePath = homePaths.has(normalizedPath);
+
+  useEffect(() => {
+    if (!isBannerVisible) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        rejectAll();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isBannerVisible, rejectAll]);
+
+  useLayoutEffect(() => {
+    if (typeof document === "undefined") {
+      return;
+    }
+
+    const root = document.documentElement;
+
+    if (isBannerVisible && isHomePath) {
+      root.setAttribute("data-cookie-banner", "home");
+    } else if (root.getAttribute("data-cookie-banner") === "home") {
+      root.removeAttribute("data-cookie-banner");
+    }
+
+    return () => {
+      if (root.getAttribute("data-cookie-banner") === "home") {
+        root.removeAttribute("data-cookie-banner");
+      }
+    };
+  }, [isBannerVisible, isHomePath]);
 
   if (!isBannerVisible) {
     return null;
   }
 
-  // We force banner to attach to top on all pages; on home we can optionally center below header (hero) by using margin-top if needed.
-  // Reason footer overlap: previous wrapper used relative stacking context and only appeared after scroll because layout height pushed it below fold.
-  // Solution: always fixed top with full width, internal max-width for card; optional overlay only on home.
   return (
-    <div
-      className={[
-        "fixed top-0 inset-x-0 z-[120] flex justify-center px-4 sm:px-6 pt-4 sm:pt-6",
-        isHomeRoute ? styles.homeOverlay : styles.topBannerWrapper,
-      ].join(" ")}
-      aria-live="polite"
-      role="region"
-      aria-label="הודעת שימוש בקוקיז"
-    >
+    <>
       <div
-        className={[
-          "w-full max-w-3xl rounded-[28px] border-0 px-6 py-5 text-center text-sm sm:text-base shadow-lg",
-          styles.card,
-          !isHomeRoute ? styles.cardTopAttached : ""
-        ].join(" ")}
+        className={styles.bannerOverlay}
+        data-modal-backdrop="true"
+        aria-hidden="true"
+        onClick={rejectAll}
+      />
+
+      <div
+        className={styles.bannerContainer}
+        data-modal="true"
+        aria-live="polite"
+        role="dialog"
+        aria-label="הודעת שימוש בקוקיז"
+        aria-modal="true"
       >
-        <h2 className={["mb-3 text-base font-semibold sm:text-lg", styles.title].join(" ")}>
-          אני משתמשת בקובצי קוקיז באתר שלי
-        </h2>
-        <p className="mx-auto mb-4 max-w-2xl text-xs leading-snug text-[#473b31] sm:text-sm">
-          כדי להעניק לכם חוויית גלישה מדויקת ונוחה, אני נעזרת בקובצי קוקיז לאיסוף נתונים סטטיסטיים, להתאמת תוכן אישי ולמדידת אפקטיביות של הפעילות שלי (כולל TikTok Pixel). בלחיצה על &quot;מאשר/ת&quot; אתם מסכימים לשימוש הזה בהתאם למדיניות הפרטיות ותנאי השימוש. המידע נשאר אצלי בלבד ומיועד לשיפור מתמשך של האתר.
-        </p>
-        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <GlassButton onClick={acceptAll} className="w-full sm:w-auto">
-            מאשר/ת
-          </GlassButton>
-          <SecondaryButton onClick={rejectAll}>לא מאשר/ת</SecondaryButton>
-          <LinkButton onClick={openSettings}>ניהול הגדרות</LinkButton>
-        </div>
-        <div className="mt-3 text-xs text-[#9f8572]">
-          <Link href="/terms" className="underline underline-offset-2">
-            קראו את תנאי השימוש ומדיניות הפרטיות
-          </Link>
+        <div className={styles.bannerInner}>
+          <div className={`${styles.card} ${styles.bannerCard}`}>
+            {/* Close Button */}
+            <button
+              onClick={rejectAll}
+              className={styles.bannerClose}
+              aria-label="סגור"
+            >
+              <svg
+                strokeWidth={ICON_STROKE.default}
+                className={styles.bannerCloseIcon}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            <div className={styles.bannerContentWrapper}>
+              <div className={styles.bannerRow}>
+                {/* Icon */}
+                <div className={styles.bannerIconBox}>
+                  <Cookie
+                    aria-hidden="true"
+                    strokeWidth={0.8}
+                    className={styles.bannerIcon}
+                  />
+                </div>
+
+                {/* Text Content */}
+                <div className={styles.bannerTextWrap}>
+                  <p className={styles.bannerText}>
+                    אני משתמשת בקוקיז כדי לשפר את חווית הגלישה שלכם. המשך גלישה
+                    באתר מהווה הסכמה לשימוש בקוקיז.
+                  </p>
+                </div>
+
+                {/* Accept Button - Primary Style */}
+                <Button
+                  onClick={acceptAll}
+                  variant="primary"
+                  className={styles.acceptButton}
+                >
+                  הבנתי
+                </Button>
+              </div>
+
+              {/* Privacy Link */}
+              <Link href="/terms" className={styles.bannerLink}>
+                תנאי שימוש ומדיניות פרטיות
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
-const CATEGORY_CONTENT: Record<NonEssentialCategory, { title: string; description: string }> = {
+const CATEGORY_CONTENT: Record<
+  NonEssentialCategory,
+  { title: string; description: string }
+> = {
   statistics: {
     title: "סטטיסטיקה",
-    description: "עוזר לי להבין איך אתם משתמשים באתר וכיצד לשפר את חוויית הגלישה.",
+    description:
+      "עוזר לי להבין איך אתם משתמשים באתר וכיצד לשפר את חוויית הגלישה.",
   },
   marketing: {
     title: "שיווק (כולל TikTok Pixel)",
-    description: "מסייע לי למדוד קמפיינים ולהתאים מסרים שיווקיים לרגע הנכון עבורכם.",
+    description:
+      "מסייע לי למדוד קמפיינים ולהתאים מסרים שיווקיים לרגע הנכון עבורכם.",
   },
   personalization: {
     title: "התאמה אישית",
@@ -567,7 +682,7 @@ function CookieSettingsModal() {
     }
 
     const focusable = Array.from(
-      modalNode.querySelectorAll<HTMLElement>(focusableSelectors),
+      modalNode.querySelectorAll<HTMLElement>(focusableSelectors)
     ).filter((element) => element.offsetParent !== null);
 
     focusable[0]?.focus();
@@ -622,23 +737,32 @@ function CookieSettingsModal() {
 
   return (
     <div className={styles.modalPortal} role="presentation">
-      <div className={styles.backdrop} aria-hidden="true" onClick={closeSettings} />
+      <div
+        className={styles.backdrop}
+        data-modal-backdrop="true"
+        aria-hidden="true"
+        onClick={closeSettings}
+      />
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="cookie-settings-title"
         aria-describedby="cookie-settings-description"
+        data-modal="true"
         className={styles.modal}
         ref={modalRef}
       >
         <div className={styles.modalHeader}>
           <h2 id="cookie-settings-title">העדפות הקוקיז שלכם</h2>
           <p id="cookie-settings-description">
-            בחרו אילו סוגי קובצי קוקיז תרצו שאפעיל עבורכם. את הקוקיז החיוניים אני משאירה פעילים תמיד כדי שהאתר יעבוד כמו שצריך.
+            בחרו אילו סוגי קובצי קוקיז תרצו שאפעיל עבורכם. את הקוקיז החיוניים
+            אני משאירה פעילים תמיד כדי שהאתר יעבוד כמו שצריך.
           </p>
         </div>
         <div className={styles.categoryList}>
-          <div className={[styles.categoryItem, styles.categoryLocked].join(" ")}>
+          <div
+            className={[styles.categoryItem, styles.categoryLocked].join(" ")}
+          >
             <div>
               <span className={styles.categoryTitle}>חיוניים</span>
               <p className={styles.categoryDescription}>
@@ -654,7 +778,9 @@ function CookieSettingsModal() {
               <label key={categoryKey} className={styles.categoryItem}>
                 <div>
                   <span className={styles.categoryTitle}>{value.title}</span>
-                  <p className={styles.categoryDescription}>{value.description}</p>
+                  <p className={styles.categoryDescription}>
+                    {value.description}
+                  </p>
                 </div>
                 <input
                   type="checkbox"
@@ -667,13 +793,21 @@ function CookieSettingsModal() {
           })}
         </div>
         <div className={styles.modalActions}>
-          <GlassButton onClick={handleSave} className={styles.saveButton}>
+          <Button onClick={handleSave} className={styles.saveButton}>
             שמור העדפות
-          </GlassButton>
-          <button type="button" onClick={rejectAll} className={styles.rejectButton}>
+          </Button>
+          <button
+            type="button"
+            onClick={rejectAll}
+            className={styles.rejectButton}
+          >
             לא מאשר/ת
           </button>
-          <button type="button" onClick={closeSettings} className={styles.closeButton}>
+          <button
+            type="button"
+            onClick={closeSettings}
+            className={styles.closeButton}
+          >
             ביטול
           </button>
         </div>
