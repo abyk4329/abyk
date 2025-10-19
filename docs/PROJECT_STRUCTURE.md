@@ -55,7 +55,7 @@ ABYK/
 
 תיקיית ה-app מכילה את כל ממשק המשתמש ואת ה-API routes של Next.js 15.
 
-```text
+```
 app/
 ├── 📁 (funnels)/                      # Route Group למשפך המרה
 │   ├── 📁 _components/                # קומפוננטות משותפות למשפך
@@ -115,67 +115,40 @@ app/
 ├── 📁 page.tsx                        # דף בית ראשי
 ├── 📁 reset.css                       # CSS reset
 ├── 📁 styles/                         # סגנונות נוספים
-├── 📁 theme.css                       # מערכת עיצוב (בהיר/כהה)
-└── 📁 tokens.css                      # טוקני עיצוב
+└── 📁 tokens.css                      # טוקני עיצוב (גיבוי)
+
+---
+
+## 📁 design/ - מערכת עיצוב מרכזית
+
+תיקיית design מכילה את כל מערכת העיצוב המאוחדת עם טוקנים, עיצובים וכלי עזר.
+
+```
+design/
+├── 📁 index.css                       # נקודת כניסה מאוחדת למערכת עיצוב
+├── 📁 tokens/                         # טוקני עיצוב בסיסיים
+│   ├── 📄 animations.css              # אנימציות ותנועה
+│   ├── 📄 shadows.css                 # צללים ועומק
+│   ├── 📄 tokens.css                  # צבעים, מרווחים, גודל
+│   └── 📄 typography.css              # טיפוגרפיה ופונטים
+├── 📁 themes/                         # עיצובים לפי מצב
+│   ├── 📄 dark.css                    # עיצוב כהה
+│   ├── 📄 light.css                   # עיצוב בהיר
+│   └── 📄 neumorphic.css              # עיצוב נאומורפי
+└── 📁 utils/                          # כלי עזר לעיצוב
+    ├── 📄 helpers.css                 # מחלקות עזר
+    └── 📄 transitions.css             # מעברים ואנימציות
 ```
 
 ---
 
-## 📁 lib/ - קוד משותף וכלים
 
-תיקיית lib מכילה קוד משותף שאינו תלוי בדומיין ספציפי.
-
-```text
-lib/
-├── 📁 auth/                           # אימות משתמשים
-├── 📁 core/                           # ליבה משותפת
-│   ├── 📁 email/                      # תבניות מייל בסיסיות
-│   │   ├── 📄 BaseEmailTemplate.ts    # תבנית מייל בסיסית
-│   │   └── 📄 styles.ts               # סגנונות מייל
-│   ├── 📄 branding.ts                 # הגדרות מותג
-│   ├── 📄 index.ts                    # יצוא מאוחד
-│   └── 📄 pdfConfig.ts                # קונפיגורציית PDF
-├── 📁 email/                          # שירותי מייל
-│   ├── 📄 transport.ts                # שכבת תחבורה למיילים
-│   └── 📄 wealth.ts                   # שירות מייל לקוד עושר
-├── 📁 generated/                      # קוד שנוצר אוטומטית
-├── 📁 neu-styles.ts                   # סגנונות נאומורפיים
-├── 📁 routes.ts                       # הגדרות נתיבים
-├── 📁 utils/                          # כלי עזר
-│   ├── 📄 base64.ts                   # עיבוד base64
-│   ├── 📄 cn.ts                       # חיבור classNames
-│   ├── 📄 file.ts                     # עבודה עם קבצים
-│   ├── 📄 format.ts                   # פורמטינג
-│   ├── 📄 theme.ts                    # ניהול עיצוב
-├── 📁 wealth-code/                    # פיצ'ר קוד עושר
-│   ├── 📁 data/                       # נתוני דומיין
-│   │   ├── 📄 codeStructures.ts       # מבני קוד
-│   │   ├── 📄 dailyApplication.ts     # יישום יומי
-│   │   └── 📄 digitInterpretations.ts # פרשנויות ספרות
-│   ├── 📁 email/                      # מיילים לפיצ'ר
-│   │   ├── 📄 template.ts             # תבנית מייל
-│   │   └── 📄 WealthEmail.ts          # מייל קוד עושר
-│   ├── 📁 pdf/                        # PDF לפיצ'ר
-│   │   └── 📄 WealthReport.tsx        # דוח PDF
-│   ├── 📁 utils/                      # כלים לפיצ'ר
-│   │   ├── 📄 email.ts                # שירות מייל
-│   │   ├── 📄 generate.ts             # יצירת תוכן
-│   │   ├── 📄 numerology.ts           # אלגוריתם נומרולוגיה
-│   │   └── 📄 share.ts                # שיתוף
-│   └── 📄 constants.ts                # קבועים לפיצ'ר
-├── 📄 constants.ts                    # קבועים גלובליים
-├── 📄 db.ts                           # חיבור לבסיס נתונים
-├── 📄 env.ts                          # משתני סביבה
-└── 📄 index.ts                        # יצוא מאוחד
-```
-
----
 
 ## 📁 docs/ - תיעוד מלא
 
 תיקיית docs מכילה את כל התיעוד של הפרויקט.
 
-```text
+```
 docs/
 ├── 📁 guides/                         # מדריכים מקצועיים
 │   ├── 📄 EMAIL-PDF-README.md         # מדריך Email/PDF
@@ -211,7 +184,7 @@ docs/
 
 תיקיית public מכילה קבצים סטטיים הנגישים בדפדפן.
 
-```text
+```
 public/
 ├── 📁 brand/                          # נכסי מותג
 │   ├── 📄 abyk-logo.png               # לוגו ראשי
@@ -246,7 +219,7 @@ public/
 תיקיית tests מכילה את כל הבדיקות האוטומטיות.
 
 ```
-```text
+```
 tests/
 └── 📁 e2e/                            # בדיקות End-to-End
     ├── 📄 smoke.spec.ts               # בדיקת עשן
@@ -255,26 +228,7 @@ tests/
 
 ---
 
-## 📁 prisma/ - סכמת בסיס נתונים
 
-```text
-prisma/
-└── 📄 schema.prisma                   # סכמת Prisma
-```
-```
-
----
-
-## 📁 prisma/ - סכמת בסיס נתונים
-
-תיקיית prisma מכילה את סכמת בסיס הנתונים.
-
-```
-prisma/
-└── 📄 schema.prisma                   # סכמת Prisma
-```
-
----
 
 ## 📄 קבצי קונפיגורציה (שורש)
 
@@ -318,11 +272,19 @@ prisma/
 - **חלוקה**: Route Groups לפי תחומים (funnels, legal)
 - **קומפוננטות**: נאומורפיות עם Tailwind CSS וטוקנים
 
+### 🎨 design/ - מערכת עיצוב מרכזית
+
+- **מטרה**: מקור אמת יחיד למערכת העיצוב כולה
+- **תוכן**: טוקנים, עיצובים, אנימציות, כלי עזר
+- **ארגון**: לפי סוג (tokens, themes, utils) עם נקודת כניסה מאוחדת
+- **שימוש**: מיובא ל-globals.css כמערכת עיצוב מלאה
+
 ### 🛠 lib/ - קוד משותף
 
 - **מטרה**: קוד עסקי משותף וכלי עזר
-- **תוכן**: שירותי מייל, PDF, נומרולוגיה, אימות
-- **ארגון**: לפי דומיין (wealth-code) או לפי פונקציונליות (utils, core)
+- **תוכן**: שירותי מייל, PDF, נומרולוגיה, אימות, אבטחה
+- **ארגון**: לפי שכבות (domain, services, utils) ופונקציונליות
+- **אבטחה**: קונפיגורציית headers, CSP, CORS מרוכזת
 
 ### 📚 docs/ - תיעוד
 
@@ -357,12 +319,15 @@ prisma/
 | `app/layout.tsx` | Layout ראשי עם Providers | UI |
 | `app/page.tsx` | דף בית ראשי | UI |
 | `app/globals.css` | CSS גלובלי + Tailwind | Styling |
-| `app/tokens.css` | טוקני עיצוב מרכזיים | Styling |
-| `app/theme.css` | מערכת עיצוב בהיר/כהה | Styling |
+| `design/index.css` | מערכת עיצוב מאוחדת | Styling |
+| `design/tokens/` | טוקני עיצוב בסיסיים | Styling |
+| `design/themes/` | עיצובים לפי מצב (בהיר/כהה/נאומורפי) | Styling |
+| `lib/domain/` | לוגיקה עסקית לפי דומיין | Business Logic |
+| `lib/services/` | שירותים חיצוניים | Business Logic |
+| `lib/security.config.ts` | קונפיגורציית אבטחה | Config |
 | `lib/constants.ts` | קבועים גלובליים | Config |
 | `lib/env.ts` | משתני סביבה | Config |
 | `lib/routes.ts` | הגדרות נתיבים | Config |
-| `lib/wealth-code/` | לוגיקת קוד עושר | Business Logic |
 | `app/api/send-email/` | API לשליחת מיילים | API |
 | `app/api/generate-pdf/` | API ליצירת PDF | API |
 | `app/api/webhooks/grow/` | Webhook לתשלומים | API |
