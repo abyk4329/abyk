@@ -38,7 +38,6 @@ app/                     # Next.js App Router (UI + API)
 ├── (marketing)/         # דפי נחיתה וקמפיינים
 ├── (funnels)/           # משפך המחשבון המלא
 ├── (legal)/             # מדיניות פרטיות ותנאים
-├── (labs)/              # ניסויים וכלי dev בלבד
 ├── api/                 # פונקציות שרת (PDF, email, webhooks)
 ├── components/          # קומפוננטות Layout, ניווט, UI משותף
 └── globals.css          # Tailwind + Neumorphism global
@@ -111,7 +110,6 @@ Sales Page
     ├── (marketing)/         # דפי נחיתה וקמפיינים
     ├── (funnels)/           # משפך המחשבון המלא
     ├── (legal)/             # עמודי מדיניות
-    ├── (labs)/              # ניסויים וכלי dev בלבד
     ├── api/                 # פונקציות שרת (generate-pdf, send-email, webhooks)
     ├── components/          # קומפוננטות Layout, ניווט ו-UI משותף
     └── globals.css          # Tailwind + Neumorphism Global

@@ -1,0 +1,116 @@
+/*
+  Typography Scale
+  ----------------
+  Dynamic font scaling based on golden ratio for natural rhythm.
+  Responsive clamp() functions ensure optimal readability across devices.
+*/
+
+:root {
+  /* Typography scale (ratio 1.333) */
+  --font-family-sans: var(
+    --font-assistant,
+    "Assistant",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif
+  );
+  --font-family-serif: var(--font-family-sans);
+  --font-family-display: var(--font-family-sans);
+  --type-scale-ratio: 1.333;
+
+  --font-size-base: clamp(1rem, 0.9rem + 0.8vw, 1.0625rem);
+  --font-size-step--2: clamp(
+    calc(var(--font-size-base) / 1.777),
+    calc(var(--font-size-base) / 1.9 + 0.1vw),
+    calc(var(--font-size-base) / 1.55)
+  );
+  --font-size-step--1: clamp(
+    calc(var(--font-size-base) / var(--type-scale-ratio)),
+    calc(var(--font-size-base) / 1.48 + 0.2vw),
+    calc(var(--font-size-base) / 1.18)
+  );
+  --font-size-step-0: var(--font-size-base);
+  --font-size-step-1: clamp(
+    calc(var(--font-size-base) * 1.15),
+    calc(var(--font-size-base) * 0.9 + 0.8vw),
+    calc(var(--font-size-base) * var(--type-scale-ratio))
+  );
+  --font-size-step-2: clamp(
+    calc(var(--font-size-base) * var(--type-scale-ratio)),
+    calc(var(--font-size-base) * 1.2 + 1.6vw),
+    calc(var(--font-size-base) * 1.777)
+  );
+  --font-size-step-3: clamp(
+    calc(var(--font-size-base) * 2.05),
+    calc(var(--font-size-base) * 1.6 + 2.8vw),
+    calc(var(--font-size-base) * 2.37)
+  );
+  --font-size-step-4: clamp(
+    calc(var(--font-size-base) * 2.75),
+    calc(var(--font-size-base) * 2 + 3.3vw),
+    calc(var(--font-size-base) * 3.16)
+  );
+
+  --font-size: var(--font-size-step-0);
+  --font-family: var(--font-family-sans);
+
+  --line-height-tight: 1.1;
+  --line-height-regular: 1.45;
+  --line-height-relaxed: 1.7;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi: 600;
+  --font-weight-bold: 700;
+
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-base: 0.02em;
+  --letter-spacing-wide: 0.08em;
+
+  /* Typography aliases for legacy variables */
+  --heading-h1-size: var(--font-size-step-4);
+  --heading-h2-size: var(--font-size-step-3);
+  --heading-h3-size: var(--font-size-step-2);
+  --heading-subtitle-size: clamp(
+    calc(var(--font-size-step-1) * 0.95),
+    calc(var(--font-size-step-1) + 0.6vw),
+    var(--font-size-step-2)
+  );
+  --heading-h1-weight: var(--font-weight-bold);
+  --heading-h2-weight: var(--font-weight-bold);
+  --heading-h3-weight: var(--font-weight-semi);
+  --heading-subtitle-weight: var(--font-weight-bold);
+  --heading-line-height-tight: var(--line-height-tight);
+  --heading-h1-line-height: var(--heading-line-height-tight);
+  --heading-h2-line-height: var(--heading-line-height-tight);
+  --heading-h3-line-height: var(--heading-line-height-tight);
+  --heading-subtitle-line-height: 1.24;
+  --heading-primary-color: var(--text-primary);
+
+  --paragraph-base-size: var(--font-size-step-0);
+  --paragraph-tight-size: var(--font-size-step--1);
+  --paragraph-base-line-height: var(--line-height-regular);
+  --paragraph-tight-line-height: 1.35;
+  --paragraph-base-weight: var(--font-weight-regular);
+  --paragraph-letter-spacing: var(--letter-spacing-base);
+
+  --font-weight-normal: var(--font-weight-regular);
+
+  --neu-heading-size-lg: var(--heading-h2-size);
+  --neu-heading-size-sm: var(--heading-h3-size);
+  --neu-heading-size-xs: clamp(
+    calc(var(--font-size-step--1) * 1.05),
+    calc(var(--font-size-step--1) + 0.4vw),
+    var(--font-size-step-0)
+  );
+  --neu-body-size: var(--paragraph-base-size);
+  --neu-caption-size: clamp(
+    calc(var(--font-size-step--1) * 0.95),
+    calc(var(--font-size-step--1) + 0.22vw),
+    var(--font-size-step-0)
+  );
+  --neu-font-serif: var(--font-family-display);
+  --neu-font-sans: var(--font-family-sans);
+}

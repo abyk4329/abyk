@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { Calculator } from "@/features/wealth-code/components";
+import { Calculator } from "../_components/wealth-code";
 import { getResultUrl } from "@/lib/routes";
 
 import { FunnelPage } from "../_components/FunnelPage";

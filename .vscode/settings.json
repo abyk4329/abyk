@@ -3,7 +3,8 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
   },
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
@@ -18,6 +19,11 @@
   },
   "github.copilot.editor.enableAutoCompletions": true,
   "github.copilot.editor.enableCodeActions": true,
+  "github.copilot.inlineSuggest.enable": true,
+  "github.copilot.advanced": {
+    "inlineSuggest.enable": true,
+    "ignoreSolutionWideAnalysis": false
+  },
 
   // TypeScript settings
   "typescript.tsdk": "node_modules/typescript/lib",
@@ -117,7 +123,7 @@
   "chat.editor.wordWrap": "off",
   "chat.editRequests": "input",
   "chat.edits2.enabled": true,
-  "files.autoSave": "onWindowChange",
+  "files.autoSave": "afterDelay",
   "workbench.colorTheme": "Copilot Theme - Higher Contrast",
   "editor.mouseWheelZoom": true,
   "inlineChat.notebookAgent": true,
@@ -126,5 +132,7 @@
   "inlineChat.lineEmptyHint": true,
   "chat.tools.terminal.terminalProfile.windows": {
     "color": "terminal.ansiYellow"
-  }
+  },
+  "editor.codeActions.triggerOnFocusChange": true,
+  "editor.definitionLinkOpensInPeek": true
 }

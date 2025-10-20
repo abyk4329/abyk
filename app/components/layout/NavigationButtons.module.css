@@ -1,33 +1,33 @@
-.shell {
+.navShell {
   padding-inline-start: env(safe-area-inset-left);
   padding-inline-end: env(safe-area-inset-right);
 }
 
-.button {
+.navButton {
   background-color: var(--neu-card);
   box-shadow: var(--shadow-raised);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.button:hover:not(:disabled) {
+.navButton:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: var(--shadow-raised-hover);
 }
 
-.button:active:not(:disabled) {
+.navButton:active:not(:disabled) {
   transform: scale(0.95) translateY(1px);
   box-shadow: var(--shadow-inset-pressed);
 }
 
-.icon,
-.iconForward,
-.iconBack,
-.iconHome {
+.navIcon,
+.navIconForward,
+.navIconBack,
+.navIconHome {
   color: var(--neu-accent);
   transition: transform 0.3s ease;
 }
 
-.centerButton {
+.navCenterButton {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,22 +35,22 @@
   padding: 0.85rem;
 }
 
-.centerButton[data-active="true"] {
+.navCenterButton[data-active='true'] {
   box-shadow: var(--shadow-raised);
 }
 
-.centerButton[data-active="true"] .iconHome {
+.navCenterButton[data-active='true'] .navIconHome {
   color: var(--neu-text-primary);
 }
 
-.button:hover:not(:disabled) .iconForward {
+.navButton:hover:not(:disabled) .navIconForward {
   transform: translateX(4px);
 }
 
-.button:hover:not(:disabled) .iconBack {
+.navButton:hover:not(:disabled) .navIconBack {
   transform: translateX(-4px);
 }
 
-.button:hover:not(:disabled) .iconHome {
+.navButton:hover:not(:disabled) .navIconHome {
   transform: scale(1.1);
 }

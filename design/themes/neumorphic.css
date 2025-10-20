@@ -1,0 +1,786 @@
+/*
+  Neumorphic Theme
+  ----------------
+  Specialized theme for neumorphic design effects.
+  Contains all component classes for raised/inset shadows.
+*/
+
+:root {
+  /* Neumorphic-specific overrides */
+  --neu-transition-default: var(--duration-fast) var(--easing-standard);
+}
+
+/* ========================================
+   Component Classes - Neumorphic UI
+   ======================================== */
+
+.neuStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--neu-space-lg);
+}
+
+.neuStackTight {
+  gap: var(--neu-space-md);
+}
+
+.neuGrid3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--neu-space-md);
+}
+
+@media (max-width: 640px) {
+  .neuGrid3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.neuCard {
+  background: var(--card, var(--neu-card));
+  border-radius: 24px;
+  box-shadow: var(--shadow-raised);
+}
+
+.neuCard--inset {
+  box-shadow: var(--shadow-inset-strong);
+}
+
+.neuCard--flat {
+  box-shadow: none;
+}
+
+.neuCard--tight {
+  border-radius: 16px;
+}
+
+.neuCard--pad-md {
+  padding-block: var(--space-2);
+  padding-inline: clamp(var(--space-1-5), 4vw, var(--space-2));
+}
+
+.neuCard--pad-lg {
+  padding-block: clamp(var(--space-2), 4vw, var(--space-3));
+  padding-inline: clamp(
+    var(--space-2),
+    5vw,
+    calc(var(--space-2) + var(--space-1))
+  );
+}
+
+@media (max-width: 640px) {
+  .neuCard--pad-lg {
+    padding-inline: clamp(var(--space-4), 12vw, var(--space-5));
+  }
+}
+
+.neuIconWrap {
+  width: var(--card-icon-lg-size);
+  height: var(--card-icon-lg-size);
+  display: grid;
+  place-items: center;
+  border-radius: var(--card-icon-lg-radius);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
+  color: var(--neu-accent);
+}
+
+.neuHeading {
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-lg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--heading-h2-color);
+  margin: 0;
+}
+
+.neuHeadingAccent {
+  color: var(--neu-accent);
+}
+
+.neuSubtitle {
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--heading-subtitle-color);
+  margin: 0;
+}
+
+.neuField {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--neu-space-xs);
+}
+
+.neuLabel {
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-caption-size);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--neu-text-secondary);
+}
+
+.neuHint {
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-caption-size);
+  letter-spacing: 0.04em;
+  color: var(--neu-text-tertiary);
+  margin: 0;
+  text-align: center;
+}
+
+.neuInput {
+  width: 100%;
+  border: none;
+  border-radius: var(--neu-radius-md);
+  padding: var(--neu-space-sm) var(--neu-space-md);
+  text-align: center;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  letter-spacing: 0.08em;
+  color: var(--neu-text-primary);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
+  transition: transform var(--neu-transition-default),
+    box-shadow var(--neu-transition-default);
+}
+
+.neuInput:focus-visible {
+  outline: 2px solid var(--neu-accent);
+  outline-offset: 3px;
+  box-shadow: var(--shadow-inset-strong);
+  transform: translateY(1px);
+}
+
+.neuBtnPrimary,
+.neuBtnGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--neu-space-xs);
+  width: 100%;
+  padding: var(--neu-space-sm) var(--neu-space-lg);
+  border-radius: var(--neu-radius-md);
+  font-family: var(--neu-font-sans);
+  font-size: var(--button-font-size);
+  letter-spacing: var(--button-letter-spacing);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--neu-transition-default),
+    box-shadow var(--neu-transition-default),
+    background-color var(--neu-transition-default),
+    color var(--neu-transition-default);
+}
+
+.neuBtnPrimary {
+  border: 2px solid var(--neu-accent);
+  background-color: var(--neu-card);
+  color: var(--neu-accent);
+  box-shadow: none;
+}
+
+.neuBtnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.neuBtnPrimary:active {
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+.neuBtnGhost {
+  border: none;
+  background-color: var(--neu-card);
+  color: var(--neu-text-primary);
+  box-shadow: var(--shadow-raised);
+}
+
+.neuBtnGhost:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.neuBtnGhost:active {
+  transform: scale(0.99);
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.neuIconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--neu-card);
+  color: var(--neu-accent);
+  box-shadow: var(--shadow-raised);
+  transition: transform var(--neu-transition-default),
+    box-shadow var(--neu-transition-default),
+    color var(--neu-transition-default),
+    background-color var(--neu-transition-default);
+}
+
+.neuIconButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.neuIconButton:active {
+  transform: scale(0.97);
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.neuIconButton:focus-visible {
+  outline: 2px solid var(--neu-accent);
+  outline-offset: 3px;
+}
+
+.neuIconButton--sm {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.neuIconButton--md {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+
+.neuIconButton--lg {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.neuIconButtonIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: inherit;
+}
+
+.neuBtnBase {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--neu-space-xs);
+  width: 100%;
+  padding-inline: var(--button-padding-inline);
+  padding-block: var(--button-padding-block);
+  border-radius: var(--neu-radius-md);
+  font-family: var(--neu-font-sans);
+  font-weight: 600;
+  font-size: var(--button-font-size);
+  letter-spacing: var(--button-letter-spacing);
+  cursor: pointer;
+  transition: transform var(--neu-transition-default),
+    box-shadow var(--neu-transition-default),
+    background-color var(--neu-transition-default),
+    color var(--neu-transition-default);
+}
+
+.neuBtnSizeSm {
+  font-size: clamp(0.875rem, 1.6vw, 1rem);
+}
+
+.neuBtnSizeMd {
+  font-size: var(--neu-body-size);
+}
+
+.neuBtnSizeLg {
+  font-size: clamp(1.0625rem, 2.5vw, 1.2rem);
+}
+
+.neuBtnIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.neuBtnTonePrimary {
+  border: 2px solid var(--neu-accent);
+  background-color: var(--neu-card);
+  color: var(--neu-accent);
+  box-shadow: none;
+}
+
+.neuBtnTonePrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.neuBtnTonePrimary:active {
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+:global(.dark) .neuBtnTonePrimary {
+  border-color: var(--neu-accent);
+  background-color: var(--neu-card);
+  color: var(--neu-accent);
+  box-shadow: none;
+}
+
+:global(.dark) .neuBtnTonePrimary:hover {
+  box-shadow: none;
+}
+
+:global(.dark) .neuBtnTonePrimary:active {
+  box-shadow: none;
+}
+
+/* ========================================
+   Neumorphism Design System - CSS Classes
+   ======================================== */
+
+/* Card Styles */
+.neuro-card-main {
+  background-color: var(--neu-card);
+  box-shadow: 22px 22px 52px rgba(159, 133, 114, 0.22),
+    -22px -22px 52px rgba(255, 255, 255, 0.94),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.65),
+    inset -2px -2px 6px rgba(211, 198, 189, 0.28);
+  color: #473b31;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Inset (sunken) card for dense textual content (legal / privacy) */
+.neuro-card-inset {
+  background-color: var(--neu-card);
+  box-shadow: inset 10px 10px 22px rgba(159, 133, 114, 0.22),
+    inset -10px -10px 22px rgba(255, 255, 255, 0.9),
+    2px 2px 4px rgba(159, 133, 114, 0.1),
+    -2px -2px 4px rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 30px;
+  padding: 2rem clamp(1rem, 2.5vw, 2.5rem);
+  color: #473b31;
+  position: relative;
+  overflow: hidden;
+}
+
+.neuro-card-inset:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: none;
+  pointer-events: none;
+}
+
+.neuro-card-inset h2,
+.neuro-card-inset h3 {
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7),
+    0 2px 4px rgba(159, 133, 114, 0.18);
+}
+
+.dark .neuro-card-inset {
+  background-color: var(--neu-card);
+  box-shadow: inset 8px 8px 18px rgba(0, 0, 0, 0.55),
+    inset -8px -8px 18px rgba(60, 54, 48, 0.65), 2px 2px 4px rgba(0, 0, 0, 0.35),
+    -2px -2px 4px rgba(90, 82, 74, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #faf8f5;
+}
+
+.dark .neuro-card-inset:before {
+  background: none;
+}
+
+/* Structural shell (outer container - subtle extruded) */
+.neuro-card-shell {
+  background-color: var(--neu-card);
+  box-shadow: 18px 18px 40px rgba(159, 133, 114, 0.18),
+    -18px -18px 40px rgba(255, 255, 255, 0.95),
+    inset 1px 1px 4px rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 40px;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem, 4vw, 3rem);
+}
+
+.neuro-card-shell:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: none;
+  pointer-events: none;
+}
+
+/* Inset Lite (inner segmentation) */
+.neuro-card-inset-lite {
+  background-color: var(--neu-card);
+  box-shadow: inset 6px 6px 14px rgba(159, 133, 114, 0.16),
+    inset -6px -6px 14px rgba(255, 255, 255, 0.85),
+    1px 1px 2px rgba(159, 133, 114, 0.1), -1px -1px 2px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 26px;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  position: relative;
+}
+
+.dark .neuro-card-inset-lite {
+  background-color: var(--neu-card);
+  box-shadow: inset 6px 6px 14px rgba(0, 0, 0, 0.55),
+    inset -6px -6px 14px rgba(60, 54, 48, 0.55), 1px 1px 2px rgba(0, 0, 0, 0.35),
+    -2px -2px 4px rgba(80, 74, 68, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* CTA Card variant with slightly elevated feel */
+.neuro-card-cta {
+  background-color: var(--neu-card);
+  box-shadow: 24px 24px 52px rgba(159, 133, 114, 0.22),
+    -24px -24px 52px rgba(255, 255, 255, 0.96),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.65),
+    inset -2px -2px 6px rgba(211, 198, 189, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 44px;
+  padding: clamp(2.25rem, 4.5vw, 3.25rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.neuro-card-cta:hover {
+  box-shadow: 28px 28px 60px rgba(159, 133, 114, 0.26),
+    -28px -28px 60px rgba(255, 255, 255, 0.99),
+    inset 2px 2px 8px rgba(255, 255, 255, 0.7),
+    inset -2px -2px 8px rgba(211, 198, 189, 0.34);
+}
+
+.neuro-card-main:hover {
+  box-shadow: 26px 26px 58px rgba(159, 133, 114, 0.26),
+    -26px -26px 58px rgba(255, 255, 255, 0.98),
+    inset 2px 2px 8px rgba(255, 255, 255, 0.7),
+    inset -2px -2px 8px rgba(211, 198, 189, 0.34);
+}
+
+.neuro-card-secondary {
+  background-color: var(--neu-card);
+  box-shadow: 14px 14px 34px rgba(159, 133, 114, 0.18),
+    -14px -14px 34px rgba(255, 255, 255, 0.92),
+    inset 1px 1px 4px rgba(255, 255, 255, 0.55);
+  color: #473b31;
+  transition: box-shadow 0.3s ease;
+}
+
+.neuro-card-secondary:hover {
+  box-shadow: 18px 18px 40px rgba(159, 133, 114, 0.22),
+    -18px -18px 40px rgba(255, 255, 255, 0.97),
+    inset 1px 1px 5px rgba(255, 255, 255, 0.62);
+}
+
+.neuro-card-floating {
+  background-color: var(--neu-card);
+  box-shadow: 28px 28px 64px rgba(159, 133, 114, 0.24),
+    -28px -28px 64px rgba(255, 255, 255, 0.95),
+    inset 3px 3px 9px rgba(255, 255, 255, 0.6),
+    inset -3px -3px 9px rgba(211, 198, 189, 0.36);
+  color: #473b31;
+  transition: box-shadow 0.3s ease;
+}
+
+.neuro-card-floating:hover {
+  box-shadow: 32px 32px 70px rgba(159, 133, 114, 0.28),
+    -32px -32px 70px rgba(255, 255, 255, 0.99),
+    inset 3px 3px 11px rgba(255, 255, 255, 0.68),
+    inset -3px -3px 11px rgba(211, 198, 189, 0.42);
+}
+
+/* Button Styles */
+.neuro-button-primary {
+  background-color: var(--neu-card);
+  box-shadow: 10px 10px 24px rgba(94, 73, 52, 0.22),
+    -8px -8px 20px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+.neuro-button-primary:hover {
+  box-shadow: 26px 26px 58px rgba(159, 133, 114, 0.26),
+    -26px -26px 58px rgba(255, 255, 255, 0.98),
+    inset 2px 2px 8px rgba(255, 255, 255, 0.7),
+    inset -2px -2px 8px rgba(211, 198, 189, 0.34);
+}
+
+.neuro-button-primary:active {
+  box-shadow: inset 6px 6px 12px rgba(94, 73, 52, 0.28),
+    inset -3px -3px 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Icon Styles */
+.neuro-icon-default {
+  background-color: var(--neu-card);
+  box-shadow: 6px 6px 16px rgba(94, 73, 52, 0.2),
+    -6px -6px 16px rgba(255, 255, 255, 0.85),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  transition: box-shadow 0.3s ease;
+}
+
+.neuro-icon-default:hover {
+  box-shadow: 8px 8px 18px rgba(94, 73, 52, 0.26),
+    -8px -8px 18px rgba(255, 255, 255, 0.92),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.6);
+}
+
+/* Input Styles */
+.neuro-input-default {
+  background-color: var(--neu-card);
+  box-shadow: 8px 8px 18px rgba(94, 73, 52, 0.18),
+    -8px -8px 18px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #473b31;
+  transition: box-shadow 0.3s ease;
+}
+
+.neuro-input-default:focus {
+  box-shadow: inset 4px 4px 8px rgba(94, 73, 52, 0.28),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.7);
+  outline: none;
+}
+
+/* ================
+   Buttons
+   ================ */
+
+/* CTA Button - כפתור פעולה ראשי (רקע זהב) */
+.ctaButton,
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--button-height);
+  padding-inline: var(--button-padding-inline);
+  padding-block: var(--button-padding-block);
+  border-radius: var(--button-radius);
+  white-space: nowrap;
+  gap: var(--button-gap);
+  font-weight: 600;
+  font-size: var(--button-font-size);
+  letter-spacing: var(--button-letter-spacing);
+  transition: all 0.3s ease;
+}
+
+.ctaButton {
+  background-color: var(--neu-accent);
+  color: var(--on-accent);
+  border: none;
+  box-shadow: var(--shadow-raised-strong);
+}
+
+.iconButton {
+  width: var(--card-icon-sm-size);
+  height: var(--card-icon-sm-size);
+  border-radius: var(--card-icon-sm-radius);
+  box-shadow: var(--shadow-raised);
+}
+
+/* Primary Button - כפתור ראשי (שקוף עם מסגרת זהב) */
+.primaryButton {
+  background-color: var(--neu-card);
+  color: var(--neu-accent);
+  border: 2.5px solid var(--neu-accent);
+  box-shadow: var(--shadow-raised);
+}
+
+.ctaButton:disabled,
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-inset);
+  pointer-events: none;
+}
+
+/* Secondary Button - כפתור משני (נאומורפי רגיל) */
+.secondaryButton {
+  background-color: var(--neu-card);
+  color: var(--neu-accent);
+  border: none;
+  box-shadow: var(--shadow-raised);
+}
+
+/* Secondary Link - קישור משני */
+.secondaryLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: none;
+  color: var(--neu-text-primary);
+  border: none;
+  box-shadow: none;
+  font-weight: 500;
+  font-size: clamp(0.9375rem, 2.5vw, 1rem);
+  letter-spacing: 0.16em;
+  padding: 0;
+  border-radius: 0;
+  white-space: nowrap;
+  text-decoration: none;
+  position: relative;
+  margin-top: clamp(1.5rem, 5vw, 2rem);
+  transition: all 0.3s ease;
+}
+
+.secondaryLink::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -0.4rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--neu-accent) 45%, transparent);
+  opacity: 0.9;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.secondaryLink:hover::after,
+.secondaryLink:focus-visible::after {
+  transform: scaleX(1.05);
+}
+
+/* ================
+   Cards & Containers
+   ================ */
+
+.neuCard {
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-raised);
+  border-radius: 24px;
+  padding: clamp(2rem, 5vw, 2.5rem);
+}
+
+/* ================
+   Icons & Decorative Elements
+   ================ */
+
+.iconButton {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--neu-card);
+  color: var(--neu-icon);
+  box-shadow: var(--shadow-raised);
+  transition: all 0.3s ease;
+}
+
+.socialButton {
+  width: 56px;
+  height: 56px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--neu-card);
+  color: var(--neu-accent);
+  box-shadow: var(--shadow-raised-emphasis);
+}
+
+.iconInset {
+  width: var(--card-icon-lg-size);
+  height: var(--card-icon-lg-size);
+  border-radius: var(--card-icon-lg-radius);
+  display: grid;
+  place-items: center;
+  background-color: var(--neu-card);
+  color: var(--neu-accent);
+  box-shadow: var(--shadow-inset-strong);
+}
+
+/* ================
+   Typography
+   ================ */
+
+.headline {
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 3rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--neu-text-primary);
+}
+
+.accentText {
+  color: var(--neu-accent);
+  font-weight: 700;
+}
+
+.description {
+  font-weight: 400;
+  font-size: clamp(0.875rem, 2.5vw, 1.0625rem);
+  letter-spacing: 0.13em;
+  line-height: 1.6;
+  color: var(--neu-text-tertiary);
+}
+
+/* ================
+   Focus States
+   ================ */
+
+.ctaButton:focus-visible,
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible,
+.secondaryLink:focus-visible,
+.iconButton:focus-visible,
+.socialButton:focus-visible {
+  outline: 2px solid var(--neu-accent);
+  outline-offset: 3px;
+}
+
+/* ================
+   Hover States
+   ================ */
+
+.ctaButton:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-raised-emphasis);
+}
+
+.primaryButton:hover,
+.secondaryButton:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.iconButton:hover,
+.socialButton:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.ctaButton:active,
+.primaryButton:active,
+.secondaryButton:active {
+  transform: scale(0.98);
+}
+
+.ctaButton:active {
+  background-color: var(--neu-accent);
+  box-shadow: inset 0 0 0 1px var(--neu-cta-press),
+    inset 0 8px 18px color-mix(in srgb, var(--neu-cta-press) 35%, transparent);
+}
+
+.primaryButton:active {
+  box-shadow: var(--shadow-inset-strong);
+}
+
+.secondaryButton:active {
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.iconButton:active,
+.socialButton:active {
+  transform: scale(0.95);
+  box-shadow: var(--shadow-inset-pressed);
+}

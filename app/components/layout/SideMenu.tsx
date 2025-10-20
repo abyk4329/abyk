@@ -1,8 +1,6 @@
-"use client";
+'use client';
 
-import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from 'lucide-react';
 import {
   Bookmark,
   ChevronLeft,
@@ -12,73 +10,75 @@ import {
   Home,
   LogIn,
   X,
-} from "lucide-react";
+} from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
 
-import { BRAND, ICON_STROKE } from "@/lib/constants";
-import { buildUrl, routes } from "@/lib/routes";
-import { cn } from "@/lib/utils";
+import { BRAND, ICON_STROKE } from '@/lib/constants';
+import { buildUrl, routes } from '@/lib/routes';
+import { cn } from '@/lib/utils';
 
-import { useDrawer } from "./DrawerProvider";
-import styles from "./SideMenu.module.css";
+import { useDrawer } from './DrawerProvider';
+import styles from './SideMenu.module.css';
 
 type NavItem = {
   key: string;
   label: string;
   href: string;
   icon: LucideIcon;
-  variant?: "accent";
-  type?: "route" | "mailto" | "external";
+  variant?: 'accent';
+  type?: 'route' | 'mailto' | 'external';
   search?: Record<string, string | number | boolean | undefined>;
   showActive?: boolean;
 };
 
 const NAV_ITEMS: NavItem[] = [
   {
-    key: "home",
-    label: "בית",
+    key: 'home',
+    label: 'בית',
     href: routes.home,
     icon: Home,
   },
   {
-    key: "login",
-    label: "התחברות",
+    key: 'login',
+    label: 'התחברות',
     href: routes.login,
     icon: LogIn,
-    variant: "accent",
+    variant: 'accent',
   },
   {
-    key: "calculator",
-    label: "מחשבון קוד העושר",
+    key: 'calculator',
+    label: 'מחשבון קוד העושר',
     href: routes.calculator,
     icon: Hash,
   },
   {
-    key: "save-home",
-    label: "שמור למסך הבית",
+    key: 'save-home',
+    label: 'שמור למסך הבית',
     href: routes.home,
     search: { install: 1 },
     icon: Bookmark,
     showActive: false,
   },
   {
-    key: "terms",
-    label: "תנאים משפטיים",
+    key: 'terms',
+    label: 'תנאים משפטיים',
     href: routes.terms,
     icon: FileText,
   },
   {
-    key: "contact",
-    label: "יצירת קשר",
+    key: 'contact',
+    label: 'יצירת קשר',
     href: `mailto:${BRAND.email}`,
     icon: ExternalLink,
-    type: "mailto",
+    type: 'mailto',
   },
 ];
 
 function isActivePath(pathname: string | null, href: string) {
   if (!pathname) return false;
-  if (href.startsWith("mailto:")) return false;
-  if (href.startsWith("http")) return false;
+  if (href.startsWith('mailto:')) return false;
+  if (href.startsWith('http')) return false;
   if (href === routes.home) {
     return pathname === href;
   }
@@ -113,12 +113,12 @@ export function SideMenu() {
 
   const handleNavigate = useCallback(
     (item: NavItem) => {
-      if (item.type && item.type !== "route") {
-        if (typeof window !== "undefined") {
-          if (item.type === "mailto") {
+      if (item.type && item.type !== 'route') {
+        if (typeof window !== 'undefined') {
+          if (item.type === 'mailto') {
             window.location.href = item.href;
           } else {
-            window.open(item.href, "_blank", "noopener,noreferrer");
+            window.open(item.href, '_blank', 'noopener,noreferrer');
           }
         }
         handleCloseDrawer();
@@ -139,12 +139,12 @@ export function SideMenu() {
     <>
       <div
         className={styles.backdrop}
-        data-open={open || railOpen ? "true" : "false"}
+        data-open={open || railOpen ? 'true' : 'false'}
         role="presentation"
         onClick={handleCloseAll}
       />
 
-      <aside className={styles.rail} data-open={railOpen ? "true" : "false"}>
+      <aside className={styles.rail} data-open={railOpen ? 'true' : 'false'}>
         <div className={styles.railSurface}>
           <nav className={styles.railNav} aria-label="תפריט מהיר">
             {railNavItems.map((item) => {
@@ -157,11 +157,11 @@ export function SideMenu() {
                   key={item.key}
                   type="button"
                   className={styles.railAction}
-                  data-active={active ? "true" : undefined}
+                  data-active={active ? 'true' : undefined}
                   data-variant={item.variant}
                   onClick={() => handleNavigate(item)}
                   aria-label={item.label}
-                  aria-current={active ? "page" : undefined}
+                  aria-current={active ? 'page' : undefined}
                 >
                   <item.icon
                     size={20}
@@ -197,17 +197,17 @@ export function SideMenu() {
 
       <aside
         className={styles.drawer}
-        data-open={open ? "true" : "false"}
-        data-expanded={open ? "true" : "false"}
+        data-open={open ? 'true' : 'false'}
+        data-expanded={open ? 'true' : 'false'}
         role="dialog"
         aria-label="תפריט ניווט"
         aria-modal="true"
       >
-        <div className={styles.content}>
-          <div className={styles.closeArea}>
+        <div className={styles.sideMenuContent}>
+          <div className={styles.sideMenuCloseArea}>
             <button
               type="button"
-              className={styles.closeButton}
+              className={styles.sideMenuCloseButton}
               onClick={handleCloseDrawer}
               aria-label="סגירת תפריט"
             >
@@ -229,11 +229,11 @@ export function SideMenu() {
                   type="button"
                   className={styles.navAction}
                   onClick={() => handleNavigate(item)}
-                  aria-current={active ? "page" : undefined}
+                  aria-current={active ? 'page' : undefined}
                 >
                   <span
                     className={cn(styles.navSurface)}
-                    data-active={active ? "true" : undefined}
+                    data-active={active ? 'true' : undefined}
                     data-variant={item.variant}
                   >
                     <span className={styles.navIcon} aria-hidden="true">

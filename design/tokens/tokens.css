@@ -1,0 +1,410 @@
+/*
+  Design Tokens
+  ------------
+  Centralized source for color, typography, spacing, motion, and elevation.
+  Built on a golden-ratio scale so that every derived size keeps natural rhythm.
+*/
+
+:root {
+  /* Ratio constants */
+  --ratio-golden: 1.618;
+  --ratio-golden-inverse: 0.618; /* 1 / phi */
+  --ratio-golden-squared: 2.618; /* phi^2 */
+  --ratio-golden-cubed: 4.236; /* phi^3 */
+
+  /* Motion */
+  --duration-instant: 120ms;
+  --duration-fast: 160ms;
+  --duration-standard: 240ms;
+  --duration-slow: 360ms;
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-emphasized: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Typography scale (ratio 1.333) */
+  --font-family-sans: var(
+    --font-assistant,
+    "Assistant",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif
+  );
+  --font-family-serif: var(--font-family-sans);
+  --font-family-display: var(--font-family-sans);
+  --type-scale-ratio: 1.333;
+
+  --font-size-base: clamp(1rem, 0.9rem + 0.8vw, 1.0625rem);
+  --font-size-step--2: clamp(
+    calc(var(--font-size-base) / 1.777),
+    calc(var(--font-size-base) / 1.9 + 0.1vw),
+    calc(var(--font-size-base) / 1.55)
+  );
+  --font-size-step--1: clamp(
+    calc(var(--font-size-base) / var(--type-scale-ratio)),
+    calc(var(--font-size-base) / 1.48 + 0.2vw),
+    calc(var(--font-size-base) / 1.18)
+  );
+  --font-size-step-0: var(--font-size-base);
+  --font-size-step-1: clamp(
+    calc(var(--font-size-base) * 1.15),
+    calc(var(--font-size-base) * 0.9 + 0.8vw),
+    calc(var(--font-size-base) * var(--type-scale-ratio))
+  );
+  --font-size-step-2: clamp(
+    calc(var(--font-size-base) * var(--type-scale-ratio)),
+    calc(var(--font-size-base) * 1.2 + 1.6vw),
+    calc(var(--font-size-base) * 1.777)
+  );
+  --font-size-step-3: clamp(
+    calc(var(--font-size-base) * 2.05),
+    calc(var(--font-size-base) * 1.6 + 2.8vw),
+    calc(var(--font-size-base) * 2.37)
+  );
+  --font-size-step-4: clamp(
+    calc(var(--font-size-base) * 2.75),
+    calc(var(--font-size-base) * 2 + 3.3vw),
+    calc(var(--font-size-base) * 3.16)
+  );
+
+  --font-size: var(--font-size-step-0);
+  --font-family: var(--font-family-sans);
+
+  --line-height-tight: 1.1;
+  --line-height-regular: 1.45;
+  --line-height-relaxed: 1.7;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi: 600;
+  --font-weight-bold: 700;
+
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-base: 0.02em;
+  --letter-spacing-wide: 0.08em;
+
+  /* Typography aliases for legacy variables */
+  --heading-h1-size: var(--font-size-step-4);
+  --heading-h2-size: var(--font-size-step-3);
+  --heading-h3-size: var(--font-size-step-2);
+  --heading-subtitle-size: clamp(
+    calc(var(--font-size-step-1) * 0.95),
+    calc(var(--font-size-step-1) + 0.6vw),
+    var(--font-size-step-2)
+  );
+  --heading-h1-weight: var(--font-weight-bold);
+  --heading-h2-weight: var(--font-weight-bold);
+  --heading-h3-weight: var(--font-weight-semi);
+  --heading-subtitle-weight: var(--font-weight-bold);
+  --heading-line-height-tight: var(--line-height-tight);
+  --heading-h1-line-height: var(--heading-line-height-tight);
+  --heading-h2-line-height: var(--heading-line-height-tight);
+  --heading-h3-line-height: var(--heading-line-height-tight);
+  --heading-subtitle-line-height: 1.24;
+  --heading-primary-color: var(--text-primary);
+
+  --paragraph-base-size: var(--font-size-step-0);
+  --paragraph-tight-size: var(--font-size-step--1);
+  --paragraph-base-line-height: var(--line-height-regular);
+  --paragraph-tight-line-height: 1.35;
+  --paragraph-base-weight: var(--font-weight-regular);
+  --paragraph-letter-spacing: var(--letter-spacing-base);
+
+  --font-weight-normal: var(--font-weight-regular);
+
+  --neu-heading-size-lg: var(--heading-h2-size);
+  --neu-heading-size-sm: var(--heading-h3-size);
+  --neu-heading-size-xs: clamp(
+    calc(var(--font-size-step--1) * 1.05),
+    calc(var(--font-size-step--1) + 0.4vw),
+    var(--font-size-step-0)
+  );
+  --neu-body-size: var(--paragraph-base-size);
+  --neu-caption-size: clamp(
+    calc(var(--font-size-step--1) * 0.95),
+    calc(var(--font-size-step--1) + 0.22vw),
+    var(--font-size-step-0)
+  );
+  --neu-font-serif: var(--font-family-display);
+  --neu-font-sans: var(--font-family-sans);
+  --neu-transition-default: var(--duration-fast) var(--easing-standard);
+
+  /* Spacing scale (golden ratio driven) */
+  --space-base: 1rem;
+  --space-3xs: calc(var(--space-base) * 0.236); /* phi^-3 */
+  --space-2xs: calc(var(--space-base) * 0.382); /* phi^-2 */
+  --space-xs: calc(var(--space-base) * var(--ratio-golden-inverse));
+  --space-sm: calc(var(--space-base) * 0.85);
+  --space-md: var(--space-base);
+  --space-lg: calc(var(--space-md) * var(--ratio-golden));
+  --space-xl: calc(var(--space-lg) * var(--ratio-golden));
+  --space-2xl: calc(var(--space-xl) * var(--ratio-golden));
+  --space-3xl: calc(var(--space-2xl) * var(--ratio-golden));
+
+  /* Legacy spacing aliases */
+  --space-1: var(--space-xs);
+  --space-1-5: calc((var(--space-xs) + var(--space-sm)) / 2);
+  --space-2: var(--space-md);
+  --space-3: var(--space-lg);
+  --space-4: var(--space-xl);
+  --space-5: var(--space-2xl);
+  --space-6: var(--space-3xl);
+
+  /* Neumorphic spacing aliases */
+  --neu-space-3xs: var(--space-3xs);
+  --neu-space-2xs: var(--space-2xs);
+  --neu-space-xs: var(--space-xs);
+  --neu-space-sm: var(--space-sm);
+  --neu-space-md: var(--space-md);
+  --neu-space-lg: var(--space-lg);
+  --neu-space-xl: var(--space-xl);
+  --neu-space-2xl: var(--space-2xl);
+  --neu-space-3xl: var(--space-3xl);
+
+  /* Radii based on golden ratio */
+  --radius-base: 1rem;
+  --radius-sm: calc(var(--radius-base) * var(--ratio-golden-inverse));
+  --radius-md: var(--radius-base);
+  --radius-lg: calc(var(--radius-base) * var(--ratio-golden));
+  --radius-xl: calc(var(--radius-lg) * var(--ratio-golden));
+
+  --radius: var(--radius-md);
+
+  --neu-radius-sm: var(--radius-sm);
+  --neu-radius-md: var(--radius-md);
+  --neu-radius-lg: var(--radius-lg);
+
+  /* Color tokens */
+  --color-surface-100: #f5f5f5;
+  --color-surface-200: color-mix(
+    in srgb,
+    var(--color-surface-100) 92%,
+    #fff 8%
+  );
+  --color-surface-900: #2d3436;
+
+  --color-text-900: #5e4934;
+  --color-text-700: #75614c;
+  --color-text-500: #9f8572;
+  --color-text-300: rgba(94, 73, 52, 0.65);
+
+  --color-accent-500: #b28e6c;
+  --color-accent-700: #886d52;
+  --color-accent-100: color-mix(
+    in srgb,
+    var(--color-accent-500) 82%,
+    var(--color-surface-100)
+  );
+
+  --color-danger-500: #d4183d;
+  --color-danger-100: color-mix(in srgb, var(--color-danger-500) 18%, #fff);
+
+  --color-border-soft: rgba(160, 160, 160, 0.25);
+  --color-border-strong: rgba(160, 160, 160, 0.4);
+
+  --color-overlay-scrim: rgba(0, 0, 0, 0.25);
+
+  /* Semantic bindings */
+  --background: var(--color-surface-100);
+  --foreground: var(--color-text-900);
+  --card: var(--color-surface-100);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: var(--color-accent-500);
+  --primary-foreground: #fdfbf8;
+  --secondary: var(--card);
+  --secondary-foreground: var(--color-accent-500);
+  --muted: color-mix(in srgb, var(--color-accent-500) 24%, transparent);
+  --muted-foreground: var(--color-text-700);
+  --accent: var(--primary);
+  --accent-foreground: var(--primary-foreground);
+  --on-accent: var(--primary-foreground);
+  --destructive: var(--color-danger-500);
+  --destructive-foreground: #ffffff;
+  --border: var(--color-border-soft);
+  --input: transparent;
+  --input-background: var(--card);
+  --switch-background: var(--card);
+  --ring: var(--color-accent-100);
+
+  /* Text aliases */
+  --text-primary: var(--color-text-900);
+  --text-secondary: var(--color-text-700);
+  --text-tertiary: var(--color-text-500);
+  --text-quaternary: var(--color-text-300);
+  --paragraph-color: var(--text-secondary);
+  --caption-color: var(--text-tertiary);
+  --heading-primary-color: var(--text-primary);
+  --heading-h1-color: var(--heading-primary-color);
+  --heading-h2-color: var(--heading-primary-color);
+  --heading-h3-color: var(--heading-primary-color);
+  --heading-subtitle-color: color-mix(
+    in srgb,
+    var(--color-accent-500) 80%,
+    var(--color-surface-100)
+  );
+
+  /* Neumorphic palette aliases */
+  --neu-base: var(--background);
+  --neu-card: var(--card);
+  --neu-text-primary: var(--text-primary);
+  --neu-text-secondary: var(--text-secondary);
+  --neu-text-tertiary: var(--text-tertiary);
+  --neu-text-quaternary: var(--text-quaternary);
+  --neu-gold-signature: var(--color-accent-500);
+  --neu-accent: var(--color-accent-500);
+  --neu-accent-light: var(--color-accent-100);
+  --neu-accent-dark: color-mix(
+    in srgb,
+    var(--color-accent-500) 70%,
+    var(--color-text-900)
+  );
+  --neu-accent-bright: color-mix(
+    in srgb,
+    var(--color-accent-500) 88%,
+    var(--color-surface-100)
+  );
+  --neu-cta-press: var(--color-accent-700);
+  --neu-icon: var(--neu-accent);
+
+  /* Elevation */
+  --shadow-light: rgba(255, 255, 255, 0.9);
+  --shadow-dark: rgba(160, 160, 160, 0.5);
+  --shadow-raised: 2px 2px 4px var(--shadow-dark),
+    -2px -2px 4px var(--shadow-light);
+  --shadow-raised-hover: 2px 2px 4px
+      color-mix(in srgb, var(--shadow-dark) 60%, transparent),
+    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 60%, transparent);
+  --shadow-raised-strong: 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 65%, transparent),
+    -3px -3px 6px color-mix(in srgb, var(--shadow-light) 65%, transparent);
+  --shadow-raised-emphasis: 4px 4px 8px
+      color-mix(in srgb, var(--shadow-dark) 70%, transparent),
+    -4px -4px 8px color-mix(in srgb, var(--shadow-light) 70%, transparent);
+  --shadow-inset: inset 3px 3px 6px var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+  --shadow-inset-hover: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 60%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 60%, transparent);
+  --shadow-inset-strong: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 65%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 65%, transparent);
+  --shadow-inset-pressed: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 55%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 55%, transparent);
+  --shadow-overlay-sm: 0 6px 16px
+    color-mix(in srgb, var(--shadow-dark) 35%, transparent);
+  --shadow-overlay: 0 10px 26px
+    color-mix(in srgb, var(--shadow-dark) 45%, transparent);
+  --shadow-highlight: inset 0 1px 3px rgba(255, 255, 255, 0.2);
+
+  /* Lift effects */
+  --lift-text-shadow: 0 1px 1.4px
+    color-mix(in srgb, var(--shadow-dark) 24%, transparent);
+  --lift-text-shadow-md: 0 2px 4px
+    color-mix(in srgb, var(--shadow-dark) 28%, transparent);
+  --lift-text-shadow-lg: 0 3px 6px
+    color-mix(in srgb, var(--shadow-dark) 35%, transparent);
+  --lift-icon-shadow: 0 1.5px 2px
+    color-mix(in srgb, var(--shadow-dark) 18%, transparent);
+
+  /* Layout */
+  --header-height: clamp(3.25rem, 6vw, 3.75rem);
+  --overlay-scrim: var(--color-overlay-scrim);
+  --overlay-glass-scrim: color-mix(
+    in srgb,
+    var(--text-quaternary) 8%,
+    transparent
+  );
+  --overlay-glass-blur: 22px;
+  --surface-glass: color-mix(in srgb, var(--card) 82%, transparent);
+  --surface-glass-border: color-mix(
+    in srgb,
+    var(--text-quaternary) 22%,
+    transparent
+  );
+  --surface-glass-shadow: none;
+  --surface-glass-blur: 18px;
+  --header-surface: var(--card);
+  --header-surface-strong: var(--card);
+  --status-bar-dark: var(--color-surface-900);
+  --page-gradient: none;
+  --page-shell-content-gap-top: clamp(var(--space-sm), 2.5vw, var(--space-lg));
+  --page-shell-content-gap-bottom: clamp(var(--space-lg), 6vh, var(--space-xl));
+  --page-shell-content-gap-inline: clamp(var(--space-sm), 4vw, var(--space-lg));
+  --z-cookie: 110;
+  --z-overlay: 120;
+  --z-rail: 125;
+  --z-drawer: 130;
+  --z-header: 140;
+  --z-hero: 160;
+
+  --primary-card-max-width: 880px;
+  --primary-card-gutter: clamp(var(--space-sm), 4.5vw, var(--space-lg));
+  --primary-card-padding-block: clamp(
+    var(--space-lg),
+    8vw,
+    calc(var(--space-xl) + var(--space-sm))
+  );
+  --primary-card-width: min(var(--primary-card-max-width), 100%);
+
+  --card-stack-gap: clamp(var(--space-md), 3.5vw, var(--space-lg));
+  --card-text-gap: clamp(var(--space-sm), 2.8vw, var(--space-md));
+  --heading-paragraph-gap: clamp(var(--space-sm), 2.6vw, var(--space-md));
+  --card-padding-inline: clamp(
+    var(--space-sm),
+    5vw,
+    calc(var(--space-md) + var(--space-xs))
+  );
+  --card-padding-inline-mobile: clamp(
+    var(--space-lg),
+    15vw,
+    calc(var(--space-xl) + var(--space-sm))
+  );
+  --card-padding-inline-desktop: clamp(
+    var(--space-sm),
+    5vw,
+    calc(var(--space-md) + var(--space-xs))
+  );
+  --card-padding-block: clamp(var(--space-sm), 4vw, var(--space-md));
+  --card-padding-base: var(--card-padding-inline-desktop);
+  --card-padding-desktop: clamp(
+    calc(var(--space-md) + var(--space-xs)),
+    4.5vw,
+    calc(var(--space-lg) + var(--space-sm))
+  );
+  --card-notch-size: clamp(3.25rem, 9vw, 3.5rem);
+  --card-notch-radius: clamp(0.9rem, 3vw, 1.2rem);
+  --card-notch-size-sm: clamp(3rem, 8vw, var(--card-notch-size));
+  --card-icon-lg-size: var(--card-notch-size);
+  --card-icon-lg-radius: var(--card-notch-radius);
+  --card-icon-sm-size: var(--card-notch-size-sm);
+  --card-icon-sm-radius: var(--card-notch-radius);
+
+  --button-height: clamp(3rem, 12vw, 3.5rem);
+  --button-padding-inline: clamp(var(--space-2xs), 3vw, var(--space-sm));
+  --button-padding-block: clamp(var(--space-3xs), 2vw, var(--space-xs));
+  --button-gap: var(--space-sm);
+  --button-min-width-desktop: clamp(12rem, 18vw, 14rem);
+  --button-radius: clamp(1.5rem, 8vw, 2rem);
+  --button-font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+  --button-letter-spacing: var(--letter-spacing-wide);
+
+  --icon-well-secondary-size: clamp(3rem, 8vw, 3.5rem);
+  --icon-well-primary-size: calc(var(--icon-well-secondary-size) * 1.5);
+  --icon-well-radius-secondary: 0.875rem;
+  --icon-well-radius-primary: 1.125rem;
+  --icon-well-radius: var(--icon-well-radius-secondary);
+  --icon-well-icon-scale: 0.69;
+  --icon-well-icon-scale-secondary: 0.6;
+
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: #fdfcfb;
+  --sidebar-accent: rgba(201, 168, 130, 0.18);
+  --sidebar-accent-foreground: var(--text-secondary);
+  --sidebar-border: rgba(160, 160, 160, 0.2);
+  --sidebar-ring: var(--ring);
+}

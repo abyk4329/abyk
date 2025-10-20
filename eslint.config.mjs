@@ -34,8 +34,10 @@ const eslintConfig = [
   },
   {
     files: [
-      "features/wealth-code/components/ui/tabs.tsx",
-      "./features/wealth-code/components/ui/tabs.tsx",
+      "app/(funnels)/_components/wealth-code/ui/tabs.tsx",
+      "./app/(funnels)/_components/wealth-code/ui/tabs.tsx",
+      "app/(funnels)/_components/wealth-code/sections/ui/tabs.tsx",
+      "./app/(funnels)/_components/wealth-code/sections/ui/tabs.tsx",
     ],
     rules: {
       "jsx-a11y/aria-required-children": "off",

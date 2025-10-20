@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -8,10 +8,10 @@ import {
   useLayoutEffect,
   useMemo,
   useState,
-} from "react";
+} from 'react';
 
 const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 export interface NavigationOverrides {
   isVisible?: boolean;
@@ -20,8 +20,6 @@ export interface NavigationOverrides {
   canGoForward?: boolean;
   onGoForward?: () => void;
   onGoHome?: () => void;
-  showHeader?: boolean;
-  showFooter?: boolean;
   lockScroll?: boolean;
 }
 
@@ -67,9 +65,9 @@ export function NavigationProvider({
 
   useIsomorphicLayoutEffect(() => {
     if (!setOverrides) {
-      if (process.env.NODE_ENV !== "production") {
+      if (process.env.NODE_ENV !== 'production') {
         console.warn(
-          "NavigationProvider was rendered outside of NavigationRoot. Overrides will be ignored."
+          'NavigationProvider was rendered outside of NavigationRoot. Overrides will be ignored.'
         );
       }
       return;
@@ -88,7 +86,7 @@ export function useNavigationOverrides(): NavigationOverrides {
   const context = useContext(NavigationOverridesContext);
   if (!context) {
     throw new Error(
-      "useNavigationOverrides must be used within a NavigationRoot"
+      'useNavigationOverrides must be used within a NavigationRoot'
     );
   }
 

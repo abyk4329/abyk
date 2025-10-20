@@ -2,8 +2,8 @@
 
 import type { HTMLAttributes } from "react";
 
+import "@/design/index.css";
 import { cn } from "@/lib/utils";
-import neuStyles from "@/app/styles/neu.module.css";
 
 export interface StackProps extends HTMLAttributes<HTMLDivElement> {
   tight?: boolean;
@@ -13,8 +13,8 @@ export function Stack({ tight = false, className, ...props }: StackProps) {
   return (
     <div
       className={cn(
-        neuStyles.neuStack,
-        tight ? neuStyles.neuStackTight : undefined,
+        "neuStack",
+        tight ? "neuStackTight" : undefined,
         className
       )}
       {...props}

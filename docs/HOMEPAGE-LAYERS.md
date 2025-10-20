@@ -16,8 +16,8 @@
 | `--card-notch-size`, `--card-notch-size-sm`, `--card-notch-radius`                                 | `app/globals.css`                                               | ממדי השקע לאייקונים מעל כותרות       |
 | `--card-icon-lg-size`, `--card-icon-lg-radius`, `--card-icon-sm-size`, `--card-icon-sm-radius`     | `app/globals.css`                                               | ואריאציות גדלים לשימוש ברכיבים שונים |
 | `--neu-card`                                                                                       | `app/globals.css`                                               | צבע רקע לכרטיסי נאומורפיה            |
-| `--shadow-raised`, `--shadow-raised-strong`, `--shadow-raised-emphasis`, `--shadow-inset-strong`   | `app/globals.css` + `app/components/neu/neumorphic-shadows.css` | צללות נאומורפיות                     |
-| `--neu-gold-signature`, `--neu-accent`, `--neu-accent-dark`, `--neu-accent-light`                  | `app/globals.css`                                               | צבעי זהב לעיטור, כפתורים ואייקונים   |
+| `--shadow-raised`, `--shadow-raised-strong`, `--shadow-raised-emphasis`, `--shadow-inset-strong`   | `app/globals.css` + `design/tokens/shadows.css` + `design/themes/neumorphic.css` | צללות נאומורפיות |
+| `--neu-gold-signature`, `--neu-accent`, `--neu-accent-dark`, `--neu-accent-light`                  | `design/tokens/tokens.css` (מיובא דרך `design/index.css`)       | צבעי זהב לעיטור, כפתורים ואייקונים   |
 | `--heading-h1-size`, `--paragraph-base-size`, `--heading-paragraph-gap`, `--heading-subtitle-size` | `app/globals.css`                                               | טיפוגרפיה בעמוד הבית והכרטיס המשני   |
 
 ## עמוד הבית (`app/HomePageClient.tsx`, `app/page.module.css`)

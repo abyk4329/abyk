@@ -1,7 +1,6 @@
 .iconButton {
   display: grid;
   place-items: center;
-  isolation: isolate;
   border: none;
   border-radius: 16px;
   background: var(--neu-card);

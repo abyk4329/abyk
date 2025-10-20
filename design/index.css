@@ -1,0 +1,52 @@
+/*
+  Design System Index
+  ------------------
+  Unified entry point for the entire design system.
+  Import this file once in your app to get all tokens, themes, and utilities.
+*/
+
+/* Core tokens - foundation of the design system */
+@import './tokens/tokens.css';
+@import './tokens/typography.css';
+@import './tokens/shadows.css';
+@import './tokens/animations.css';
+
+/* Theme variants */
+@import './themes/light.css';
+@import './themes/dark.css';
+@import './themes/neumorphic.css';
+
+/* Utility classes and helpers */
+@import './utils/helpers.css';
+@import './utils/transitions.css';
+
+/* Automatic theme switching based on user preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Import dark theme automatically */
+    --theme-mode: 'dark';
+  }
+}
+
+/* Manual theme override */
+[data-theme="dark"] {
+  --theme-mode: 'dark';
+}
+
+[data-theme="light"] {
+  --theme-mode: 'light';
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --contrast-mode: 'high';
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-preference: 'reduced';
+  }
+}

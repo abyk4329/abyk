@@ -9,7 +9,7 @@
   width: 100%;
 }
 
-.topBannerWrapper .card {
+.topBannerWrapper .cookieCard {
   pointer-events: auto;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .homeOverlay::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background: var(--overlay-glass-scrim, transparent);
@@ -40,12 +40,12 @@
   z-index: 0;
 }
 
-.homeOverlay .card {
+.homeOverlay .cookieCard {
   position: relative;
   z-index: 1;
 }
 
-.card {
+.cookieCard {
   --cookie-card-radius: clamp(1.5rem, 5vw, 2rem);
   pointer-events: auto;
   background-color: var(--neu-card);
@@ -54,16 +54,16 @@
   border-radius: var(--cookie-card-radius);
   font-family: var(
     --font-assistant,
-    "Assistant",
+    'Assistant',
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
-    "Segoe UI",
+    'Segoe UI',
     sans-serif
   );
 }
 
-.title {
+.cookieTitle {
   color: var(--neu-text-secondary);
   text-shadow: var(--lift-text-shadow);
 }
@@ -142,7 +142,7 @@
 @media (min-width: 768px) {
   .bannerCard,
   .categoryItem,
-  .modal {
+  .cookieModal {
     padding: var(--card-padding-desktop);
   }
 }
@@ -199,7 +199,7 @@
   max-width: 64rem; /* ~max-w-4xl */
 }
 
-.card {
+.cookieCard {
   position: relative;
 }
 
@@ -344,7 +344,7 @@
   transform: scale(1.02);
 }
 
-.modal {
+.cookieModal {
   pointer-events: auto;
   position: relative;
   width: min(92%, 560px);
@@ -359,40 +359,40 @@
   gap: var(--card-text-gap);
   font-family: var(
     --font-assistant,
-    "Assistant",
+    'Assistant',
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
-    "Segoe UI",
+    'Segoe UI',
     sans-serif
   );
 }
 
-.modalHeader {
+.cookieModalHeader {
   text-align: center;
 }
 
-.modalHeader h2 {
+.cookieModalHeader h2 {
   margin: 0 0 0.5rem;
   font-size: 1.35rem;
   color: var(--neu-text-primary);
   letter-spacing: 0.05em;
 }
 
-.modalHeader p {
+.cookieModalHeader p {
   margin: 0;
   font-size: var(--paragraph-base-size);
   color: var(--paragraph-color);
   line-height: var(--paragraph-base-line-height);
 }
 
-.categoryList {
+.cookieCategoryList {
   display: flex;
   flex-direction: column;
   gap: var(--card-text-gap);
 }
 
-.categoryItem {
+.cookieCategoryItem {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -404,12 +404,12 @@
   min-height: 116px;
 }
 
-.categoryItem:hover,
-.categoryItem:focus-within {
+.cookieCategoryItem:hover,
+.cookieCategoryItem:focus-within {
   box-shadow: var(--shadow-inset-hover);
 }
 
-.categoryItem > div {
+.cookieCategoryItem > div {
   display: flex;
   flex-direction: column;
   gap: var(--heading-paragraph-gap);
@@ -441,7 +441,7 @@
 }
 
 .toggle::after {
-  content: "";
+  content: '';
   position: absolute;
   inset-block-start: 0.22rem;
   inset-inline-end: 0.28rem;
@@ -467,13 +467,13 @@
   outline-offset: 3px;
 }
 
-.modalActions {
+.cookieModalActions {
   display: flex;
   flex-direction: column;
   gap: var(--button-gap);
 }
 
-.saveButton {
+.cookieSaveButton {
   width: 100%;
 }
 
@@ -532,12 +532,12 @@
 }
 
 @media (min-width: 640px) {
-  .modalActions {
+  .cookieModalActions {
     flex-direction: row;
     justify-content: flex-end;
   }
 
-  .saveButton {
+  .cookieSaveButton {
     width: auto;
   }
 

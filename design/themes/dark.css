@@ -1,0 +1,127 @@
+/*
+  Dark Theme
+  ----------
+  Dark mode color scheme.
+  Applied via prefers-color-scheme: dark or data-theme="dark".
+*/
+
+:root {
+  /* Surface colors - dark mode */
+  --color-surface-100: #2d3436;
+  --color-surface-200: #343b3d;
+
+  /* Text colors - dark mode */
+  --color-text-900: #e8dfd5;
+  --color-text-700: #d4c9be;
+  --color-text-500: #c9a882;
+  --color-text-300: rgba(196, 184, 168, 0.6);
+
+  /* Accent colors - dark mode */
+  --color-accent-500: #b28e6c;
+  --color-accent-700: #886d52;
+  --color-accent-100: color-mix(
+    in srgb,
+    var(--color-accent-500) 74%,
+    var(--color-text-700)
+  );
+
+  /* Border colors - dark mode */
+  --color-border-soft: rgba(240, 217, 181, 0.18);
+  --color-border-strong: rgba(240, 217, 181, 0.28);
+
+  /* Overlay colors - dark mode */
+  --color-overlay-scrim: rgba(12, 16, 18, 0.4);
+
+  /* Semantic bindings - dark mode */
+  --background: var(--color-surface-100);
+  --foreground: var(--color-text-900);
+  --card: var(--color-surface-100);
+  --card-foreground: var(--foreground);
+  --primary: var(--color-accent-500);
+  --primary-foreground: var(--color-surface-100);
+  --secondary: rgba(46, 54, 56, 0.9);
+  --secondary-foreground: var(--color-accent-500);
+  --muted: rgba(45, 52, 54, 0.55);
+  --muted-foreground: var(--color-text-700);
+  --accent: var(--primary);
+  --accent-foreground: var(--primary-foreground);
+  --destructive: #f25f77;
+  --destructive-foreground: #1a1210;
+  --border: var(--color-border-soft);
+  --ring: var(--color-accent-100);
+
+  /* Text aliases - dark mode */
+  --text-primary: var(--color-text-900);
+  --text-secondary: var(--color-text-700);
+  --text-tertiary: var(--color-text-500);
+  --text-quaternary: var(--color-text-300);
+  --paragraph-color: var(--text-secondary);
+  --caption-color: var(--text-tertiary);
+  --heading-primary-color: var(--text-primary);
+  --heading-h1-color: var(--heading-primary-color);
+  --heading-h2-color: var(--heading-primary-color);
+  --heading-h3-color: var(--heading-primary-color);
+  --heading-subtitle-color: color-mix(
+    in srgb,
+    var(--color-accent-500) 80%,
+    var(--color-surface-100)
+  );
+
+  /* Neumorphic palette aliases - dark mode */
+  --neu-base: var(--background);
+  --neu-card: var(--card);
+  --neu-text-primary: var(--text-primary);
+  --neu-text-secondary: var(--text-secondary);
+  --neu-text-tertiary: var(--text-tertiary);
+  --neu-text-quaternary: var(--text-quaternary);
+  --neu-gold-signature: var(--color-accent-500);
+  --neu-accent: var(--color-accent-500);
+  --neu-accent-light: var(--color-accent-100);
+  --neu-accent-dark: color-mix(
+    in srgb,
+    var(--color-accent-500) 70%,
+    var(--color-text-900)
+  );
+  --neu-accent-bright: color-mix(
+    in srgb,
+    var(--color-accent-500) 88%,
+    var(--color-surface-100)
+  );
+  --neu-cta-press: var(--color-accent-700);
+  --neu-icon: var(--neu-accent);
+
+  /* Layout - dark mode */
+  --status-bar-dark: var(--color-surface-900);
+  --overlay-scrim: var(--color-overlay-scrim);
+  --overlay-glass-scrim: color-mix(
+    in srgb,
+    var(--color-surface-200) 26%,
+    transparent
+  );
+  --surface-glass: color-mix(
+    in srgb,
+    var(--color-surface-200) 72%,
+    transparent
+  );
+  --surface-glass-border: color-mix(
+    in srgb,
+    var(--color-accent-100) 18%,
+    transparent
+  );
+
+  /* Text shadows - dark mode */
+  --lift-text-shadow: 0 1px 1.2px
+    color-mix(in srgb, rgba(244, 236, 226, 0.4) 50%, transparent);
+  --lift-icon-shadow: 0 1.5px 2px
+    color-mix(in srgb, rgba(244, 236, 226, 0.4) 35%, transparent);
+
+  /* Sidebar - dark mode */
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--color-surface-100);
+  --sidebar-accent: rgba(45, 52, 54, 0.55);
+  --sidebar-accent-foreground: var(--color-text-700);
+  --sidebar-border: rgba(240, 217, 181, 0.12);
+  --sidebar-ring: var(--ring);
+}

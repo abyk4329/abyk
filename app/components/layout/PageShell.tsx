@@ -1,21 +1,21 @@
-import { Children } from "react";
 import type {
   CSSProperties,
   ComponentPropsWithoutRef,
   ElementType,
   ReactNode,
-} from "react";
+} from 'react';
+import { Children } from 'react';
 
-import { cn } from "@/lib/utils";
-import styles from "./PageShell.module.css";
+import { cn } from '@/lib/utils';
+import styles from './PageShell.module.css';
 
-type HeaderAlign = "center" | "start";
+type HeaderAlign = 'center' | 'start';
 /**
  * Keep width map in sync with PageShell.module.css
  */
-type MaxWidth = "sm" | "md" | "lg" | "xl" | "full";
+type MaxWidth = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
-type ContentSpacing = "default" | "tight";
+type ContentSpacing = 'default' | 'tight';
 
 const MAX_WIDTH_CLASS: Record<MaxWidth, string> = {
   full: styles.shellMaxFull,
@@ -43,15 +43,15 @@ export type PageShellBaseProps = {
   padY?: string;
 };
 
-export type PageShellProps<E extends ElementType = "section"> =
+export type PageShellProps<E extends ElementType = 'section'> =
   PageShellBaseProps & {
     as?: E;
-  } & Omit<ComponentPropsWithoutRef<E>, "as" | "className" | "style"> & {
+  } & Omit<ComponentPropsWithoutRef<E>, 'as' | 'className' | 'style'> & {
       className?: string;
       style?: CSSProperties;
     };
 
-export function PageShell<E extends ElementType = "section">({
+export function PageShell<E extends ElementType = 'section'>({
   children,
   as,
   className,
@@ -61,40 +61,40 @@ export function PageShell<E extends ElementType = "section">({
   subtitle,
   leading,
   actions,
-  headerAlign = "center",
-  maxWidth = "xl",
-  contentSpacing = "default",
+  headerAlign = 'center',
+  maxWidth = 'xl',
+  contentSpacing = 'default',
   contentClassName,
   padX,
   padY,
   ...rest
 }: PageShellProps<E>) {
-  const Component = (as ?? "section") as ElementType;
+  const Component = (as ?? 'section') as ElementType;
   const childArray = Children.toArray(children);
   const isSingleChild = childArray.length === 1;
 
   const headerAlignmentClass =
-    headerAlign === "start" ? styles.shellHeaderStart : undefined;
+    headerAlign === 'start' ? styles.shellHeaderStart : undefined;
   const actionsAlignmentClass =
-    headerAlign === "start" ? styles.shellActionsStart : undefined;
+    headerAlign === 'start' ? styles.shellActionsStart : undefined;
   const contentAlignmentClass =
-    headerAlign === "start" ? styles.shellContentStart : undefined;
+    headerAlign === 'start' ? styles.shellContentStart : undefined;
   const spacingClass =
-    contentSpacing === "tight" ? styles.shellContentTight : undefined;
+    contentSpacing === 'tight' ? styles.shellContentTight : undefined;
 
   const styleVars: CSSProperties = {
-    ...(padX ? ({ ["--shell-pad-x" as any]: padX } as CSSProperties) : null),
-    ...(padY ? ({ ["--shell-pad-y" as any]: padY } as CSSProperties) : null),
+    ...(padX ? ({ ['--shell-pad-x' as any]: padX } as CSSProperties) : null),
+    ...(padY ? ({ ['--shell-pad-y' as any]: padY } as CSSProperties) : null),
     ...style,
   };
 
   return (
     <Component
-      className={cn(styles.shell, className)}
+      className={cn(styles.pageShell, className)}
       data-header-align={headerAlign}
       data-content-spacing={contentSpacing}
       data-max-width={maxWidth}
-      data-single-child={isSingleChild ? "true" : "false"}
+      data-single-child={isSingleChild ? 'true' : 'false'}
       {...(rest as Record<string, unknown>)}
       style={styleVars}
     >

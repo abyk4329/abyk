@@ -7,7 +7,7 @@
 
 /* Section Heading */
 .sectionHeading {
-  color: #5e4934;
+  color: var(--neu-text-primary);
   line-height: 1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
 }
@@ -32,18 +32,18 @@
 .docIcon {
   width: clamp(32px, 5vw, 40px);
   height: clamp(32px, 5vw, 40px);
-  color: #87674f;
+  color: var(--neu-text-secondary);
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
 /* Subheading - Match h2/h4 page header styles */
 .subheading {
-  font-family: "Assistant", sans-serif;
+  font-family: 'Assistant', sans-serif;
   font-size: 20px;
   font-weight: 800;
   line-height: 0.9;
   letter-spacing: 0em;
-  color: #87674f;
+  color: var(--neu-text-secondary);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(255, 255, 255, 0.8),
     0 -1px 2px rgba(255, 255, 255, 0.45);
   transform: translateZ(0);
@@ -74,7 +74,7 @@
 }
 
 .termsShell::before {
-  content: "";
+  content: '';
   position: fixed;
   top: 0;
   left: 0;
@@ -117,7 +117,7 @@
 }
 
 .introCard::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background: none;
@@ -128,11 +128,11 @@
 
 .introMeta {
   font-weight: 500;
-  color: #473b31 !important;
+  color: var(--neu-text-primary) !important;
 }
 
 .leadParagraph {
-  color: #473b31;
+  color: var(--neu-text-primary);
 }
 
 /* Container that holds the topic outer cards (not styled as a card) */
@@ -159,15 +159,15 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  color: #473b31;
+  color: var(--neu-text-primary);
 }
 
 .outerCard p {
-  color: #473b31;
+  color: var(--neu-text-primary);
 }
 
 .outerCard::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 6px;
   border-radius: inherit;
@@ -192,7 +192,7 @@
 }
 
 .innerCard::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -216,9 +216,6 @@
 
 /* Mobile responsive adjustments */
 @media (max-width: 768px) {
-  .card {
-    width: 100%;
-  }
   .contentWrap {
     padding-block: clamp(1rem, 2vw, 1.5rem);
   }

@@ -2,8 +2,8 @@
 
 import type { HTMLAttributes, LabelHTMLAttributes, ReactNode } from "react";
 
+import "@/design/index.css";
 import { cn } from "@/lib/utils";
-import neuStyles from "@/app/styles/neu.module.css";
 
 export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
   label?: ReactNode;
@@ -24,11 +24,11 @@ export function Field({
   const { className: labelClassName, ...restLabelProps } = labelProps ?? {};
 
   return (
-    <div className={cn(neuStyles.neuField, className)} {...props}>
+    <div className={cn("neuField", className)} {...props}>
       {label ? (
         <label
           htmlFor={htmlFor}
-          className={cn(neuStyles.neuLabel, labelClassName)}
+          className={cn("neuLabel", labelClassName)}
           {...restLabelProps}
         >
           {label}
@@ -37,7 +37,7 @@ export function Field({
 
       {children}
 
-      {hint ? <p className={neuStyles.neuHint}>{hint}</p> : null}
+      {hint ? <p className="neuHint">{hint}</p> : null}
     </div>
   );
 }

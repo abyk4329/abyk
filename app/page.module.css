@@ -16,7 +16,7 @@
   padding-inline: var(--home-page-padding-inline);
 }
 
-.content {
+.homeContent {
   width: min(100%, var(--home-content-max-width));
   margin-inline: auto;
   display: flex;

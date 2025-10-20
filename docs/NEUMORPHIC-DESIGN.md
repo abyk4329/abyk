@@ -479,20 +479,20 @@ active:scale-95
 ### `getNeuShadow()`
 
 ```tsx
-import { getNeuShadow } from "@/lib/neu-styles";
-
-const shadow = getNeuShadow("md", "elevated", isDark);
+// השתמש במשתני CSS ישירות במקום פונקציות JavaScript
+const shadow = "var(--shadow-raised)";
 ```
 
 ### `neuTypography`
 
 ```tsx
-import { neuTypography } from "@/lib/neu-styles";
-
+// השתמש במשתני CSS ישירות במקום אובייקטים
 <button
   style={{
-    ...neuTypography.buttonCta,
+    fontWeight: "600",
+    letterSpacing: "0.13em",
     fontSize: "clamp(1.0625rem, 2.5vw, 1.1875rem)",
+    whiteSpace: "nowrap",
   }}
 >
   לחץ כאן
@@ -554,7 +554,8 @@ import { neuTypography } from "@/lib/neu-styles";
 
 ## משאבים נוספים
 
-- `lib/neu-styles.ts`
+- `design/tokens/`
+- `design/themes/`
 - `components/neu/`
 - `app/globals.css`
 - `components/pages/HomePage.tsx`

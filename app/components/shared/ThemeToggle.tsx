@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { Moon, Lamp } from "lucide-react";
 import { useEffect, useState } from "react";
 import styles from "./ThemeToggle.module.css";
 
@@ -85,7 +85,7 @@ export function ThemeToggle() {
     return (
       <button className={styles.themeToggle} aria-label="טוען...">
         <div className={styles.iconContainer}>
-          <Sun className={styles.icon} />
+          <Moon className={styles.icon} />
         </div>
       </button>
     );
@@ -100,13 +100,13 @@ export function ThemeToggle() {
       aria-label={label}
       title={label}
       role="switch"
-      aria-checked={theme === "dark" ? "true" : "false"}
+      aria-checked={theme === "dark"}
     >
       <div className={styles.iconContainer}>
         {theme === "light" ? (
           <Moon className={styles.icon} />
         ) : (
-          <Sun className={styles.icon} />
+          <Lamp className={styles.icon} />
         )}
       </div>
     </button>

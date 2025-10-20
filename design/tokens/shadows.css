@@ -1,0 +1,57 @@
+/*
+  Shadow System
+  -------------
+  Elevation and depth effects for neumorphic design.
+  All shadows are CSS variable-driven for consistent theming.
+*/
+
+:root {
+  /* Shadow base colors */
+  --shadow-light: rgba(255, 255, 255, 0.9);
+  --shadow-dark: rgba(160, 160, 160, 0.5);
+
+  /* Raised shadows (extruded effect) */
+  --shadow-raised: 2px 2px 4px var(--shadow-dark),
+    -2px -2px 4px var(--shadow-light);
+  --shadow-raised-hover: 2px 2px 4px
+      color-mix(in srgb, var(--shadow-dark) 60%, transparent),
+    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 60%, transparent);
+  --shadow-raised-strong: 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 65%, transparent),
+    -3px -3px 6px color-mix(in srgb, var(--shadow-light) 65%, transparent);
+  --shadow-raised-emphasis: 4px 4px 8px
+      color-mix(in srgb, var(--shadow-dark) 70%, transparent),
+    -4px -4px 8px color-mix(in srgb, var(--shadow-light) 70%, transparent);
+
+  /* Inset shadows (sunken effect) */
+  --shadow-inset: inset 3px 3px 6px var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+  --shadow-inset-hover: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 60%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 60%, transparent);
+  --shadow-inset-strong: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 65%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 65%, transparent);
+  --shadow-inset-pressed: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 55%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 55%, transparent);
+
+  /* Overlay shadows (for modals, tooltips) */
+  --shadow-overlay-sm: 0 6px 16px
+    color-mix(in srgb, var(--shadow-dark) 35%, transparent);
+  --shadow-overlay: 0 10px 26px
+    color-mix(in srgb, var(--shadow-dark) 45%, transparent);
+
+  /* Special effects */
+  --shadow-highlight: inset 0 1px 3px rgba(255, 255, 255, 0.2);
+
+  /* Text lift effects */
+  --lift-text-shadow: 0 1px 1.4px
+    color-mix(in srgb, var(--shadow-dark) 24%, transparent);
+  --lift-text-shadow-md: 0 2px 4px
+    color-mix(in srgb, var(--shadow-dark) 28%, transparent);
+  --lift-text-shadow-lg: 0 3px 6px
+    color-mix(in srgb, var(--shadow-dark) 35%, transparent);
+  --lift-icon-shadow: 0 1.5px 2px
+    color-mix(in srgb, var(--shadow-dark) 18%, transparent);
+}

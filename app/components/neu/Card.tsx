@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react";
 
+import "@/design/index.css";
 import { cn } from "@/lib/utils";
-import neuStyles from "@/app/styles/neu.module.css";
 
 // Dark mode is managed globally via the `.dark` class on <html>.
 // This component no longer sets a per-card theme attribute.
@@ -19,19 +19,19 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const VARIANT_CLASS_MAP: Record<CardVariant, string[]> = {
-  elevated: [neuStyles.neuCard],
-  inset: [neuStyles.neuCard, neuStyles["neuCard--inset"]],
-  flat: [neuStyles.neuCard, neuStyles["neuCard--flat"]],
+  elevated: ["neuCard"],
+  inset: ["neuCard", "neuCard--inset"],
+  flat: ["neuCard", "neuCard--flat"],
 };
 
 const RADIUS_CLASS_MAP: Record<CardRadius, string | undefined> = {
   lg: undefined,
-  md: neuStyles["neuCard--tight"],
+  md: "neuCard--tight",
 };
 
 const PADDING_CLASS_MAP: Record<CardPadding, string | undefined> = {
-  lg: neuStyles["neuCard--pad-lg"],
-  md: neuStyles["neuCard--pad-md"],
+  lg: "neuCard--pad-lg",
+  md: "neuCard--pad-md",
   none: undefined,
 };
 

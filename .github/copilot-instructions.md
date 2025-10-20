@@ -19,8 +19,8 @@ Next.js 15 + React 19 numerology calculator with Hebrew RTL support, neumorphic 
 ### Route Groups & Feature Modules
 
 - **App Router Structure**: Route groups organize by purpose - `(funnels)` for conversion flow, `(labs)` for dev-only experiments, `(legal)` for policies
-- **Feature-First Organization**: Business domains live in `features/` (e.g., `features/wealth-code/`) with their own `components/`, `data/`, `pdf/`, `email/`, `utils/`
-- **Each feature is self-contained**: When creating new features, replicate the `wealth-code` structure - don't scatter components across `app/components/`
+- **Feature-First Organization**: UI lives under `app/(funnels)/_components/<feature>/` while domain assets (data, utils, pdf, email) live in `lib/<feature>/` (למשל `lib/wealth-code/`)
+- **Each feature is self-contained**: שכפלי את מבנה `wealth-code` (UI + lib) ושמרי על אחריות ממוקדת בכל תיקיית פיצ'ר
 
 ### Next.js 15 Server/Client Boundaries
 
@@ -41,7 +41,7 @@ User input → Calculator (client) → Result (client) → Sales → Payment web
 ```
 
 - **Webhook security**: Always validate `x-grow-secret` header in `/api/webhooks/grow`
-- **PDF generation**: Uses `@react-pdf/renderer` with Assistant font from Google Fonts, configured in `features/wealth-code/pdf/`
+- **PDF generation**: Uses `@react-pdf/renderer` with Assistant font from Google Fonts, configured ב-`lib/wealth-code/pdf/`
 - **Email delivery**: `lib/email/transport.ts` auto-selects Resend or Nodemailer based on env vars
 
 ## Development Workflow
@@ -145,7 +145,7 @@ Dark mode: Use `[data-theme="dark"]` selector, variables auto-switch (see `app/g
 - **All user-facing text is in Hebrew**: UI labels, error messages, emails, PDFs
 - **CSS**: Use logical properties where possible (`padding-inline`, `margin-block`)
 - **Flex/Grid**: Use `start`/`end` instead of `left`/`right`
-- **PDF**: `@react-pdf/renderer` configured with RTL support in `features/wealth-code/pdf/`
+- **PDF**: `@react-pdf/renderer` מוגדר ל-RTL בתוך `lib/wealth-code/pdf/`
 - **Email**: HTML templates use `dir="rtl"` and inline styles (for email client compatibility)
 
 ## Accessibility & RTL Checklist
@@ -160,12 +160,12 @@ Dark mode: Use `[data-theme="dark"]` selector, variables auto-switch (see `app/g
 
 ### Adding a New Feature
 
-1. Create `features/<feature-name>/` directory
-2. Add subdirectories: `components/`, `data/`, `utils/`, `pdf/`, `email/`, `constants.ts`
-3. Define routes in `constants.ts` (e.g., `FEATURE_ROUTES = { ... }`)
-4. Create route group in `app/(<group-name>)/` if needed
-5. Update `docs/PROJECT_STRUCTURE.md` with new structure
-6. Add tests in `tests/e2e/<feature>.spec.ts`
+1. הקימי `lib/<feature-name>/` עם תתי תיקיות: `data/`, `utils/`, `email/`, `pdf/`, והוסיפי `constants.ts` + `index.ts`
+2. צרי `app/(funnels)/_components/<feature-name>/` עם `sections/`, `shared/`, `ui/`, ו-`index.ts`
+3. הגדירי נתיבים וקבועים ב-`lib/<feature-name>/constants.ts` (למשל `FEATURE_ROUTES`)
+4. צרי Route group ב-`app/(<group-name>)/` לפי הצורך וחברי את הקומפוננטות דרך `page.tsx`
+5. עדכני את `docs/PROJECT_STRUCTURE.md` בהתאם
+6. הוסיפי בדיקות ב-`tests/e2e/<feature-name>.spec.ts`
 
 ### API Route Pattern
 
@@ -191,8 +191,8 @@ export async function POST(request: NextRequest) {
 
 ### Email/PDF Generation
 
-- **PDF**: Use components from `features/wealth-code/pdf/` as template
-- **Email**: HTML + plain text variants in `features/wealth-code/email/templates/`
+- **PDF**: השתמשי בקומפוננטות מתוך `lib/wealth-code/pdf/` כבסיס
+- **Email**: HTML + טקסט פשוט נמצאים ב-`lib/wealth-code/email/templates/`
 - **Sending**: Call `/api/send-email` with `{ to, name, attachments: [{ filename, content: base64 }] }`
 - **Testing**: Set `MAIL_TEST_MODE=1` to force test email destination
 

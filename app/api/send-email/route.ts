@@ -2,7 +2,7 @@ export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
 
-import { dispatchWealthEmail, WealthEmailError } from "@/lib/email/wealth";
+import { dispatchWealthEmail, WealthEmailError } from "@/lib/services/email/wealth";
 
 type Body = {
     to?: string;

@@ -7,12 +7,12 @@
   transition: opacity 220ms ease, visibility 220ms ease;
 }
 
-.headerBar[data-hidden="true"] {
+.headerBar[data-hidden='true'] {
   opacity: 0;
   visibility: hidden;
 }
 
-.inner {
+.headerInner {
   width: min(100%, 1120px);
   margin: 0 auto;
   display: flex;
@@ -47,22 +47,22 @@
   transition: opacity 220ms ease, visibility 220ms ease;
 }
 
-.themeTrigger[data-hidden="true"],
-.railTrigger[data-hidden="true"] {
+.themeTrigger[data-hidden='true'],
+.railTrigger[data-hidden='true'] {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
 
 @media (max-width: 640px) {
-  .inner {
+  .headerInner {
     padding-inline: clamp(0.75rem, 5vw, 1.5rem);
     border-radius: 0 0 22px 22px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .inner {
+  .headerInner {
     transition: none;
   }
 }

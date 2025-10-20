@@ -2,8 +2,8 @@ export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
 
-import { dispatchWealthEmail, WealthEmailError } from "@/lib/email/wealth";
-import { generateWealthReportPdfBase64 } from "@/features/wealth-code/pdf/generate";
+import { generateWealthReportPdfBase64 } from "@/lib/domain/wealth-code/pdf";
+import { dispatchWealthEmail, WealthEmailError } from "@/lib/services/email/wealth";
 
 const SUCCESS_STATUS = new Set([
   "paid",

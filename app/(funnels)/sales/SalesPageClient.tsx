@@ -1,6 +1,6 @@
 "use client";
 
-import { SalesPage as SalesSection } from "@/features/wealth-code/components";
+import { SalesPage as SalesSection } from "../_components/wealth-code";
 
 import { FunnelPage } from "../_components/FunnelPage";
 

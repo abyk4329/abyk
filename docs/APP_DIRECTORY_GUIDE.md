@@ -30,21 +30,6 @@
 - `thank-you/page.tsx` – קומפוננטת שרת שמקבלת קוד (אם קיים) ומטעינה את עמוד התודה.
 - `thank-you/ThankYouPageClient.tsx` – עמוד לקוח ששומר את הקוד ב־sessionStorage, מאפשר צפייה בהסברים נוספים או חישוב חדש בתוך `FunnelPage`.
 
-## תיקיית `(labs)/`
-
-- `README.md` – הסבר על אזור ניסויים (Design System, פרוטוטייפים וכו').
-- `labs.module.css` – סגנון לדף הנחיתה של המעבדות: גריד הלינקים והכרטיסים הנוומורפיים.
-- `page.tsx` – אינדקס המעבדות המציג קישורים ל־Design System ולחזרה לבית.
-- `buttons/buttons.module.css` – סגנונות לעמוד הדגמת הכפתורים (גרידים, מצבי אינטראקציה, קטעי קוד).
-- `buttons/page.tsx` – עמוד הצגה של כל וריאציות רכיב הכפתור (`Button`), כולל מצבים ו־props זמינים.
-- `design/GlassButton.tsx` – ייצוא מחדש של `NeuButton` לטובת ניסויים בעמודי העיצוב.
-- `design/page.tsx` – עמוד חסום (Client) שמציג הודעה כאשר ארכיון העיצובים לא מאופשר בסביבה.
-- `design-system/README.md` – מסמך תיעוד מפורט של ערכי מערכת העיצוב (רדיוסים, צללים, טיפוגרפיה וכו').
-- `design-system/design-system.module.css` – סגנונות לעמוד ה־Design System (גרידי הדגמה, טיפוגרפיה, ריווחים).
-- `design-system/page.tsx` – עמוד הדמיית מערכת העיצוב המציג את כל הטוקנים והקלאסים בשימוש.
-- `shadows/shadows.module.css` – סגנונות לעמוד ההדגמה של הצללים (פריסות, טיפוגרפיה משנית).
-- `shadows/page.tsx` – Showcase מפורט של כל מחלקות ההצללה והדוגמאות הנוומורפיות.
-
 ## תיקיית `(legal)/`
 
 - `README.md` – הנחיות לשמירת דפי מדיניות ותנאים בקבוצה זו.
@@ -108,7 +93,7 @@
 - `IconButton.tsx` – רכיב כפתור אייקון עם hover/active נוומורפי.
 - `README.md` – מדריך שימוש ברכיבי נו.
 - `index.ts` – ייצוא מרוכז של הכפתור, כרטיס והאייקון.
-- `neumorphic-shadows.css` – מחלקות CSS מוגדרות מראש להצללות נפוצות.
+- `design/themes/neumorphic.css` – מחלקות CSS נאומורפיות מאוחדות (החליף את `app/components/neu/neumorphic-shadows.css`).
 
 ### `sections/`
 
@@ -151,7 +136,7 @@
 - `index.ts` – ייצוא מודולרי של כלי `lib` לשימוש ברחבי האפליקציה.
 - `navigation.tsx` – Provider והוקים לניווט מותאם (שמירת היסטוריה, נעילת גלילה וכו').
 - `navigation.tsx` – רה-אקספורט אל ספק הניווט שנמצא תחת `app/components/providers` לשמירת תאימות אחורה.
-- `neu-styles.ts` – מיפוי CSS-in-JS של נוומורפיזם לשימוש בתוך רכיבים (לדוגמה DesignShowcase).
+- `neu-styles.ts` – מיפוי CSS-in-JS של נוומורפיזם לשימוש בתוך רכיבים (לדוגמה DesignShowcase). **הוצא משימוש - השתמש ב-design/tokens/**
 - `pdf/WealthReport.tsx` – קומפוננטת React PDF שמייצרת את דוח קוד העושר ב־RTL.
 - `routes.ts` – מקור האמת של נתיבי הניווט (כולל פונקציות עזר ליצירת URLs דינמיים).
 - `utils/base64.ts` – המרות Base64 כולל strip headers.

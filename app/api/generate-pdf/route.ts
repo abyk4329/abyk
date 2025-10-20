@@ -1,7 +1,7 @@
 export const runtime = "nodejs";
 
+import { generateWealthReportPdfBase64 } from "@/lib/domain/wealth-code/pdf";
 import { NextResponse } from "next/server";
-import { generateWealthReportPdfBase64 } from "@/features/wealth-code/pdf/generate";
 
 type GeneratePdfPayload = {
   code?: string;

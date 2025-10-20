@@ -1,5 +1,10 @@
-"use client";
+'use client';
 
+import { Button } from '@/components/neu';
+import { ICON_STROKE, WEALTH_BASE } from '@/lib/constants';
+import { Cookie } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   ReactNode,
   createContext,
@@ -10,19 +15,14 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Cookie } from "lucide-react";
-import { Button } from "@/components/neu";
-import { ICON_STROKE, WEALTH_BASE } from "@/lib/constants";
+} from 'react';
 
-import styles from "./CookieConsent.module.css";
+import styles from './CookieConsent.module.css';
 
-const STORAGE_KEY = "cookieConsent:v2";
-const LEGACY_KEY = "abyk-cookie-consent";
+const STORAGE_KEY = 'cookieConsent:v2';
+const LEGACY_KEY = 'abyk-cookie-consent';
 const CONSENT_VERSION = 2;
-const COOKIE_KEY = "abyk_cookie_consent_v2";
+const COOKIE_KEY = 'abyk_cookie_consent_v2';
 const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365; // 12 חודשים
 
 function normalizePathValue(value?: string | null): string | undefined {
@@ -30,34 +30,34 @@ function normalizePathValue(value?: string | null): string | undefined {
     return undefined;
   }
 
-  if (value === "" || value === "/") {
-    return "/";
+  if (value === '' || value === '/') {
+    return '/';
   }
 
-  const sanitized = value.replace(/\/+/g, "/");
+  const sanitized = value.replace(/\/+/g, '/');
   const trimmed =
-    sanitized.endsWith("/") && sanitized !== "/"
+    sanitized.endsWith('/') && sanitized !== '/'
       ? sanitized.slice(0, -1)
       : sanitized;
-  return trimmed || "/";
+  return trimmed || '/';
 }
 
 const basePrefix = (() => {
   const normalized = normalizePathValue(WEALTH_BASE);
-  if (!normalized || normalized === "/") {
-    return "";
+  if (!normalized || normalized === '/') {
+    return '';
   }
   return normalized;
 })();
 
 export type ConsentCategory =
-  | "essential"
-  | "statistics"
-  | "marketing"
-  | "personalization";
-export type NonEssentialCategory = Exclude<ConsentCategory, "essential">;
+  | 'essential'
+  | 'statistics'
+  | 'marketing'
+  | 'personalization';
+export type NonEssentialCategory = Exclude<ConsentCategory, 'essential'>;
 
-type ConsentStatus = "pending" | "granted" | "denied" | "custom";
+type ConsentStatus = 'pending' | 'granted' | 'denied' | 'custom';
 
 type ConsentCategories = Record<ConsentCategory, boolean>;
 
@@ -80,17 +80,17 @@ interface CookieConsentContextValue {
 }
 
 const focusableSelectors = [
-  "a[href]",
-  "button:not([disabled])",
-  "input:not([disabled])",
-  "select:not([disabled])",
-  "textarea:not([disabled])",
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
   '[tabindex]:not([tabindex="-1"])',
-].join(",");
+].join(',');
 
 const defaultPreferences: ConsentPreferences = {
   version: CONSENT_VERSION,
-  status: "pending",
+  status: 'pending',
   categories: {
     essential: true,
     statistics: false,
@@ -108,7 +108,7 @@ export function useCookieConsent(): CookieConsentContextValue {
   const ctx = useContext(CookieConsentContext);
   if (!ctx) {
     throw new Error(
-      "useCookieConsent must be used within CookieConsentProvider"
+      'useCookieConsent must be used within CookieConsentProvider'
     );
   }
   return ctx;
@@ -132,12 +132,12 @@ function computeStatus(categories: ConsentCategories): ConsentStatus {
     categories.personalization,
   ];
   if (flags.every(Boolean)) {
-    return "granted";
+    return 'granted';
   }
   if (flags.every((flag) => !flag)) {
-    return "denied";
+    return 'denied';
   }
-  return "custom";
+  return 'custom';
 }
 
 function normalizePreferences(
@@ -149,7 +149,7 @@ function normalizePreferences(
 
   const categories = ensureEssentialTrue(preferences.categories);
   const status =
-    preferences.status === "pending" ? "pending" : computeStatus(categories);
+    preferences.status === 'pending' ? 'pending' : computeStatus(categories);
 
   return {
     version: CONSENT_VERSION,
@@ -173,7 +173,7 @@ function arePreferencesEqual(
 }
 
 function readPreferencesFromCookie(): ConsentPreferences | null {
-  if (typeof document === "undefined") {
+  if (typeof document === 'undefined') {
     return null;
   }
 
@@ -194,13 +194,13 @@ function readPreferencesFromCookie(): ConsentPreferences | null {
     }
     return normalizePreferences(parsed);
   } catch (error) {
-    console.warn("CookieConsent: Failed to parse consent cookie", error);
+    console.warn('CookieConsent: Failed to parse consent cookie', error);
     return null;
   }
 }
 
 function persistPreferencesToLocalStorage(preferences: ConsentPreferences) {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return;
   }
 
@@ -212,14 +212,14 @@ function persistPreferencesToLocalStorage(preferences: ConsentPreferences) {
     window.localStorage.setItem(STORAGE_KEY, payload);
   } catch (error) {
     console.warn(
-      "CookieConsent: Failed to persist preferences to localStorage",
+      'CookieConsent: Failed to persist preferences to localStorage',
       error
     );
   }
 }
 
 function persistPreferencesToCookie(preferences: ConsentPreferences) {
-  if (typeof document === "undefined") {
+  if (typeof document === 'undefined') {
     return;
   }
 
@@ -233,14 +233,14 @@ function persistPreferencesToCookie(preferences: ConsentPreferences) {
     document.cookie = `${COOKIE_KEY}=${payload};path=/;max-age=${COOKIE_MAX_AGE_SECONDS};SameSite=Lax;Secure`;
   } catch (error) {
     console.warn(
-      "CookieConsent: Failed to persist preferences to cookie",
+      'CookieConsent: Failed to persist preferences to cookie',
       error
     );
   }
 }
 
 function clearPreferencesCookie() {
-  if (typeof document === "undefined") {
+  if (typeof document === 'undefined') {
     return;
   }
 
@@ -248,14 +248,14 @@ function clearPreferencesCookie() {
 }
 
 function clearStoredPreferences() {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return;
   }
 
   try {
     window.localStorage.removeItem(STORAGE_KEY);
   } catch (error) {
-    console.warn("CookieConsent: Failed to clear stored preferences", error);
+    console.warn('CookieConsent: Failed to clear stored preferences', error);
   }
 }
 
@@ -264,10 +264,10 @@ function migrateLegacyConsent(value: string | null): ConsentPreferences | null {
     return null;
   }
 
-  if (value === "accepted") {
+  if (value === 'accepted') {
     return {
       version: CONSENT_VERSION,
-      status: "granted",
+      status: 'granted',
       categories: {
         essential: true,
         statistics: true,
@@ -278,10 +278,10 @@ function migrateLegacyConsent(value: string | null): ConsentPreferences | null {
     };
   }
 
-  if (value === "dismissed") {
+  if (value === 'dismissed') {
     return {
       version: CONSENT_VERSION,
-      status: "denied",
+      status: 'denied',
       categories: {
         essential: true,
         statistics: false,
@@ -296,7 +296,7 @@ function migrateLegacyConsent(value: string | null): ConsentPreferences | null {
 }
 
 function loadPreferencesFromStorage(): ConsentPreferences {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return { ...defaultPreferences };
   }
 
@@ -312,7 +312,7 @@ function loadPreferencesFromStorage(): ConsentPreferences {
       }
     }
   } catch (error) {
-    console.warn("CookieConsent: Failed to parse stored preferences", error);
+    console.warn('CookieConsent: Failed to parse stored preferences', error);
   }
 
   if (!storedPreferences) {
@@ -327,7 +327,7 @@ function loadPreferencesFromStorage(): ConsentPreferences {
         }
       }
     } catch (error) {
-      console.warn("CookieConsent: Failed to read legacy preferences", error);
+      console.warn('CookieConsent: Failed to read legacy preferences', error);
     }
   }
 
@@ -342,7 +342,7 @@ function loadPreferencesFromStorage(): ConsentPreferences {
   }
 
   if (storedPreferences) {
-    if (storedPreferences.status !== "pending") {
+    if (storedPreferences.status !== 'pending') {
       clearPreferencesCookie();
       clearStoredPreferences();
       return { ...defaultPreferences };
@@ -375,7 +375,7 @@ export function CookieConsentProvider({
   useEffect(() => {
     const stored = loadPreferencesFromStorage();
     setPreferences(stored);
-    setBannerVisible(stored.status === "pending");
+    setBannerVisible(stored.status === 'pending');
   }, []);
 
   const updatePreferences = useCallback(
@@ -395,7 +395,7 @@ export function CookieConsentProvider({
     updatePreferences(
       {
         version: CONSENT_VERSION,
-        status: "granted",
+        status: 'granted',
         categories: {
           essential: true,
           statistics: true,
@@ -413,7 +413,7 @@ export function CookieConsentProvider({
     updatePreferences(
       {
         version: CONSENT_VERSION,
-        status: "denied",
+        status: 'denied',
         categories: {
           essential: true,
           statistics: false,
@@ -429,14 +429,14 @@ export function CookieConsentProvider({
 
   const openSettings = useCallback(() => {
     wasBannerVisibleRef.current =
-      isBannerVisible || preferences.status === "pending";
+      isBannerVisible || preferences.status === 'pending';
     setSettingsOpen(true);
     setBannerVisible(false);
   }, [isBannerVisible, preferences.status]);
 
   const closeSettings = useCallback(() => {
     setSettingsOpen(false);
-    if (preferences.status === "pending" || wasBannerVisibleRef.current) {
+    if (preferences.status === 'pending' || wasBannerVisibleRef.current) {
       setBannerVisible(true);
     }
   }, [preferences.status]);
@@ -497,7 +497,7 @@ function ConsentBanner() {
 
   const homePaths = useMemo(() => {
     const set = new Set<string>();
-    set.add("/");
+    set.add('/');
     if (basePrefix) {
       set.add(basePrefix);
     }
@@ -505,7 +505,7 @@ function ConsentBanner() {
   }, []);
 
   const normalizedPath = useMemo(
-    () => normalizePathValue(pathname) ?? "/",
+    () => normalizePathValue(pathname) ?? '/',
     [pathname]
   );
   const isHomePath = homePaths.has(normalizedPath);
@@ -516,34 +516,34 @@ function ConsentBanner() {
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         event.preventDefault();
         rejectAll();
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isBannerVisible, rejectAll]);
 
   useLayoutEffect(() => {
-    if (typeof document === "undefined") {
+    if (typeof document === 'undefined') {
       return;
     }
 
     const root = document.documentElement;
 
     if (isBannerVisible && isHomePath) {
-      root.setAttribute("data-cookie-banner", "home");
-    } else if (root.getAttribute("data-cookie-banner") === "home") {
-      root.removeAttribute("data-cookie-banner");
+      root.setAttribute('data-cookie-banner', 'home');
+    } else if (root.getAttribute('data-cookie-banner') === 'home') {
+      root.removeAttribute('data-cookie-banner');
     }
 
     return () => {
-      if (root.getAttribute("data-cookie-banner") === "home") {
-        root.removeAttribute("data-cookie-banner");
+      if (root.getAttribute('data-cookie-banner') === 'home') {
+        root.removeAttribute('data-cookie-banner');
       }
     };
   }, [isBannerVisible, isHomePath]);
@@ -639,18 +639,18 @@ const CATEGORY_CONTENT: Record<
   { title: string; description: string }
 > = {
   statistics: {
-    title: "סטטיסטיקה",
+    title: 'סטטיסטיקה',
     description:
-      "עוזר לי להבין איך אתם משתמשים באתר וכיצד לשפר את חוויית הגלישה.",
+      'עוזר לי להבין איך אתם משתמשים באתר וכיצד לשפר את חוויית הגלישה.',
   },
   marketing: {
-    title: "שיווק (כולל TikTok Pixel)",
+    title: 'שיווק (כולל TikTok Pixel)',
     description:
-      "מסייע לי למדוד קמפיינים ולהתאים מסרים שיווקיים לרגע הנכון עבורכם.",
+      'מסייע לי למדוד קמפיינים ולהתאים מסרים שיווקיים לרגע הנכון עבורכם.',
   },
   personalization: {
-    title: "התאמה אישית",
-    description: "מאפשר לי להציע תוכן והמלצות שמדויקים יותר עבורכם באופן אישי.",
+    title: 'התאמה אישית',
+    description: 'מאפשר לי להציע תוכן והמלצות שמדויקים יותר עבורכם באופן אישי.',
   },
 };
 
@@ -688,13 +688,13 @@ function CookieSettingsModal() {
     focusable[0]?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         event.preventDefault();
         closeSettings();
         return;
       }
 
-      if (event.key !== "Tab" || focusable.length === 0) {
+      if (event.key !== 'Tab' || focusable.length === 0) {
         return;
       }
 
@@ -712,10 +712,10 @@ function CookieSettingsModal() {
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isSettingsOpen, closeSettings]);
 
@@ -761,7 +761,9 @@ function CookieSettingsModal() {
         </div>
         <div className={styles.categoryList}>
           <div
-            className={[styles.categoryItem, styles.categoryLocked].join(" ")}
+            className={[styles.cookieCategoryItem, styles.categoryLocked].join(
+              ' '
+            )}
           >
             <div>
               <span className={styles.categoryTitle}>חיוניים</span>
@@ -775,7 +777,7 @@ function CookieSettingsModal() {
             const categoryKey = key as NonEssentialCategory;
             const isChecked = draft[categoryKey];
             return (
-              <label key={categoryKey} className={styles.categoryItem}>
+              <label key={categoryKey} className={styles.cookieCategoryItem}>
                 <div>
                   <span className={styles.categoryTitle}>{value.title}</span>
                   <p className={styles.categoryDescription}>

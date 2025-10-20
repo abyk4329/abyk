@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useCallback } from "react";
-import { ChevronsDown, Lightbulb } from "lucide-react";
+import { ChevronsDown, Lightbulb } from 'lucide-react';
+import { useCallback } from 'react';
 
-import { ICON_STROKE } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { ICON_STROKE } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 
-import { IconButton } from "@/components/neu";
-import styles from "./HeaderBar.module.css";
-import { useDrawer } from "./DrawerProvider";
-import { useThemePreference } from "./useThemePreference";
+import { IconButton } from '@/components/neu';
+import { useDrawer } from './DrawerProvider';
+import styles from './HeaderBar.module.css';
+import { useThemePreference } from './useThemePreference';
 
 export function HeaderBar() {
   const { open, railOpen, openRail, closeRail } = useDrawer();
@@ -17,8 +17,8 @@ export function HeaderBar() {
   const anyMenuOpen = open || railOpen;
   const { mode: themeMode, toggleTheme } = useThemePreference();
 
-  const quickLabel = "פתיחת תפריט מהיר";
-  const themeLabel = themeMode === "dark" ? "מעבר למצב בהיר" : "מעבר למצב כהה";
+  const quickLabel = 'פתיחת תפריט מהיר';
+  const themeLabel = themeMode === 'dark' ? 'מעבר למצב בהיר' : 'מעבר למצב כהה';
 
   const handleToggleRail = useCallback(() => {
     if (railOpen) {
@@ -38,9 +38,9 @@ export function HeaderBar() {
     >
       <div
         className={cn(
-          styles.inner,
+          styles.headerInner,
           styles.controlsOnly,
-          "header-only-controls"
+          'header-only-controls'
         )}
       >
         <IconButton
@@ -48,8 +48,8 @@ export function HeaderBar() {
           title={quickLabel}
           onClick={handleToggleRail}
           size="md"
-          className={cn(styles.railTrigger, "rail-trigger")}
-          style={{ borderRadius: "50%" }}
+          className={cn(styles.railTrigger, 'rail-trigger')}
+          style={{ borderRadius: '50%' }}
           data-rail-trigger="true"
           data-hidden={anyMenuOpen}
           aria-haspopup="dialog"
@@ -67,10 +67,10 @@ export function HeaderBar() {
           title={themeLabel}
           onClick={toggleTheme}
           size="md"
-          className={cn(styles.themeTrigger, "theme-trigger")}
-          style={{ borderRadius: "50%" }}
+          className={cn(styles.themeTrigger, 'theme-trigger')}
+          style={{ borderRadius: '50%' }}
           data-hidden={anyMenuOpen}
-          aria-pressed={themeMode === "dark"}
+          aria-pressed={themeMode === 'dark'}
         >
           <Lightbulb
             strokeWidth={ICON_STROKE.default}

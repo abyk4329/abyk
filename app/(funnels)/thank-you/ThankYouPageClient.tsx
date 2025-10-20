@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { ThankYou } from "@/features/wealth-code/components";
+import { ThankYou } from "../_components/wealth-code";
 import { getInterpretationsUrl, routes } from "@/lib/routes";
 
 import { FunnelPage } from "../_components/FunnelPage";

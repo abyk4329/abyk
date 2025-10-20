@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { Hash } from "lucide-react";
+import { Hash } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
-import Card from "@/app/components/neu/Card";
-import { Button } from "@/components/neu";
-import { routes } from "@/lib/routes";
-import { SocialLinks } from "@/app/components/layout/SocialLinks";
-import { shareWithFriends } from "@/features/wealth-code/utils";
+import { SocialLinks } from '@/app/components/layout/SocialLinks';
+import Card from '@/app/components/neu/Card';
+import { Button } from '@/components/neu';
+import { shareWithFriends } from '@/lib/domain/wealth-code/utils';
+import { routes } from '@/lib/routes';
 
-import styles from "./page.module.css";
+import styles from './page.module.css';
 
 export function HomePageClient() {
   const router = useRouter();
 
   return (
     <main className={`hero-shell ${styles.page}`}>
-      <div className={styles.content}>
+      <div className={styles.homeContent}>
         <section className={styles.heroSection}>
           <Card
             className={styles.heroCard}
@@ -30,7 +30,7 @@ export function HomePageClient() {
 
             <div className={styles.heroContent}>
               <h1 id="home-hero-heading" className={styles.heroTitle}>
-                גלו את <span className={styles.heroTitleAccent}>קוד העושר</span>{" "}
+                גלו את <span className={styles.heroTitleAccent}>קוד העושר</span>{' '}
                 שלכם
               </h1>
               <p className={styles.heroSubtitle}>

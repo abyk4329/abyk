@@ -1,48 +1,48 @@
-"use client";
+'use client';
 
-import { ReactNode, useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 
-import { CookieConsentProvider } from "@/app/components/layout/CookieConsent";
-import { TikTokPixel } from "@/app/components/analytics/TikTokPixel";
-import { SURFACE, WEALTH_BASE } from "@/lib/constants";
-import { routes } from "@/lib/routes";
-import { useOptionalNavigationOverrides } from "@/app/components/providers";
-import { setDarkThemeColor, setThemeColor } from "@/lib/utils";
+import { TikTokPixel } from '@/app/components/analytics/TikTokPixel';
+import { CookieConsentProvider } from '@/app/components/layout/CookieConsent';
+import { useOptionalNavigationOverrides } from '@/app/components/providers';
+import { SURFACE, WEALTH_BASE } from '@/lib/constants';
+import { routes } from '@/lib/routes';
+import { setDarkThemeColor, setThemeColor } from '@/lib/utils';
 
 interface AppShellProps {
   children: ReactNode;
 }
 
-const MOBILE_VIEWPORT_QUERY = "(max-width: 767px)";
+const MOBILE_VIEWPORT_QUERY = '(max-width: 767px)';
 
 function normalizePathValue(value?: string | null): string | undefined {
   if (value == null) {
     return undefined;
   }
 
-  if (value === "" || value === "/") {
-    return "/";
+  if (value === '' || value === '/') {
+    return '/';
   }
 
-  const sanitized = value.replace(/\/+/g, "/");
+  const sanitized = value.replace(/\/+/g, '/');
   const trimmed =
-    sanitized.endsWith("/") && sanitized !== "/"
+    sanitized.endsWith('/') && sanitized !== '/'
       ? sanitized.slice(0, -1)
       : sanitized;
-  return trimmed || "/";
+  return trimmed || '/';
 }
 
 const basePrefix = (() => {
   const normalized = normalizePathValue(WEALTH_BASE);
-  if (!normalized || normalized === "/") {
-    return "";
+  if (!normalized || normalized === '/') {
+    return '';
   }
   return normalized;
 })();
 
 function withBase(path: string): string | undefined {
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   return normalizePathValue(`${basePrefix}${normalizedPath}`);
 }
 
@@ -52,13 +52,13 @@ function useIsMobileViewport(): boolean | null {
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return;
     const mq = window.matchMedia(MOBILE_VIEWPORT_QUERY);
     const apply = () => setIsMobile(mq.matches);
     apply();
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
   }, []);
 
   return isMobile;
@@ -70,7 +70,7 @@ export function AppShell({ children }: AppShellProps) {
 
   const homePaths = useMemo(() => {
     const set = new Set<string>();
-    set.add("/");
+    set.add('/');
     if (basePrefix) {
       set.add(basePrefix);
     }
@@ -102,7 +102,7 @@ export function AppShell({ children }: AppShellProps) {
 
   const fullScreenPages = useMemo(() => {
     const entries = [
-      "/",
+      '/',
       basePrefix || undefined,
       calculatorPath,
       resultPath,
@@ -126,7 +126,7 @@ export function AppShell({ children }: AppShellProps) {
 
   const normalizedPath = normalizePathValue(pathname);
   const fallbackPath = basePrefix || undefined;
-  const effectivePath = normalizedPath ?? fallbackPath ?? "/";
+  const effectivePath = normalizedPath ?? fallbackPath ?? '/';
 
   const isHomePage = homePaths.has(effectivePath);
   const isFullScreenPage = fullScreenPages.has(effectivePath);
@@ -142,8 +142,6 @@ export function AppShell({ children }: AppShellProps) {
     canGoBack,
     canGoForward,
     isVisible,
-    showHeader,
-    showFooter,
     lockScroll: lockScrollOverride,
   } = navigationOverrides ?? {};
 
@@ -155,22 +153,19 @@ export function AppShell({ children }: AppShellProps) {
     (showNavigation && (!isHomePage || navigationOverrides)) ||
     mustShowNavigation;
 
-  const shouldShowHeader = showHeader ?? !shouldCollapseForMobile;
-  const shouldShowFooter = showFooter ?? !shouldCollapseForMobile;
-
   useEffect(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === 'undefined') {
       return;
     }
 
     const { history } = window;
-    if ("scrollRestoration" in history) {
+    if ('scrollRestoration' in history) {
       const previous =
-        (history.scrollRestoration as "auto" | "manual") ?? "auto";
-      history.scrollRestoration = "manual";
+        (history.scrollRestoration as 'auto' | 'manual') ?? 'auto';
+      history.scrollRestoration = 'manual';
 
       return () => {
-        history.scrollRestoration = previous ?? "auto";
+        history.scrollRestoration = previous ?? 'auto';
       };
     }
 
@@ -178,15 +173,15 @@ export function AppShell({ children }: AppShellProps) {
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === 'undefined') {
       return;
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [pathname]);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === 'undefined') {
       return;
     }
 
@@ -194,34 +189,32 @@ export function AppShell({ children }: AppShellProps) {
     setDarkThemeColor(SURFACE.headerDark);
   }, [pathname]);
 
-  const showFixedNavigation = !shouldShowFooter && shouldShowNavigation;
+  const showFixedNavigation = shouldShowNavigation;
   const mainClassName = [
-    "app-main",
-    showFixedNavigation ? "app-main--floating-nav" : "",
-    !shouldShowNavigation ? "app-main--spacious" : "",
-    !shouldShowHeader ? "app-main--no-header" : "",
-    !shouldShowFooter ? "app-main--no-footer" : "",
+    'app-main',
+    showFixedNavigation ? 'app-main--floating-nav' : '',
+    !shouldShowNavigation ? 'app-main--spacious' : '',
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   const shellClassName = [
-    "app-shell",
-    "min-h-[100dvh]",
-    "w-full",
-    isFullScreenPage ? "app-shell--full-bleed" : "",
+    'app-shell',
+    'min-h-[100dvh]',
+    'w-full',
+    isFullScreenPage ? 'app-shell--full-bleed' : '',
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   // Central scroll locking for defined full-screen pages (Home / Calculator / Result / ThankYou)
   useEffect(() => {
-    if (typeof document === "undefined") return;
+    if (typeof document === 'undefined') return;
     const body = document.body;
     const root = document.documentElement;
     const lockRoutes = new Set(
       [
-        withBase("/") ?? "/",
+        withBase('/') ?? '/',
         basePrefix || undefined,
         // calculatorPath, // Allow scroll on calculator page
         resultPath,
@@ -231,29 +224,29 @@ export function AppShell({ children }: AppShellProps) {
 
     const applyLock = () => {
       const baseDecision =
-        typeof lockScrollOverride === "boolean"
+        typeof lockScrollOverride === 'boolean'
           ? lockScrollOverride
           : lockRoutes.has(effectivePath);
       const viewportHeight =
-        typeof window !== "undefined" ? window.innerHeight : undefined;
+        typeof window !== 'undefined' ? window.innerHeight : undefined;
       const allowLock = viewportHeight ? viewportHeight > 740 : true;
       const shouldLock = baseDecision && allowLock;
-      body.classList.toggle("no-scroll", shouldLock);
-      root.classList.toggle("no-scroll", shouldLock);
+      body.classList.toggle('no-scroll', shouldLock);
+      root.classList.toggle('no-scroll', shouldLock);
     };
 
     applyLock();
 
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", applyLock);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', applyLock);
     }
 
     return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("resize", applyLock);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', applyLock);
       }
-      body.classList.remove("no-scroll");
-      root.classList.remove("no-scroll");
+      body.classList.remove('no-scroll');
+      root.classList.remove('no-scroll');
     };
   }, [
     effectivePath,
@@ -268,11 +261,9 @@ export function AppShell({ children }: AppShellProps) {
       <div
         className={shellClassName}
         dir="rtl"
-        data-mobile-layout={shouldCollapseForMobile ? "minimal" : "standard"}
+        data-mobile-layout={shouldCollapseForMobile ? 'minimal' : 'standard'}
         data-route={effectivePath}
-        data-has-nav={shouldShowNavigation ? "true" : "false"}
-        data-has-header={shouldShowHeader ? "true" : "false"}
-        data-has-footer={shouldShowFooter ? "true" : "false"}
+        data-has-nav={shouldShowNavigation ? 'true' : 'false'}
       >
         <TikTokPixel />
         <div className="safe-top" aria-hidden="true" />

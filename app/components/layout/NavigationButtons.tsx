@@ -1,12 +1,12 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { ArrowRight, ArrowLeft, Home } from "lucide-react";
+import { ArrowLeft, ArrowRight, Home } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import styles from "./NavigationButtons.module.css";
+import styles from './NavigationButtons.module.css';
 
-import { routes } from "@/lib/routes";
+import { routes } from '@/lib/routes';
 
 interface NavigationButtonsProps {
   onGoBack?: () => void;
@@ -50,13 +50,13 @@ export function NavigationButtons({
 
   const stageLabels = useMemo<Record<string, string>>(
     () => ({
-      [routes.calculator]: "מחשבון",
-      [routes.result]: "תוצאה",
-      [routes.sales]: "דף מכירה",
-      [routes.thankYou]: "דף תודה",
-      [routes.interpretations]: "פירושים",
-      [routes.terms]: "בית",
-      [routes.home]: "בית",
+      [routes.calculator]: 'מחשבון',
+      [routes.result]: 'תוצאה',
+      [routes.sales]: 'דף מכירה',
+      [routes.thankYou]: 'דף תודה',
+      [routes.interpretations]: 'פירושים',
+      [routes.terms]: 'בית',
+      [routes.home]: 'בית',
     }),
     []
   );
@@ -75,16 +75,19 @@ export function NavigationButtons({
   );
 
   const updateNavigationState = useCallback(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === 'undefined') {
       return;
     }
 
     const historyState = window.history.state as { idx?: number } | null;
     const historyLength = window.history.length;
-    const currentIndex = typeof historyState?.idx === "number" ? historyState.idx : null;
+    const currentIndex =
+      typeof historyState?.idx === 'number' ? historyState.idx : null;
 
-    const canGoBack = currentIndex != null ? currentIndex > 0 : historyLength > 1;
-    const canGoForward = currentIndex != null ? currentIndex < historyLength - 1 : false;
+    const canGoBack =
+      currentIndex != null ? currentIndex > 0 : historyLength > 1;
+    const canGoForward =
+      currentIndex != null ? currentIndex < historyLength - 1 : false;
 
     setNavigationState((prev) => {
       if (prev.canGoBack === canGoBack && prev.canGoForward === canGoForward) {
@@ -99,7 +102,7 @@ export function NavigationButtons({
   }, [updateNavigationState]);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === 'undefined') {
       return;
     }
 
@@ -107,9 +110,9 @@ export function NavigationButtons({
       window.requestAnimationFrame(updateNavigationState);
     };
 
-    window.addEventListener("popstate", handlePopState);
+    window.addEventListener('popstate', handlePopState);
     return () => {
-      window.removeEventListener("popstate", handlePopState);
+      window.removeEventListener('popstate', handlePopState);
     };
   }, [updateNavigationState]);
 
@@ -117,10 +120,16 @@ export function NavigationButtons({
     updateNavigationState();
   }, [pathname, updateNavigationState]);
 
-  const sequenceIndex = useMemo(() => getSequenceIndex(pathname), [getSequenceIndex, pathname]);
+  const sequenceIndex = useMemo(
+    () => getSequenceIndex(pathname),
+    [getSequenceIndex, pathname]
+  );
   const hasSequenceMatch = sequenceIndex >= 0;
-  const directStageMatch = pathname && stageLabels[pathname] ? pathname : undefined;
-  const currentStageKey = directStageMatch ?? (hasSequenceMatch ? orderedRoutes[sequenceIndex] : undefined);
+  const directStageMatch =
+    pathname && stageLabels[pathname] ? pathname : undefined;
+  const currentStageKey =
+    directStageMatch ??
+    (hasSequenceMatch ? orderedRoutes[sequenceIndex] : undefined);
   const isHomeRoute = pathname === routes.home;
   const currentStageLabel = useMemo(() => {
     if (isHomeRoute) {
@@ -134,10 +143,13 @@ export function NavigationButtons({
     return stageLabels[routes.home];
   }, [currentStageKey, isHomeRoute, stageLabels]);
   const effectiveCanGoBack =
-    canGoBack ?? (hasSequenceMatch ? sequenceIndex > 0 : navigationState.canGoBack);
+    canGoBack ??
+    (hasSequenceMatch ? sequenceIndex > 0 : navigationState.canGoBack);
   const effectiveCanGoForward =
     canGoForward ??
-    (hasSequenceMatch ? sequenceIndex < orderedRoutes.length - 1 : navigationState.canGoForward);
+    (hasSequenceMatch
+      ? sequenceIndex < orderedRoutes.length - 1
+      : navigationState.canGoForward);
 
   const hasHistoryBack = navigationState.canGoBack;
 
@@ -165,7 +177,16 @@ export function NavigationButtons({
 
     router.push(routes.home);
     window.setTimeout(updateNavigationState, 300);
-  }, [effectiveCanGoBack, onGoBack, router, updateNavigationState, hasSequenceMatch, sequenceIndex, orderedRoutes, hasHistoryBack]);
+  }, [
+    effectiveCanGoBack,
+    onGoBack,
+    router,
+    updateNavigationState,
+    hasSequenceMatch,
+    sequenceIndex,
+    orderedRoutes,
+    hasHistoryBack,
+  ]);
 
   const handleGoForward = useCallback(() => {
     if (!effectiveCanGoForward) {
@@ -185,7 +206,15 @@ export function NavigationButtons({
 
     router.forward();
     window.setTimeout(updateNavigationState, 300);
-  }, [effectiveCanGoForward, onGoForward, router, updateNavigationState, hasSequenceMatch, sequenceIndex, orderedRoutes]);
+  }, [
+    effectiveCanGoForward,
+    onGoForward,
+    router,
+    updateNavigationState,
+    hasSequenceMatch,
+    sequenceIndex,
+    orderedRoutes,
+  ]);
 
   const handleGoHome = useCallback(() => {
     if (onGoHome) {
@@ -193,23 +222,23 @@ export function NavigationButtons({
       return;
     }
 
-    router.push("/");
+    router.push('/');
     window.setTimeout(updateNavigationState, 300);
   }, [onGoHome, router, updateNavigationState]);
 
   const containerClassName = useMemo(() => {
-    return ["w-full", className].filter(Boolean).join(" ");
+    return ['w-full', className].filter(Boolean).join(' ');
   }, [className]);
 
   const homeAriaLabel = isHomeRoute
-    ? "אתם נמצאים בדף הבית"
+    ? 'אתם נמצאים בדף הבית'
     : `חזרה לדף הבית · שלב נוכחי: ${currentStageLabel}`;
   const centerButtonActive = isHomeRoute || Boolean(currentStageKey);
 
   return (
     <div
-      className={[containerClassName, styles.shell].join(" ")}
-      data-stage={currentStageKey ?? (isHomeRoute ? routes.home : "other")}
+      className={[containerClassName, styles.shell].join(' ')}
+      data-stage={currentStageKey ?? (isHomeRoute ? routes.home : 'other')}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
@@ -219,23 +248,25 @@ export function NavigationButtons({
             onClick={handleGoForward}
             disabled={!effectiveCanGoForward}
             className={[
-              "group relative",
-              "p-3 sm:p-3.5",
-              "rounded-full",
-              "transition-all duration-400",
-              "touch-manipulation",
-              "border-0",
-              !effectiveCanGoForward ? "opacity-40 cursor-not-allowed" : "",
+              'group relative',
+              'p-3 sm:p-3.5',
+              'rounded-full',
+              'transition-all duration-400',
+              'touch-manipulation',
+              'border-0',
+              !effectiveCanGoForward ? 'opacity-40 cursor-not-allowed' : '',
               styles.button,
-            ].filter(Boolean).join(" ")}
+            ]
+              .filter(Boolean)
+              .join(' ')}
             aria-label="קדימה לדף הבא"
           >
-            <ArrowRight 
+            <ArrowRight
               className={[
-                "w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300",
-                styles.icon,
-                styles.iconForward,
-              ].join(" ")}
+                'w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300',
+                styles.navIcon,
+                styles.navIconForward,
+              ].join(' ')}
             />
           </button>
 
@@ -244,25 +275,25 @@ export function NavigationButtons({
             type="button"
             onClick={handleGoHome}
             className={[
-              "group relative",
-              "p-3 sm:p-3.5",
-              "rounded-full",
-              "transition-all duration-400",
-              "touch-manipulation",
-              "border-0",
+              'group relative',
+              'p-3 sm:p-3.5',
+              'rounded-full',
+              'transition-all duration-400',
+              'touch-manipulation',
+              'border-0',
               styles.button,
               styles.centerButton,
-            ].join(" ")}
-            data-active={centerButtonActive ? "true" : "false"}
+            ].join(' ')}
+            data-active={centerButtonActive ? 'true' : 'false'}
             aria-label={homeAriaLabel}
-            aria-current={isHomeRoute ? "page" : undefined}
+            aria-current={isHomeRoute ? 'page' : undefined}
           >
             <Home
               className={[
-                "w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300",
-                styles.icon,
-                styles.iconHome,
-              ].join(" ")}
+                'w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300',
+                styles.navIcon,
+                styles.navIconHome,
+              ].join(' ')}
             />
           </button>
 
@@ -272,23 +303,25 @@ export function NavigationButtons({
             onClick={handleGoBack}
             disabled={!effectiveCanGoBack}
             className={[
-              "group relative",
-              "p-3 sm:p-3.5",
-              "rounded-full",
-              "transition-all duration-400",
-              "touch-manipulation",
-              "border-0",
-              !effectiveCanGoBack ? "opacity-40 cursor-not-allowed" : "",
+              'group relative',
+              'p-3 sm:p-3.5',
+              'rounded-full',
+              'transition-all duration-400',
+              'touch-manipulation',
+              'border-0',
+              !effectiveCanGoBack ? 'opacity-40 cursor-not-allowed' : '',
               styles.button,
-            ].filter(Boolean).join(" ")}
+            ]
+              .filter(Boolean)
+              .join(' ')}
             aria-label="חזרה לדף הקודם"
           >
-            <ArrowLeft 
+            <ArrowLeft
               className={[
-                "w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300",
-                styles.icon,
-                styles.iconBack,
-              ].join(" ")}
+                'w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300',
+                styles.navIcon,
+                styles.navIconBack,
+              ].join(' ')}
             />
           </button>
         </div>

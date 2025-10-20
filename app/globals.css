@@ -1,549 +1,62 @@
-/* Tailwind v4 - Single import replaces the three @tailwind directives */
+/* ============================================
+   Global Styles - Awakening by Ksenia
+   ============================================
+   This file contains only essential global styles and imports.
+   All design tokens are managed in the design/ directory.
+*/
 
-@import "tailwindcss";
+/* Import Tailwind CSS */
+@import 'tailwindcss';
 
-/* Import Neumorphic Shadow System */
-@import "./components/neu/neumorphic-shadows.css";
+/* Import Design System - Single source of truth for all tokens */
+@import '../design/index.css';
 
 /* Tailwind v4: enable the dark: variant to use .dark class */
 @variant dark (&:where(.dark, .dark *));
 
-/* Tailwind v4: theme color & radius tokens so utilities like bg-background/text-foreground/border-border work */
-@theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-input-background: var(--input-background);
-  --color-switch-background: var(--switch-background);
-  --color-ring: var(--ring);
-
-  /* Charts */
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-
-  /* Derived radii for utilities like rounded-[--radius-lg] */
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-
-  /* Sidebar */
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-
 /* ============================================
-   CSS Variables - Color Palette & Tokens
+   Core CSS Variables - Minimal Global Tokens
    ============================================ */
+
+/* Base font and layout */
 :root {
-  /* Typography */
+  --font-family: var(--font-assistant, 'Assistant', sans-serif);
   --font-size: 16px;
-  --font-family: var(--font-assistant, "Assistant", sans-serif);
-  --heading-line-height-tight: 0.9;
 
-  --heading-h1-mobile-min: 1.6rem; /* 25.6px */
-  --heading-h1-mobile-max: 1.8125rem; /* 29px */
-  --heading-h1-desktop: 3rem; /* 48px */
-  --heading-h1-size: clamp(
-    var(--heading-h1-mobile-min),
-    calc(1.05rem + 3vw),
-    var(--heading-h1-mobile-max)
-  );
-  --heading-h1-weight: 700;
-  --heading-h1-line-height: var(--heading-line-height-tight);
+  /* Safe area handling */
+  --safe-area-top: env(safe-area-inset-top);
+  --safe-area-bottom: env(safe-area-inset-bottom);
+  --safe-area-left: env(safe-area-inset-left);
+  --safe-area-right: env(safe-area-inset-right);
 
-  --heading-h2-mobile-min: 1.375rem; /* 22px */
-  --heading-h2-mobile-max: 1.625rem; /* 26px */
-  --heading-h2-desktop: 2.5rem; /* 40px */
-  --heading-h2-size: clamp(
-    var(--heading-h2-mobile-min),
-    calc(1rem + 2.4vw),
-    var(--heading-h2-mobile-max)
-  );
-  --heading-h2-weight: 700;
-
-  --heading-h3-mobile-min: 1.125rem; /* 18px */
-  --heading-h3-mobile-max: 1.375rem; /* 22px */
-  --heading-h3-desktop: 2rem; /* 32px */
-  --heading-h3-size: clamp(
-    var(--heading-h3-mobile-min),
-    calc(0.95rem + 1.8vw),
-    var(--heading-h3-mobile-max)
-  );
-  --heading-h3-weight: 600;
-  --heading-primary-color-light: #6b5139;
-  --heading-primary-color: var(--heading-primary-color-light);
-  --heading-h1-color: var(--heading-primary-color);
-  --heading-h2-color: var(--heading-primary-color);
-  --heading-h3-color: var(--heading-primary-color);
-
-  --heading-subtitle-mobile-min: 1.125rem;
-  --heading-subtitle-mobile-max: 1.3125rem;
-  --heading-subtitle-desktop: 1.5rem;
-  --heading-subtitle-size: clamp(
-    var(--heading-subtitle-mobile-min),
-    calc(0.95rem + 1vw),
-    var(--heading-subtitle-desktop)
-  );
-  --heading-subtitle-weight: 700;
-  --heading-subtitle-line-height: 1.24;
-  --heading-subtitle-color: color-mix(
-    in srgb,
-    var(--neu-gold-signature) 82%,
-    var(--neu-base)
-  );
-
-  --paragraph-color: var(--neu-text-secondary);
-  --caption-color: var(--neu-text-tertiary);
-
-  --paragraph-base-size: clamp(1rem, 2.4vw, 1.1rem);
-  --paragraph-base-line-height: 1.3;
-  --paragraph-tight-size: var(--paragraph-base-size);
-  --paragraph-tight-line-height: var(--paragraph-base-line-height);
-
-  /* Neumorphic palette - light mode (default) */
-  --neu-base: #f5f5f5;
-  --neu-card: #f5f5f5;
-  --neu-shadow-light: rgba(255, 255, 255, 1);
-  --neu-shadow-dark: rgba(160, 160, 160, 0.5);
-  --neu-text-primary: #5e4934;
-  --neu-text-secondary: #75614c;
-  --neu-text-tertiary: #9f8572;
-  --neu-text-quaternary: rgba(94, 73, 52, 0.65);
-  --neu-gold-signature: #b28e6c;
-  --neu-accent: var(--neu-gold-signature);
-  --neu-accent-light: color-mix(
-    in srgb,
-    var(--neu-gold-signature) 82%,
-    var(--neu-base)
-  );
-  --neu-accent-dark: color-mix(
-    in srgb,
-    var(--neu-gold-signature) 70%,
-    var(--neu-text-primary)
-  );
-  --neu-accent-bright: color-mix(
-    in srgb,
-    var(--neu-gold-signature) 88%,
-    var(--neu-base)
-  ); /* זהב עיקרי */
-  --neu-cta-press: #886d52;
-  --neu-icon: var(--neu-accent);
-
-  /* Core palette bindings */
-  --background: var(--neu-base);
-  --foreground: var(--neu-text-primary);
-  --card: var(--neu-card);
-  --card-foreground: var(--foreground);
-  --popover: var(--card);
-  --popover-foreground: var(--foreground);
-  --primary: var(--neu-accent);
-  --primary-foreground: #f5f5f5;
-  --secondary: var(--neu-card);
-  --secondary-foreground: var(--neu-accent);
-  --muted: color-mix(in srgb, var(--neu-gold-signature) 24%, transparent);
-  --muted-foreground: var(--neu-text-secondary);
-  --accent: var(--primary);
-  --accent-foreground: #f5f5f5;
-  --on-accent: var(--primary-foreground);
-  --destructive: #d4183d;
-  --destructive-foreground: #ffffff;
-  --border: rgba(160, 160, 160, 0.25);
-  --input: transparent;
-  --input-background: var(--card);
-  --switch-background: var(--card);
-  --ring: var(--neu-accent-light);
-
-  /* Text palette */
-  --text-primary: var(--neu-text-primary);
-  --text-secondary: var(--neu-text-secondary);
-  --text-tertiary: var(--neu-text-tertiary);
-  --text-quaternary: var(--neu-text-quaternary);
-
-  /* Neumorphic shadows */
-  --shadow-light: var(--neu-shadow-light);
-  --shadow-dark: var(--neu-shadow-dark);
-  --shadow-raised: 2px 2px 4px var(--shadow-dark),
-    -2px -2px 4px var(--shadow-light);
-  --shadow-raised-hover: 2px 2px 4px
-      color-mix(in srgb, var(--shadow-dark) 60%, transparent),
-    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 60%, transparent);
-  --shadow-raised-strong: 2px 2px 4px
-      color-mix(in srgb, var(--shadow-dark) 65%, transparent),
-    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 65%, transparent);
-  --shadow-raised-emphasis: 2px 2px 4px
-      color-mix(in srgb, var(--shadow-dark) 70%, transparent),
-    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 70%, transparent);
-  --shadow-inset: inset 3px 3px 6px var(--shadow-dark),
-    inset -3px -3px 6px var(--shadow-light);
-  --shadow-inset-hover: inset 3px 3px 6px
-      color-mix(in srgb, var(--shadow-dark) 60%, transparent),
-    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 60%, transparent);
-  --shadow-inset-strong: inset 3px 3px 6px
-      color-mix(in srgb, var(--shadow-dark) 65%, transparent),
-    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 65%, transparent);
-  --shadow-inset-pressed: inset 3px 3px 6px
-      color-mix(in srgb, var(--shadow-dark) 55%, transparent),
-    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 55%, transparent);
-  --shadow-overlay-sm: 0 6px 16px
-    color-mix(in srgb, var(--shadow-dark) 35%, transparent);
-  --shadow-overlay: 0 10px 26px
-    color-mix(in srgb, var(--shadow-dark) 45%, transparent);
-  --shadow-highlight: inset 0 1px 3px rgba(255, 255, 255, 0.18);
-
-  /* Lift effect */
-  --lift-text-shadow: 0 1px 1.4px
-    color-mix(in srgb, var(--shadow-dark) 24%, transparent);
-  --lift-text-shadow-md: 0 2px 4px
-    color-mix(in srgb, var(--shadow-dark) 28%, transparent);
-  --lift-text-shadow-lg: 0 3px 6px
-    color-mix(in srgb, var(--shadow-dark) 35%, transparent);
-  --lift-icon-shadow: 0 1.5px 2px
-    color-mix(in srgb, var(--shadow-dark) 18%, transparent);
-
-  /* Legacy token compatibility */
-  --brown-dark: var(--neu-text-primary);
-  --brown-heading: var(--neu-text-secondary);
-  --brown-bronze: var(--neu-text-tertiary);
-  --brown-neutral: var(--neu-text-quaternary);
-  --sand-light: rgba(160, 160, 160, 0.35);
-  --sand-lighter: rgba(255, 255, 255, 0.8);
-  --beige-lightest: var(--neu-base);
-  --white-cream: var(--neu-base);
-
-  /* Layout */
-  --header-surface: var(--card);
-  --header-surface-strong: var(--card);
-  --status-bar-dark: #2d3436;
-  --bg-start: var(--header-surface);
-  --bg-end: var(--header-surface-strong);
-  --page-gradient: none;
-  --header-height: 56px;
-  --overlay-scrim: rgba(0, 0, 0, 0.25);
-  --overlay-glass-scrim: color-mix(
-    in srgb,
-    var(--neu-text-quaternary) 8%,
-    transparent
-  );
-  --overlay-glass-blur: 22px;
-  --surface-glass: color-mix(in srgb, var(--neu-card) 82%, transparent);
-  --surface-glass-border: color-mix(
-    in srgb,
-    var(--neu-text-quaternary) 22%,
-    transparent
-  );
-  --surface-glass-shadow: none;
-  --surface-glass-blur: 18px;
-  --z-cookie: 110;
-  --z-overlay: 120;
-  --z-rail: 125;
-  --z-drawer: 130;
-  --z-header: 140;
-
-  /* Spacing scale (mobile-first) */
-  --space-1: 0.5rem; /* 8px */
-  --space-1-5: 0.75rem; /* 12px */
-  --space-2: 1rem; /* 16px */
-  --space-3: 1.5rem; /* 24px */
-  --space-4: 2rem; /* 32px */
-  --space-5: 2.5rem; /* 40px */
-  --space-6: 3rem; /* 48px */
-
-  /* Card layout spacing */
-  --card-stack-gap: clamp(var(--space-2), 3.5vw, var(--space-3));
-  --card-text-gap: clamp(var(--space-1-5), 2.8vw, var(--space-2));
-
-  --heading-paragraph-gap: 1.2rem;
-  --card-padding-base: clamp(
-    var(--space-2),
-    5vw,
-    calc(var(--space-3) + var(--space-1))
-  );
-  --card-padding-desktop: clamp(
-    calc(var(--space-2) + var(--space-1)),
-    4.5vw,
-    calc(var(--space-3) + var(--space-1-5))
-  );
-
-  --card-notch-size: clamp(3.25rem, 9vw, 3.5rem);
-  --card-notch-size-sm: clamp(3rem, 8vw, var(--card-notch-size));
-  --card-notch-radius: clamp(0.9rem, 3vw, 1.2rem);
-
-  --card-icon-lg-size: var(--card-notch-size);
-  --card-icon-lg-radius: var(--card-notch-radius);
-  --card-icon-sm-size: var(--card-notch-size-sm);
-  --card-icon-sm-radius: var(--card-notch-radius);
-
-  --button-height: clamp(48px, 12vw, 56px);
-  --button-padding-inline: 4px;
-  --button-padding-block: 4px;
-  --button-gap: 0.75rem;
-  --button-min-width-desktop: clamp(12rem, 18vw, 14rem);
-  --button-radius: clamp(24px, 8vw, 32px);
-  --button-font-size: 1.125rem; /* 18px */
-  --button-letter-spacing: 1px;
-  --icon-well-secondary-size: clamp(3rem, 8vw, 3.5rem);
-  --icon-well-primary-size: calc(var(--icon-well-secondary-size) * 1.5);
-  --icon-well-radius-primary: 1.125rem;
-  --icon-well-radius-secondary: 0.875rem;
-  --icon-well-radius: var(--icon-well-radius-secondary);
-  --icon-well-icon-scale: 0.69;
-  --icon-well-icon-scale-secondary: 0.6;
-
-  --secondary-card-max-width: clamp(360px, 72vw, 520px);
-  --secondary-card-width: min(var(--secondary-card-max-width), 100%);
-
-  /* Primary card sizing (mobile-first) */
-  --primary-card-max-width: 880px;
-  --primary-card-gutter: clamp(1rem, 4.5vw, 2.5rem);
-  --primary-card-padding-block: clamp(2.25rem, 8vw, 3.75rem);
-  --primary-card-width: min(var(--primary-card-max-width), 100%);
-
-  /* Charts */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-
-  /* Radius */
-  --radius: 1rem;
-
-  /* Sidebar */
-  --sidebar: var(--neu-card);
-  --sidebar-foreground: var(--neu-text-primary);
-  --sidebar-primary: var(--neu-accent);
-  --sidebar-primary-foreground: #fdfcfb;
-  --sidebar-accent: rgba(201, 168, 130, 0.18);
-  --sidebar-accent-foreground: var(--neu-text-secondary);
-  --sidebar-border: rgba(160, 160, 160, 0.2);
-  --sidebar-ring: var(--neu-accent-light);
-
-  /* Font Weights */
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-}
-
-@media (min-width: 768px) {
-  :root {
-    --heading-h1-size: clamp(
-      2.5rem,
-      calc(1.6rem + 2vw),
-      var(--heading-h1-desktop)
-    );
-    --heading-h2-size: clamp(
-      2rem,
-      calc(1.35rem + 1.6vw),
-      var(--heading-h2-desktop)
-    );
-    --heading-h3-size: clamp(
-      1.5rem,
-      calc(1.15rem + 1.1vw),
-      var(--heading-h3-desktop)
-    );
-  }
-}
-
-[data-theme="dark"] {
-  --overlay-glass-scrim: color-mix(
-    in srgb,
-    var(--status-bar-dark) 26%,
-    transparent
-  );
-  --surface-glass: color-mix(in srgb, var(--status-bar-dark) 72%, transparent);
-  --surface-glass-border: color-mix(
-    in srgb,
-    var(--neu-accent-light) 18%,
-    transparent
-  );
-  --heading-primary-color: var(--neu-text-primary);
-}
-
-@media (min-width: 768px) {
-  :root {
-    --primary-card-max-width: 960px;
-    --primary-card-gutter: clamp(1.25rem, 3.5vw, 2.5rem);
-    --primary-card-padding-block: clamp(2.5rem, 6vw, 4rem);
-    --primary-card-width: min(
-      var(--primary-card-max-width),
-      calc(100% - 2 * var(--primary-card-gutter))
-    );
-  }
-}
-
-@media (min-width: 1280px) {
-  :root {
-    --primary-card-max-width: 1040px;
-    --primary-card-gutter: clamp(1.75rem, 3vw, 3rem);
-    --primary-card-padding-block: clamp(2.75rem, 5vw, 4.25rem);
-    --primary-card-width: min(
-      var(--primary-card-max-width),
-      calc(100% - 2 * var(--primary-card-gutter))
-    );
-  }
-}
-
-/* Dark scheme (no Tailwind v4 variants; plain CSS vars override) */
-.dark {
-  --neu-base: #2d3436;
-  --neu-card: #2d3436;
-  --neu-shadow-light: rgba(55, 65, 70, 0.7);
-  --neu-shadow-dark: rgba(12, 16, 18, 0.8);
-  --neu-text-primary: #e8dfd5;
-  --neu-text-secondary: #d4c9be;
-  --neu-text-tertiary: #c9a882;
-  --neu-text-quaternary: rgba(196, 184, 168, 0.6);
-  --neu-accent: var(--neu-gold-signature);
-  --neu-accent-light: color-mix(
-    in srgb,
-    var(--neu-gold-signature) 74%,
-    var(--neu-text-secondary)
-  );
-  --neu-accent-dark: color-mix(
-    in srgb,
-    var(--neu-gold-signature) 60%,
-    var(--status-bar-dark)
-  );
-  --neu-accent-bright: color-mix(
-    in srgb,
-    var(--neu-gold-signature) 80%,
-    var(--neu-text-primary)
-  );
-  --neu-gold-signature: #b28e6c;
-  --neu-cta-press: #886d52;
-  --neu-icon: var(--neu-accent);
-
-  --background: var(--neu-base);
-  --foreground: var(--neu-text-primary);
-  --card: var(--neu-card);
-  --card-foreground: var(--foreground);
-  --popover: var(--card);
-  --popover-foreground: var(--foreground);
-  --primary: var(--neu-accent);
-  --primary-foreground: #2d3436;
-  --on-accent: var(--primary-foreground);
-  --secondary: rgba(46, 54, 56, 0.9);
-  --secondary-foreground: var(--neu-accent);
-  --muted: rgba(45, 52, 54, 0.55);
-  --muted-foreground: var(--neu-text-secondary);
-  --accent: var(--primary);
-  --accent-foreground: #2d3436;
-  --destructive: #f25f77;
-  --destructive-foreground: #1a1210;
-  --border: rgba(240, 217, 181, 0.18);
-  --input: transparent;
-  --input-background: var(--card);
-  --switch-background: var(--card);
-  --ring: var(--neu-accent-light);
-
-  --text-primary: var(--neu-text-primary);
-  --text-secondary: var(--neu-text-secondary);
-  --text-tertiary: var(--neu-text-tertiary);
-  --text-quaternary: var(--neu-text-quaternary);
-  --heading-h1-color: var(--neu-text-primary);
-  --heading-h2-color: var(--neu-text-primary);
-  --heading-h3-color: var(--neu-text-primary);
-  --heading-subtitle-color: color-mix(
-    in srgb,
-    var(--neu-gold-signature) 68%,
-    var(--neu-text-secondary)
-  );
-  --paragraph-color: var(--neu-text-secondary);
-  --caption-color: var(--neu-text-tertiary);
-
-  --shadow-light: var(--neu-shadow-light);
-  --shadow-dark: var(--neu-shadow-dark);
-
-  --brown-dark: var(--neu-text-primary);
-  --brown-heading: var(--neu-text-secondary);
-  --brown-bronze: var(--neu-text-tertiary);
-  --brown-neutral: var(--neu-text-quaternary);
-  --sand-light: rgba(55, 65, 70, 0.5);
-  --sand-lighter: rgba(90, 98, 102, 0.35);
-  --beige-lightest: var(--neu-base);
-  --white-cream: var(--neu-card);
-
-  --lift-text-shadow: 0 1px 1.2px
-    color-mix(in srgb, var(--shadow-light) 28%, transparent);
-  --lift-icon-shadow: 0 1.5px 2px
-    color-mix(in srgb, var(--shadow-light) 22%, transparent);
-
-  --header-surface: var(--card);
-  --header-surface-strong: var(--card);
-  --status-bar-dark: #0c1012;
-  --bg-start: var(--header-surface);
-  --bg-end: var(--header-surface-strong);
-  --page-gradient: none;
-  --z-cookie: 110;
-  --z-overlay: 120;
-  --z-rail: 125;
-  --z-drawer: 130;
-  --z-header: 140;
-
-  --chart-1: oklch(0.562 0.185 43);
-  --chart-2: oklch(0.54 0.09 196);
-  --chart-3: oklch(0.45 0.07 266);
-  --chart-4: oklch(0.68 0.15 80);
-  --chart-5: oklch(0.61 0.14 25);
-
-  --sidebar: var(--neu-card);
-  --sidebar-foreground: var(--neu-text-primary);
-  --sidebar-primary: var(--neu-accent);
-  --sidebar-primary-foreground: #2d3436;
-  --sidebar-accent: rgba(45, 52, 54, 0.55);
-  --sidebar-accent-foreground: var(--neu-text-secondary);
-  --sidebar-border: rgba(240, 217, 181, 0.12);
-  --sidebar-ring: var(--neu-accent-light);
+  /* Z-index layers */
+  --z-base: 1;
+  --z-elevated: 10;
+  --z-sticky: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+  --z-tooltip: 400;
 }
 
 /* ============================================
-   CSS Resets & Global Styles
+   Global Resets & Base Styles
    ============================================ */
+
 @layer base {
-  /* Adding universal box-sizing to prevent layout issues on the left side
-     Ensure that all elements inherit correct sizing so nothing gets cut off */
-  html {
-    box-sizing: border-box;
-  }
+  /* Box sizing reset */
   *,
   *::before,
   *::after {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
 
+  /* Root element */
   html {
     font-size: var(--font-size);
+    scroll-behavior: smooth;
   }
 
-  html,
+  /* Body element */
   body {
     margin: 0;
     padding: 0;
@@ -552,33 +65,15 @@
     height: 100%;
     overflow-x: hidden;
     overscroll-behavior: none;
-    background-color: var(--background);
-    background-image: none;
-  }
-
-  body {
-    position: relative;
-    color: var(--color-foreground);
     font-family: var(--font-family);
     line-height: 1.1;
     text-align: center;
     direction: rtl;
-    text-shadow: var(--lift-text-shadow);
-  }
-  svg {
-    filter: drop-shadow(var(--lift-icon-shadow));
-    transition: filter 160ms ease;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 
-  svg[data-lift="off"],
-  [data-lift="off"] svg {
-    filter: none !important;
-  }
-
-  [data-lift="off"] {
-    text-shadow: none !important;
-  }
-
+  /* Main container */
   #__next,
   body > div {
     min-height: 100dvh;
@@ -587,791 +82,56 @@
     background-color: transparent;
   }
 
+  /* Form elements */
+  input,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+
+  /* Focus management */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  /* Placeholder text */
   ::placeholder {
     color: var(--text-tertiary);
     opacity: 0.7;
   }
 
-  html.no-scroll {
-    overflow: hidden;
-    height: 100dvh;
-    overscroll-behavior: none;
+  /* Selection */
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
   }
 
-  body.no-scroll {
-    overflow: hidden;
-    height: 100dvh;
-    position: relative;
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
   }
 
-  html.drawer-locked {
-    overflow: hidden;
-    overscroll-behavior: contain;
+  ::-webkit-scrollbar-track {
+    background: transparent;
   }
 
-  body.drawer-locked {
-    overflow: hidden;
-    overscroll-behavior: contain;
-    touch-action: none;
-    position: relative;
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
   }
 
-  /* Hero shell for home, calculator, result, thank-you pages */
-  .hero-shell {
-    /* Fill the entire viewport while accounting for safe areas; padding stays within border-box */
-    min-height: 100vh;
-    min-height: 100svh;
-    min-height: calc(
-      100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom)
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-block-start: calc(
-      var(
-          --page-shell-padding-top,
-          var(--header-height) + env(safe-area-inset-top)
-        ) + var(--page-shell-content-gap-top, clamp(0.75rem, 2.5vw, 2rem))
-    );
-    padding-block-end: calc(
-      env(safe-area-inset-bottom) +
-        var(--page-shell-content-gap-bottom, clamp(1.5rem, 5vh, 4rem))
-    );
-    padding-inline-start: calc(
-      env(safe-area-inset-right) +
-        var(--page-shell-content-gap-inline, clamp(1rem, 4vw, 2.5rem))
-    );
-    padding-inline-end: calc(
-      env(safe-area-inset-left) +
-        var(--page-shell-content-gap-inline, clamp(1rem, 4vw, 2.5rem))
-    );
-    width: 100%;
-    flex: 1 1 auto;
-    position: relative;
-    isolation: isolate;
-    background-color: transparent;
-    background-image: none;
-  }
-
-  /* ==============================================
-     Hero Card Vertical Positioning
-     ----------------------------------------------
-     We define two elevation groups using CSS vars:
-       --hero-offset-group-a : Home / Calculator / Result (slightly higher)
-       --hero-offset-group-b : Sales / Interpretations / ThankYou / Terms
-     Mobile gets a slightly larger negative translate for better visual centering.
-  =============================================== */
-  :root {
-    /* Responsive elevation using spacing tokens to avoid overshooting on tall viewports */
-    --hero-offset-group-a: calc(
-      -1 * clamp(var(--space-4), 8vh, calc(var(--space-6) + var(--space-1)))
-    );
-    --hero-offset-group-b: calc(
-      -1 * clamp(var(--space-3), 6vh, var(--space-5))
-    );
-    --hero-offset-group-a-mobile: calc(
-      -1 * clamp(var(--space-4), 11vh, calc(var(--space-6) + var(--space-1)))
-    );
-    --hero-offset-group-b-mobile: calc(
-      -1 * clamp(var(--space-3), 9vh, var(--space-5))
-    );
-  }
-
-  /* Base hero card positioning handled via data attribute */
-  [data-hero-group="a"] {
-    transform: translateY(var(--hero-offset-group-a));
-  }
-  [data-hero-group="b"] {
-    transform: translateY(var(--hero-offset-group-b));
-  }
-
-  @media (max-width: 640px) {
-    [data-hero-group="a"] {
-      transform: translateY(var(--hero-offset-group-a-mobile));
-    }
-    [data-hero-group="b"] {
-      transform: translateY(var(--hero-offset-group-b-mobile));
-    }
-  }
-
-  @media (max-width: 768px) {
-    [data-hero-group="a"],
-    .hero-shell [data-hero-group="a"],
-    [data-hero-group="b"],
-    .hero-shell [data-hero-group="b"] {
-      transform: translateY(0);
-    }
-
-    .hero-shell {
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
-  }
-
-  @media (max-height: 740px) {
-    .app-shell[data-route="/"] main.app-main,
-    .app-shell[data-route="/wealth-code"] main.app-main,
-    .app-shell[data-route="/wealth-code/calculator"] main.app-main,
-    .app-shell[data-route="/wealth-code/result"] main.app-main,
-    .app-shell[data-route="/wealth-code/thank-you"] main.app-main,
-    .app-shell[data-route="/calculator"] main.app-main,
-    .app-shell[data-route="/result"] main.app-main,
-    .app-shell[data-route="/thank-you"] main.app-main {
-      overflow-y: auto;
-      overflow-x: hidden;
-      justify-content: flex-start;
-    }
-
-    .hero-shell {
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
-
-    [data-hero-group="a"],
-    .hero-shell [data-hero-group="a"],
-    [data-hero-group="b"],
-    .hero-shell [data-hero-group="b"] {
-      transform: translateY(0);
-    }
-  }
-
-  /* Full-screen no-scroll container adjustments handled via main.app-main overrides below */
-
-  .app-shell[data-route="/terms"],
-  .app-shell[data-route="/privacy"] {
-    padding-left: max(env(safe-area-inset-left), 0px);
-    padding-right: max(env(safe-area-inset-right), 0px);
-  }
-
-  .app-shell[data-route="/"] main.app-main,
-  .app-shell[data-route="/wealth-code"] main.app-main,
-  .app-shell[data-route="/wealth-code/calculator"] main.app-main,
-  .app-shell[data-route="/wealth-code/result"] main.app-main,
-  .app-shell[data-route="/wealth-code/thank-you"] main.app-main,
-  .app-shell[data-route="/calculator"] main.app-main,
-  .app-shell[data-route="/result"] main.app-main,
-  .app-shell[data-route="/thank-you"] main.app-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: calc(
-      100dvh - var(--header-height) - env(safe-area-inset-top) -
-        env(safe-area-inset-bottom)
-    );
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-top: 0;
-    --page-shell-padding-top: calc(env(safe-area-inset-top));
-    padding-bottom: env(safe-area-inset-bottom);
-    gap: 0;
-  }
-
-  .no-scroll-section {
-    --no-scroll-padding: clamp(1.25rem, 5vw, 2.75rem);
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    min-height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--no-scroll-padding);
-    overflow: visible;
-    box-sizing: border-box;
-  }
-
-  /* (Removed duplicate hero-shell block; consolidated above) */
-
-  .safe-top {
-    width: 100%;
-    height: env(safe-area-inset-top);
-    min-height: env(safe-area-inset-top);
-    background: var(--page-surface, var(--header-surface));
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 49;
-    pointer-events: none;
-  }
-
-  .safe-bottom {
-    width: 100%;
-    height: env(safe-area-inset-bottom);
-    min-height: env(safe-area-inset-bottom);
-    background: var(--page-surface, var(--header-surface));
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 39;
-    pointer-events: none;
-  }
-
-  /* Set a default border color without relying on v4 tokens */
-  *,
-  *::before,
-  *::after {
-    border-color: var(--border);
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
   }
 }
 
 /* ============================================
-   Typography - Mobile First Responsive
-   ============================================ */
-@layer base {
-  /* Headings & Body - Mobile-first XS baseline */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    font-family: "Assistant", sans-serif;
-    line-height: 1.05;
-    letter-spacing: 0;
-    transform: translateZ(0);
-  }
-
-  h1 {
-    font-weight: var(--heading-h1-weight);
-    font-size: var(--heading-h1-size);
-    line-height: var(--heading-h1-line-height);
-    letter-spacing: -0.03em;
-    color: var(--text-secondary);
-  }
-
-  h2 {
-    font-weight: var(--heading-h2-weight);
-    font-size: var(--heading-h2-size);
-    line-height: var(--heading-line-height-tight);
-    letter-spacing: -0.02em;
-    color: var(--text-tertiary);
-  }
-
-  h3 {
-    font-weight: var(--heading-h3-weight);
-    font-size: var(--heading-h3-size);
-    line-height: var(--heading-line-height-tight);
-    letter-spacing: -0.01em;
-    color: var(--text-tertiary);
-  }
-
-  h4 {
-    font-weight: 700;
-    font-size: 22.78px;
-    line-height: var(--heading-line-height-tight);
-    color: var(--text-tertiary);
-  }
-
-  h5 {
-    font-weight: 600;
-    font-size: 20.25px;
-    line-height: var(--heading-line-height-tight);
-    color: var(--text-tertiary);
-  }
-
-  h6 {
-    font-weight: 600;
-    font-size: 18px;
-    line-height: var(--heading-line-height-tight);
-    color: var(--text-tertiary);
-  }
-
-  p,
-  label,
-  input,
-  textarea {
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--foreground);
-    line-height: 1.5;
-  }
-
-  button {
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  .subheading-h3 {
-    font-size: var(--heading-h3-size);
-    font-weight: var(--heading-h2-weight);
-    line-height: var(--heading-line-height-tight);
-    color: var(--text-tertiary);
-  }
-
-  .caption {
-    font-size: 16px !important;
-    color: #9f8572 !important;
-  }
-
-  .footer-terms-text,
-  .footer-copyright-text {
-    font-size: 0.875rem;
-  }
-
-  /* SM breakpoint (min-width: 640px) */
-  @media (min-width: 640px) {
-    p,
-    label,
-    input,
-    textarea {
-      font-size: 18px;
-    }
-  }
-
-  /* MD breakpoint (min-width: 768px) */
-  @media (min-width: 768px) {
-    p,
-    label,
-    input,
-    textarea {
-      font-size: 20.25px;
-    }
-  }
-
-  /* LG breakpoint (min-width: 1024px) */
-  @media (min-width: 1024px) {
-    p,
-    label,
-    input,
-    textarea {
-      font-size: 22.78px;
-    }
-  }
-
-  /* XL breakpoint (min-width: 1280px) */
-  @media (min-width: 1280px) {
-    p,
-    label,
-    input,
-    textarea {
-      font-size: 25.63px;
-    }
-  }
-}
-
-/* ============================================
-   Neumorphism (Soft UI)
+   Utility Classes - Global Helpers
    ============================================ */
 
-/* Main Card - Large Floating 3D */
-.neuro-card-main {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-raised-strong), var(--shadow-inset-strong),
-    var(--shadow-highlight);
-  border: 0;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.neuro-card-main:not(.hero-card):hover {
-  box-shadow: var(--shadow-raised-emphasis), var(--shadow-inset-strong),
-    var(--shadow-highlight);
-  transform: translateY(-2px);
-}
-
-/* Secondary Card - Medium Raised 3D */
-.neuro-card-secondary {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-raised), var(--shadow-inset), var(--shadow-highlight);
-  border: 0;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.neuro-card-secondary:hover {
-  box-shadow: var(--shadow-raised-hover), var(--shadow-inset-hover),
-    var(--shadow-highlight);
-  transform: translateY(-1px);
-}
-
-/* Floating Card - Extra Depth for Logo/Special Elements */
-.neuro-card-floating {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-raised-emphasis), var(--shadow-inset-strong),
-    var(--shadow-highlight);
-  border: 0;
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.neuro-card-floating:hover {
-  box-shadow: var(--shadow-raised-emphasis), var(--shadow-inset-strong),
-    var(--shadow-highlight);
-  transform: translateY(-4px) scale(1.01);
-}
-
-/* Icon Circle - 3D Round Button */
-.neuro-icon {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-raised), var(--shadow-inset);
-  border: 0;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.neuro-icon:hover {
-  box-shadow: var(--shadow-raised-hover), var(--shadow-inset-hover);
-  transform: translateY(-2px) scale(1.05);
-}
-
-/* Button Primary - Raised with Press Effect */
-.neuro-button {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-raised), var(--shadow-highlight);
-  border: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: var(--neu-text-secondary);
-}
-.neuro-button:hover {
-  box-shadow: var(--shadow-raised-hover), var(--shadow-highlight);
-  transform: translateY(-2px);
-}
-.neuro-button:active {
-  box-shadow: var(--shadow-inset-pressed);
-  transform: scale(0.97) translateY(2px);
-}
-
-/* Button Secondary - Outline style */
-.neuro-button-secondary {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-raised), var(--shadow-highlight);
-  border: 1px solid
-    color-mix(in srgb, var(--neu-text-secondary) 25%, transparent);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: var(--neu-text-primary);
-}
-.neuro-button-secondary:hover {
-  box-shadow: var(--shadow-raised-hover), var(--shadow-highlight);
-  transform: translateY(-1px);
-}
-.neuro-button-secondary:active {
-  box-shadow: var(--shadow-inset-pressed);
-  transform: scale(0.98) translateY(1px);
-}
-
-/* Home hero layout refinements */
-.home-hero-card {
-  display: grid;
-  gap: clamp(0.75rem, 1.8vw, 1.2rem);
-  justify-items: center;
-  text-align: center;
-  border-radius: clamp(26px, 6vw, 32px);
-}
-
-.home-hero-icon {
-  width: clamp(80px, 16vw, 110px);
-  height: clamp(80px, 16vw, 110px);
-  margin-inline: auto;
-  display: grid;
-  place-items: center;
-  font-size: clamp(36px, 8vw, 48px);
-  color: var(--neu-accent);
-}
-
-.home-hero-title {
-  margin: 0;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text-secondary);
-  font-size: clamp(28px, 5.2vw, 42px);
-}
-
-.home-hero-title-accent {
-  color: var(--neu-accent);
-}
-
-.home-hero-description {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: clamp(14px, 2.5vw, 18px);
-}
-
-.home-hero-primary {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-width: clamp(220px, 40vw, 260px);
-  padding: 1rem 1.25rem;
-  border-radius: 20px;
-  font-weight: 600;
-  margin-inline: auto;
-  color: var(--accent-foreground);
-}
-
-.home-hero-secondary {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-width: clamp(220px, 40vw, 260px);
-  padding: 0.85rem 1.25rem;
-  border-radius: 18px;
-  font-weight: 600;
-  margin-inline: auto;
-}
-
-.home-hero-legal {
-  margin: 0.5rem 0 0;
-  color: var(--text-tertiary);
-  font-size: clamp(12px, 2vw, 14px);
-  text-align: center;
-}
-
-.home-hero-legal a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-}
-
-/* Input - Inset/Pressed Style */
-.neuro-input {
-  background-color: var(--neu-card);
-  box-shadow: inset 8px 8px 16px rgba(159, 133, 114, 0.12),
-    inset -8px -8px 16px rgba(255, 255, 255, 0.85),
-    1px 1px 3px rgba(159, 133, 114, 0.05);
-  border: 0;
-  transition: all 0.3s ease;
-  color: #473b31;
-}
-.neuro-input:focus {
-  box-shadow: inset 10px 10px 20px rgba(159, 133, 114, 0.15),
-    inset -10px -10px 20px rgba(255, 255, 255, 0.9),
-    0 0 0 3px rgba(135, 103, 79, 0.1);
-  outline: none;
-}
-.neuro-input::placeholder {
-  color: #9f8572;
-  opacity: 0.6;
-}
-
-/* Inset Card - Pressed/Sunken Style */
-.neuro-card-inset {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-inset-strong), var(--shadow-highlight);
-  border: 0;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.neuro-card-inset:hover {
-  box-shadow: var(--shadow-inset-hover), var(--shadow-highlight);
-}
-
-/* Legacy Glass Classes (compat) */
-.glass-card-main {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-raised-strong), var(--shadow-inset-strong),
-    var(--shadow-highlight);
-  border: 0;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.glass-card-main:hover {
-  box-shadow: var(--shadow-raised-emphasis), var(--shadow-inset-strong),
-    var(--shadow-highlight);
-  transform: translateY(-2px);
-}
-.glass-card-secondary {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-raised), var(--shadow-inset), var(--shadow-highlight);
-  border: 0;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.glass-card-secondary:hover {
-  box-shadow: var(--shadow-raised-hover), var(--shadow-inset-hover),
-    var(--shadow-highlight);
-  transform: translateY(-1px);
-}
-
-/* ============================================
-   Layout & Spacing Utilities
-   ============================================ */
-
-.page-bg {
-  background-color: transparent;
-  background-image: none;
-}
-
-.app-shell {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  isolation: isolate;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: calc(
-    env(safe-area-inset-left) + clamp(var(--space-2), 4vw, var(--space-4))
-  );
-  padding-right: calc(
-    env(safe-area-inset-right) + clamp(var(--space-2), 4vw, var(--space-4))
-  );
-  overflow: visible;
-  background-color: transparent;
-  background-image: none;
-}
-
-.app-shell[data-route="/terms"],
-.app-shell[data-route="/privacy"] {
-  padding-left: max(env(safe-area-inset-left), 0px);
-  padding-right: max(env(safe-area-inset-right), 0px);
-}
-
-.app-shell--full-bleed {
-  padding-left: max(env(safe-area-inset-left), 0px);
-  padding-right: max(env(safe-area-inset-right), 0px);
-}
-
-.top-attached-nav {
-  padding-top: var(--page-shell-padding-top);
-  background-color: transparent;
-  background-image: none;
-  box-shadow: none;
-}
-
-.app-main {
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-  --page-shell-padding-top: calc(
-    var(--header-height) + env(safe-area-inset-top)
-  );
-  padding-top: var(--page-shell-padding-top);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
-  min-height: calc(
-    100dvh - var(--header-height) - env(safe-area-inset-top) -
-      env(safe-area-inset-bottom)
-  );
-  --page-shell-content-gap-top: clamp(0.75rem, 2.5vw, 2rem);
-  --page-shell-content-gap-bottom: clamp(1.5rem, 5vh, 4rem);
-  --page-shell-content-gap-inline: clamp(1rem, 4vw, 2.5rem);
-  background-color: transparent;
-  background-image: none;
-}
-
-@media (min-width: 640px) {
-  .app-main {
-    padding-bottom: calc(200px + env(safe-area-inset-bottom));
-  }
-}
-
-@media (min-width: 1024px) {
-  .app-main {
-    padding-bottom: calc(220px + env(safe-area-inset-bottom));
-  }
-}
-
-.app-main--spacious {
-  padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
-}
-
-.app-main--floating-nav {
-  padding-bottom: calc(140px + env(safe-area-inset-bottom));
-}
-
-/* Remove vertical offsets when header/footer intentionally hidden */
-.app-main--no-header {
-  padding-top: calc(env(safe-area-inset-top));
-  --page-shell-padding-top: calc(env(safe-area-inset-top));
-}
-.app-main--no-footer {
-  padding-bottom: calc(env(safe-area-inset-bottom));
-}
-
-@media (min-width: 640px) {
-  .app-main--floating-nav {
-    padding-bottom: calc(160px + env(safe-area-inset-bottom));
-  }
-}
-
-@media (min-width: 1024px) {
-  .app-main--floating-nav {
-    padding-bottom: calc(180px + env(safe-area-inset-bottom));
-  }
-}
-
-/* Container - Centered with Max Width */
-.neuro-container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-@media (min-width: 640px) {
-  .neuro-container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-@media (min-width: 1024px) {
-  .neuro-container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-/* Ensure that the main sections cover the full viewport height */
-.section-full {
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* Class to disable vertical scrolling on specific pages (apply on body or main container) */
-.no-scroll {
-  overflow: hidden !important;
-}
-
-/* Safe area handling for mobile devices */
-html {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-body {
-  scroll-behavior: smooth;
-}
-
-/* Navigation buttons styling for calculator and result pages */
-.nav-buttons {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: var(--neu-card);
-  z-index: 1000;
-}
-
-/* Consistent typography: center align all headings */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-align: center;
-  margin: 0.5rem 0;
-}
-
-/* Ensure footer attaches cleanly with no extra margin*/
-footer {
-  margin: 0;
-  padding: 0;
-}
-
-/* ============================================
-   PDF Rendering Mode Overrides
-   ============================================ */
-@layer base {
-  /* Force RGB colors (avoid oklab) */
-  body.pdf-rendering p,
-  body.pdf-rendering span,
-  body.pdf-rendering div:not([class*="badge"]):not([class*="alert"]) {
-    color: rgb(71, 59, 49) !important;
-  }
-}
-
-/* ============================================
-   Utilities (custom)
-   ============================================ */
 @layer utilities {
+  /* RTL/LTR utilities */
   .rtl {
     direction: rtl;
   }
@@ -1379,32 +139,16 @@ footer {
     direction: ltr;
   }
 
-  /* Text Shadows */
-  .text-shadow-sm {
-    text-shadow: var(--lift-text-shadow);
-  }
-  .text-shadow-md {
-    text-shadow: var(--lift-text-shadow-md);
-  }
-  .text-shadow-lg {
-    text-shadow: var(--lift-text-shadow-lg);
-  }
-
+  /* Safe area utilities */
   .pb-safe-bottom {
-    padding-bottom: max(env(safe-area-inset-bottom), 12px);
+    padding-bottom: max(var(--safe-area-bottom), 12px);
   }
 
-  .floating-nav {
-    margin: 0 auto;
-    max-width: min(420px, calc(100% - 24px));
-    padding-top: 12px;
-    padding-bottom: max(env(safe-area-inset-bottom), 12px);
-    background-color: var(--header-surface);
-    box-shadow: var(--shadow-overlay), var(--shadow-highlight);
-    border-radius: 24px 24px 0 0;
+  .pt-safe-top {
+    padding-top: max(var(--safe-area-top), 12px);
   }
 
-  /* Hide scrollbar but keep functionality */
+  /* Scroll utilities */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -1413,98 +157,39 @@ footer {
     display: none;
   }
 
-  @keyframes pulse-subtle {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.02);
-    }
+  /* Focus utilities */
+  .focus-ring {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 
-  @keyframes shimmer {
-    0% {
-      transform: translateX(-200%);
-    }
-    100% {
-      transform: translateX(200%);
-    }
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out forwards;
   }
 
-  .animate-pulse-subtle {
-    animation: pulse-subtle 3s ease-in-out infinite;
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out forwards;
   }
 
-  .animate-shimmer {
-    animation: shimmer 3s ease-in-out infinite;
-  }
-
-  .hero-shell [data-hero-group] {
-    transition: none;
-    width: var(--primary-card-width);
-    max-width: var(--primary-card-width);
-    margin-inline: auto;
-    box-sizing: border-box;
-    padding-inline: var(--primary-card-gutter);
-    padding-block: var(--primary-card-padding-block);
+  .animate-scale-in {
+    animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 }
 
-/* Buttons - Dark Mode */
-[data-theme="dark"] .neuro-button {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-raised), var(--shadow-highlight);
-  color: var(--neu-text-primary);
+/* ============================================
+   Keyframe Animations
+   ============================================ */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-[data-theme="dark"] .neuro-button:hover {
-  box-shadow: var(--shadow-raised-hover), var(--shadow-highlight);
-  transform: translateY(-2px);
-}
-
-[data-theme="dark"] .neuro-button:active {
-  box-shadow: var(--shadow-inset-pressed);
-  transform: scale(0.97) translateY(2px);
-}
-
-/* Input Fields - Dark Mode */
-[data-theme="dark"] .neuro-card-inset,
-[data-theme="dark"] input[type="text"],
-[data-theme="dark"] input[type="email"],
-[data-theme="dark"] input[type="date"],
-[data-theme="dark"] input[type="number"],
-[data-theme="dark"] textarea {
-  background-color: var(--neu-card);
-  box-shadow: var(--shadow-inset-strong);
-  color: var(--neu-text-primary);
-}
-
-[data-theme="dark"] .neuro-card-inset::placeholder,
-[data-theme="dark"] input::placeholder,
-[data-theme="dark"] textarea::placeholder {
-  color: color-mix(in srgb, var(--neu-text-primary) 50%, transparent);
-}
-
-/* Page Background - Dark Mode */
-/* Page Background - Dark Mode */
-[data-theme="dark"] .page-bg {
-  background-color: transparent;
-}
-[data-cookie-banner="home"] [data-cookie-element="header"] {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-[data-theme="dark"] body {
-  background-color: var(--background);
-  color: #e8dfd5;
-}
-
-/* ==========================
-   Animations (from design)
-   ========================== */
 @keyframes slide-up {
   from {
     transform: translateY(100%);
@@ -1513,14 +198,7 @@ footer {
   to {
     transform: translateY(0);
     opacity: 1;
-    --shadow-overlay-sm: 0 6px 16px
-      color-mix(in srgb, var(--shadow-dark) 55%, transparent);
-    --shadow-overlay: 0 12px 28px
-      color-mix(in srgb, var(--shadow-dark) 70%, transparent);
   }
-}
-.animate-slide-up {
-  animation: slide-up 0.5s ease-out forwards;
 }
 
 @keyframes scale-in {
@@ -1533,18 +211,41 @@ footer {
     opacity: 1;
   }
 }
-.animate-scale-in {
-  animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+/* ============================================
+   Accessibility & Motion Preferences
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  :root {
+    --border: var(--foreground);
+    --ring: var(--foreground);
   }
 }
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out forwards;
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
 }

@@ -44,9 +44,9 @@
 @media (max-width: 640px) {
   .pageContainer {
     --layout-page-padding-inline: clamp(
-      var(--neu-space-md),
-      8vw,
-      var(--neu-space-2xl)
+      var(--neu-space-2xl),
+      15vw,
+      var(--neu-space-3xl)
     );
     --layout-page-content-gap: clamp(
       var(--neu-space-md),

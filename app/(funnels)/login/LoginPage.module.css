@@ -1,45 +1,45 @@
-.page {
+.loginPage {
   min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2.5rem);
-  background: var(--neu-base);
+  background: var(--background);
 }
 
-.card {
+.loginCard {
   width: min(100%, 480px);
-  background: var(--neu-card);
-  border-radius: clamp(1.5rem, 4vw, 2rem);
+  background: var(--card);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-raised);
-  padding: clamp(1.75rem, 5vw, 2.5rem);
+  padding: var(--neu-space-lg);
   display: flex;
   flex-direction: column;
-  gap: clamp(1.5rem, 4vw, 2rem);
+  gap: var(--neu-space-lg);
 }
 
-.header {
+.loginHeader {
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--neu-space-sm);
 }
 
-.title {
-  font-size: clamp(1.75rem, 4vw, 2.25rem);
-  font-weight: 600;
-  color: var(--neu-text-primary);
+.loginTitle {
+  font-size: var(--neu-heading-size-lg);
+  font-weight: var(--font-weight-semi);
+  color: var(--foreground);
 }
 
-.subtitle {
-  font-size: clamp(0.95rem, 2.6vw, 1.05rem);
-  line-height: 1.7;
-  color: var(--heading-subtitle-color);
+.loginSubtitle {
+  font-size: var(--neu-body-size);
+  line-height: var(--line-height-regular);
+  color: var(--text-secondary);
 }
 
 @media (max-width: 480px) {
-  .card {
-    border-radius: clamp(1.25rem, 6vw, 1.75rem);
-    padding: clamp(1.5rem, 6vw, 2rem);
+  .loginCard {
+    border-radius: var(--radius-md);
+    padding: var(--neu-space-md);
   }
 }

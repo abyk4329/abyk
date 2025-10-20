@@ -1,0 +1,21 @@
+[
+  {
+    "key": "shift+cmd+option+j 1",
+    "command": "joyride.runWorkspaceScript",
+    "args": "example/write-a-file.js"
+  },
+  {
+    "key": "shift+cmd+option+j 2",
+    "command": "joyride.runWorkspaceScript",
+    "args": "example/write_a_file.cljs"
+  },
+  {
+    "key": "cmd+option+j w",
+    "command": "joyride.runWorkspaceScript"
+  },
+  {
+    "key": "shift+cmd+option+j d",
+    "command": "joyride.runWorkspaceScript",
+    "args": "maintenance/find-css-duplicates.js"
+  }
+]

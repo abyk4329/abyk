@@ -1,0 +1,195 @@
+/*
+  Design Helpers
+  --------------
+  Utility classes and mixins for common design patterns.
+  These are CSS classes that can be applied directly to elements.
+*/
+
+/* ================
+   Layout Utilities
+   ================ */
+
+.container-center {
+  width: 100%;
+  max-width: var(--primary-card-max-width);
+  margin: 0 auto;
+  padding-inline: var(--primary-card-gutter);
+}
+
+.container-fluid {
+  width: 100%;
+  padding-inline: var(--page-shell-content-gap-inline);
+}
+
+.page-shell {
+  min-height: 100vh;
+  padding-block: var(--page-shell-content-gap-top), var(--page-shell-content-gap-bottom);
+  background: var(--page-gradient);
+}
+
+.content-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-stack-gap);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--card-stack-gap);
+}
+
+/* ================
+   Spacing Utilities
+   ================ */
+
+.space-xs { gap: var(--space-xs); }
+.space-sm { gap: var(--space-sm); }
+.space-md { gap: var(--space-md); }
+.space-lg { gap: var(--space-lg); }
+.space-xl { gap: var(--space-xl); }
+
+.pad-xs { padding: var(--space-xs); }
+.pad-sm { padding: var(--space-sm); }
+.pad-md { padding: var(--space-md); }
+.pad-lg { padding: var(--space-lg); }
+.pad-xl { padding: var(--space-xl); }
+
+.pad-inline-xs { padding-inline: var(--space-xs); }
+.pad-inline-sm { padding-inline: var(--space-sm); }
+.pad-inline-md { padding-inline: var(--space-md); }
+.pad-inline-lg { padding-inline: var(--space-lg); }
+.pad-inline-xl { padding-inline: var(--space-xl); }
+
+.pad-block-xs { padding-block: var(--space-xs); }
+.pad-block-sm { padding-block: var(--space-sm); }
+.pad-block-md { padding-block: var(--space-md); }
+.pad-block-lg { padding-block: var(--space-lg); }
+.pad-block-xl { padding-block: var(--space-xl); }
+
+/* ================
+   Typography Utilities
+   ================ */
+
+.text-heading-1 {
+  font-size: var(--heading-h1-size);
+  font-weight: var(--heading-h1-weight);
+  line-height: var(--heading-h1-line-height);
+  color: var(--heading-h1-color);
+}
+
+.text-heading-2 {
+  font-size: var(--heading-h2-size);
+  font-weight: var(--heading-h2-weight);
+  line-height: var(--heading-h2-line-height);
+  color: var(--heading-h2-color);
+}
+
+.text-heading-3 {
+  font-size: var(--heading-h3-size);
+  font-weight: var(--heading-h3-weight);
+  line-height: var(--heading-h3-line-height);
+  color: var(--heading-h3-color);
+}
+
+.text-body {
+  font-size: var(--paragraph-base-size);
+  font-weight: var(--paragraph-base-weight);
+  line-height: var(--paragraph-base-line-height);
+  color: var(--paragraph-color);
+}
+
+.text-caption {
+  font-size: var(--neu-caption-size);
+  color: var(--caption-color);
+}
+
+.text-accent { color: var(--neu-accent); }
+.text-primary { color: var(--neu-text-primary); }
+.text-secondary { color: var(--neu-text-secondary); }
+.text-tertiary { color: var(--neu-text-tertiary); }
+
+/* ================
+   Visual Effects
+   ================ */
+
+.glass-surface {
+  background: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.overlay-scrim {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-scrim);
+  z-index: var(--z-overlay);
+}
+
+.surface-raised {
+  background: var(--card);
+  box-shadow: var(--shadow-raised);
+  border-radius: var(--radius-lg);
+}
+
+.surface-inset {
+  background: var(--card);
+  box-shadow: var(--shadow-inset-strong);
+  border-radius: var(--radius-lg);
+}
+
+/* ================
+   Interaction States
+   ================ */
+
+.interactive {
+  cursor: pointer;
+  transition: all var(--neu-transition-default);
+}
+
+.interactive:hover {
+  transform: translateY(-1px);
+}
+
+.interactive:active {
+  transform: scale(0.98);
+}
+
+.focus-visible:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ================
+   Responsive Utilities
+   ================ */
+
+@media (max-width: 640px) {
+  .mobile-stack {
+    flex-direction: column;
+  }
+
+  .mobile-hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .desktop-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .mobile-only {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .desktop-wide {
+    max-width: var(--primary-card-max-width);
+    margin: 0 auto;
+  }
+}

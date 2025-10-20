@@ -7,7 +7,7 @@
 
 ## 🗂 מבנה כללי של הפרויקט
 
-```
+```text
 ABYK/
 ├── 📁 .env*                           # משתני סביבה (לא בקוד)
 ├── 📁 .github/                        # GitHub Actions ותבניות
@@ -55,67 +55,152 @@ ABYK/
 
 תיקיית ה-app מכילה את כל ממשק המשתמש ואת ה-API routes של Next.js 15.
 
-```
+````text
 app/
-├── 📁 (funnels)/                      # Route Group למשפך המרה
-│   ├── 📁 _components/                # קומפוננטות משותפות למשפך
-│   │   └── 📁 wealth-code/            # קומפוננטות פיצ'ר קוד עושר
-│   │       ├── 📁 sections/           # חלקי UI של המשפך
-│   │       ├── 📁 shared/             # קומפוננטות משותפות
-│   │       ├── 📁 ui/                 # רכיבי UI בסיסיים
-│   │       └── 📄 index.ts            # יצוא מאוחד
-│   ├── 📄 layout.tsx                  # Layout למשפך
-│   └── 📄 page.tsx                    # דף ראשי של המשפך
-├── 📁 (legal)/                        # Route Group לעמודי מדיניות
-│   ├── 📄 layout.tsx                  # Layout לעמודי מדיניות
-│   ├── 📄 page.tsx                    # דף מדיניות פרטיות
-│   └── 📄 terms/                      # עמוד תנאי שימוש
-│       └── 📄 page.tsx
-├── 📁 api/                            # API Routes
-│   ├── 📁 auth/                       # אימות משתמשים
-│   │   ├── 📁 [...nextauth]/          # NextAuth.js routes
+├── 📁 (funnels)
+│   ├── 📁 _components
+│   │   ├── 📁 wealth-code
+│   │   │   ├── 📁 sections
+│   │   │   │   ├── 📁 ui
+│   │   │   │   │   └── 📄 tabs.tsx
+│   │   │   │   ├── � BirthdatePicker.module.css
+│   │   │   │   ├── 📄 BirthdatePicker.tsx
+│   │   │   │   ├── � Calculator.module.css
+│   │   │   │   ├── 📄 Calculator.tsx
+│   │   │   │   ├── 📄 index.ts
+│   │   │   │   ├── � Interpretations.module.css
+│   │   │   │   ├── 📄 Interpretations.tsx
+│   │   │   │   ├── � Result.module.css
+│   │   │   │   ├── 📄 Result.tsx
+│   │   │   │   ├── � SalesPage.module.css
+│   │   │   │   ├── 📄 SalesPage.tsx
+│   │   │   │   ├── 📄 ThankYou.module.css
+│   │   │   │   └── 📄 ThankYou.tsx
+│   │   │   ├── 📁 shared
+│   │   │   │   ├── 📄 CodeInset.module.css
+│   │   │   │   ├── 📄 CodeInset.tsx
+│   │   │   │   ├── 📄 index.ts
+│   │   │   │   └── 📄 NeuroCard.tsx
+│   │   │   ├── 📁 ui
+│   │   │   │   └── � tabs.tsx
+│   │   │   └── 📄 index.ts
+│   │   └── 📄 FunnelPage.tsx
+│   ├── 📁 calculator
+│   │   ├── 📄 CalculatorPageClient.tsx
+│   │   └── 📄 page.tsx
+│   ├── 📁 interpretations
+│   │   ├── 📄 InterpretationsPageClient.tsx
+│   │   └── 📄 page.tsx
+│   ├── 📁 login
+│   │   ├── 📄 LoginForm.module.css
+│   │   ├── 📄 LoginForm.tsx
+│   │   ├── 📄 LoginPage.module.css
+│   │   └── 📄 page.tsx
+│   ├── 📁 result
+│   │   ├── 📄 page.tsx
+│   │   └── 📄 ResultPageClient.tsx
+│   ├── 📁 sales
+│   │   ├── 📄 page.tsx
+│   │   └── 📄 SalesPageClient.tsx
+│   ├── 📁 thank-you
+│   │   ├── 📄 page.tsx
+│   │   └── 📄 ThankYouPageClient.tsx
+│   ├── 📄 layout.tsx
+│   └── 📄 README.md
+├── 📁 (legal)
+│   ├── 📁 privacy
+│   │   └── 📄 page.tsx
+│   ├── 📁 terms
+│   │   └── 📄 page.tsx
+│   └── 📄 README.md
+├── 📁 api
+│   ├── 📁 auth
+│   │   ├── 📁 [...nextauth]
 │   │   │   └── 📄 route.ts
-│   │   ├── 📄 register/               # רישום משתמשים
-│   │   │   └── 📄 route.ts
-│   ├── 📁 generate-pdf/               # יצירת PDF
+│   │   └── � register
+│   │       └── 📄 route.ts
+│   ├── 📁 generate-pdf
 │   │   └── 📄 route.ts
-│   ├── 📁 send-email/                 # שליחת מיילים
+│   ├── 📁 send-email
 │   │   └── 📄 route.ts
-│   └── 📁 webhooks/                   # Webhooks מתשלומים
-│       └── 📁 grow/
+│   └── 📁 webhooks
+│       └── 📁 grow
 │           └── 📄 route.ts
-├── 📁 components/                     # קומפוננטות משותפות
-│   ├── 📁 analytics/                  # קומפוננטות אנליטיקה
-│   ├── 📁 layout/                     # קומפוננטות פריסה
-│   │   ├── 📄 Header.module.css       # סגנונות ל-Header
-│   │   ├── 📄 Header.tsx              # קומפוננט Header
-│   │   ├── 📄 SideMenu.module.css     # סגנונות ל-SideMenu
-│   │   ├── 📄 SideMenu.tsx            # קומפוננט SideMenu
-│   ├── 📁 lib/                        # כלי עזר לקומפוננטות
-│   ├── 📁 neu/                        # קומפוננטות נאומורפיות
-│   │   ├── 📄 Card.tsx                # כרטיס נאומורפי
-│   │   ├── 📄 NeuButton.tsx           # כפתור נאומורפי
-│   │   └── 📁 neumorphic-shadows.css  # צללים נאומורפיים
-│   ├── 📁 providers/                  # Context Providers
-│   ├── 📁 sections/                   # קומפוננטות חלקים
-│   │   ├── 📄 TermsPrivacy.module.css # סגנונות לעמודי מדיניות
-│   │   └── 📄 TermsPrivacy.tsx        # קומפוננט עמודי מדיניות
-│   └── 📁 shared/                     # קומפוננטות משותפות
-│       ├── 📁 ui/                     # רכיבי UI בסיסיים
-│       │   ├── 📄 Field.tsx           # שדה קלט
-│       │   ├── 📄 Input.tsx           # קלט טקסט
-│       │   └── 📄 Stack.tsx           # קונטיינר ערימה
-├── 📁 fonts.ts                        # הגדרות פונטים
-├── 📁 global-error.tsx                # דף שגיאה גלובלי
-├── 📁 globals.css                     # CSS גלובלי
-├── 📁 HomePageClient.tsx              # קומפוננט דף בית לקליינט
-├── 📁 layout.tsx                      # Layout ראשי
-├── 📁 not-found.tsx                   # דף 404
-├── 📁 page.module.css                 # סגנונות לדף ראשי
-├── 📁 page.tsx                        # דף בית ראשי
-├── 📁 reset.css                       # CSS reset
-├── 📁 styles/                         # סגנונות נוספים
-└── 📁 tokens.css                      # טוקני עיצוב (גיבוי)
+├── 📁 components
+│   ├── 📁 analytics
+│   │   └── 📄 TikTokPixel.tsx
+│   ├── 📁 layout
+│   │   ├── � AppShell.tsx
+│   │   ├── 📄 CookieConsent.module.css
+│   │   ├── 📄 CookieConsent.tsx
+│   │   ├── � drawerConstants.ts
+│   │   ├── 📄 DrawerProvider.tsx
+│   │   ├── 📄 Footer.module.css
+│   │   ├── 📄 Footer.tsx
+│   │   ├── 📄 Header.module.css
+│   │   ├── 📄 Header.tsx
+│   │   ├── 📄 HeaderBar.module.css
+│   │   ├── 📄 HeaderBar.tsx
+│   │   ├── 📄 index.ts
+│   │   ├── 📄 NavigationButtons.module.css
+│   │   ├── 📄 NavigationButtons.tsx
+│   │   ├── 📄 PageLayout.tsx
+│   │   ├── 📄 PageShell.module.css
+│   │   ├── 📄 PageShell.tsx
+│   │   ├── 📄 SideMenu.module.css
+│   │   ├── 📄 SideMenu.tsx
+│   │   ├── 📄 SocialIcons.tsx
+│   │   ├── 📄 SocialLinks.tsx
+│   │   ├── � SplashScreen.module.css
+│   │   ├── 📄 SplashScreen.tsx
+│   │   ├── 📄 StandardPageLayout.module.css
+│   │   ├── 📄 StandardPageLayout.tsx
+│   │   └── � useThemePreference.ts
+│   ├── 📁 lib
+│   │   └── 📄 neomorphism-styles.ts
+│   ├── 📁 neu
+│   │   ├── 📄 Button.module.css
+│   │   ├── 📄 Button.tsx
+│   │   ├── 📄 Card.tsx
+│   │   ├── 📄 IconButton.module.css
+│   │   ├── 📄 IconButton.tsx
+│   │   ├── 📄 index.ts
+│   │   ├── � neumorphic-shadows.css
+│   │   └── 📄 README.md
+│   ├── 📁 providers
+│   │   ├── 📄 AuthProvider.tsx
+│   │   ├── 📄 index.ts
+│   │   └── 📄 NavigationProvider.tsx
+│   ├── 📁 sections
+│   │   ├── 📄 DesignShowcase.tsx
+│   │   ├── 📄 index.ts
+│   │   ├── 📄 TermsPrivacy.module.css
+│   │   └── 📄 TermsPrivacy.tsx
+│   └── 📁 shared
+│       ├── 📁 ui
+│       │   ├── 📄 Card.tsx
+│       │   ├── 📄 Field.tsx
+│       │   ├── 📄 index.ts
+│       │   ├── 📄 Input.tsx
+│       │   └── 📄 Stack.tsx
+│       ├── � icons.tsx
+│       ├── 📄 index.ts
+│       ├── 📄 MenuTrigger.tsx
+│       ├── � NeuButton.tsx
+│       ├── 📄 README.md
+│       ├── � ThemeToggle.module.css
+│       └── 📄 ThemeToggle.tsx
+├── 📄 fonts.ts
+├── 📄 global-error.tsx
+├── 📄 globals.css
+├── 📄 globals.css.backup
+├── � HomePageClient.tsx
+├── � layout.tsx
+├── � not-found.tsx
+├── � page.module.css
+├── � page.tsx
+├── � reset.css
+└── � tokens.css
 
 ---
 
@@ -123,59 +208,150 @@ app/
 
 תיקיית design מכילה את כל מערכת העיצוב המאוחדת עם טוקנים, עיצובים וכלי עזר.
 
-```
+```text
 design/
-├── 📁 index.css                       # נקודת כניסה מאוחדת למערכת עיצוב
-├── 📁 tokens/                         # טוקני עיצוב בסיסיים
-│   ├── 📄 animations.css              # אנימציות ותנועה
-│   ├── 📄 shadows.css                 # צללים ועומק
-│   ├── 📄 tokens.css                  # צבעים, מרווחים, גודל
-│   └── 📄 typography.css              # טיפוגרפיה ופונטים
-├── 📁 themes/                         # עיצובים לפי מצב
-│   ├── 📄 dark.css                    # עיצוב כהה
-│   ├── 📄 light.css                   # עיצוב בהיר
-│   └── 📄 neumorphic.css              # עיצוב נאומורפי
-└── 📁 utils/                          # כלי עזר לעיצוב
-    ├── 📄 helpers.css                 # מחלקות עזר
-    └── 📄 transitions.css             # מעברים ואנימציות
-```
+├── 📁 themes
+│   ├── � dark.css
+│   ├── 📄 light.css
+│   └── 📄 neumorphic.css
+├── � tokens
+│   ├── 📄 animations.css
+│   ├── 📄 shadows.css
+│   ├── 📄 tokens.css
+│   └── 📄 typography.css
+├── 📁 utils
+│   ├── 📄 helpers.css
+│   └── 📄 transitions.css
+└── 📄 index.css
+````
 
 ---
 
+## 📁 lib/ - קוד משותף וכלים
 
+תיקיית lib מרכזת דומיינים עסקיים, שירותים, קונפיגורציות ורכיבי עזר משותפים.
+
+```text
+lib/
+├── 📁 domain
+│   ├── 📁 auth
+│   │   ├── 📄 index.ts
+│   │   └── 📄 options.ts
+│   └── 📁 wealth-code
+│       ├── 📁 data
+│       │   ├── 📄 codeStructures.ts
+│       │   ├── 📄 dailyApplication.ts
+│       │   ├── 📄 digitInterpretations.ts
+│       │   └── 📄 index.ts
+│       ├── 📁 email
+│       │   ├── 📄 index.ts
+│       │   ├── 📄 template.ts
+│       │   └── 📄 WealthEmail.ts
+│       ├── 📁 pdf
+│       │   ├── 📄 generate.ts
+│       │   ├── 📄 index.ts
+│       │   └── 📄 WealthReport.tsx
+│       ├── 📁 utils
+│       │   ├── 📄 algorithm.ts
+│       │   ├── 📄 email.ts
+│       │   ├── 📄 index.ts
+│       │   ├── 📄 numerology.ts
+│       │   └── 📄 share.ts
+│       ├── 📄 constants.ts
+│       └── 📄 index.ts
+├── 📁 generated
+│   └── 📁 prisma
+│       ├── 📁 runtime
+│       │   ├── 📄 edge-esm.js
+│       │   ├── 📄 edge.js
+│       │   ├── 📄 index-browser.d.ts
+│       │   ├── 📄 index-browser.js
+│       │   ├── 📄 library.d.ts
+│       │   ├── 📄 library.js
+│       │   ├── 📄 react-native.js
+│       │   ├── 📄 wasm-compiler-edge.js
+│       │   └── 📄 wasm-engine-edge.js
+│       ├── 📄 client.d.ts
+│       ├── 📄 client.js
+│       ├── 📄 default.d.ts
+│       ├── 📄 default.js
+│       ├── 📄 edge.d.ts
+│       ├── 📄 edge.js
+│       ├── 📄 index-browser.js
+│       ├── 📄 index.d.ts
+│       ├── 📄 index.js
+│       ├── 📄 libquery_engine-darwin-arm64.dylib.node
+│       ├── 📄 package.json
+│       ├── 📄 query_engine_bg.js
+│       ├── 📄 query_engine_bg.wasm
+│       ├── 📄 schema.prisma
+│       ├── 📄 wasm-edge-light-loader.mjs
+│       ├── 📄 wasm-worker-loader.mjs
+│       ├── 📄 wasm.d.ts
+│       └── 📄 wasm.js
+├── 📁 services
+│   ├── 📁 core
+│   │   ├── 📁 email
+│   │   │   ├── 📄 BaseEmailTemplate.ts
+│   │   │   ├── 📄 index.ts
+│   │   │   └── 📄 styles.ts
+│   │   ├── 📄 branding.ts
+│   │   ├── 📄 index.ts
+│   │   └── 📄 pdfConfig.ts
+│   └── 📁 email
+│       ├── 📄 transport.ts
+│       └── 📄 wealth.ts
+├── 📁 utils
+│   ├── 📄 base64.ts
+│   ├── 📄 cn.ts
+│   ├── 📄 fetcher.ts
+│   ├── 📄 file.ts
+│   ├── 📄 format.ts
+│   ├── 📄 index.ts
+│   └── 📄 theme.ts
+├── 📄 constants.ts
+├── 📄 db.ts
+├── 📄 env.ts
+├── 📄 index.ts
+├── 📄 routes.ts
+└── 📄 security.config.ts
+```
+
+---
 
 ## 📁 docs/ - תיעוד מלא
 
 תיקיית docs מכילה את כל התיעוד של הפרויקט.
 
-```
+```text
 docs/
-├── 📁 guides/                         # מדריכים מקצועיים
-│   ├── 📄 EMAIL-PDF-README.md         # מדריך Email/PDF
-│   └── 📄 ...                         # מדריכים נוספים
-├── 📄 APP_DIRECTORY_GUIDE.md          # מדריך תיקיית app
-├── 📄 ARCHITECTURE.md                 # ארכיטקטורה
-├── 📄 BRANCHING.md                    # Git workflow
-├── 📄 CALCULATOR-DESIGN-COMPARISON.md # השוואת עיצובים
-├── 📄 CALCULATOR-PAGE-DESIGN.md       # עיצוב דף מחשבון
-├── 📄 CHANGELOG.md                    # יומן שינויים
-├── 📄 CONTRIBUTING.md                 # הנחיות תרומה
-├── 📄 COOKIE-BANNER-UPDATE.md         # עדכון באנר עוגיות
-├── 📄 DESIGN-FIX-PROMPTS.md           # פרומפטים לתיקון עיצוב
-├── 📄 DESIGN-SYSTEM-MIGRATION.md      # מיגרציית מערכת עיצוב
-├── 📄 DESIGN-SYSTEM-QUICK-START.md    # התחלה מהירה למערכת עיצוב
-├── 📄 DESIGN-SYSTEM.md                # מערכת עיצוב
-├── 📄 DEVELOPMENT.md                  # פיתוח
-├── 📄 HOMEPAGE-BLUEPRINT.md           # תכנית דף בית
-├── 📄 HOMEPAGE-LAYERS.md              # שכבות דף בית
-├── 📄 ISSUE-PLAYBOOK.md               # ספר משחק בעיות
-├── 📄 MIGRATION-PROGRESS.md           # התקדמות מיגרציה
-├── 📄 NAVIGATION-REMOVAL.md           # הסרת ניווט
-├── 📄 NEUMORPHIC-DESIGN.md            # עיצוב נאומורפי
-├── 📄 OWNER-GUIDE.md                  # מדריך בעלים
-├── 📄 PROJECT_STRUCTURE.md            # מבנה הפרויקט (זה)
-├── 📄 README.md                       # README לתיעוד
-└── 📄 STANDARD-PAGE-LAYOUT-MIGRATION.md # מיגרציית פריסת דפים
+├── 📁 guides
+│   ├── 📄 EMAIL-PDF-README.md
+│   ├── 📄 HOME-SPACING-GUIDE.md
+│   └── 📄 TIKTOK-PIXEL-GUIDE.md
+├── 📄 APP_DIRECTORY_GUIDE.md
+├── 📄 ARCHITECTURE.md
+├── 📄 BRANCHING.md
+├── 📄 CALCULATOR-DESIGN-COMPARISON.md
+├── 📄 CALCULATOR-PAGE-DESIGN.md
+├── 📄 color-palette-reference.csv
+├── 📄 component-inventory.csv
+├── 📄 COOKIE-BANNER-UPDATE.md
+├── 📄 DESIGN-FIX-PROMPTS.md
+├── 📄 DESIGN-SYSTEM-MIGRATION.md
+├── 📄 DESIGN-SYSTEM-QUICK-START.md
+├── 📄 DESIGN-SYSTEM.md
+├── 📄 DEVELOPMENT.md
+├── 📄 HOMEPAGE-BLUEPRINT.md
+├── 📄 HOMEPAGE-LAYERS.md
+├── 📄 ISSUE-PLAYBOOK.md
+├── 📄 MIGRATION-PROGRESS.md
+├── 📄 NAVIGATION-REMOVAL.md
+├── 📄 NEUMORPHIC-DESIGN.md
+├── 📄 PROJECT_STRUCTURE.md
+├── 📄 PROJECT_STRUCTURE_AUTO.md
+├── 📄 README.md
+└── 📄 STANDARD-PAGE-LAYOUT-MIGRATION.md
 ```
 
 ---
@@ -184,32 +360,35 @@ docs/
 
 תיקיית public מכילה קבצים סטטיים הנגישים בדפדפן.
 
-```
+```text
 public/
-├── 📁 brand/                          # נכסי מותג
-│   ├── 📄 abyk-logo.png               # לוגו ראשי
-│   └── 📄 ...                         # לוגואים נוספים
-├── 📁 email/                          # נכסים למיילים
-│   └── 📄 logo-email.png              # לוגו למיילים
-├── 📁 fonts/                          # פונטים
-│   └── 📁 Assistant/                  # פונט Assistant
-│       ├── 📄 Assistant-Bold.woff2    # משקל Bold
-│       ├── 📄 Assistant-Light.woff2   # משקל Light
-│       ├── 📄 Assistant-Medium.woff2  # משקל Medium
-│       ├── 📄 Assistant-Regular.woff2 # משקל Regular
-│       └── 📄 ...                     # משקלים נוספים
-├── 📁 og/                             # תמונות שיתוף
-│   ├── 📄 og-image.png                # תמונת Open Graph
-│   └── 📄 ...                         # תמונות נוספות
-├── 📄 ABYKICON.png                    # אייקון ראשי
-├── 📄 abyk-icon-1024 2.png            # אייקון 1024px (גיבוי)
-├── 📄 abyk-icon-1024.png              # אייקון 1024px
-├── 📄 abyk-icon-192 2.png             # אייקון 192px (גיבוי)
-├── 📄 abyk-icon-192.png               # אייקון 192px
-├── 📄 abyk-icon-512 2.png             # אייקון 512px (גיבוי)
-├── 📄 abyk-icon-512.png               # אייקון 512px
-├── 📄 manifest.webmanifest            # PWA manifest
-└── 📄 אייקון.png                      # אייקון בעברית
+├── 📁 brand
+│   ├── 📄 logob-backup.png
+│   └── 📄 logob.png
+├── 📁 email
+│   └── 📄 logob.png
+├── 📁 fonts
+│   └── 📁 Assistant
+│       ├── 📁 static
+│       │   ├── 📄 Assistant-Bold.ttf
+│       │   ├── 📄 Assistant-ExtraBold.ttf
+│       │   ├── 📄 Assistant-ExtraLight.ttf
+│       │   ├── 📄 Assistant-Light.ttf
+│       │   ├── 📄 Assistant-Medium.ttf
+│       │   ├── 📄 Assistant-Regular.ttf
+│       │   └── 📄 Assistant-SemiBold.ttf
+│       ├── � Assistant-VariableFont_wght.ttf
+│       ├── 📄 OFL.txt
+│       └── 📄 README.txt
+├── � og
+│   ├── 📄 share-square.png
+│   └── 📄 share.png
+├── 📄 abyk-icon-1024.png
+├── 📄 abyk-icon-192.png
+├── 📄 abyk-icon-512.png
+├── 📄 ABYKICON.png
+├── 📄 manifest.webmanifest
+└── 📄 אייקון.png
 ```
 
 ---
@@ -218,17 +397,13 @@ public/
 
 תיקיית tests מכילה את כל הבדיקות האוטומטיות.
 
-```
-```
+```text
 tests/
-└── 📁 e2e/                            # בדיקות End-to-End
-    ├── 📄 smoke.spec.ts               # בדיקת עשן
-    └── 📄 ...                         # בדיקות נוספות
+└── 📁 e2e
+    └── 📄 smoke.spec.ts
 ```
 
 ---
-
-
 
 ## 📄 קבצי קונפיגורציה (שורש)
 
@@ -314,28 +489,28 @@ tests/
 
 ## 📋 רשימת קבצים מרכזיים ותפקידיהם
 
-| קובץ/תיקייה | תפקיד | מיקום |
-|-------------|--------|--------|
-| `app/layout.tsx` | Layout ראשי עם Providers | UI |
-| `app/page.tsx` | דף בית ראשי | UI |
-| `app/globals.css` | CSS גלובלי + Tailwind | Styling |
-| `design/index.css` | מערכת עיצוב מאוחדת | Styling |
-| `design/tokens/` | טוקני עיצוב בסיסיים | Styling |
-| `design/themes/` | עיצובים לפי מצב (בהיר/כהה/נאומורפי) | Styling |
-| `lib/domain/` | לוגיקה עסקית לפי דומיין | Business Logic |
-| `lib/services/` | שירותים חיצוניים | Business Logic |
-| `lib/security.config.ts` | קונפיגורציית אבטחה | Config |
-| `lib/constants.ts` | קבועים גלובליים | Config |
-| `lib/env.ts` | משתני סביבה | Config |
-| `lib/routes.ts` | הגדרות נתיבים | Config |
-| `app/api/send-email/` | API לשליחת מיילים | API |
-| `app/api/generate-pdf/` | API ליצירת PDF | API |
-| `app/api/webhooks/grow/` | Webhook לתשלומים | API |
-| `docs/PROJECT_STRUCTURE.md` | מבנה הפרויקט (זה) | Docs |
-| `docs/ARCHITECTURE.md` | ארכיטקטורה טכנית | Docs |
-| `public/manifest.webmanifest` | PWA configuration | Static |
-| `package.json` | תלויות וסקריפטים | Config |
-| `tailwind.config.ts` | Tailwind configuration | Config |
+| קובץ/תיקייה                   | תפקיד                               | מיקום          |
+| ----------------------------- | ----------------------------------- | -------------- |
+| `app/layout.tsx`              | Layout ראשי עם Providers            | UI             |
+| `app/page.tsx`                | דף בית ראשי                         | UI             |
+| `app/globals.css`             | CSS גלובלי + Tailwind               | Styling        |
+| `design/index.css`            | מערכת עיצוב מאוחדת                  | Styling        |
+| `design/tokens/`              | טוקני עיצוב בסיסיים                 | Styling        |
+| `design/themes/`              | עיצובים לפי מצב (בהיר/כהה/נאומורפי) | Styling        |
+| `lib/domain/`                 | לוגיקה עסקית לפי דומיין             | Business Logic |
+| `lib/services/`               | שירותים חיצוניים                    | Business Logic |
+| `lib/security.config.ts`      | קונפיגורציית אבטחה                  | Config         |
+| `lib/constants.ts`            | קבועים גלובליים                     | Config         |
+| `lib/env.ts`                  | משתני סביבה                         | Config         |
+| `lib/routes.ts`               | הגדרות נתיבים                       | Config         |
+| `app/api/send-email/`         | API לשליחת מיילים                   | API            |
+| `app/api/generate-pdf/`       | API ליצירת PDF                      | API            |
+| `app/api/webhooks/grow/`      | Webhook לתשלומים                    | API            |
+| `docs/PROJECT_STRUCTURE.md`   | מבנה הפרויקט (זה)                   | Docs           |
+| `docs/ARCHITECTURE.md`        | ארכיטקטורה טכנית                    | Docs           |
+| `public/manifest.webmanifest` | PWA configuration                   | Static         |
+| `package.json`                | תלויות וסקריפטים                    | Config         |
+| `tailwind.config.ts`          | Tailwind configuration              | Config         |
 
 ---
 
@@ -348,3 +523,12 @@ tests/
 5. בצע commit עם הודעה: `docs: update project structure`
 
 > המסמך הזה הוא מקור האמת היחיד למבנה הפרויקט
+
+---
+
+## ♻️ דה-פרקציה ועדכוני עיצוב
+
+- `app/components/neu/neumorphic-shadows.css` – מושבת; הוחלף ע"י `design/themes/neumorphic.css` + טוקנים מ-`design/tokens/shadows.css`.
+- `app/tokens.css` – מושבת; הטוקנים מרוכזים תחת `design/tokens/*` ומיובאים דרך `design/index.css` ב־`app/globals.css`.
+
+אין להשתמש בקבצים המושבתים בקוד חדש. הם יוסרו לאחר השלמת המיגרציה.
