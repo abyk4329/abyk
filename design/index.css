@@ -18,26 +18,25 @@
 @import './themes/dark.css';
 
 /* Components & Pages */
-@import './themes/components/button.css';
-@import './themes/components/icon-button.css';
-@import './themes/widgets/theme-toggle.css';
-@import './themes/pages/home.css';
-@import './themes/auth/login-page.css';
-@import './themes/cookie-consent.css';
-@import './themes/sections/terms-privacy.css';
-@import './themes/wealth-code/birthdate-picker.css';
-@import './themes/wealth-code/calculator.css';
-@import './themes/wealth-code/interpretations.css';
-@import './themes/wealth-code/result.css';
-@import './themes/wealth-code/sales.css';
-@import './themes/wealth-code/thank-you.css';
-@import './themes/wealth-code/code-inset.css';
+@import './components/button.css';
+@import './components/theme-toggle.css';
+@import './components/home.css';
+@import './components/login-page.css';
+@import './components/cookie-consent.css';
+@import './components/terms-privacy.css';
+@import './features/wealth-code/birthdate-picker.css';
+@import './features/wealth-code/calculator.css';
+@import './features/wealth-code/interpretations.css';
+@import './features/wealth-code/result.css';
+@import './features/wealth-code/sales.css';
+@import './features/wealth-code/thank-you.css';
+@import './features/wealth-code/code-inset.css';
 
 /* Shared Layouts */
-@import './themes/layout-header.css';
-@import './themes/layout-shell.css';
-@import './themes/layout-standard-page.css';
-@import './themes/side-menu.css';
+@import './components/layout-header.css';
+@import './components/layout-shell.css';
+@import './components/layout-standard-page.css';
+@import './components/side-menu.css';
 
 /* Neumorphic System */
 @import './themes/neumorphic.css';
