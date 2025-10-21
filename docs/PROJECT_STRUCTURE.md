@@ -959,3 +959,287 @@ design/
 **תיעוד מלא**: ראה `docs/DESIGN-SYSTEM-CONSOLIDATION.md`
 
 
+
+---
+
+## 📊 מבנה מפורט נכון לאוקטובר 22, 2025
+
+### סטטיסטיקות
+
+| תיקייה | קבצים | תיאור |
+|--------|-------|--------|
+| `app/` | 160 | Next.js App Router + קומפוננטות |
+| `lib/` | 86 | Business logic + utilities |
+| `design/` | 31 | מערכת עיצוב מאוחדת |
+| **סה"כ** | **277** | קבצים פעילים |
+
+### app/ - מבנה מלא (160 קבצים)
+
+```text
+app/
+├── layout.tsx                          # Layout ראשי
+├── page.tsx                            # דף הבית (RSC)
+├── HomePageClient.tsx                  # דף הבית (Client Component)
+├── not-found.tsx                       # דף 404
+├── global-error.tsx                    # Error boundary גלובלי
+├── fonts.ts                            # טעינת פונט Assistant
+├── globals.css                         # CSS גלובלי (מייבא design/index.css)
+│
+├── (funnels)/                          # Route group - מסלול המרה
+│   ├── layout.tsx                      # Layout משותף לפאנל
+│   ├── calculator/
+│   │   ├── page.tsx                    # עמוד מחשבון (RSC)
+│   │   └── CalculatorPageClient.tsx   # לוגיקה (Client)
+│   ├── result/
+│   │   ├── page.tsx                    # עמוד תוצאות (RSC)
+│   │   └── ResultPageClient.tsx       # תוצאות + שיתוף (Client)
+│   ├── interpretations/
+│   │   ├── page.tsx                    # עמוד פרשנויות (RSC)
+│   │   └── InterpretationsPageClient.tsx
+│   ├── sales/
+│   │   ├── page.tsx                    # עמוד מכירה (RSC)
+│   │   └── SalesPageClient.tsx        # CTA + תשלום (Client)
+│   ├── thank-you/
+│   │   ├── page.tsx                    # עמוד תודה (RSC)
+│   │   └── ThankYouPageClient.tsx     # הצלחה (Client)
+│   ├── login/
+│   │   ├── page.tsx                    # עמוד התחברות (RSC)
+│   │   └── LoginForm.tsx              # טופס (Client)
+│   └── _components/
+│       ├── FunnelPage.tsx              # Wrapper לדפי funnel
+│       └── wealth-code/                # קומפוננטות ספציפיות למחשבון
+│           ├── index.ts
+│           ├── sections/
+│           │   ├── index.ts
+│           │   ├── BirthdatePicker.tsx  # בחירת תאריך לידה
+│           │   ├── Calculator.tsx       # מחשבון ראשי
+│           │   ├── Result.tsx           # תצוגת תוצאות
+│           │   ├── Interpretations.tsx  # פרשנויות
+│           │   ├── SalesPage.tsx        # עמוד מכירה
+│           │   ├── ThankYou.tsx         # תודה
+│           │   └── ui/
+│           │       └── tabs.tsx         # Tabs component
+│           └── shared/
+│               ├── index.ts
+│               └── CodeInset.tsx        # תצוגת קוד מספרי
+│
+├── (legal)/                            # Route group - משפטי
+│   ├── terms/
+│   │   └── page.tsx                    # תנאי שימוש
+│   └── privacy/
+│       └── page.tsx                    # מדיניות פרטיות
+│
+├── alt/                                # דף אלטרנטיבי
+│   ├── page.tsx                        # עמוד (RSC)
+│   └── AltPageClient.tsx              # Client component
+│
+├── api/                                # API Routes
+│   ├── auth/
+│   │   ├── [...nextauth]/
+│   │   │   └── route.ts                # NextAuth endpoints
+│   │   └── register/
+│   │       └── route.ts                # רישום משתמשים
+│   ├── generate-pdf/
+│   │   └── route.ts                    # יצירת PDF (React PDF)
+│   ├── send-email/
+│   │   └── route.ts                    # שליחת אימיילים
+│   └── webhooks/
+│       └── grow/
+│           └── route.ts                # Webhook לתשלום
+│
+└── components/                         # קומפוננטות משותפות
+    ├── analytics/
+    │   └── TikTokPixel.tsx            # TikTok tracking
+    │
+    ├── layout/                         # קומפוננטות Layout (9 files)
+    │   ├── index.ts
+    │   ├── AppShell.tsx               # Shell ראשי
+    │   ├── PageLayout.tsx             # Layout כללי לעמוד
+    │   ├── PageShell.tsx              # Shell לתוכן עמוד
+    │   ├── StandardPageLayout.tsx     # Layout סטנדרטי
+    │   ├── HeaderBar.tsx              # כותרת עליונה
+    │   ├── SideMenu.tsx               # תפריט צד
+    │   ├── CookieConsent.tsx          # באנר עוגיות
+    │   ├── SocialIcons.tsx            # אייקוני סושיאל
+    │   ├── SocialLinks.tsx            # קישורי סושיאל
+    │   ├── DrawerProvider.tsx         # Context למגירה
+    │   ├── drawerConstants.ts         # קבועים
+    │   └── useThemePreference.ts      # Hook לתמה
+    │
+    ├── lib/
+    │   └── neomorphism-styles.ts      # סטיילים נאומורפיים + handlers
+    │
+    ├── neu/                            # קומפוננטות נאומורפיות (4 files)
+    │   ├── index.ts
+    │   ├── Button.tsx                 # כפתור מתקדם (variants, sizes)
+    │   ├── Card.tsx                   # כרטיס נאומורפי
+    │   └── IconButton.tsx             # כפתור אייקון
+    │
+    ├── providers/                      # Context Providers (3 files)
+    │   ├── index.ts
+    │   ├── AuthProvider.tsx           # NextAuth provider
+    │   └── NavigationProvider.tsx     # ניווט/state
+    │
+    ├── sections/                       # Section Components (2 files)
+    │   ├── index.ts
+    │   ├── DesignShowcase.tsx         # תצוגת עיצוב
+    │   └── TermsPrivacy.tsx           # תנאי שימוש/פרטיות
+    │
+    └── shared/                         # קומפוננטות משותפות (6 files + ui/)
+        ├── index.ts
+        ├── icons.tsx                  # אייקוני Lucide
+        ├── MenuTrigger.tsx            # כפתור תפריט
+        ├── ThemeToggle.tsx            # מעבר בין תימות
+        ├── NeuButton.tsx              # כפתור פשוט (3 variants)
+        └── ui/                         # UI Primitives (4 files)
+            ├── index.ts
+            ├── Card.tsx                # re-export neu/Card
+            ├── Field.tsx               # שדה טופס
+            ├── Input.tsx               # שדה קלט
+            └── Stack.tsx               # Layout stack
+```
+
+### lib/ - מבנה מלא (86 קבצים)
+
+```text
+lib/
+├── index.ts                            # Barrel export
+├── constants.ts                        # קבועים גלובליים
+├── db.ts                               # Prisma client
+├── env.ts                              # משתני סביבה מאומתים
+├── neu-styles.ts                       # עוזרי נאומורפיזם
+├── routes.ts                           # מסלולים
+├── security.config.ts                  # הגדרות אבטחה
+│
+├── domain/                             # Business Logic
+│   ├── auth/                           # אימות
+│   │   ├── index.ts
+│   │   └── options.ts                  # NextAuth config
+│   │
+│   └── wealth-code/                    # לוגיקת מחשבון קוד העושר
+│       ├── index.ts
+│       ├── constants.ts                # קבועים
+│       │
+│       ├── data/                       # תוכן ופרשנויות
+│       │   ├── index.ts
+│       │   ├── codeStructures.ts       # מבני קוד
+│       │   ├── dailyApplication.ts     # יישום יומי
+│       │   └── digitInterpretations.ts # פרשנויות ספרות
+│       │
+│       ├── email/                      # תבניות אימייל
+│       │   ├── index.ts
+│       │   ├── template.ts             # תבניות HTML
+│       │   └── WealthEmail.ts          # מחלקת Email
+│       │
+│       ├── pdf/                        # יצירת PDF
+│       │   ├── index.ts
+│       │   ├── generate.ts             # פונקציית יצירה
+│       │   └── WealthReport.tsx        # קומפוננטת PDF
+│       │
+│       └── utils/                      # כלים
+│           ├── index.ts
+│           ├── algorithm.ts            # אלגוריתמי חישוב
+│           ├── email.ts                # עוזרי אימייל
+│           ├── numerology.ts           # נומרולוגיה
+│           └── share.ts                # שיתוף
+│
+├── services/                           # שירותי תשתית
+│   ├── core/                           # ליבה
+│   │   ├── index.ts
+│   │   ├── branding.ts                 # מיתוג (לוגו, צבעים)
+│   │   ├── pdfConfig.ts                # קונפיגורציית PDF
+│   │   └── email/                      # אימייל משותף
+│   │       ├── index.ts
+│   │       ├── BaseEmailTemplate.ts    # תבנית בסיס
+│   │       ├── styles.ts               # סטיילים
+│   │       └── tokens.ts               # טוקנים
+│   │
+│   └── email/                          # שירותי אימייל
+│       ├── transport.ts                # Resend/Gmail SMTP
+│       └── wealth.ts                   # שליחת wealth emails
+│
+└── utils/                              # כלי עזר כלליים (8 files)
+    ├── index.ts
+    ├── base64.ts                       # קידוד/פענוח
+    ├── cn.ts                           # classnames utility
+    ├── fetcher.ts                      # fetch wrapper
+    ├── file.ts                         # קובץ utilities
+    ├── format.ts                       # עיצוב טקסט/מספרים
+    └── theme.ts                        # theme utilities
+```
+
+### design/ - מבנה מלא (31 קבצים)
+
+```text
+design/
+├── index.css                           # נקודת כניסה יחידה
+│
+├── base/
+│   └── reset.css                       # CSS reset
+│
+├── tokens/                             # 8 קבצי טוקנים
+│   ├── animations.css                  # מעברים ואנימציות
+│   ├── colors.css                      # פלטת צבעים
+│   ├── radii.css                       # רדיוסי פינות
+│   ├── shadows.css                     # elevation shadows
+│   ├── spacing.css                     # סולם מרווחים
+│   ├── tokens.css                      # מדדי layout
+│   ├── typography.css                  # פונטים וגדלים
+│   └── z-index.css                     # stacking order
+│
+├── themes/                             # תימות (2 files)
+│   ├── light.css                       # מצב בהיר
+│   └── dark.css                        # מצב כהה
+│
+├── components/                         # סטיילים לקומפוננטות (11 files)
+│   ├── button.css                      # כפתורים (כולל icon-button)
+│   ├── cookie-consent.css              # באנר עוגיות
+│   ├── home.css                        # דף הבית
+│   ├── layout-header.css               # כותרת עליונה
+│   ├── layout-shell.css                # shell layout
+│   ├── layout-standard-page.css        # פריסת עמוד סטנדרטי
+│   ├── login-page.css                  # דף התחברות
+│   ├── neumorphic.css                  # כלי עזר נאומורפיים
+│   ├── side-menu.css                   # תפריט צד
+│   ├── terms-privacy.css               # דפים משפטיים
+│   └── theme-toggle.css                # מעבר בין תימות
+│
+├── features/                           # סטיילים ספציפיים לפיצ'ר
+│   └── wealth-code/                    # מחשבון קוד העושר (7 files)
+│       ├── birthdate-picker.css        # בוחר תאריך
+│       ├── calculator.css              # מחשבון
+│       ├── code-inset.css              # תצוגת קוד
+│       ├── interpretations.css         # פרשנויות
+│       ├── result.css                  # תוצאות
+│       ├── sales.css                   # מכירה
+│       └── thank-you.css               # תודה
+│
+└── utils/
+    └── helpers.css                     # כלי עזר גלובליים
+```
+
+## 🔍 ממצאי בדיקת כפילויות (אוקטובר 22, 2025)
+
+### בדיקות שבוצעו
+✅ סריקה מקיפה של `app/`, `lib/`, `design/`  
+✅ חיפוש קבצים זמניים (*.tmp, *.bak, .DS_Store)  
+✅ זיהוי README files מיותרים  
+✅ איתור כפילויות פונקציונליות
+
+### תוצאות
+- **0 קבצים זמניים** נמצאו
+- **4 README files מיותרים** נמחקו
+- **2 Button implementations** - שניהם בשימוש ומוצדקים:
+  - `app/components/neu/Button.tsx` - מתקדם (5 variants, icons, sizes)
+  - `app/components/shared/NeuButton.tsx` - פשוט (3 variants בלבד)
+- **lib/neu-styles.ts** vs **app/components/lib/neomorphism-styles.ts** - שונים לחלוטין (helpers vs interactive styles)
+
+### סטטוס תקינות
+✅ **Build**: `pnpm build` עובר (3 CSS warnings לא חוסמות)  
+✅ **Lint**: `pnpm lint` עובר  
+✅ **Structure**: מבנה נקי ללא duplications
+
+---
+
+**מסמך זה עודכן אחרון ב-22 אוקטובר 2025 לאחר ניקיון מקיף וסריקת כפילויות.**
+
