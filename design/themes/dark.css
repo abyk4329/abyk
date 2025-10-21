@@ -130,7 +130,11 @@
   --sidebar-primary-foreground: var(--palette-sidebar-primary-foreground-dark);
   --sidebar-accent: var(--palette-sidebar-accent-dark);
   --sidebar-accent-foreground: var(--text-secondary);
-  --sidebar-border: color-mix(in srgb, var(--palette-warm-glow) 12%, transparent);
+  --sidebar-border: color-mix(
+    in srgb,
+    var(--palette-warm-glow) 12%,
+    transparent
+  );
   --sidebar-ring: color-mix(
     in srgb,
     var(--ring) 55%,

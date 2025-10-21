@@ -68,8 +68,7 @@
 
 .icon-transition {
   transition: transform var(--neu-transition-default),
-    color var(--neu-transition-default),
-    opacity var(--neu-transition-default);
+    color var(--neu-transition-default), opacity var(--neu-transition-default);
 }
 
 /* ================

@@ -79,6 +79,7 @@ design/
 ## Theming Contract
 
 ### Theme Application
+
 - Light mode: `:root` and `[data-theme="light"]`
 - Dark mode: `[data-theme="dark"]`
 - Theme applied via `<html data-theme="light|dark">`
@@ -86,6 +87,7 @@ design/
 ### Color Variables
 
 **Palette (Raw)** → `design/tokens/colors.css`
+
 ```css
 --palette-surface-light-0: #f5f5f5;
 --palette-text-light-900: #5e4934;
@@ -94,6 +96,7 @@ design/
 ```
 
 **Semantic (Theme-specific)** → `design/themes/light.css` / `dark.css`
+
 ```css
 --background: var(--palette-surface-light-0);
 --foreground: var(--palette-text-light-900);
@@ -104,6 +107,7 @@ design/
 ```
 
 **Components use only semantic variables:**
+
 ```css
 /* ✅ CORRECT */
 .btn-variant-primary {
@@ -121,36 +125,44 @@ design/
 ## Token Categories
 
 ### 1. Colors (`design/tokens/colors.css`)
+
 - Palette definitions (light/dark surfaces, text, accents)
 - No theme logic here - just raw values
 
 ### 2. Typography (`design/tokens/typography.css`)
+
 - Font families, sizes, weights, line-heights
 - Responsive clamp() scales
 
 ### 3. Spacing (`design/tokens/spacing.css`)
+
 - Golden ratio scale: `--space-3xs` to `--space-3xl`
 - Legacy aliases preserved
 
 ### 4. Radii (`design/tokens/radii.css`)
+
 - Border radius scale
 - Neumorphic aliases
 
 ### 5. Shadows (`design/tokens/shadows.css`)
+
 - Elevation scale
 - Light/dark shadow references
 
 ### 6. Z-Index (`design/tokens/z-index.css`)
+
 - Stacking layers
 - App-specific z-layers
 
 ### 7. Animations (`design/tokens/animations.css`)
+
 - Motion constants
 - Transition utilities
 - Keyframes
 - Reduced-motion support
 
 ### 8. Layout (`design/tokens/tokens.css`)
+
 - Component dimensions
 - Page shell spacing
 - Card metrics
@@ -164,7 +176,7 @@ All CSS imports through single entry point:
 @import 'tailwindcss/preflight' layer(tailwind);
 @tailwind utilities;
 
-@import '../design/index.css';  /* Single import */
+@import '../design/index.css'; /* Single import */
 ```
 
 ```css
