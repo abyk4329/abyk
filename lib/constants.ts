@@ -142,10 +142,13 @@ export const COLORS = {
     darkBold: '#f0d9b5',
   },
   shadows: {
-    lightModeLight: 'rgba(255, 255, 255, 1)',
-    lightModeDark: 'rgba(160, 160, 160, 0.5)',
-    darkModeLight: 'rgba(55, 65, 70, 0.7)',
-    darkModeDark: 'rgba(12, 16, 18, 0.8)',
+    lightModeLight: 'var(--palette-neutral-0)',
+    lightModeDark:
+      'color-mix(in srgb, var(--palette-shadow-taupe) 50%, transparent)',
+    darkModeLight:
+      'color-mix(in srgb, var(--palette-neutral-900) 70%, transparent)',
+    darkModeDark:
+      'color-mix(in srgb, var(--palette-neutral-900) 80%, transparent)',
   },
 } as const;
 

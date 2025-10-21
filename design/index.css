@@ -1,8 +1,12 @@
 /* Design System Index */
-@import './tokens/tokens.css';
+@import './tokens/colors.css';
 @import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/radii.css';
 @import './tokens/shadows.css';
+@import './tokens/z-index.css';
 @import './tokens/animations.css';
+@import './tokens/tokens.css';
 
 /* Core themes */
 @import './themes/light.css';
@@ -11,6 +15,7 @@
 /* Components & Pages */
 @import './themes/components/button.css';
 @import './themes/components/icon-button.css';
+@import './themes/widgets/theme-toggle.css';
 @import './themes/pages/home.css';
 @import './themes/auth/login-page.css';
 @import './themes/cookie-consent.css';

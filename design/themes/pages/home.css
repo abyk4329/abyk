@@ -1,6 +1,10 @@
 /* Theme: Home page shared patterns (container, hero card, icon well, headline, share section) */
 
 /* Page shell and content root */
+.homeHeroSection {
+  width: 100%;
+}
+
 .homePageShell {
   --home-page-padding-block: clamp(
     var(--space-4),
@@ -30,6 +34,7 @@
 }
 
 .homeHeroCard {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,6 +56,7 @@
   background-color: var(--neu-card);
   box-shadow: var(--shadow-inset-strong);
   color: var(--neu-accent);
+  margin-inline: auto;
 }
 
 .homeHeroIconGlyph {
@@ -72,7 +78,12 @@
   line-height: var(--heading-h1-line-height);
   letter-spacing: -0.035em;
   color: var(--heading-h1-color);
+  text-align: center;
   text-wrap: balance;
+}
+
+.homeHeadlineAccent {
+  color: var(--heading-h1-color);
 }
 
 .homeSubtitle {

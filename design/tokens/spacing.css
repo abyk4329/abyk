@@ -1,0 +1,45 @@
+/*
+  Spacing Tokens
+  --------------
+  Scales derived from the golden ratio for consistent rhythm.
+*/
+
+:root {
+  /* Ratio constants */
+  --ratio-golden: 1.618;
+  --ratio-golden-inverse: 0.618;
+  --ratio-golden-squared: 2.618;
+  --ratio-golden-cubed: 4.236;
+
+  /* Core spacing scale */
+  --space-base: 1rem;
+  --space-3xs: calc(var(--space-base) * 0.236);
+  --space-2xs: calc(var(--space-base) * 0.382);
+  --space-xs: calc(var(--space-base) * var(--ratio-golden-inverse));
+  --space-sm: calc(var(--space-base) * 0.85);
+  --space-md: var(--space-base);
+  --space-lg: calc(var(--space-md) * var(--ratio-golden));
+  --space-xl: calc(var(--space-lg) * var(--ratio-golden));
+  --space-2xl: calc(var(--space-xl) * var(--ratio-golden));
+  --space-3xl: calc(var(--space-2xl) * var(--ratio-golden));
+
+  /* Legacy aliases */
+  --space-1: var(--space-xs);
+  --space-1-5: calc((var(--space-xs) + var(--space-sm)) / 2);
+  --space-2: var(--space-md);
+  --space-3: var(--space-lg);
+  --space-4: var(--space-xl);
+  --space-5: var(--space-2xl);
+  --space-6: var(--space-3xl);
+
+  /* Neumorphic spacing aliases */
+  --neu-space-3xs: var(--space-3xs);
+  --neu-space-2xs: var(--space-2xs);
+  --neu-space-xs: var(--space-xs);
+  --neu-space-sm: var(--space-sm);
+  --neu-space-md: var(--space-md);
+  --neu-space-lg: var(--space-lg);
+  --neu-space-xl: var(--space-xl);
+  --neu-space-2xl: var(--space-2xl);
+  --neu-space-3xl: var(--space-3xl);
+}

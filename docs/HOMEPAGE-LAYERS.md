@@ -20,39 +20,38 @@
 | `--neu-gold-signature`, `--neu-accent`, `--neu-accent-dark`, `--neu-accent-light`                  | `design/tokens/tokens.css` (מיובא דרך `design/index.css`)                        | צבעי זהב לעיטור, כפתורים ואייקונים   |
 | `--heading-h1-size`, `--paragraph-base-size`, `--heading-paragraph-gap`, `--heading-subtitle-size` | `app/globals.css`                                                                | טיפוגרפיה בעמוד הבית והכרטיס המשני   |
 
-## עמוד הבית (`app/HomePageClient.tsx`, `app/page.module.css`)
+## עמוד הבית (`app/HomePageClient.tsx`, `design/themes/pages/home.css`)
 
 ### תרשים שכבות (מבחוץ פנימה)
 
-1. **`<main class="hero-shell page">`**
-   - מקור כללי: `app/globals.css` (מחלקת `hero-shell`) + `app/page.module.css` (`.page`).
+1. **`<main class="hero-shell homePageShell">`**
+   - מקור כללי: `app/globals.css` (מחלקת `hero-shell`) + `design/themes/pages/home.css` (`.homePageShell`).
    - מרווחים: `padding-block` = `--home-page-padding-block`, `padding-inline` = `--home-page-padding-inline` שמוגדרים כ־`clamp` בהתאם לרוחב.
    - צבעים: לוקח את `var(--background)` עם RTL מובנה.
    - ייעוד: מעטפת בטיחות המטפלת ב־Safe-Area, גובה מסך מלא והזזת קבוצות ה־Hero (`data-hero-group`).
-2. **`div.content`**
+2. **`div.homeContentRoot`**
    - רוחב מרבי `min(100%, --home-content-max-width)`.
    - יוצר עמודת תוכן ב־`flex-column` עם מרווח `--home-section-gap`.
-3. **`section.heroSection`**
+3. **`section.homeHeroSection`**
    - עוטף את כרטיס ההרואי ומבטיח רוחב מלא.
-4. **`Card.heroCard`** (רכיב `Card` עם `padding="none"` + מחלקה יעודית)
+4. **`Card.homeHeroCard`** (רכיב `Card` עם `padding="none"` + מחלקה ייעודית מה-theme)
    - מרווחים: `padding-block`/`inline` = `--card-padding-base` (או `--card-padding-desktop` מ־768px ומעלה).
    - צבעים: `var(--neu-card)` (רקע), טקסט `var(--neu-text-primary)`.
    - צל: `var(--shadow-raised-strong)`.
    - ייעוד: כרטיס היכרות ראשי עם אייקון, כותרת וכפתור.
-5. **`div.heroIcon`**
+5. **`div.homeHeroIcon`**
    - מבנה מבוסס טוקנים (`--card-notch-size`, `--card-notch-radius`) עם `box-shadow: var(--shadow-inset-strong)`.
    - צבעי אייקון: `var(--neu-accent)` על רקע `var(--neu-card)`.
-6. **`div.heroContent`**
+6. **`div.homeHeroContent`**
    - מרווחי טקסט: `gap = --heading-paragraph-gap`.
    - טיפוגרפיה: `h1` נלקח מהטוקנים הגלובליים, `p` משתמש ב־`--paragraph-base-size`.
-7. **`NeuButton.heroCta`**
+7. **`Button.btn-primary.homeCta`**
    - וריאנט `cta` עם `box-shadow: var(--shadow-raised)` וגובה `var(--button-height)`.
    - במידה רחבה (`md+`): `min-width = --button-min-width-desktop`.
-8. **`section.shareSection > Card.shareCard`**
+8. **`section.homeShareSection > Card.homeShareCard`**
    - כרטיס משני עם רוחב נשלט טוקנית (`--secondary-card-width`).
    - משתמש באותם טוקנים של `--card-stack-gap` ו־`--card-padding-base`.
-   - אייקון משני (`.shareIcon`) מבוסס `--card-notch-size-sm` ו־`--card-notch-radius` עם צל שקוע (`--shadow-inset-strong`).
-   - כפתור משני (`NeuButton` וריאנט `secondary`).
+   - כפתור משני (`Button` וריאנט `secondary`), משתמש ב־`btn-secondary homeShareButton`.
 9. **`section` לרשתות חברתיות**
    - מכיל את `SocialLinks` (רכיב משותף). משתמש בטוקנים גלובליים למרווחים וצללים עגולים (ראו `app/components/layout/SocialLinks.tsx`).
 

@@ -28,7 +28,7 @@
 ### מצב כהה (Dark Mode)
 
 ```css
-[data-theme="dark"] {
+[data-theme='dark'] {
   --neu-base: #2d3436; /* רקע כהה */
   --neu-card: #2d3436; /* כרטיסיה כהה */
   --neu-text-primary: #e8dfd5; /* כיתוב בהיר */
@@ -68,7 +68,7 @@
 ### פונט
 
 ```css
---font-family: "Assistant", sans-serif;
+--font-family: 'Assistant', sans-serif;
 --font-size: 16px; /* בסיס */
 ```
 
@@ -146,7 +146,7 @@ p,
 }
 
 /* Dark Mode */
-[data-theme="dark"] .btn-primary {
+[data-theme='dark'] .btn-primary {
   background: linear-gradient(145deg, #d4a574, #c29868);
   color: #2d3436;
 }
@@ -276,7 +276,7 @@ p,
 #### Dark Mode
 
 ```css
-[data-theme="dark"] .card {
+[data-theme='dark'] .card {
   background: linear-gradient(145deg, #2d3436, rgba(40, 45, 47, 0.95));
   color: #e8dfd5;
 }
@@ -419,7 +419,7 @@ p,
 }
 
 /* Dark Mode */
-[data-theme="dark"] .sideMenu {
+[data-theme='dark'] .sideMenu {
   background: linear-gradient(145deg, #2d3436, rgba(40, 45, 47, 0.98));
   color: #e8dfd5;
 }
@@ -463,7 +463,7 @@ p,
 }
 
 /* Dark Mode */
-[data-theme="dark"] .menuButtonActive {
+[data-theme='dark'] .menuButtonActive {
   color: #2d3436;
 }
 ```
@@ -662,7 +662,7 @@ transition: all 0.5s ease;
 - הכפתורים הקבועים (תפריט ו-Theme Toggle) ממוקמים באמצעות המחלקות הגלובליות `.header-floating-button`, יחד עם modifiers של ימין/שמאל.
 - מיקום: `position: fixed; top: calc(env(safe-area-inset-top) + 2rem);` עם `right|left: calc(env(safe-area-inset-*) + 2rem);` (Tailwind שקול: `fixed top-8 right-8`).
 - שכבה: `z-index: 40` – מעל התוכן, מתחת ל-Sidebar (`z-50`) ולמודלים (`z-60`).
-- הכפתורים עצמם עושים שימוש ב-`iconButton` (ניומורפי) מ-`page.module.css` ו-`StandardPageLayout.module.css`.
+- הכפתורים עצמם עושים שימוש ב-`iconButton` (ניומורפי) מ-`design/themes/components/icon-button.css` ובמחלקות העיטוף של `design/themes/layout-header.css`.
 - לוגיקה: כפתור התפריט מופיע בכל מצב; Theme Toggle מוסתר בזמן שתפריט הצד פתוח (`!isMenuOpen`).
 - קבצים עיקריים: `app/page.tsx`, `app/components/layout/StandardPageLayout.tsx`, ו-`app/globals.css` (הגדרות המחלקות).
 - עיצוב ניומורפי מלא: ראו `docs/NEUMORPHIC-DESIGN.md` עבור מערכת הצללות וכפתורים מפורטת.

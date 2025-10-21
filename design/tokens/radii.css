@@ -1,0 +1,20 @@
+/*
+  Radius Tokens
+  -------------
+  Corner radii derived from the golden ratio scale.
+*/
+
+:root {
+  --radius-base: 1rem;
+  --radius-sm: calc(var(--radius-base) * var(--ratio-golden-inverse));
+  --radius-md: var(--radius-base);
+  --radius-lg: calc(var(--radius-base) * var(--ratio-golden));
+  --radius-xl: calc(var(--radius-lg) * var(--ratio-golden));
+
+  --radius: var(--radius-md);
+
+  /* Neumorphic aliases */
+  --neu-radius-sm: var(--radius-sm);
+  --neu-radius-md: var(--radius-md);
+  --neu-radius-lg: var(--radius-lg);
+}

@@ -1,0 +1,21 @@
+/*
+  Z-Index Tokens
+  --------------
+  Layering scale for overlays and structural elements.
+*/
+
+:root {
+  --z-base: 1;
+  --z-elevated: 10;
+  --z-sticky: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+  --z-tooltip: 400;
+
+  /* App-specific layers */
+  --z-cookie: 110;
+  --z-rail: 125;
+  --z-drawer: 130;
+  --z-header: 140;
+  --z-hero: 160;
+}

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
 import type {
   CSSProperties,
   FocusEventHandler,
+  KeyboardEventHandler,
   MouseEventHandler,
   TouchEventHandler,
-  KeyboardEventHandler,
-} from "react";
+} from 'react';
 
 type InteractiveStyle = CSSProperties & {
   hover?: string;
@@ -41,9 +41,9 @@ const applyShadow = (element: HTMLElement, value?: string) => {
 
 // Helper function to safely extract string box shadow
 export const getBoxShadow = (value: string | string[] | undefined): string => {
-  if (!value) return "";
-  if (typeof value === "string") return value;
-  return Array.isArray(value) ? value.join(", ") : String(value);
+  if (!value) return '';
+  if (typeof value === 'string') return value;
+  return Array.isArray(value) ? value.join(', ') : String(value);
 };
 
 export const createHoverHandlers = (
@@ -103,47 +103,85 @@ export const createPressHandlers = (
     onTouchEnd: handleTouchEnd,
     onTouchCancel: handleTouchEnd,
     onKeyDown: (event) => {
-      if (event.key === " " || event.key === "Enter") {
+      if (event.key === ' ' || event.key === 'Enter') {
         applyShadow(event.currentTarget, pressedShadow);
       }
     },
     onKeyUp: (event) => {
-      if (event.key === " " || event.key === "Enter") {
+      if (event.key === ' ' || event.key === 'Enter') {
         applyShadow(event.currentTarget, baseShadow);
       }
     },
   };
 };
 
-const MAIN_CARD_SHADOW =
-  "22px 22px 52px rgba(159,133,114,0.22), -22px -22px 52px rgba(255,255,255,0.94), inset 2px 2px 6px rgba(255,255,255,0.65), inset -2px -2px 6px rgba(211,198,189,0.28)";
-const MAIN_CARD_HOVER =
-  "26px 26px 58px rgba(159,133,114,0.26), -26px -26px 58px rgba(255,255,255,0.98), inset 2px 2px 8px rgba(255,255,255,0.7), inset -2px -2px 8px rgba(211,198,189,0.34)";
+const MAIN_CARD_SHADOW = [
+  '22px 22px 52px color-mix(in srgb, var(--palette-shadow-warm-soft) 22%, transparent)',
+  '-22px -22px 52px color-mix(in srgb, var(--palette-neutral-0) 94%, transparent)',
+  'inset 2px 2px 6px color-mix(in srgb, var(--palette-neutral-0) 65%, transparent)',
+  'inset -2px -2px 6px color-mix(in srgb, var(--palette-shadow-warm-soft) 28%, transparent)',
+].join(', ');
+const MAIN_CARD_HOVER = [
+  '26px 26px 58px color-mix(in srgb, var(--palette-shadow-warm-soft) 26%, transparent)',
+  '-26px -26px 58px color-mix(in srgb, var(--palette-neutral-0) 98%, transparent)',
+  'inset 2px 2px 8px color-mix(in srgb, var(--palette-neutral-0) 70%, transparent)',
+  'inset -2px -2px 8px color-mix(in srgb, var(--palette-warm-glow) 34%, transparent)',
+].join(', ');
 
-const SECONDARY_CARD_SHADOW =
-  "14px 14px 34px rgba(159,133,114,0.18), -14px -14px 34px rgba(255,255,255,0.92), inset 1px 1px 4px rgba(255,255,255,0.55)";
-const SECONDARY_CARD_HOVER =
-  "18px 18px 40px rgba(159,133,114,0.22), -18px -18px 40px rgba(255,255,255,0.97), inset 1px 1px 5px rgba(255,255,255,0.62)";
+const SECONDARY_CARD_SHADOW = [
+  '14px 14px 34px color-mix(in srgb, var(--palette-shadow-warm-soft) 18%, transparent)',
+  '-14px -14px 34px color-mix(in srgb, var(--palette-neutral-0) 92%, transparent)',
+  'inset 1px 1px 4px color-mix(in srgb, var(--palette-neutral-0) 55%, transparent)',
+].join(', ');
+const SECONDARY_CARD_HOVER = [
+  '18px 18px 40px color-mix(in srgb, var(--palette-shadow-warm-soft) 22%, transparent)',
+  '-18px -18px 40px color-mix(in srgb, var(--palette-neutral-0) 97%, transparent)',
+  'inset 1px 1px 5px color-mix(in srgb, var(--palette-neutral-0) 62%, transparent)',
+].join(', ');
 
-const FLOATING_CARD_SHADOW =
-  "28px 28px 64px rgba(159,133,114,0.24), -28px -28px 64px rgba(255,255,255,0.95), inset 3px 3px 9px rgba(255,255,255,0.6), inset -3px -3px 9px rgba(211,198,189,0.36)";
-const FLOATING_CARD_HOVER =
-  "32px 32px 70px rgba(159,133,114,0.28), -32px -32px 70px rgba(255,255,255,0.99), inset 3px 3px 11px rgba(255,255,255,0.68), inset -3px -3px 11px rgba(211,198,189,0.42)";
+const FLOATING_CARD_SHADOW = [
+  '28px 28px 64px color-mix(in srgb, var(--palette-shadow-warm-soft) 24%, transparent)',
+  '-28px -28px 64px color-mix(in srgb, var(--palette-neutral-0) 95%, transparent)',
+  'inset 3px 3px 9px color-mix(in srgb, var(--palette-neutral-0) 60%, transparent)',
+  'inset -3px -3px 9px color-mix(in srgb, var(--palette-warm-glow) 36%, transparent)',
+].join(', ');
+const FLOATING_CARD_HOVER = [
+  '32px 32px 70px color-mix(in srgb, var(--palette-shadow-warm-soft) 28%, transparent)',
+  '-32px -32px 70px color-mix(in srgb, var(--palette-neutral-0) 99%, transparent)',
+  'inset 3px 3px 11px color-mix(in srgb, var(--palette-neutral-0) 68%, transparent)',
+  'inset -3px -3px 11px color-mix(in srgb, var(--palette-warm-glow) 42%, transparent)',
+].join(', ');
 
-const BUTTON_PRIMARY_SHADOW =
-  "10px 10px 24px rgba(94,73,52,0.22), -8px -8px 20px rgba(255,255,255,0.9), inset 1px 1px 3px rgba(255,255,255,0.4)";
-const BUTTON_PRIMARY_PRESSED =
-  "inset 6px 6px 12px rgba(94,73,52,0.28), inset -3px -3px 8px rgba(255,255,255,0.6)";
+const BUTTON_PRIMARY_SHADOW = [
+  '10px 10px 24px color-mix(in srgb, var(--palette-text-light-900) 22%, transparent)',
+  '-8px -8px 20px color-mix(in srgb, var(--palette-neutral-0) 90%, transparent)',
+  'inset 1px 1px 3px color-mix(in srgb, var(--palette-neutral-0) 40%, transparent)',
+].join(', ');
+const BUTTON_PRIMARY_PRESSED = [
+  'inset 6px 6px 12px color-mix(in srgb, var(--palette-text-light-900) 28%, transparent)',
+  'inset -3px -3px 8px color-mix(in srgb, var(--palette-neutral-0) 60%, transparent)',
+].join(', ');
 
-const ICON_DEFAULT_SHADOW =
-  "6px 6px 16px rgba(94,73,52,0.2), -6px -6px 16px rgba(255,255,255,0.85), inset 1px 1px 2px rgba(255,255,255,0.5)";
-const ICON_DEFAULT_HOVER =
-  "8px 8px 18px rgba(94,73,52,0.26), -8px -8px 18px rgba(255,255,255,0.92), inset 1px 1px 3px rgba(255,255,255,0.6)";
+const ICON_DEFAULT_SHADOW = [
+  '6px 6px 16px color-mix(in srgb, var(--palette-text-light-900) 20%, transparent)',
+  '-6px -6px 16px color-mix(in srgb, var(--palette-neutral-0) 85%, transparent)',
+  'inset 1px 1px 2px color-mix(in srgb, var(--palette-neutral-0) 50%, transparent)',
+].join(', ');
+const ICON_DEFAULT_HOVER = [
+  '8px 8px 18px color-mix(in srgb, var(--palette-text-light-900) 26%, transparent)',
+  '-8px -8px 18px color-mix(in srgb, var(--palette-neutral-0) 92%, transparent)',
+  'inset 1px 1px 3px color-mix(in srgb, var(--palette-neutral-0) 60%, transparent)',
+].join(', ');
 
-const INPUT_DEFAULT_SHADOW =
-  "8px 8px 18px rgba(94,73,52,0.18), -8px -8px 18px rgba(255,255,255,0.9), inset 1px 1px 3px rgba(255,255,255,0.5)";
-const INPUT_DEFAULT_FOCUS =
-  "inset 4px 4px 8px rgba(94,73,52,0.28), inset -2px -2px 6px rgba(255,255,255,0.7)";
+const INPUT_DEFAULT_SHADOW = [
+  '8px 8px 18px color-mix(in srgb, var(--palette-text-light-900) 18%, transparent)',
+  '-8px -8px 18px color-mix(in srgb, var(--palette-neutral-0) 90%, transparent)',
+  'inset 1px 1px 3px color-mix(in srgb, var(--palette-neutral-0) 50%, transparent)',
+].join(', ');
+const INPUT_DEFAULT_FOCUS = [
+  'inset 4px 4px 8px color-mix(in srgb, var(--palette-text-light-900) 28%, transparent)',
+  'inset -2px -2px 6px color-mix(in srgb, var(--palette-neutral-0) 70%, transparent)',
+].join(', ');
 
 export const neumorphismStyles: {
   card: {
@@ -163,47 +201,50 @@ export const neumorphismStyles: {
 } = {
   card: {
     main: {
-      background: "var(--neu-card)",
+      background: 'var(--neu-card)',
       boxShadow: MAIN_CARD_SHADOW,
-      color: "#473b31",
+      color: 'var(--palette-neu-ink-light)',
       hover: MAIN_CARD_HOVER,
     },
     secondary: {
-      background: "var(--neu-card)",
+      background: 'var(--neu-card)',
       boxShadow: SECONDARY_CARD_SHADOW,
-      color: "#473b31",
+      color: 'var(--palette-neu-ink-light)',
       hover: SECONDARY_CARD_HOVER,
     },
     floating: {
-      background: "var(--neu-card)",
+      background: 'var(--neu-card)',
       boxShadow: FLOATING_CARD_SHADOW,
-      color: "#473b31",
+      color: 'var(--palette-neu-ink-light)',
       hover: FLOATING_CARD_HOVER,
     },
   },
   button: {
     primary: {
-      background: "var(--neu-card)",
+      background: 'var(--neu-card)',
       boxShadow: BUTTON_PRIMARY_SHADOW,
-      border: "1px solid rgba(255,255,255,0.4)",
+      border:
+        '1px solid color-mix(in srgb, var(--palette-neutral-0) 40%, transparent)',
       hover: MAIN_CARD_HOVER,
       pressed: BUTTON_PRIMARY_PRESSED,
     },
   },
   icon: {
     default: {
-      background: "var(--neu-card)",
+      background: 'var(--neu-card)',
       boxShadow: ICON_DEFAULT_SHADOW,
-      border: "1px solid rgba(255,255,255,0.45)",
+      border:
+        '1px solid color-mix(in srgb, var(--palette-neutral-0) 45%, transparent)',
       hover: ICON_DEFAULT_HOVER,
     },
   },
   input: {
     default: {
-      background: "var(--neu-card)",
+      background: 'var(--neu-card)',
       boxShadow: INPUT_DEFAULT_SHADOW,
-      border: "1px solid rgba(255,255,255,0.5)",
-      color: "#473b31",
+      border:
+        '1px solid color-mix(in srgb, var(--palette-neutral-0) 50%, transparent)',
+      color: 'var(--palette-neu-ink-light)',
       focus: INPUT_DEFAULT_FOCUS,
     },
   },

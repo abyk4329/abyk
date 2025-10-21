@@ -9,15 +9,29 @@ import { NavigationProvider } from '@/app/components/providers';
 import { ICON_STROKE } from '@/lib/constants';
 import { routes } from '@/lib/routes';
 
-const INTRO_CARD_BASE_SHADOW =
-  '30px 30px 90px rgba(159,133,114,0.18), -30px -30px 90px rgba(255,255,255,0.95), inset 2px 2px 6px rgba(255,255,255,0.85), inset -2px -2px 6px rgba(211,198,189,0.08)';
-const INTRO_CARD_HOVER_SHADOW =
-  '34px 34px 100px rgba(159,133,114,0.24), -34px -34px 100px rgba(255,255,255,0.97), inset 2px 2px 7px rgba(255,255,255,0.9), inset -2px -2px 7px rgba(211,198,189,0.12)';
+const INTRO_CARD_BASE_SHADOW = [
+  '30px 30px 90px color-mix(in srgb, var(--palette-shadow-warm-soft) 18%, transparent)',
+  '-30px -30px 90px color-mix(in srgb, var(--palette-neutral-0) 95%, transparent)',
+  'inset 2px 2px 6px color-mix(in srgb, var(--palette-neutral-0) 85%, transparent)',
+  'inset -2px -2px 6px color-mix(in srgb, var(--palette-warm-glow) 8%, transparent)',
+].join(', ');
+const INTRO_CARD_HOVER_SHADOW = [
+  '34px 34px 100px color-mix(in srgb, var(--palette-shadow-warm-soft) 24%, transparent)',
+  '-34px -34px 100px color-mix(in srgb, var(--palette-neutral-0) 97%, transparent)',
+  'inset 2px 2px 7px color-mix(in srgb, var(--palette-neutral-0) 90%, transparent)',
+  'inset -2px -2px 7px color-mix(in srgb, var(--palette-warm-glow) 12%, transparent)',
+].join(', ');
 
-const OUTER_CARD_BASE_SHADOW =
-  '20px 24px 72px rgba(159,133,114,0.16), -20px -24px 72px rgba(255,255,255,0.94), inset 1px 1px 2px rgba(255,255,255,0.65)';
-const OUTER_CARD_HOVER_SHADOW =
-  '24px 28px 82px rgba(159,133,114,0.2), -24px -28px 82px rgba(255,255,255,0.97), inset 1px 1px 3px rgba(255,255,255,0.72)';
+const OUTER_CARD_BASE_SHADOW = [
+  '20px 24px 72px color-mix(in srgb, var(--palette-shadow-warm-soft) 16%, transparent)',
+  '-20px -24px 72px color-mix(in srgb, var(--palette-neutral-0) 94%, transparent)',
+  'inset 1px 1px 2px color-mix(in srgb, var(--palette-neutral-0) 65%, transparent)',
+].join(', ');
+const OUTER_CARD_HOVER_SHADOW = [
+  '24px 28px 82px color-mix(in srgb, var(--palette-shadow-warm-soft) 20%, transparent)',
+  '-24px -28px 82px color-mix(in srgb, var(--palette-neutral-0) 97%, transparent)',
+  'inset 1px 1px 3px color-mix(in srgb, var(--palette-neutral-0) 72%, transparent)',
+].join(', ');
 
 type Paragraph = {
   content: string;

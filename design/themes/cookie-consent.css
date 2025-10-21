@@ -10,7 +10,7 @@
   z-index: var(--z-cookie, 110);
   background: var(
     --overlay-glass-scrim,
-    var(--overlay-scrim, rgba(0, 0, 0, 0.28))
+    var(--overlay-scrim, var(--palette-overlay-dark))
   );
   backdrop-filter: blur(var(--overlay-glass-blur, 22px));
   -webkit-backdrop-filter: blur(var(--overlay-glass-blur, 22px));
@@ -240,7 +240,7 @@
   inset: 0;
   background: var(
     --overlay-glass-scrim,
-    var(--overlay-scrim, rgba(0, 0, 0, 0.28))
+    var(--overlay-scrim, var(--palette-overlay-dark))
   );
   backdrop-filter: blur(var(--overlay-glass-blur, 22px));
   -webkit-backdrop-filter: blur(var(--overlay-glass-blur, 22px));

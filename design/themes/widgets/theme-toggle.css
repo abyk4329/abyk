@@ -1,0 +1,91 @@
+/* Widget Theme: Theme Toggle
+   Source: app/components/shared/ThemeToggle.tsx
+   Notes: Floating action button for switching between light/dark themes.
+   Uses design tokens only — no hard-coded colors.
+*/
+
+.themeToggle {
+  all: unset;
+  position: fixed;
+  inset-block-end: clamp(var(--neu-space-lg), 4vw, var(--neu-space-xl));
+  inset-inline-start: clamp(var(--neu-space-lg), 4vw, var(--neu-space-xl));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: calc(var(--z-overlay, 200) + 5);
+  transition: transform var(--duration-standard) var(--easing-standard);
+}
+
+.themeToggle:hover {
+  transform: scale(1.04);
+}
+
+.themeToggle:active {
+  transform: scale(0.96);
+}
+
+.themeToggle:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+
+.themeToggleIconContainer {
+  inline-size: clamp(3rem, 9vw, 3.5rem);
+  block-size: clamp(3rem, 9vw, 3.5rem);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card);
+  color: var(--accent);
+  box-shadow: var(--shadow-raised);
+  transition: background-color var(--duration-standard) var(--easing-standard),
+    box-shadow var(--duration-standard) var(--easing-standard),
+    color var(--duration-standard) var(--easing-standard);
+}
+
+.themeToggle:hover .themeToggleIconContainer {
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.themeToggle:active .themeToggleIconContainer {
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.themeToggleIcon {
+  inline-size: clamp(1.25rem, 4vw, 1.5rem);
+  block-size: clamp(1.25rem, 4vw, 1.5rem);
+  color: currentColor;
+  stroke-width: 2;
+  transition: transform var(--duration-standard) var(--easing-standard);
+}
+
+.themeToggle:active .themeToggleIcon {
+  transform: scale(0.92);
+}
+
+@media (max-width: 640px) {
+  .themeToggle {
+    inset-block-end: clamp(var(--neu-space-md), 6vw, var(--neu-space-lg));
+    inset-inline-start: clamp(var(--neu-space-md), 6vw, var(--neu-space-lg));
+  }
+
+  .themeToggleIconContainer {
+    inline-size: clamp(2.75rem, 12vw, 3rem);
+    block-size: clamp(2.75rem, 12vw, 3rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .themeToggle,
+  .themeToggleIcon,
+  .themeToggleIconContainer {
+    transition: none;
+  }
+
+  .themeToggle:hover,
+  .themeToggle:active {
+    transform: none;
+  }
+}

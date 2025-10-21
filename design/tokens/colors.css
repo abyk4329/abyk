@@ -1,0 +1,142 @@
+/*
+  Color Tokens
+  ------------
+  Central palette for both light and dark themes.
+  Themes map these palette values to semantic CSS variables.
+*/
+
+:root {
+  /* Light surfaces */
+  --palette-surface-light-0: #f5f5f5;
+  --palette-surface-light-100: color-mix(
+    in srgb,
+    var(--palette-surface-light-0) 92%,
+    #ffffff 8%
+  );
+
+  /* Dark surfaces */
+  --palette-surface-dark-0: #2d3436;
+  --palette-surface-dark-100: #343b3d;
+
+  /* Text palette – light theme */
+  --palette-text-light-900: #5e4934;
+  --palette-text-light-700: #75614c;
+  --palette-text-light-500: #9f8572;
+  --palette-text-light-300: color-mix(
+    in srgb,
+    var(--palette-text-light-900) 65%,
+    transparent
+  );
+
+  /* Text palette – dark theme */
+  --palette-text-dark-900: #e8dfd5;
+  --palette-text-dark-700: #d4c9be;
+  --palette-text-dark-500: #c9a882;
+  --palette-text-dark-300: color-mix(
+    in srgb,
+    var(--palette-text-dark-900) 60%,
+    transparent
+  );
+
+  /* Accent palette */
+  --palette-accent-500: #b28e6c;
+  --palette-accent-700: #886d52;
+  --palette-accent-100-light: color-mix(
+    in srgb,
+    var(--palette-accent-500) 82%,
+    var(--palette-surface-light-0)
+  );
+  --palette-accent-100-dark: color-mix(
+    in srgb,
+    var(--palette-accent-500) 74%,
+    var(--palette-text-dark-700)
+  );
+  --palette-accent-foreground-light: #fdfbf8;
+  --palette-accent-foreground-dark: color-mix(
+    in srgb,
+    var(--palette-accent-foreground-light) 96%,
+    transparent
+  );
+
+  /* Destructive palette */
+  --palette-danger-500-light: #d4183d;
+  --palette-danger-100-light: color-mix(
+    in srgb,
+    var(--palette-danger-500-light) 18%,
+    #ffffff
+  );
+  --palette-danger-500-dark: #f25f77;
+  --palette-danger-foreground-dark: #1a1210;
+  --palette-danger-foreground-light: #ffffff;
+
+  /* Border palette */
+  --palette-border-soft-light: color-mix(
+    in srgb,
+    var(--palette-neutral-900) 25%,
+    transparent
+  );
+  --palette-border-strong-light: color-mix(
+    in srgb,
+    var(--palette-neutral-900) 40%,
+    transparent
+  );
+  --palette-border-soft-dark: color-mix(
+    in srgb,
+    var(--palette-warm-glow) 18%,
+    transparent
+  );
+  --palette-border-strong-dark: color-mix(
+    in srgb,
+    var(--palette-warm-glow) 28%,
+    transparent
+  );
+
+  /* Overlay palette */
+  --palette-overlay-light: color-mix(
+    in srgb,
+    var(--palette-neutral-900) 25%,
+    transparent
+  );
+  --palette-overlay-dark: color-mix(
+    in srgb,
+    var(--palette-neutral-900) 40%,
+    transparent
+  );
+
+  /* Sidebar accents */
+  --palette-sidebar-accent-light: color-mix(
+    in srgb,
+    var(--palette-warm-ink-soft) 18%,
+    transparent
+  );
+  --palette-sidebar-accent-dark: color-mix(
+    in srgb,
+    var(--palette-shadow-charcoal) 55%,
+    transparent
+  );
+  --palette-sidebar-primary-foreground-light: #fdfcfb;
+  --palette-sidebar-primary-foreground-dark: color-mix(
+    in srgb,
+    var(--palette-warm-ink-deep) 92%,
+    transparent
+  );
+
+  /* Neumorphic inks */
+  --palette-neu-ink-light: #473b31;
+  --palette-neu-ink-dark: #faf8f5;
+
+  /* Neutral anchors */
+  --palette-neutral-0: #ffffff;
+  --palette-neutral-900: #000000;
+
+  /* Warm glow accents */
+  --palette-warm-glow: #f0d9b5;
+  --palette-warm-ink-soft: #d3bb93;
+  --palette-warm-ink-deep: #120b08;
+
+  /* Shadow reference colors */
+  --palette-shadow-warm-soft: #d3c6bd;
+  --palette-shadow-charcoal: #3c362f;
+  --palette-shadow-smoke: #5a524a;
+  --palette-shadow-taupe: #504a44;
+}

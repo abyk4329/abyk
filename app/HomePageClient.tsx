@@ -9,40 +9,29 @@ import { Button } from '@/components/neu';
 import { shareWithFriends } from '@/lib/domain/wealth-code/utils';
 import { routes } from '@/lib/routes';
 
-import styles from './page.module.css';
-
 export function HomePageClient() {
   const router = useRouter();
 
   return (
-    <main className={`hero-shell ${styles.page} homePageShell`}>
-      <div className={`${styles.homeContent} homeContentRoot`}>
-        <section className={styles.heroSection}>
+    <main className="hero-shell homePageShell">
+      <div className="homeContentRoot">
+        <section className="homeHeroSection">
           <Card
-            className={`${styles.heroCard} homeHeroCard`}
+            className="homeHeroCard"
             padding="none"
             data-hero-group="a"
             aria-labelledby="home-hero-heading"
           >
-            <div
-              className={`${styles.heroIcon} homeHeroIcon`}
-              aria-hidden="true"
-            >
-              <Hash
-                strokeWidth={0.5}
-                className={`${styles.heroIconGlyph} homeHeroIconGlyph`}
-              />
+            <div className="homeHeroIcon" aria-hidden="true">
+              <Hash strokeWidth={0.5} className="homeHeroIconGlyph" />
             </div>
 
-            <div className={`${styles.heroContent} homeHeroContent`}>
-              <h1
-                id="home-hero-heading"
-                className={`${styles.heroTitle} homeHeadline`}
-              >
-                גלו את <span className={styles.heroTitleAccent}>קוד העושר</span>{' '}
+            <div className="homeHeroContent">
+              <h1 id="home-hero-heading" className="homeHeadline">
+                גלו את <span className="homeHeadlineAccent">קוד העושר</span>{' '}
                 שלכם
               </h1>
-              <p className={`${styles.heroSubtitle} homeSubtitle`}>
+              <p className="homeSubtitle">
                 תדר נומרולוגי אישי שמגלה את הדרך הטבעית שלך למגנט שפע, הצלחה
                 ומימוש עצמי
               </p>
@@ -50,7 +39,7 @@ export function HomePageClient() {
 
             <Button
               variant="cta"
-              className={`${styles.heroCta} btn-primary homeCta`}
+              className="btn-primary homeCta"
               onClick={() => router.push(routes.calculator)}
             >
               מחשבון קוד העושר
@@ -59,13 +48,13 @@ export function HomePageClient() {
         </section>
 
         <section
-          className={`${styles.shareSection} homeShareSection`}
+          className="homeShareSection"
           aria-labelledby="homepage-share-heading"
         >
-          <Card className={`${styles.shareCard} homeShareCard`} padding="none">
-            <div className={`${styles.shareContent} homeShareContent`}>
-              <div className={`${styles.shareCopy} homeShareCopy`}>
-                <p className={`${styles.shareSubtitle} homeShareSubtitle`}>
+          <Card className="homeShareCard" padding="none">
+            <div className="homeShareContent">
+              <div className="homeShareCopy">
+                <p className="homeShareSubtitle">
                   שלחו לחברים ולמשפחה הזמנה לגלות את עצמם בלחיצה אחת
                 </p>
               </div>
@@ -73,7 +62,7 @@ export function HomePageClient() {
 
             <Button
               variant="secondary"
-              className={`${styles.shareButton} btn-secondary homeShareButton`}
+              className="btn-secondary homeShareButton"
               onClick={shareWithFriends}
             >
               שתפו עם מי שחשוב לכם

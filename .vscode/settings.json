@@ -124,7 +124,7 @@
   "chat.editRequests": "input",
   "chat.edits2.enabled": true,
   "files.autoSave": "afterDelay",
-  "workbench.colorTheme": "Copilot Theme - Higher Contrast",
+  "workbench.colorTheme": "Mayukai Reversal",
   "editor.mouseWheelZoom": true,
   "inlineChat.notebookAgent": true,
   "inlineChat.finishOnType": true,

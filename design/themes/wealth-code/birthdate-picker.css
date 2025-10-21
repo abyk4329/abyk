@@ -93,7 +93,7 @@
   justify-content: center;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
     env(safe-area-inset-bottom) env(safe-area-inset-left);
-  background: var(--overlay-glass-scrim, rgba(0, 0, 0, 0.4));
+  background: var(--overlay-glass-scrim, var(--palette-overlay-dark));
   backdrop-filter: blur(var(--overlay-glass-blur, 22px));
   -webkit-backdrop-filter: blur(var(--overlay-glass-blur, 22px));
   z-index: 150;

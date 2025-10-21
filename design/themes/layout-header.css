@@ -40,6 +40,9 @@
   justify-content: space-between;
   flex-direction: row;
   width: 100%;
+  margin-inline: 0;
+  pointer-events: auto;
+  background: transparent;
   gap: clamp(0.75rem, 2vw, 1.25rem);
 }
 

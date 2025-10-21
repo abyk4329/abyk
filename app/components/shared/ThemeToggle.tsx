@@ -1,58 +1,57 @@
-"use client";
+'use client';
 
-import { Moon, Lamp } from "lucide-react";
-import { useEffect, useState } from "react";
-import styles from "./ThemeToggle.module.css";
+import { Lamp, Moon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-type ThemeMode = "light" | "dark";
+type ThemeMode = 'light' | 'dark';
 
 function resolveInitialTheme(): ThemeMode {
-  if (typeof window === "undefined" || typeof document === "undefined") {
-    return "light";
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return 'light';
   }
 
   try {
-    const stored = window.localStorage.getItem("theme");
-    if (stored === "light" || stored === "dark") {
+    const stored = window.localStorage.getItem('theme');
+    if (stored === 'light' || stored === 'dark') {
       return stored;
     }
   } catch (error) {
-    console.warn("Theme preference read failed", error);
+    console.warn('Theme preference read failed', error);
   }
 
   const mediaQuery =
-    typeof window.matchMedia === "function"
-      ? window.matchMedia("(prefers-color-scheme: dark)")
+    typeof window.matchMedia === 'function'
+      ? window.matchMedia('(prefers-color-scheme: dark)')
       : null;
   const prefersDark = mediaQuery?.matches ?? false;
-  return prefersDark ? "dark" : "light";
+  return prefersDark ? 'dark' : 'light';
 }
 
 function applyTheme(mode: ThemeMode) {
-  if (typeof document === "undefined") {
+  if (typeof document === 'undefined') {
     return;
   }
 
   const root = document.documentElement;
-  root.setAttribute("data-theme", mode);
-  root.classList.toggle("dark", mode === "dark");
-  root.style.setProperty("color-scheme", mode);
+  root.setAttribute('data-theme', mode);
+  root.classList.toggle('dark', mode === 'dark');
+  root.style.setProperty('color-scheme', mode);
 
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     try {
-      window.localStorage.setItem("theme", mode);
+      window.localStorage.setItem('theme', mode);
     } catch (error) {
-      console.warn("Theme preference persist failed", error);
+      console.warn('Theme preference persist failed', error);
     }
   }
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<ThemeMode>("light");
+  const [theme, setTheme] = useState<ThemeMode>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === 'undefined') {
       return;
     }
 
@@ -62,51 +61,52 @@ export function ThemeToggle() {
     setMounted(true);
 
     const handleStorage = (event: StorageEvent) => {
-      if (event.key !== "theme") {
+      if (event.key !== 'theme') {
         return;
       }
 
-      const nextValue = event.newValue === "dark" ? "dark" : "light";
+      const nextValue = event.newValue === 'dark' ? 'dark' : 'light';
       setTheme(nextValue);
       applyTheme(nextValue);
     };
 
-    window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
   const toggleTheme = () => {
-    const nextTheme: ThemeMode = theme === "light" ? "dark" : "light";
+    const nextTheme: ThemeMode = theme === 'light' ? 'dark' : 'light';
     setTheme(nextTheme);
     applyTheme(nextTheme);
   };
 
   if (!mounted) {
     return (
-      <button className={styles.themeToggle} aria-label="טוען...">
-        <div className={styles.iconContainer}>
-          <Moon className={styles.icon} />
+      <button className="themeToggle" aria-label="טוען..." type="button">
+        <div className="themeToggleIconContainer">
+          <Moon className="themeToggleIcon" />
         </div>
       </button>
     );
   }
 
-  const label = theme === "light" ? "מעבר למצב כהה" : "מעבר למצב בהיר";
+  const label = theme === 'light' ? 'מעבר למצב כהה' : 'מעבר למצב בהיר';
 
   return (
     <button
       onClick={toggleTheme}
-      className={styles.themeToggle}
+      className="themeToggle"
       aria-label={label}
       title={label}
       role="switch"
-      aria-checked={theme === "dark"}
+      aria-checked={theme === 'dark'}
+      type="button"
     >
-      <div className={styles.iconContainer}>
-        {theme === "light" ? (
-          <Moon className={styles.icon} />
+      <div className="themeToggleIconContainer">
+        {theme === 'light' ? (
+          <Moon className="themeToggleIcon" />
         ) : (
-          <Lamp className={styles.icon} />
+          <Lamp className="themeToggleIcon" />
         )}
       </div>
     </button>

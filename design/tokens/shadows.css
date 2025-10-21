@@ -7,8 +7,12 @@
 
 :root {
   /* Shadow base colors */
-  --shadow-light: rgba(255, 255, 255, 0.9);
-  --shadow-dark: rgba(160, 160, 160, 0.5);
+  --shadow-light: color-mix(in srgb, var(--palette-neutral-0) 90%, transparent);
+  --shadow-dark: color-mix(
+    in srgb,
+    var(--palette-shadow-taupe) 50%,
+    transparent
+  );
 
   /* Raised shadows (extruded effect) */
   --shadow-raised: 2px 2px 4px var(--shadow-dark),
@@ -43,7 +47,8 @@
     color-mix(in srgb, var(--shadow-dark) 45%, transparent);
 
   /* Special effects */
-  --shadow-highlight: inset 0 1px 3px rgba(255, 255, 255, 0.2);
+  --shadow-highlight: inset 0 1px 3px
+    color-mix(in srgb, var(--palette-neutral-0) 20%, transparent);
 
   /* Text lift effects */
   --lift-text-shadow: 0 1px 1.4px

@@ -3,19 +3,26 @@
  * Specific content and styles for wealth calculator emails
  */
 
-import { buildUrl, routes } from "@/lib/routes";
-import { BRAND, generateBaseEmail } from "@/lib/services/core";
+import { buildUrl, routes } from '@/lib/routes';
+import {
+  BRAND,
+  EMAIL_GRADIENTS,
+  EMAIL_PALETTE,
+  EMAIL_SHADOWS,
+  generateBaseEmail,
+  withOpacity,
+} from '@/lib/services/core';
 
 /**
  * Normalize the share URL to ensure it's valid
  */
 function normalizeShareUrl(shareUrl?: string): string {
-  const siteBase = BRAND.siteUrl.replace(/\/+$/, "");
+  const siteBase = BRAND.siteUrl.replace(/\/+$/, '');
   if (!shareUrl) return `${siteBase}/`;
-  if (shareUrl.startsWith("http://") || shareUrl.startsWith("https://")) {
+  if (shareUrl.startsWith('http://') || shareUrl.startsWith('https://')) {
     return shareUrl;
   }
-  return `${siteBase}${shareUrl.startsWith("/") ? "" : "/"}${shareUrl}`;
+  return `${siteBase}${shareUrl.startsWith('/') ? '' : '/'}${shareUrl}`;
 }
 
 export interface WealthEmailData {
@@ -29,7 +36,7 @@ export interface WealthEmailData {
  * Build the fixed subject line for the wealth email
  */
 export function buildWealthEmailSubject(): string {
-  return "הפירוש המלא לקוד האישי שלך";
+  return 'הפירוש המלא לקוד האישי שלך';
 }
 
 /**
@@ -44,18 +51,15 @@ export function buildWealthEmailPreheader(code: string): string {
  */
 const WEALTH_EMAIL_STYLES = `
   .email-body {
-    background-color: #f8f6f2;
+    background-color: ${EMAIL_PALETTE.surface};
   }
 
   .glass-card {
-    background: linear-gradient(145deg, #ffffff, #f8f4f0);
+    background: ${EMAIL_GRADIENTS.glassCard};
     border-radius: 40px;
     padding: 48px 32px;
-    box-shadow: 
-      18px 18px 36px rgba(159,133,114,0.18),
-      -18px -18px 36px rgba(255,255,255,0.95),
-      inset 1px 1px 3px rgba(255,255,255,0.5);
-    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: ${EMAIL_SHADOWS.glassCard};
+    border: 1px solid ${withOpacity(EMAIL_PALETTE.shadowHighlight, 0.5)};
     max-width: 100%;
   }
 
@@ -64,9 +68,9 @@ const WEALTH_EMAIL_STYLES = `
     font-size: 36px;
     font-weight: 800;
     line-height: 1.15;
-    color: #5e4934;
+    color: ${EMAIL_PALETTE.textPrimary};
     margin-bottom: 24px;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 2px ${withOpacity(EMAIL_PALETTE.shadowHighlight, 0.8)};
     text-align: center;
     direction: rtl;
   }
@@ -75,7 +79,7 @@ const WEALTH_EMAIL_STYLES = `
     font-family: 'Assistant', sans-serif;
     font-size: 19px;
     font-weight: 700;
-    color: #87674F;
+    color: ${EMAIL_PALETTE.accent};
     margin-bottom: 18px;
     text-align: center;
     direction: rtl;
@@ -91,12 +95,9 @@ const WEALTH_EMAIL_STYLES = `
     margin-bottom: 36px;
     margin-left: auto;
     margin-right: auto;
-    background: linear-gradient(145deg, #f6f2ee, #ffffff);
-    box-shadow:
-      inset 10px 10px 20px rgba(159,133,114,0.20),
-      inset -10px -10px 20px rgba(255,255,255,0.88),
-      2px 2px 4px rgba(159,133,114,0.08);
-    border: 1px solid rgba(255,255,255,0.5);
+    background: ${EMAIL_GRADIENTS.codeContainer};
+    box-shadow: ${EMAIL_SHADOWS.codeContainer};
+    border: 1px solid ${withOpacity(EMAIL_PALETTE.shadowHighlight, 0.5)};
   }
   
   .code-display {
@@ -104,8 +105,8 @@ const WEALTH_EMAIL_STYLES = `
     font-size: 52px;
     font-weight: 300;
     letter-spacing: 0.14em;
-    color: rgb(94, 73, 52);
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+    color: ${EMAIL_PALETTE.textPrimary};
+    text-shadow: 1px 1px 2px ${withOpacity(EMAIL_PALETTE.shadowHighlight, 0.9)};
     text-align: center;
     direction: ltr;
   }
@@ -115,7 +116,7 @@ const WEALTH_EMAIL_STYLES = `
     font-size: 19px;
     font-weight: 500;
     line-height: 1.65;
-    color: rgb(71, 59, 49);
+    color: ${EMAIL_PALETTE.textBody};
     margin-bottom: 40px;
     padding: 0 20px;
     text-align: center;
@@ -123,16 +124,13 @@ const WEALTH_EMAIL_STYLES = `
   }
 
   .info-card {
-    background: linear-gradient(150deg, rgba(255,255,255,0.75), rgba(248,244,240,0.65));
+    background: ${EMAIL_GRADIENTS.panelHighlight};
     border-radius: 24px;
     padding: 20px 24px;
     margin: 0 auto 32px;
     max-width: 520px;
-    box-shadow:
-      inset 4px 4px 10px rgba(159,133,114,0.12),
-      inset -4px -4px 10px rgba(255,255,255,0.85),
-      0 0 0 1px rgba(255,255,255,0.4);
-    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: ${EMAIL_SHADOWS.infoCard};
+    border: 1px solid ${withOpacity(EMAIL_PALETTE.shadowHighlight, 0.5)};
     text-align: center;
     direction: rtl;
   }
@@ -142,7 +140,7 @@ const WEALTH_EMAIL_STYLES = `
     font-size: 16px;
     font-weight: 600;
     line-height: 1.6;
-    color: #87674F;
+    color: ${EMAIL_PALETTE.accent};
     margin: 0;
   }
 
@@ -158,12 +156,10 @@ const WEALTH_EMAIL_STYLES = `
   
   @media (max-width: 600px) {
     .glass-card {
+      background: ${EMAIL_GRADIENTS.glassCardCompact};
       padding: 32px 20px;
       border-radius: 32px;
-      box-shadow: 
-        12px 12px 24px rgba(159,133,114,0.16),
-        -12px -12px 24px rgba(255,255,255,0.92),
-        inset 1px 1px 2px rgba(255,255,255,0.4);
+      box-shadow: ${EMAIL_SHADOWS.glassCardCompact};
     }
 
     .main-title {
@@ -231,19 +227,29 @@ const WEALTH_EMAIL_STYLES = `
 `;
 
 const INLINE_CONTENT_STYLES = {
-  mainTitle:
-    "font-family:'Assistant', Arial, sans-serif;font-size:36px;font-weight:800;line-height:1.15;color:#5e4934;margin-bottom:24px;text-shadow:0 1px 2px rgba(255,255,255,0.8);text-align:center;direction:rtl;",
-  codeLabel:
-    "font-family:'Assistant', Arial, sans-serif;font-size:19px;font-weight:700;color:#87674F;margin-bottom:18px;text-align:center;direction:rtl;letter-spacing:0.01em;",
-  codeContainerWrap: "text-align:center;",
-  codeContainer:
-    "display:block;width:100%;max-width:380px;padding:24px 52px;border-radius:28px;margin:0 auto 36px;background:linear-gradient(145deg,#f6f2ee,#ffffff);box-shadow:inset 10px 10px 20px rgba(159,133,114,0.20),inset -10px -10px 20px rgba(255,255,255,0.88),2px 2px 4px rgba(159,133,114,0.08);border:1px solid rgba(255,255,255,0.5);",
-  codeDisplay:
-    "font-family:'Assistant', Arial, sans-serif;font-size:52px;font-weight:300;letter-spacing:0.14em;color:rgb(94,73,52);text-shadow:1px 1px 2px rgba(255,255,255,0.9);text-align:center;direction:ltr;",
-  message:
-    "font-family:'Assistant', Arial, sans-serif;font-size:19px;font-weight:500;line-height:1.65;color:rgb(71,59,49);margin-bottom:40px;padding:0 20px;text-align:center;direction:rtl;",
+  mainTitle: `font-family:'Assistant', Arial, sans-serif;font-size:36px;font-weight:800;line-height:1.15;color:${
+    EMAIL_PALETTE.textPrimary
+  };margin-bottom:24px;text-shadow:0 1px 2px ${withOpacity(
+    EMAIL_PALETTE.shadowHighlight,
+    0.8
+  )};text-align:center;direction:rtl;`,
+  codeLabel: `font-family:'Assistant', Arial, sans-serif;font-size:19px;font-weight:700;color:${EMAIL_PALETTE.accent};margin-bottom:18px;text-align:center;direction:rtl;letter-spacing:0.01em;`,
+  codeContainerWrap: 'text-align:center;',
+  codeContainer: `display:block;width:100%;max-width:380px;padding:24px 52px;border-radius:28px;margin:0 auto 36px;background:${
+    EMAIL_GRADIENTS.codeContainer
+  };box-shadow:${EMAIL_SHADOWS.codeContainer};border:1px solid ${withOpacity(
+    EMAIL_PALETTE.shadowHighlight,
+    0.5
+  )};`,
+  codeDisplay: `font-family:'Assistant', Arial, sans-serif;font-size:52px;font-weight:300;letter-spacing:0.14em;color:${
+    EMAIL_PALETTE.textPrimary
+  };text-shadow:1px 1px 2px ${withOpacity(
+    EMAIL_PALETTE.shadowHighlight,
+    0.9
+  )};text-align:center;direction:ltr;`,
+  message: `font-family:'Assistant', Arial, sans-serif;font-size:19px;font-weight:500;line-height:1.65;color:${EMAIL_PALETTE.textBody};margin-bottom:40px;padding:0 20px;text-align:center;direction:rtl;`,
   buttonsContainer:
-    "display:block;margin-bottom:36px;padding:0 20px;text-align:center;max-width:500px;margin-left:auto;margin-right:auto;",
+    'display:block;margin-bottom:36px;padding:0 20px;text-align:center;max-width:500px;margin-left:auto;margin-right:auto;',
 };
 
 /**
@@ -252,23 +258,32 @@ const INLINE_CONTENT_STYLES = {
 function generateWealthContent(data: WealthEmailData): string {
   const { code } = data;
 
-  const siteBase = BRAND.siteUrl.replace(/\/+$/, "");
+  const siteBase = BRAND.siteUrl.replace(/\/+$/, '');
   const interpretationsUrl = `${siteBase}${buildUrl(routes.interpretations, {
     code,
   })}`;
   const calculatorUrl = `${siteBase}${routes.calculator}`;
   const shareButtonUrl = normalizeShareUrl(data.shareUrl);
   const whatsappConsultation =
-    "https://wa.me/972524616121?text=היי%20קסניה%2C%20אשמח%20לתיאום%20יעוץ%20אישי";
+    'https://wa.me/972524616121?text=היי%20קסניה%2C%20אשמח%20לתיאום%20יעוץ%20אישי';
 
   const BTN_BASE =
     "display:block;width:100%;max-width:500px;margin:0 auto 18px;text-decoration:none;border-radius:9999px;font-family:'Assistant', Arial, sans-serif;font-size:18px;line-height:1.4;padding:16px 24px;font-weight:700;text-align:center;letter-spacing:0.01em;border:none;box-sizing:border-box;";
   const PRIMARY_BTN_STYLE =
     BTN_BASE +
-    "background:linear-gradient(145deg,#ffffff,#f5f1ed);color:#5e4934;box-shadow:8px 8px 18px rgba(159,133,114,0.16),-8px -8px 18px rgba(255,255,255,0.92),inset 1px 1px 2px rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.5);";
+    `background:${EMAIL_GRADIENTS.primaryButton};color:${
+      EMAIL_PALETTE.textPrimary
+    };box-shadow:${EMAIL_SHADOWS.primaryButton};border:1px solid ${withOpacity(
+      EMAIL_PALETTE.shadowHighlight,
+      0.5
+    )};`;
   const SECONDARY_BTN_STYLE =
     BTN_BASE +
-    "background:linear-gradient(145deg,#faf6f2,#f0ece8);color:#5e4934;box-shadow:6px 6px 14px rgba(159,133,114,0.14),-6px -6px 14px rgba(255,255,255,0.88),inset 1px 1px 2px rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.45);";
+    `background:${EMAIL_GRADIENTS.secondaryButton};color:${
+      EMAIL_PALETTE.textPrimary
+    };box-shadow:${
+      EMAIL_SHADOWS.secondaryButton
+    };border:1px solid ${withOpacity(EMAIL_PALETTE.shadowHighlight, 0.45)};`;
 
   return `
     <h1 class="main-title" style="${INLINE_CONTENT_STYLES.mainTitle}">תודה על הרכישה!</h1>
@@ -307,35 +322,35 @@ function getWealthSocialLinks(shareUrl: string, code: string) {
   return [
     {
       href: `https://wa.me/?text=${shareText}`,
-      title: "שיתוף בווטסאפ",
+      title: 'שיתוף בווטסאפ',
       icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="#87674F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="${EMAIL_PALETTE.accent}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>`,
     },
     {
-      href: "https://www.instagram.com/awakening.by.ksenia/",
-      title: "Instagram",
+      href: 'https://www.instagram.com/awakening.by.ksenia/',
+      title: 'Instagram',
       icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="#87674F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="#87674F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#87674F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="${EMAIL_PALETTE.accent}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="${EMAIL_PALETTE.accent}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="${EMAIL_PALETTE.accent}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>`,
     },
     {
-      href: "https://www.tiktok.com/@awakening.by.ksenia",
-      title: "TikTok",
+      href: 'https://www.tiktok.com/@awakening.by.ksenia',
+      title: 'TikTok',
       icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" stroke="#87674F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" stroke="${EMAIL_PALETTE.accent}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>`,
     },
     {
       href: `mailto:?subject=${encodeURIComponent(
-        "גלו את קוד העושר הנומרולוגי שלכם"
+        'גלו את קוד העושר הנומרולוגי שלכם'
       )}&body=${shareText}`,
-      title: "שיתוף במייל",
+      title: 'שיתוף במייל',
       icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#87674F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <polyline points="22,6 12,13 2,6" stroke="#87674F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="${EMAIL_PALETTE.accent}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="22,6 12,13 2,6" stroke="${EMAIL_PALETTE.accent}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>`,
     },
   ];

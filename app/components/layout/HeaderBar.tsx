@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils';
 
 import { IconButton } from '@/components/neu';
 import { useDrawer } from './DrawerProvider';
-import styles from './HeaderBar.module.css';
 import { useThemePreference } from './useThemePreference';
 
 export function HeaderBar() {
@@ -31,15 +30,13 @@ export function HeaderBar() {
 
   return (
     <header
-      className={cn(styles.headerBar, 'appHeaderBar')}
+      className="appHeaderBar"
       role="banner"
       data-hidden={anyMenuOpen}
       data-cookie-element="header"
     >
       <div
         className={cn(
-          styles.headerInner,
-          styles.controlsOnly,
           'appHeaderInner',
           'appHeaderOnlyControls',
           'header-only-controls'
@@ -50,12 +47,7 @@ export function HeaderBar() {
           title={quickLabel}
           onClick={handleToggleRail}
           size="md"
-          className={cn(
-            styles.railTrigger,
-            'appHeaderTrigger',
-            'appHeaderCircle',
-            'rail-trigger'
-          )}
+          className={cn('appHeaderTrigger', 'appHeaderCircle', 'rail-trigger')}
           data-rail-trigger="true"
           data-hidden={anyMenuOpen}
           aria-haspopup="dialog"
@@ -73,12 +65,7 @@ export function HeaderBar() {
           title={themeLabel}
           onClick={toggleTheme}
           size="md"
-          className={cn(
-            styles.themeTrigger,
-            'appHeaderTrigger',
-            'appHeaderCircle',
-            'theme-trigger'
-          )}
+          className={cn('appHeaderTrigger', 'appHeaderCircle', 'theme-trigger')}
           data-hidden={anyMenuOpen}
           aria-pressed={themeMode === 'dark'}
         >

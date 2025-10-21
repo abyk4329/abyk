@@ -4,6 +4,13 @@
  * Uses neumorphism design system matching the website and PDF aesthetics
  */
 
+import {
+  EMAIL_GRADIENTS,
+  EMAIL_PALETTE,
+  EMAIL_SHADOWS,
+  withOpacity,
+} from './tokens';
+
 export const EMAIL_FONTS = `
   /* Gmail strips @import rules; rely on system fallbacks for maximum compatibility. */
 `;
@@ -26,7 +33,7 @@ export const EMAIL_BASE_STYLES = `
   
   body {
     font-family: 'Assistant', sans-serif;
-    background-color: #f8f6f2;
+    background-color: ${EMAIL_PALETTE.surface};
     direction: rtl;
     text-align: center;
     padding: 0;
@@ -38,25 +45,25 @@ export const EMAIL_BASE_STYLES = `
     max-width: 600px;
     margin: 0 auto;
     padding: 0 24px;
-    background-color: #f8f6f2;
+    background-color: ${EMAIL_PALETTE.surface};
   }
 
   a {
-    color: #87674F;
+    color: ${EMAIL_PALETTE.accent};
     text-decoration: underline;
     text-underline-offset: 3px;
     transition: color 0.2s ease, text-decoration-color 0.2s ease;
   }
 
   a:hover, a:focus-visible {
-    color: #5e4934;
-    text-decoration-color: #5e4934;
+    color: ${EMAIL_PALETTE.accentStrong};
+    text-decoration-color: ${EMAIL_PALETTE.accentStrong};
   }
 
   hr.email-divider {
     border: 0;
     height: 1px;
-    background: linear-gradient(90deg, rgba(135,103,79,0) 0%, rgba(135,103,79,0.25) 50%, rgba(135,103,79,0) 100%);
+    background: ${EMAIL_GRADIENTS.divider};
     margin: 32px auto;
     width: 82%;
   }
@@ -64,10 +71,10 @@ export const EMAIL_BASE_STYLES = `
 
 export const EMAIL_HEADER_STYLES = `
   .header {
-    background-color: #f8f6f2;
+    background-color: ${EMAIL_PALETTE.surface};
     padding: 24px 20px;
     border: none;
-    box-shadow: 5px 5px 10px #d1cfcc, -5px -5px 10px #ffffff;
+    box-shadow: ${EMAIL_SHADOWS.header};
   }
   
   .header-title {
@@ -75,11 +82,11 @@ export const EMAIL_HEADER_STYLES = `
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 0.15em;
-    color: #5e4934;
+    color: ${EMAIL_PALETTE.textPrimary};
     margin-bottom: 4px;
     text-transform: uppercase;
     text-align: center;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 2px ${withOpacity(EMAIL_PALETTE.shadowHighlight, 0.9)};
   }
   
   .header-subtitle {
@@ -87,7 +94,7 @@ export const EMAIL_HEADER_STYLES = `
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.13em;
-    color: #9f8572;
+    color: ${EMAIL_PALETTE.textSecondary};
     text-transform: uppercase;
     text-align: center;
   }
@@ -101,13 +108,13 @@ export const EMAIL_CONTENT_STYLES = `
   }
   
   .glass-card {
-    background: #f8f6f2;
+    background: ${EMAIL_PALETTE.surface};
     border: none;
     border-radius: 32px;
     padding: 40px 24px;
     width: 100%;
     box-sizing: border-box;
-    box-shadow: 15px 15px 30px #d1cfcc, -15px -15px 30px #ffffff;
+    box-shadow: ${EMAIL_SHADOWS.card};
     margin: 0 auto;
   }
 `;
@@ -138,23 +145,23 @@ export const EMAIL_BUTTON_STYLES = `
   }
   
   .button-primary {
-    background: #f8f6f2;
-    color: rgb(94, 73, 52);
-    box-shadow: 8px 8px 16px #d1cfcc, -8px -8px 16px #ffffff;
+    background: ${EMAIL_PALETTE.surface};
+    color: ${EMAIL_PALETTE.textPrimary};
+    box-shadow: ${EMAIL_SHADOWS.buttonRaisedLg};
   }
   
   .button-primary:hover {
-    box-shadow: inset 8px 8px 16px #d1cfcc, inset -8px -8px 16px #ffffff;
+    box-shadow: ${EMAIL_SHADOWS.insetLg};
   }
   
   .button-secondary {
-    background: #f8f6f2;
-    color: rgb(94, 73, 52);
-    box-shadow: 5px 5px 10px #d1cfcc, -5px -5px 10px #ffffff;
+    background: ${EMAIL_PALETTE.surface};
+    color: ${EMAIL_PALETTE.textPrimary};
+    box-shadow: ${EMAIL_SHADOWS.buttonRaisedMd};
   }
   
   .button-secondary:hover {
-    box-shadow: inset 5px 5px 10px #d1cfcc, inset -5px -5px 10px #ffffff;
+    box-shadow: ${EMAIL_SHADOWS.insetMd};
   }
 `;
 
@@ -162,7 +169,7 @@ export const EMAIL_SOCIAL_STYLES = `
   .share-section {
     margin-top: 32px;
     padding-top: 24px;
-    border-top: 1px solid rgba(209, 207, 204, 0.5);
+    border-top: 1px solid ${withOpacity(EMAIL_PALETTE.shadowSoft, 0.5)};
   }
 
   .social-button {
@@ -172,51 +179,51 @@ export const EMAIL_SOCIAL_STYLES = `
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    background: #f8f6f2;
+    background: ${EMAIL_PALETTE.surface};
     border: none;
     text-decoration: none;
     transition: all 0.2s ease;
-    box-shadow: 8px 8px 16px #d1cfcc, -8px -8px 16px #ffffff;
+    box-shadow: ${EMAIL_SHADOWS.buttonRaisedLg};
   }
   
   .social-button:hover {
-    box-shadow: inset 8px 8px 16px #d1cfcc, inset -8px -8px 16px #ffffff;
+    box-shadow: ${EMAIL_SHADOWS.insetLg};
   }
 `;
 
 export const EMAIL_FOOTER_STYLES = `
   .footer {
-    background-color: #f8f6f2;
+    background-color: ${EMAIL_PALETTE.surface};
     padding: 32px 20px;
     border: none;
-    box-shadow: 0 -5px 10px #d1cfcc, 0 5px 10px #ffffff;
+    box-shadow: ${EMAIL_SHADOWS.footer};
   }
   
   .footer-text {
     font-family: 'Assistant', sans-serif;
     font-size: 14px;
     font-weight: 400;
-    color: #87674F;
+    color: ${EMAIL_PALETTE.accent};
     line-height: 1.6;
     margin-bottom: 12px;
     text-align: center;
   }
   
   .footer-link {
-    color: #87674F;
+    color: ${EMAIL_PALETTE.accent};
     text-decoration: none;
-    border-bottom: 1px solid rgba(135, 103, 79, 0.3);
+    border-bottom: 1px solid ${withOpacity(EMAIL_PALETTE.accent, 0.3)};
   }
   
   .footer-link:hover {
-    color: #5e4934;
-    border-bottom-color: #5e4934;
+    color: ${EMAIL_PALETTE.accentStrong};
+    border-bottom-color: ${EMAIL_PALETTE.accentStrong};
   }
   
   .footer-copyright {
     display: inline-block;
-    background: #f8f6f2;
-    box-shadow: inset 5px 5px 10px #d1cfcc, inset -5px -5px 10px #ffffff;
+    background: ${EMAIL_PALETTE.surface};
+    box-shadow: ${EMAIL_SHADOWS.copyrightInset};
     padding: 8px 24px;
     border-radius: 24px;
     border: none;
@@ -226,10 +233,10 @@ export const EMAIL_FOOTER_STYLES = `
     font-family: 'Assistant', sans-serif;
     font-size: 11px;
     font-weight: 700;
-    color: #5e4934;
+    color: ${EMAIL_PALETTE.textPrimary};
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 2px ${withOpacity(EMAIL_PALETTE.shadowHighlight, 0.9)};
     margin: 0;
   }
 `;
@@ -273,11 +280,11 @@ export const EMAIL_RESPONSIVE_STYLES = `
     }
 
     .buttons-container > a,
-    .buttons-container > .button {
+      box-shadow: ${EMAIL_SHADOWS.buttonRaisedMd} !important;
       font-size: 16px !important;
       padding: 14px 18px !important;
     }
-
+      box-shadow: ${EMAIL_SHADOWS.insetMd} !important;
     .button {
       font-size: 16px;
       padding: 14px 20px;

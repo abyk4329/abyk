@@ -13,7 +13,7 @@ import { digitInterpretations } from '@/lib/domain/wealth-code/data/digitInterpr
 import { publicEnv } from '@/lib/env';
 
 import { CodeInset } from '../shared/CodeInset';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 
 interface InterpretationsProps {
   code: string;

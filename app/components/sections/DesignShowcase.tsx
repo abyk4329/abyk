@@ -1,17 +1,111 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { NeuButton } from "@/app/components/shared/NeuButton";
-import { neumorphismStyles, createHoverHandlers, createPressHandlers, getBoxShadow } from "@/app/components/lib/neomorphism-styles";
-import { 
-  Sparkles, Compass, Heart, Star, Moon, Sun, Mail, Phone, MapPin, Calendar, 
-  Clock, User, Settings, Search, Filter, Download, Upload, Share2, Bell,
-  ChevronRight, ChevronLeft, Plus, Minus, Check, X, Home, Zap, Target,
-  TrendingUp, Award, Gift, BookOpen, Briefcase, Lightbulb
-} from "lucide-react";
+import {
+  createHoverHandlers,
+  createPressHandlers,
+  getBoxShadow,
+  neumorphismStyles,
+} from '@/app/components/lib/neomorphism-styles';
+import { NeuButton } from '@/app/components/shared/NeuButton';
+import {
+  Award,
+  Bell,
+  BookOpen,
+  Briefcase,
+  Calendar,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  Compass,
+  Download,
+  Filter,
+  Gift,
+  Heart,
+  Home,
+  Lightbulb,
+  Mail,
+  MapPin,
+  Minus,
+  Moon,
+  Phone,
+  Plus,
+  Search,
+  Settings,
+  Share2,
+  Sparkles,
+  Star,
+  Sun,
+  Target,
+  TrendingUp,
+  Upload,
+  User,
+  X,
+  Zap,
+} from 'lucide-react';
+import { useState } from 'react';
+
+const ACCENT_INK = 'var(--palette-text-light-700)';
+const PRIMARY_INK = 'var(--palette-text-light-900)';
+const SURFACE_INK = 'var(--palette-neu-ink-light)';
+const MUTED_INK = 'var(--palette-text-light-500)';
+const ACCENT_FOREGROUND = 'var(--palette-accent-foreground-light)';
+const SOFT_SURFACE_GRADIENT =
+  'linear-gradient(145deg, var(--neu-card), color-mix(in srgb, var(--palette-warm-glow) 18%, var(--neu-card)))';
+const ACCENT_SURFACE_GRADIENT =
+  'linear-gradient(145deg, color-mix(in srgb, var(--palette-text-light-900) 88%, transparent), color-mix(in srgb, var(--palette-text-light-700) 92%, transparent))';
+const QUOTE_ACCENT = 'var(--palette-shadow-warm-soft)';
 
 export function DesignShowcase() {
-  const [activeSection, setActiveSection] = useState<'cards' | 'buttons' | 'inputs' | 'icons' | 'layouts' | 'typography' | 'interactions'>('cards');
+  const [activeSection, setActiveSection] = useState<
+    | 'cards'
+    | 'buttons'
+    | 'inputs'
+    | 'icons'
+    | 'layouts'
+    | 'typography'
+    | 'interactions'
+  >('cards');
+
+  const {
+    hover: buttonHoverShadow,
+    pressed: buttonPressedShadow,
+    focus: _buttonFocusShadow,
+    ...buttonBaseStyle
+  } = neumorphismStyles.button.primary;
+
+  const {
+    hover: _secondaryHoverShadow,
+    focus: _secondaryFocusShadow,
+    ...secondaryBaseStyle
+  } = neumorphismStyles.card.secondary;
+
+  const cautionPillStyle = {
+    ...secondaryBaseStyle,
+    background: SOFT_SURFACE_GRADIENT,
+    color: ACCENT_INK,
+    fontWeight: 700,
+  };
+
+  const inactiveTabStyle = {
+    ...buttonBaseStyle,
+    background: SOFT_SURFACE_GRADIENT,
+    color: ACCENT_INK,
+    fontWeight: 600,
+  };
+
+  const activeTabStyle = {
+    ...buttonBaseStyle,
+    background: ACCENT_SURFACE_GRADIENT,
+    boxShadow: buttonPressedShadow,
+    color: ACCENT_FOREGROUND,
+    fontWeight: 700,
+  };
+
+  const tabHoverHandlers = createHoverHandlers(
+    getBoxShadow(buttonBaseStyle.boxShadow),
+    buttonHoverShadow
+  );
 
   return (
     <div className="relative min-h-[calc(100vh-var(--header-height))] pb-16">
@@ -20,31 +114,20 @@ export function DesignShowcase() {
         <div className="mb-6">
           <div
             className="inline-flex items-center gap-2 rounded-full px-4 py-2 border-0"
-            style={{
-              background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240))',
-              boxShadow: `
-                8px 8px 16px rgba(159, 133, 114, 0.12),
-                -8px -8px 16px rgba(255, 255, 255, 0.8),
-                inset 1px 1px 2px rgba(255, 255, 255, 0.5)
-              `,
-              color: '#87674F',
-              fontWeight: 700
-            }}
+            style={cautionPillStyle}
           >
             <span>⚠️ דף פיתוח בלבד – לא לפרודקשן</span>
           </div>
         </div>
         {/* Title */}
-        <h1 className="mb-6 text-center">
-          ספר עיצוב Neumorphism
-        </h1>
+        <h1 className="mb-6 text-center">ספר עיצוב Neumorphism</h1>
         <p className="caption text-center mb-10">
           כל הקומפוננטות והדוגמאות - Soft UI 3D
         </p>
 
         {/* Navigation Tabs */}
         <div className="mb-12">
-          <div 
+          <div
             className="rounded-[32px] p-4 sm:p-6 border-0 transition-all duration-500"
             style={neumorphismStyles.card.secondary}
           >
@@ -56,54 +139,16 @@ export function DesignShowcase() {
                 { id: 'icons', label: 'אייקונים' },
                 { id: 'layouts', label: 'לייאאוטים' },
                 { id: 'typography', label: 'טיפוגרפיה' },
-                { id: 'interactions', label: 'אינטראקציות' }
+                { id: 'interactions', label: 'אינטראקציות' },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveSection(tab.id as any)}
-                  className="rounded-full px-6 py-3 transition-all duration-400 border-0"
-                  style={activeSection === tab.id 
-                    ? {
-                        background: 'linear-gradient(145deg, rgb(94, 73, 52), rgb(135, 103, 79))',
-                        boxShadow: `
-                          inset 6px 6px 12px rgba(71, 59, 49, 0.3),
-                          inset -6px -6px 12px rgba(159, 133, 114, 0.3),
-                          2px 2px 8px rgba(94, 73, 52, 0.2)
-                        `,
-                        color: '#fdfcfb',
-                        fontWeight: '700'
-                      }
-                    : {
-                        background: 'linear-gradient(145deg, rgb(255, 255, 255), rgb(248, 244, 240))',
-                        boxShadow: `
-                          8px 8px 16px rgba(159, 133, 114, 0.12),
-                          -8px -8px 16px rgba(255, 255, 255, 0.8),
-                          inset 1px 1px 2px rgba(255, 255, 255, 0.5)
-                        `,
-                        color: '#87674F',
-                        fontWeight: '600'
-                      }
+                  className="rounded-full px-6 py-3 border-0 transition-transform duration-300 hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--palette-text-light-700)]"
+                  style={
+                    activeSection === tab.id ? activeTabStyle : inactiveTabStyle
                   }
-                  onMouseEnter={(e) => {
-                    if (activeSection !== tab.id) {
-                      e.currentTarget.style.boxShadow = `
-                        10px 10px 20px rgba(159, 133, 114, 0.15),
-                        -10px -10px 20px rgba(255, 255, 255, 0.9),
-                        inset 1px 1px 2px rgba(255, 255, 255, 0.6)
-                      `;
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (activeSection !== tab.id) {
-                      e.currentTarget.style.boxShadow = `
-                        8px 8px 16px rgba(159, 133, 114, 0.12),
-                        -8px -8px 16px rgba(255, 255, 255, 0.8),
-                        inset 1px 1px 2px rgba(255, 255, 255, 0.5)
-                      `;
-                      e.currentTarget.style.transform = '';
-                    }
-                  }}
+                  {...(activeSection === tab.id ? {} : tabHoverHandlers)}
                 >
                   {tab.label}
                 </button>
@@ -120,7 +165,7 @@ export function DesignShowcase() {
             {/* Main Card - Floating 3D */}
             <div className="space-y-4">
               <h3 className="text-center">כרטיס ראשי מוגבה - Main Card</h3>
-              <div 
+              <div
                 className="rounded-[40px] p-8 sm:p-10 lg:p-12 border-0 transition-all duration-500"
                 style={neumorphismStyles.card.main}
                 {...createHoverHandlers(
@@ -129,17 +174,20 @@ export function DesignShowcase() {
                 )}
               >
                 <div className="flex justify-center mb-6">
-                  <div 
+                  <div
                     className="w-20 h-20 rounded-full flex items-center justify-center border-0 transition-all duration-500"
                     style={neumorphismStyles.icon.default}
                   >
-                    <Sparkles className="w-10 h-10" style={{ color: '#87674F' }} />
+                    <Sparkles
+                      className="w-10 h-10"
+                      style={{ color: ACCENT_INK }}
+                    />
                   </div>
                 </div>
                 <h2 className="mb-4 text-center">כותרת ראשית</h2>
                 <p className="text-center mb-8">
-                  זהו כרטיס ראשי עם עיצוב Neumorphism מלא. השימוש בו מתאים לתוכן מרכזי וחשוב.
-                  הצללים הכפולים יוצרים אפקט תלת-מימדי מרשים.
+                  זהו כרטיס ראשי עם עיצוב Neumorphism מלא. השימוש בו מתאים לתוכן
+                  מרכזי וחשוב. הצללים הכפולים יוצרים אפקט תלת-מימדי מרשים.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                   <NeuButton>פעולה ראשית</NeuButton>
@@ -151,7 +199,7 @@ export function DesignShowcase() {
             {/* Secondary Card */}
             <div className="space-y-4">
               <h3 className="text-center">כרטיס משני - Secondary Card</h3>
-              <div 
+              <div
                 className="rounded-[32px] p-6 sm:p-8 border-0 transition-all duration-500"
                 style={neumorphismStyles.card.secondary}
                 {...createHoverHandlers(
@@ -161,11 +209,10 @@ export function DesignShowcase() {
               >
                 <h4 className="mb-4 text-center">כותרת משנית</h4>
                 <p className="text-center mb-4">
-                  כרטיס משני עם צללים מתונים יותר. מתאים לתוכן תומך או לכרטיסים פנימיים.
+                  כרטיס משני עם צללים מתונים יותר. מתאים לתוכן תומך או לכרטיסים
+                  פנימיים.
                 </p>
-                <div className="caption text-center">
-                  עיצוב עדין ומאוזן
-                </div>
+                <div className="caption text-center">עיצוב עדין ומאוזן</div>
               </div>
             </div>
 
@@ -173,7 +220,7 @@ export function DesignShowcase() {
             <div className="space-y-4">
               <h3 className="text-center">כרטיס צף - Floating Card</h3>
               <div className="flex justify-center">
-                <div 
+                <div
                   className="rounded-full w-32 h-32 flex items-center justify-center border-0 transition-all duration-600"
                   style={neumorphismStyles.card.floating}
                   {...createHoverHandlers(
@@ -181,7 +228,7 @@ export function DesignShowcase() {
                     neumorphismStyles.card.floating.hover
                   )}
                 >
-                  <Star className="w-16 h-16" style={{ color: '#87674F' }} />
+                  <Star className="w-16 h-16" style={{ color: ACCENT_INK }} />
                 </div>
               </div>
               <p className="caption text-center">
@@ -194,12 +241,32 @@ export function DesignShowcase() {
               <h3 className="text-center">כרטיסי מידע עם אייקונים</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
-                  { icon: Heart, title: "אהבה", description: "תחום של חיבור וקשר" },
-                  { icon: Zap, title: "אנרגיה", description: "כוח פנימי ומוטיבציה" },
-                  { icon: Target, title: "מטרה", description: "כיוון ומיקוד בחיים" },
-                  { icon: TrendingUp, title: "צמיחה", description: "התפתחות מתמדת" },
-                  { icon: Award, title: "הצלחה", description: "השגת יעדים" },
-                  { icon: Gift, title: "מתנות", description: "כישורים ייחודיים" }
+                  {
+                    icon: Heart,
+                    title: 'אהבה',
+                    description: 'תחום של חיבור וקשר',
+                  },
+                  {
+                    icon: Zap,
+                    title: 'אנרגיה',
+                    description: 'כוח פנימי ומוטיבציה',
+                  },
+                  {
+                    icon: Target,
+                    title: 'מטרה',
+                    description: 'כיוון ומיקוד בחיים',
+                  },
+                  {
+                    icon: TrendingUp,
+                    title: 'צמיחה',
+                    description: 'התפתחות מתמדת',
+                  },
+                  { icon: Award, title: 'הצלחה', description: 'השגת יעדים' },
+                  {
+                    icon: Gift,
+                    title: 'מתנות',
+                    description: 'כישורים ייחודיים',
+                  },
                 ].map((item, index) => (
                   <div
                     key={index}
@@ -211,11 +278,14 @@ export function DesignShowcase() {
                     )}
                   >
                     <div className="flex justify-center mb-4">
-                      <div 
+                      <div
                         className="w-16 h-16 rounded-full flex items-center justify-center border-0 transition-all duration-500"
                         style={neumorphismStyles.icon.default}
                       >
-                        <item.icon className="w-8 h-8" style={{ color: '#87674F' }} />
+                        <item.icon
+                          className="w-8 h-8"
+                          style={{ color: ACCENT_INK }}
+                        />
                       </div>
                     </div>
                     <h5 className="mb-2 text-center">{item.title}</h5>
@@ -228,14 +298,25 @@ export function DesignShowcase() {
             {/* Quote Card */}
             <div className="space-y-4">
               <h3 className="text-center">כרטיס ציטוט</h3>
-              <div 
+              <div
                 className="rounded-[40px] p-10 sm:p-12 border-0 transition-all duration-500"
                 style={neumorphismStyles.card.main}
               >
-                <div className="text-center mb-4" style={{ fontSize: '80px', color: '#d3c6bd', lineHeight: '1', fontWeight: '300' }}>
+                <div
+                  className="text-center mb-4"
+                  style={{
+                    fontSize: '80px',
+                    color: QUOTE_ACCENT,
+                    lineHeight: '1',
+                    fontWeight: 300,
+                  }}
+                >
                   &ldquo;
                 </div>
-                <h3 className="mb-6 text-center" style={{ fontStyle: 'italic', fontWeight: '500' }}>
+                <h3
+                  className="mb-6 text-center"
+                  style={{ fontStyle: 'italic', fontWeight: 500 }}
+                >
                   השינוי האמיתי מתחיל מבפנים
                 </h3>
                 <p className="caption text-center">— חוכמה עתיקה</p>
@@ -247,9 +328,9 @@ export function DesignShowcase() {
               <h3 className="text-center">כרטיסי סטטיסטיקה</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {[
-                  { number: "1,234", label: "משתמשים" },
-                  { number: "98%", label: "שביעות רצון" },
-                  { number: "24/7", label: "זמינות" }
+                  { number: '1,234', label: 'משתמשים' },
+                  { number: '98%', label: 'שביעות רצון' },
+                  { number: '24/7', label: 'זמינות' },
                 ].map((stat, index) => (
                   <div
                     key={index}
@@ -260,7 +341,15 @@ export function DesignShowcase() {
                       neumorphismStyles.card.secondary.hover
                     )}
                   >
-                    <div style={{ fontSize: '56px', fontWeight: '300', color: '#5e4934', marginBottom: '12px', lineHeight: '1' }}>
+                    <div
+                      style={{
+                        fontSize: '56px',
+                        fontWeight: 300,
+                        color: PRIMARY_INK,
+                        marginBottom: '12px',
+                        lineHeight: '1',
+                      }}
+                    >
                       {stat.number}
                     </div>
                     <p className="caption">{stat.label}</p>
@@ -301,7 +390,16 @@ export function DesignShowcase() {
             <div className="space-y-6">
               <h3 className="text-center">כפתורי אייקון עגולים</h3>
               <div className="flex flex-wrap justify-center gap-4">
-                {[Heart, Star, Bell, Settings, Search, Filter, Upload, Download].map((Icon, index) => (
+                {[
+                  Heart,
+                  Star,
+                  Bell,
+                  Settings,
+                  Search,
+                  Filter,
+                  Upload,
+                  Download,
+                ].map((Icon, index) => (
                   <button
                     key={index}
                     className="w-14 h-14 rounded-full flex items-center justify-center border-0 transition-all duration-400"
@@ -312,7 +410,7 @@ export function DesignShowcase() {
                       neumorphismStyles.button.primary.hover
                     )}
                   >
-                    <Icon className="w-6 h-6" style={{ color: '#87674F' }} />
+                    <Icon className="w-6 h-6" style={{ color: ACCENT_INK }} />
                   </button>
                 ))}
               </div>
@@ -331,8 +429,13 @@ export function DesignShowcase() {
                     neumorphismStyles.button.primary.hover
                   )}
                 >
-                  <ChevronRight className="w-5 h-5" style={{ color: '#87674F' }} />
-                  <span style={{ color: '#87674F', fontWeight: '600' }}>הבא</span>
+                  <ChevronRight
+                    className="w-5 h-5"
+                    style={{ color: ACCENT_INK }}
+                  />
+                  <span style={{ color: ACCENT_INK, fontWeight: 600 }}>
+                    הבא
+                  </span>
                 </button>
                 <button
                   className="flex items-center gap-2 rounded-full px-8 py-4 border-0 transition-all duration-400"
@@ -343,8 +446,13 @@ export function DesignShowcase() {
                     neumorphismStyles.button.primary.hover
                   )}
                 >
-                  <span style={{ color: '#87674F', fontWeight: '600' }}>הקודם</span>
-                  <ChevronLeft className="w-5 h-5" style={{ color: '#87674F' }} />
+                  <span style={{ color: ACCENT_INK, fontWeight: 600 }}>
+                    הקודם
+                  </span>
+                  <ChevronLeft
+                    className="w-5 h-5"
+                    style={{ color: ACCENT_INK }}
+                  />
                 </button>
                 <button
                   className="flex items-center gap-2 rounded-full px-8 py-4 border-0 transition-all duration-400"
@@ -355,8 +463,10 @@ export function DesignShowcase() {
                     neumorphismStyles.button.primary.hover
                   )}
                 >
-                  <Home className="w-5 h-5" style={{ color: '#87674F' }} />
-                  <span style={{ color: '#87674F', fontWeight: '600' }}>בית</span>
+                  <Home className="w-5 h-5" style={{ color: ACCENT_INK }} />
+                  <span style={{ color: ACCENT_INK, fontWeight: 600 }}>
+                    בית
+                  </span>
                 </button>
               </div>
             </div>
@@ -376,7 +486,7 @@ export function DesignShowcase() {
                       neumorphismStyles.button.primary.hover
                     )}
                   >
-                    <Icon className="w-5 h-5" style={{ color: '#87674F' }} />
+                    <Icon className="w-5 h-5" style={{ color: ACCENT_INK }} />
                   </button>
                 ))}
               </div>
@@ -386,13 +496,20 @@ export function DesignShowcase() {
             <div className="space-y-6">
               <h3 className="text-center">כפתורי תגיות</h3>
               <div className="flex flex-wrap justify-center gap-3">
-                {['נומרולוגיה', 'צמיחה אישית', 'מודעות', 'רוחניות', 'פנג שואי', 'אנרגיה'].map((tag, index) => (
+                {[
+                  'נומרולוגיה',
+                  'צמיחה אישית',
+                  'מודעות',
+                  'רוחניות',
+                  'פנג שואי',
+                  'אנרגיה',
+                ].map((tag, index) => (
                   <button
                     key={index}
                     className="rounded-full px-6 py-2.5 border-0 transition-all duration-400"
                     style={{
                       ...neumorphismStyles.button.primary,
-                      fontSize: '14px'
+                      fontSize: '14px',
                     }}
                     {...createPressHandlers(
                       neumorphismStyles.button.primary.boxShadow,
@@ -400,7 +517,9 @@ export function DesignShowcase() {
                       neumorphismStyles.button.primary.hover
                     )}
                   >
-                    <span style={{ color: '#87674F', fontWeight: '600' }}>{tag}</span>
+                    <span style={{ color: ACCENT_INK, fontWeight: 600 }}>
+                      {tag}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -423,13 +542,17 @@ export function DesignShowcase() {
                   className="w-full rounded-2xl px-5 py-4 text-center border-0 transition-all duration-300 focus:outline-none"
                   style={{
                     ...neumorphismStyles.input.default,
-                    color: '#473b31'
+                    color: SURFACE_INK,
                   }}
                   onFocus={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.focus);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.focus
+                    );
                   }}
                   onBlur={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.boxShadow);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.boxShadow
+                    );
                   }}
                 />
                 <input
@@ -438,13 +561,17 @@ export function DesignShowcase() {
                   className="w-full rounded-2xl px-5 py-4 text-center border-0 transition-all duration-300 focus:outline-none"
                   style={{
                     ...neumorphismStyles.input.default,
-                    color: '#473b31'
+                    color: SURFACE_INK,
                   }}
                   onFocus={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.focus);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.focus
+                    );
                   }}
                   onBlur={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.boxShadow);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.boxShadow
+                    );
                   }}
                 />
                 <input
@@ -453,13 +580,17 @@ export function DesignShowcase() {
                   className="w-full rounded-2xl px-5 py-4 text-center border-0 transition-all duration-300 focus:outline-none"
                   style={{
                     ...neumorphismStyles.input.default,
-                    color: '#473b31'
+                    color: SURFACE_INK,
                   }}
                   onFocus={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.focus);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.focus
+                    );
                   }}
                   onBlur={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.boxShadow);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.boxShadow
+                    );
                   }}
                 />
               </div>
@@ -475,13 +606,17 @@ export function DesignShowcase() {
                   className="w-full rounded-2xl px-5 py-4 text-center border-0 transition-all duration-300 focus:outline-none resize-none"
                   style={{
                     ...neumorphismStyles.input.default,
-                    color: '#473b31'
+                    color: SURFACE_INK,
                   }}
                   onFocus={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.focus);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.focus
+                    );
                   }}
                   onBlur={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.boxShadow);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.boxShadow
+                    );
                   }}
                 />
               </div>
@@ -500,15 +635,19 @@ export function DesignShowcase() {
                   className="w-full rounded-2xl px-4 py-4 border-0 transition-all duration-300 focus:outline-none"
                   style={{
                     ...neumorphismStyles.input.default,
-                    color: '#473b31',
+                    color: SURFACE_INK,
                     direction: 'ltr',
-                    textAlign: 'left'
+                    textAlign: 'left',
                   }}
                   onFocus={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.focus);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.focus
+                    );
                   }}
                   onBlur={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.boxShadow);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.boxShadow
+                    );
                   }}
                 />
                 <input
@@ -520,15 +659,19 @@ export function DesignShowcase() {
                   className="w-full rounded-2xl px-4 py-4 border-0 transition-all duration-300 focus:outline-none"
                   style={{
                     ...neumorphismStyles.input.default,
-                    color: '#473b31',
+                    color: SURFACE_INK,
                     direction: 'ltr',
-                    textAlign: 'left'
+                    textAlign: 'left',
                   }}
                   onFocus={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.focus);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.focus
+                    );
                   }}
                   onBlur={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.boxShadow);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.boxShadow
+                    );
                   }}
                 />
                 <input
@@ -540,15 +683,19 @@ export function DesignShowcase() {
                   className="w-full rounded-2xl px-4 py-4 border-0 transition-all duration-300 focus:outline-none"
                   style={{
                     ...neumorphismStyles.input.default,
-                    color: '#473b31',
+                    color: SURFACE_INK,
                     direction: 'ltr',
-                    textAlign: 'left'
+                    textAlign: 'left',
                   }}
                   onFocus={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.focus);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.focus
+                    );
                   }}
                   onBlur={(e) => {
-                    e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.boxShadow);
+                    e.target.style.boxShadow = getBoxShadow(
+                      neumorphismStyles.input.default.boxShadow
+                    );
                   }}
                 />
               </div>
@@ -557,7 +704,7 @@ export function DesignShowcase() {
             {/* Form Example */}
             <div className="space-y-6">
               <h3 className="text-center">טופס מלא</h3>
-              <div 
+              <div
                 className="max-w-2xl mx-auto rounded-[32px] p-8 sm:p-10 border-0"
                 style={neumorphismStyles.card.main}
               >
@@ -569,13 +716,17 @@ export function DesignShowcase() {
                     className="w-full rounded-2xl px-5 py-4 text-center border-0 transition-all duration-300 focus:outline-none"
                     style={{
                       ...neumorphismStyles.input.default,
-                      color: '#473b31'
+                      color: SURFACE_INK,
                     }}
                     onFocus={(e) => {
-                      e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.focus);
+                      e.target.style.boxShadow = getBoxShadow(
+                        neumorphismStyles.input.default.focus
+                      );
                     }}
                     onBlur={(e) => {
-                      e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.boxShadow);
+                      e.target.style.boxShadow = getBoxShadow(
+                        neumorphismStyles.input.default.boxShadow
+                      );
                     }}
                   />
                   <input
@@ -584,13 +735,17 @@ export function DesignShowcase() {
                     className="w-full rounded-2xl px-5 py-4 text-center border-0 transition-all duration-300 focus:outline-none"
                     style={{
                       ...neumorphismStyles.input.default,
-                      color: '#473b31'
+                      color: SURFACE_INK,
                     }}
                     onFocus={(e) => {
-                      e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.focus);
+                      e.target.style.boxShadow = getBoxShadow(
+                        neumorphismStyles.input.default.focus
+                      );
                     }}
                     onBlur={(e) => {
-                      e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.boxShadow);
+                      e.target.style.boxShadow = getBoxShadow(
+                        neumorphismStyles.input.default.boxShadow
+                      );
                     }}
                   />
                   <textarea
@@ -599,13 +754,17 @@ export function DesignShowcase() {
                     className="w-full rounded-2xl px-5 py-4 text-center border-0 transition-all duration-300 focus:outline-none resize-none"
                     style={{
                       ...neumorphismStyles.input.default,
-                      color: '#473b31'
+                      color: SURFACE_INK,
                     }}
                     onFocus={(e) => {
-                      e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.focus);
+                      e.target.style.boxShadow = getBoxShadow(
+                        neumorphismStyles.input.default.focus
+                      );
                     }}
                     onBlur={(e) => {
-                      e.target.style.boxShadow = getBoxShadow(neumorphismStyles.input.default.boxShadow);
+                      e.target.style.boxShadow = getBoxShadow(
+                        neumorphismStyles.input.default.boxShadow
+                      );
                     }}
                   />
                   <div className="flex justify-center pt-4">
@@ -631,7 +790,17 @@ export function DesignShowcase() {
             <div className="space-y-6">
               <h3 className="text-center">אייקונים גדולים</h3>
               <div className="flex flex-wrap justify-center gap-6">
-                {[Sparkles, Compass, Heart, Star, Moon, Sun, Lightbulb, BookOpen, Briefcase].map((Icon, index) => (
+                {[
+                  Sparkles,
+                  Compass,
+                  Heart,
+                  Star,
+                  Moon,
+                  Sun,
+                  Lightbulb,
+                  BookOpen,
+                  Briefcase,
+                ].map((Icon, index) => (
                   <div
                     key={index}
                     className="w-24 h-24 rounded-full flex items-center justify-center border-0 transition-all duration-500"
@@ -641,7 +810,7 @@ export function DesignShowcase() {
                       neumorphismStyles.icon.default.hover
                     )}
                   >
-                    <Icon className="w-12 h-12" style={{ color: '#87674F' }} />
+                    <Icon className="w-12 h-12" style={{ color: ACCENT_INK }} />
                   </div>
                 ))}
               </div>
@@ -651,7 +820,17 @@ export function DesignShowcase() {
             <div className="space-y-6">
               <h3 className="text-center">אייקונים בינוניים</h3>
               <div className="flex flex-wrap justify-center gap-5">
-                {[Calendar, Clock, User, Mail, Phone, MapPin, Search, Filter, Settings].map((Icon, index) => (
+                {[
+                  Calendar,
+                  Clock,
+                  User,
+                  Mail,
+                  Phone,
+                  MapPin,
+                  Search,
+                  Filter,
+                  Settings,
+                ].map((Icon, index) => (
                   <div
                     key={index}
                     className="w-16 h-16 rounded-full flex items-center justify-center border-0 transition-all duration-500"
@@ -661,7 +840,7 @@ export function DesignShowcase() {
                       neumorphismStyles.icon.default.hover
                     )}
                   >
-                    <Icon className="w-8 h-8" style={{ color: '#87674F' }} />
+                    <Icon className="w-8 h-8" style={{ color: ACCENT_INK }} />
                   </div>
                 ))}
               </div>
@@ -671,7 +850,18 @@ export function DesignShowcase() {
             <div className="space-y-6">
               <h3 className="text-center">אייקונים קטנים</h3>
               <div className="flex flex-wrap justify-center gap-4">
-                {[Plus, Minus, Check, X, ChevronRight, ChevronLeft, Upload, Download, Share2, Bell].map((Icon, index) => (
+                {[
+                  Plus,
+                  Minus,
+                  Check,
+                  X,
+                  ChevronRight,
+                  ChevronLeft,
+                  Upload,
+                  Download,
+                  Share2,
+                  Bell,
+                ].map((Icon, index) => (
                   <div
                     key={index}
                     className="w-12 h-12 rounded-full flex items-center justify-center border-0 transition-all duration-500"
@@ -681,7 +871,7 @@ export function DesignShowcase() {
                       neumorphismStyles.icon.default.hover
                     )}
                   >
-                    <Icon className="w-6 h-6" style={{ color: '#87674F' }} />
+                    <Icon className="w-6 h-6" style={{ color: ACCENT_INK }} />
                   </div>
                 ))}
               </div>
@@ -692,14 +882,14 @@ export function DesignShowcase() {
               <h3 className="text-center">כרטיסים עם אייקונים</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                 {[
-                  { icon: Sparkles, label: "השראה" },
-                  { icon: Target, label: "מטרה" },
-                  { icon: Heart, label: "אהבה" },
-                  { icon: Star, label: "הצלחה" },
-                  { icon: Zap, label: "אנרגיה" },
-                  { icon: Award, label: "הישגים" },
-                  { icon: Gift, label: "מתנות" },
-                  { icon: Lightbulb, label: "רעיונות" }
+                  { icon: Sparkles, label: 'השראה' },
+                  { icon: Target, label: 'מטרה' },
+                  { icon: Heart, label: 'אהבה' },
+                  { icon: Star, label: 'הצלחה' },
+                  { icon: Zap, label: 'אנרגיה' },
+                  { icon: Award, label: 'הישגים' },
+                  { icon: Gift, label: 'מתנות' },
+                  { icon: Lightbulb, label: 'רעיונות' },
                 ].map((item, index) => (
                   <div
                     key={index}
@@ -711,11 +901,14 @@ export function DesignShowcase() {
                     )}
                   >
                     <div className="flex justify-center mb-3">
-                      <div 
+                      <div
                         className="w-14 h-14 rounded-full flex items-center justify-center border-0"
                         style={neumorphismStyles.icon.default}
                       >
-                        <item.icon className="w-7 h-7" style={{ color: '#87674F' }} />
+                        <item.icon
+                          className="w-7 h-7"
+                          style={{ color: ACCENT_INK }}
+                        />
                       </div>
                     </div>
                     <p className="caption text-center">{item.label}</p>
@@ -735,16 +928,19 @@ export function DesignShowcase() {
             <div className="space-y-6">
               <h3 className="text-center">לייאאוט 2 עמודות</h3>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div 
+                <div
                   className="rounded-[32px] p-8 border-0 transition-all duration-500"
                   style={neumorphismStyles.card.main}
                 >
                   <div className="flex justify-center mb-6">
-                    <div 
+                    <div
                       className="w-16 h-16 rounded-full flex items-center justify-center border-0"
                       style={neumorphismStyles.icon.default}
                     >
-                      <Sparkles className="w-8 h-8" style={{ color: '#87674F' }} />
+                      <Sparkles
+                        className="w-8 h-8"
+                        style={{ color: ACCENT_INK }}
+                      />
                     </div>
                   </div>
                   <h4 className="mb-4 text-center">עמודה ראשונה</h4>
@@ -752,16 +948,19 @@ export function DesignShowcase() {
                     תוכן מלא עם כל הפרטים הרלוונטיים. כרטיס זה מכיל מידע חשוב.
                   </p>
                 </div>
-                <div 
+                <div
                   className="rounded-[32px] p-8 border-0 transition-all duration-500"
                   style={neumorphismStyles.card.main}
                 >
                   <div className="flex justify-center mb-6">
-                    <div 
+                    <div
                       className="w-16 h-16 rounded-full flex items-center justify-center border-0"
                       style={neumorphismStyles.icon.default}
                     >
-                      <Compass className="w-8 h-8" style={{ color: '#87674F' }} />
+                      <Compass
+                        className="w-8 h-8"
+                        style={{ color: ACCENT_INK }}
+                      />
                     </div>
                   </div>
                   <h4 className="mb-4 text-center">עמודה שנייה</h4>
@@ -787,11 +986,17 @@ export function DesignShowcase() {
                     )}
                   >
                     <div className="flex justify-center mb-4">
-                      <div 
+                      <div
                         className="w-14 h-14 rounded-full flex items-center justify-center border-0"
                         style={neumorphismStyles.icon.default}
                       >
-                        <span style={{ fontSize: '24px', fontWeight: '700', color: '#87674F' }}>
+                        <span
+                          style={{
+                            fontSize: '24px',
+                            fontWeight: 700,
+                            color: ACCENT_INK,
+                          }}
+                        >
                           {num}
                         </span>
                       </div>
@@ -806,26 +1011,31 @@ export function DesignShowcase() {
             {/* Hero Layout */}
             <div className="space-y-6">
               <h3 className="text-center">לייאאוט Hero</h3>
-              <div 
+              <div
                 className="rounded-[40px] p-12 sm:p-16 border-0 transition-all duration-500"
                 style={neumorphismStyles.card.main}
               >
                 <div className="flex justify-center mb-8">
-                  <div 
+                  <div
                     className="w-32 h-32 rounded-full flex items-center justify-center border-0"
                     style={neumorphismStyles.card.floating}
                   >
-                    <Sparkles className="w-16 h-16" style={{ color: '#87674F' }} />
+                    <Sparkles
+                      className="w-16 h-16"
+                      style={{ color: ACCENT_INK }}
+                    />
                   </div>
                 </div>
-                <h1 className="mb-6 text-center">
-                  כותרת ראשית גדולה
-                </h1>
-                <h3 className="mb-8 text-center" style={{ fontWeight: '500', color: '#87674F' }}>
+                <h1 className="mb-6 text-center">כותרת ראשית גדולה</h1>
+                <h3
+                  className="mb-8 text-center"
+                  style={{ fontWeight: 500, color: ACCENT_INK }}
+                >
                   תת-כותרת מסבירה
                 </h3>
                 <p className="text-center mb-10 max-w-2xl mx-auto">
-                  טקסט מלא המסביר את התוכן והערך המוצע. זהו מקום מושלם להציג את הפיצ&apos;רים העיקריים.
+                  טקסט מלא המסביר את התוכן והערך המוצע. זהו מקום מושלם להציג את
+                  הפיצ&apos;רים העיקריים.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                   <NeuButton>פעולה ראשית</NeuButton>
@@ -842,7 +1052,7 @@ export function DesignShowcase() {
             <h2 className="text-center mb-8">טיפוגרפיה</h2>
 
             {/* Headings */}
-            <div 
+            <div
               className="rounded-[32px] p-8 sm:p-10 border-0"
               style={neumorphismStyles.card.main}
             >
@@ -872,7 +1082,7 @@ export function DesignShowcase() {
             </div>
 
             {/* Body Text */}
-            <div 
+            <div
               className="rounded-[32px] p-8 sm:p-10 border-0"
               style={neumorphismStyles.card.main}
             >
@@ -881,42 +1091,45 @@ export function DesignShowcase() {
                 <div>
                   <p className="caption mb-2">Paragraph - רגיל</p>
                   <p>
-                    זהו טקסט גוף רגיל. הוא משמש לתוכן עיקרי ומסבירים ארוכים. הפונט הוא Assistant והגודל מותאם לגודל המסך.
+                    זהו טקסט גוף רגיל. הוא משמש לתוכן עיקרי ומסבירים ארוכים.
+                    הפונט הוא Assistant והגודל מותאם לגודל המסך.
                   </p>
                 </div>
                 <div>
                   <p className="caption mb-2">Caption - מקרא</p>
                   <p className="caption">
-                    זהו טקסט Caption - טקסט קטן יותר לתיאורים ומידע משני. משמש לתיאורים מתחת לאייקונים או כתגיות.
+                    זהו טקסט Caption - טקסט קטן יותר לתיאורים ומידע משני. משמש
+                    לתיאורים מתחת לאייקונים או כתגיות.
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Text Colors */}
-            <div 
+            <div
               className="rounded-[32px] p-8 sm:p-10 border-0"
               style={neumorphismStyles.card.main}
             >
               <h3 className="mb-8 text-center">צבעי טקסט</h3>
               <div className="space-y-4">
-                <p style={{ color: '#5e4934' }}>
-                  #5e4934 - Brown Heading - לכותרות H1
+                <p style={{ color: PRIMARY_INK }}>
+                  var(--palette-text-light-900) - Brown Heading - לכותרות H1
                 </p>
-                <p style={{ color: '#87674F' }}>
-                  #87674F - Bronze - לכותרות H2-H4 ואייקונים
+                <p style={{ color: ACCENT_INK }}>
+                  var(--palette-text-light-700) - Bronze - לכותרות H2-H4
+                  ואייקונים
                 </p>
-                <p style={{ color: '#473b31' }}>
-                  #473b31 - Brown Dark - טקסט ראשי
+                <p style={{ color: SURFACE_INK }}>
+                  var(--palette-neu-ink-light) - Brown Dark - טקסט ראשי
                 </p>
-                <p style={{ color: '#9f8572' }}>
-                  #9f8572 - Neutral - Caption ותיאורים
+                <p style={{ color: MUTED_INK }}>
+                  var(--palette-text-light-500) - Neutral - Caption ותיאורים
                 </p>
               </div>
             </div>
 
             {/* Text Examples */}
-            <div 
+            <div
               className="rounded-[32px] p-8 sm:p-10 border-0"
               style={neumorphismStyles.card.main}
             >
@@ -925,12 +1138,11 @@ export function DesignShowcase() {
                 <div>
                   <h2 className="mb-4">גילוי עצמי והכרה</h2>
                   <p className="mb-4">
-                    המסע לתוך עצמך הוא אחד מהמסעות החשובים והמשמעותיים ביותר שתחווה בחייך. 
-                    דרך הכרה עמוקה של הדפוסים הפנימיים שלך, אתה פותח דלת לשינוי אמיתי ומתמשך.
+                    המסע לתוך עצמך הוא אחד מהמסעות החשובים והמשמעותיים ביותר
+                    שתחווה בחייך. דרך הכרה עמוקה של הדפוסים הפנימיים שלך, אתה
+                    פותח דלת לשינוי אמיתי ומתמשך.
                   </p>
-                  <p className="caption">
-                    המלצה: התחל במסע קטן כל יום
-                  </p>
+                  <p className="caption">המלצה: התחל במסע קטן כל יום</p>
                 </div>
               </div>
             </div>
@@ -993,10 +1205,10 @@ export function DesignShowcase() {
               <h3 className="text-center">מצבי לחיצה</h3>
               <div className="flex flex-wrap justify-center gap-4">
                 {[
-                  { icon: Heart, label: "אהבה" },
-                  { icon: Star, label: "הצלחה" },
-                  { icon: Zap, label: "אנרגיה" },
-                  { icon: Target, label: "מטרה" }
+                  { icon: Heart, label: 'אהבה' },
+                  { icon: Star, label: 'הצלחה' },
+                  { icon: Zap, label: 'אנרגיה' },
+                  { icon: Target, label: 'מטרה' },
                 ].map((item, index) => (
                   <button
                     key={index}
@@ -1008,13 +1220,22 @@ export function DesignShowcase() {
                       neumorphismStyles.button.primary.hover
                     )}
                   >
-                    <div 
+                    <div
                       className="w-12 h-12 rounded-full flex items-center justify-center border-0"
                       style={neumorphismStyles.icon.default}
                     >
-                      <item.icon className="w-6 h-6" style={{ color: '#87674F' }} />
+                      <item.icon
+                        className="w-6 h-6"
+                        style={{ color: ACCENT_INK }}
+                      />
                     </div>
-                    <span style={{ color: '#87674F', fontWeight: '600', fontSize: '14px' }}>
+                    <span
+                      style={{
+                        color: ACCENT_INK,
+                        fontWeight: 600,
+                        fontSize: '14px',
+                      }}
+                    >
                       {item.label}
                     </span>
                   </button>
@@ -1033,7 +1254,7 @@ export function DesignShowcase() {
                   className="rounded-[20px] p-6 border-0 text-center"
                   style={{
                     ...neumorphismStyles.card.secondary,
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s ease',
                   }}
                   {...createHoverHandlers(
                     neumorphismStyles.card.secondary.boxShadow,
@@ -1047,7 +1268,7 @@ export function DesignShowcase() {
                   className="rounded-[20px] p-6 border-0 text-center"
                   style={{
                     ...neumorphismStyles.card.secondary,
-                    transition: 'all 0.5s ease'
+                    transition: 'all 0.5s ease',
                   }}
                   {...createHoverHandlers(
                     neumorphismStyles.card.secondary.boxShadow,
@@ -1061,7 +1282,7 @@ export function DesignShowcase() {
                   className="rounded-[20px] p-6 border-0 text-center"
                   style={{
                     ...neumorphismStyles.card.secondary,
-                    transition: 'all 0.7s ease'
+                    transition: 'all 0.7s ease',
                   }}
                   {...createHoverHandlers(
                     neumorphismStyles.card.secondary.boxShadow,
@@ -1077,12 +1298,21 @@ export function DesignShowcase() {
             {/* Complex Interactions */}
             <div className="space-y-6">
               <h3 className="text-center">אינטראקציות מורכבות</h3>
-              <div 
+              <div
                 className="rounded-[32px] p-10 border-0"
                 style={neumorphismStyles.card.main}
               >
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                  {[Sparkles, Heart, Star, Zap, Target, Award, Gift, Lightbulb].map((Icon, index) => (
+                  {[
+                    Sparkles,
+                    Heart,
+                    Star,
+                    Zap,
+                    Target,
+                    Award,
+                    Gift,
+                    Lightbulb,
+                  ].map((Icon, index) => (
                     <div
                       key={index}
                       className="w-full aspect-square rounded-[20px] flex items-center justify-center border-0 transition-all duration-500 cursor-pointer"
@@ -1098,7 +1328,10 @@ export function DesignShowcase() {
                         }, 200);
                       }}
                     >
-                      <Icon className="w-8 h-8 sm:w-10 sm:h-10" style={{ color: '#87674F' }} />
+                      <Icon
+                        className="w-8 h-8 sm:w-10 sm:h-10"
+                        style={{ color: ACCENT_INK }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -1109,7 +1342,6 @@ export function DesignShowcase() {
             </div>
           </div>
         )}
-
       </div>
     </div>
   );

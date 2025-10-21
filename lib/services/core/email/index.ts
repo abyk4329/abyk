@@ -3,5 +3,6 @@
  * Exports all email-related utilities, styles, and templates
  */
 
-export * from "./styles";
-export * from "./BaseEmailTemplate";
+export * from './BaseEmailTemplate';
+export * from './styles';
+export * from './tokens';

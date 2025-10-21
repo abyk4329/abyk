@@ -339,31 +339,39 @@
 /* Card Styles */
 .neuro-card-main {
   background-color: var(--neu-card);
-  box-shadow: 22px 22px 52px rgba(159, 133, 114, 0.22),
-    -22px -22px 52px rgba(255, 255, 255, 0.94),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.65),
-    inset -2px -2px 6px rgba(211, 198, 189, 0.28);
-  color: #473b31;
+  box-shadow: 22px 22px 52px
+      color-mix(in srgb, var(--palette-text-light-500) 22%, transparent),
+    -22px -22px 52px
+      color-mix(in srgb, var(--palette-neutral-0) 94%, transparent),
+    inset 2px 2px 6px
+      color-mix(in srgb, var(--palette-neutral-0) 65%, transparent),
+    inset -2px -2px 6px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 28%, transparent);
+  color: var(--palette-neu-ink-light);
   transition: box-shadow 0.3s ease;
 }
 
 /* Inset (sunken) card for dense textual content (legal / privacy) */
 .neuro-card-inset {
   background-color: var(--neu-card);
-  box-shadow: inset 10px 10px 22px rgba(159, 133, 114, 0.22),
-    inset -10px -10px 22px rgba(255, 255, 255, 0.9),
-    2px 2px 4px rgba(159, 133, 114, 0.1),
-    -2px -2px 4px rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: inset 10px 10px 22px
+      color-mix(in srgb, var(--palette-text-light-500) 22%, transparent),
+    inset -10px -10px 22px
+      color-mix(in srgb, var(--palette-neutral-0) 90%, transparent),
+    2px 2px 4px
+      color-mix(in srgb, var(--palette-text-light-500) 10%, transparent),
+    -2px -2px 4px color-mix(in srgb, var(--palette-neutral-0) 55%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--palette-neutral-0) 55%, transparent);
   border-radius: 30px;
   padding: 2rem clamp(1rem, 2.5vw, 2.5rem);
-  color: #473b31;
+  color: var(--palette-neu-ink-light);
   position: relative;
   overflow: hidden;
 }
 
 .neuro-card-inset:before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background: none;
@@ -372,17 +380,22 @@
 
 .neuro-card-inset h2,
 .neuro-card-inset h3 {
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7),
-    0 2px 4px rgba(159, 133, 114, 0.18);
+  text-shadow: 0 1px 2px
+      color-mix(in srgb, var(--palette-neutral-0) 70%, transparent),
+    0 2px 4px color-mix(in srgb, var(--palette-text-light-500) 18%, transparent);
 }
 
 .dark .neuro-card-inset {
   background-color: var(--neu-card);
-  box-shadow: inset 8px 8px 18px rgba(0, 0, 0, 0.55),
-    inset -8px -8px 18px rgba(60, 54, 48, 0.65), 2px 2px 4px rgba(0, 0, 0, 0.35),
-    -2px -2px 4px rgba(90, 82, 74, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  color: #faf8f5;
+  box-shadow: inset 8px 8px 18px
+      color-mix(in srgb, var(--palette-neutral-900) 55%, transparent),
+    inset -8px -8px 18px
+      color-mix(in srgb, var(--palette-shadow-charcoal) 65%, transparent),
+    2px 2px 4px color-mix(in srgb, var(--palette-neutral-900) 35%, transparent),
+    -2px -2px 4px
+      color-mix(in srgb, var(--palette-shadow-smoke) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--palette-neutral-0) 6%, transparent);
+  color: var(--palette-neu-ink-dark);
 }
 
 .dark .neuro-card-inset:before {
@@ -392,10 +405,14 @@
 /* Structural shell (outer container - subtle extruded) */
 .neuro-card-shell {
   background-color: var(--neu-card);
-  box-shadow: 18px 18px 40px rgba(159, 133, 114, 0.18),
-    -18px -18px 40px rgba(255, 255, 255, 0.95),
-    inset 1px 1px 4px rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 18px 18px 40px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 18%, transparent),
+    -18px -18px 40px
+      color-mix(in srgb, var(--palette-neutral-0) 95%, transparent),
+    inset 1px 1px 4px
+      color-mix(in srgb, var(--palette-neutral-0) 55%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--palette-neutral-0) 55%, transparent);
   border-radius: 40px;
   position: relative;
   overflow: hidden;
@@ -403,7 +420,7 @@
 }
 
 .neuro-card-shell:before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background: none;
@@ -413,10 +430,15 @@
 /* Inset Lite (inner segmentation) */
 .neuro-card-inset-lite {
   background-color: var(--neu-card);
-  box-shadow: inset 6px 6px 14px rgba(159, 133, 114, 0.16),
-    inset -6px -6px 14px rgba(255, 255, 255, 0.85),
-    1px 1px 2px rgba(159, 133, 114, 0.1), -1px -1px 2px rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: inset 6px 6px 14px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 16%, transparent),
+    inset -6px -6px 14px
+      color-mix(in srgb, var(--palette-neutral-0) 85%, transparent),
+    1px 1px 2px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 10%, transparent),
+    -1px -1px 2px color-mix(in srgb, var(--palette-neutral-0) 40%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--palette-neutral-0) 60%, transparent);
   border-radius: 26px;
   padding: clamp(1.25rem, 2.5vw, 2rem);
   position: relative;
@@ -424,20 +446,29 @@
 
 .dark .neuro-card-inset-lite {
   background-color: var(--neu-card);
-  box-shadow: inset 6px 6px 14px rgba(0, 0, 0, 0.55),
-    inset -6px -6px 14px rgba(60, 54, 48, 0.55), 1px 1px 2px rgba(0, 0, 0, 0.35),
-    -2px -2px 4px rgba(80, 74, 68, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 6px 6px 14px
+      color-mix(in srgb, var(--palette-neutral-900) 55%, transparent),
+    inset -6px -6px 14px
+      color-mix(in srgb, var(--palette-shadow-charcoal) 55%, transparent),
+    1px 1px 2px color-mix(in srgb, var(--palette-neutral-900) 35%, transparent),
+    -2px -2px 4px
+      color-mix(in srgb, var(--palette-shadow-smoke) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--palette-neutral-0) 8%, transparent);
 }
 
 /* CTA Card variant with slightly elevated feel */
 .neuro-card-cta {
   background-color: var(--neu-card);
-  box-shadow: 24px 24px 52px rgba(159, 133, 114, 0.22),
-    -24px -24px 52px rgba(255, 255, 255, 0.96),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.65),
-    inset -2px -2px 6px rgba(211, 198, 189, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 24px 24px 52px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 22%, transparent),
+    -24px -24px 52px
+      color-mix(in srgb, var(--palette-neutral-0) 96%, transparent),
+    inset 2px 2px 6px
+      color-mix(in srgb, var(--palette-neutral-0) 65%, transparent),
+    inset -2px -2px 6px
+      color-mix(in srgb, var(--palette-warm-glow) 28%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--palette-neutral-0) 60%, transparent);
   border-radius: 44px;
   padding: clamp(2.25rem, 4.5vw, 3.25rem);
   position: relative;
@@ -445,103 +476,144 @@
 }
 
 .neuro-card-cta:hover {
-  box-shadow: 28px 28px 60px rgba(159, 133, 114, 0.26),
-    -28px -28px 60px rgba(255, 255, 255, 0.99),
-    inset 2px 2px 8px rgba(255, 255, 255, 0.7),
-    inset -2px -2px 8px rgba(211, 198, 189, 0.34);
+  box-shadow: 28px 28px 60px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 26%, transparent),
+    -28px -28px 60px
+      color-mix(in srgb, var(--palette-neutral-0) 99%, transparent),
+    inset 2px 2px 8px
+      color-mix(in srgb, var(--palette-neutral-0) 70%, transparent),
+    inset -2px -2px 8px
+      color-mix(in srgb, var(--palette-warm-glow) 34%, transparent);
 }
 
 .neuro-card-main:hover {
-  box-shadow: 26px 26px 58px rgba(159, 133, 114, 0.26),
-    -26px -26px 58px rgba(255, 255, 255, 0.98),
-    inset 2px 2px 8px rgba(255, 255, 255, 0.7),
-    inset -2px -2px 8px rgba(211, 198, 189, 0.34);
+  box-shadow: 26px 26px 58px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 26%, transparent),
+    -26px -26px 58px
+      color-mix(in srgb, var(--palette-neutral-0) 98%, transparent),
+    inset 2px 2px 8px
+      color-mix(in srgb, var(--palette-neutral-0) 70%, transparent),
+    inset -2px -2px 8px
+      color-mix(in srgb, var(--palette-warm-glow) 34%, transparent);
 }
 
 .neuro-card-secondary {
   background-color: var(--neu-card);
-  box-shadow: 14px 14px 34px rgba(159, 133, 114, 0.18),
-    -14px -14px 34px rgba(255, 255, 255, 0.92),
-    inset 1px 1px 4px rgba(255, 255, 255, 0.55);
-  color: #473b31;
+  box-shadow: 14px 14px 34px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 18%, transparent),
+    -14px -14px 34px
+      color-mix(in srgb, var(--palette-neutral-0) 92%, transparent),
+    inset 1px 1px 4px
+      color-mix(in srgb, var(--palette-neutral-0) 55%, transparent);
+  color: var(--palette-neu-ink-light);
   transition: box-shadow 0.3s ease;
 }
 
 .neuro-card-secondary:hover {
-  box-shadow: 18px 18px 40px rgba(159, 133, 114, 0.22),
-    -18px -18px 40px rgba(255, 255, 255, 0.97),
-    inset 1px 1px 5px rgba(255, 255, 255, 0.62);
+  box-shadow: 18px 18px 40px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 22%, transparent),
+    -18px -18px 40px
+      color-mix(in srgb, var(--palette-neutral-0) 97%, transparent),
+    inset 1px 1px 5px
+      color-mix(in srgb, var(--palette-neutral-0) 62%, transparent);
 }
 
 .neuro-card-floating {
   background-color: var(--neu-card);
-  box-shadow: 28px 28px 64px rgba(159, 133, 114, 0.24),
-    -28px -28px 64px rgba(255, 255, 255, 0.95),
-    inset 3px 3px 9px rgba(255, 255, 255, 0.6),
-    inset -3px -3px 9px rgba(211, 198, 189, 0.36);
-  color: #473b31;
+  box-shadow: 28px 28px 64px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 24%, transparent),
+    -28px -28px 64px
+      color-mix(in srgb, var(--palette-neutral-0) 95%, transparent),
+    inset 3px 3px 9px
+      color-mix(in srgb, var(--palette-neutral-0) 60%, transparent),
+    inset -3px -3px 9px
+      color-mix(in srgb, var(--palette-warm-glow) 36%, transparent);
+  color: var(--palette-neu-ink-light);
   transition: box-shadow 0.3s ease;
 }
 
 .neuro-card-floating:hover {
-  box-shadow: 32px 32px 70px rgba(159, 133, 114, 0.28),
-    -32px -32px 70px rgba(255, 255, 255, 0.99),
-    inset 3px 3px 11px rgba(255, 255, 255, 0.68),
-    inset -3px -3px 11px rgba(211, 198, 189, 0.42);
+  box-shadow: 32px 32px 70px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 28%, transparent),
+    -32px -32px 70px
+      color-mix(in srgb, var(--palette-neutral-0) 99%, transparent),
+    inset 3px 3px 11px
+      color-mix(in srgb, var(--palette-neutral-0) 68%, transparent),
+    inset -3px -3px 11px
+      color-mix(in srgb, var(--palette-warm-glow) 42%, transparent);
 }
 
 /* Button Styles */
 .neuro-button-primary {
   background-color: var(--neu-card);
-  box-shadow: 10px 10px 24px rgba(94, 73, 52, 0.22),
-    -8px -8px 20px rgba(255, 255, 255, 0.9),
-    inset 1px 1px 3px rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 10px 10px 24px
+      color-mix(in srgb, var(--palette-text-light-900) 22%, transparent),
+    -8px -8px 20px color-mix(in srgb, var(--palette-neutral-0) 90%, transparent),
+    inset 1px 1px 3px
+      color-mix(in srgb, var(--palette-neutral-0) 40%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--palette-neutral-0) 40%, transparent);
   transition: box-shadow 0.3s ease;
 }
 
 .neuro-button-primary:hover {
-  box-shadow: 26px 26px 58px rgba(159, 133, 114, 0.26),
-    -26px -26px 58px rgba(255, 255, 255, 0.98),
-    inset 2px 2px 8px rgba(255, 255, 255, 0.7),
-    inset -2px -2px 8px rgba(211, 198, 189, 0.34);
+  box-shadow: 26px 26px 58px
+      color-mix(in srgb, var(--palette-shadow-warm-soft) 26%, transparent),
+    -26px -26px 58px
+      color-mix(in srgb, var(--palette-neutral-0) 98%, transparent),
+    inset 2px 2px 8px
+      color-mix(in srgb, var(--palette-neutral-0) 70%, transparent),
+    inset -2px -2px 8px
+      color-mix(in srgb, var(--palette-warm-glow) 34%, transparent);
 }
 
 .neuro-button-primary:active {
-  box-shadow: inset 6px 6px 12px rgba(94, 73, 52, 0.28),
-    inset -3px -3px 8px rgba(255, 255, 255, 0.6);
+  box-shadow: inset 6px 6px 12px
+      color-mix(in srgb, var(--palette-text-light-900) 28%, transparent),
+    inset -3px -3px 8px
+      color-mix(in srgb, var(--palette-neutral-0) 60%, transparent);
 }
 
 /* Icon Styles */
 .neuro-icon-default {
   background-color: var(--neu-card);
-  box-shadow: 6px 6px 16px rgba(94, 73, 52, 0.2),
-    -6px -6px 16px rgba(255, 255, 255, 0.85),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 6px 6px 16px
+      color-mix(in srgb, var(--palette-text-light-900) 20%, transparent),
+    -6px -6px 16px color-mix(in srgb, var(--palette-neutral-0) 85%, transparent),
+    inset 1px 1px 2px
+      color-mix(in srgb, var(--palette-neutral-0) 50%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--palette-neutral-0) 45%, transparent);
   transition: box-shadow 0.3s ease;
 }
 
 .neuro-icon-default:hover {
-  box-shadow: 8px 8px 18px rgba(94, 73, 52, 0.26),
-    -8px -8px 18px rgba(255, 255, 255, 0.92),
-    inset 1px 1px 3px rgba(255, 255, 255, 0.6);
+  box-shadow: 8px 8px 18px
+      color-mix(in srgb, var(--palette-text-light-900) 26%, transparent),
+    -8px -8px 18px color-mix(in srgb, var(--palette-neutral-0) 92%, transparent),
+    inset 1px 1px 3px
+      color-mix(in srgb, var(--palette-neutral-0) 60%, transparent);
 }
 
 /* Input Styles */
 .neuro-input-default {
   background-color: var(--neu-card);
-  box-shadow: 8px 8px 18px rgba(94, 73, 52, 0.18),
-    -8px -8px 18px rgba(255, 255, 255, 0.9),
-    inset 1px 1px 3px rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: #473b31;
+  box-shadow: 8px 8px 18px
+      color-mix(in srgb, var(--palette-text-light-900) 18%, transparent),
+    -8px -8px 18px color-mix(in srgb, var(--palette-neutral-0) 90%, transparent),
+    inset 1px 1px 3px
+      color-mix(in srgb, var(--palette-neutral-0) 50%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--palette-neutral-0) 50%, transparent);
+  color: var(--palette-neu-ink-light);
   transition: box-shadow 0.3s ease;
 }
 
 .neuro-input-default:focus {
-  box-shadow: inset 4px 4px 8px rgba(94, 73, 52, 0.28),
-    inset -2px -2px 6px rgba(255, 255, 255, 0.7);
+  box-shadow: inset 4px 4px 8px
+      color-mix(in srgb, var(--palette-text-light-900) 28%, transparent),
+    inset -2px -2px 6px
+      color-mix(in srgb, var(--palette-neutral-0) 70%, transparent);
   outline: none;
 }
 
@@ -632,7 +704,7 @@
 }
 
 .secondaryLink::after {
-  content: "";
+  content: '';
   position: absolute;
   inset-inline: 0;
   bottom: -0.4rem;

@@ -5,36 +5,28 @@
   Applied automatically via prefers-color-scheme or data-theme="light".
 */
 
-:root {
-  /* Surface colors */
-  --color-surface-100: #f5f5f5;
-  --color-surface-200: color-mix(
-    in srgb,
-    var(--color-surface-100) 92%,
-    #fff 8%
-  );
+:root,
+[data-theme='light'] {
+  /* Palette bindings */
+  --color-surface-100: var(--palette-surface-light-0);
+  --color-surface-200: var(--palette-surface-light-100);
+  --color-surface-900: var(--palette-surface-dark-0);
 
-  /* Text colors */
-  --color-text-900: #5e4934;
-  --color-text-700: #75614c;
-  --color-text-500: #9f8572;
-  --color-text-300: rgba(94, 73, 52, 0.65);
+  --color-text-900: var(--palette-text-light-900);
+  --color-text-700: var(--palette-text-light-700);
+  --color-text-500: var(--palette-text-light-500);
+  --color-text-300: var(--palette-text-light-300);
 
-  /* Accent colors */
-  --color-accent-500: #b28e6c;
-  --color-accent-700: #886d52;
-  --color-accent-100: color-mix(
-    in srgb,
-    var(--color-accent-500) 82%,
-    var(--color-surface-100)
-  );
+  --color-accent-500: var(--palette-accent-500);
+  --color-accent-700: var(--palette-accent-700);
+  --color-accent-100: var(--palette-accent-100-light);
 
-  /* Border colors */
-  --color-border-soft: rgba(160, 160, 160, 0.25);
-  --color-border-strong: rgba(160, 160, 160, 0.4);
+  --color-danger-500: var(--palette-danger-500-light);
+  --color-danger-100: var(--palette-danger-100-light);
 
-  /* Overlay colors */
-  --color-overlay-scrim: rgba(0, 0, 0, 0.25);
+  --color-border-soft: var(--palette-border-soft-light);
+  --color-border-strong: var(--palette-border-strong-light);
+  --color-overlay-scrim: var(--palette-overlay-light);
 
   /* Semantic bindings */
   --background: var(--color-surface-100);
@@ -42,7 +34,7 @@
   --card: var(--color-surface-100);
   --card-foreground: var(--foreground);
   --primary: var(--color-accent-500);
-  --primary-foreground: #fdfbf8;
+  --primary-foreground: var(--palette-accent-foreground-light);
   --secondary: var(--card);
   --secondary-foreground: var(--color-accent-500);
   --muted: color-mix(in srgb, var(--color-accent-500) 24%, transparent);
@@ -50,7 +42,7 @@
   --accent: var(--primary);
   --accent-foreground: var(--primary-foreground);
   --destructive: var(--color-danger-500);
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: var(--palette-danger-foreground-light);
   --border: var(--color-border-soft);
   --ring: var(--color-accent-100);
 
@@ -114,9 +106,9 @@
   --sidebar: var(--card);
   --sidebar-foreground: var(--text-primary);
   --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: #fdfcfb;
-  --sidebar-accent: rgba(201, 168, 130, 0.18);
+  --sidebar-primary-foreground: var(--palette-sidebar-primary-foreground-light);
+  --sidebar-accent: var(--palette-sidebar-accent-light);
   --sidebar-accent-foreground: var(--text-secondary);
-  --sidebar-border: rgba(160, 160, 160, 0.2);
+  --sidebar-border: var(--palette-border-soft-light);
   --sidebar-ring: var(--ring);
 }

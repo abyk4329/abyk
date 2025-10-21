@@ -10,7 +10,7 @@
 - `HomePageClient.tsx` – קומפוננטת Client האחראית לאינטראקטיביות של דף הבית (שיתוף, ניווט, אייקונים).
 - `layout.tsx` – Root layout של Next.js: מגדיר `<html dir="rtl">`, בונה את שלד ה־App Shell, Side Menu ו־Header, ומייצא מטא־דאטה וסכמה של themeColor תוך שימוש ב־NavigationRoot.
 - `not-found.tsx` – עמוד 404 מותאם RTL עם קישורים נוומורפיים לחזרה למסע.
-- `page.module.css` – סגנונות עמוד הבית (מכילים כרטיס ההנעה לפעולה, כפתור שיתוף ואייקונים חברתיים בתצורת RTL).
+- ~~`page.module.css` – סגנונות עמוד הבית~~ (נמחק ב־2025-10-21 לאחר העברה ל־`design/themes/pages/home.css`).
 - `page.tsx` – עמוד Server שמרנדר את `HomePageClient` כדי לצמצם JS צד לקוח ולשמר SEO.
 - `app/styles/neumorphism.css` – קובץ עזר עם מחלקות Utilities נוומורפיות (raised/inset וכו') המשמש את רכיבי העיצוב במערכת.
 
@@ -54,7 +54,7 @@
 - ~~`CookieConsent.module.css`~~ – הוסר; הסגנונות זמינים ב־`design/themes/cookie-consent.css`.
 - `CookieConsent.tsx` – ספק/קומפוננטה לניהול הסכמה לקוקיז והצגת ה־UI המתאים.
 - `DrawerProvider.tsx` – Context Client לפתיחת/סגירת התפריט הצדדי במובייל.
-- `HeaderBar.module.css` – סגנונות פס הניווט העליון.
+- ~~`HeaderBar.module.css` – סגנונות פס הניווט העליון~~ (נמחק; הסגנונות קיימים ב־`design/themes/layout-header.css`).
 - `HeaderBar.tsx` – רכיב Client המשלב לוגו, כפתורי ניווט, וטריגר לתפריט.
 - ~~`NavigationButtons.module.css`~~ – הוסר יחד עם רכיב הניווט הישן.
 - ~~`NavigationButtons.tsx`~~ – הוסר כדי למנוע בלבול מול העיצוב הנוכחי.
@@ -101,7 +101,7 @@
 
 - `NeuButton.tsx` – קומפוננטת CTA זהובה מותאמת עם אנימציות ומצבי נוומורפיזם.
 - `README.md` – תיעוד קצר לפטרנים משותפים.
-- `ThemeToggle.module.css` – סגנונות מתג המעבר בין מצבי תאורה.
+- `ThemeToggle.module.css` – **נמחק**; הסגנונות זמינים ב-`design/themes/widgets/theme-toggle.css`.
 - `ThemeToggle.tsx` – קומפוננטת Client להחלפת theme (אור/חושך) תוך שימוש בטוקנים.
 - `icons.tsx` – אוסף אייקונים מותאמים/ממוחזרים.
 - `index.ts` – ייצוא מרוכז של רכיבי shared.

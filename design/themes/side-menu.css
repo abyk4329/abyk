@@ -6,7 +6,7 @@
 .sideMenuBackdrop {
   position: fixed;
   inset: 0;
-  background: var(--overlay-glass-scrim, rgba(0, 0, 0, 0.4));
+  background: var(--overlay-glass-scrim, var(--palette-overlay-dark));
   backdrop-filter: blur(var(--overlay-glass-blur, 22px));
   -webkit-backdrop-filter: blur(var(--overlay-glass-blur, 22px));
   box-shadow: inset 0 0 0 1px
@@ -144,7 +144,11 @@
 }
 
 .sideMenuRailAction[data-variant='accent'] {
-  background: color-mix(in srgb, var(--neu-accent) 88%, #ffffff 12%);
+  background: color-mix(
+    in srgb,
+    var(--neu-accent) 88%,
+    var(--palette-neutral-0) 12%
+  );
   color: var(--primary-foreground);
   box-shadow: var(--shadow-raised-emphasis);
 }
@@ -305,7 +309,7 @@
 
 .sideMenuNavAction:hover .sideMenuNavSurface,
 .sideMenuNavAction:focus-visible .sideMenuNavSurface {
-  background: color-mix(in srgb, var(--card) 88%, #ffffff 12%);
+  background: color-mix(in srgb, var(--card) 88%, var(--palette-neutral-0) 12%);
   box-shadow: var(--shadow-raised-hover);
   transform: translateY(var(--nav-surface-hover-translate, -2px));
 }

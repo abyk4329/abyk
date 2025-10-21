@@ -46,7 +46,7 @@
 ### D. Shared Sections / Pages
 
 - app/components/sections/TermsPrivacy.module.css → יעד: design/themes/sections/terms-privacy.css — הושלם 2025-10-21 (המודול נמחק; `TermsPrivacy.tsx` צורך מחלקות `terms-*`)
-- app/page.module.css → יעד: design/themes/pages/home.css (hero card/icon well/CTA)
+- app/page.module.css → יעד: design/themes/pages/home.css (hero card/icon well/CTA) — נמחק 2025-10-21 (כל הסגנונות מנוהלים בקובץ ה־theme)
 
 ### E. Funnels – Wealth Code
 
@@ -65,25 +65,25 @@
 
 ### G. Shared Widgets
 
-- app/components/shared/ThemeToggle.module.css → יעד: design/themes/widgets/theme-toggle.css
+- app/components/shared/ThemeToggle.module.css → יעד: design/themes/widgets/theme-toggle.css — נמחק 2025-10-21 (הסגנונות זמינים כעת במחלקות גלובליות בלבד)
 
 ## טבלת מעקב (מצב/פעולה)
 
-| מקור                                                | יעד מוצע                                 | פעולה                                                   | מצב        | הערות                                                                                                            |
-| --------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------- |
-| app/globals.css                                     | נשאר                                     | Verify imports only design/index.css + add reset import | Pending    | לאחד resets וטוקנים גלובליים                                                                                     |
-| app/reset.css                                       | נשאר                                     | Import דרך globals.css                                  | Pending    | שמירת סדר האיפוס                                                                                                 |
-| app/tokens.css                                      | design/tokens/\*                         | Already moved; mark Deprecated                          | Deprecated | כותרת DEPRECATED נוספה                                                                                           |
-| app/components/neu/neumorphic-shadows.css           | design/themes/neumorphic.css             | Replace; mark Deprecated                                | Deprecated | כותרת DEPRECATED נוספה                                                                                           |
-| app/components/neu/Button.module.css                | design/themes/components/button.css      | Extract shared classes; keep module hooks               | Done       | המודול הוסר; Button.tsx נסמך על מחלקות `.btn-*`                                                                  |
-| app/components/neu/IconButton.module.css            | design/themes/components/icon-button.css | Extract shared                                          | Done       | המודול הוסר; IconButton.tsx משתמש במחלקות `icon-button-*`                                                        |
-| app/components/layout/\*                            | design/themes/layout-\*.css              | Consolidate utilities                                   | Prep       | Placeholders נוצרו, טרם חיבור צרכנים                                                                             |
-| app/components/layout/StandardPageLayout.module.css | design/themes/layout-standard-page.css   | Extract shared spacing vars + container/content         | Partial    | overlay: standardPageContainer/standardPageContent; הקובץ סומן Deprecated (Partial)                              |
-| app/page.module.css                                 | design/themes/pages/home.css             | Port hero patterns                                      | Partial    | overlay: heroCard/homeShareCard + headline; הקובץ סומן Deprecated (Partial); הוספו homePageShell/homeContentRoot |
-| app/components/layout/HeaderBar.module.css          | design/themes/layout-header.css          | Extract header patterns + overlay                       | Partial    | overlay: appHeaderBar/appHeaderInner/appHeaderOnlyControls/appHeaderTrigger/appHeaderCircle                      |
-| app/components/sections/TermsPrivacy.module.css     | design/themes/sections/terms-privacy.css | Port inset                                              | Done       | המודול הוסר; TermsPrivacy.tsx משתמש במחלקות `.terms-*`                                                           |
-| wealth-code/\*.module.css                           | design/themes/wealth-code/\*.css         | Extract common, keep feature specifics                  | Pending    | להימנע משבירת בידוד                                                                                              |
-| app/components/shared/ThemeToggle.module.css        | design/themes/widgets/theme-toggle.css   | Port                                                    | Pending    | נגישות ופוקוס                                                                                                    |
+| מקור                                                | יעד מוצע                                 | פעולה                                                   | מצב        | הערות                                                                               |
+| --------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------- |
+| app/globals.css                                     | נשאר                                     | Verify imports only design/index.css + add reset import | Pending    | לאחד resets וטוקנים גלובליים                                                        |
+| app/reset.css                                       | נשאר                                     | Import דרך globals.css                                  | Pending    | שמירת סדר האיפוס                                                                    |
+| app/tokens.css                                      | design/tokens/\*                         | Already moved; mark Deprecated                          | Deprecated | כותרת DEPRECATED נוספה                                                              |
+| app/components/neu/neumorphic-shadows.css           | design/themes/neumorphic.css             | Replace; mark Deprecated                                | Deprecated | כותרת DEPRECATED נוספה                                                              |
+| app/components/neu/Button.module.css                | design/themes/components/button.css      | Extract shared classes; keep module hooks               | Done       | המודול הוסר; Button.tsx נסמך על מחלקות `.btn-*`                                     |
+| app/components/neu/IconButton.module.css            | design/themes/components/icon-button.css | Extract shared                                          | Done       | המודול הוסר; IconButton.tsx משתמש במחלקות `icon-button-*`                           |
+| app/components/layout/\*                            | design/themes/layout-\*.css              | Consolidate utilities                                   | Prep       | Placeholders נוצרו, טרם חיבור צרכנים                                                |
+| app/components/layout/StandardPageLayout.module.css | design/themes/layout-standard-page.css   | Extract shared spacing vars + container/content         | Partial    | overlay: standardPageContainer/standardPageContent; הקובץ סומן Deprecated (Partial) |
+| app/page.module.css                                 | design/themes/pages/home.css             | Port hero patterns                                      | Removed    | נמחק 2025-10-21; כל מחלקות hero/share זמינות ב־`design/themes/pages/home.css`       |
+| app/components/layout/HeaderBar.module.css          | design/themes/layout-header.css          | Extract header patterns + overlay                       | Removed    | נמחק 2025-10-21; כל המחלקות קיימות ב־`design/themes/layout-header.css`              |
+| app/components/sections/TermsPrivacy.module.css     | design/themes/sections/terms-privacy.css | Port inset                                              | Done       | המודול הוסר; TermsPrivacy.tsx משתמש במחלקות `.terms-*`                              |
+| wealth-code/\*.module.css                           | design/themes/wealth-code/\*.css         | Extract common, keep feature specifics                  | Pending    | להימנע משבירת בידוד                                                                 |
+| app/components/shared/ThemeToggle.module.css        | design/themes/widgets/theme-toggle.css   | Port                                                    | Removed    | 2025-10-21: הקובץ נמחק לאחר וידוא; ThemeToggle.tsx משתמש במחלקות הגלובליות          |
 
 ## כללי סימון כלא פעיל (Deprecated)
 
@@ -102,7 +102,7 @@
 ## צעדים מיידיים (Sprint)
 
 1. להוסיף `@import './reset.css'` ב־`app/globals.css` (אם טרם קיים) – יישור איפוסים.
-2. להעביר מחלקות כלליות מ־`page.module.css` ל־`design/themes/pages/home.css` ולהשאיר ב־module רק מיקומים ייחודיים.
+2. ✅ הסתיים – `page.module.css` נמחק והמחלקות זמינות רק ב־`design/themes/pages/home.css`.
 3. לאחד לחצני ניווט/כפתורים תחת `design/themes/components/*.css` ולהישען על 3 סוגי הכפתורים המוגדרים.
 4. לסמן כ־Deprecated את הקבצים שהועברו; לעדכן מסמך זה במצב "Migrated".
 
