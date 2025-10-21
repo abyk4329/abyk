@@ -1,4 +1,9 @@
 /* Design System Index */
+
+/* Base Reset */
+@import './base/reset.css';
+
+/* Tokens */
 @import './tokens/colors.css';
 @import './tokens/typography.css';
 @import './tokens/spacing.css';
@@ -39,4 +44,3 @@
 
 /* Utilities */
 @import './utils/helpers.css';
-@import './utils/transitions.css';

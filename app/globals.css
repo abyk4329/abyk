@@ -8,9 +8,6 @@
   All design tokens are managed in the design/ directory.
 */
 
-/* Import modern base reset (unified baseline before tokens/themes) */
-@import './reset.css';
-
 /* Import Design System - Single source of truth for tokens/themes/utilities */
 @import '../design/index.css';
 
