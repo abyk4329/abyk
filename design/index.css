@@ -1,52 +1,37 @@
-/*
-  Design System Index
-  ------------------
-  Unified entry point for the entire design system.
-  Import this file once in your app to get all tokens, themes, and utilities.
-*/
-
-/* Core tokens - foundation of the design system */
+/* Design System Index */
 @import './tokens/tokens.css';
 @import './tokens/typography.css';
 @import './tokens/shadows.css';
 @import './tokens/animations.css';
 
-/* Theme variants */
+/* Core themes */
 @import './themes/light.css';
 @import './themes/dark.css';
+
+/* Components & Pages */
+@import './themes/components/button.css';
+@import './themes/components/icon-button.css';
+@import './themes/pages/home.css';
+@import './themes/auth/login-page.css';
+@import './themes/cookie-consent.css';
+@import './themes/sections/terms-privacy.css';
+@import './themes/wealth-code/birthdate-picker.css';
+@import './themes/wealth-code/calculator.css';
+@import './themes/wealth-code/interpretations.css';
+@import './themes/wealth-code/result.css';
+@import './themes/wealth-code/sales.css';
+@import './themes/wealth-code/thank-you.css';
+@import './themes/wealth-code/code-inset.css';
+
+/* Shared Layouts */
+@import './themes/layout-header.css';
+@import './themes/layout-shell.css';
+@import './themes/layout-standard-page.css';
+@import './themes/side-menu.css';
+
+/* Neumorphic System */
 @import './themes/neumorphic.css';
 
-/* Utility classes and helpers */
+/* Utilities */
 @import './utils/helpers.css';
 @import './utils/transitions.css';
-
-/* Automatic theme switching based on user preference */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Import dark theme automatically */
-    --theme-mode: 'dark';
-  }
-}
-
-/* Manual theme override */
-[data-theme="dark"] {
-  --theme-mode: 'dark';
-}
-
-[data-theme="light"] {
-  --theme-mode: 'light';
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  :root {
-    --contrast-mode: 'high';
-  }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --motion-preference: 'reduced';
-  }
-}

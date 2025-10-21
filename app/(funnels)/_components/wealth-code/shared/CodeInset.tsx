@@ -1,7 +1,5 @@
 'use client';
 
-import styles from './CodeInset.module.css';
-
 interface CodeInsetProps {
   code: string;
   size?: 'lg' | 'xl';
@@ -9,18 +7,18 @@ interface CodeInsetProps {
 }
 
 export function CodeInset({ code, size = 'xl', className }: CodeInsetProps) {
-  const rootClassName = [styles.codeInsetWrapper, className]
+  const rootClassName = ['wealthCodeInsetWrapper', className]
     .filter(Boolean)
     .join(' ');
   const innerClassName = [
-    styles.codeInsetInner,
-    size === 'xl' ? styles.sizeXl : styles.sizeLg,
+    'wealthCodeInset',
+    size === 'xl' ? 'wealthCodeInsetSizeXl' : 'wealthCodeInsetSizeLg',
   ].join(' ');
 
   return (
     <div className={rootClassName}>
       <div className={innerClassName}>
-        <span className={styles.code}>{code}</span>
+        <span className="wealthCodeInsetCode">{code}</span>
       </div>
     </div>
   );

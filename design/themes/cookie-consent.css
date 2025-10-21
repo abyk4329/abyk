@@ -1,0 +1,430 @@
+/* Layout Theme: Cookie Consent (shared semantics)
+  Source: app/components/layout/CookieConsent.tsx
+    Notes: tokens-only, RTL-safe, no hard-coded colors.
+*/
+
+/* Banner overlay */
+.cookieBannerOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cookie, 110);
+  background: var(
+    --overlay-glass-scrim,
+    var(--overlay-scrim, rgba(0, 0, 0, 0.28))
+  );
+  backdrop-filter: blur(var(--overlay-glass-blur, 22px));
+  -webkit-backdrop-filter: blur(var(--overlay-glass-blur, 22px));
+}
+
+.cookieBannerContainer {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-cookie, 110) + 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--card-padding-base);
+}
+
+/* Top banner variant wrapper (non-home) */
+.cookieTopBannerWrapper {
+  width: 100%;
+  pointer-events: none;
+}
+
+.cookieTopBannerWrapper .cookieCard {
+  pointer-events: auto;
+}
+
+.cookieBannerInner {
+  width: 100%;
+  max-width: 64rem; /* ~max-w-4xl */
+}
+
+/* Home overlay variant (full screen scrim) */
+.cookieHomeOverlay {
+  pointer-events: auto;
+  padding-inline-start: max(
+    env(safe-area-inset-left),
+    var(--card-padding-base)
+  );
+  padding-inline-end: max(env(safe-area-inset-right), var(--card-padding-base));
+  padding-top: max(env(safe-area-inset-top), var(--space-5));
+  padding-bottom: max(env(safe-area-inset-bottom), var(--space-5));
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cookieHomeOverlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-glass-scrim, transparent);
+  backdrop-filter: blur(var(--overlay-glass-blur, 22px));
+  -webkit-backdrop-filter: blur(var(--overlay-glass-blur, 22px));
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cookieHomeOverlay .cookieCard {
+  position: relative;
+  z-index: 1;
+}
+
+/* Card base */
+.cookieCard {
+  --cookie-card-radius: clamp(1.5rem, 5vw, 2rem);
+  position: relative;
+  pointer-events: auto;
+  background-color: var(--neu-card);
+  border: 1px solid var(--neu-card);
+  box-shadow: var(--shadow-overlay-sm);
+  border-radius: var(--cookie-card-radius);
+  font-family: var(
+    --font-assistant,
+    'Assistant',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif
+  );
+}
+
+.cookieBannerCard {
+  padding: var(--card-padding-base);
+}
+
+.cookieBannerClose {
+  position: absolute;
+  inset-block-start: 1rem;
+  inset-inline-start: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-raised);
+}
+
+.cookieBannerClose:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.cookieBannerClose:focus-visible {
+  outline: 2px solid
+    color-mix(in srgb, var(--neu-text-secondary) 40%, transparent);
+  outline-offset: 3px;
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.cookieBannerCloseIcon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--neu-text-secondary);
+}
+
+.cookieBannerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--card-text-gap);
+  width: 100%;
+}
+
+.cookieBannerRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-text-gap);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-inline-end: 0;
+  margin-bottom: var(--card-text-gap);
+  text-align: center;
+}
+
+.cookieBannerIconWell {
+  width: var(--icon-well-secondary-size);
+  height: var(--icon-well-secondary-size);
+  border-radius: var(--icon-well-radius-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset);
+}
+
+.cookieBannerIcon {
+  width: calc(
+    var(--icon-well-secondary-size) *
+      var(--icon-well-icon-scale-secondary, var(--icon-well-icon-scale))
+  );
+  height: calc(
+    var(--icon-well-secondary-size) *
+      var(--icon-well-icon-scale-secondary, var(--icon-well-icon-scale))
+  );
+  color: var(--neu-accent);
+}
+
+.cookieBannerTextWrap {
+  flex: 1 1 min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--heading-paragraph-gap);
+}
+
+.cookieBannerText {
+  color: var(--paragraph-color);
+  font-weight: 500;
+  font-size: var(--paragraph-base-size);
+  line-height: var(--paragraph-base-line-height);
+  letter-spacing: 0.02em;
+  margin: 0;
+  text-align: center;
+}
+
+.cookiePrimaryButton {
+  flex-shrink: 0;
+  align-self: center;
+  transition: transform 0.3s ease;
+}
+
+.cookiePrimaryButton:hover {
+  transform: scale(1.02);
+}
+
+.cookiePrimaryButton:active {
+  transform: scale(0.98);
+}
+
+.cookieBannerLink {
+  color: var(--neu-text-secondary);
+  font-weight: 400;
+  font-size: clamp(0.875rem, 2vw, 0.9375rem);
+  letter-spacing: 0.02em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: transform 0.2s ease;
+}
+
+.cookieBannerLink:hover {
+  transform: scale(1.02);
+}
+
+/* Modal */
+.cookieModalPortal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cookie, 110);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.cookieModalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: var(
+    --overlay-glass-scrim,
+    var(--overlay-scrim, rgba(0, 0, 0, 0.28))
+  );
+  backdrop-filter: blur(var(--overlay-glass-blur, 22px));
+  -webkit-backdrop-filter: blur(var(--overlay-glass-blur, 22px));
+  pointer-events: auto;
+}
+
+.cookieModal {
+  pointer-events: auto;
+  position: relative;
+  width: min(92%, 560px);
+  margin: 0 1rem;
+  border-radius: var(--button-radius);
+  background-color: var(--neu-card);
+  border: 1px solid var(--neu-card);
+  box-shadow: var(--shadow-overlay);
+  padding: var(--card-padding-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-text-gap);
+  font-family: var(
+    --font-assistant,
+    'Assistant',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif
+  );
+}
+
+.cookieModalHeader {
+  text-align: center;
+}
+
+.cookieModalHeader h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.35rem);
+  color: var(--neu-text-primary);
+  letter-spacing: 0.05em;
+}
+
+.cookieModalHeader p {
+  margin: 0;
+  font-size: var(--paragraph-base-size);
+  color: var(--paragraph-color);
+  line-height: var(--paragraph-base-line-height);
+}
+
+.cookieTitle {
+  color: var(--neu-text-secondary);
+  text-shadow: var(--lift-text-shadow);
+}
+
+.cookieCategoryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-text-gap);
+}
+
+.cookieCategoryItem {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--card-text-gap);
+  padding: var(--card-padding-base);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset);
+  cursor: pointer;
+  min-height: 116px;
+}
+
+.cookieCategoryItem > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--heading-paragraph-gap);
+}
+
+.cookieCategoryItem:hover,
+.cookieCategoryItem:focus-within {
+  box-shadow: var(--shadow-inset-hover);
+}
+
+/* Non-interactive badge for locked (essential) category */
+.cookieLockBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.75rem;
+  border-radius: var(--button-radius);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset);
+  color: var(--neu-text-secondary);
+  font-weight: 700;
+  font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+  letter-spacing: 0.06em;
+}
+
+.cookieCategoryTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--neu-text-primary);
+  letter-spacing: 0.05em;
+}
+
+.cookieCategoryDescription {
+  margin: 0;
+  font-size: var(--paragraph-base-size);
+  color: var(--paragraph-color);
+  line-height: var(--paragraph-base-line-height);
+}
+
+.cookieToggle {
+  appearance: none;
+  width: 3.4rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  background-color: var(--neu-card);
+  position: relative;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+}
+
+.cookieToggle::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 0.22rem;
+  inset-inline-end: 0.28rem;
+  width: 1.38rem;
+  height: 1.38rem;
+  border-radius: 50%;
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-raised);
+  transition: transform 0.2s ease;
+}
+
+.cookieToggle:checked {
+  background-color: var(--neu-accent);
+}
+
+.cookieToggle:checked::after {
+  transform: translateX(-1.55rem);
+}
+
+.cookieToggle:focus-visible {
+  outline: 2px solid
+    color-mix(in srgb, var(--neu-text-secondary) 40%, transparent);
+  outline-offset: 3px;
+}
+
+.cookieModalActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--button-gap);
+}
+
+.cookieSaveButton {
+  width: 100%;
+}
+
+.cookieRejectButton,
+.cookieCloseButton {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .cookieModalActions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .cookieSaveButton {
+    width: auto;
+  }
+  .cookieRejectButton,
+  .cookieCloseButton {
+    width: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .cookieBannerCard,
+  .cookieCategoryItem,
+  .cookieModal {
+    padding: var(--card-padding-desktop);
+  }
+}

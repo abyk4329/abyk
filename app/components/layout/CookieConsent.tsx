@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/neu';
 import { ICON_STROKE, WEALTH_BASE } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 import { Cookie } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -16,8 +17,6 @@ import {
   useRef,
   useState,
 } from 'react';
-
-import styles from './CookieConsent.module.css';
 
 const STORAGE_KEY = 'cookieConsent:v2';
 const LEGACY_KEY = 'abyk-cookie-consent';
@@ -555,31 +554,35 @@ function ConsentBanner() {
   return (
     <>
       <div
-        className={styles.bannerOverlay}
+        className="cookieBannerOverlay"
         data-modal-backdrop="true"
         aria-hidden="true"
         onClick={rejectAll}
       />
 
       <div
-        className={styles.bannerContainer}
+        className={cn(
+          'cookieBannerContainer',
+          isHomePath ? 'cookieHomeOverlay' : 'cookieTopBannerWrapper'
+        )}
         data-modal="true"
         aria-live="polite"
         role="dialog"
         aria-label="הודעת שימוש בקוקיז"
         aria-modal="true"
       >
-        <div className={styles.bannerInner}>
-          <div className={`${styles.card} ${styles.bannerCard}`}>
+        <div className="cookieBannerInner">
+          <div className="cookieCard cookieBannerCard">
             {/* Close Button */}
             <button
+              type="button"
               onClick={rejectAll}
-              className={styles.bannerClose}
+              className="cookieBannerClose"
               aria-label="סגור"
             >
               <svg
                 strokeWidth={ICON_STROKE.default}
-                className={styles.bannerCloseIcon}
+                className="cookieBannerCloseIcon"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -593,20 +596,20 @@ function ConsentBanner() {
               </svg>
             </button>
 
-            <div className={styles.bannerContentWrapper}>
-              <div className={styles.bannerRow}>
+            <div className="cookieBannerContent">
+              <div className="cookieBannerRow">
                 {/* Icon */}
-                <div className={styles.bannerIconBox}>
+                <div className="cookieBannerIconWell">
                   <Cookie
                     aria-hidden="true"
                     strokeWidth={0.8}
-                    className={styles.bannerIcon}
+                    className="cookieBannerIcon"
                   />
                 </div>
 
                 {/* Text Content */}
-                <div className={styles.bannerTextWrap}>
-                  <p className={styles.bannerText}>
+                <div className="cookieBannerTextWrap">
+                  <p className="cookieBannerText">
                     אני משתמשת בקוקיז כדי לשפר את חווית הגלישה שלכם. המשך גלישה
                     באתר מהווה הסכמה לשימוש בקוקיז.
                   </p>
@@ -614,16 +617,17 @@ function ConsentBanner() {
 
                 {/* Accept Button - Primary Style */}
                 <Button
+                  type="button"
                   onClick={acceptAll}
                   variant="primary"
-                  className={styles.acceptButton}
+                  className="cookiePrimaryButton"
                 >
                   הבנתי
                 </Button>
               </div>
 
               {/* Privacy Link */}
-              <Link href="/terms" className={styles.bannerLink}>
+              <Link href="/terms" className="btn btn-link cookieBannerLink">
                 תנאי שימוש ומדיניות פרטיות
               </Link>
             </div>
@@ -736,9 +740,9 @@ function CookieSettingsModal() {
   }
 
   return (
-    <div className={styles.modalPortal} role="presentation">
+    <div className="cookieModalPortal" role="presentation">
       <div
-        className={styles.backdrop}
+        className="cookieModalBackdrop"
         data-modal-backdrop="true"
         aria-hidden="true"
         onClick={closeSettings}
@@ -749,44 +753,42 @@ function CookieSettingsModal() {
         aria-labelledby="cookie-settings-title"
         aria-describedby="cookie-settings-description"
         data-modal="true"
-        className={styles.modal}
+        className="cookieModal"
         ref={modalRef}
       >
-        <div className={styles.modalHeader}>
-          <h2 id="cookie-settings-title">העדפות הקוקיז שלכם</h2>
+        <div className="cookieModalHeader">
+          <h2 id="cookie-settings-title" className="cookieTitle">
+            העדפות הקוקיז שלכם
+          </h2>
           <p id="cookie-settings-description">
             בחרו אילו סוגי קובצי קוקיז תרצו שאפעיל עבורכם. את הקוקיז החיוניים
             אני משאירה פעילים תמיד כדי שהאתר יעבוד כמו שצריך.
           </p>
         </div>
-        <div className={styles.categoryList}>
-          <div
-            className={[styles.cookieCategoryItem, styles.categoryLocked].join(
-              ' '
-            )}
-          >
+        <div className="cookieCategoryList">
+          <div className="cookieCategoryItem">
             <div>
-              <span className={styles.categoryTitle}>חיוניים</span>
-              <p className={styles.categoryDescription}>
+              <span className="cookieCategoryTitle">חיוניים</span>
+              <p className="cookieCategoryDescription">
                 דרושים לפעילות בסיסית של האתר ואינם ניתנים לכיבוי.
               </p>
             </div>
-            <span className={styles.lockBadge}>תמיד פעיל</span>
+            <span className="cookieLockBadge">תמיד פעיל</span>
           </div>
           {Object.entries(CATEGORY_CONTENT).map(([key, value]) => {
             const categoryKey = key as NonEssentialCategory;
             const isChecked = draft[categoryKey];
             return (
-              <label key={categoryKey} className={styles.cookieCategoryItem}>
+              <label key={categoryKey} className="cookieCategoryItem">
                 <div>
-                  <span className={styles.categoryTitle}>{value.title}</span>
-                  <p className={styles.categoryDescription}>
+                  <span className="cookieCategoryTitle">{value.title}</span>
+                  <p className="cookieCategoryDescription">
                     {value.description}
                   </p>
                 </div>
                 <input
                   type="checkbox"
-                  className={styles.toggle}
+                  className="cookieToggle"
                   checked={isChecked}
                   onChange={() => handleToggle(categoryKey)}
                 />
@@ -794,21 +796,25 @@ function CookieSettingsModal() {
             );
           })}
         </div>
-        <div className={styles.modalActions}>
-          <Button onClick={handleSave} className={styles.saveButton}>
+        <div className="cookieModalActions">
+          <Button
+            type="button"
+            onClick={handleSave}
+            className="cookieSaveButton"
+          >
             שמור העדפות
           </Button>
           <button
             type="button"
             onClick={rejectAll}
-            className={styles.rejectButton}
+            className="btn btn-variant-secondary cookieRejectButton"
           >
             לא מאשר/ת
           </button>
           <button
             type="button"
             onClick={closeSettings}
-            className={styles.closeButton}
+            className="btn btn-link cookieCloseButton"
           >
             ביטול
           </button>

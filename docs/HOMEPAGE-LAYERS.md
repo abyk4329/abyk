@@ -8,17 +8,17 @@
 
 ## טוקנים גלובליים רלוונטיים
 
-| שם טוקן                                                                                            | מקור                                                            | שימוש מרכזי                          |
-| -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------ |
-| `--card-stack-gap`, `--card-padding-base`, `--card-padding-desktop`                                | `app/globals.css`                                               | מרווחים פנימיים לכרטיסים בעמוד הבית  |
-| `--button-padding-inline`, `--button-padding-block`, `--button-height`                             | `app/globals.css`                                               | כל הכפתורים, כולל תפריט הצד וה־CTA   |
-| `--secondary-card-max-width`, `--secondary-card-width`                                             | `app/globals.css`                                               | רוחב מקסימלי/אפקטיבי לכרטיסים משניים |
-| `--card-notch-size`, `--card-notch-size-sm`, `--card-notch-radius`                                 | `app/globals.css`                                               | ממדי השקע לאייקונים מעל כותרות       |
-| `--card-icon-lg-size`, `--card-icon-lg-radius`, `--card-icon-sm-size`, `--card-icon-sm-radius`     | `app/globals.css`                                               | ואריאציות גדלים לשימוש ברכיבים שונים |
-| `--neu-card`                                                                                       | `app/globals.css`                                               | צבע רקע לכרטיסי נאומורפיה            |
-| `--shadow-raised`, `--shadow-raised-strong`, `--shadow-raised-emphasis`, `--shadow-inset-strong`   | `app/globals.css` + `design/tokens/shadows.css` + `design/themes/neumorphic.css` | צללות נאומורפיות |
-| `--neu-gold-signature`, `--neu-accent`, `--neu-accent-dark`, `--neu-accent-light`                  | `design/tokens/tokens.css` (מיובא דרך `design/index.css`)       | צבעי זהב לעיטור, כפתורים ואייקונים   |
-| `--heading-h1-size`, `--paragraph-base-size`, `--heading-paragraph-gap`, `--heading-subtitle-size` | `app/globals.css`                                               | טיפוגרפיה בעמוד הבית והכרטיס המשני   |
+| שם טוקן                                                                                            | מקור                                                                             | שימוש מרכזי                          |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------ |
+| `--card-stack-gap`, `--card-padding-base`, `--card-padding-desktop`                                | `app/globals.css`                                                                | מרווחים פנימיים לכרטיסים בעמוד הבית  |
+| `--button-padding-inline`, `--button-padding-block`, `--button-height`                             | `app/globals.css`                                                                | כל הכפתורים, כולל תפריט הצד וה־CTA   |
+| `--secondary-card-max-width`, `--secondary-card-width`                                             | `app/globals.css`                                                                | רוחב מקסימלי/אפקטיבי לכרטיסים משניים |
+| `--card-notch-size`, `--card-notch-size-sm`, `--card-notch-radius`                                 | `app/globals.css`                                                                | ממדי השקע לאייקונים מעל כותרות       |
+| `--card-icon-lg-size`, `--card-icon-lg-radius`, `--card-icon-sm-size`, `--card-icon-sm-radius`     | `app/globals.css`                                                                | ואריאציות גדלים לשימוש ברכיבים שונים |
+| `--neu-card`                                                                                       | `app/globals.css`                                                                | צבע רקע לכרטיסי נאומורפיה            |
+| `--shadow-raised`, `--shadow-raised-strong`, `--shadow-raised-emphasis`, `--shadow-inset-strong`   | `app/globals.css` + `design/tokens/shadows.css` + `design/themes/neumorphic.css` | צללות נאומורפיות                     |
+| `--neu-gold-signature`, `--neu-accent`, `--neu-accent-dark`, `--neu-accent-light`                  | `design/tokens/tokens.css` (מיובא דרך `design/index.css`)                        | צבעי זהב לעיטור, כפתורים ואייקונים   |
+| `--heading-h1-size`, `--paragraph-base-size`, `--heading-paragraph-gap`, `--heading-subtitle-size` | `app/globals.css`                                                                | טיפוגרפיה בעמוד הבית והכרטיס המשני   |
 
 ## עמוד הבית (`app/HomePageClient.tsx`, `app/page.module.css`)
 
@@ -63,7 +63,7 @@
 - הכפתורים משתמשים באותם פדינגים של `--button-padding-inline/block`, שהוגדרו לאחרונה לערך קבוע.
 - טיפוגרפיית הכרטיס המשני (`--heading-subtitle-size`) מתרחבת באופן רספונסיבי באמצעות `clamp` כדי להתאים למסכים גדולים.
 
-## תפריט הצד (`app/components/layout/SideMenu.tsx`, `SideMenu.module.css`)
+## תפריט הצד (`app/components/layout/SideMenu.tsx`, `design/themes/side-menu.css`)
 
 ### מעטפת חיצונית
 

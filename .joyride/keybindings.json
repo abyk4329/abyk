@@ -14,8 +14,38 @@
     "command": "joyride.runWorkspaceScript"
   },
   {
+    "key": "cmd+option+j p",
+    "command": "joyride.runWorkspaceScript",
+    "args": "scripts/pnpm_tasks.cljs"
+  },
+  {
+    "key": "cmd+option+j g",
+    "command": "joyride.runWorkspaceScript",
+    "args": "scripts/git_changes_flare.cljs"
+  },
+  {
+    "key": "cmd+option+j s",
+    "command": "joyride.runWorkspaceScript",
+    "args": "scripts/sidebar_status_flare.cljs"
+  },
+  {
+    "key": "cmd+option+j l",
+    "command": "joyride.runWorkspaceScript",
+    "args": "scripts/live_preview_flare.cljs"
+  },
+  {
+    "key": "cmd+option+j f",
+    "command": "joyride.runWorkspaceScript",
+    "args": "scripts/flare.cljs"
+  },
+  {
     "key": "shift+cmd+option+j d",
     "command": "joyride.runWorkspaceScript",
     "args": "maintenance/find-css-duplicates.js"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "joyride.runWorkspaceScript",
+    "args": "scripts/flare.cljs"
   }
 ]

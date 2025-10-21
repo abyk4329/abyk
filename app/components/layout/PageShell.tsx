@@ -7,22 +7,21 @@ import type {
 import { Children } from 'react';
 
 import { cn } from '@/lib/utils';
-import styles from './PageShell.module.css';
 
 type HeaderAlign = 'center' | 'start';
 /**
- * Keep width map in sync with PageShell.module.css
+ * Keep width map in sync with the utility classes in design/themes/layout-shell.css.
  */
 type MaxWidth = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
 type ContentSpacing = 'default' | 'tight';
 
 const MAX_WIDTH_CLASS: Record<MaxWidth, string> = {
-  full: styles.shellMaxFull,
-  lg: styles.shellMaxLg,
-  md: styles.shellMaxMd,
-  sm: styles.shellMaxSm,
-  xl: styles.shellMaxXl,
+  full: 'shellMaxFull',
+  lg: 'shellMaxLg',
+  md: 'shellMaxMd',
+  sm: 'shellMaxSm',
+  xl: 'shellMaxXl',
 };
 
 export type PageShellBaseProps = {
@@ -74,13 +73,13 @@ export function PageShell<E extends ElementType = 'section'>({
   const isSingleChild = childArray.length === 1;
 
   const headerAlignmentClass =
-    headerAlign === 'start' ? styles.shellHeaderStart : undefined;
+    headerAlign === 'start' ? 'shellHeaderStart' : undefined;
   const actionsAlignmentClass =
-    headerAlign === 'start' ? styles.shellActionsStart : undefined;
+    headerAlign === 'start' ? 'shellActionsStart' : undefined;
   const contentAlignmentClass =
-    headerAlign === 'start' ? styles.shellContentStart : undefined;
+    headerAlign === 'start' ? 'shellContentStart' : undefined;
   const spacingClass =
-    contentSpacing === 'tight' ? styles.shellContentTight : undefined;
+    contentSpacing === 'tight' ? 'shellContentTight' : undefined;
 
   const styleVars: CSSProperties = {
     ...(padX ? ({ ['--shell-pad-x' as any]: padX } as CSSProperties) : null),
@@ -90,7 +89,7 @@ export function PageShell<E extends ElementType = 'section'>({
 
   return (
     <Component
-      className={cn(styles.pageShell, className)}
+      className={cn('pageShell', className)}
       data-header-align={headerAlign}
       data-content-spacing={contentSpacing}
       data-max-width={maxWidth}
@@ -98,28 +97,24 @@ export function PageShell<E extends ElementType = 'section'>({
       {...(rest as Record<string, unknown>)}
       style={styleVars}
     >
-      <div className={cn(styles.shellInner, MAX_WIDTH_CLASS[maxWidth])}>
+      <div className={cn('shellInner', MAX_WIDTH_CLASS[maxWidth])}>
         {heading || subtitle || leading || actions ? (
-          <header className={cn(styles.shellHeader, headerAlignmentClass)}>
-            {leading ? (
-              <div className={styles.shellLeading}>{leading}</div>
-            ) : null}
+          <header className={cn('shellHeader', headerAlignmentClass)}>
+            {leading ? <div className="shellLeading">{leading}</div> : null}
 
             {heading ? (
-              <h1 className={styles.shellTitle}>
+              <h1 className="shellTitle">
                 {heading}
                 {accent ? (
-                  <span className={styles.shellTitleAccent}> {accent}</span>
+                  <span className="shellTitleAccent"> {accent}</span>
                 ) : null}
               </h1>
             ) : null}
 
-            {subtitle ? (
-              <p className={styles.shellSubtitle}>{subtitle}</p>
-            ) : null}
+            {subtitle ? <p className="shellSubtitle">{subtitle}</p> : null}
 
             {actions ? (
-              <div className={cn(styles.shellActions, actionsAlignmentClass)}>
+              <div className={cn('shellActions', actionsAlignmentClass)}>
                 {actions}
               </div>
             ) : null}
@@ -128,7 +123,7 @@ export function PageShell<E extends ElementType = 'section'>({
 
         <div
           className={cn(
-            styles.shellContent,
+            'shellContent',
             contentAlignmentClass,
             spacingClass,
             contentClassName

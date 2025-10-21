@@ -7,7 +7,6 @@ import { Stack } from '@/app/components/shared';
 import { Button, Card } from '@/components/neu';
 
 import { BirthdatePicker } from './BirthdatePicker';
-import styles from './Calculator.module.css';
 
 interface CalculatorProps {
   onCalculate: (code: string) => void;
@@ -58,18 +57,18 @@ export function Calculator({ onCalculate, onGoHome }: CalculatorProps) {
 
   return (
     <PageShell maxWidth="md" contentSpacing="tight">
-      <Card className={styles.calculatorCard} padding="lg">
-        <Stack tight className={styles.calculatorCardStack}>
-          <header className={styles.calculatorCardHeader}>
-            <div className={styles.calculatorHeadingText}>
-              <h1 className={styles.calculatorCardTitle}>מחשבון קוד העושר</h1>
+      <Card className="wealthCalculatorCard" padding="lg">
+        <Stack tight className="wealthCalculatorCardStack">
+          <header className="wealthCalculatorHeader">
+            <div className="wealthCalculatorHeadingText">
+              <h1 className="wealthCalculatorTitle">מחשבון קוד העושר</h1>
             </div>
 
             {onGoHome ? (
               <Button
                 variant="secondary"
                 onClick={onGoHome}
-                className={styles.calculatorHomeButton}
+                className="wealthCalculatorHomeButton"
               >
                 עמוד הבית
               </Button>
@@ -78,7 +77,7 @@ export function Calculator({ onCalculate, onGoHome }: CalculatorProps) {
 
           <BirthdatePicker value={birthDate} onChange={setBirthDate} />
 
-          <div className={styles.calculatorActions}>
+          <div className="wealthCalculatorActions">
             <Button
               type="button"
               variant="primary"

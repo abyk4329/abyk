@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-rsa5dha5e4hj5euh4'; img-src data: https:; frame-src http://localhost:3000 https://localhost:3000;"
+    />
+    <title>🔥 Flare Dev Tools</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: var(--vscode-editor-background, #1e1e1e);
+        color: var(--vscode-editor-foreground, #d4d4d4);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header {
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--vscode-widget-border, #464647);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--vscode-editorGroupHeader-tabsBackground, #2d2d2d);
+      }
+
+      .header h1 {
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 4px;
+      }
+
+      .tab {
+        padding: 4px 8px;
+        background: var(--vscode-tab-inactiveBackground, #2d2d2d);
+        border: 1px solid var(--vscode-tab-border, #464647);
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 11px;
+        transition: background 0.2s;
+      }
+
+      .tab.active {
+        background: var(--vscode-tab-activeBackground, #1e1e1e);
+        color: var(--vscode-tab-activeForeground, #ffffff);
+      }
+
+      .tab:hover {
+        background: var(--vscode-tab-hoverBackground, #404040);
+      }
+
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .tab-panel {
+        display: none;
+        flex: 1;
+        flex-direction: column;
+      }
+
+      .tab-panel.active {
+        display: flex;
+      }
+
+      /* Preview Tab */
+      .preview-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .preview-controls {
+        padding: 8px;
+        border-bottom: 1px solid var(--vscode-widget-border, #464647);
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .url-input {
+        flex: 1;
+        padding: 4px 8px;
+        background: var(--vscode-input-background, #3c3c3c);
+        border: 1px solid var(--vscode-input-border, #464647);
+        color: var(--vscode-input-foreground, #cccccc);
+        border-radius: 3px;
+        font-size: 12px;
+      }
+
+      .btn {
+        padding: 4px 8px;
+        background: var(--vscode-button-background, #0e639c);
+        color: var(--vscode-button-foreground, #ffffff);
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 11px;
+      }
+
+      .btn:hover {
+        background: var(--vscode-button-hoverBackground, #1177bb);
+      }
+
+      .preview-frame {
+        flex: 1;
+        width: 100%;
+        border: none;
+        background: white;
+      }
+
+      /* Components Tab */
+      .components-container {
+        flex: 1;
+        padding: 8px;
+        overflow-y: auto;
+      }
+
+      .component-tree {
+        font-family: 'Monaco', 'Consolas', monospace;
+        font-size: 11px;
+        line-height: 1.4;
+      }
+
+      .component-item {
+        padding: 2px 4px;
+        cursor: pointer;
+        border-radius: 2px;
+        margin: 1px 0;
+      }
+
+      .component-item:hover {
+        background: var(--vscode-list-hoverBackground, #2a2d2e);
+      }
+
+      .component-item.selected {
+        background: var(--vscode-list-activeSelectionBackground, #094771);
+        color: var(--vscode-list-activeSelectionForeground, #ffffff);
+      }
+
+      .component-tag {
+        color: var(--vscode-symbolIcon-classForeground, #ee9d28);
+      }
+
+      .component-props {
+        color: var(--vscode-symbolIcon-propertyForeground, #75beff);
+        margin-left: 8px;
+        font-size: 10px;
+      }
+
+      /* Layers Tab */
+      .layers-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .layers-controls {
+        padding: 8px;
+        border-bottom: 1px solid var(--vscode-widget-border, #464647);
+      }
+
+      .layers-list {
+        flex: 1;
+        padding: 8px;
+        overflow-y: auto;
+        font-family: 'Monaco', 'Consolas', monospace;
+        font-size: 11px;
+      }
+
+      .layer-item {
+        padding: 4px 8px;
+        border: 1px solid var(--vscode-widget-border, #464647);
+        margin: 2px 0;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .layer-item:hover {
+        background: var(--vscode-list-hoverBackground, #2a2d2e);
+      }
+
+      .layer-zindex {
+        color: var(--vscode-terminal-ansiYellow, #ffcc02);
+        font-weight: bold;
+      }
+
+      .layer-selector {
+        color: var(--vscode-terminal-ansiCyan, #11a8cd);
+      }
+
+      .layer-position {
+        color: var(--vscode-terminal-ansiGreen, #0dbc79);
+        font-size: 10px;
+      }
+
+      /* Console Tab */
+      .console-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .console-output {
+        flex: 1;
+        padding: 8px;
+        overflow-y: auto;
+        font-family: 'Monaco', 'Consolas', monospace;
+        font-size: 11px;
+        background: var(--vscode-terminal-background, #0c0c0c);
+      }
+
+      .console-input-container {
+        padding: 8px;
+        border-top: 1px solid var(--vscode-widget-border, #464647);
+        display: flex;
+        gap: 8px;
+      }
+
+      .console-input {
+        flex: 1;
+        padding: 4px 8px;
+        background: var(--vscode-input-background, #3c3c3c);
+        border: 1px solid var(--vscode-input-border, #464647);
+        color: var(--vscode-input-foreground, #cccccc);
+        border-radius: 3px;
+        font-family: 'Monaco', 'Consolas', monospace;
+        font-size: 11px;
+      }
+
+      .console-entry {
+        padding: 2px 0;
+        border-bottom: 1px solid
+          var(--vscode-editor-lineHighlightBorder, rgba(255, 255, 255, 0.1));
+      }
+
+      .console-prompt {
+        color: var(--vscode-terminal-ansiBlue, #569cd6);
+      }
+
+      .console-result {
+        color: var(--vscode-terminal-ansiGreen, #4ec9b0);
+        margin-left: 16px;
+      }
+
+      .console-error {
+        color: var(--vscode-terminal-ansiRed, #f48771);
+        margin-left: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🔥 Flare Dev Tools</h1>
+      <div class="tabs">
+        <div class="tab active" data-tab="preview">Preview</div>
+        <div class="tab" data-tab="components">Components</div>
+        <div class="tab" data-tab="layers">Layers</div>
+        <div class="tab" data-tab="console">Console</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Preview Tab -->
+      <div class="tab-panel active" id="preview-panel">
+        <div class="preview-container">
+          <div class="preview-controls">
+            <input
+              type="text"
+              class="url-input"
+              id="urlInput"
+              value="http://localhost:3000"
+              placeholder="Enter URL..."
+            />
+            <button class="btn" id="refreshBtn">↻ Refresh</button>
+            <button class="btn" id="inspectBtn">🔍 Inspect</button>
+          </div>
+          <iframe
+            class="preview-frame"
+            id="previewFrame"
+            src="http://localhost:3000"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Components Tab -->
+      <div class="tab-panel" id="components-panel">
+        <div class="components-container">
+          <div class="component-tree" id="componentTree">
+            <div class="component-item">
+              <span class="component-tag">&lt;div&gt;</span>
+              <span class="component-props">className="container"</span>
+            </div>
+            <div class="component-item" style="margin-left: 16px">
+              <span class="component-tag">&lt;Header&gt;</span>
+            </div>
+            <div class="component-item" style="margin-left: 16px">
+              <span class="component-tag">&lt;main&gt;</span>
+              <span class="component-props">className="page-content"</span>
+            </div>
+            <div class="component-item" style="margin-left: 32px">
+              <span class="component-tag">&lt;WealthCalculator&gt;</span>
+            </div>
+            <div class="component-item" style="margin-left: 16px">
+              <span class="component-tag">&lt;Footer&gt;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layers Tab -->
+      <div class="tab-panel" id="layers-panel">
+        <div class="layers-container">
+          <div class="layers-controls">
+            <button class="btn" id="scanLayersBtn">🔍 Scan Layers</button>
+            <span
+              style="
+                margin-left: 8px;
+                font-size: 11px;
+                color: var(--vscode-descriptionForeground);
+              "
+              >Click to analyze page layers</span
+            >
+          </div>
+          <div class="layers-list" id="layersList">
+            <div class="layer-item">
+              <div>
+                <span class="layer-zindex">z-index: 1000</span>
+                <span class="layer-selector">.header-nav</span>
+              </div>
+              <div class="layer-position">position: fixed, top: 0</div>
+            </div>
+            <div class="layer-item">
+              <div>
+                <span class="layer-zindex">z-index: 100</span>
+                <span class="layer-selector">.side-menu</span>
+              </div>
+              <div class="layer-position">position: fixed, right: 0</div>
+            </div>
+            <div class="layer-item">
+              <div>
+                <span class="layer-zindex">z-index: 10</span>
+                <span class="layer-selector">.card</span>
+              </div>
+              <div class="layer-position">position: relative</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Console Tab -->
+      <div class="tab-panel" id="console-panel">
+        <div class="console-container">
+          <div class="console-output" id="consoleOutput">
+            <div class="console-entry">
+              <div class="console-prompt">>>> Welcome to Flare Dev Console</div>
+              <div class="console-result">
+                Type JavaScript commands to inspect your app
+              </div>
+            </div>
+          </div>
+          <div class="console-input-container">
+            <input
+              type="text"
+              class="console-input"
+              id="consoleInput"
+              placeholder="Type JavaScript command..."
+            />
+            <button class="btn" id="executeBtn">Execute</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script nonce="rsa5dha5e4hj5euh4">
+      (function () {
+        const vscode = acquireVsCodeApi();
+
+        // Tab switching
+        const tabs = document.querySelectorAll('.tab');
+        const panels = document.querySelectorAll('.tab-panel');
+
+        tabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            // Remove active from all tabs and panels
+            tabs.forEach((t) => t.classList.remove('active'));
+            panels.forEach((p) => p.classList.remove('active'));
+
+            // Add active to clicked tab and corresponding panel
+            tab.classList.add('active');
+            document
+              .getElementById(tab.dataset.tab + '-panel')
+              .classList.add('active');
+          });
+        });
+
+        // Preview controls
+        const urlInput = document.getElementById('urlInput');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const inspectBtn = document.getElementById('inspectBtn');
+        const previewFrame = document.getElementById('previewFrame');
+
+        refreshBtn.addEventListener('click', () => {
+          previewFrame.src = urlInput.value;
+        });
+
+        urlInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            previewFrame.src = urlInput.value;
+          }
+        });
+
+        inspectBtn.addEventListener('click', () => {
+          vscode.postMessage({
+            command: 'inspect',
+            url: urlInput.value,
+          });
+        });
+
+        // Component tree interaction
+        const componentItems = document.querySelectorAll('.component-item');
+        componentItems.forEach((item) => {
+          item.addEventListener('click', () => {
+            componentItems.forEach((i) => i.classList.remove('selected'));
+            item.classList.add('selected');
+
+            vscode.postMessage({
+              command: 'selectComponent',
+              component: item.textContent.trim(),
+            });
+          });
+        });
+
+        // Layers scanning
+        const scanLayersBtn = document.getElementById('scanLayersBtn');
+        const layersList = document.getElementById('layersList');
+
+        scanLayersBtn.addEventListener('click', () => {
+          vscode.postMessage({
+            command: 'scanLayers',
+          });
+        });
+
+        // Console
+        const consoleInput = document.getElementById('consoleInput');
+        const executeBtn = document.getElementById('executeBtn');
+        const consoleOutput = document.getElementById('consoleOutput');
+
+        function addConsoleEntry(command, result, isError = false) {
+          const entry = document.createElement('div');
+          entry.className = 'console-entry';
+
+          const prompt = document.createElement('div');
+          prompt.className = 'console-prompt';
+          prompt.textContent = `>>> ${command}`;
+
+          const output = document.createElement('div');
+          output.className = isError ? 'console-error' : 'console-result';
+          output.textContent = result;
+
+          entry.appendChild(prompt);
+          entry.appendChild(output);
+          consoleOutput.appendChild(entry);
+
+          consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        executeBtn.addEventListener('click', () => {
+          const command = consoleInput.value.trim();
+          if (!command) return;
+
+          try {
+            // Send command to extension for execution
+            vscode.postMessage({
+              command: 'executeCode',
+              code: command,
+            });
+
+            consoleInput.value = '';
+          } catch (error) {
+            addConsoleEntry(command, error.message, true);
+          }
+        });
+
+        consoleInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            executeBtn.click();
+          }
+        });
+
+        // Listen for messages from extension
+        window.addEventListener('message', (event) => {
+          const message = event.data;
+
+          switch (message.command) {
+            case 'updateComponents':
+              // Update component tree
+              break;
+
+            case 'updateLayers':
+              // Update layers list
+              break;
+
+            case 'consoleResult':
+              addConsoleEntry(message.code, message.result, message.isError);
+              break;
+
+            default:
+              console.log('Received message:', message);
+          }
+        });
+
+        // Send ready message
+        vscode.postMessage({
+          command: 'ready',
+          text: 'Flare Dev Tools ready!',
+        });
+      })();
+    </script>
+  </body>
+</html>

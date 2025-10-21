@@ -1,0 +1,362 @@
+/* Layout Theme: Side Menu (shared semantics)
+  Source: app/components/layout/SideMenu.tsx
+  Guidance: tokens-only, RTL-safe, no hard-coded colors.
+*/
+
+.sideMenuBackdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-glass-scrim, rgba(0, 0, 0, 0.4));
+  backdrop-filter: blur(var(--overlay-glass-blur, 22px));
+  -webkit-backdrop-filter: blur(var(--overlay-glass-blur, 22px));
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--overlay-glass-scrim) 50%, transparent);
+  z-index: var(--z-overlay, 120);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 220ms ease, visibility 220ms ease,
+    backdrop-filter 220ms ease;
+}
+
+.sideMenuBackdrop[data-open='true'] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sideMenuDrawer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100dvh;
+  --side-nav-width: clamp(220px, 64vw, 260px);
+  background: var(--neu-card);
+  border: 1px solid var(--neu-card);
+  box-shadow: none;
+  z-index: var(--z-drawer, 130);
+  display: flex;
+  flex-direction: column;
+  padding-block-start: clamp(1.25rem, 4vw, 1.6rem);
+  padding-block-end: clamp(2rem, 6vw, 2.4rem);
+  padding-inline: clamp(0.5rem, 2vw, 0.85rem);
+  overflow-y: auto;
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 280ms ease;
+  direction: rtl;
+}
+
+.sideMenuDrawer[data-open='true'][data-expanded='true'] {
+  transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.sideMenuRail {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: clamp(56px, 13vw, 68px);
+  background: var(--neu-card);
+  border: 1px solid var(--neu-card);
+  box-shadow: none;
+  z-index: var(--z-rail, 128);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(0.9rem, 3vw, 1.25rem) clamp(0.35rem, 1.8vw, 0.7rem);
+  gap: clamp(0.35rem, 1.6vw, 0.6rem);
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 260ms ease;
+  direction: rtl;
+  --rail-action-transition: transform 160ms ease, box-shadow 160ms ease,
+    background-color 160ms ease, color 160ms ease, outline-color 160ms ease;
+  --rail-action-hover-scale: 1.05;
+  --rail-action-active-scale: 0.96;
+}
+
+.sideMenuRail[data-open='true'] {
+  transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.sideMenuRailSurface {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 1.6vw, 0.55rem);
+  width: 100%;
+  flex: 1 1 auto;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  color: var(--neu-text-primary);
+}
+
+.sideMenuRailNav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(0.45rem, 1.8vw, 0.75rem);
+  flex: 1 1 auto;
+}
+
+.sideMenuRailAction {
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 8vw, 52px);
+  height: clamp(44px, 8vw, 52px);
+  padding-inline: var(--button-padding-inline);
+  padding-block: var(--button-padding-block);
+  border-radius: 16px;
+  border: none;
+  background: var(--card);
+  box-shadow: var(--shadow-raised);
+  color: var(--neu-accent);
+  cursor: pointer;
+  transition: var(--rail-action-transition);
+  position: relative;
+  z-index: calc(var(--z-drawer, 130) + 1);
+}
+
+.sideMenuRailAction:hover,
+.sideMenuRailAction:focus-visible {
+  transform: scale(var(--rail-action-hover-scale, 1.05));
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.sideMenuRailAction:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.sideMenuRailAction:active {
+  transform: scale(var(--rail-action-active-scale, 0.96));
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.sideMenuRailAction[data-variant='accent'] {
+  background: color-mix(in srgb, var(--neu-accent) 88%, #ffffff 12%);
+  color: var(--primary-foreground);
+  box-shadow: var(--shadow-raised-emphasis);
+}
+
+.sideMenuRailIcon {
+  width: clamp(20px, 3vw, 22px);
+  height: clamp(20px, 3vw, 22px);
+}
+
+.sideMenuRailFooter {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.45rem, 1.6vw, 0.7rem);
+  align-items: center;
+  margin-top: auto;
+}
+
+.sideMenuRailExpand {
+  display: grid;
+  place-items: center;
+  width: clamp(48px, 9vw, 56px);
+  height: clamp(48px, 9vw, 56px);
+  padding-inline: var(--button-padding-inline);
+  padding-block: var(--button-padding-block);
+  border-radius: 50%;
+  border: none;
+  background: var(--neu-accent);
+  color: var(--primary-foreground);
+  box-shadow: var(--shadow-raised-emphasis);
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease,
+    background-color 180ms ease, color 180ms ease;
+  position: relative;
+  z-index: calc(var(--z-drawer, 130) + 1);
+}
+
+.sideMenuRailExpand:hover,
+.sideMenuRailExpand:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.sideMenuSrOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sideMenuContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--neu-card);
+}
+
+.sideMenuCloseArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 0.75rem);
+  margin-bottom: clamp(1.1rem, 3.2vw, 1.6rem);
+}
+
+.sideMenuCloseButton {
+  display: grid;
+  place-items: center;
+  width: clamp(46px, 8vw, 52px);
+  height: clamp(46px, 8vw, 52px);
+  border-radius: 18px;
+  padding-inline: var(--button-padding-inline);
+  padding-block: var(--button-padding-block);
+  border: none;
+  background: var(--card);
+  box-shadow: var(--shadow-raised);
+  color: var(--neu-text-primary);
+  flex-shrink: 0;
+  align-self: center;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease,
+    background-color 160ms ease, color 160ms ease;
+  position: relative;
+  z-index: calc(var(--z-drawer, 130) + 1);
+}
+
+.sideMenuCloseButton:hover,
+.sideMenuCloseButton:focus-visible {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.sideMenuCloseButton:active {
+  transform: scale(0.95);
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.sideMenuBrandTitle {
+  font-size: 1.125rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--neu-gold-signature);
+  text-transform: uppercase;
+  text-align: center;
+  width: var(--side-nav-width);
+  max-width: 100%;
+}
+
+.sideMenuNavList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.45rem, 1.8vw, 0.75rem);
+  margin-block-end: clamp(1.25rem, 4vw, 1.75rem);
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+  padding-block: var(--button-padding-block);
+  padding-inline: clamp(0.25rem, 2vw, 0.5rem);
+  background: transparent;
+  --nav-surface-transition: transform 160ms ease, box-shadow 160ms ease,
+    background-color 160ms ease, color 160ms ease;
+  --nav-surface-hover-translate: -2px;
+  --nav-surface-active-scale: 0.98;
+}
+
+.sideMenuNavAction {
+  width: var(--side-nav-width);
+  max-width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  text-align: inherit;
+  position: relative;
+  z-index: 2;
+}
+
+.sideMenuNavSurface {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.2rem, 1vw, 0.35rem);
+  padding-inline: 0.25rem;
+  padding-block: 0.25rem;
+  min-height: clamp(48px, 9vw, 56px);
+  border-radius: 1.1rem;
+  background: var(--card);
+  box-shadow: var(--shadow-raised);
+  border: none;
+  transition: var(--nav-surface-transition);
+  cursor: pointer;
+  color: var(--neu-text-primary);
+  pointer-events: none;
+}
+
+.sideMenuNavAction:hover .sideMenuNavSurface,
+.sideMenuNavAction:focus-visible .sideMenuNavSurface {
+  background: color-mix(in srgb, var(--card) 88%, #ffffff 12%);
+  box-shadow: var(--shadow-raised-hover);
+  transform: translateY(var(--nav-surface-hover-translate, -2px));
+}
+
+.sideMenuNavAction:focus-visible .sideMenuNavSurface {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.sideMenuNavAction:active .sideMenuNavSurface {
+  transform: scale(var(--nav-surface-active-scale, 0.98));
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.sideMenuNavIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(46px, 8.5vw, 54px);
+  height: clamp(46px, 8.5vw, 54px);
+  flex-shrink: 0;
+  color: var(--neu-accent);
+}
+
+.sideMenuNavLabel {
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  font-size: clamp(0.82rem, 2vw, 0.92rem);
+  flex: 1;
+  text-align: start;
+  color: inherit;
+  text-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sideMenuRail {
+    --rail-action-transition: none;
+    --rail-action-hover-scale: 1;
+    --rail-action-active-scale: 1;
+  }
+
+  .sideMenuNavList {
+    --nav-surface-transition: none;
+    --nav-surface-hover-translate: 0px;
+    --nav-surface-active-scale: 1;
+  }
+
+  .sideMenuBackdrop,
+  .sideMenuDrawer,
+  .sideMenuRail,
+  .sideMenuRailExpand {
+    transition: none;
+  }
+}

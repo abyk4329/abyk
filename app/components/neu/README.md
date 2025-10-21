@@ -1,4 +1,4 @@
-# Neumorphic Shadow System - מערכת הצללות Neumorphic
+# Neumorphic Shadow System - מערכת הצללות Neumorphic (מאוחד ב־design)
 
 מערכת הצללות מלאה ומקיפה לעיצוב Neumorphic (Soft UI) המשתמשת בצבעים הקיימים בפרויקט.
 
@@ -239,9 +239,9 @@
 
 ## 🔗 קבצים קשורים
 
-- **קובץ CSS:** `/app/components/neu/neumorphic-shadows.css`
-- **דוגמאות חיות:** `/app/(labs)/shadows/page.tsx`
-- **Import ב-globals.css:** `@import "./components/neu/neumorphic-shadows.css";`
+- **קובץ CSS מעודכן:** `design/themes/neumorphic.css` (מחליף את `/app/components/neu/neumorphic-shadows.css`)
+- **טוקני צללים:** `design/tokens/shadows.css`
+- **Import מרכזי:** דרך `design/index.css` שמיובא ב־`app/globals.css`
 
 ---
 
@@ -258,11 +258,11 @@
 ## 🚀 התחלה מהירה
 
 ```tsx
-import "@/app/components/neu/neumorphic-shadows.css";
+import '@/app/components/neu/neumorphic-shadows.css';
 
 export default function MyComponent() {
   return (
-    <div className="p-8" style={{ backgroundColor: "var(--neu-base)" }}>
+    <div className="p-8" style={{ backgroundColor: 'var(--neu-base)' }}>
       {/* כפתור בולט */}
       <button className="neu-raised-md neu-button-gold rounded-2xl px-8 py-3">
         לחץ כאן

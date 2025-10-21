@@ -1,0 +1,103 @@
+/* Theme: Wealth Code Sales Page */
+
+.wealthSalesStack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--neu-space-xl);
+}
+
+.wealthSalesPanel {
+  text-align: center;
+}
+
+.wealthSalesPanelStack {
+  align-items: center;
+  gap: var(--neu-space-md);
+}
+
+.wealthSalesPanelTitle {
+  margin: 0;
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-sm);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--neu-text-primary);
+}
+
+.wealthSalesPanelText {
+  margin: 0;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--neu-text-secondary);
+}
+
+.wealthSalesDetailList {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--neu-space-sm);
+  list-style: none;
+  margin: 0;
+  padding: var(--neu-space-md);
+  border-radius: var(--neu-radius-md);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
+}
+
+.wealthSalesDetailItem {
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  font-weight: 600;
+  color: var(--neu-text-primary);
+}
+
+.wealthSalesCtaPanel {
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-raised), var(--shadow-inset-strong);
+}
+
+.wealthSalesPurchasePanel {
+  width: 100%;
+  display: grid;
+  gap: var(--neu-space-sm);
+  justify-items: center;
+  padding: var(--neu-space-lg);
+  border-radius: var(--neu-radius-lg);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
+}
+
+.wealthSalesPrice {
+  margin: 0;
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-sm);
+  font-weight: 600;
+  color: var(--neu-accent);
+}
+
+.wealthSalesCaption {
+  margin: 0;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-caption-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--neu-text-tertiary);
+}
+
+.wealthSalesCtaButton {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .wealthSalesStack {
+    gap: var(--neu-space-2xl);
+  }
+
+  .wealthSalesPanelStack {
+    gap: var(--neu-space-lg);
+  }
+}

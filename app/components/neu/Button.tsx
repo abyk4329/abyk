@@ -1,13 +1,12 @@
-"use client";
+'use client';
 
-import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { useMemo, useState } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 
-import { cn } from "@/lib/utils";
-import styles from "./Button.module.css";
+import { cn } from '@/lib/utils';
 
-export type ButtonVariant = "primary" | "secondary" | "gold" | "cta" | "ghost";
-export type ButtonSize = "sm" | "md" | "lg";
+export type ButtonVariant = 'primary' | 'secondary' | 'gold' | 'cta' | 'ghost';
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
@@ -40,35 +39,51 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button({
-  variant = "primary",
-  size = "md",
+  variant = 'primary',
+  size = 'md',
   icon,
   fullWidth = false,
   disabled = false,
   className,
   children,
-  type = "button",
+  type = 'button',
   ...props
 }: ButtonProps) {
   const [isPressed, setIsPressed] = useState(false);
 
+  const normalizedVariant = useMemo<Exclude<ButtonVariant, 'cta'>>(
+    () => (variant === 'cta' ? 'gold' : variant),
+    [variant]
+  );
+
   const variantClass = useMemo(() => {
-    switch (variant) {
-      case "secondary":
-        return styles.variantSecondary;
-      case "gold":
-      case "cta":
-        return styles.variantGold;
-      case "ghost":
-        return styles.variantGhost;
-      case "primary":
+    switch (normalizedVariant) {
+      case 'secondary':
+        return 'btn-variant-secondary';
+      case 'gold':
+        return 'btn-variant-gold';
+      case 'ghost':
+        return 'btn-variant-ghost';
+      case 'primary':
       default:
-        return styles.variantPrimary;
+        return 'btn-variant-primary';
     }
-  }, [variant]);
+  }, [normalizedVariant]);
+
+  const sizeClass = useMemo(() => {
+    switch (size) {
+      case 'sm':
+        return 'btn-size-sm';
+      case 'lg':
+        return 'btn-size-lg';
+      case 'md':
+      default:
+        return 'btn-size-md';
+    }
+  }, [size]);
 
   const handleMouseDown = () => {
-    if (!disabled && variant !== "secondary") {
+    if (!disabled && variant !== 'secondary') {
       setIsPressed(true);
     }
   };
@@ -86,19 +101,22 @@ export function Button({
       onTouchStart={handleMouseDown}
       onTouchEnd={handleRelease}
       disabled={disabled}
+      data-pressed={
+        !disabled && isPressed && normalizedVariant !== 'secondary'
+          ? 'true'
+          : undefined
+      }
       className={cn(
-        styles.button,
+        'btn',
         variantClass,
-        styles[`size${size.charAt(0).toUpperCase() + size.slice(1)}`],
-        fullWidth && styles.fullWidth,
-        disabled && styles.disabled,
-        isPressed && variant !== "secondary" && styles.pressed,
+        sizeClass,
+        fullWidth && 'btn-full',
         className
       )}
       {...props}
     >
-      {icon && <span className={styles.icon}>{icon}</span>}
-      <span className={styles.text}>{children}</span>
+      {icon && <span className="btn-icon">{icon}</span>}
+      <span className="btn-text">{children}</span>
     </button>
   );
 }

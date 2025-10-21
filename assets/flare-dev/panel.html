@@ -1,0 +1,2722 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-rsa5dha5e4hj5euh4'; img-src data: https:; frame-src http://localhost:3000 https://localhost:3000;"
+    />
+    <title>🔥 כלי פיתוח Flare</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: var(--vscode-editor-background, #1e1e1e);
+        color: var(--vscode-editor-foreground, #d4d4d4);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        direction: rtl;
+      }
+
+      .header {
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--vscode-widget-border, #464647);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--vscode-editorGroupHeader-tabsBackground, #2d2d2d);
+      }
+
+      .header h1 {
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 4px;
+      }
+
+      .tab {
+        padding: 4px 8px;
+        background: var(--vscode-tab-inactiveBackground, #2d2d2d);
+        border: 1px solid var(--vscode-tab-border, #464647);
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 11px;
+        transition: background 0.2s;
+      }
+
+      .tab.active {
+        background: var(--vscode-tab-activeBackground, #1e1e1e);
+        color: var(--vscode-tab-activeForeground, #ffffff);
+      }
+
+      .tab:hover {
+        background: var(--vscode-tab-hoverBackground, #404040);
+      }
+
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .tab-panel {
+        display: none;
+        flex: 1;
+        flex-direction: column;
+      }
+
+      .tab-panel.active {
+        display: flex;
+      }
+
+      /* Preview Tab */
+      .preview-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .preview-controls {
+        padding: 8px;
+        border-bottom: 1px solid var(--vscode-widget-border, #464647);
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .device-selector {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 8px;
+      }
+
+      .device-select {
+        padding: 4px 8px;
+        background: var(--vscode-input-background, #3c3c3c);
+        border: 1px solid var(--vscode-input-border, #464647);
+        color: var(--vscode-input-foreground, #cccccc);
+        border-radius: 3px;
+        font-size: 11px;
+        direction: rtl;
+      }
+
+      .device-label {
+        font-size: 11px;
+        color: var(--vscode-descriptionForeground, #cccccc);
+        margin-left: 4px;
+      }
+
+      .preview-frame-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 16px;
+        background: var(--vscode-editor-background, #1e1e1e);
+        overflow: auto;
+      }
+
+      .preview-frame {
+        border: 2px solid var(--vscode-widget-border, #464647);
+        border-radius: 8px;
+        background: white;
+        transition: width 0.3s ease, height 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        resize: both;
+        overflow: hidden;
+        min-width: 280px;
+        min-height: 400px;
+      }
+
+      /* Device-specific styles */
+      .device-mobile-small {
+        width: 320px;
+        height: 568px;
+      }
+      .device-mobile-medium {
+        width: 375px;
+        height: 667px;
+      }
+      .device-mobile-large {
+        width: 414px;
+        height: 896px;
+      }
+      .device-tablet {
+        width: 768px;
+        height: 1024px;
+      }
+      .device-desktop {
+        width: 1200px;
+        height: 800px;
+      }
+
+      .device-info {
+        margin-top: 8px;
+        font-size: 10px;
+        color: var(--vscode-descriptionForeground, #888);
+        text-align: center;
+      }
+
+      .url-input {
+        flex: 1;
+        padding: 4px 8px;
+        background: var(--vscode-input-background, #3c3c3c);
+        border: 1px solid var(--vscode-input-border, #464647);
+        color: var(--vscode-input-foreground, #cccccc);
+        border-radius: 3px;
+        font-size: 12px;
+        direction: ltr;
+      }
+
+      .btn {
+        padding: 4px 8px;
+        background: var(--vscode-button-background, #0e639c);
+        color: var(--vscode-button-foreground, #ffffff);
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 11px;
+      }
+
+      .btn:hover {
+        background: var(--vscode-button-hoverBackground, #1177bb);
+      }
+
+      .preview-frame {
+        flex: 1;
+        width: 100%;
+        border: none;
+        background: white;
+      }
+
+      /* Quick Tests Tab */
+      .tests-container {
+        flex: 1;
+        padding: 8px;
+        overflow-y: auto;
+      }
+
+      .tests-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .test-category {
+        background: var(--vscode-editorGroup-border, #464647);
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 8px;
+      }
+
+      .test-category h3 {
+        font-size: 13px;
+        margin-bottom: 8px;
+        color: var(--vscode-terminal-ansiYellow, #ffcc02);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .test-button {
+        display: block;
+        width: 100%;
+        padding: 8px 12px;
+        margin: 4px 0;
+        background: var(--vscode-button-secondaryBackground, #3c3c3c);
+        color: var(--vscode-button-secondaryForeground, #cccccc);
+        border: 1px solid var(--vscode-button-border, #464647);
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        text-align: right;
+        transition: all 0.2s;
+      }
+
+      .test-button:hover {
+        background: var(--vscode-button-secondaryHoverBackground, #454545);
+        transform: translateY(-1px);
+      }
+
+      .test-button:active {
+        transform: translateY(0);
+      }
+
+      .test-result {
+        margin-top: 8px;
+        padding: 12px;
+        background: var(--vscode-terminal-background, #0c0c0c);
+        border-radius: 6px;
+        font-family: 'Monaco', 'Consolas', monospace;
+        font-size: 11px;
+        white-space: pre-wrap;
+        direction: ltr;
+        text-align: left;
+        border-left: 4px solid;
+        position: relative;
+        opacity: 0;
+        animation: fadeInResult 0.3s ease forwards;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .test-result:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      @keyframes fadeInResult {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .result-success {
+        border-left-color: var(--vscode-terminal-ansiGreen, #4ec9b0);
+        background: linear-gradient(
+          135deg,
+          var(--vscode-terminal-background, #0c0c0c) 0%,
+          rgba(78, 201, 176, 0.05) 100%
+        );
+      }
+
+      .result-error {
+        border-left-color: var(--vscode-terminal-ansiRed, #f48771);
+        background: linear-gradient(
+          135deg,
+          var(--vscode-terminal-background, #0c0c0c) 0%,
+          rgba(244, 135, 113, 0.05) 100%
+        );
+      }
+
+      .result-info {
+        border-left-color: var(--vscode-terminal-ansiBlue, #569cd6);
+        background: linear-gradient(
+          135deg,
+          var(--vscode-terminal-background, #0c0c0c) 0%,
+          rgba(86, 156, 214, 0.05) 100%
+        );
+      }
+
+      .result-warning {
+        border-left-color: var(--vscode-terminal-ansiYellow, #ffcc02);
+        background: linear-gradient(
+          135deg,
+          var(--vscode-terminal-background, #0c0c0c) 0%,
+          rgba(255, 204, 2, 0.05) 100%
+        );
+      }
+
+      .test-result-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .test-result-title {
+        font-weight: bold;
+        font-size: 12px;
+        color: var(--vscode-terminal-ansiCyan, #11a8cd);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .test-result-status {
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .status-running {
+        background: var(--vscode-terminal-ansiYellow, #ffcc02);
+        color: #000;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      .status-completed {
+        background: var(--vscode-terminal-ansiGreen, #4ec9b0);
+        color: #000;
+      }
+
+      .status-failed {
+        background: var(--vscode-terminal-ansiRed, #f48771);
+        color: #fff;
+      }
+
+      .test-result-content {
+        line-height: 1.4;
+      }
+
+      .test-result-metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .metric-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 6px 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        text-align: center;
+      }
+
+      .metric-label {
+        display: block;
+        color: var(--vscode-descriptionForeground, #888);
+        margin-bottom: 2px;
+      }
+
+      .metric-value {
+        display: block;
+        font-weight: bold;
+        color: var(--vscode-terminal-ansiCyan, #11a8cd);
+      }
+
+      /* Progress and Summary */
+      .test-summary {
+        margin-bottom: 16px;
+        padding: 12px;
+        background: var(--vscode-editorHoverWidget-background, #2d2d30);
+        border: 1px solid var(--vscode-editorHoverWidget-border, #454545);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .summary-stats {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+      }
+
+      .stat-number {
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .progress-bar {
+        flex: 1;
+        height: 8px;
+        background: var(--vscode-progressBar-background, #3c3c3c);
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--vscode-terminal-ansiGreen, #4ec9b0) 0%,
+          var(--vscode-terminal-ansiBlue, #569cd6) 100%
+        );
+        width: 0%;
+        transition: width 0.3s ease;
+        border-radius: 4px;
+      }
+
+      .summary-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .btn-small {
+        padding: 4px 8px;
+        background: var(--vscode-button-secondaryBackground, #3c3c3c);
+        color: var(--vscode-button-secondaryForeground, #cccccc);
+        border: 1px solid var(--vscode-button-border, #464647);
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 10px;
+      }
+
+      .btn-small:hover {
+        background: var(--vscode-button-secondaryHoverBackground, #454545);
+      }
+
+      /* Loading states */
+      .test-button.loading {
+        position: relative;
+        color: transparent;
+      }
+
+      .test-button.loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        margin: -6px 0 0 -6px;
+        border: 2px solid transparent;
+        border-top: 2px solid var(--vscode-terminal-ansiBlue, #569cd6);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Enhanced test categories */
+      .test-category {
+        background: var(--vscode-editorGroup-border, #464647);
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 12px;
+        border: 1px solid var(--vscode-widget-border, #464647);
+        transition: all 0.2s ease;
+      }
+
+      .test-category:hover {
+        border-color: var(--vscode-focusBorder, #0078d4);
+        box-shadow: 0 2px 8px rgba(0, 120, 212, 0.2);
+      }
+
+      .test-category h3 {
+        font-size: 14px;
+        margin-bottom: 12px;
+        color: var(--vscode-terminal-ansiYellow, #ffcc02);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .category-count {
+        background: var(--vscode-badge-background, #4d4d4d);
+        color: var(--vscode-badge-foreground, #ffffff);
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .test-button {
+        display: block;
+        width: 100%;
+        padding: 10px 14px;
+        margin: 6px 0;
+        background: var(--vscode-button-secondaryBackground, #3c3c3c);
+        color: var(--vscode-button-secondaryForeground, #cccccc);
+        border: 1px solid var(--vscode-button-border, #464647);
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 12px;
+        text-align: right;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .test-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .test-button:hover::before {
+        left: 100%;
+      }
+
+      .test-button:hover {
+        background: var(--vscode-button-secondaryHoverBackground, #454545);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        border-color: var(--vscode-focusBorder, #0078d4);
+      }
+
+      .test-button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .test-results-area {
+        margin-top: 12px;
+        padding: 8px;
+        background: var(--vscode-editor-background, #1e1e1e);
+        border-radius: 6px;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      /* Console Tab */
+      .console-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .console-output {
+        flex: 1;
+        padding: 8px;
+        overflow-y: auto;
+        font-family: 'Monaco', 'Consolas', monospace;
+        font-size: 11px;
+        background: var(--vscode-terminal-background, #0c0c0c);
+        direction: ltr;
+        text-align: left;
+      }
+
+      .console-input-container {
+        padding: 8px;
+        border-top: 1px solid var(--vscode-widget-border, #464647);
+        display: flex;
+        gap: 8px;
+      }
+
+      .console-input {
+        flex: 1;
+        padding: 4px 8px;
+        background: var(--vscode-input-background, #3c3c3c);
+        border: 1px solid var(--vscode-input-border, #464647);
+        color: var(--vscode-input-foreground, #cccccc);
+        border-radius: 3px;
+        font-family: 'Monaco', 'Consolas', monospace;
+        font-size: 11px;
+        direction: ltr;
+      }
+
+      .console-entry {
+        padding: 2px 0;
+        border-bottom: 1px solid
+          var(--vscode-editor-lineHighlightBorder, rgba(255, 255, 255, 0.1));
+      }
+
+      .console-prompt {
+        color: var(--vscode-terminal-ansiBlue, #569cd6);
+      }
+
+      .console-result {
+        color: var(--vscode-terminal-ansiGreen, #4ec9b0);
+        margin-right: 16px;
+      }
+
+      .console-error {
+        color: var(--vscode-terminal-ansiRed, #f48771);
+        margin-right: 16px;
+      }
+
+      .help-section {
+        background: var(--vscode-editorHoverWidget-background, #2d2d30);
+        border: 1px solid var(--vscode-editorHoverWidget-border, #454545);
+        border-radius: 4px;
+        padding: 12px;
+        margin-bottom: 12px;
+        font-size: 11px;
+      }
+
+      .help-title {
+        color: var(--vscode-terminal-ansiCyan, #11a8cd);
+        font-weight: bold;
+        margin-bottom: 6px;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .console-examples {
+        font-family: monospace;
+        margin-top: 4px;
+        direction: ltr;
+        text-align: left;
+      }
+      .color-success {
+        color: var(--vscode-terminal-ansiGreen, #4ec9b0);
+      }
+
+      .color-error {
+        color: var(--vscode-terminal-ansiRed, #f48771);
+      }
+
+      .color-info {
+        color: var(--vscode-terminal-ansiBlue, #569cd6);
+      }
+
+      /* Element Inspector Tooltip */
+      .element-tooltip {
+        position: fixed;
+        background: var(--vscode-quickInput-background, #1e1e1e);
+        border: 1px solid var(--vscode-widget-border, #464647);
+        border-radius: 6px;
+        padding: 12px;
+        max-width: 400px;
+        max-height: 300px;
+        overflow-y: auto;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        z-index: 10000;
+        font-size: 11px;
+        line-height: 1.4;
+        direction: rtl;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.2s ease;
+      }
+
+      .element-tooltip.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .tooltip-header {
+        font-weight: bold;
+        color: var(--vscode-terminal-ansiCyan, #11a8cd);
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .tooltip-section {
+        margin-bottom: 8px;
+      }
+
+      .tooltip-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .tooltip-label {
+        font-weight: bold;
+        color: var(--vscode-descriptionForeground, #888);
+        margin-bottom: 2px;
+      }
+
+      .tooltip-value {
+        color: var(--vscode-foreground, #d4d4d4);
+        word-break: break-all;
+      }
+
+      .tooltip-warning {
+        color: var(--vscode-terminal-ansiYellow, #ffcc02);
+        font-weight: bold;
+      }
+
+      .tooltip-error {
+        color: var(--vscode-terminal-ansiRed, #f48771);
+        font-weight: bold;
+      }
+
+      .tooltip-success {
+        color: var(--vscode-terminal-ansiGreen, #4ec9b0);
+        font-weight: bold;
+      }
+
+      .tooltip-metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+        margin-top: 4px;
+      }
+
+      .metric-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 4px 6px;
+        border-radius: 3px;
+        font-size: 10px;
+      }
+
+      .metric-label {
+        color: var(--vscode-descriptionForeground, #888);
+        margin-bottom: 1px;
+      }
+
+      .metric-value {
+        color: var(--vscode-terminal-ansiCyan, #11a8cd);
+        font-weight: bold;
+      }
+
+      /* Highlight element being inspected */
+      .inspector-highlight {
+        outline: 2px solid var(--vscode-focusBorder, #0078d4) !important;
+        outline-offset: 2px !important;
+        background: rgba(0, 120, 212, 0.1) !important;
+        box-shadow: 0 0 0 1px var(--vscode-focusBorder, #0078d4) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🔥 כלי פיתוח Flare</h1>
+      <div class="tabs">
+        <div class="tab active" data-tab="preview">תצוגה</div>
+        <div class="tab" data-tab="tests">בדיקות מהירות</div>
+        <div class="tab" data-tab="inspector">🔍 בוחן קוד</div>
+        <div class="tab" data-tab="console">קונסול</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Preview Tab -->
+      <div class="tab-panel active" id="preview-panel">
+        <div class="preview-container">
+          <div class="preview-controls">
+            <input
+              type="text"
+              class="url-input"
+              id="urlInput"
+              value="http://localhost:3000"
+              placeholder="הכנס כתובת..."
+              aria-label="כתובת URL"
+            />
+            <button class="btn" id="refreshBtn">↻ רענון</button>
+            <button class="btn" id="inspectBtn">🔍 בדיקה</button>
+
+            <div class="device-selector">
+              <span class="device-label">📱 מכשיר:</span>
+              <label for="deviceSelect" class="sr-only">בחירת מכשיר</label>
+              <select class="device-select" id="deviceSelect">
+                <option value="desktop">💻 מחשב (1200px)</option>
+                <option value="tablet">📱 טאבלט (768px)</option>
+                <option value="mobile-large">📱 iPhone Pro Max (414px)</option>
+                <option value="mobile-medium" selected>
+                  📱 iPhone Standard (375px)
+                </option>
+                <option value="mobile-small">📱 iPhone Mini (320px)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="preview-frame-container">
+            <div class="device-frame">
+              <iframe
+                class="preview-frame"
+                id="previewFrame"
+                src="http://localhost:3000"
+                title="תצוגת האתר"
+              ></iframe>
+              <div class="device-info" id="deviceInfo">
+                iPhone Standard - 375x667px (ניתן לשינוי בגרירה)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Quick Tests Tab -->
+      <div class="tab-panel" id="tests-panel">
+        <div class="tests-container">
+          <div class="help-section">
+            <div class="help-title">💡 איך זה עובד:</div>
+            <div>
+              לחצי על כל כפתור כדי לבדוק משהו באתר. התוצאות יופיעו מתחת בצבעים:
+            </div>
+            <div class="help-section-colors">
+              <span class="color-success">🟢 ירוק = הכל בסדר</span>
+              |
+              <span class="color-error">🔴 אדום = יש בעיה</span>
+              |
+              <span class="color-info">🔵 כחול = מידע</span>
+            </div>
+          </div>
+
+          <div class="test-category">
+            <h3>🏠 בדיקות דף ראשי</h3>
+            <button class="test-button" data-test="checkPage">
+              בדוק שהדף נטען כמו שצריך
+            </button>
+            <button class="test-button" data-test="checkHeader">
+              בדוק שהכותרת מופיעה
+            </button>
+            <button class="test-button" data-test="checkMenu">
+              בדוק שהתפריט עובד
+            </button>
+            <button class="test-button" data-test="checkTheme">
+              בדוק איזה ערכת נושא פעילה
+            </button>
+          </div>
+
+          <div class="test-category">
+            <h3>🧮 בדיקות מחשבון עושר</h3>
+            <button class="test-button" data-test="checkCalculator">
+              בדוק שהמחשבון קיים
+            </button>
+            <button class="test-button" data-test="checkInputs">
+              בדוק שדות קלט
+            </button>
+            <button class="test-button" data-test="checkButtons">
+              בדוק כפתורים
+            </button>
+            <button class="test-button" data-test="checkValidation">
+              בדוק ולידציה של טפסים
+            </button>
+          </div>
+
+          <div class="test-category">
+            <h3>🎨 בדיקות עיצוב</h3>
+            <button class="test-button" data-test="checkColors">
+              בדוק צבעים עיקריים
+            </button>
+            <button class="test-button" data-test="checkFonts">
+              בדוק גופנים
+            </button>
+            <button class="test-button" data-test="checkResponsive">
+              בדוק תגובה למסכים
+            </button>
+            <button class="test-button" data-test="checkAnimations">
+              בדוק אנימציות
+            </button>
+          </div>
+
+          <div class="test-category">
+            <h3>⚡ בדיקות ביצועים</h3>
+            <button class="test-button" data-test="checkLoadTime">
+              בדוק זמן טעינה
+            </button>
+            <button class="test-button" data-test="checkImages">
+              בדוק טעינת תמונות
+            </button>
+            <button class="test-button" data-test="checkStorage">
+              בדוק אחסון מקומי
+            </button>
+            <button class="test-button" data-test="checkConsole">
+              בדוק שגיאות בקונסול
+            </button>
+          </div>
+
+          <div class="test-category">
+            <h3>📱 בדיקות נגישות</h3>
+            <button class="test-button" data-test="checkA11y">
+              בדוק נגישות כללית
+            </button>
+            <button class="test-button" data-test="checkKeyboard">
+              בדוק ניווט מקלדת
+            </button>
+            <button class="test-button" data-test="checkContrast">
+              בדוק ניגודיות צבעים
+            </button>
+            <button class="test-button" data-test="checkScreenReader">
+              בדוק תאימות לקורא מסך
+            </button>
+          </div>
+
+          <div id="testResults"></div>
+        </div>
+      </div>
+
+      <!-- Inspector Tab -->
+      <div class="tab-panel" id="inspector-panel">
+        <div class="tests-container">
+          <div class="help-section">
+            <div class="help-title">🔍 בוחן קוד מתקדם</div>
+            <div>בדיקות אוטומטיות לאיכות קוד, עיצוב, ואופטימיזציה</div>
+          </div>
+
+          <div class="test-category">
+            <h3>🎨 בדיקות עיצוב ושכבות</h3>
+            <button class="test-button" data-test="findUnusedStyles">
+              מצא סגנונות CSS לא בשימוש
+            </button>
+            <button class="test-button" data-test="checkDuplicateStyles">
+              בדוק כפילויות בעיצוב
+            </button>
+            <button class="test-button" data-test="findRedundantLayers">
+              מצא שכבות מיותרות (div ריק)
+            </button>
+            <button class="test-button" data-test="checkZIndex">
+              בדוק z-index והתנגשויות שכבות
+            </button>
+            <button class="test-button" data-test="inspectComponent">
+              בחר קומפוננטה בעכבר 🎯
+            </button>
+          </div>
+
+          <div class="test-category">
+            <h3>⚡ בדיקות ביצועים</h3>
+            <button class="test-button" data-test="findDuplicateRequests">
+              מצא משיכות נתונים כפולות
+            </button>
+            <button class="test-button" data-test="checkImageOptimization">
+              בדוק אופטימיזציה של תמונות
+            </button>
+            <button class="test-button" data-test="findLargeComponents">
+              מצא קומפוננטות כבדות
+            </button>
+            <button class="test-button" data-test="checkReRenders">
+              בדוק רינדורים מיותרים (React)
+            </button>
+          </div>
+
+          <div class="test-category">
+            <h3>📐 בדיקות פריסה</h3>
+            <button class="test-button" data-test="checkOverflow">
+              מצא overflow ובעיות גלילה
+            </button>
+            <button class="test-button" data-test="checkAlignment">
+              בדוק יישור וריווחים לא תקינים
+            </button>
+            <button class="test-button" data-test="findHiddenElements">
+              מצא אלמנטים מוסתרים מיותרים
+            </button>
+            <button class="test-button" data-test="checkFlexboxGrid">
+              בדוק Flexbox/Grid תקין
+            </button>
+          </div>
+
+          <div class="test-category">
+            <h3>🔧 בדיקות קוד</h3>
+            <button class="test-button" data-test="findUnusedVariables">
+              מצא משתנים לא בשימוש (computed)
+            </button>
+            <button class="test-button" data-test="checkConsoleErrors">
+              בדוק שגיאות בקונסול
+            </button>
+            <button class="test-button" data-test="findMemoryLeaks">
+              מצא דליפות זיכרון פוטנציאליות
+            </button>
+            <button class="test-button" data-test="analyzeBundle">
+              נתח גודל Bundle
+            </button>
+          </div>
+
+          <div class="test-summary">
+            <!-- Summary will be populated by JavaScript -->
+          </div>
+
+          <div class="test-results-area"></div>
+        </div>
+      </div>
+
+      <!-- Console Tab -->
+      <div class="tab-panel" id="console-panel">
+        <div class="console-container">
+          <div class="help-section">
+            <div class="help-title">💻 קונסול JavaScript</div>
+            <div>כתבי פקודות JavaScript כדי לבדוק את האתר. דוגמאות:</div>
+            <div class="console-examples">
+              document.querySelector("h1")<br />
+              localStorage.getItem("theme")<br />
+              window.innerWidth
+            </div>
+          </div>
+          <div class="console-output" id="consoleOutput">
+            <div class="console-entry">
+              <div class="console-prompt">>>> ברוכה הבאה לקונסול Flare</div>
+              <div class="console-result">
+                כתבי פקודות JavaScript למטה או השתמשי בבדיקות המהירות
+              </div>
+            </div>
+          </div>
+          <div class="console-input-container">
+            <input
+              type="text"
+              class="console-input"
+              id="consoleInput"
+              placeholder="הכנסי פקודת JavaScript..."
+              aria-label="קלט קונסול"
+            />
+            <button class="btn" id="executeBtn">הרץ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script nonce="rsa5dha5e4hj5euh4">
+      (function () {
+        const vscode = acquireVsCodeApi();
+
+        // Tab switching
+        const tabs = document.querySelectorAll('.tab');
+        const panels = document.querySelectorAll('.tab-panel');
+
+        tabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            tabs.forEach((t) => t.classList.remove('active'));
+            panels.forEach((p) => p.classList.remove('active'));
+
+            tab.classList.add('active');
+            document
+              .getElementById(tab.dataset.tab + '-panel')
+              .classList.add('active');
+          });
+        });
+
+        // Preview controls
+        const urlInput = document.getElementById('urlInput');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const previewFrame = document.getElementById('previewFrame');
+        const deviceSelect = document.getElementById('deviceSelect');
+        const deviceInfo = document.getElementById('deviceInfo');
+
+        // Device configurations
+        const devices = {
+          'mobile-small': { name: 'iPhone Mini', width: 320, height: 568 },
+          'mobile-medium': { name: 'iPhone Standard', width: 375, height: 667 },
+          'mobile-large': { name: 'iPhone Pro Max', width: 414, height: 896 },
+          tablet: { name: 'iPad', width: 768, height: 1024 },
+          desktop: { name: 'מחשב שולחני', width: 1200, height: 800 },
+        };
+
+        function updateDeviceSize(deviceType) {
+          const device = devices[deviceType];
+          if (!device) return;
+
+          // Update iframe size directly
+          previewFrame.style.width = device.width + 'px';
+          previewFrame.style.height = device.height + 'px';
+
+          // Update device info
+          deviceInfo.textContent = `${device.name} - ${device.width}x${device.height}px (ניתן לשינוי בגרירה)`;
+
+          // Save preference
+          vscode.setState({ selectedDevice: deviceType });
+        }
+
+        // Track manual resize
+        let resizeObserver = new ResizeObserver((entries) => {
+          for (let entry of entries) {
+            const width = Math.round(entry.contentRect.width);
+            const height = Math.round(entry.contentRect.height);
+            deviceInfo.textContent = `גודל מותאם אישית - ${width}x${height}px (ניתן לשינוי בגרירה)`;
+          }
+        });
+        resizeObserver.observe(previewFrame);
+
+        deviceSelect.addEventListener('change', (e) => {
+          updateDeviceSize(e.target.value);
+        });
+
+        refreshBtn.addEventListener('click', () => {
+          previewFrame.src = urlInput.value;
+        });
+
+        urlInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            previewFrame.src = urlInput.value;
+          }
+        });
+
+        // Quick Tests - support both test panels
+        const testButtons = document.querySelectorAll('.test-button');
+
+        function addTestResult(testName, result, type = 'info') {
+          // Find the active results container
+          const activePanel = document.querySelector('.tab-panel.active');
+
+          const testResults = activePanel
+            ? activePanel.querySelector('#testResults, .test-results-area')
+            : null;
+
+          if (!testResults) {
+            console.error('No test results container found in active panel');
+            alert('❌ לא נמצא קונטיינר תוצאות בטאב הפעיל');
+            return;
+          }
+
+          const resultDiv = document.createElement('div');
+          resultDiv.className = `test-result result-${type}`;
+
+          const emoji =
+            type === 'success'
+              ? '✅'
+              : type === 'error'
+              ? '❌'
+              : type === 'warning'
+              ? '⚠️'
+              : 'ℹ️';
+
+          resultDiv.innerHTML = `<strong>${testName}:</strong><br>${result}`;
+          testResults.appendChild(resultDiv);
+
+          // Scroll both the results container and the parent tests-container
+          testResults.scrollTop = testResults.scrollHeight;
+
+          // Also scroll the parent container to make sure the results are visible
+          const testsContainer = activePanel.querySelector('.tests-container');
+          if (testsContainer) {
+            setTimeout(() => {
+              testsContainer.scrollTop = testsContainer.scrollHeight;
+            }, 50);
+          }
+        }
+
+        // Enhanced test result system
+        let testStats = { total: 0, completed: 0, failed: 0, running: 0 };
+        let currentTestId = 0;
+
+        function updateTestSummary() {
+          const summaryEl = document.querySelector('.test-summary');
+          if (!summaryEl) return;
+
+          if (testStats.total === 0) {
+            summaryEl.style.display = 'none';
+            return;
+          }
+
+          summaryEl.style.display = 'flex';
+
+          const progressPercent =
+            testStats.total > 0
+              ? (testStats.completed / testStats.total) * 100
+              : 0;
+
+          summaryEl.innerHTML = `
+            <div class="summary-stats">
+              <div class="stat-item">
+                <span class="stat-number">${testStats.total}</span>
+                <span>סה"כ</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" style="color: var(--vscode-terminal-ansiGreen, #4ec9b0)">${testStats.completed}</span>
+                <span>הושלמו</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" style="color: var(--vscode-terminal-ansiRed, #f48771)">${testStats.failed}</span>
+                <span>נכשלו</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" style="color: var(--vscode-terminal-ansiYellow, #ffcc02)">${testStats.running}</span>
+                <span>רצים</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${progressPercent}%"></div>
+            </div>
+            <div class="summary-actions">
+              <button class="btn-small" onclick="clearAllResults()">נקה הכל</button>
+              <button class="btn-small" onclick="runAllTests()">הרץ הכל</button>
+            </div>
+          `;
+        }
+
+        function addEnhancedTestResult(
+          testName,
+          content,
+          type = 'info',
+          metrics = null,
+          executionTime = null
+        ) {
+          const resultsArea =
+            document.querySelector('.test-results-area') ||
+            document.getElementById('testResults');
+          if (!resultsArea) return;
+
+          const resultId = ++currentTestId;
+          const resultDiv = document.createElement('div');
+          resultDiv.className = `test-result result-${type}`;
+          resultDiv.id = `result-${resultId}`;
+
+          const statusText =
+            type === 'success'
+              ? 'הצליח'
+              : type === 'error'
+              ? 'נכשל'
+              : type === 'warning'
+              ? 'אזהרה'
+              : 'מידע';
+
+          const emoji =
+            type === 'success'
+              ? '✅'
+              : type === 'error'
+              ? '❌'
+              : type === 'warning'
+              ? '⚠️'
+              : 'ℹ️';
+
+          let metricsHtml = '';
+          if (metrics && Object.keys(metrics).length > 0) {
+            metricsHtml = '<div class="test-result-metrics">';
+            Object.entries(metrics).forEach(([key, value]) => {
+              metricsHtml += `
+                <div class="metric-item">
+                  <span class="metric-label">${key}</span>
+                  <span class="metric-value">${value}</span>
+                </div>
+              `;
+            });
+            metricsHtml += '</div>';
+          }
+
+          const timeInfo = executionTime
+            ? `<small style="color: var(--vscode-descriptionForeground, #888)">(${executionTime}ms)</small>`
+            : '';
+
+          resultDiv.innerHTML = `
+            <div class="test-result-header">
+              <div class="test-result-title">
+                ${emoji} ${testName} ${timeInfo}
+              </div>
+              <div class="test-result-status status-completed">${statusText}</div>
+            </div>
+            <div class="test-result-content">${content}</div>
+            ${metricsHtml}
+          `;
+
+          resultsArea.appendChild(resultDiv);
+
+          // Auto-scroll to result
+          setTimeout(() => {
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 100);
+
+          // Update stats
+          testStats.completed++;
+          updateTestSummary();
+        }
+
+        function startTest(testName) {
+          testStats.total++;
+          testStats.running++;
+          updateTestSummary();
+
+          // Add running indicator
+          const resultsArea =
+            document.querySelector('.test-results-area') ||
+            document.getElementById('testResults');
+          if (!resultsArea) return;
+
+          const runningDiv = document.createElement('div');
+          runningDiv.className = 'test-result result-info';
+          runningDiv.id = `running-${testName
+            .replace(/\s+/g, '-')
+            .toLowerCase()}`;
+
+          runningDiv.innerHTML = `
+            <div class="test-result-header">
+              <div class="test-result-title">
+                🔄 ${testName}
+              </div>
+              <div class="test-result-status status-running">רץ</div>
+            </div>
+            <div class="test-result-content">מבצע בדיקה...</div>
+          `;
+
+          resultsArea.appendChild(runningDiv);
+          runningDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function endTest(testName, success = true) {
+          testStats.running--;
+          if (!success) testStats.failed++;
+
+          // Remove running indicator
+          const runningDiv = document.getElementById(
+            `running-${testName.replace(/\s+/g, '-').toLowerCase()}`
+          );
+          if (runningDiv) {
+            runningDiv.remove();
+          }
+
+          updateTestSummary();
+        }
+
+        function clearAllResults() {
+          const resultsArea =
+            document.querySelector('.test-results-area') ||
+            document.getElementById('testResults');
+          if (resultsArea) {
+            resultsArea.innerHTML = '';
+          }
+          testStats = { total: 0, completed: 0, failed: 0, running: 0 };
+          currentTestId = 0;
+          updateTestSummary();
+        }
+
+        async function runAllTests() {
+          clearAllResults();
+
+          const testFunctions = [
+            // Quick Tests
+            { name: 'בדיקת נגישות בסיסית', func: checkAccessibility },
+            { name: 'בדיקת ביצועים', func: checkPerformance },
+            { name: 'בדיקת תמונות', func: checkImages },
+            { name: 'בדיקת קישורים שבורים', func: checkBrokenLinks },
+            { name: 'בדיקת SEO', func: checkSEO },
+            { name: 'בדיקת אבטחה בסיסית', func: checkSecurity },
+            { name: 'בדיקת תאימות דפדפנים', func: checkBrowserCompatibility },
+
+            // Inspector Tests
+            { name: 'חיפוש סגנונות לא בשימוש', func: findUnusedStyles },
+            { name: 'בדיקת סגנונות כפולים', func: checkDuplicateStyles },
+            { name: 'חיפוש שכבות מיותרות', func: findRedundantLayers },
+            { name: 'בדיקת z-index', func: checkZIndex },
+            { name: 'בדיקת קומפוננטים', func: inspectComponent },
+            { name: 'חיפוש בקשות כפולות', func: findDuplicateRequests },
+            { name: 'בדיקת אופטימיזציית תמונות', func: checkImageOptimization },
+            { name: 'חיפוש קומפוננטים גדולים', func: findLargeComponents },
+            { name: 'בדיקת re-renders', func: checkReRenders },
+            { name: 'בדיקת overflow', func: checkOverflow },
+            { name: 'בדיקת יישור', func: checkAlignment },
+            { name: 'חיפוש אלמנטים מוסתרים', func: findHiddenElements },
+            { name: 'בדיקת Flexbox/Grid', func: checkFlexboxGrid },
+            { name: 'חיפוש משתנים לא בשימוש', func: findUnusedVariables },
+            { name: 'בדיקת שגיאות קונסול', func: checkConsoleErrors },
+            { name: 'חיפוש דליפות זיכרון', func: findMemoryLeaks },
+            { name: 'ניתוח bundle', func: analyzeBundle },
+          ];
+
+          for (const test of testFunctions) {
+            try {
+              startTest(test.name);
+              const startTime = performance.now();
+
+              const result = await test.func();
+
+              const endTime = performance.now();
+              const executionTime = Math.round(endTime - startTime);
+
+              // Add result with enhanced formatting
+              addEnhancedTestResult(
+                test.name,
+                result.result,
+                result.type,
+                null,
+                executionTime
+              );
+              endTest(test.name, true);
+            } catch (error) {
+              console.error(`Error in ${test.name}:`, error);
+              endTest(test.name, false);
+              addEnhancedTestResult(
+                test.name,
+                `❌ שגיאה בביצוע הבדיקה: ${error.message}`,
+                'error'
+              );
+            }
+          }
+        }
+
+        const tests = {
+          checkPage: () => {
+            const title = document.title;
+            const hasBody = !!document.body;
+            const hasHTML = !!document.documentElement;
+
+            if (hasHTML && hasBody) {
+              return {
+                result: `✅ הדף נטען בהצלחה!\nכותרת: ${title}\nכל האלמנטים הבסיסיים קיימים`,
+                type: 'success',
+              };
+            } else {
+              return { result: `❌ יש בעיה בטעינת הדף`, type: 'error' };
+            }
+          },
+
+          checkHeader: () => {
+            const h1 = document.querySelector('h1');
+            const headers = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+            if (h1) {
+              return {
+                result: `✅ כותרת ראשית נמצאה: "${h1.textContent}"\nסה"כ כותרות: ${headers.length}`,
+                type: 'success',
+              };
+            } else {
+              return { result: `❌ לא נמצאה כותרת ראשית (h1)`, type: 'error' };
+            }
+          },
+
+          checkMenu: () => {
+            const nav = document.querySelector('nav');
+            const sideMenu = document.querySelector(
+              '.side-menu, .menu, [data-testid="menu"]'
+            );
+            const buttons = document.querySelectorAll('button');
+
+            if (nav || sideMenu) {
+              return {
+                result: `✅ תפריט נמצא!\nכפתורים זמינים: ${buttons.length}`,
+                type: 'success',
+              };
+            } else {
+              return { result: `⚠️ לא נמצא תפריט ניווט`, type: 'error' };
+            }
+          },
+
+          checkTheme: () => {
+            const theme =
+              document.documentElement.getAttribute('data-theme') ||
+              document.documentElement.className ||
+              'default';
+            const bgColor = getComputedStyle(document.body).backgroundColor;
+
+            return {
+              result: `🎨 ערכת נושא נוכחית: ${theme}\nצבע רקע: ${bgColor}`,
+              type: 'info',
+            };
+          },
+
+          checkCalculator: () => {
+            const calculator = document.querySelector(
+              '.calculator, .wealth-calculator, [data-testid="calculator"]'
+            );
+            const forms = document.querySelectorAll('form');
+
+            if (calculator) {
+              return {
+                result: `✅ מחשבון נמצא!\nטפסים בדף: ${forms.length}`,
+                type: 'success',
+              };
+            } else {
+              return { result: `❌ מחשבון לא נמצא בדף הנוכחי`, type: 'error' };
+            }
+          },
+
+          checkInputs: () => {
+            const inputs = document.querySelectorAll('input');
+            const textareas = document.querySelectorAll('textarea');
+            const selects = document.querySelectorAll('select');
+            const total = inputs.length + textareas.length + selects.length;
+
+            if (total > 0) {
+              return {
+                result: `✅ שדות קלט נמצאו:\n- קלטים: ${inputs.length}\n- אזורי טקסט: ${textareas.length}\n- רשימות: ${selects.length}`,
+                type: 'success',
+              };
+            } else {
+              return { result: `❌ לא נמצאו שדות קלט`, type: 'error' };
+            }
+          },
+
+          checkButtons: () => {
+            const buttons = document.querySelectorAll('button');
+            const submitButtons = document.querySelectorAll(
+              'button[type="submit"], input[type="submit"]'
+            );
+
+            return {
+              result: `🔘 כפתורים בדף: ${buttons.length}\nכפתורי שליחה: ${submitButtons.length}`,
+              type: 'info',
+            };
+          },
+
+          checkColors: () => {
+            const root = getComputedStyle(document.documentElement);
+            const bodyStyles = getComputedStyle(document.body);
+
+            const colors = {
+              'צבע טקסט': bodyStyles.color,
+              'צבע רקע': bodyStyles.backgroundColor,
+              'צבע קישורים':
+                root.getPropertyValue('--vscode-textLink-foreground') ||
+                'לא מוגדר',
+            };
+
+            let result = '🎨 צבעים עיקריים:\n';
+            for (const [name, value] of Object.entries(colors)) {
+              result += `${name}: ${value}\n`;
+            }
+
+            return { result, type: 'info' };
+          },
+
+          checkFonts: () => {
+            const bodyFont = getComputedStyle(document.body).fontFamily;
+            const fontSize = getComputedStyle(document.body).fontSize;
+
+            return {
+              result: `📝 גופן: ${bodyFont}\nגודל: ${fontSize}`,
+              type: 'info',
+            };
+          },
+
+          checkResponsive: () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const viewport = document.querySelector('meta[name="viewport"]');
+
+            let device =
+              width >= 1024 ? 'מחשב' : width >= 768 ? 'טאבלט' : 'מובייל';
+            let deviceIcon = width >= 1024 ? '💻' : width >= 768 ? '📱' : '📱';
+
+            // Check if using preview frame
+            const iframe = document.getElementById('previewFrame');
+            const deviceSelect = document.getElementById('deviceSelect');
+            const selectedDevice = deviceSelect
+              ? deviceSelect.value
+              : 'unknown';
+
+            let result = `📱 רזולוציה נוכחית: ${width}x${height}\n`;
+            result += `${deviceIcon} סוג מכשיר: ${device}\n`;
+            result += `📺 מכשיר נבחר בתצוגה: ${selectedDevice}\n`;
+            result += `📱 Viewport מוגדר: ${viewport ? '✅' : '❌'}`;
+
+            return { result, type: 'info' };
+          },
+
+          checkLoadTime: () => {
+            if (performance && performance.timing) {
+              const loadTime =
+                performance.timing.loadEventEnd -
+                performance.timing.navigationStart;
+              const domTime =
+                performance.timing.domContentLoadedEventEnd -
+                performance.timing.navigationStart;
+
+              return {
+                result: `⚡ זמן טעינה כולל: ${loadTime}ms\nזמן טעינת DOM: ${domTime}ms`,
+                type: loadTime < 3000 ? 'success' : 'error',
+                metrics: {
+                  'זמן טעינה כולל': loadTime + 'ms',
+                  'זמן DOM': domTime + 'ms',
+                  ציון:
+                    loadTime < 2000 ? 'טוב' : loadTime < 3000 ? 'בסדר' : 'איטי',
+                },
+              };
+            } else {
+              return { result: `❌ לא ניתן למדוד זמן טעינה`, type: 'error' };
+            }
+          },
+
+          checkImages: () => {
+            const images = document.querySelectorAll('img');
+            const loadedImages = Array.from(images).filter(
+              (img) => img.complete
+            );
+
+            return {
+              result: `🖼️ תמונות בדף: ${images.length}\nנטענו בהצלחה: ${loadedImages.length}`,
+              type: loadedImages.length === images.length ? 'success' : 'error',
+              metrics: {
+                'סה"כ תמונות': images.length,
+                נטענו: loadedImages.length,
+                'אחוז הצלחה':
+                  images.length > 0
+                    ? Math.round((loadedImages.length / images.length) * 100) +
+                      '%'
+                    : '0%',
+              },
+            };
+          },
+
+          checkStorage: () => {
+            const hasLocalStorage = typeof Storage !== 'undefined';
+            const hasSessionStorage = typeof sessionStorage !== 'undefined';
+
+            if (hasLocalStorage) {
+              const items = Object.keys(localStorage).length;
+              return {
+                result: `💾 Local Storage זמין\nפריטים שמורים: ${items}`,
+                type: 'success',
+              };
+            } else {
+              return { result: `❌ Local Storage לא זמין`, type: 'error' };
+            }
+          },
+
+          checkConsole: () => {
+            // This is a simplified check - in reality we'd need to hook into console methods
+            return {
+              result: `🔍 בדיקת קונסול הושלמה\nפתח את DevTools (F12) לבדיקה מפורטת של שגיאות`,
+              type: 'info',
+            };
+          },
+
+          checkA11y: () => {
+            const altTexts = document.querySelectorAll('img[alt]');
+            const images = document.querySelectorAll('img');
+            const headings = document.querySelectorAll(
+              'h1, h2, h3, h4, h5, h6'
+            );
+            const labels = document.querySelectorAll('label');
+            const inputs = document.querySelectorAll('input');
+
+            const score =
+              (altTexts.length / images.length) * 25 +
+              (headings.length > 0 ? 25 : 0) +
+              (labels.length / inputs.length) * 25 +
+              25;
+
+            return {
+              result: `♿ ציון נגישות: ${Math.round(score)}%\nתמונות עם alt: ${
+                altTexts.length
+              }/${images.length}\nכותרות: ${headings.length}\nתוויות לשדות: ${
+                labels.length
+              }/${inputs.length}`,
+              type: score > 75 ? 'success' : 'error',
+              metrics: {
+                'ציון נגישות': Math.round(score) + '%',
+                'תמונות עם alt': `${altTexts.length}/${images.length}`,
+                כותרות: headings.length,
+                תוויות: `${labels.length}/${inputs.length}`,
+              },
+            };
+          },
+
+          checkKeyboard: () => {
+            const focusableElements = document.querySelectorAll(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const hasTabIndex = document.querySelectorAll('[tabindex]');
+
+            return {
+              result: `⌨️ אלמנטים הניתנים לפוקוס: ${focusableElements.length}\nעם tabindex מותאם: ${hasTabIndex.length}`,
+              type: focusableElements.length > 0 ? 'success' : 'error',
+            };
+          },
+
+          checkContrast: () => {
+            const bodyStyles = getComputedStyle(document.body);
+            const textColor = bodyStyles.color;
+            const bgColor = bodyStyles.backgroundColor;
+
+            return {
+              result: `🌈 ניגודיות:\nטקסט: ${textColor}\nרקע: ${bgColor}\n💡 השתמש בכלי חיצוני לבדיקה מדויקת`,
+              type: 'info',
+            };
+          },
+
+          checkScreenReader: () => {
+            const ariaLabels = document.querySelectorAll('[aria-label]');
+            const ariaDescribedby =
+              document.querySelectorAll('[aria-describedby]');
+            const roles = document.querySelectorAll('[role]');
+
+            return {
+              result: `🔊 תמיכה בקורא מסך:\naria-label: ${ariaLabels.length}\naria-describedby: ${ariaDescribedby.length}\nroles: ${roles.length}`,
+              type: 'info',
+            };
+          },
+
+          // Advanced Inspector Tests
+          findUnusedStyles: () => {
+            const allStyles = document.styleSheets;
+            let unusedCount = 0;
+            let totalRules = 0;
+
+            try {
+              for (let sheet of allStyles) {
+                try {
+                  const rules = sheet.cssRules || sheet.rules;
+                  for (let rule of rules) {
+                    if (rule.selectorText) {
+                      totalRules++;
+                      const elements = document.querySelectorAll(
+                        rule.selectorText
+                      );
+                      if (elements.length === 0) {
+                        unusedCount++;
+                      }
+                    }
+                  }
+                } catch (e) {
+                  // Cross-origin stylesheet
+                }
+              }
+              return {
+                result: `🎨 נמצאו ${unusedCount} כללי CSS לא בשימוש מתוך ${totalRules} כללים\n💡 שקול להסיר סגנונות מיותרים לשיפור ביצועים`,
+                type: unusedCount > 50 ? 'error' : 'info',
+              };
+            } catch (e) {
+              return {
+                result: `❌ שגיאה בבדיקת CSS: ${e.message}`,
+                type: 'error',
+              };
+            }
+          },
+
+          checkDuplicateStyles: () => {
+            const elements = document.querySelectorAll('*');
+            const styleMap = new Map();
+            let duplicates = 0;
+
+            elements.forEach((el) => {
+              const styles = window.getComputedStyle(el);
+              const key = `${styles.display}-${styles.position}-${styles.backgroundColor}-${styles.color}`;
+              styleMap.set(key, (styleMap.get(key) || 0) + 1);
+            });
+
+            styleMap.forEach((count) => {
+              if (count > 5) duplicates++;
+            });
+
+            return {
+              result: `🎨 נמצאו ${duplicates} צירופי עיצוב חוזרים\n💡 שקול להשתמש בקלאסים משותפים או Tailwind utilities`,
+              type: duplicates > 10 ? 'error' : 'info',
+            };
+          },
+
+          findRedundantLayers: () => {
+            const allDivs = document.querySelectorAll('div');
+            let emptyDivs = 0;
+            let singleChildDivs = 0;
+
+            allDivs.forEach((div) => {
+              if (div.children.length === 0 && div.textContent.trim() === '') {
+                emptyDivs++;
+              } else if (div.children.length === 1 && !div.classList.length) {
+                singleChildDivs++;
+              }
+            });
+
+            return {
+              result: `📦 שכבות מיותרות:\n- DIV ריקים: ${emptyDivs}\n- DIV עם ילד יחיד (בלי class): ${singleChildDivs}\n💡 שקול להסיר wrapper מיותרים`,
+              type: emptyDivs + singleChildDivs > 20 ? 'error' : 'info',
+            };
+          },
+
+          checkZIndex: () => {
+            const elements = document.querySelectorAll('*');
+            const zIndexValues = new Map();
+
+            elements.forEach((el) => {
+              const zIndex = window.getComputedStyle(el).zIndex;
+              if (zIndex !== 'auto' && zIndex !== '0') {
+                zIndexValues.set(zIndex, (zIndexValues.get(zIndex) || 0) + 1);
+              }
+            });
+
+            const sortedZIndexes = Array.from(zIndexValues.keys()).sort(
+              (a, b) => Number(b) - Number(a)
+            );
+            let result = `🔢 ערכי z-index בשימוש: ${sortedZIndexes.length}\n`;
+            result += `גבוה ביותר: ${sortedZIndexes[0] || 'אין'}\n`;
+            result += `נמוך ביותר: ${
+              sortedZIndexes[sortedZIndexes.length - 1] || 'אין'
+            }\n`;
+            result += `💡 ${
+              sortedZIndexes.length > 10
+                ? 'יש הרבה ערכים - שקול לסדר מחדש'
+                : 'נראה תקין'
+            }`;
+
+            return {
+              result,
+              type: sortedZIndexes.length > 10 ? 'error' : 'info',
+            };
+          },
+
+          inspectComponent: () => {
+            return {
+              result: `🎯 כדי לבחור קומפוננטה:\n1. לחץ על הכפתור\n2. עבור לטאב התצוגה\n3. לחץ Ctrl+Shift+C (או Cmd+Shift+C במק)\n4. לחץ על אלמנט באתר\n\n💡 אלטרנטיבה: השתמש ב-DevTools (F12) של הדפדפן`,
+              type: 'info',
+            };
+          },
+
+          findDuplicateRequests: () => {
+            if (performance && performance.getEntriesByType) {
+              const resources = performance.getEntriesByType('resource');
+              const urlMap = new Map();
+
+              resources.forEach((resource) => {
+                urlMap.set(resource.name, (urlMap.get(resource.name) || 0) + 1);
+              });
+
+              let duplicates = 0;
+              let duplicateList = [];
+              urlMap.forEach((count, url) => {
+                if (count > 1) {
+                  duplicates++;
+                  const filename = url.split('/').pop().substring(0, 30);
+                  duplicateList.push(`${filename} (${count}x)`);
+                }
+              });
+
+              let result = `⚡ נמצאו ${duplicates} בקשות כפולות\n`;
+              if (duplicateList.length > 0) {
+                result += 'דוגמאות:\n' + duplicateList.slice(0, 5).join('\n');
+              }
+              result += '\n💡 שקול caching או lazy loading';
+
+              return { result, type: duplicates > 5 ? 'error' : 'info' };
+            }
+            return { result: `❌ Performance API לא זמין`, type: 'error' };
+          },
+
+          checkImageOptimization: () => {
+            const images = document.querySelectorAll('img');
+            let largeImages = 0;
+            let missingAlt = 0;
+            let totalSize = 0;
+
+            images.forEach((img) => {
+              if (!img.alt) missingAlt++;
+              if (img.naturalWidth > 2000 || img.naturalHeight > 2000)
+                largeImages++;
+
+              // Try to get file size from performance API
+              if (performance && performance.getEntriesByType) {
+                const resources = performance.getEntriesByType('resource');
+                const resource = resources.find((r) => r.name === img.src);
+                if (resource) totalSize += resource.transferSize || 0;
+              }
+            });
+
+            return {
+              result: `🖼️ תמונות: ${
+                images.length
+              }\n- גדולות מדי (>2000px): ${largeImages}\n- ללא alt: ${missingAlt}\n- גודל כולל: ~${Math.round(
+                totalSize / 1024
+              )}KB\n💡 ${
+                largeImages > 0
+                  ? 'המלצה: קטן תמונות גדולות'
+                  : 'אופטימיזציה טובה'
+              }`,
+              type: largeImages > 3 ? 'error' : 'info',
+            };
+          },
+
+          findLargeComponents: () => {
+            const allElements = document.querySelectorAll('*');
+            const componentSizes = [];
+
+            allElements.forEach((el) => {
+              const childCount = el.querySelectorAll('*').length;
+              if (childCount > 50) {
+                const tag = el.tagName.toLowerCase();
+                const classes = el.className
+                  ? `.${el.className.split(' ')[0]}`
+                  : '';
+                componentSizes.push({
+                  name: `${tag}${classes}`,
+                  size: childCount,
+                });
+              }
+            });
+
+            componentSizes.sort((a, b) => b.size - a.size);
+            let result = `📦 קומפוננטות כבדות (>50 ילדים): ${componentSizes.length}\n`;
+            componentSizes.slice(0, 5).forEach((comp) => {
+              result += `- ${comp.name}: ${comp.size} אלמנטים\n`;
+            });
+            result += `💡 ${
+              componentSizes.length > 5
+                ? 'שקול לפצל לקומפוננטות קטנות יותר'
+                : 'נראה תקין'
+            }`;
+
+            return {
+              result,
+              type: componentSizes.length > 5 ? 'error' : 'info',
+            };
+          },
+
+          checkReRenders: () => {
+            return {
+              result: `⚛️ בדיקת רינדורים מיותרים:\n\n💡 להתקין React DevTools:\n1. התקן הרחבת React Developer Tools\n2. פתח את ה-Profiler\n3. הקלט אינטראקציה\n4. צפה בגרף הרינדורים\n\n🔍 חפש קומפוננטות שמתרנדרות ללא שינוי בפרופס`,
+              type: 'info',
+            };
+          },
+
+          checkOverflow: () => {
+            const elements = document.querySelectorAll('*');
+            let overflowIssues = 0;
+            let overflowList = [];
+
+            elements.forEach((el) => {
+              const styles = window.getComputedStyle(el);
+              if (
+                el.scrollWidth > el.clientWidth ||
+                el.scrollHeight > el.clientHeight
+              ) {
+                if (
+                  styles.overflow !== 'auto' &&
+                  styles.overflow !== 'scroll' &&
+                  styles.overflowX !== 'auto' &&
+                  styles.overflowY !== 'auto'
+                ) {
+                  overflowIssues++;
+                  const tag = el.tagName.toLowerCase();
+                  const classes = el.className
+                    ? `.${el.className.split(' ')[0]}`
+                    : '';
+                  overflowList.push(`${tag}${classes}`);
+                }
+              }
+            });
+
+            let result = `📐 בעיות overflow: ${overflowIssues}\n`;
+            if (overflowList.length > 0) {
+              result += 'דוגמאות:\n' + overflowList.slice(0, 5).join('\n');
+            }
+            result += `\n💡 ${
+              overflowIssues > 0
+                ? 'שקול להוסיף overflow: auto/hidden'
+                : 'פריסה תקינה'
+            }`;
+
+            return { result, type: overflowIssues > 5 ? 'error' : 'info' };
+          },
+
+          checkAlignment: () => {
+            const elements = document.querySelectorAll('*');
+            let alignmentIssues = 0;
+
+            elements.forEach((el) => {
+              const rect = el.getBoundingClientRect();
+              // Check if element position has fractional pixels
+              if (rect.left % 1 !== 0 || rect.top % 1 !== 0) {
+                alignmentIssues++;
+              }
+            });
+
+            return {
+              result: `📏 אלמנטים עם יישור לא מדויק: ${alignmentIssues}\n💡 ${
+                alignmentIssues > 50
+                  ? 'יש הרבה אלמנטים עם פיקסלים חלקיים - עלול לגרום לטשטוש'
+                  : 'יישור נראה תקין'
+              }`,
+              type: alignmentIssues > 100 ? 'error' : 'info',
+            };
+          },
+
+          findHiddenElements: () => {
+            const elements = document.querySelectorAll('*');
+            let hiddenElements = 0;
+            let displayNone = 0;
+            let visibilityHidden = 0;
+            let opacityZero = 0;
+
+            elements.forEach((el) => {
+              const styles = window.getComputedStyle(el);
+              if (styles.display === 'none') displayNone++;
+              if (styles.visibility === 'hidden') visibilityHidden++;
+              if (styles.opacity === '0') opacityZero++;
+            });
+
+            hiddenElements = displayNone + visibilityHidden + opacityZero;
+
+            return {
+              result: `👻 אלמנטים מוסתרים: ${hiddenElements}\n- display: none: ${displayNone}\n- visibility: hidden: ${visibilityHidden}\n- opacity: 0: ${opacityZero}\n💡 ${
+                hiddenElements > 20
+                  ? 'הרבה אלמנטים מוסתרים - שקול להסיר מה-DOM'
+                  : 'נראה סביר'
+              }`,
+              type: hiddenElements > 50 ? 'error' : 'info',
+            };
+          },
+
+          checkFlexboxGrid: () => {
+            const flexElements = document.querySelectorAll(
+              '[style*="flex"], .flex, [class*="flex-"]'
+            );
+            const gridElements = document.querySelectorAll(
+              '[style*="grid"], .grid, [class*="grid-"]'
+            );
+
+            let flexIssues = 0;
+            flexElements.forEach((el) => {
+              const styles = window.getComputedStyle(el);
+              if (styles.display.includes('flex') && !styles.flexWrap) {
+                flexIssues++;
+              }
+            });
+
+            return {
+              result: `📐 פריסות מודרניות:\n- Flexbox: ${
+                flexElements.length
+              }\n- Grid: ${
+                gridElements.length
+              }\n- Flex ללא wrap: ${flexIssues}\n💡 ${
+                flexIssues > 0
+                  ? 'שקול להוסיף flex-wrap למניעת overflow'
+                  : 'פריסה תקינה'
+              }`,
+              type: 'info',
+            };
+          },
+
+          findUnusedVariables: () => {
+            return {
+              result: `🔧 בדיקת משתנים לא בשימוש:\n\n💡 לזיהוי computed properties ומשתנים לא בשימוש:\n1. הרץ: pnpm lint\n2. או: pnpm typecheck\n3. חפש warnings של "unused variable"\n\n🔍 בקוד React/Vue:\n- חפש useState/ref שלא נקראים\n- חפש computed שלא משמשים בתבנית\n- השתמש ב-ESLint rule: no-unused-vars`,
+              type: 'info',
+            };
+          },
+
+          checkConsoleErrors: () => {
+            const errors = [];
+            const warnings = [];
+
+            // Hook into console temporarily
+            const originalError = console.error;
+            const originalWarn = console.warn;
+
+            console.error = function (...args) {
+              errors.push(args.join(' '));
+              originalError.apply(console, args);
+            };
+
+            console.warn = function (...args) {
+              warnings.push(args.join(' '));
+              originalWarn.apply(console, args);
+            };
+
+            // Restore after a short delay
+            setTimeout(() => {
+              console.error = originalError;
+              console.warn = originalWarn;
+            }, 100);
+
+            return {
+              result: `🔍 קונסול נבדק:\n- שגיאות נוכחיות: ${errors.length}\n- אזהרות נוכחיות: ${warnings.length}\n\n💡 פתח DevTools (F12) לצפייה מלאה בקונסול`,
+              type: errors.length > 0 ? 'error' : 'info',
+            };
+          },
+
+          findMemoryLeaks: () => {
+            return {
+              result: `🔍 בדיקת דליפות זיכרון:\n\n💡 כדי לזהות דליפות:\n1. פתח Chrome DevTools > Memory\n2. צלם Heap Snapshot ראשון\n3. בצע פעולות באפליקציה\n4. צלם Heap Snapshot שני\n5. השווה - חפש אובייקטים שגדלים\n\n⚠️ סימנים לדליפה:\n- Event listeners שלא הוסרו\n- Timers פעילים (setInterval)\n- References למחוקים\n- Closures כבדים`,
+              type: 'info',
+            };
+          },
+
+          analyzeBundle: () => {
+            if (performance && performance.getEntriesByType) {
+              const resources = performance.getEntriesByType('resource');
+              let jsSize = 0;
+              let cssSize = 0;
+              let imageSize = 0;
+              let otherSize = 0;
+
+              resources.forEach((resource) => {
+                const size = resource.transferSize || 0;
+                if (resource.name.endsWith('.js')) jsSize += size;
+                else if (resource.name.endsWith('.css')) cssSize += size;
+                else if (resource.name.match(/\.(jpg|jpeg|png|gif|webp|svg)$/))
+                  imageSize += size;
+                else otherSize += size;
+              });
+
+              const totalSize = jsSize + cssSize + imageSize + otherSize;
+
+              return {
+                result: `📦 ניתוח Bundle:\n- JavaScript: ${Math.round(
+                  jsSize / 1024
+                )}KB\n- CSS: ${Math.round(
+                  cssSize / 1024
+                )}KB\n- תמונות: ${Math.round(
+                  imageSize / 1024
+                )}KB\n- אחר: ${Math.round(
+                  otherSize / 1024
+                )}KB\n- סה"כ: ${Math.round(totalSize / 1024)}KB\n\n💡 ${
+                  totalSize > 1000000
+                    ? '⚠️ Bundle גדול - שקול code splitting'
+                    : '✅ גודל סביר'
+                }`,
+                type: totalSize > 2000000 ? 'error' : 'info',
+              };
+            }
+            return { result: `❌ Performance API לא זמין`, type: 'error' };
+          },
+        };
+
+        // Use event delegation to handle all test buttons (including dynamically added ones)
+        document.body.addEventListener('click', (e) => {
+          const button = e.target.closest('.test-button');
+          if (!button) return;
+
+          const testName = button.dataset.test;
+          const testDisplayName = button.textContent;
+
+          // Check if test exists
+          if (!tests[testName]) {
+            console.error('Test not found:', testName);
+            addEnhancedTestResult(
+              testDisplayName,
+              `❌ בדיקה לא נמצאה: ${testName}`,
+              'error'
+            );
+            return;
+          }
+
+          try {
+            if (testName.startsWith('check') && testName !== 'checkPage') {
+              // Try to run test on the iframe content
+              const iframe = document.getElementById('previewFrame');
+              if (iframe && iframe.contentWindow) {
+                try {
+                  const iframeDoc =
+                    iframe.contentDocument || iframe.contentWindow.document;
+                  // Execute test in iframe context
+                  const originalDoc = document;
+                  window.document = iframeDoc;
+                  startTest(testDisplayName);
+                  const startTime = performance.now();
+                  const result = tests[testName]();
+                  const endTime = performance.now();
+                  const executionTime = Math.round(endTime - startTime);
+                  window.document = originalDoc;
+                  addEnhancedTestResult(
+                    testDisplayName,
+                    result.result,
+                    result.type,
+                    null,
+                    executionTime
+                  );
+                  endTest(testDisplayName, true);
+                } catch (e) {
+                  // Fallback to current page if iframe access fails
+                  startTest(testDisplayName);
+                  const startTime = performance.now();
+                  const result = tests[testName]();
+                  const endTime = performance.now();
+                  const executionTime = Math.round(endTime - startTime);
+                  addEnhancedTestResult(
+                    testDisplayName,
+                    result.result,
+                    result.type,
+                    null,
+                    executionTime
+                  );
+                  endTest(testDisplayName, true);
+                }
+              } else {
+                startTest(testDisplayName);
+                const startTime = performance.now();
+                const result = tests[testName]();
+                const endTime = performance.now();
+                const executionTime = Math.round(endTime - startTime);
+                addEnhancedTestResult(
+                  testDisplayName,
+                  result.result,
+                  result.type,
+                  null,
+                  executionTime
+                );
+                endTest(testDisplayName, true);
+              }
+            } else {
+              startTest(testDisplayName);
+              const startTime = performance.now();
+              const result = tests[testName]();
+              const endTime = performance.now();
+              const executionTime = Math.round(endTime - startTime);
+              addEnhancedTestResult(
+                testDisplayName,
+                result.result,
+                result.type,
+                null,
+                executionTime
+              );
+              endTest(testDisplayName, true);
+            }
+          } catch (error) {
+            endTest(testDisplayName, false);
+            addEnhancedTestResult(
+              testDisplayName,
+              `❌ שגיאה בביצוע הבדיקה: ${error.message}`,
+              'error'
+            );
+          }
+        });
+
+        // Console
+        const consoleInput = document.getElementById('consoleInput');
+        const executeBtn = document.getElementById('executeBtn');
+        const consoleOutput = document.getElementById('consoleOutput');
+
+        function addConsoleEntry(command, result, isError = false) {
+          const entry = document.createElement('div');
+          entry.className = 'console-entry';
+
+          const prompt = document.createElement('div');
+          prompt.className = 'console-prompt';
+          prompt.textContent = `>>> ${command}`;
+
+          const output = document.createElement('div');
+          output.className = isError ? 'console-error' : 'console-result';
+          output.textContent = result;
+
+          entry.appendChild(prompt);
+          entry.appendChild(output);
+          consoleOutput.appendChild(entry);
+
+          consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        executeBtn.addEventListener('click', () => {
+          const command = consoleInput.value.trim();
+          if (!command) return;
+
+          try {
+            let result;
+
+            // Try to execute in iframe first
+            const iframe = document.getElementById('previewFrame');
+            if (
+              iframe &&
+              iframe.contentWindow &&
+              command.includes('document')
+            ) {
+              try {
+                const iframeDoc =
+                  iframe.contentDocument || iframe.contentWindow.document;
+                result = eval(command.replace(/document/g, 'iframeDoc'));
+              } catch (e) {
+                result = eval(command);
+              }
+            } else {
+              result = eval(command);
+            }
+
+            const resultText =
+              typeof result === 'object'
+                ? JSON.stringify(result, null, 2)
+                : String(result);
+
+            addConsoleEntry(command, resultText);
+            consoleInput.value = '';
+          } catch (error) {
+            addConsoleEntry(command, error.message, true);
+            consoleInput.value = '';
+          }
+        });
+
+        consoleInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            executeBtn.click();
+          }
+        });
+
+        // Listen for messages from extension
+        window.addEventListener('message', (event) => {
+          const message = event.data;
+        });
+
+        // Restore device selection from previous session
+        const savedState = vscode.getState();
+        if (savedState && savedState.selectedDevice) {
+          deviceSelect.value = savedState.selectedDevice;
+          updateDeviceSize(savedState.selectedDevice);
+        } else {
+          // Default to mobile-medium
+          updateDeviceSize('mobile-medium');
+        }
+
+        // Send ready message
+        vscode.postMessage({
+          command: 'ready',
+          text: 'כלי פיתוח Flare מוכנים לעבודה!',
+        });
+
+        // Element Inspector Tooltip System
+        let tooltipElement = null;
+        let highlightedElement = null;
+        let isInspectorActive = false;
+
+        function createTooltip() {
+          if (tooltipElement) return tooltipElement;
+
+          tooltipElement = document.createElement('div');
+          tooltipElement.className = 'element-tooltip';
+          document.body.appendChild(tooltipElement);
+          return tooltipElement;
+        }
+
+        function showTooltip(element, event) {
+          const tooltip = createTooltip();
+          const rect = element.getBoundingClientRect();
+
+          // Position tooltip near mouse cursor
+          let x = event.clientX + 10;
+          let y = event.clientY + 10;
+
+          // Keep tooltip within viewport
+          const tooltipRect = tooltip.getBoundingClientRect();
+          if (x + 400 > window.innerWidth) x = event.clientX - 410;
+          if (y + 300 > window.innerHeight) y = event.clientY - 310;
+
+          tooltip.style.left = x + 'px';
+          tooltip.style.top = y + 'px';
+
+          // Generate tooltip content
+          const info = analyzeElement(element);
+          tooltip.innerHTML = generateTooltipHTML(info);
+          tooltip.classList.add('show');
+        }
+
+        function hideTooltip() {
+          if (tooltipElement) {
+            tooltipElement.classList.remove('show');
+          }
+          removeHighlight();
+        }
+
+        function highlightElement(element) {
+          removeHighlight();
+          element.classList.add('inspector-highlight');
+          highlightedElement = element;
+        }
+
+        function removeHighlight() {
+          if (highlightedElement) {
+            highlightedElement.classList.remove('inspector-highlight');
+            highlightedElement = null;
+          }
+        }
+
+        function analyzeElement(element) {
+          const computed = window.getComputedStyle(element);
+          const rect = element.getBoundingClientRect();
+
+          const info = {
+            tag: element.tagName.toLowerCase(),
+            id: element.id || 'אין',
+            classes: element.className || 'אין',
+            dimensions: {
+              width: Math.round(rect.width),
+              height: Math.round(rect.height),
+              offset: {
+                left: Math.round(rect.left),
+                top: Math.round(rect.top),
+              },
+            },
+            styles: {
+              display: computed.display,
+              position: computed.position,
+              backgroundColor: computed.backgroundColor,
+              color: computed.color,
+              fontSize: computed.fontSize,
+              fontFamily: computed.fontFamily,
+              padding: computed.padding,
+              margin: computed.margin,
+              border: computed.border,
+              zIndex: computed.zIndex,
+              opacity: computed.opacity,
+            },
+            attributes: {},
+            content: element.textContent?.substring(0, 100) || '',
+            children: element.children.length,
+            issues: [],
+          };
+
+          // Collect attributes
+          Array.from(element.attributes).forEach((attr) => {
+            if (attr.name !== 'class' && attr.name !== 'id') {
+              info.attributes[attr.name] = attr.value;
+            }
+          });
+
+          // Analyze potential issues
+          if (computed.display === 'none') {
+            info.issues.push('אלמנט מוסתר (display: none)');
+          }
+          if (computed.opacity === '0') {
+            info.issues.push('אלמנט שקוף לחלוטין (opacity: 0)');
+          }
+          if (
+            computed.position === 'absolute' ||
+            computed.position === 'fixed'
+          ) {
+            info.issues.push('מיקום מוחלט - עלול לגרום לבעיות פריסה');
+          }
+          if (computed.zIndex !== 'auto' && parseInt(computed.zIndex) > 10) {
+            info.issues.push('z-index גבוה - עלול להתנגש עם אלמנטים אחרים');
+          }
+          if (rect.width < 10 || rect.height < 10) {
+            info.issues.push('אלמנט קטן מדי - עלול להיות לא נגיש');
+          }
+          if (
+            !element.getAttribute('alt') &&
+            element.tagName.toLowerCase() === 'img'
+          ) {
+            info.issues.push('תמונה ללא תיאור חלופי (alt)');
+          }
+          if (element.children.length > 20) {
+            info.issues.push(
+              'אלמנט כבד עם הרבה ילדים - עלול להשפיע על ביצועים'
+            );
+          }
+
+          return info;
+        }
+
+        function generateTooltipHTML(info) {
+          let html = `
+            <div class="tooltip-header">
+              🔍 ${info.tag.toUpperCase()}
+              ${info.id !== 'אין' ? `#${info.id}` : ''}
+              ${info.classes !== 'אין' ? `.${info.classes.split(' ')[0]}` : ''}
+            </div>
+          `;
+
+          // Dimensions
+          html += `
+            <div class="tooltip-section">
+              <div class="tooltip-label">📏 מידות:</div>
+              <div class="tooltip-value">
+                ${info.dimensions.width}×${info.dimensions.height}px
+                (מיקום: ${info.dimensions.offset.left}, ${info.dimensions.offset.top})
+              </div>
+            </div>
+          `;
+
+          // Styles
+          html += `
+            <div class="tooltip-section">
+              <div class="tooltip-label">🎨 עיצוב:</div>
+              <div class="tooltip-metrics">
+                <div class="metric-item">
+                  <div class="metric-label">תצוגה</div>
+                  <div class="metric-value">${info.styles.display}</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">מיקום</div>
+                  <div class="metric-value">${info.styles.position}</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">רקע</div>
+                  <div class="metric-value" style="background: ${
+                    info.styles.backgroundColor
+                  }; color: ${info.styles.color}">${
+            info.styles.backgroundColor
+          }</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">צבע טקסט</div>
+                  <div class="metric-value" style="color: ${
+                    info.styles.color
+                  }">${info.styles.color}</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">גופן</div>
+                  <div class="metric-value">${info.styles.fontSize} ${
+            info.styles.fontFamily.split(',')[0]
+          }</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-label">שקיפות</div>
+                  <div class="metric-value">${info.styles.opacity}</div>
+                </div>
+              </div>
+            </div>
+          `;
+
+          // Attributes
+          if (Object.keys(info.attributes).length > 0) {
+            html += `
+              <div class="tooltip-section">
+                <div class="tooltip-label">🏷️ תכונות:</div>
+                <div class="tooltip-value">
+                  ${Object.entries(info.attributes)
+                    .map(
+                      ([key, value]) =>
+                        `${key}="${
+                          value.length > 20
+                            ? value.substring(0, 20) + '...'
+                            : value
+                        }"`
+                    )
+                    .join(', ')}
+                </div>
+              </div>
+            `;
+          }
+
+          // Content
+          if (info.content) {
+            html += `
+              <div class="tooltip-section">
+                <div class="tooltip-label">📝 תוכן:</div>
+                <div class="tooltip-value">"${info.content}${
+              info.content.length > 100 ? '...' : ''
+            }"</div>
+              </div>
+            `;
+          }
+
+          // Children count
+          html += `
+            <div class="tooltip-section">
+              <div class="tooltip-label">👶 ילדים:</div>
+              <div class="tooltip-value">${info.children} אלמנטים</div>
+            </div>
+          `;
+
+          // Issues
+          if (info.issues.length > 0) {
+            html += `
+              <div class="tooltip-section">
+                <div class="tooltip-label tooltip-warning">⚠️ בעיות פוטנציאליות:</div>
+                <div class="tooltip-value">
+                  ${info.issues.map((issue) => `• ${issue}`).join('<br>')}
+                </div>
+              </div>
+            `;
+          }
+
+          return html;
+        }
+
+        function toggleInspector() {
+          const iframe = document.getElementById('previewFrame');
+          if (!iframe || !iframe.contentWindow) {
+            alert('❌ לא ניתן לגשת לתצוגה - וודא שהאתר נטען');
+            return;
+          }
+
+          isInspectorActive = !isInspectorActive;
+
+          if (isInspectorActive) {
+            // Add inspector overlay to iframe
+            try {
+              const iframeDoc =
+                iframe.contentDocument || iframe.contentWindow.document;
+              const overlay = iframeDoc.createElement('div');
+              overlay.id = 'flare-inspector-overlay';
+              overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 120, 212, 0.1);
+                cursor: crosshair;
+                z-index: 999999;
+                pointer-events: none;
+              `;
+              iframeDoc.body.appendChild(overlay);
+
+              // Add mouse event listeners to iframe document
+              iframeDoc.addEventListener('mouseover', handleMouseOver);
+              iframeDoc.addEventListener('mouseout', handleMouseOut);
+              iframeDoc.addEventListener('click', handleElementClick);
+
+              addEnhancedTestResult(
+                'בוחן אלמנטים',
+                '✅ בוחן אלמנטים הופעל! העבר עכבר על אלמנטים באתר כדי לראות פרטים',
+                'success'
+              );
+            } catch (e) {
+              addEnhancedTestResult(
+                'בוחן אלמנטים',
+                `❌ שגיאה בהפעלת הבוחן: ${e.message}`,
+                'error'
+              );
+              isInspectorActive = false;
+            }
+          } else {
+            // Remove inspector
+            try {
+              const iframeDoc =
+                iframe.contentDocument || iframe.contentWindow.document;
+              const overlay = iframeDoc.getElementById(
+                'flare-inspector-overlay'
+              );
+              if (overlay) overlay.remove();
+
+              iframeDoc.removeEventListener('mouseover', handleMouseOver);
+              iframeDoc.removeEventListener('mouseout', handleMouseOut);
+              iframeDoc.removeEventListener('click', handleElementClick);
+
+              hideTooltip();
+            } catch (e) {
+              console.error('Error disabling inspector:', e);
+            }
+
+            addEnhancedTestResult(
+              'בוחן אלמנטים',
+              '❌ בוחן אלמנטים הופסק',
+              'info'
+            );
+          }
+        }
+
+        function handleMouseOver(event) {
+          const element = event.target;
+          if (element.id === 'flare-inspector-overlay') return;
+
+          highlightElement(element);
+          showTooltip(element, {
+            clientX: event.clientX + window.screenX,
+            clientY: event.clientY + window.screenY,
+          });
+        }
+
+        function handleMouseOut(event) {
+          hideTooltip();
+        }
+
+        function handleElementClick(event) {
+          event.preventDefault();
+          const element = event.target;
+          if (element.id === 'flare-inspector-overlay') return;
+
+          // Log detailed info to console
+          const info = analyzeElement(element);
+          console.log('🔍 Element Details:', info);
+
+          addEnhancedTestResult(
+            `אלמנט נבחר: ${info.tag.toUpperCase()}`,
+            `ID: ${info.id}\nClasses: ${info.classes}\nמידות: ${
+              info.dimensions.width
+            }×${info.dimensions.height}\nבעיות: ${
+              info.issues.length > 0 ? info.issues.join(', ') : 'אין'
+            }`,
+            'info'
+          );
+        }
+
+        // Add inspector button to preview controls
+        const inspectBtn = document.getElementById('inspectBtn');
+        inspectBtn.addEventListener('click', toggleInspector);
+        inspectBtn.title = 'הפעל/כבה בוחן אלמנטים (tooltip מפורט)';
+      })();
+    </script>
+  </body>
+</html>

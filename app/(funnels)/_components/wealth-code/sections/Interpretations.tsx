@@ -11,11 +11,9 @@ import { codeStructures } from '@/lib/domain/wealth-code/data/codeStructures';
 import { dailyApplication } from '@/lib/domain/wealth-code/data/dailyApplication';
 import { digitInterpretations } from '@/lib/domain/wealth-code/data/digitInterpretations';
 import { publicEnv } from '@/lib/env';
-import { cn } from '@/lib/utils';
 
 import { CodeInset } from '../shared/CodeInset';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
-import styles from './Interpretations.module.css';
 
 interface InterpretationsProps {
   code: string;
@@ -171,25 +169,25 @@ export function Interpretations({
       maxWidth="xl"
       contentSpacing="tight"
     >
-      <Stack className={styles.interpretationsStack}>
-        <Card className={styles.interpretationsPanel}>
-          <Stack tight className={styles.interpretationsPanelStack}>
-            <h2 className={styles.interpretationsPanelTitle}>קוד העושר שלך</h2>
-            <p className={styles.interpretationsPanelText}>
+      <Stack className="wealthInterpretationsStack">
+        <Card className="wealthInterpretationsPanel">
+          <Stack tight className="wealthInterpretationsPanelStack">
+            <h2 className="wealthInterpretationsPanelTitle">קוד העושר שלך</h2>
+            <p className="wealthInterpretationsPanelText">
               {codeStructures.intro}
             </p>
-            <div className={styles.codeInset}>
+            <div className="wealthInterpretationsCodeInset">
               <CodeInset code={code} />
             </div>
           </Stack>
         </Card>
 
-        <Card className={styles.interpretationsPanel}>
-          <Stack tight className={styles.interpretationsPanelStack}>
-            <h2 className={styles.interpretationsPanelTitle}>
+        <Card className="wealthInterpretationsPanel">
+          <Stack tight className="wealthInterpretationsPanelStack">
+            <h2 className="wealthInterpretationsPanelTitle">
               {CODE_TYPE_HEADING[codeType]}
             </h2>
-            <p className={styles.interpretationsPanelText}>{structureText}</p>
+            <p className="wealthInterpretationsPanelText">{structureText}</p>
           </Stack>
         </Card>
 
@@ -197,20 +195,23 @@ export function Interpretations({
           dir="rtl"
           value={activeTab}
           onValueChange={setActiveTab}
-          className={styles.tabs}
+          className="wealthInterpretationsTabs"
         >
-          <Card className={cn(styles.interpretationsPanel, styles.tabsHeader)}>
-            <TabsList className={styles.tabsList}>
+          <Card className="wealthInterpretationsPanel wealthInterpretationsTabsHeader">
+            <TabsList className="wealthInterpretationsTabsList">
               {uniqueDigits.map((digit, index) => (
                 <TabsTrigger
                   key={digit}
                   value={index.toString()}
-                  className={styles.tabTrigger}
+                  className="wealthInterpretationsTabTrigger"
                 >
                   {digit}
                 </TabsTrigger>
               ))}
-              <TabsTrigger value="daily" className={styles.tabTrigger}>
+              <TabsTrigger
+                value="daily"
+                className="wealthInterpretationsTabTrigger"
+              >
                 יישום יומי
               </TabsTrigger>
             </TabsList>
@@ -226,43 +227,44 @@ export function Interpretations({
               <TabsContent
                 key={digit}
                 value={index.toString()}
-                className={styles.tabPanel}
+                className="wealthInterpretationsTabPanel"
               >
-                <Card
-                  className={cn(styles.interpretationsPanel, styles.digitPanel)}
-                >
+                <Card className="wealthInterpretationsPanel wealthInterpretationsDigitPanel">
                   <Stack
                     tight
-                    className={cn(
-                      styles.interpretationsPanelStack,
-                      styles.interpretationsPanelStackStart
-                    )}
+                    className="wealthInterpretationsPanelStack wealthInterpretationsPanelStackStart"
                   >
-                    <div className={styles.digitBadge}>{digit}</div>
-                    <h3 className={styles.digitTitle}>
+                    <div className="wealthInterpretationsDigitBadge">
+                      {digit}
+                    </div>
+                    <h3 className="wealthInterpretationsDigitTitle">
                       {interpretation.title}
                     </h3>
-                    <div className={styles.sectionGrid}>
-                      <div className={styles.sectionCard}>
-                        <h4 className={styles.sectionTitle}>מהות הספרה</h4>
-                        <p className={styles.sectionText}>
+                    <div className="wealthInterpretationsSectionGrid">
+                      <div className="wealthInterpretationsSectionCard">
+                        <h4 className="wealthInterpretationsSectionTitle">
+                          מהות הספרה
+                        </h4>
+                        <p className="wealthInterpretationsSectionText">
                           {interpretation.essence}
                         </p>
                       </div>
 
-                      <div className={styles.sectionCard}>
-                        <h4 className={styles.sectionTitle}>מתנות מרכזיות</h4>
-                        <ul className={styles.sectionList}>
+                      <div className="wealthInterpretationsSectionCard">
+                        <h4 className="wealthInterpretationsSectionTitle">
+                          מתנות מרכזיות
+                        </h4>
+                        <ul className="wealthInterpretationsSectionList">
                           {interpretation.gifts.map((gift, giftIndex) => {
                             const [label, ...rest] = gift.split(' – ');
                             return (
                               <li
                                 key={giftIndex}
-                                className={styles.sectionListItem}
+                                className="wealthInterpretationsSectionListItem"
                               >
                                 {rest.length > 0 ? (
                                   <>
-                                    <span className={styles.sectionListLabel}>
+                                    <span className="wealthInterpretationsSectionListLabel">
                                       {label}
                                     </span>
                                     {' – '}
@@ -277,21 +279,21 @@ export function Interpretations({
                         </ul>
                       </div>
 
-                      <div className={styles.sectionCard}>
-                        <h4 className={styles.sectionTitle}>
+                      <div className="wealthInterpretationsSectionCard">
+                        <h4 className="wealthInterpretationsSectionTitle">
                           חסימות ואתגרים עיקריים
                         </h4>
-                        <ul className={styles.sectionList}>
+                        <ul className="wealthInterpretationsSectionList">
                           {interpretation.blocks.map((block, blockIndex) => {
                             const [label, ...rest] = block.split(' – ');
                             return (
                               <li
                                 key={blockIndex}
-                                className={styles.sectionListItem}
+                                className="wealthInterpretationsSectionListItem"
                               >
                                 {rest.length > 0 ? (
                                   <>
-                                    <span className={styles.sectionListLabel}>
+                                    <span className="wealthInterpretationsSectionListLabel">
                                       {label}
                                     </span>
                                     {' – '}
@@ -306,30 +308,30 @@ export function Interpretations({
                         </ul>
                       </div>
 
-                      <div className={styles.sectionCard}>
-                        <h4 className={styles.sectionTitle}>
+                      <div className="wealthInterpretationsSectionCard">
+                        <h4 className="wealthInterpretationsSectionTitle">
                           נורות אדומות – סימנים לחוסר איזון
                         </h4>
-                        <p className={styles.sectionText}>
+                        <p className="wealthInterpretationsSectionText">
                           {interpretation.redFlags}
                         </p>
                       </div>
 
-                      <div className={styles.sectionCard}>
-                        <h4 className={styles.sectionTitle}>
+                      <div className="wealthInterpretationsSectionCard">
+                        <h4 className="wealthInterpretationsSectionTitle">
                           מוקדי צמיחה והתפתחות
                         </h4>
-                        <ul className={styles.sectionList}>
+                        <ul className="wealthInterpretationsSectionList">
                           {interpretation.growth.map((growth, growthIndex) => {
                             const [label, ...rest] = growth.split(' – ');
                             return (
                               <li
                                 key={growthIndex}
-                                className={styles.sectionListItem}
+                                className="wealthInterpretationsSectionListItem"
                               >
                                 {rest.length > 0 ? (
                                   <>
-                                    <span className={styles.sectionListLabel}>
+                                    <span className="wealthInterpretationsSectionListLabel">
                                       {label}
                                     </span>
                                     {' – '}
@@ -344,27 +346,29 @@ export function Interpretations({
                         </ul>
                       </div>
 
-                      <div className={styles.sectionCard}>
-                        <h4 className={styles.sectionTitle}>
+                      <div className="wealthInterpretationsSectionCard">
+                        <h4 className="wealthInterpretationsSectionTitle">
                           תחומים מתאימים לקריירה ולשליחות
                         </h4>
-                        <p className={styles.sectionText}>
+                        <p className="wealthInterpretationsSectionText">
                           {interpretation.careers}
                         </p>
                       </div>
 
-                      <div className={styles.sectionCard}>
-                        <h4 className={styles.sectionTitle}>
+                      <div className="wealthInterpretationsSectionCard">
+                        <h4 className="wealthInterpretationsSectionTitle">
                           דוגמה יומית לתרגול
                         </h4>
-                        <p className={styles.sectionText}>
+                        <p className="wealthInterpretationsSectionText">
                           {interpretation.dailyPractice}
                         </p>
                       </div>
 
-                      <div className={styles.sectionCard}>
-                        <h4 className={styles.sectionTitle}>בשורה התחתונה</h4>
-                        <p className={styles.sectionText}>
+                      <div className="wealthInterpretationsSectionCard">
+                        <h4 className="wealthInterpretationsSectionTitle">
+                          בשורה התחתונה
+                        </h4>
+                        <p className="wealthInterpretationsSectionText">
                           {interpretation.bottomLine}
                         </p>
                       </div>
@@ -375,20 +379,17 @@ export function Interpretations({
             );
           })}
 
-          <TabsContent value="daily" className={styles.tabPanel}>
-            <Card
-              className={cn(styles.interpretationsPanel, styles.digitPanel)}
-            >
+          <TabsContent value="daily" className="wealthInterpretationsTabPanel">
+            <Card className="wealthInterpretationsPanel wealthInterpretationsDigitPanel">
               <Stack
                 tight
-                className={cn(
-                  styles.interpretationsPanelStack,
-                  styles.interpretationsPanelStackStart
-                )}
+                className="wealthInterpretationsPanelStack wealthInterpretationsPanelStackStart"
               >
-                <h3 className={styles.digitTitle}>{dailyApplication.title}</h3>
-                <div className={styles.sectionCard}>
-                  <p className={cn(styles.sectionText, styles.sectionTextPre)}>
+                <h3 className="wealthInterpretationsDigitTitle">
+                  {dailyApplication.title}
+                </h3>
+                <div className="wealthInterpretationsSectionCard">
+                  <p className="wealthInterpretationsSectionText wealthInterpretationsSectionTextPre">
                     {dailyApplication.content}
                   </p>
                 </div>
@@ -397,30 +398,30 @@ export function Interpretations({
           </TabsContent>
         </Tabs>
 
-        <Card className={cn(styles.interpretationsPanel, styles.actionsPanel)}>
+        <Card className="wealthInterpretationsPanel wealthInterpretationsActionsPanel">
           <Stack
             tight
-            className={cn(
-              styles.interpretationsPanelStack,
-              styles.interpretationsPanelStackStart
-            )}
+            className="wealthInterpretationsPanelStack wealthInterpretationsPanelStackStart"
           >
-            <h2 className={styles.interpretationsPanelTitle}>המשך המסע</h2>
-            <div className={styles.actionGrid}>
+            <h2 className="wealthInterpretationsPanelTitle">המשך המסע</h2>
+            <div className="wealthInterpretationsActionGrid">
               <Button
                 onClick={handleDownload}
-                className={styles.actionButton}
+                className="wealthInterpretationsActionButton"
                 disabled={isGeneratingPDF}
               >
                 {isGeneratingPDF ? (
                   <>
-                    <span className={styles.spinner} aria-hidden="true" />
+                    <span
+                      className="wealthInterpretationsSpinner"
+                      aria-hidden="true"
+                    />
                     <span>יוצר PDF...</span>
                   </>
                 ) : (
                   <>
                     <Download
-                      className={styles.actionIcon}
+                      className="wealthInterpretationsActionIcon"
                       aria-hidden="true"
                     />
                     <span>להורדה כ-PDF</span>
@@ -428,18 +429,24 @@ export function Interpretations({
                 )}
               </Button>
 
-              <Button onClick={handleShare} className={styles.actionButton}>
-                <Share2 className={styles.actionIcon} aria-hidden="true" />
+              <Button
+                onClick={handleShare}
+                className="wealthInterpretationsActionButton"
+              >
+                <Share2
+                  className="wealthInterpretationsActionIcon"
+                  aria-hidden="true"
+                />
                 <span>שתפו עם חברים</span>
               </Button>
 
               <Button
                 variant="ghost"
                 onClick={handleConsultation}
-                className={styles.actionButton}
+                className="wealthInterpretationsActionButton"
               >
                 <MessageCircle
-                  className={styles.actionIcon}
+                  className="wealthInterpretationsActionIcon"
                   aria-hidden="true"
                 />
                 <span>לתיאום יעוץ אישי</span>
@@ -448,9 +455,12 @@ export function Interpretations({
               <Button
                 variant="ghost"
                 onClick={handleCalculateAnother}
-                className={styles.actionButton}
+                className="wealthInterpretationsActionButton"
               >
-                <Calculator className={styles.actionIcon} aria-hidden="true" />
+                <Calculator
+                  className="wealthInterpretationsActionIcon"
+                  aria-hidden="true"
+                />
                 <span>לחישוב קוד נוסף</span>
               </Button>
             </div>

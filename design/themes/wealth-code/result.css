@@ -1,0 +1,46 @@
+/* Theme: Wealth Code Result */
+
+.wealthResultCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--neu-space-lg);
+  align-items: center;
+  text-align: center;
+  width: min(100%, 36rem);
+  margin-inline: auto;
+}
+
+.wealthResultStack {
+  width: 100%;
+  align-items: center;
+  gap: var(--neu-space-lg);
+}
+
+.wealthResultCodeWrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.wealthResultDescription {
+  margin: 0;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size-lg);
+  line-height: 1.7;
+  color: var(--neu-text-secondary);
+}
+
+.wealthResultCta {
+  min-width: clamp(180px, 38vw, 240px);
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .wealthResultCard {
+    padding: var(--neu-space-2xl);
+  }
+
+  .wealthResultDescription {
+    font-size: var(--neu-body-size-xl);
+  }
+}

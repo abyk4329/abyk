@@ -1,3 +1,10 @@
+/*
+  DEPRECATED (Partial)
+  --------------------
+  Shared header styles are in design/themes/layout-header.css
+  This module remains for specific overrides only.
+*/
+
 .headerBar {
   position: fixed;
   inset-inline: 0;

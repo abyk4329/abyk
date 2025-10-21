@@ -1,3 +1,9 @@
+/*
+  DEPRECATED (Partial): shared styles moved to design/themes/pages/home.css
+  Keep only page-specific overrides here until complete migration.
+  Date: 2025-10-20
+*/
+
 .page {
   --home-page-padding-block: clamp(
     var(--space-4),

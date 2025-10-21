@@ -31,7 +31,7 @@ export function HeaderBar() {
 
   return (
     <header
-      className={styles.headerBar}
+      className={cn(styles.headerBar, 'appHeaderBar')}
       role="banner"
       data-hidden={anyMenuOpen}
       data-cookie-element="header"
@@ -40,6 +40,8 @@ export function HeaderBar() {
         className={cn(
           styles.headerInner,
           styles.controlsOnly,
+          'appHeaderInner',
+          'appHeaderOnlyControls',
           'header-only-controls'
         )}
       >
@@ -48,8 +50,12 @@ export function HeaderBar() {
           title={quickLabel}
           onClick={handleToggleRail}
           size="md"
-          className={cn(styles.railTrigger, 'rail-trigger')}
-          style={{ borderRadius: '50%' }}
+          className={cn(
+            styles.railTrigger,
+            'appHeaderTrigger',
+            'appHeaderCircle',
+            'rail-trigger'
+          )}
           data-rail-trigger="true"
           data-hidden={anyMenuOpen}
           aria-haspopup="dialog"
@@ -67,8 +73,12 @@ export function HeaderBar() {
           title={themeLabel}
           onClick={toggleTheme}
           size="md"
-          className={cn(styles.themeTrigger, 'theme-trigger')}
-          style={{ borderRadius: '50%' }}
+          className={cn(
+            styles.themeTrigger,
+            'appHeaderTrigger',
+            'appHeaderCircle',
+            'theme-trigger'
+          )}
           data-hidden={anyMenuOpen}
           aria-pressed={themeMode === 'dark'}
         >

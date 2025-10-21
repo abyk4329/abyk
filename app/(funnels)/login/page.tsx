@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 
 import { LoginForm } from './LoginForm';
-import styles from './LoginPage.module.css';
 
 export const metadata: Metadata = {
   title: 'התחברות | Awakening by Ksenia',
@@ -10,11 +9,11 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <main className={styles.loginPage}>
-      <section className={styles.loginCard}>
-        <header className={styles.loginHeader}>
-          <h1 className={styles.loginTitle}>ברוכה הבאה</h1>
-          <p className={styles.loginSubtitle}>
+    <main className="loginPage">
+      <section className="loginCard">
+        <header className="loginHeader">
+          <h1 className="loginTitle">ברוכה הבאה</h1>
+          <p className="loginSubtitle">
             התחברי או צרי חשבון חדש כדי לשמור פירושים, רכישות ותוצרים מותאמים
             אישית.
           </p>

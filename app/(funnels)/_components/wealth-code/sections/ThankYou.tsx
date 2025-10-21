@@ -17,8 +17,6 @@ import { Button, Card } from '@/components/neu';
 import { SOCIAL } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
-import styles from './ThankYou.module.css';
-
 interface ThankYouProps {
   onViewInterpretations: () => void;
   onCalculateAnother: () => void;
@@ -112,48 +110,51 @@ export function ThankYou({
       maxWidth="lg"
       contentSpacing="tight"
     >
-      <Stack className={styles.thankYouStack}>
-        <Card className={styles.thankYouPanel}>
-          <Stack tight className={styles.thankYouPanelStack}>
-            <h2 className={styles.thankYouPanelTitle}>הפירוש מחכה לך במייל</h2>
-            <p className={styles.thankYouPanelText}>
+      <Stack className="wealthThankYouStack">
+        <Card className="wealthThankYouPanel">
+          <Stack tight className="wealthThankYouPanelStack">
+            <h2 className="wealthThankYouPanelTitle">הפירוש מחכה לך במייל</h2>
+            <p className="wealthThankYouPanelText">
               שלחנו אליך את הפירוש המלא הרשמי של קוד העושר האישי שלך. הוא כולל
               את כל ההסברים, המסרים והדגשים שיסייעו לך להמשיך את המסע מתוך
               מודעות והכוונה.
             </p>
-            <p className={styles.thankYouPanelText}>
+            <p className="wealthThankYouPanelText">
               ההודעה נשלחה אל כתובת המייל שהזנת ברכישה. אם היא לא מופיעה בתיבה
               הראשית, כדאי לבדוק גם בספאם או בתקייה החברתית.
             </p>
           </Stack>
         </Card>
 
-        <Card className={styles.thankYouPanel}>
-          <Stack tight className={styles.thankYouPanelStack}>
-            <h2 className={styles.thankYouPanelTitle}>מה תרצו לעשות עכשיו?</h2>
-            <Stack tight className={styles.actionStack}>
+        <Card className="wealthThankYouPanel">
+          <Stack tight className="wealthThankYouPanelStack">
+            <h2 className="wealthThankYouPanelTitle">מה תרצו לעשות עכשיו?</h2>
+            <Stack tight className="wealthThankYouActionStack">
               <Button
                 onClick={handleViewInterpretation}
-                className={styles.actionButton}
+                className="wealthThankYouActionButton"
               >
-                <Eye className={styles.actionIcon} aria-hidden="true" />
+                <Eye className="wealthThankYouActionIcon" aria-hidden="true" />
                 <span>לצפייה באתר</span>
               </Button>
               <Button
                 variant="ghost"
                 onClick={handleCalculateAnother}
-                className={styles.actionButton}
+                className="wealthThankYouActionButton"
               >
-                <Calculator className={styles.actionIcon} aria-hidden="true" />
+                <Calculator
+                  className="wealthThankYouActionIcon"
+                  aria-hidden="true"
+                />
                 <span>לחישוב קוד נוסף</span>
               </Button>
               <Button
                 variant="ghost"
                 onClick={handleConsultation}
-                className={styles.actionButton}
+                className="wealthThankYouActionButton"
               >
                 <MessageCircle
-                  className={styles.actionIcon}
+                  className="wealthThankYouActionIcon"
                   aria-hidden="true"
                 />
                 <span>לתיאום יעוץ אישי</span>
@@ -162,34 +163,40 @@ export function ThankYou({
           </Stack>
         </Card>
 
-        <Card className={cn(styles.thankYouPanel, styles.sharePanel)}>
-          <Stack tight className={styles.thankYouPanelStack}>
-            <h2 className={styles.thankYouPanelTitle}>
+        <Card className={cn('wealthThankYouPanel', 'wealthThankYouSharePanel')}>
+          <Stack tight className="wealthThankYouPanelStack">
+            <h2 className="wealthThankYouPanelTitle">
               שתפו את הגילוי עם חברים
             </h2>
-            <p className={styles.thankYouPanelText}>
+            <p className="wealthThankYouPanelText">
               הפירוש שלכם יכול להאיר גם אחרים. שתפו את החוויה כדי עוד אנשים יגלו
               את הכוח החבוי במספרים שלהם.
             </p>
             <Button
               onClick={handleShare}
-              className={cn(styles.actionButton, styles.shareButton)}
+              className={cn(
+                'wealthThankYouActionButton',
+                'wealthThankYouShareButton'
+              )}
             >
-              <Share2 className={styles.actionIcon} aria-hidden="true" />
+              <Share2 className="wealthThankYouActionIcon" aria-hidden="true" />
               <span>שתפו עם חברים</span>
             </Button>
-            <div className={styles.shareDivider} aria-hidden="true" />
-            <div className={styles.socialGrid}>
+            <div className="wealthThankYouShareDivider" aria-hidden="true" />
+            <div className="wealthThankYouSocialGrid">
               {SOCIAL_LINKS.map(({ label, icon: Icon, href }) => (
                 <button
                   key={label}
                   type="button"
                   onClick={() => openExternal(href())}
-                  className={styles.socialButton}
+                  className="wealthThankYouSocialButton"
                   aria-label={label}
                 >
-                  <Icon className={styles.socialIcon} aria-hidden="true" />
-                  <span className={styles.socialLabel}>{label}</span>
+                  <Icon
+                    className="wealthThankYouSocialIcon"
+                    aria-hidden="true"
+                  />
+                  <span className="wealthThankYouSocialLabel">{label}</span>
                 </button>
               ))}
             </div>

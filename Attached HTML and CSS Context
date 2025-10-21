@@ -1,0 +1,1647 @@
+Attached HTML and CSS Context
+
+<button type="button" class="SideMenu_railAction__4E1fj" aria-label="שמור למסך הבית"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark SideMenu_railIcon__3zJ30" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg></button>
+
+
+/* Matched Rule from user-agent */
+button {
+  appearance: auto;
+}
+
+/* Matched Rule from user-agent */
+input, textarea, select, button {
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 0em;
+  margin-left: 0em;
+  text-rendering: auto;
+  color: fieldtext;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+}
+
+/* Matched Rule from user-agent */
+input[type="button" i], input[type="submit" i], input[type="reset" i], input[type="file" i]::-webkit-file-upload-button, button {
+  text-align: center;
+  cursor: default;
+  padding-block-start: 1px;
+  padding-block-end: 1px;
+  padding-inline-start: 6px;
+  padding-inline-end: 6px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+  border-top-style: outset;
+  border-right-style: outset;
+  border-bottom-style: outset;
+  border-left-style: outset;
+  border-top-color: buttonborder;
+  border-right-color: buttonborder;
+  border-bottom-color: buttonborder;
+  border-left-color: buttonborder;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  box-sizing: border-box;
+  background-color: buttonface;
+  color: buttontext;
+}
+
+/* Matched Rule from regular */
+*, ::after, ::before, ::backdrop, ::file-selector-button {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-top-color: initial;
+  border-right-color: initial;
+  border-bottom-color: initial;
+  border-left-color: initial;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+}
+
+/* Matched Rule from regular */
+*, *::before, *::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Matched Rule from regular */
+*, *::before, *::after {
+  border-color: var(--border);
+}
+
+/* Matched Rule from regular */
+button, input, select, optgroup, textarea, ::file-selector-button {
+  font: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  border-radius: 0;
+  background-color: transparent;
+  opacity: 1;
+  font-style: inherit;
+  font-variant-ligatures: inherit;
+  font-variant-caps: inherit;
+  font-variant-numeric: inherit;
+  font-variant-east-asian: inherit;
+  font-variant-alternates: inherit;
+  font-variant-position: inherit;
+  font-variant-emoji: inherit;
+  font-weight: inherit;
+  font-stretch: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  font-optical-sizing: inherit;
+  font-size-adjust: inherit;
+  font-kerning: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  background-color: transparent;
+  opacity: 1;
+}
+
+/* Matched Rule from regular */
+button, input:where([type="button"], [type="reset"], [type="submit"]), ::file-selector-button {
+  appearance: button;
+  appearance: button;
+}
+
+/* Matched Rule from regular */
+button {
+  font-size: 18px;
+  font-weight: 600;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Matched Rule from regular */
+.SideMenu_railAction__4E1fj {
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 8vw, 52px);
+  height: clamp(44px, 8vw, 52px);
+  padding-inline: var(--button-padding-inline);
+  padding-block: var(--button-padding-block);
+  border-radius: 16px;
+  border: none;
+  background: var(--card);
+  box-shadow: var(--shadow-raised);
+  color: var(--neu-accent);
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease,
+    background-color 160ms ease, color 160ms ease, outline-color 160ms ease;
+  position: relative;
+  z-index: calc(var(--z-drawer, 130) + 1);
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  width: clamp(44px, 8vw, 52px);
+  height: clamp(44px, 8vw, 52px);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  border-top-width: initial;
+  border-right-width: initial;
+  border-bottom-width: initial;
+  border-left-width: initial;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+  border-top-color: initial;
+  border-right-color: initial;
+  border-bottom-color: initial;
+  border-left-color: initial;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  box-shadow: var(--shadow-raised);
+  color: var(--neu-accent);
+  cursor: pointer;
+  transition-behavior: normal, normal, normal, normal, normal;
+  transition-duration: 160ms, 160ms, 160ms, 160ms, 160ms;
+  transition-timing-function: ease, ease, ease, ease, ease;
+  transition-delay: 0s, 0s, 0s, 0s, 0s;
+  transition-property: transform, box-shadow, background-color, color, outline-color;
+  position: relative;
+  z-index: calc(var(--z-drawer, 130) + 1);
+}
+
+/* Matched Rule from regular */
+.SideMenu_railAction__4E1fj, .SideMenu_railAction__4E1fj:hover, .SideMenu_railAction__4E1fj:focus-visible, .SideMenu_railAction__4E1fj:active, .SideMenu_railThemeToggle__kAbhP, .SideMenu_railThemeToggle__kAbhP:hover, .SideMenu_railThemeToggle__kAbhP:focus-visible, .SideMenu_railThemeToggle__kAbhP:active, .SideMenu_railExpand__9SoIA, .SideMenu_railExpand__9SoIA:hover, .SideMenu_railExpand__9SoIA:focus-visible, .SideMenu_railExpand__9SoIA:active, .SideMenu_railClose__7tTkp, .SideMenu_railClose__7tTkp:hover, .SideMenu_railClose__7tTkp:focus-visible, .SideMenu_railSocialIcon__Lke5H, .SideMenu_railSocialIcon__Lke5H:hover, .SideMenu_railSocialIcon__Lke5H:focus-visible, .SideMenu_railSocialIcon__Lke5H:active {
+  transition: none;
+  transform: none;
+  transition-behavior: normal;
+  transition-duration: 0s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+  transition-property: none;
+  transform: none;
+}
+
+/* Inherited from ancestor level 1 (user-agent) */
+article, aside, footer, header, hgroup, main, nav, search, section {
+  display: block;
+}
+
+/* Inherited from ancestor level 1 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 1 (regular) */
+*, ::after, ::before, ::backdrop, ::file-selector-button {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-top-color: initial;
+  border-right-color: initial;
+  border-bottom-color: initial;
+  border-left-color: initial;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+}
+
+/* Inherited from ancestor level 1 (regular) */
+*, *::before, *::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Inherited from ancestor level 1 (regular) */
+*, *::before, *::after {
+  border-color: var(--border);
+}
+
+/* Inherited from ancestor level 1 (regular) */
+.SideMenu_railNav__lV132 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(0.45rem, 1.8vw, 0.75rem);
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  row-gap: clamp(0.45rem, 1.8vw, 0.75rem);
+  column-gap: clamp(0.45rem, 1.8vw, 0.75rem);
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
+
+/* Inherited from ancestor level 2 (user-agent) */
+div {
+  display: block;
+}
+
+/* Inherited from ancestor level 2 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+*, ::after, ::before, ::backdrop, ::file-selector-button {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-top-color: initial;
+  border-right-color: initial;
+  border-bottom-color: initial;
+  border-left-color: initial;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+*, *::before, *::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+*, *::before, *::after {
+  border-color: var(--border);
+}
+
+/* Inherited from ancestor level 2 (regular) */
+.SideMenu_railSurface__5mUES {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 1.6vw, 0.55rem);
+  width: 100%;
+  flex: 1 1 auto;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  color: var(--neu-text-primary);
+  display: flex;
+  flex-direction: column;
+  row-gap: clamp(0.35rem, 1.6vw, 0.55rem);
+  column-gap: clamp(0.35rem, 1.6vw, 0.55rem);
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  background-image: initial;
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  background-repeat: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: transparent;
+  box-shadow: none;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  color: var(--neu-text-primary);
+}
+
+/* Inherited from ancestor level 3 (user-agent) */
+article, aside, footer, header, hgroup, main, nav, search, section {
+  display: block;
+}
+
+/* Inherited from ancestor level 3 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+*, ::after, ::before, ::backdrop, ::file-selector-button {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-top-color: initial;
+  border-right-color: initial;
+  border-bottom-color: initial;
+  border-left-color: initial;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+*, *::before, *::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+*, *::before, *::after {
+  border-color: var(--border);
+}
+
+/* Inherited from ancestor level 3 (regular) */
+.SideMenu_rail__h5cq0 {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: clamp(56px, 13vw, 68px);
+  background: var(--neu-card);
+  border: 1px solid var(--neu-card);
+  box-shadow: none;
+  z-index: var(--z-rail, 128);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(0.9rem, 3vw, 1.25rem) clamp(0.35rem, 1.8vw, 0.7rem);
+  gap: clamp(0.35rem, 1.6vw, 0.6rem);
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 260ms ease;
+  direction: rtl;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: clamp(56px, 13vw, 68px);
+  box-shadow: none;
+  z-index: var(--z-rail, 128);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: clamp(0.9rem, 3vw, 1.25rem);
+  padding-right: clamp(0.35rem, 1.8vw, 0.7rem);
+  padding-bottom: clamp(0.9rem, 3vw, 1.25rem);
+  padding-left: clamp(0.35rem, 1.8vw, 0.7rem);
+  row-gap: clamp(0.35rem, 1.6vw, 0.6rem);
+  column-gap: clamp(0.35rem, 1.6vw, 0.6rem);
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+  transition-behavior: normal, normal;
+  transition-duration: 260ms, 260ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1), ease;
+  transition-delay: 0s, 0s;
+  transition-property: transform, visibility;
+  direction: rtl;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+.SideMenu_rail__h5cq0 {
+  transition: none;
+  transition-behavior: normal;
+  transition-duration: 0s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+  transition-property: none;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+.SideMenu_rail__h5cq0[data-open="true"] {
+  transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
+  transform: translateX(0px);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Inherited from ancestor level 4 (user-agent) */
+body {
+  display: block;
+  margin-top: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+*, ::after, ::before, ::backdrop, ::file-selector-button {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-top-color: initial;
+  border-right-color: initial;
+  border-bottom-color: initial;
+  border-left-color: initial;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+*, *::before, *::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+*, *::before, *::after {
+  border-color: var(--border);
+}
+
+/* Inherited from ancestor level 4 (regular) */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100dvh;
+  height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  background-color: var(--background);
+  background-image: none;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  width: 100%;
+  min-height: 100dvh;
+  height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+  background-color: var(--background);
+  background-image: none;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+body {
+  position: relative;
+  color: var(--color-foreground);
+  font-family: var(--font-family);
+  line-height: 1.1;
+  text-align: center;
+  direction: rtl;
+  text-shadow: var(--lift-text-shadow);
+  position: relative;
+  color: var(--color-foreground);
+  font-family: var(--font-family);
+  line-height: 1.1;
+  text-align: center;
+  direction: rtl;
+  text-shadow: var(--lift-text-shadow);
+}
+
+/* Inherited from ancestor level 4 (regular) */
+body.drawer-locked {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  touch-action: none;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: contain;
+  touch-action: none;
+  position: relative;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+.text-foreground {
+  color: var(--color-foreground);
+  color: var(--color-foreground);
+}
+
+/* Inherited from ancestor level 4 (regular) */
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+body {
+  scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+.page-bg {
+  background-color: transparent;
+  background-image: none;
+  background-color: transparent;
+  background-image: none;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+.__className_d3300d {
+  font-family: 'assistant', 'assistant Fallback';
+  font-family: assistant, "assistant Fallback";
+}
+
+/* Inherited from ancestor level 5 (user-agent) */
+html {
+  display: block;
+}
+
+/* Inherited from ancestor level 5 (user-agent) */
+:root {
+  view-transition-name: root;
+}
+
+/* Inherited from ancestor level 5 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+:root, :host {
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+  --color-amber-100: oklch(96.2% 0.059 95.617);
+  --color-amber-700: oklch(55.5% 0.163 48.998);
+  --color-emerald-600: oklch(59.6% 0.145 163.225);
+  --color-rose-600: oklch(58.6% 0.253 17.585);
+  --color-gray-600: oklch(44.6% 0.03 256.802);
+  --color-stone-400: oklch(70.9% 0.01 56.259);
+  --color-stone-600: oklch(44.4% 0.011 73.639);
+  --color-stone-900: oklch(21.6% 0.006 56.043);
+  --color-black: #000;
+  --color-white: #fff;
+  --spacing: 0.25rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-4xl: 56rem;
+  --container-7xl: 80rem;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: calc(1 / 0.75);
+  --text-sm: 0.875rem;
+  --text-sm--line-height: calc(1.25 / 0.875);
+  --text-base: 1rem;
+  --text-base--line-height: calc(1.5 / 1);
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-xl: 1.25rem;
+  --text-xl--line-height: calc(1.75 / 1.25);
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: calc(2 / 1.5);
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: calc(2.25 / 1.875);
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: calc(2.5 / 2.25);
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1;
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: 1;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --tracking-tight: -0.025em;
+  --tracking-widest: 0.1em;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --blur-sm: 8px;
+  --blur-2xl: 40px;
+  --default-transition-duration: 150ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --default-font-family: var(--font-sans);
+  --default-mono-font-family: var(--font-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+  --color-amber-100: oklch(96.2% 0.059 95.617);
+  --color-amber-700: oklch(55.5% 0.163 48.998);
+  --color-emerald-600: oklch(59.6% 0.145 163.225);
+  --color-rose-600: oklch(58.6% 0.253 17.585);
+  --color-gray-600: oklch(44.6% 0.03 256.802);
+  --color-stone-400: oklch(70.9% 0.01 56.259);
+  --color-stone-600: oklch(44.4% 0.011 73.639);
+  --color-stone-900: oklch(21.6% 0.006 56.043);
+  --color-black: #000;
+  --color-white: #fff;
+  --spacing: 0.25rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-4xl: 56rem;
+  --container-7xl: 80rem;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: calc(1 / 0.75);
+  --text-sm: 0.875rem;
+  --text-sm--line-height: calc(1.25 / 0.875);
+  --text-base: 1rem;
+  --text-base--line-height: calc(1.5 / 1);
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-xl: 1.25rem;
+  --text-xl--line-height: calc(1.75 / 1.25);
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: calc(2 / 1.5);
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: calc(2.25 / 1.875);
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: calc(2.5 / 2.25);
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1;
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: 1;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --tracking-tight: -0.025em;
+  --tracking-widest: 0.1em;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --blur-sm: 8px;
+  --blur-2xl: 40px;
+  --default-transition-duration: 150ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --default-font-family: var(--font-sans);
+  --default-mono-font-family: var(--font-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+*, ::after, ::before, ::backdrop, ::file-selector-button {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+  box-sizing: border-box;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-top-color: initial;
+  border-right-color: initial;
+  border-bottom-color: initial;
+  border-left-color: initial;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+*, *::before, *::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+*, *::before, *::after {
+  border-color: var(--border);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+html, :host {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
+  font-feature-settings: var(--default-font-feature-settings, normal);
+  font-variation-settings: var(--default-font-variation-settings, normal);
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.5;
+  text-size-adjust: 100%;
+  tab-size: 4;
+  font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
+  font-feature-settings: var(--default-font-feature-settings, normal);
+  font-variation-settings: var(--default-font-variation-settings, normal);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+html {
+  box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+html {
+  font-size: var(--font-size);
+  font-size: var(--font-size);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100dvh;
+  height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  background-color: var(--background);
+  background-image: none;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  width: 100%;
+  min-height: 100dvh;
+  height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+  background-color: var(--background);
+  background-image: none;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+:root {
+  --hero-offset-group-a: calc(
+      -1 * clamp(var(--space-4), 8vh, calc(var(--space-6) + var(--space-1)))
+    );
+  --hero-offset-group-b: calc(
+      -1 * clamp(var(--space-3), 6vh, var(--space-5))
+    );
+  --hero-offset-group-a-mobile: calc(
+      -1 * clamp(var(--space-4), 11vh, calc(var(--space-6) + var(--space-1)))
+    );
+  --hero-offset-group-b-mobile: calc(
+      -1 * clamp(var(--space-3), 9vh, var(--space-5))
+    );
+  --hero-offset-group-a: calc(
+      -1 * clamp(var(--space-4), 8vh, calc(var(--space-6) + var(--space-1)))
+    );
+  --hero-offset-group-b: calc(
+      -1 * clamp(var(--space-3), 6vh, var(--space-5))
+    );
+  --hero-offset-group-a-mobile: calc(
+      -1 * clamp(var(--space-4), 11vh, calc(var(--space-6) + var(--space-1)))
+    );
+  --hero-offset-group-b-mobile: calc(
+      -1 * clamp(var(--space-3), 9vh, var(--space-5))
+    );
+}
+
+/* Inherited from ancestor level 5 (regular) */
+html.drawer-locked {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: contain;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+.scroll-smooth {
+  scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+html {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+:root {
+  --font-size: 16px;
+  --font-family: var(--font-assistant, "Assistant", sans-serif);
+  --heading-line-height-tight: 0.9;
+  --heading-h1-mobile-min: 1.6rem;
+  --heading-h1-mobile-max: 1.8125rem;
+  --heading-h1-desktop: 3rem;
+  --heading-h1-size: clamp(
+    var(--heading-h1-mobile-min),
+    calc(1.05rem + 3vw),
+    var(--heading-h1-mobile-max)
+  );
+  --heading-h1-weight: 700;
+  --heading-h1-line-height: var(--heading-line-height-tight);
+  --heading-h2-mobile-min: 1.375rem;
+  --heading-h2-mobile-max: 1.625rem;
+  --heading-h2-desktop: 2.5rem;
+  --heading-h2-size: clamp(
+    var(--heading-h2-mobile-min),
+    calc(1rem + 2.4vw),
+    var(--heading-h2-mobile-max)
+  );
+  --heading-h2-weight: 700;
+  --heading-h3-mobile-min: 1.125rem;
+  --heading-h3-mobile-max: 1.375rem;
+  --heading-h3-desktop: 2rem;
+  --heading-h3-size: clamp(
+    var(--heading-h3-mobile-min),
+    calc(0.95rem + 1.8vw),
+    var(--heading-h3-mobile-max)
+  );
+  --heading-h3-weight: 600;
+  --heading-h1-color: var(--neu-text-primary);
+  --heading-h2-color: var(--neu-text-primary);
+  --heading-h3-color: var(--neu-text-primary);
+  --heading-subtitle-size: 1.125rem;
+  --heading-subtitle-weight: 700;
+  --heading-subtitle-line-height: 1.2;
+  --heading-subtitle-color: #ccb6a4;
+  --paragraph-color: var(--neu-text-secondary);
+  --caption-color: var(--neu-text-tertiary);
+  --paragraph-base-size: clamp(1rem, 2.4vw, 1.1rem);
+  --paragraph-base-line-height: 1.2;
+  --paragraph-tight-size: var(--paragraph-base-size);
+  --paragraph-tight-line-height: var(--paragraph-base-line-height);
+  --neu-base: #f5f5f5;
+  --neu-card: #f5f5f5;
+  --neu-shadow-light: rgba(255, 255, 255, 1);
+  --neu-shadow-dark: rgba(160, 160, 160, 0.5);
+  --neu-text-primary: #5e4934;
+  --neu-text-secondary: #75614c;
+  --neu-text-tertiary: #9f8572;
+  --neu-text-quaternary: rgba(94, 73, 52, 0.65);
+  --neu-accent: #a87f58;
+  --neu-accent-light: #b9a695;
+  --neu-accent-dark: #6e563f;
+  --neu-accent-bright: #b9a695;
+  --neu-cta-press: #8a6b4f;
+  --neu-icon: var(--neu-accent);
+  --background: var(--neu-base);
+  --foreground: var(--neu-text-primary);
+  --card: var(--neu-card);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: var(--neu-accent);
+  --primary-foreground: #f5f5f5;
+  --secondary: var(--neu-card);
+  --secondary-foreground: var(--neu-accent);
+  --muted: rgba(201, 168, 130, 0.18);
+  --muted-foreground: var(--neu-text-secondary);
+  --accent: var(--primary);
+  --accent-foreground: #f5f5f5;
+  --on-accent: var(--primary-foreground);
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(160, 160, 160, 0.25);
+  --input: transparent;
+  --input-background: var(--card);
+  --switch-background: var(--card);
+  --ring: var(--neu-accent-light);
+  --text-primary: var(--neu-text-primary);
+  --text-secondary: var(--neu-text-secondary);
+  --text-tertiary: var(--neu-text-tertiary);
+  --text-quaternary: var(--neu-text-quaternary);
+  --shadow-light: var(--neu-shadow-light);
+  --shadow-dark: var(--neu-shadow-dark);
+  --shadow-raised: 2px 2px 4px var(--shadow-dark),
+    -2px -2px 4px var(--shadow-light);
+  --shadow-raised-hover: 2px 2px 4px
+      var(--shadow-dark),
+    -2px -2px 4px var(--shadow-light);
+  --font-size: 16px;
+  --font-family: var(--font-assistant, "Assistant", sans-serif);
+  --heading-line-height-tight: 0.9;
+  --heading-h1-mobile-min: 1.6rem;
+  --heading-h1-mobile-max: 1.8125rem;
+  --heading-h1-desktop: 3rem;
+  --heading-h1-size: clamp(
+    var(--heading-h1-mobile-min),
+    calc(1.05rem + 3vw),
+    var(--heading-h1-mobile-max)
+  );
+  --heading-h1-weight: 700;
+  --heading-h1-line-height: var(--heading-line-height-tight);
+  --heading-h2-mobile-min: 1.375rem;
+  --heading-h2-mobile-max: 1.625rem;
+  --heading-h2-desktop: 2.5rem;
+  --heading-h2-size: clamp(
+    var(--heading-h2-mobile-min),
+    calc(1rem + 2.4vw),
+    var(--heading-h2-mobile-max)
+  );
+  --heading-h2-weight: 700;
+  --heading-h3-mobile-min: 1.125rem;
+  --heading-h3-mobile-max: 1.375rem;
+  --heading-h3-desktop: 2rem;
+  --heading-h3-size: clamp(
+    var(--heading-h3-mobile-min),
+    calc(0.95rem + 1.8vw),
+    var(--heading-h3-mobile-max)
+  );
+  --heading-h3-weight: 600;
+  --heading-h1-color: var(--neu-text-primary);
+  --heading-h2-color: var(--neu-text-primary);
+  --heading-h3-color: var(--neu-text-primary);
+  --heading-subtitle-size: 1.125rem;
+  --heading-subtitle-weight: 700;
+  --heading-subtitle-line-height: 1.2;
+  --heading-subtitle-color: #ccb6a4;
+  --paragraph-color: var(--neu-text-secondary);
+  --caption-color: var(--neu-text-tertiary);
+  --paragraph-base-size: clamp(1rem, 2.4vw, 1.1rem);
+  --paragraph-base-line-height: 1.2;
+  --paragraph-tight-size: var(--paragraph-base-size);
+  --paragraph-tight-line-height: var(--paragraph-base-line-height);
+  --neu-base: #f5f5f5;
+  --neu-card: #f5f5f5;
+  --neu-shadow-light: rgba(255, 255, 255, 1);
+  --neu-shadow-dark: rgba(160, 160, 160, 0.5);
+  --neu-text-primary: #5e4934;
+  --neu-text-secondary: #75614c;
+  --neu-text-tertiary: #9f8572;
+  --neu-text-quaternary: rgba(94, 73, 52, 0.65);
+  --neu-accent: #a87f58;
+  --neu-accent-light: #b9a695;
+  --neu-accent-dark: #6e563f;
+  --neu-accent-bright: #b9a695;
+  --neu-cta-press: #8a6b4f;
+  --neu-icon: var(--neu-accent);
+  --background: var(--neu-base);
+  --foreground: var(--neu-text-primary);
+  --card: var(--neu-card);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: var(--neu-accent);
+  --primary-foreground: #f5f5f5;
+  --secondary: var(--neu-card);
+  --secondary-foreground: var(--neu-accent);
+  --muted: rgba(201, 168, 130, 0.18);
+  --muted-foreground: var(--neu-text-secondary);
+  --accent: var(--primary);
+  --accent-foreground: #f5f5f5;
+  --on-accent: var(--primary-foreground);
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(160, 160, 160, 0.25);
+  --input: transparent;
+  --input-background: var(--card);
+  --switch-background: var(--card);
+  --ring: var(--neu-accent-light);
+  --text-primary: var(--neu-text-primary);
+  --text-secondary: var(--neu-text-secondary);
+  --text-tertiary: var(--neu-text-tertiary);
+  --text-quaternary: var(--neu-text-quaternary);
+  --shadow-light: var(--neu-shadow-light);
+  --shadow-dark: var(--neu-shadow-dark);
+  --shadow-raised: 2px 2px 4px var(--shadow-dark),
+    -2px -2px 4px var(--shadow-light);
+  --shadow-raised-hover: 2px 2px 4px
+      var(--shadow-dark),
+    -2px -2px 4px var(--shadow-light);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-raised-hover: 2px 2px 4px
+      color-mix(in srgb, var(--shadow-dark) 60%, transparent),
+    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 60%, transparent);
+  --shadow-raised-hover: 2px 2px 4px
+      color-mix(in srgb, var(--shadow-dark) 60%, transparent),
+    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 60%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-raised-strong: 2px 2px 4px
+      var(--shadow-dark),
+    -2px -2px 4px var(--shadow-light);
+  --shadow-raised-strong: 2px 2px 4px
+      var(--shadow-dark),
+    -2px -2px 4px var(--shadow-light);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-raised-strong: 2px 2px 4px
+      color-mix(in srgb, var(--shadow-dark) 65%, transparent),
+    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 65%, transparent);
+  --shadow-raised-strong: 2px 2px 4px
+      color-mix(in srgb, var(--shadow-dark) 65%, transparent),
+    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 65%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-raised-emphasis: 2px 2px 4px
+      var(--shadow-dark),
+    -2px -2px 4px var(--shadow-light);
+  --shadow-raised-emphasis: 2px 2px 4px
+      var(--shadow-dark),
+    -2px -2px 4px var(--shadow-light);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-raised-emphasis: 2px 2px 4px
+      color-mix(in srgb, var(--shadow-dark) 70%, transparent),
+    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 70%, transparent);
+  --shadow-raised-emphasis: 2px 2px 4px
+      color-mix(in srgb, var(--shadow-dark) 70%, transparent),
+    -2px -2px 4px color-mix(in srgb, var(--shadow-light) 70%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-inset: inset 3px 3px 6px var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+  --shadow-inset-hover: inset 3px 3px 6px
+      var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+  --shadow-inset: inset 3px 3px 6px var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+  --shadow-inset-hover: inset 3px 3px 6px
+      var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-inset-hover: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 60%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 60%, transparent);
+  --shadow-inset-hover: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 60%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 60%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-inset-strong: inset 3px 3px 6px
+      var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+  --shadow-inset-strong: inset 3px 3px 6px
+      var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-inset-strong: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 65%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 65%, transparent);
+  --shadow-inset-strong: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 65%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 65%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-inset-pressed: inset 3px 3px 6px
+      var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+  --shadow-inset-pressed: inset 3px 3px 6px
+      var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-inset-pressed: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 55%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 55%, transparent);
+  --shadow-inset-pressed: inset 3px 3px 6px
+      color-mix(in srgb, var(--shadow-dark) 55%, transparent),
+    inset -3px -3px 6px color-mix(in srgb, var(--shadow-light) 55%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-overlay-sm: 0 6px 16px
+    var(--shadow-dark);
+  --shadow-overlay-sm: 0 6px 16px
+    var(--shadow-dark);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-overlay-sm: 0 6px 16px
+    color-mix(in srgb, var(--shadow-dark) 35%, transparent);
+  --shadow-overlay-sm: 0 6px 16px
+    color-mix(in srgb, var(--shadow-dark) 35%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-overlay: 0 10px 26px
+    var(--shadow-dark);
+  --shadow-overlay: 0 10px 26px
+    var(--shadow-dark);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-overlay: 0 10px 26px
+    color-mix(in srgb, var(--shadow-dark) 45%, transparent);
+  --shadow-overlay: 0 10px 26px
+    color-mix(in srgb, var(--shadow-dark) 45%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --shadow-highlight: inset 0 1px 3px rgba(255, 255, 255, 0.18);
+  --lift-text-shadow: 0 1px 1.4px
+    var(--shadow-dark);
+  --shadow-highlight: inset 0 1px 3px rgba(255, 255, 255, 0.18);
+  --lift-text-shadow: 0 1px 1.4px
+    var(--shadow-dark);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --lift-text-shadow: 0 1px 1.4px
+    color-mix(in srgb, var(--shadow-dark) 24%, transparent);
+  --lift-text-shadow: 0 1px 1.4px
+    color-mix(in srgb, var(--shadow-dark) 24%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --lift-text-shadow-md: 0 2px 4px
+    var(--shadow-dark);
+  --lift-text-shadow-md: 0 2px 4px
+    var(--shadow-dark);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --lift-text-shadow-md: 0 2px 4px
+    color-mix(in srgb, var(--shadow-dark) 28%, transparent);
+  --lift-text-shadow-md: 0 2px 4px
+    color-mix(in srgb, var(--shadow-dark) 28%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --lift-text-shadow-lg: 0 3px 6px
+    var(--shadow-dark);
+  --lift-text-shadow-lg: 0 3px 6px
+    var(--shadow-dark);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --lift-text-shadow-lg: 0 3px 6px
+    color-mix(in srgb, var(--shadow-dark) 35%, transparent);
+  --lift-text-shadow-lg: 0 3px 6px
+    color-mix(in srgb, var(--shadow-dark) 35%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --lift-icon-shadow: 0 1.5px 2px
+    var(--shadow-dark);
+  --lift-icon-shadow: 0 1.5px 2px
+    var(--shadow-dark);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --lift-icon-shadow: 0 1.5px 2px
+    color-mix(in srgb, var(--shadow-dark) 18%, transparent);
+  --lift-icon-shadow: 0 1.5px 2px
+    color-mix(in srgb, var(--shadow-dark) 18%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --brown-dark: var(--neu-text-primary);
+  --brown-heading: var(--neu-text-secondary);
+  --brown-bronze: var(--neu-text-tertiary);
+  --brown-neutral: var(--neu-text-quaternary);
+  --sand-light: rgba(160, 160, 160, 0.35);
+  --sand-lighter: rgba(255, 255, 255, 0.8);
+  --beige-lightest: var(--neu-base);
+  --white-cream: var(--neu-base);
+  --header-surface: var(--card);
+  --header-surface-strong: var(--card);
+  --status-bar-dark: #2d3436;
+  --bg-start: var(--header-surface);
+  --bg-end: var(--header-surface-strong);
+  --page-gradient: none;
+  --header-height: 56px;
+  --overlay-scrim: rgba(0, 0, 0, 0.25);
+  --overlay-glass-scrim: var(--neu-text-quaternary);
+  --brown-dark: var(--neu-text-primary);
+  --brown-heading: var(--neu-text-secondary);
+  --brown-bronze: var(--neu-text-tertiary);
+  --brown-neutral: var(--neu-text-quaternary);
+  --sand-light: rgba(160, 160, 160, 0.35);
+  --sand-lighter: rgba(255, 255, 255, 0.8);
+  --beige-lightest: var(--neu-base);
+  --white-cream: var(--neu-base);
+  --header-surface: var(--card);
+  --header-surface-strong: var(--card);
+  --status-bar-dark: #2d3436;
+  --bg-start: var(--header-surface);
+  --bg-end: var(--header-surface-strong);
+  --page-gradient: none;
+  --header-height: 56px;
+  --overlay-scrim: rgba(0, 0, 0, 0.25);
+  --overlay-glass-scrim: var(--neu-text-quaternary);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --overlay-glass-scrim: color-mix(
+    in srgb,
+    var(--neu-text-quaternary) 8%,
+    transparent
+  );
+  --overlay-glass-scrim: color-mix(
+    in srgb,
+    var(--neu-text-quaternary) 8%,
+    transparent
+  );
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --overlay-glass-blur: 22px;
+  --surface-glass: var(--neu-card);
+  --overlay-glass-blur: 22px;
+  --surface-glass: var(--neu-card);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --surface-glass: color-mix(in srgb, var(--neu-card) 82%, transparent);
+  --surface-glass: color-mix(in srgb, var(--neu-card) 82%, transparent);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --surface-glass-border: var(--neu-text-quaternary);
+  --surface-glass-border: var(--neu-text-quaternary);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --surface-glass-border: color-mix(
+    in srgb,
+    var(--neu-text-quaternary) 22%,
+    transparent
+  );
+  --surface-glass-border: color-mix(
+    in srgb,
+    var(--neu-text-quaternary) 22%,
+    transparent
+  );
+}
+
+/* Inherited from ancestor level 5 (regular) */
+ {
+  --surface-glass-shadow: none;
+  --surface-glass-blur: 18px;
+  --z-cookie: 110;
+  --z-overlay: 120;
+  --z-rail: 125;
+  --z-drawer: 130;
+  --z-header: 140;
+  --space-1: 0.5rem;
+  --space-1-5: 0.75rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --card-stack-gap: clamp(var(--space-2), 3.5vw, var(--space-3));
+  --card-text-gap: clamp(var(--space-1-5), 2.8vw, var(--space-2));
+  --heading-paragraph-gap: 0.5rem;
+  --card-padding-base: clamp(
+    var(--space-2),
+    5vw,
+    calc(var(--space-3) + var(--space-1))
+  );
+  --card-padding-desktop: clamp(
+    calc(var(--space-2) + var(--space-1)),
+    4.5vw,
+    calc(var(--space-3) + var(--space-1-5))
+  );
+  --button-height: clamp(48px, 12vw, 56px);
+  --button-padding-inline: 4px;
+  --button-padding-block: 4px;
+  --button-gap: 0.75rem;
+  --button-min-width-desktop: clamp(12rem, 18vw, 14rem);
+  --button-radius: clamp(24px, 8vw, 32px);
+  --primary-card-max-width: 880px;
+  --primary-card-gutter: clamp(1rem, 4.5vw, 2.5rem);
+  --primary-card-padding-block: clamp(2.25rem, 8vw, 3.75rem);
+  --primary-card-width: min(var(--primary-card-max-width), 100%);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 1rem;
+  --sidebar: var(--neu-card);
+  --sidebar-foreground: var(--neu-text-primary);
+  --sidebar-primary: var(--neu-accent);
+  --sidebar-primary-foreground: #fdfcfb;
+  --sidebar-accent: rgba(201, 168, 130, 0.18);
+  --sidebar-accent-foreground: var(--neu-text-secondary);
+  --sidebar-border: rgba(160, 160, 160, 0.2);
+  --sidebar-ring: var(--neu-accent-light);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --surface-glass-shadow: none;
+  --surface-glass-blur: 18px;
+  --z-cookie: 110;
+  --z-overlay: 120;
+  --z-rail: 125;
+  --z-drawer: 130;
+  --z-header: 140;
+  --space-1: 0.5rem;
+  --space-1-5: 0.75rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --card-stack-gap: clamp(var(--space-2), 3.5vw, var(--space-3));
+  --card-text-gap: clamp(var(--space-1-5), 2.8vw, var(--space-2));
+  --heading-paragraph-gap: 0.5rem;
+  --card-padding-base: clamp(
+    var(--space-2),
+    5vw,
+    calc(var(--space-3) + var(--space-1))
+  );
+  --card-padding-desktop: clamp(
+    calc(var(--space-2) + var(--space-1)),
+    4.5vw,
+    calc(var(--space-3) + var(--space-1-5))
+  );
+  --button-height: clamp(48px, 12vw, 56px);
+  --button-padding-inline: 4px;
+  --button-padding-block: 4px;
+  --button-gap: 0.75rem;
+  --button-min-width-desktop: clamp(12rem, 18vw, 14rem);
+  --button-radius: clamp(24px, 8vw, 32px);
+  --primary-card-max-width: 880px;
+  --primary-card-gutter: clamp(1rem, 4.5vw, 2.5rem);
+  --primary-card-padding-block: clamp(2.25rem, 8vw, 3.75rem);
+  --primary-card-width: min(var(--primary-card-max-width), 100%);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 1rem;
+  --sidebar: var(--neu-card);
+  --sidebar-foreground: var(--neu-text-primary);
+  --sidebar-primary: var(--neu-accent);
+  --sidebar-primary-foreground: #fdfcfb;
+  --sidebar-accent: rgba(201, 168, 130, 0.18);
+  --sidebar-accent-foreground: var(--neu-text-secondary);
+  --sidebar-border: rgba(160, 160, 160, 0.2);
+  --sidebar-ring: var(--neu-accent-light);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+.__variable_d3300d {
+  --font-assistant: 'assistant', 'assistant Fallback';
+  --font-assistant: 'assistant', 'assistant Fallback';
+}

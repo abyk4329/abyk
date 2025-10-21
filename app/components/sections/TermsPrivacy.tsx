@@ -8,7 +8,6 @@ import { createHoverHandlers } from '@/app/components/lib/neomorphism-styles';
 import { NavigationProvider } from '@/app/components/providers';
 import { ICON_STROKE } from '@/lib/constants';
 import { routes } from '@/lib/routes';
-import styles from './TermsPrivacy.module.css';
 
 const INTRO_CARD_BASE_SHADOW =
   '30px 30px 90px rgba(159,133,114,0.18), -30px -30px 90px rgba(255,255,255,0.95), inset 2px 2px 6px rgba(255,255,255,0.85), inset -2px -2px 6px rgba(211,198,189,0.08)';
@@ -269,12 +268,12 @@ export function TermsPrivacy() {
 
   return (
     <NavigationProvider value={navigationOverrides}>
-      <section className={cn('hero-shell', styles.termsShell)}>
-        <div className={styles.contentWrap}>
+      <section className={cn('hero-shell', 'terms-shell')}>
+        <div className={cn('terms-content')}>
           <article
             data-hero-group="b"
             className={cn(
-              styles.introCard,
+              'terms-intro-card',
               'p-6',
               'sm:p-8',
               'lg:p-10',
@@ -287,50 +286,32 @@ export function TermsPrivacy() {
             )}
           >
             <header className="flex flex-col items-center gap-2 text-center">
-              <div className={styles.iconWrapper}>
+              <div className="terms-icon-wrapper">
                 <FileText
                   strokeWidth={ICON_STROKE.decorative}
-                  className={styles.docIcon}
+                  className="terms-doc-icon"
                 />
               </div>
               <h1
                 className={cn(
-                  styles.tightLineHeight,
+                  'terms-tight',
                   'font-extrabold',
                   'text-3xl',
                   'sm:text-4xl',
                   'lg:text-5xl',
-                  'text-[#5e4934]',
+                  'text-[var(--neu-text-primary)]',
                   'tracking-tight'
                 )}
               >
                 תנאי שימוש ומדיניות פרטיות
               </h1>
-              <p
-                className={cn(
-                  'caption',
-                  styles.tightLineHeight,
-                  styles.introMeta
-                )}
-              >
+              <p className={cn('caption', 'terms-tight', 'terms-intro-meta')}>
                 Awakening by Ksenia
               </p>
-              <p
-                className={cn(
-                  'caption',
-                  styles.tightLineHeight,
-                  styles.introMeta
-                )}
-              >
+              <p className={cn('caption', 'terms-tight', 'terms-intro-meta')}>
                 תאריך עדכון אחרון: 01.10.2025
               </p>
-              <p
-                className={cn(
-                  'caption',
-                  styles.tightLineHeight,
-                  styles.introMeta
-                )}
-              >
+              <p className={cn('caption', 'terms-tight', 'terms-intro-meta')}>
                 נכנסו לתוקף בתאריך: 26.09.2025
               </p>
             </header>
@@ -338,10 +319,10 @@ export function TermsPrivacy() {
             {/* Intro card now holds metadata only; lead paragraphs live in the first outer card */}
           </article>
 
-          <div className={styles.cardsStack}>
+          <div className={cn('terms-cards-stack')}>
             <section
               className={cn(
-                styles.outerCard,
+                'terms-outer-card',
                 'py-6',
                 'sm:py-8',
                 'lg:py-10',
@@ -356,13 +337,13 @@ export function TermsPrivacy() {
                 OUTER_CARD_HOVER_SHADOW
               )}
             >
-              <h2 className={cn('mb-4', 'text-center', styles.sectionHeading)}>
+              <h2 className={cn('mb-4', 'text-center', 'terms-heading')}>
                 תנאי שימוש
               </h2>
               <div className="flex flex-col space-y-6">
                 <div
                   className={cn(
-                    styles.innerCard,
+                    'terms-inner-card',
                     'p-5',
                     'sm:p-6',
                     'transition-all',
@@ -370,18 +351,14 @@ export function TermsPrivacy() {
                   )}
                 >
                   <div
-                    className={cn(
-                      'space-y-3',
-                      'text-center',
-                      styles.tightLineHeight
-                    )}
+                    className={cn('space-y-3', 'text-center', 'terms-tight')}
                   >
                     {TERMS_INTRO_PARAGRAPHS.map((paragraph) => (
                       <p
                         key={`lead-${paragraph.content}`}
                         className={cn(
-                          paragraph.isLead && styles.leadParagraph,
-                          styles.tightLineHeight,
+                          paragraph.isLead && 'terms-lead',
+                          'terms-tight',
                           'text-center'
                         )}
                       >
@@ -395,7 +372,7 @@ export function TermsPrivacy() {
                   <div
                     key={section.heading}
                     className={cn(
-                      styles.innerCard,
+                      'terms-inner-card',
                       'p-5',
                       'sm:p-6',
                       'transition-all',
@@ -403,24 +380,20 @@ export function TermsPrivacy() {
                     )}
                   >
                     <h3
-                      className={cn('mb-3', 'text-center', styles.subheading)}
+                      className={cn('mb-3', 'text-center', 'terms-subheading')}
                     >
                       {section.heading}
                     </h3>
                     <div
-                      className={cn(
-                        'space-y-3',
-                        'text-center',
-                        styles.tightLineHeight
-                      )}
+                      className={cn('space-y-3', 'text-center', 'terms-tight')}
                     >
                       {section.paragraphs.map((paragraph) => (
                         <p
                           key={paragraph.content}
                           className={cn(
                             paragraph.isCaption && 'caption',
-                            paragraph.isLead && styles.leadParagraph,
-                            styles.tightLineHeight,
+                            paragraph.isLead && 'terms-lead',
+                            'terms-tight',
                             'text-center'
                           )}
                         >
@@ -435,7 +408,7 @@ export function TermsPrivacy() {
 
             <section
               className={cn(
-                styles.outerCard,
+                'terms-outer-card',
                 'py-6',
                 'sm:py-8',
                 'lg:py-10',
@@ -450,7 +423,7 @@ export function TermsPrivacy() {
                 OUTER_CARD_HOVER_SHADOW
               )}
             >
-              <h2 className={cn('mb-4', 'text-center', styles.sectionHeading)}>
+              <h2 className={cn('mb-4', 'text-center', 'terms-heading')}>
                 מדיניות פרטיות
               </h2>
               <div className="flex flex-col space-y-6">
@@ -458,7 +431,7 @@ export function TermsPrivacy() {
                   <div
                     key={section.heading}
                     className={cn(
-                      styles.innerCard,
+                      'terms-inner-card',
                       'p-5',
                       'sm:p-6',
                       'transition-all',
@@ -466,24 +439,20 @@ export function TermsPrivacy() {
                     )}
                   >
                     <h3
-                      className={cn('mb-3', 'text-center', styles.subheading)}
+                      className={cn('mb-3', 'text-center', 'terms-subheading')}
                     >
                       {section.heading}
                     </h3>
                     <div
-                      className={cn(
-                        'space-y-3',
-                        'text-center',
-                        styles.tightLineHeight
-                      )}
+                      className={cn('space-y-3', 'text-center', 'terms-tight')}
                     >
                       {section.paragraphs.map((paragraph) => (
                         <p
                           key={paragraph.content}
                           className={cn(
                             paragraph.isCaption && 'caption',
-                            paragraph.isLead && styles.leadParagraph,
-                            styles.tightLineHeight,
+                            paragraph.isLead && 'terms-lead',
+                            'terms-tight',
                             'text-center'
                           )}
                         >
@@ -498,7 +467,7 @@ export function TermsPrivacy() {
 
             <section
               className={cn(
-                styles.outerCard,
+                'terms-outer-card',
                 'py-6',
                 'sm:py-8',
                 'lg:py-10',
@@ -513,25 +482,19 @@ export function TermsPrivacy() {
                 OUTER_CARD_HOVER_SHADOW
               )}
             >
-              <h2 className={cn('mb-4', 'text-center', styles.sectionHeading)}>
+              <h2 className={cn('mb-4', 'text-center', 'terms-heading')}>
                 עדכוני מדיניות
               </h2>
               <div
                 className={cn(
-                  styles.innerCard,
+                  'terms-inner-card',
                   'p-5',
                   'sm:p-6',
                   'transition-all',
                   'duration-500'
                 )}
               >
-                <div
-                  className={cn(
-                    'space-y-3',
-                    'text-center',
-                    styles.tightLineHeight
-                  )}
-                >
+                <div className={cn('space-y-3', 'text-center', 'terms-tight')}>
                   {POLICY_UPDATE_PARAGRAPHS.map((paragraph) => (
                     <p key={paragraph.content}>{paragraph.content}</p>
                   ))}

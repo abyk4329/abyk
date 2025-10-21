@@ -1,0 +1,56 @@
+/* Theme: Wealth Code Code Inset */
+
+.wealthCodeInsetWrapper {
+  display: inline-block;
+  padding: 0;
+}
+
+.wealthCodeInset {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: clamp(1.5rem, 4vw, 1.75rem);
+  padding: clamp(1rem, 3.2vw, 1.5rem) clamp(2rem, 6vw, 3rem);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong), var(--shadow-raised);
+  transition: transform var(--neu-transition-default),
+    box-shadow var(--neu-transition-default);
+}
+
+.wealthCodeInset:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: var(--shadow-inset-strong), var(--shadow-raised-hover);
+}
+
+.wealthCodeInsetCode {
+  font-family: var(--neu-font-sans);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--neu-text-primary);
+  text-shadow: var(--lift-text-shadow-lg);
+  text-align: center;
+}
+
+.wealthCodeInsetSizeXl .wealthCodeInsetCode {
+  font-size: clamp(3.4rem, 12vw, 6rem);
+}
+
+.wealthCodeInsetSizeLg .wealthCodeInsetCode {
+  font-size: clamp(2.6rem, 9vw, 4.5rem);
+}
+
+@media (max-width: 640px) {
+  .wealthCodeInset {
+    border-radius: clamp(1.25rem, 8vw, 1.5rem);
+    padding: clamp(0.85rem, 4vw, 1.2rem) clamp(1.5rem, 7vw, 2.5rem);
+  }
+
+  .wealthCodeInsetSizeXl .wealthCodeInsetCode {
+    font-size: clamp(2.8rem, 18vw, 4.8rem);
+  }
+
+  .wealthCodeInsetSizeLg .wealthCodeInsetCode {
+    font-size: clamp(2.2rem, 16vw, 3.8rem);
+  }
+}

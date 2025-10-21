@@ -9,8 +9,6 @@ import { PAYMENT } from '@/lib/constants';
 import { routes } from '@/lib/routes';
 import { cn } from '@/lib/utils';
 
-import styles from './SalesPage.module.css';
-
 interface SalesPageProps {
   code: string;
 }
@@ -117,19 +115,19 @@ export function SalesPage({ code }: SalesPageProps) {
       maxWidth="lg"
       contentSpacing="tight"
     >
-      <Stack className={styles.salesPageStack}>
-        <Card className={styles.salesPanel}>
-          <Stack tight className={styles.salesPanelStack}>
-            <h2 className={styles.salesPanelTitle}>
+      <Stack className="wealthSalesStack">
+        <Card className="wealthSalesPanel">
+          <Stack tight className="wealthSalesPanelStack">
+            <h2 className="wealthSalesPanelTitle">
               להבין את הקוד – להבין את עצמך
             </h2>
-            <p className={styles.salesPanelText}>
+            <p className="wealthSalesPanelText">
               המספרים בקוד אינם צירוף מקרי. הם משקפים דפוסים עמוקים המניעים אותך
               לאורך חייך. כשאתה מזהה דפוסים אלה, אתה מתחיל לפעול ממקום של
               מודעות, ולא מתוך תגובתיות אוטומטית. זוהי נקודת המפנה שבה השליטה על
               חייך חוזרת לידיך.
             </p>
-            <p className={styles.salesPanelText}>
+            <p className="wealthSalesPanelText">
               מטרת העבודה עם הקוד היא לחיות חיים מודעים, שבהם כל פעולה הופכת
               מתגובה לא-מודעת לבחירה מכוונת. הבנה זו מבהירה שאין כוח חיצוני
               המעכב את התקדמותך, אלא תבניות פנימיות שאתה עצמך יוצר. מתוך תובנה
@@ -139,43 +137,43 @@ export function SalesPage({ code }: SalesPageProps) {
           </Stack>
         </Card>
 
-        <Card className={styles.salesPanel}>
-          <Stack tight className={styles.salesPanelStack}>
-            <h2 className={styles.salesPanelTitle}>
+        <Card className="wealthSalesPanel">
+          <Stack tight className="wealthSalesPanelStack">
+            <h2 className="wealthSalesPanelTitle">
               הפירוש המלא – כל מה שמחכה לכם בפנים
             </h2>
-            <p className={styles.salesPanelText}>
+            <p className="wealthSalesPanelText">
               ניתוח מעמיק של {digitsDescription} הכולל:
             </p>
-            <ul className={styles.detailList}>
+            <ul className="wealthSalesDetailList">
               {DETAIL_HIGHLIGHTS.map((item) => (
-                <li key={item} className={styles.detailItem}>
+                <li key={item} className="wealthSalesDetailItem">
                   {item}
                 </li>
               ))}
             </ul>
-            <p className={styles.salesPanelText}>
+            <p className="wealthSalesPanelText">
               בנוסף, תמצאו בו הסבר על משמעות הספרות החוזרות או השונות בקוד, לצד
               הדרכה ברורה כיצד לשלב את הקוד בחיי היומיום.
             </p>
           </Stack>
         </Card>
 
-        <Card className={cn(styles.salesPanel, styles.ctaPanel)}>
-          <Stack tight className={styles.salesPanelStack}>
-            <h2 className={styles.salesPanelTitle}>
+        <Card className={cn('wealthSalesPanel', 'wealthSalesCtaPanel')}>
+          <Stack tight className="wealthSalesPanelStack">
+            <h2 className="wealthSalesPanelTitle">
               הגיע הזמן לגלות מה מספרים מספרים עליך
             </h2>
-            <p className={styles.salesPanelText}>
+            <p className="wealthSalesPanelText">
               הפירוש המלא של הקוד מעניק מפתח להבנת הדינמיקות הפנימיות המעצבות את
               חייך. באמצעותו ניתן לזהות את מקורות הדפוסים החוזרים, להבין כיצד
               להשתחרר ממעגלי סבל מתמשכים, ולפתח פרספקטיבה חדשה על האתגרים
               וההזדמנויות הפתוחות בפניך.
             </p>
-            <div className={styles.purchasePanel}>
-              <p className={styles.price}>עלות הפירוש המלא: ₪36.90</p>
-              <p className={styles.caption}>קבלו גישה מיידית לפירוש שלכם</p>
-              <Button onClick={handlePurchase} className={styles.ctaButton}>
+            <div className="wealthSalesPurchasePanel">
+              <p className="wealthSalesPrice">עלות הפירוש המלא: ₪36.90</p>
+              <p className="wealthSalesCaption">קבלו גישה מיידית לפירוש שלכם</p>
+              <Button onClick={handlePurchase} className="wealthSalesCtaButton">
                 מעבר לרכישה
               </Button>
             </div>

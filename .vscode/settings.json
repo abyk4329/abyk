@@ -131,8 +131,18 @@
   "inlineChat.hideOnRequest": true,
   "inlineChat.lineEmptyHint": true,
   "chat.tools.terminal.terminalProfile.windows": {
+    "path": "cmd.exe",
     "color": "terminal.ansiYellow"
   },
   "editor.codeActions.triggerOnFocusChange": true,
-  "editor.definitionLinkOpensInPeek": true
+  "editor.definitionLinkOpensInPeek": true,
+  "vscode-edge-devtools.useHttps": false,
+
+  // Joyride settings
+  "joyride.autoActivate": true,
+  "joyride.cljsRepl.useNpm": false,
+  "workbench.editor.autoLockGroups": {
+    "default": true
+  },
+  "workbench.editor.alwaysShowEditorActions": true
 }

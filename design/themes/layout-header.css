@@ -1,0 +1,72 @@
+/* Layout Theme: Header (shared semantics)
+    Source: app/components/layout/HeaderBar.module.css
+    Notes: tokens-only, RTL-safe, no hard-coded colors.
+*/
+
+.appHeaderBar {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: var(--z-header, 140);
+  pointer-events: none;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.appHeaderBar[data-hidden='true'] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.appHeaderInner {
+  width: min(100%, 1120px);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+  padding-block-start: calc(env(safe-area-inset-top) + 0.75rem);
+  padding-block-end: 0.75rem;
+  min-height: calc(var(--header-height) + env(safe-area-inset-top));
+  background: transparent;
+  pointer-events: auto;
+  border: none;
+  box-shadow: none;
+}
+
+.appHeaderOnlyControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.appHeaderTrigger {
+  pointer-events: auto;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.appHeaderTrigger[data-hidden='true'] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.appHeaderCircle {
+  border-radius: 50%;
+}
+
+@media (max-width: 640px) {
+  .appHeaderInner {
+    padding-inline: clamp(0.75rem, 5vw, 1.5rem);
+    border-radius: 0 0 22px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appHeaderInner {
+    transition: none;
+  }
+}

@@ -1,0 +1,233 @@
+/* Theme: Wealth Code Interpretations */
+
+.wealthInterpretationsStack {
+  width: 100%;
+  gap: var(--neu-space-xl);
+}
+
+.wealthInterpretationsPanel {
+  width: 100%;
+  text-align: center;
+}
+
+.wealthInterpretationsPanelStack {
+  align-items: center;
+  gap: var(--neu-space-md);
+}
+
+.wealthInterpretationsPanelStackStart {
+  align-items: stretch;
+  text-align: start;
+}
+
+.wealthInterpretationsPanelTitle {
+  margin: 0;
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-sm);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--neu-text-primary);
+}
+
+.wealthInterpretationsPanelText {
+  margin: 0;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: var(--neu-text-secondary);
+}
+
+.wealthInterpretationsCodeInset {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-block-start: var(--neu-space-sm);
+}
+
+.wealthInterpretationsTabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--neu-space-lg);
+}
+
+.wealthInterpretationsTabsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--neu-space-sm);
+}
+
+.wealthInterpretationsTabsHeader {
+  padding: var(--neu-space-md) var(--neu-space-lg);
+}
+
+.wealthInterpretationsTabTrigger {
+  border: none;
+  border-radius: var(--neu-radius-md);
+  padding: var(--neu-space-xs) var(--neu-space-md);
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  letter-spacing: 0.06em;
+  color: var(--neu-text-secondary);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
+  transition: transform var(--neu-transition-default),
+    box-shadow var(--neu-transition-default),
+    color var(--neu-transition-default);
+}
+
+.wealthInterpretationsTabTrigger[data-state='active'] {
+  color: var(--neu-text-primary);
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.wealthInterpretationsTabTrigger:hover {
+  transform: translateY(-1px);
+}
+
+.wealthInterpretationsTabPanel {
+  margin-block-start: var(--neu-space-sm);
+}
+
+.wealthInterpretationsDigitPanel {
+  text-align: start;
+}
+
+.wealthInterpretationsDigitBadge {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  margin-inline: auto;
+  border-radius: 999px;
+  font-family: var(--neu-font-sans);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--neu-accent);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
+}
+
+.wealthInterpretationsDigitTitle {
+  margin: 0;
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-sm);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--neu-text-primary);
+  text-align: center;
+}
+
+.wealthInterpretationsSectionGrid {
+  display: grid;
+  gap: var(--neu-space-md);
+}
+
+.wealthInterpretationsSectionCard {
+  padding: var(--neu-space-md);
+  border-radius: var(--neu-radius-md);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
+}
+
+.wealthInterpretationsSectionTitle {
+  margin: 0 0 var(--neu-space-xs);
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-xs);
+  font-weight: 600;
+  color: var(--neu-text-primary);
+}
+
+.wealthInterpretationsSectionText {
+  margin: 0;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  line-height: 1.65;
+  color: var(--neu-text-secondary);
+}
+
+.wealthInterpretationsSectionTextPre {
+  white-space: pre-line;
+}
+
+.wealthInterpretationsSectionList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--neu-space-xs);
+}
+
+.wealthInterpretationsSectionListItem {
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  line-height: 1.6;
+  color: var(--neu-text-secondary);
+}
+
+.wealthInterpretationsSectionListLabel {
+  font-weight: 700;
+  color: var(--neu-text-primary);
+}
+
+.wealthInterpretationsActionsPanel {
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-raised), var(--shadow-inset-strong);
+}
+
+.wealthInterpretationsActionGrid {
+  display: grid;
+  gap: var(--neu-space-sm);
+}
+
+.wealthInterpretationsActionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--neu-space-xs);
+}
+
+.wealthInterpretationsActionIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.wealthInterpretationsSpinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--neu-shadow-light);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: wealth-interpretations-spin 0.9s linear infinite;
+}
+
+@keyframes wealth-interpretations-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 768px) {
+  .wealthInterpretationsStack {
+    gap: var(--neu-space-2xl);
+  }
+
+  .wealthInterpretationsTabsHeader {
+    padding: var(--neu-space-lg) var(--neu-space-xl);
+  }
+
+  .wealthInterpretationsSectionGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wealthInterpretationsActionGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .wealthInterpretationsSectionGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

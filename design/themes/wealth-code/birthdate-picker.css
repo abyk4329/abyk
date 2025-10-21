@@ -1,0 +1,285 @@
+/* Theme: Wealth Code Birthdate Picker */
+
+.wealthBirthdatePickerWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(var(--neu-space-xs), 1.6vw, var(--neu-space-sm));
+}
+
+.wealthBirthdateLabel {
+  color: var(--neu-text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.wealthBirthdateTrigger {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(var(--neu-space-2xs), 1.2vw, var(--neu-space-xs));
+  padding: clamp(0.9rem, 3.5vw, 1.35rem);
+  border: none;
+  border-radius: 24px;
+  background: var(--neu-card);
+  color: var(--neu-text-primary);
+  box-shadow: var(--shadow-raised);
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease,
+    background-color 160ms ease, color 160ms ease;
+}
+
+.wealthBirthdateTrigger[data-selected='false'] {
+  color: var(--neu-text-tertiary);
+}
+
+.wealthBirthdateTrigger:hover,
+.wealthBirthdateTrigger:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.wealthBirthdateTrigger:active {
+  transform: scale(0.97);
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.wealthBirthdateTriggerIcon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-block-end: clamp(var(--neu-space-sm), 2.6vw, var(--neu-space-md));
+  border-radius: 16px;
+  background: var(--neu-card);
+  box-shadow: var(--shadow-inset);
+  color: var(--neu-accent);
+}
+
+.wealthBirthdateTriggerLabel {
+  margin: 0;
+  font-size: var(--paragraph-base-size);
+  font-weight: var(--paragraph-base-weight);
+  letter-spacing: var(--paragraph-letter-spacing);
+  color: var(--paragraph-text-color, var(--neu-text-primary));
+  line-height: var(--paragraph-base-line-height);
+}
+
+.wealthBirthdateTrigger[data-selected='false'] .wealthBirthdateTriggerLabel {
+  color: var(--neu-text-tertiary);
+}
+
+.wealthBirthdateTriggerValue {
+  font-size: clamp(0.85rem, 2.4vw, 0.95rem);
+  font-weight: 500;
+  color: var(--neu-text-secondary);
+}
+
+.wealthBirthdateHelper {
+  margin: 0;
+  font-size: clamp(0.85rem, 2.4vw, 0.95rem);
+  color: var(--neu-text-tertiary);
+}
+
+.wealthBirthdateSheetOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background: var(--overlay-glass-scrim, rgba(0, 0, 0, 0.4));
+  backdrop-filter: blur(var(--overlay-glass-blur, 22px));
+  -webkit-backdrop-filter: blur(var(--overlay-glass-blur, 22px));
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.9);
+  transition: opacity 200ms ease;
+}
+
+.wealthBirthdateSheetOverlay[data-open='true'] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.wealthBirthdateSheet {
+  width: min(100%, 420px);
+  max-height: min(85dvh, 480px);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--neu-space-md), 3vw, var(--neu-space-lg));
+  padding: clamp(1rem, 3.5vw, 1.6rem);
+  border-radius: 28px;
+  background: var(--neu-card);
+  color: var(--neu-text-primary);
+  box-shadow: var(--shadow-raised-emphasis);
+}
+
+.wealthBirthdateSheetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.wealthBirthdateCloseButton {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--neu-card) 75%, transparent);
+  color: var(--neu-accent);
+  box-shadow: var(--shadow-inset);
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.wealthBirthdateCloseButton:hover,
+.wealthBirthdateCloseButton:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-inset-hover);
+}
+
+.wealthBirthdateControlsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(var(--neu-space-sm), 2.5vw, var(--neu-space-md));
+}
+
+.wealthBirthdateSelectGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wealthBirthdateSelect {
+  padding: 0.5rem 1rem;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--shadow-dark) 15%, transparent);
+  background: var(--neu-card);
+  color: var(--neu-text-primary);
+  font-weight: 600;
+  box-shadow: var(--shadow-inset);
+  cursor: pointer;
+}
+
+.wealthBirthdateSelect:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.wealthBirthdateNavButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--neu-space-sm);
+}
+
+.wealthBirthdateNavButton {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 14px;
+  background: var(--neu-card);
+  color: var(--neu-accent);
+  box-shadow: var(--shadow-raised);
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.wealthBirthdateNavButton:hover,
+.wealthBirthdateNavButton:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.wealthBirthdateNavButton:active {
+  transform: scale(0.96);
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.wealthBirthdateCalendar {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--neu-space-sm), 2vw, var(--neu-space-md));
+  direction: ltr;
+}
+
+.wealthBirthdateWeekHeader {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(0.35rem, 1.5vw, 0.6rem);
+  text-align: center;
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
+  font-weight: 600;
+  color: var(--neu-text-secondary);
+}
+
+.wealthBirthdateDayGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(0.35rem, 1.5vw, 0.6rem);
+}
+
+.wealthBirthdateDayStub {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.wealthBirthdateDayButton {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: none;
+  border-radius: 18px;
+  background: var(--neu-card);
+  color: var(--neu-text-primary);
+  font-weight: 600;
+  box-shadow: var(--shadow-raised);
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease,
+    background-color 140ms ease, color 140ms ease;
+}
+
+.wealthBirthdateDayButton[data-selected='true'] {
+  background: var(--neu-accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-raised-hover), var(--shadow-inset-strong);
+}
+
+.wealthBirthdateDayButton[data-today='true'][data-selected='false'] {
+  box-shadow: var(--shadow-raised-hover);
+  border: 1px solid color-mix(in srgb, var(--neu-accent) 60%, transparent);
+}
+
+.wealthBirthdateDayButton:hover,
+.wealthBirthdateDayButton:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-raised-hover);
+}
+
+.wealthBirthdateDayButton:active {
+  transform: scale(0.96);
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+@media (max-width: 520px) {
+  .wealthBirthdateSheet {
+    border-radius: 24px 24px 0 0;
+  }
+
+  .wealthBirthdateTrigger {
+    border-radius: 20px;
+  }
+}

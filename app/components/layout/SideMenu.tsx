@@ -16,10 +16,7 @@ import { useCallback, useMemo } from 'react';
 
 import { BRAND, ICON_STROKE } from '@/lib/constants';
 import { buildUrl, routes } from '@/lib/routes';
-import { cn } from '@/lib/utils';
-
 import { useDrawer } from './DrawerProvider';
-import styles from './SideMenu.module.css';
 
 type NavItem = {
   key: string;
@@ -138,15 +135,15 @@ export function SideMenu() {
   return (
     <>
       <div
-        className={styles.backdrop}
+        className="sideMenuBackdrop"
         data-open={open || railOpen ? 'true' : 'false'}
         role="presentation"
         onClick={handleCloseAll}
       />
 
-      <aside className={styles.rail} data-open={railOpen ? 'true' : 'false'}>
-        <div className={styles.railSurface}>
-          <nav className={styles.railNav} aria-label="תפריט מהיר">
+      <aside className="sideMenuRail" data-open={railOpen ? 'true' : 'false'}>
+        <div className="sideMenuRailSurface">
+          <nav className="sideMenuRailNav" aria-label="תפריט מהיר">
             {railNavItems.map((item) => {
               const active =
                 item.showActive === false
@@ -156,7 +153,7 @@ export function SideMenu() {
                 <button
                   key={item.key}
                   type="button"
-                  className={styles.railAction}
+                  className="sideMenuRailAction"
                   data-active={active ? 'true' : undefined}
                   data-variant={item.variant}
                   onClick={() => handleNavigate(item)}
@@ -167,17 +164,17 @@ export function SideMenu() {
                     size={20}
                     strokeWidth={ICON_STROKE.default}
                     aria-hidden="true"
-                    className={styles.railIcon}
+                    className="sideMenuRailIcon"
                   />
                 </button>
               );
             })}
           </nav>
 
-          <div className={styles.railFooter}>
+          <div className="sideMenuRailFooter">
             <button
               type="button"
-              className={styles.railExpand}
+              className="sideMenuRailExpand"
               onClick={() => {
                 closeRail();
                 openDrawer();
@@ -189,35 +186,35 @@ export function SideMenu() {
                 strokeWidth={ICON_STROKE.default}
                 aria-hidden
               />
-              <span className={styles.srOnly}>פתיחת תפריט מלא</span>
+              <span className="sideMenuSrOnly">פתיחת תפריט מלא</span>
             </button>
           </div>
         </div>
       </aside>
 
       <aside
-        className={styles.drawer}
+        className="sideMenuDrawer"
         data-open={open ? 'true' : 'false'}
         data-expanded={open ? 'true' : 'false'}
         role="dialog"
         aria-label="תפריט ניווט"
         aria-modal="true"
       >
-        <div className={styles.sideMenuContent}>
-          <div className={styles.sideMenuCloseArea}>
+        <div className="sideMenuContent">
+          <div className="sideMenuCloseArea">
             <button
               type="button"
-              className={styles.sideMenuCloseButton}
+              className="sideMenuCloseButton"
               onClick={handleCloseDrawer}
               aria-label="סגירת תפריט"
             >
               <X size={20} strokeWidth={ICON_STROKE.default} aria-hidden />
             </button>
 
-            <span className={styles.brandTitle}>{BRAND.name}</span>
+            <span className="sideMenuBrandTitle">{BRAND.name}</span>
           </div>
 
-          <nav className={styles.navList} aria-label="תפריט ראשי">
+          <nav className="sideMenuNavList" aria-label="תפריט ראשי">
             {NAV_ITEMS.map((item) => {
               const active =
                 item.showActive === false
@@ -227,19 +224,19 @@ export function SideMenu() {
                 <button
                   key={item.key}
                   type="button"
-                  className={styles.navAction}
+                  className="sideMenuNavAction"
                   onClick={() => handleNavigate(item)}
                   aria-current={active ? 'page' : undefined}
                 >
                   <span
-                    className={cn(styles.navSurface)}
+                    className="sideMenuNavSurface"
                     data-active={active ? 'true' : undefined}
                     data-variant={item.variant}
                   >
-                    <span className={styles.navIcon} aria-hidden="true">
+                    <span className="sideMenuNavIcon" aria-hidden="true">
                       <item.icon size={22} strokeWidth={ICON_STROKE.default} />
                     </span>
-                    <span className={styles.navLabel}>{item.label}</span>
+                    <span className="sideMenuNavLabel">{item.label}</span>
                   </span>
                 </button>
               );

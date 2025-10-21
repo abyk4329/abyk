@@ -1,0 +1,124 @@
+/* Theme: Wealth Code Thank You */
+
+.wealthThankYouStack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--neu-space-xl);
+}
+
+.wealthThankYouPanel {
+  text-align: center;
+}
+
+.wealthThankYouPanelStack {
+  align-items: center;
+  gap: var(--neu-space-md);
+}
+
+.wealthThankYouPanelTitle {
+  margin: 0;
+  font-family: var(--neu-font-serif);
+  font-size: var(--neu-heading-size-sm);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--neu-text-primary);
+}
+
+.wealthThankYouPanelText {
+  margin: 0;
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-body-size);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--neu-text-secondary);
+}
+
+.wealthThankYouSharePanel {
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-raised), var(--shadow-inset-strong);
+}
+
+.wealthThankYouActionStack {
+  width: 100%;
+  gap: var(--neu-space-sm);
+}
+
+.wealthThankYouActionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--neu-space-xs);
+}
+
+.wealthThankYouActionIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.wealthThankYouShareButton {
+  width: auto;
+  padding-inline: var(--neu-space-xl);
+}
+
+.wealthThankYouShareDivider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--neu-shadow-light);
+}
+
+.wealthThankYouSocialGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--neu-space-sm);
+}
+
+.wealthThankYouSocialButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--neu-space-xs);
+  padding: var(--neu-space-sm);
+  border: none;
+  border-radius: var(--neu-radius-md);
+  background-color: var(--neu-card);
+  box-shadow: var(--shadow-inset-strong);
+  color: var(--neu-text-primary);
+  cursor: pointer;
+  transition: transform var(--neu-transition-default),
+    box-shadow var(--neu-transition-default);
+}
+
+.wealthThankYouSocialButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-inset-pressed);
+}
+
+.wealthThankYouSocialIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--neu-accent);
+}
+
+.wealthThankYouSocialLabel {
+  font-family: var(--neu-font-sans);
+  font-size: var(--neu-caption-size);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neu-text-secondary);
+}
+
+@media (min-width: 768px) {
+  .wealthThankYouStack {
+    gap: var(--neu-space-2xl);
+  }
+
+  .wealthThankYouShareButton {
+    width: max(320px, 50%);
+  }
+
+  .wealthThankYouSocialGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

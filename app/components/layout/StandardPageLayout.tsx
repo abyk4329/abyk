@@ -1,19 +1,18 @@
-"use client";
+'use client';
 
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-import { cn } from "@/lib/utils";
-import styles from "./StandardPageLayout.module.css";
-import { SocialLinks } from "./SocialLinks";
+import { cn } from '@/lib/utils';
+import { SocialLinks } from './SocialLinks';
 
-type MaxWidth = "sm" | "md" | "lg" | "xl" | "full";
+type MaxWidth = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
 const MAX_WIDTH_CLASS: Record<MaxWidth, string> = {
-  sm: "max-w-[480px]",
-  md: "max-w-[640px]",
-  lg: "max-w-[900px]",
-  xl: "max-w-[1200px]",
-  full: "max-w-full",
+  sm: 'max-w-[480px]',
+  md: 'max-w-[640px]',
+  lg: 'max-w-[900px]',
+  xl: 'max-w-[1200px]',
+  full: 'max-w-full',
 };
 
 interface StandardPageLayoutProps {
@@ -27,15 +26,19 @@ interface StandardPageLayoutProps {
 export function StandardPageLayout({
   children,
   showSocial = false,
-  maxWidth = "md",
+  maxWidth = 'md',
   className,
   contentClassName,
 }: StandardPageLayoutProps) {
-  const containerClassName = cn("hero-shell", styles.pageContainer, className);
+  const containerClassName = cn(
+    'hero-shell',
+    'standardPageContainer',
+    className
+  );
 
   const innerClassName = cn(
-    "w-full",
-    styles.pageContent,
+    'w-full',
+    'standardPageContent',
     MAX_WIDTH_CLASS[maxWidth],
     contentClassName
   );

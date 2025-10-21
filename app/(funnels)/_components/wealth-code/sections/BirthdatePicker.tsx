@@ -11,7 +11,6 @@ import {
 } from 'react';
 
 import { ICON_STROKE } from '@/lib/constants';
-import styles from './BirthdatePicker.module.css';
 
 const MONTH_LABELS = [
   'ינואר',
@@ -228,12 +227,12 @@ export function BirthdatePicker({
 
   return (
     <>
-      <div className={styles.wrapper}>
-        {label ? <span className={styles.labelText}>{label}</span> : null}
+      <div className="wealthBirthdatePickerWrapper">
+        {label ? <span className="wealthBirthdateLabel">{label}</span> : null}
 
         <button
           type="button"
-          className={styles.trigger}
+          className="wealthBirthdateTrigger"
           data-selected={value ? 'true' : 'false'}
           onClick={handleOpen}
           ref={triggerRef}
@@ -242,42 +241,46 @@ export function BirthdatePicker({
             value ? `${effectiveLabel}: ${formattedValue}` : effectiveLabel
           }
         >
-          <span className={styles.triggerIcon} aria-hidden="true">
+          <span className="wealthBirthdateTriggerIcon" aria-hidden="true">
             <Calendar className="h-6 w-6" strokeWidth={ICON_STROKE.default} />
           </span>
-          <p className={styles.triggerLabel}>בחרו תאריך לידה</p>
+          <p className="wealthBirthdateTriggerLabel">בחרו תאריך לידה</p>
           {value ? (
-            <span className={styles.triggerValue}>{formattedValue}</span>
+            <span className="wealthBirthdateTriggerValue">
+              {formattedValue}
+            </span>
           ) : null}
         </button>
 
-        {helperText ? <p className={styles.helper}>{helperText}</p> : null}
+        {helperText ? (
+          <p className="wealthBirthdateHelper">{helperText}</p>
+        ) : null}
       </div>
 
       <div
-        className={styles.sheetOverlay}
+        className="wealthBirthdateSheetOverlay"
         data-open={open ? 'true' : 'false'}
         onClick={handleClose}
       >
         <div
-          className={styles.sheet}
+          className="wealthBirthdateSheet"
           role="dialog"
           aria-modal="true"
           aria-labelledby={headingId}
           aria-describedby={descriptionId}
           onClick={(event) => event.stopPropagation()}
         >
-          <div className={styles.sheetHeader}>
-            <h2 id={headingId} className={styles.srOnly}>
+          <div className="wealthBirthdateSheetHeader">
+            <h2 id={headingId} className="sr-only">
               בחירת תאריך לידה
             </h2>
-            <p id={descriptionId} className={styles.srOnly}>
+            <p id={descriptionId} className="sr-only">
               בחרו יום, חודש ושנה לעדכון תאריך הלידה
             </p>
 
             <button
               type="button"
-              className={styles.birthdateCloseButton}
+              className="wealthBirthdateCloseButton"
               onClick={handleClose}
               ref={closeButtonRef}
               aria-label="סגירת חלון בחירת תאריך"
@@ -290,14 +293,14 @@ export function BirthdatePicker({
             </button>
           </div>
 
-          <div className={styles.controlsRow}>
-            <div className={styles.selectGroup}>
-              <label className={styles.srOnly} htmlFor={`${headingId}-month`}>
+          <div className="wealthBirthdateControlsRow">
+            <div className="wealthBirthdateSelectGroup">
+              <label className="sr-only" htmlFor={`${headingId}-month`}>
                 חודש
               </label>
               <select
                 id={`${headingId}-month`}
-                className={styles.select}
+                className="wealthBirthdateSelect"
                 value={viewMonth}
                 onChange={(event) =>
                   handleMonthChange(Number.parseInt(event.target.value, 10))
@@ -311,13 +314,13 @@ export function BirthdatePicker({
               </select>
             </div>
 
-            <div className={styles.selectGroup}>
-              <label className={styles.srOnly} htmlFor={`${headingId}-year`}>
+            <div className="wealthBirthdateSelectGroup">
+              <label className="sr-only" htmlFor={`${headingId}-year`}>
                 שנה
               </label>
               <select
                 id={`${headingId}-year`}
-                className={styles.select}
+                className="wealthBirthdateSelect"
                 value={viewYear}
                 onChange={(event) =>
                   handleYearChange(Number.parseInt(event.target.value, 10))
@@ -331,10 +334,10 @@ export function BirthdatePicker({
               </select>
             </div>
 
-            <div className={styles.navButtons} aria-hidden="true">
+            <div className="wealthBirthdateNavButtons" aria-hidden="true">
               <button
                 type="button"
-                className={styles.navButton}
+                className="wealthBirthdateNavButton"
                 onClick={goToPreviousMonth}
               >
                 <ChevronRight
@@ -344,7 +347,7 @@ export function BirthdatePicker({
               </button>
               <button
                 type="button"
-                className={styles.navButton}
+                className="wealthBirthdateNavButton"
                 onClick={goToNextMonth}
               >
                 <ChevronLeft
@@ -355,8 +358,8 @@ export function BirthdatePicker({
             </div>
           </div>
 
-          <div className={styles.calendar}>
-            <div className={styles.weekHeader}>
+          <div className="wealthBirthdateCalendar">
+            <div className="wealthBirthdateWeekHeader">
               {WEEKDAY_LABELS.map((weekday) => (
                 <span key={weekday.long} aria-label={weekday.long}>
                   {weekday.short}
@@ -364,11 +367,14 @@ export function BirthdatePicker({
               ))}
             </div>
 
-            <div className={styles.dayGrid}>
+            <div className="wealthBirthdateDayGrid">
               {days.map((cell, index) => {
                 if (!cell) {
                   return (
-                    <span className={styles.dayStub} key={`empty-${index}`} />
+                    <span
+                      className="wealthBirthdateDayStub"
+                      key={`empty-${index}`}
+                    />
                   );
                 }
 
@@ -379,7 +385,7 @@ export function BirthdatePicker({
                   <button
                     key={cell.day}
                     type="button"
-                    className={styles.dayButton}
+                    className="wealthBirthdateDayButton"
                     data-selected={selected ? 'true' : 'false'}
                     data-today={isTodayCell ? 'true' : 'false'}
                     onClick={() => handleSelect(cell)}

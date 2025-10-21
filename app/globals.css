@@ -1,18 +1,20 @@
+@import 'tailwindcss';
+@import 'tailwindcss/preflight';
+
 /* ============================================
-   Global Styles - Awakening by Ksenia
-   ============================================
-   This file contains only essential global styles and imports.
-   All design tokens are managed in the design/ directory.
+  Global Styles - Awakening by Ksenia
+  ============================================
+  This file contains only essential global styles and imports.
+  All design tokens are managed in the design/ directory.
 */
 
-/* Import Tailwind CSS */
-@import 'tailwindcss';
+/* Import modern base reset (unified baseline before tokens/themes) */
+@import './reset.css';
 
-/* Import Design System - Single source of truth for all tokens */
+/* Import Design System - Single source of truth for tokens/themes/utilities */
 @import '../design/index.css';
 
-/* Tailwind v4: enable the dark: variant to use .dark class */
-@variant dark (&:where(.dark, .dark *));
+/* Dark theme is handled via [data-theme='dark'] and prefers-color-scheme */
 
 /* ============================================
    Core CSS Variables - Minimal Global Tokens

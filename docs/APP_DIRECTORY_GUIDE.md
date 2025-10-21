@@ -51,29 +51,26 @@
 ### `layout/`
 
 - `AppShell.tsx` – מעטפת Client המנהלת ניווט, התאמת פריסות מובייל, ופוקוס על Header/Footer.
-- `CookieConsent.module.css` – סגנונות לרכיב הודעת הקוקיז.
+- ~~`CookieConsent.module.css`~~ – הוסר; הסגנונות זמינים ב־`design/themes/cookie-consent.css`.
 - `CookieConsent.tsx` – ספק/קומפוננטה לניהול הסכמה לקוקיז והצגת ה־UI המתאים.
 - `DrawerProvider.tsx` – Context Client לפתיחת/סגירת התפריט הצדדי במובייל.
-- `Footer.module.css` – סגנונות להערת התחתית.
-- `Footer.tsx` – רכיב הפוטר עם קישורי מותג וחברתיים.
-- `Header.module.css` – סגנונות כותרת עליונה.
-- `Header.tsx` – רכיב כותרת ראשית להצגת לוגו וקריאה לפעולה.
 - `HeaderBar.module.css` – סגנונות פס הניווט העליון.
 - `HeaderBar.tsx` – רכיב Client המשלב לוגו, כפתורי ניווט, וטריגר לתפריט.
 - ~~`NavigationButtons.module.css`~~ – הוסר יחד עם רכיב הניווט הישן.
 - ~~`NavigationButtons.tsx`~~ – הוסר כדי למנוע בלבול מול העיצוב הנוכחי.
 - `PageLayout.tsx` – קומפוננטת עזר לפריסות כלליות עם שילוב SideMenu ו־Header.
-- `PageShell.module.css` – סגנונות המעטפת הכללית לתוכן פנימי.
+- ~~`PageShell.module.css`~~ – הוסר; הסגנונות זמינים ב־`design/themes/layout-shell.css`.
 - `PageShell.tsx` – מעטפת תוכן המשמשת דפים פנימיים שאינם משתמשים ב־StandardPageLayout.
-- `SideMenu.module.css` – סגנונות תפריט צד נוומורפי, כולל מצבי בחירה.
+- ~~`SideMenu.module.css`~~ – הוסר; הסגנונות זמינים כעת ב־`design/themes/side-menu.css`.
 - `SideMenu.tsx` – קומפוננטת Client לתפריט הניווט הצדדי והקישורים לפיצ׳רים.
 - `SocialIcons.tsx` – רשימת אייקונים חברתיים לשימוש בפריסות השונות.
 - `SocialLinks.tsx` – קישורים חברתיים בפורמט כפתורי עזר (מופיע בעיקר ב־StandardPageLayout).
-- `SplashScreen.module.css` – סגנונות למסך פתיחה/אנימציית פתיחה.
-- `SplashScreen.tsx` – קומפוננטה להצגת Splash בזמן טעינה ראשונית.
-- `StandardPageLayout.module.css` – סגנון הבסיס לפריסת העמודים הסטנדרטית (ריווחים, יישור, מצבי תצוגה).
-- `StandardPageLayout.tsx` – פריסת Client רב־פעמית לעמודים (טיפוגרפיה, גבולות רוחב, קישורים חברתיים מותנים).
+- ~~`SplashScreen.module.css`~~ – הוסר יחד עם הקומפוננטה.
+- ~~`SplashScreen.tsx`~~ – קומפוננטת splash legacy שנמחקה מהמערכת.
+- `StandardPageLayout.tsx` – פריסת Client רב־פעמית לעמודים (טיפוגרפיה, גבולות רוחב, קישורים חברתיים מותנים; הסגנונות ב־`design/themes/layout-standard-page.css`).
+- `drawerConstants.ts` – קבועים משותפים לניהול מצבי Drawer ו־SideMenu.
 - `index.ts` – אוגדן ייצוא לרכיבי הפריסה המרכזיים.
+- `useThemePreference.ts` – hook לקביעת Theme (בהיר/כהה) בהתבסס על העדפת המשתמש/ת והמערכת.
 
 ### `providers/`
 
@@ -86,11 +83,9 @@
 
 ### `neu/`
 
-- `Button.module.css` – סגנונות רכיב הכפתור הנוומורפי (variants, states).
-- `Button.tsx` – רכיב כפתור כללי עם תמיכה ב־variant/size/אייקון.
+- `Button.tsx` – רכיב כפתור כללי עם תמיכה ב־variant/size/אייקון (סגנונות גלובליים: `design/themes/components/button.css`).
 - `Card.tsx` – קומפוננטת כרטיס בסיסית עם מחלקות נוומורפיות משותפות.
-- `IconButton.module.css` – סגנונות עבור כפתור אייקון עגול.
-- `IconButton.tsx` – רכיב כפתור אייקון עם hover/active נוומורפי.
+- `IconButton.tsx` – רכיב כפתור אייקון עם hover/active נוומורפי (סגנונות גלובליים: `design/themes/components/icon-button.css`).
 - `README.md` – מדריך שימוש ברכיבי נו.
 - `index.ts` – ייצוא מרוכז של הכפתור, כרטיס והאייקון.
 - `design/themes/neumorphic.css` – מחלקות CSS נאומורפיות מאוחדות (החליף את `app/components/neu/neumorphic-shadows.css`).
@@ -99,8 +94,7 @@
 
 - `DesignShowcase.tsx` – עמוד ניסויי (Client) המדגים כרטיסים, כפתורים, אייקונים וטיפוגרפיה בנוומורפיזם.
 - `Hero.tsx` – מקטע Hero שיווקי לעמודי מכירה/בית עם CTA מובנה.
-- `TermsPrivacy.module.css` – סגנונות תוכן משפטי (כותרות, רשימות, ריווחים).
-- `TermsPrivacy.tsx` – מקטע טקסט משפטי החוזר בעמודי תנאים ופרטיות.
+- `TermsPrivacy.tsx` – מקטע טקסט משפטי החוזר בעמודי תנאים ופרטיות (סגנונות גלובליים: `design/themes/sections/terms-privacy.css`).
 - `index.ts` – ייצוא מרוכז של רכיבי המקטעים.
 
 ### `shared/`

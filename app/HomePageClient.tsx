@@ -15,25 +15,34 @@ export function HomePageClient() {
   const router = useRouter();
 
   return (
-    <main className={`hero-shell ${styles.page}`}>
-      <div className={styles.homeContent}>
+    <main className={`hero-shell ${styles.page} homePageShell`}>
+      <div className={`${styles.homeContent} homeContentRoot`}>
         <section className={styles.heroSection}>
           <Card
-            className={styles.heroCard}
+            className={`${styles.heroCard} homeHeroCard`}
             padding="none"
             data-hero-group="a"
             aria-labelledby="home-hero-heading"
           >
-            <div className={styles.heroIcon} aria-hidden="true">
-              <Hash strokeWidth={0.5} className={styles.heroIconGlyph} />
+            <div
+              className={`${styles.heroIcon} homeHeroIcon`}
+              aria-hidden="true"
+            >
+              <Hash
+                strokeWidth={0.5}
+                className={`${styles.heroIconGlyph} homeHeroIconGlyph`}
+              />
             </div>
 
-            <div className={styles.heroContent}>
-              <h1 id="home-hero-heading" className={styles.heroTitle}>
+            <div className={`${styles.heroContent} homeHeroContent`}>
+              <h1
+                id="home-hero-heading"
+                className={`${styles.heroTitle} homeHeadline`}
+              >
                 גלו את <span className={styles.heroTitleAccent}>קוד העושר</span>{' '}
                 שלכם
               </h1>
-              <p className={styles.heroSubtitle}>
+              <p className={`${styles.heroSubtitle} homeSubtitle`}>
                 תדר נומרולוגי אישי שמגלה את הדרך הטבעית שלך למגנט שפע, הצלחה
                 ומימוש עצמי
               </p>
@@ -41,7 +50,7 @@ export function HomePageClient() {
 
             <Button
               variant="cta"
-              className={styles.heroCta}
+              className={`${styles.heroCta} btn-primary homeCta`}
               onClick={() => router.push(routes.calculator)}
             >
               מחשבון קוד העושר
@@ -50,13 +59,13 @@ export function HomePageClient() {
         </section>
 
         <section
-          className={styles.shareSection}
+          className={`${styles.shareSection} homeShareSection`}
           aria-labelledby="homepage-share-heading"
         >
-          <Card className={styles.shareCard} padding="none">
-            <div className={styles.shareContent}>
-              <div className={styles.shareCopy}>
-                <p className={styles.shareSubtitle}>
+          <Card className={`${styles.shareCard} homeShareCard`} padding="none">
+            <div className={`${styles.shareContent} homeShareContent`}>
+              <div className={`${styles.shareCopy} homeShareCopy`}>
+                <p className={`${styles.shareSubtitle} homeShareSubtitle`}>
                   שלחו לחברים ולמשפחה הזמנה לגלות את עצמם בלחיצה אחת
                 </p>
               </div>
@@ -64,7 +73,7 @@ export function HomePageClient() {
 
             <Button
               variant="secondary"
-              className={styles.shareButton}
+              className={`${styles.shareButton} btn-secondary homeShareButton`}
               onClick={shareWithFriends}
             >
               שתפו עם מי שחשוב לכם

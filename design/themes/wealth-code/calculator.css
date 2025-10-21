@@ -1,0 +1,80 @@
+/* Theme: Wealth Code Calculator */
+
+.wealthCalculatorCard {
+  width: min(100%, var(--calculator-card-max-width, 42.5rem));
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  --calculator-tight-gap: var(--neu-space-sm);
+  --calculator-loose-gap: var(--neu-space-md);
+}
+
+.wealthCalculatorCardStack {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  align-items: stretch;
+  gap: var(--calculator-loose-gap);
+}
+
+.wealthCalculatorHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--calculator-loose-gap);
+}
+
+.wealthCalculatorHeadingText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--calculator-tight-gap);
+  text-align: center;
+}
+
+.wealthCalculatorTitle {
+  margin: 0;
+  font-size: var(--heading-h1-size);
+  font-weight: var(--heading-h1-weight);
+  line-height: var(--heading-h1-line-height);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--heading-primary-color);
+}
+
+.wealthCalculatorHomeButton {
+  justify-content: center;
+  min-width: clamp(140px, 32vw, 190px);
+}
+
+.wealthCalculatorActions {
+  width: 100%;
+  margin-block-start: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--calculator-tight-gap);
+}
+
+@media (min-width: 768px) {
+  .wealthCalculatorHeader {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: var(--calculator-loose-gap);
+  }
+
+  .wealthCalculatorHomeButton {
+    width: auto;
+    min-width: clamp(160px, 18vw, 210px);
+  }
+
+  .wealthCalculatorActions {
+    flex-direction: row;
+    column-gap: var(--calculator-tight-gap);
+  }
+
+  .wealthCalculatorActions > * {
+    flex: 1;
+  }
+}

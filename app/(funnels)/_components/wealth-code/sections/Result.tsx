@@ -7,7 +7,6 @@ import { Stack } from '@/app/components/shared';
 import { Button, Card } from '@/components/neu';
 
 import { CodeInset } from '../shared/CodeInset';
-import styles from './Result.module.css';
 
 interface ResultProps {
   code: string;
@@ -65,18 +64,18 @@ export function Result({ code, onContinue }: ResultProps) {
       maxWidth="md"
       contentSpacing="tight"
     >
-      <Card padding="md" className={styles.resultCard}>
-        <Stack tight className={styles.resultStack}>
-          <div className={styles.resultCodeWrap}>
+      <Card padding="md" className="wealthResultCard">
+        <Stack tight className="wealthResultStack">
+          <div className="wealthResultCodeWrap">
             <CodeInset code={code} />
           </div>
 
-          <p className={styles.resultDescription}>{codeInfo.description}</p>
+          <p className="wealthResultDescription">{codeInfo.description}</p>
 
           <Button
             type="button"
             onClick={onContinue}
-            className={styles.resultCta}
+            className="wealthResultCta"
           >
             גלו את המשמעות המלאה
           </Button>
