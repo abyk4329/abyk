@@ -4,42 +4,38 @@
 /* ============================================
   Global Styles - Awakening by Ksenia
   ============================================
-  This file contains only essential global styles and imports.
-  All design tokens are managed in the design/ directory.
+  This file imports the design system and adds minimal global-only styles.
+  All design tokens (colors, spacing, z-index, animations) are in design/
 */
 
-/* Import Design System - Single source of truth for tokens/themes/utilities */
+/* Import Design System - Single source of truth */
 @import '../design/index.css';
 
-/* Dark theme is handled via [data-theme='dark'] and prefers-color-scheme */
-
 /* ============================================
-   Core CSS Variables - Minimal Global Tokens
-   ============================================ */
+   App-Specific Global Variables
+   ============================================
+   Only variables unique to the app root (not in design system)
+*/
 
-/* Base font and layout */
 :root {
+  /* Font family (uses var from fonts.ts) */
   --font-family: var(--font-assistant, 'Assistant', sans-serif);
+  
+  /* Base font size */
   --font-size: 16px;
 
-  /* Safe area handling */
+  /* Safe area insets for mobile devices */
   --safe-area-top: env(safe-area-inset-top);
   --safe-area-bottom: env(safe-area-inset-bottom);
   --safe-area-left: env(safe-area-inset-left);
   --safe-area-right: env(safe-area-inset-right);
-
-  /* Z-index layers */
-  --z-base: 1;
-  --z-elevated: 10;
-  --z-sticky: 100;
-  --z-overlay: 200;
-  --z-modal: 300;
-  --z-tooltip: 400;
 }
 
 /* ============================================
-   Global Resets & Base Styles
-   ============================================ */
+   Global Base Styles
+   ============================================
+   Root-level resets and configurations
+*/
 
 @layer base {
   /* Box sizing reset */
@@ -61,7 +57,6 @@
     padding: 0;
     width: 100%;
     min-height: 100dvh;
-    height: 100%;
     overflow-x: hidden;
     overscroll-behavior: none;
     font-family: var(--font-family);
@@ -72,19 +67,11 @@
     color: var(--foreground);
   }
 
-  /* Main container */
-  #__next,
-  body > div {
-    min-height: 100dvh;
-    width: 100%;
-    isolation: isolate;
-    background-color: transparent;
-  }
-
-  /* Form elements */
+  /* Form elements inherit font */
   input,
   textarea,
-  button {
+  button,
+  select {
     font-family: inherit;
   }
 
@@ -94,136 +81,47 @@
     outline-offset: 2px;
   }
 
-  /* Placeholder text */
+  /* Placeholder styling */
   ::placeholder {
     color: var(--text-tertiary);
     opacity: 0.7;
   }
 
-  /* Selection */
+  /* Text selection */
   ::selection {
     background-color: var(--accent);
     color: var(--accent-foreground);
   }
-
-  /* Scrollbar styling */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--muted-foreground);
-  }
 }
 
 /* ============================================
-   Utility Classes - Global Helpers
-   ============================================ */
+   Safe Area Utilities
+   ============================================
+   Mobile-specific spacing for notched devices
+*/
 
 @layer utilities {
-  /* RTL/LTR utilities */
-  .rtl {
-    direction: rtl;
-  }
-  .ltr {
-    direction: ltr;
+  .pb-safe {
+    padding-bottom: max(var(--safe-area-bottom), 0.75rem);
   }
 
-  /* Safe area utilities */
-  .pb-safe-bottom {
-    padding-bottom: max(var(--safe-area-bottom), 12px);
+  .pt-safe {
+    padding-top: max(var(--safe-area-top), 0.75rem);
   }
 
-  .pt-safe-top {
-    padding-top: max(var(--safe-area-top), 12px);
+  .pl-safe {
+    padding-left: max(var(--safe-area-left), 0.75rem);
   }
 
-  /* Scroll utilities */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Focus utilities */
-  .focus-ring {
-    outline: 2px solid var(--ring);
-    outline-offset: 2px;
-  }
-
-  /* Animation utilities */
-  .animate-fade-in {
-    animation: fade-in 0.3s ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slide-up 0.5s ease-out forwards;
-  }
-
-  .animate-scale-in {
-    animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .pr-safe {
+    padding-right: max(var(--safe-area-right), 0.75rem);
   }
 }
 
 /* ============================================
-   Keyframe Animations
-   ============================================ */
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes scale-in {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* ============================================
-   Accessibility & Motion Preferences
-   ============================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+   Accessibility & Preferences
+   ============================================
+*/
 
 /* High contrast mode */
 @media (prefers-contrast: high) {
@@ -233,18 +131,18 @@
   }
 }
 
-/* ============================================
-   Print Styles
-   ============================================ */
-
+/* Print styles */
 @media print {
   body {
     background: white !important;
     color: black !important;
   }
 
-  * {
+  *,
+  *::before,
+  *::after {
     box-shadow: none !important;
     text-shadow: none !important;
   }
 }
+
