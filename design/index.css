@@ -18,6 +18,7 @@
 @import './themes/dark.css';
 
 /* Components & Pages */
+@import './components/neumorphic.css';
 @import './components/button.css';
 @import './components/theme-toggle.css';
 @import './components/home.css';
@@ -37,9 +38,6 @@
 @import './components/layout-shell.css';
 @import './components/layout-standard-page.css';
 @import './components/side-menu.css';
-
-/* Neumorphic System */
-@import './themes/neumorphic.css';
 
 /* Utilities */
 @import './utils/helpers.css';
