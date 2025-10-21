@@ -1,208 +1,139 @@
 /*
   Dark Theme
-  [data-theme="dark"] {
-    --color-surface-100: var(--palette-surface-dark-0);
-    --color-surface-200: var(--palette-surface-dark-100);
+  ----------
+  Dark mode color scheme.
+  Applied via prefers-color-scheme or data-theme="dark".
+*/
 
-    --color-text-900: var(--palette-text-dark-900);
-    --color-text-700: var(--palette-text-dark-700);
-    --color-text-500: var(--palette-text-dark-500);
-    --color-text-300: var(--palette-text-dark-300);
+[data-theme='dark'] {
+  --color-surface-100: var(--palette-surface-dark-0);
+  --color-surface-200: var(--palette-surface-dark-100);
 
-    --color-accent-500: var(--palette-accent-500);
-    --color-accent-700: var(--palette-text-dark-700);
-    --color-accent-100: var(--palette-accent-100-dark);
+  --color-text-900: var(--palette-text-dark-900);
+  --color-text-700: var(--palette-text-dark-700);
+  --color-text-500: var(--palette-text-dark-500);
+  --color-text-300: var(--palette-text-dark-300);
 
-    --color-danger-500: var(--palette-danger-500-dark);
-    --color-border-soft: var(--palette-border-soft-dark);
-    --color-border-strong: var(--palette-border-strong-dark);
-    --color-overlay-scrim: var(--palette-overlay-dark);
+  --color-accent-500: var(--palette-accent-500);
+  --color-accent-700: var(--palette-text-dark-700);
+  --color-accent-100: var(--palette-accent-100-dark);
 
-    /* Semantic bindings */
-    --background: var(--color-surface-100);
-    --foreground: var(--color-text-900);
-    --card: color-mix(
-      in srgb,
-      var(--color-surface-200) 94%,
-      color-mix(
-        in srgb,
-        var(--palette-neutral-0) 6%,
-        transparent
-      )
-    );
-    --card-foreground: var(--foreground);
-    --primary: var(--color-accent-500);
-    --primary-foreground: var(--palette-accent-foreground-dark);
-    --secondary: color-mix(
-      in srgb,
-      var(--card) 78%,
-      color-mix(
-        in srgb,
-        var(--palette-warm-glow) 2%,
-        transparent
-      )
-    );
-    --secondary-foreground: var(--color-accent-500);
-    --muted: color-mix(
-      in srgb,
-      var(--secondary) 78%,
-      color-mix(
-        in srgb,
-        var(--palette-warm-glow) 6%,
-        transparent
-      )
-    );
-    --muted-foreground: var(--color-text-500);
-    --accent: var(--primary);
-    --accent-foreground: var(--primary-foreground);
-    --destructive: var(--color-danger-500);
-    --destructive-foreground: var(--palette-danger-foreground-dark);
-    --border: var(--color-border-soft);
-    --ring: color-mix(
-      in srgb,
-      var(--color-accent-100) 60%,
-      var(--foreground)
-    );
+  --color-danger-500: var(--palette-danger-500-dark);
+  --color-border-soft: var(--palette-border-soft-dark);
+  --color-border-strong: var(--palette-border-strong-dark);
+  --color-overlay-scrim: var(--palette-overlay-dark);
 
-    --text-primary: var(--color-text-900);
-    --text-secondary: var(--color-text-700);
-    --text-tertiary: var(--color-text-500);
-    --text-quaternary: var(--color-text-300);
-    --paragraph-color: var(--text-secondary);
-    --caption-color: var(--text-tertiary);
-    --heading-primary-color: var(--text-primary);
-    --heading-h1-color: var(--heading-primary-color);
-    --heading-h2-color: var(--heading-primary-color);
-    --heading-h3-color: var(--heading-primary-color);
-    --heading-subtitle-color: color-mix(
-      in srgb,
-      var(--color-accent-500) 75%,
-      color-mix(
-        in srgb,
-        var(--palette-neutral-0) 8%,
-        transparent
-      )
-    );
+  /* Semantic bindings */
+  --background: var(--color-surface-100);
+  --foreground: var(--color-text-900);
+  --card: color-mix(
+    in srgb,
+    var(--color-surface-200) 94%,
+    color-mix(in srgb, var(--palette-neutral-0) 6%, transparent)
+  );
+  --card-foreground: var(--foreground);
+  --primary: var(--color-accent-500);
+  --primary-foreground: var(--palette-accent-foreground-dark);
+  --secondary: color-mix(
+    in srgb,
+    var(--card) 78%,
+    color-mix(in srgb, var(--palette-warm-glow) 2%, transparent)
+  );
+  --secondary-foreground: var(--color-accent-500);
+  --muted: color-mix(
+    in srgb,
+    var(--secondary) 78%,
+    color-mix(in srgb, var(--palette-warm-glow) 6%, transparent)
+  );
+  --muted-foreground: var(--color-text-500);
+  --accent: var(--primary);
+  --accent-foreground: var(--primary-foreground);
+  --destructive: var(--color-danger-500);
+  --destructive-foreground: var(--palette-danger-foreground-dark);
+  --border: var(--color-border-soft);
+  --ring: color-mix(in srgb, var(--color-accent-100) 60%, var(--foreground));
 
-    /* Neumorphic palette aliases */
-    --neu-base: var(--background);
-    --neu-card: var(--card);
-    --neu-text-primary: var(--text-primary);
-    --neu-text-secondary: var(--text-secondary);
-    --neu-text-tertiary: var(--text-tertiary);
-    --neu-text-quaternary: var(--text-quaternary);
-    --neu-gold-signature: var(--color-accent-500);
-    --neu-accent: var(--color-accent-500);
-    --neu-accent-light: var(--color-accent-100);
-    --neu-accent-dark: color-mix(
-      in srgb,
-      var(--color-accent-700) 60%,
-      color-mix(
-        in srgb,
-        var(--palette-warm-ink-deep) 45%,
-        transparent
-      )
-    );
-    --neu-accent-bright: color-mix(
-      in srgb,
-      var(--color-accent-500) 88%,
-      color-mix(
-        in srgb,
-        var(--palette-warm-ink-soft) 18%,
-        transparent
-      )
-    );
-    --neu-cta-press: var(--color-accent-700);
-    --neu-icon: var(--color-accent-500);
+  --text-primary: var(--color-text-900);
+  --text-secondary: var(--color-text-700);
+  --text-tertiary: var(--color-text-500);
+  --text-quaternary: var(--color-text-300);
+  --paragraph-color: var(--text-secondary);
+  --caption-color: var(--text-tertiary);
+  --heading-primary-color: var(--text-primary);
+  --heading-h1-color: var(--heading-primary-color);
+  --heading-h2-color: var(--heading-primary-color);
+  --heading-h3-color: var(--heading-primary-color);
+  --heading-subtitle-color: color-mix(
+    in srgb,
+    var(--color-accent-500) 75%,
+    color-mix(in srgb, var(--palette-neutral-0) 8%, transparent)
+  );
 
-    --overlay-glass-scrim: color-mix(
-      in srgb,
-      color-mix(
-        in srgb,
-        var(--palette-warm-glow) 16%,
-        transparent
-      ) 18%,
-      color-mix(
-        in srgb,
-        var(--palette-neutral-900) 35%,
-        transparent
-      )
-    );
-    --surface-glass: color-mix(
-      in srgb,
-      color-mix(
-        in srgb,
-        var(--palette-warm-glow) 8%,
-        transparent
-      ) 20%,
-      color-mix(
-        in srgb,
-        var(--palette-neutral-900) 80%,
-        transparent
-      )
-    );
-    --surface-glass-border: color-mix(
-      in srgb,
-      color-mix(
-        in srgb,
-        var(--palette-warm-glow) 8%,
-        transparent
-      ) 35%,
-      color-mix(
-        in srgb,
-        var(--palette-neutral-900) 70%,
-        transparent
-      )
-    );
+  /* Neumorphic palette aliases */
+  --neu-base: var(--background);
+  --neu-card: var(--card);
+  --neu-text-primary: var(--text-primary);
+  --neu-text-secondary: var(--text-secondary);
+  --neu-text-tertiary: var(--text-tertiary);
+  --neu-text-quaternary: var(--text-quaternary);
+  --neu-gold-signature: var(--color-accent-500);
+  --neu-accent: var(--color-accent-500);
+  --neu-accent-light: var(--color-accent-100);
+  --neu-accent-dark: color-mix(
+    in srgb,
+    var(--color-accent-700) 60%,
+    color-mix(in srgb, var(--palette-warm-ink-deep) 45%, transparent)
+  );
+  --neu-accent-bright: color-mix(
+    in srgb,
+    var(--color-accent-500) 88%,
+    color-mix(in srgb, var(--palette-warm-ink-soft) 18%, transparent)
+  );
+  --neu-cta-press: var(--color-accent-700);
+  --neu-icon: var(--color-accent-500);
 
-    --header-surface: color-mix(
-      in srgb,
-      var(--color-surface-100) 94%,
-      color-mix(
-        in srgb,
-        var(--palette-warm-glow) 8%,
-        transparent
-      )
-    );
-    --header-surface-strong: color-mix(
-      in srgb,
-      var(--color-surface-100) 96%,
-      color-mix(
-        in srgb,
-        var(--palette-warm-glow) 12%,
-        transparent
-      )
-    );
-    --overlay-scrim: var(--color-overlay-scrim);
+  --overlay-glass-scrim: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--palette-warm-glow) 16%, transparent) 18%,
+    color-mix(in srgb, var(--palette-neutral-900) 35%, transparent)
+  );
+  --surface-glass: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--palette-warm-glow) 8%, transparent) 20%,
+    color-mix(in srgb, var(--palette-neutral-900) 80%, transparent)
+  );
+  --surface-glass-border: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--palette-warm-glow) 8%, transparent) 35%,
+    color-mix(in srgb, var(--palette-neutral-900) 70%, transparent)
+  );
 
-    --sidebar: var(--card);
-    --sidebar-foreground: var(--text-primary);
-    --sidebar-primary: color-mix(
-      in srgb,
-      var(--primary) 88%,
-      color-mix(
-        in srgb,
-        var(--palette-warm-glow) 32%,
-        transparent
-      )
-    );
-    --sidebar-primary-foreground: var(
-      --palette-sidebar-primary-foreground-dark
-    );
-    --sidebar-accent: var(--palette-sidebar-accent-dark);
-    --sidebar-accent-foreground: var(--text-secondary);
-    --sidebar-border: color-mix(
-      in srgb,
-      var(--palette-warm-glow) 12%,
-      transparent
-    );
-    --sidebar-ring: color-mix(
-      in srgb,
-      var(--ring) 55%,
-      color-mix(
-        in srgb,
-        var(--palette-warm-glow) 16%,
-        transparent
-      )
-    );
-  }
+  --header-surface: color-mix(
+    in srgb,
+    var(--color-surface-100) 94%,
+    color-mix(in srgb, var(--palette-warm-glow) 8%, transparent)
+  );
+  --header-surface-strong: color-mix(
+    in srgb,
+    var(--color-surface-100) 96%,
+    color-mix(in srgb, var(--palette-warm-glow) 12%, transparent)
+  );
+  --overlay-scrim: var(--color-overlay-scrim);
+
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: color-mix(
+    in srgb,
+    var(--primary) 88%,
+    color-mix(in srgb, var(--palette-warm-glow) 32%, transparent)
+  );
+  --sidebar-primary-foreground: var(--palette-sidebar-primary-foreground-dark);
+  --sidebar-accent: var(--palette-sidebar-accent-dark);
+  --sidebar-accent-foreground: var(--text-secondary);
+  --sidebar-border: color-mix(in srgb, var(--palette-warm-glow) 12%, transparent);
+  --sidebar-ring: color-mix(
+    in srgb,
+    var(--ring) 55%,
+    color-mix(in srgb, var(--palette-warm-glow) 16%, transparent)
+  );
+}
