@@ -1,8 +1,6 @@
 ---
 import Footer from '../components/Footer';
 import CookieConsent from '../components/CookieConsent';
-import '../styles/global.css';
-import '../styles/typography-system.css';
 
 interface Props {
   title: string;
@@ -53,6 +51,10 @@ const { title, description = 'Minimal web application' } = Astro.props;
       })();
     </script>
     <link rel="stylesheet" href="/tailwind.css" />
+    <style is:global>
+      @import '../styles/global.css';
+      @import '../styles/typography-system.css';
+    </style>
     <title>{title}</title>
   </head>
   <body class="bg-bg text-text min-h-screen antialiased">
