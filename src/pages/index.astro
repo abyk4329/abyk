@@ -10,7 +10,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="container">
     <!-- Hero Section -->
     <section class="hero">
-      <div class="hero-card">
+      <div class="card-surface hero-card">
         <h1 class="CardTitleLong">
           גלו את קוד העושר שלכם
         </h1>
@@ -27,7 +27,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <!-- Share Section -->
     <section class="share-section">
-      <div class="share-card">
+      <div class="card-surface">
         <p class="LeadText">
           שלחו לחברים ולמשפחה הזמנה לגלות את עצמם בלחיצה אחת
         </p>
@@ -56,15 +56,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     padding: 1rem 0;
   }
 
-  .hero-card {
-    width: 100%;
-    background: rgb(var(--color-surface));
-    border-radius: var(--radius-xl);
-    padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
-    text-align: center;
-    box-shadow: var(--shadow-raised-min);
-  }
-
   .hero-cta {
     display: inline-flex;
     align-items: center;
@@ -80,14 +71,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .share-section {
     margin-top: var(--card-section-gap-small);
     padding: 1rem 0;
-  }
-
-  .share-card {
-    background: rgb(var(--color-surface));
-    border-radius: var(--radius-xl);
-    padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
-    text-align: center;
-    box-shadow: var(--shadow-raised-min);
   }
 
   .share-button-wrapper {
@@ -109,10 +92,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       padding: var(--space-xl) 0;
     }
 
-    .hero-card {
-      padding: var(--card-padding-desktop);
-    }
-
     .hero-cta {
       padding: var(--btn-padding-y) var(--space-3xl);
     }
@@ -128,10 +107,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .share-section {
       margin-top: var(--card-section-gap-large);
       padding: var(--space-xl) 0;
-    }
-
-    .share-card {
-      padding: var(--card-padding-desktop);
     }
 
     .share-button-wrapper {

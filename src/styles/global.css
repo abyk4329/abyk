@@ -415,6 +415,21 @@ button {
   gap: var(--layout-list-gap); /* 12px - בין פריטי רשימה */
 }
 
+.card-surface {
+  width: 100%;
+  background: rgb(var(--color-surface));
+  border-radius: var(--radius-xl);
+  padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
+  text-align: center;
+  box-shadow: var(--shadow-raised-min);
+}
+
+@media (min-width: 768px) {
+  .card-surface {
+    padding: var(--card-padding-desktop);
+  }
+}
+
 /* Tailwind equivalent classes */
 .space-y-section > * + * {
   margin-top: var(--layout-section-gap);
