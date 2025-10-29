@@ -178,15 +178,10 @@ export default function InterpretationsTabs({
       <div className="card-surface max-w-2xl mx-auto">
         <div className="text-center">
           {/* Code Display - Each digit in separate card */}
-          <div className="flex justify-center gap-3 mb-6">
+          <div className="code-digit-list mb-6">
             {code.split('').map((digit, index) => (
-              <div
-                key={index}
-                className="neu-raised-min rounded-lg w-16 h-20 flex items-center justify-center"
-              >
-                <span className="text-5xl font-extralight text-support leading-none">
-                  {digit}
-                </span>
+              <div key={index} className="code-digit-card">
+                <span>{digit}</span>
               </div>
             ))}
           </div>
@@ -203,17 +198,16 @@ export default function InterpretationsTabs({
       </div>
 
       {/* Tabs Navigation */}
-      <div className="card-surface p-2 space-y-2">
+      <div className="card-surface interpretations-tabs">
         {/* שורה ראשונה: כפתורי מספרים */}
-        <div className="flex gap-2">
+        <div className="interpretations-tab-row">
           {uniqueDigits.map((digit) => (
             <button
               key={digit}
               onClick={() => setActiveTab(digit)}
-              className={`flex-1 p-4 rounded-md font-semibold transition-all ${
-                activeTab === digit
-                  ? 'bg-support text-bg shadow-md'
-                  : 'hover:shadow-neu-inset'
+              type="button"
+              className={`interpretations-tab-button ${
+                activeTab === digit ? 'interpretations-tab-button--active' : ''
               }`}
             >
               {digit}
@@ -224,10 +218,9 @@ export default function InterpretationsTabs({
         {/* שורה שנייה: כפתור יישום יומי */}
         <button
           onClick={() => setActiveTab('daily')}
-          className={`w-full p-4 rounded-md font-semibold transition-all ${
-            activeTab === 'daily'
-              ? 'bg-support text-bg shadow-md'
-              : 'hover:shadow-neu-inset'
+          type="button"
+          className={`interpretations-tab-button interpretations-tab-button--full ${
+            activeTab === 'daily' ? 'interpretations-tab-button--active' : ''
           }`}
         >
           יישום יומי
@@ -262,61 +255,70 @@ export default function InterpretationsTabs({
                     <p className="BodyText">{interpretation.essence}</p>
                   </div>
 
-                  <div className="border-t border-support py-6">
+                  <div className="interpretations-section">
                     <h3 className="Subtitle">{hebrewFieldLabels.gifts}</h3>
-                    <ul className="divide-y divide-support/30">
+                    <ul className="interpretations-list">
                       {interpretation.gifts.map((gift, i) => (
-                        <li key={i} className="BodyText py-3">
+                        <li
+                          key={i}
+                          className="BodyText interpretations-list-item"
+                        >
                           {renderTextWithBoldPrefix(gift)}
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="border-t border-support py-6">
+                  <div className="interpretations-section">
                     <h3 className="Subtitle">{hebrewFieldLabels.blocks}</h3>
-                    <ul className="divide-y divide-support/30">
+                    <ul className="interpretations-list">
                       {interpretation.blocks.map((block, i) => (
-                        <li key={i} className="BodyText py-3">
+                        <li
+                          key={i}
+                          className="BodyText interpretations-list-item"
+                        >
                           {renderTextWithBoldPrefix(block)}
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="border-t border-support py-6">
+                  <div className="interpretations-section">
                     <h3 className="Subtitle">{hebrewFieldLabels.redFlags}</h3>
                     <p className="BodyText">
                       {renderTextWithColoredPipes(interpretation.redFlags)}
                     </p>
                   </div>
 
-                  <div className="border-t border-support py-6">
+                  <div className="interpretations-section">
                     <h3 className="Subtitle">{hebrewFieldLabels.growth}</h3>
-                    <ul className="divide-y divide-support/30">
+                    <ul className="interpretations-list">
                       {interpretation.growth.map((step, i) => (
-                        <li key={i} className="BodyText py-3">
+                        <li
+                          key={i}
+                          className="BodyText interpretations-list-item"
+                        >
                           {renderTextWithBoldPrefix(step)}
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="border-t border-support py-6">
+                  <div className="interpretations-section">
                     <h3 className="Subtitle">{hebrewFieldLabels.careers}</h3>
                     <p className="BodyText">
                       {renderTextWithColoredPipes(interpretation.careers)}
                     </p>
                   </div>
 
-                  <div className="border-t border-support py-6">
+                  <div className="interpretations-section">
                     <h3 className="Subtitle">
                       {hebrewFieldLabels.dailyPractice}
                     </h3>
                     <p className="BodyText">{interpretation.dailyPractice}</p>
                   </div>
 
-                  <div className="border-t border-support py-6">
+                  <div className="interpretations-section">
                     <h3 className="Subtitle">{hebrewFieldLabels.bottomLine}</h3>
                     <p className="BodyText">{interpretation.bottomLine}</p>
                   </div>
@@ -337,64 +339,26 @@ export default function InterpretationsTabs({
       </div>
 
       {/* Action Buttons */}
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="interpretations-actions">
         <button
           onClick={handleDownloadPDF}
-          className="card-surface text-center hover:shadow-neu-inset transition-shadow"
+          className="btn btn-cta ButtonPrimaryText"
+          type="button"
         >
-          <svg
-            className="w-8 h-8 mx-auto mb-2 stroke-current"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-            />
-          </svg>
-          <h3 className="font-semibold">הורדת PDF</h3>
+          הורדת PDF
         </button>
 
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="card-surface block text-center hover:shadow-neu-inset transition-shadow"
+          className="btn btn-secondary"
         >
-          <svg
-            className="w-8 h-8 mx-auto mb-2 stroke-current"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"
-            />
-          </svg>
-          <h3 className="font-semibold">ייעוץ אישי</h3>
+          ייעוץ אישי
         </a>
 
-        <a
-          href="/tools/wealth-code/calculator"
-          className="card-surface block text-center hover:shadow-neu-inset transition-shadow"
-        >
-          <svg
-            className="w-8 h-8 mx-auto mb-2 stroke-current"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0012 2.25z"
-            />
-          </svg>
-          <h3 className="font-semibold">חישוב קוד נוסף</h3>
+        <a href="/tools/wealth-code/calculator" className="btn btn-secondary">
+          חישוב קוד נוסף
         </a>
       </div>
     </div>

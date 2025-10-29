@@ -114,12 +114,12 @@ export default function CalculatorIsland() {
 
   return (
     <div className="card-surface max-w-md mx-auto" dir="rtl">
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="calculator-form">
         {/* Calendar Button */}
         <button
           type="button"
           onClick={() => setShowCalendar(true)}
-          className="btn btn-inset w-full justify-center ButtonSecondaryText"
+          className="btn btn-inset ButtonSecondaryText calculator-calendar-btn"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -155,17 +155,14 @@ export default function CalculatorIsland() {
           </div>
         )}
 
-        <div className="flex justify-center gap-4 pt-2 flex-wrap">
-          <button
-            type="submit"
-            className="btn btn-primary flex-1 ButtonSecondaryText"
-          >
+        <div className="calculator-actions">
+          <button type="submit" className="btn btn-primary ButtonSecondaryText">
             חשב
           </button>
           <button
             type="button"
             onClick={handleReset}
-            className="btn btn-secondary flex-1 ButtonSecondaryText"
+            className="btn btn-secondary ButtonSecondaryText"
           >
             אפס
           </button>

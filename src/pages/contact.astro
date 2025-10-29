@@ -7,25 +7,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="יצירת קשר - Awakening by Ksenia"
   description="יצירת קשר עם קסניה - הזמינו ייעוץ אישי בנומרולוגיה וקוד העושר"
 >
-  <div class="container">
+  <div class="page-container contact-page">
     <h1 class="PageTitle">יצירת קשר</h1>
     <p class="LeadText">הצטרפו אליי ברשתות החברתיות ושתפו עם חברים ומשפחה</p>
     
     <!-- Share Button -->
-    <section class="share-section">
-      <div class="share-card">
+    <section class="contact-share">
+      <div class="card-surface contact-card contact-card--share">
         <ShareButton client:load title="Awakening by Ksenia" text="הצטרפו אליי ברשתות החברתיות" />
       </div>
     </section>
 
     <!-- Social Links -->
-    <section class="social-section">
-      <div class="social-grid">
+    <section class="contact-links">
+      <div class="contact-grid">
         <a 
           href="https://www.instagram.com/awakening.by.ksenia/" 
           target="_blank"
           rel="noopener noreferrer"
-          class="social-button instagram"
+          class="card-surface contact-card contact-card--link contact-card--instagram"
           aria-label="Instagram"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -41,7 +41,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           href="https://www.tiktok.com/@awakening.by.ksenia" 
           target="_blank"
           rel="noopener noreferrer"
-          class="social-button tiktok"
+          class="card-surface contact-card contact-card--link contact-card--tiktok"
           aria-label="TikTok"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -55,7 +55,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           href="https://wa.me/972524616121" 
           target="_blank"
           rel="noopener noreferrer"
-          class="social-button whatsapp"
+          class="card-surface contact-card contact-card--link contact-card--whatsapp"
           aria-label="WhatsApp"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -68,7 +68,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         
         <a 
           href="mailto:awakening.by.ksenia@gmail.com"
-          class="social-button email"
+          class="card-surface contact-card contact-card--link contact-card--email"
           aria-label="Email"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -84,86 +84,51 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
-  /* Mobile First Styles */
-  .container {
-    padding: 1.5rem 1rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .PageTitle {
-    margin-bottom: 1rem;
-  }
-
-  .LeadText {
-    margin-bottom: 2rem;
-  }
-
-  /* Share Section */
-  .share-section {
-    margin-top: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-  }
-
-  .share-card {
-    width: 100%;
-    max-width: 600px;
-    background: rgb(var(--color-surface));
-    border-radius: var(--radius-xl);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-raised-min);
+  .contact-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+    gap: var(--card-section-gap-small);
     text-align: center;
   }
 
-  /* Social Links */
-  .social-section {
-    margin-top: 1rem;
-    padding: 0;
-  }
-
-  .social-grid {
+  .contact-share {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .social-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 1.5rem 1rem;
-    background: rgb(var(--color-surface));
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-raised-min);
-    transition: all 0.3s ease;
+  }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-content-gap);
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact-card--share {
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: var(--card-section-gap-small);
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .contact-card--link {
     color: rgb(var(--color-text));
     text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
 
-  .social-button svg {
-    color: rgb(var(--color-bg-dark));
-    stroke: rgb(var(--color-bg-dark));
-    fill: none;
-  }
-
-  .social-button svg * {
-    stroke: inherit;
-  }
-
-  [data-theme='dark'] .social-button svg {
-    color: #F5F5F5;
-    stroke: #F5F5F5;
+  .contact-card--link svg {
+    stroke: currentColor;
   }
 
   .social-label {
@@ -179,128 +144,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     opacity: 0.8;
   }
 
-  .social-button:active {
-    transform: scale(0.95);
+  .contact-card--link:active {
+    transform: scale(0.98);
   }
 
-  .social-button.whatsapp:hover {
-    background: #25D366;
-    color: white;
-  }
-
-  .social-button.whatsapp:hover .social-label,
-  .social-button.whatsapp:hover .social-description {
-    color: white;
-  }
-
-  .social-button.instagram:hover {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    color: white;
-  }
-
-  .social-button.instagram:hover .social-label,
-  .social-button.instagram:hover .social-description {
-    color: white;
-  }
-
-  .social-button.tiktok:hover {
-    background: #000000;
-    color: white;
-  }
-
-  .social-button.tiktok:hover .social-label,
-  .social-button.tiktok:hover .social-description {
-    color: white;
-  }
-
-  .social-button.email:hover {
-    background: linear-gradient(135deg, #EA4335 0%, #FBBC04 33%, #34A853 66%, #4285F4 100%);
-    color: white;
-  }
-
-  .social-button.email:hover .social-label,
-  .social-button.email:hover .social-description {
-    color: white;
-  }
-
-  /* Additional Info */
-  .additional-info {
-    margin-top: 3rem;
-    padding: 1.5rem 0 3rem;
-  }
-
-  .info-card {
-    background: rgb(var(--color-surface));
-    border-radius: var(--radius-xl);
-    padding: 2rem 1.5rem;
-    box-shadow: var(--shadow-raised-min);
-  }
-
-  .info-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .info-list li::before {
-    content: "✨";
-    position: absolute;
-    right: 0;
-    color: rgb(var(--color-brand));
-  }
-
-  .info-list li {
-    margin-bottom: 0.75rem;
-    padding-right: 1rem;
-    position: relative;
-  }
-
-  /* Tablet and Desktop Styles */
   @media (min-width: 768px) {
-    .container {
-      padding: 2rem 1rem;
+    .contact-page {
+      gap: var(--card-section-gap-large);
     }
 
-    .social-section {
-      margin-top: 2rem;
-      padding: 0;
+    .contact-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--card-section-gap-large);
     }
 
-    .social-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      max-width: 800px;
-    }
-
-    .social-button {
-      padding: 2rem 1rem;
-    }
-
-    .social-button:hover {
+    .contact-card--link:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
-    }
-
-    .social-button:active {
-      transform: translateY(-2px);
-    }
-
-    .additional-info {
-      margin-top: 4rem;
-      padding: 2rem 0;
-    }
-
-    .info-card {
-      padding: 3rem 2rem;
-    }
-
-    .info-list {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .info-list li {
-      margin-bottom: 1rem;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
     }
   }
 </style>

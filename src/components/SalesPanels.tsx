@@ -128,9 +128,9 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
   };
 
   return (
-    <div className="space-y-8" dir="rtl">
+    <div className="sales-panels" dir="rtl">
       {/* Main Pricing Card - Neumorphic Style */}
-      <div className="card-surface text-center relative overflow-hidden transition-all duration-300">
+      <div className="card-surface sales-card text-center">
         <h2 className="Title">הפירוש המלא של קוד העושר</h2>
 
         <p className="LeadText">
@@ -138,24 +138,26 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
           ולממש את הפוטנציאל המלא
         </p>
 
-        <div className="my-6">
-          <div className="Price mb-3">₪36.90</div>
+        <div className="sales-price">
+          <div className="Price">₪36.90</div>
           <p className="BigNote">תשלום חד-פעמי • גישה מיידית</p>
         </div>
 
-        <button
-          type="button"
-          onClick={handlePurchase}
-          className="btn btn-cta justify-center ButtonPrimaryText mt-6 mb-4"
-        >
-          מעבר לרכישה מאובטחת
-        </button>
+        <div className="sales-card-actions">
+          <button
+            type="button"
+            onClick={handlePurchase}
+            className="btn btn-cta ButtonPrimaryText"
+          >
+            מעבר לרכישה מאובטחת
+          </button>
+        </div>
 
         <p className="SmallNote">תשלום מאובטח 100% דרך Grow</p>
       </div>
 
       {/* Main Content Section */}
-      <div className="card-surface transition-all duration-300">
+      <div className="card-surface sales-card">
         <div className="text-center">
           <h2 className="LongTitle">
             להבין את הקוד
@@ -164,7 +166,7 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
           </h2>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-6 text-center">
+        <div className="sales-card-content text-center">
           <p className="BodyText">
             הפירוש המלא של הקוד מעניק מפתח להבנת הדינמיקות הפנימיות המעצבות את
             חייכם. באמצעותו ניתן לזהות את מקורות הדפוסים החוזרים, להבין כיצד
@@ -194,7 +196,7 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
           <button
             type="button"
             onClick={() => setIsExpanded(!isExpanded)}
-            className="btn btn-secondary justify-center ButtonSecondaryText inline-flex items-center gap-2"
+            className="btn btn-secondary ButtonSecondaryText inline-flex items-center gap-2"
           >
             <svg
               width="20"
@@ -219,7 +221,7 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
       </div>
 
       {/* What's Included Section */}
-      <div className="card-surface transition-all duration-300">
+      <div className="card-surface sales-card">
         <div className="text-center">
           <h2 className="LongTitle">
             הפירוש המלא
@@ -228,7 +230,7 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
           </h2>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-3">
+        <div className="sales-card-content sales-card-content--compact">
           {savedCodeForDisplay ? (
             <p className="FocusText mb-4">
               ניתוח מעמיק של{' '}
@@ -241,60 +243,60 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
             <p className="FocusText mb-4">ניתוח מעמיק של הספרות בקוד הכולל:</p>
           )}
 
-          <ul className="text-center space-y-3 list-none">
-            <li className="card-surface">
+          <ul className="sales-list">
+            <li className="card-surface sales-list-item">
               <span className="FocusTextLabel font-normal">
                 הסבר כיצד לשלב את הקוד בחיי היומיום
               </span>
             </li>
-            <li className="card-surface">
+            <li className="card-surface sales-list-item">
               <span className="FocusTextLabel font-normal">
                 תחומים מתאימים לקריירה ולשליחות
               </span>
             </li>
-            <li className="card-surface">
+            <li className="card-surface sales-list-item">
               <span className="FocusTextLabel font-normal">
                 המתנות והכישורים הייחודיים שלך
               </span>
             </li>
-            <li className="card-surface">
+            <li className="card-surface sales-list-item">
               <span className="FocusTextLabel font-normal">
                 החסמים והאתגרים שחשוב להכיר
               </span>
             </li>
-            <li className="card-surface">
+            <li className="card-surface sales-list-item">
               <span className="FocusTextLabel font-normal">
                 מהות כל ספרה והמשמעות שלה
               </span>
             </li>
-            <li className="card-surface">
+            <li className="card-surface sales-list-item">
               <span className="FocusTextLabel font-normal">
                 נורות אזהרה לזיהוי חוסר איזון
               </span>
             </li>
-            <li className="card-surface">
+            <li className="card-surface sales-list-item">
               <span className="FocusTextLabel font-normal">
                 דוגמה יומית לתרגול והטמעה
               </span>
             </li>
-            <li className="card-surface">
+            <li className="card-surface sales-list-item">
               <span className="FocusTextLabel font-normal">
                 מוקדי צמיחה והתפתחות
               </span>
             </li>
           </ul>
 
-          <div className="mt-8">
-            <div className="text-center">
+          <div className="sales-card-content">
+            <div className="sales-card-actions">
               <button
                 type="button"
                 onClick={handlePurchase}
-                className="btn btn-cta justify-center ButtonPrimaryText"
+                className="btn btn-cta ButtonPrimaryText"
               >
                 קבלו את הפירוש המלא עכשיו
               </button>
             </div>
-            <p className="SmallNote mt-4">גישה מיידית לאחר התשלום</p>
+            <p className="SmallNote">גישה מיידית לאחר התשלום</p>
           </div>
         </div>
       </div>

@@ -55,25 +55,13 @@ export default function ThankYouActions({
   )}`;
 
   return (
-    <div className="space-y-6" dir="rtl">
-      <style>{`
-        .card-title-compact {
-          margin-bottom: 0.25rem !important;
-        }
-        .no-margin {
-          margin-bottom: 0 !important;
-        }
-        .page-title-compact {
-          margin-bottom: 1rem !important;
-        }
-      `}</style>
-
-      <div className="card-surface text-center">
-        <h2 className="PageTitle page-title-compact">תודה על הרכישה!</h2>
+    <div className="thankyou-sections" dir="rtl">
+      <div className="card-surface thankyou-card">
+        <h2 className="PageTitle">תודה על הרכישה!</h2>
 
         <p className="LeadText">הפירוש המלא נשלח אליך במייל</p>
 
-        <div className="mt-6">
+        <div className="thankyou-primary-action">
           <a
             href="#"
             onClick={(e) => {
@@ -84,14 +72,14 @@ export default function ThankYouActions({
               );
               window.location.href = interpretationsHref;
             }}
-            className="btn btn-cta justify-center ButtonPrimaryText"
+            className="btn btn-cta ButtonPrimaryText"
           >
             צפייה באתר
           </a>
         </div>
       </div>
 
-      <div className="card-surface text-center">
+      <div className="card-surface thankyou-card">
         <ShareButton
           title="גילינו את קוד העושר!"
           text={`גילינו את קוד העושר עם Awakening by Ksenia${
@@ -100,12 +88,12 @@ export default function ThankYouActions({
         />
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="thankyou-links">
         <a
           href="/tools/wealth-code/calculator"
-          className="card-surface block text-center hover:shadow-neu-inset transition-shadow"
+          className="card-surface thankyou-link-card"
         >
-          <h3 className="CardTitle card-title-compact">חשבו קוד נוסף</h3>
+          <h3 className="CardTitle">חשבו קוד נוסף</h3>
           <p className="SmallNote">לחבר, בן/בת זוג או משפחה</p>
         </a>
 
@@ -113,20 +101,20 @@ export default function ThankYouActions({
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="card-surface block text-center hover:shadow-neu-inset transition-shadow"
+          className="card-surface thankyou-link-card"
         >
-          <h3 className="CardTitle card-title-compact">ייעוץ אישי</h3>
+          <h3 className="CardTitle">ייעוץ אישי</h3>
           <p className="SmallNote">מעבר לקביעת ייעוץ</p>
         </a>
 
-        <div className="card-surface text-center">
-          <h3 className="CardTitle card-title-compact">הצטרפו אלי</h3>
-          <div className="flex flex-wrap gap-4 justify-center mt-4">
+        <div className="card-surface thankyou-link-card">
+          <h3 className="CardTitle">הצטרפו אלי</h3>
+          <div className="thankyou-social-links">
             <a
               href="https://www.instagram.com/awakening.by.ksenia/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-accent hover:underline LabelText"
+              className="thankyou-social-link"
             >
               <svg
                 width="24"
@@ -148,7 +136,7 @@ export default function ThankYouActions({
               href="https://www.tiktok.com/@awakening.by.ksenia"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-accent hover:underline LabelText"
+              className="thankyou-social-link"
             >
               <svg
                 width="24"

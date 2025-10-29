@@ -1,3 +1,5 @@
+import { supabase } from '@/lib/supabase/client';
+import { translateSupabaseError } from '@/lib/supabase/errors';
 import { useState } from 'react';
 
 interface LoginFormProps {
@@ -8,27 +10,46 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setMessage('');
     setLoading(true);
 
     // TODO: Replace with actual authentication API call
     try {
-      // Placeholder for authentication logic
-      console.log('Login attempt:', { email, password });
+      const normalizedEmail = email.trim();
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (!normalizedEmail) {
+        setError('אנא הזינו כתובת אימייל.');
+        return;
+      }
 
-      // For now, just show success
+      if (!normalizedEmail.includes('@')) {
+        setError('כרגע ההתחברות זמינה באמצעות אימייל בלבד.');
+        return;
+      }
+
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: normalizedEmail,
+        password,
+      });
+
+      if (signInError) {
+        setError(translateSupabaseError(signInError.message));
+        return;
+      }
+
+      setMessage('התחברות הושלמה בהצלחה.');
+
       if (onSuccess) {
         onSuccess();
       }
     } catch (err) {
-      setError('שגיאה בהתחברות. אנא נסי שוב.');
+      setError('שגיאה בהתחברות. אנא נסו שוב.');
     } finally {
       setLoading(false);
     }
@@ -39,36 +60,34 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
       <div className="w-full max-w-md">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
-          <h1
-            className="text-4xl font-bold mb-2"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            התעוררות
-          </h1>
-          <p className="text-support text-lg">by Ksenia</p>
+          <h1 className="auth-brand">AWAKENING BY KSENIA</h1>
         </div>
 
         {/* Login Form Card */}
-        <form onSubmit={handleSubmit} className="card-surface space-y-6">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-semibold mb-2">התחברות</h2>
-            <p className="text-sm text-text/70">התחברו לאזור האישי</p>
+        <form onSubmit={handleSubmit} className="login-card">
+          <div className="login-card-header">
+            <h2 className="Subtitle">התחברות</h2>
+            <p className="BodyText">
+              התחברו לאזור האישי כדי להמשיך במסע ההתעוררות
+            </p>
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm text-center">
+            <div className="neu-inset-min text-error text-sm py-3 px-4 rounded-lg">
               {error}
             </div>
           )}
 
+          {message && (
+            <div className="neu-inset-min py-3 px-4 rounded-lg auth-message">
+              {message}
+            </div>
+          )}
+
           {/* Email Input */}
-          <div className="space-y-2">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-text/80"
-              dir="rtl"
-            >
+          <div className="login-field">
+            <label htmlFor="email" className="BodyText" dir="rtl">
               אימייל או מספר טלפון
             </label>
             <input
@@ -84,12 +103,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           </div>
 
           {/* Password Input */}
-          <div className="space-y-2">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-text/80"
-              dir="rtl"
-            >
+          <div className="login-field">
+            <label htmlFor="password" className="BodyText" dir="rtl">
               סיסמה
             </label>
             <input
@@ -106,11 +121,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
           {/* Forgot Password Link */}
           <div className="text-center">
-            <a
-              href="/forgot-password"
-              className="text-sm text-accent hover:text-text transition-colors"
-            >
-              שכחת סיסמה?
+            <a href="/forgot-password" className="login-link text-sm">
+              שחזור סיסמה
             </a>
           </div>
 
@@ -119,19 +131,13 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             type="submit"
             disabled={loading}
             className="btn btn-primary justify-center ButtonSecondaryText"
-            aria-busy={loading ? 'true' : 'false'}
           >
-            {loading ? 'מתחבר...' : 'התחבר'}
+            {loading ? 'מתחברים...' : 'התחברו'}
           </button>
 
           {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-text/10"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-surface text-text/70">או</span>
-            </div>
+          <div className="login-card-divider">
+            <span>או</span>
           </div>
 
           {/* Social Login Placeholder */}
@@ -140,32 +146,19 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             className="btn btn-secondary justify-center ButtonSecondaryText"
             onClick={() => alert('התחברות עם Facebook תהיה זמינה בקרוב')}
           >
-            התחבר עם Facebook
+            התחברו עם Facebook
           </button>
 
           {/* Sign Up Link */}
-          <div className="text-center pt-4 border-t border-text/10">
-            <p className="text-sm text-text/70">
-              עדיין אין לך חשבון?{' '}
-              <a
-                href="/signup"
-                className="font-semibold text-accent hover:text-text transition-colors"
-              >
-                הירשמי כאן
+          <div className="login-card-footer">
+            <p className="login-card-note">
+              עדיין אין לכם חשבון?{' '}
+              <a href="/signup" className="login-link">
+                הירשמו כאן
               </a>
             </p>
           </div>
         </form>
-
-        {/* Back to Home */}
-        <div className="text-center mt-6">
-          <a
-            href="/"
-            className="text-sm text-text/70 hover:text-text transition-colors"
-          >
-            ← חזרה לדף הבית
-          </a>
-        </div>
       </div>
     </div>
   );

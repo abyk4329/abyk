@@ -1,3 +1,5 @@
+import { supabase } from '@/lib/supabase/client';
+import { translateSupabaseError } from '@/lib/supabase/errors';
 import { useState } from 'react';
 
 interface SignupFormProps {
@@ -13,6 +15,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
     confirmPassword: '',
   });
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
@@ -26,6 +29,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setMessage('');
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
@@ -43,20 +47,54 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
       return;
     }
 
+    const email = formData.email.trim();
+    if (!email || !email.includes('@')) {
+      setError('אנא הזינו כתובת אימייל תקינה.');
+      return;
+    }
+
     setLoading(true);
 
     // TODO: Replace with actual registration API call
     try {
-      console.log('Signup attempt:', formData);
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password: formData.password,
+        options: {
+          data: {
+            full_name: formData.name.trim(),
+            phone: formData.phone.trim(),
+          },
+        },
+      });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (signUpError) {
+        setError(translateSupabaseError(signUpError.message));
+        return;
+      }
+
+      if (data.user) {
+        setMessage(
+          data.session
+            ? 'ההרשמה הושלמה בהצלחה.'
+            : 'שלחנו אליכם מייל לאישור החשבון. אנא אשרו כדי להשלים את ההרשמה.'
+        );
+      }
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        password: '',
+        confirmPassword: '',
+      });
+      setAgreedToTerms(false);
 
       if (onSuccess) {
         onSuccess();
       }
     } catch (err) {
-      setError('שגיאה בהרשמה. אנא נסי שוב.');
+      setError('אירעה שגיאה בלתי צפויה. נסו שוב מאוחר יותר.');
     } finally {
       setLoading(false);
     }
@@ -67,33 +105,32 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
       <div className="w-full max-w-md">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-2">התעוררות</h1>
-          <p className="text-support text-lg">by Ksenia</p>
+          <h1 className="auth-brand">AWAKENING BY KSENIA</h1>
         </div>
 
         {/* Signup Form Card */}
-        <form onSubmit={handleSubmit} className="card-surface space-y-5">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-semibold mb-2">הרשמה</h2>
-            <p className="text-sm text-text/70">
-              צרו חשבון חדש והתחילו את המסע
-            </p>
+        <form onSubmit={handleSubmit} className="login-card">
+          <div className="login-card-header">
+            <h2 className="Subtitle">הרשמה</h2>
+            <p className="BodyText">צרו חשבון חדש והתחילו את המסע</p>
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm text-center">
+            <div className="neu-inset-min text-error text-sm py-3 px-4 rounded-lg">
               {error}
             </div>
           )}
 
+          {message && (
+            <div className="neu-inset-min py-3 px-4 rounded-lg auth-message">
+              {message}
+            </div>
+          )}
+
           {/* Name Input */}
-          <div className="space-y-2">
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-text/80"
-              dir="rtl"
-            >
+          <div className="login-field">
+            <label htmlFor="name" className="BodyText" dir="rtl">
               שם מלא
             </label>
             <input
@@ -110,12 +147,8 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
           </div>
 
           {/* Email Input */}
-          <div className="space-y-2">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-text/80"
-              dir="rtl"
-            >
+          <div className="login-field">
+            <label htmlFor="email" className="BodyText" dir="rtl">
               אימייל
             </label>
             <input
@@ -132,12 +165,8 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
           </div>
 
           {/* Phone Input */}
-          <div className="space-y-2">
-            <label
-              htmlFor="phone"
-              className="block text-sm font-medium text-text/80"
-              dir="rtl"
-            >
+          <div className="login-field">
+            <label htmlFor="phone" className="BodyText" dir="rtl">
               מספר טלפון
             </label>
             <input
@@ -154,12 +183,8 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
           </div>
 
           {/* Password Input */}
-          <div className="space-y-2">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-text/80"
-              dir="rtl"
-            >
+          <div className="login-field">
+            <label htmlFor="password" className="BodyText" dir="rtl">
               סיסמה
             </label>
             <input
@@ -176,12 +201,8 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
           </div>
 
           {/* Confirm Password Input */}
-          <div className="space-y-2">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-text/80"
-              dir="rtl"
-            >
+          <div className="login-field">
+            <label htmlFor="confirmPassword" className="BodyText" dir="rtl">
               אימות סיסמה
             </label>
             <input
@@ -192,33 +213,27 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
               onChange={handleChange}
               required
               className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
-              placeholder="הזן שוב את הסיסמה"
+              placeholder="הקלידו שוב את הסיסמה"
               dir="ltr"
             />
           </div>
 
           {/* Terms Checkbox */}
-          <div className="flex items-start gap-3" dir="rtl">
+          <div className="auth-checkbox" dir="rtl">
             <input
               type="checkbox"
               id="terms"
               checked={agreedToTerms}
               onChange={(e) => setAgreedToTerms(e.target.checked)}
-              className="mt-1 w-4 h-4 rounded border-text/30 text-accent focus:ring-accent"
+              className="auth-checkbox-input"
             />
-            <label htmlFor="terms" className="text-sm text-text/70">
-              אני מסכימה{' '}
-              <a
-                href="/terms"
-                className="text-accent hover:text-text transition-colors"
-              >
-                לתנאי השימוש
+            <label htmlFor="terms" className="BodyText">
+              מאשרים את{' '}
+              <a href="/terms" className="login-link">
+                תנאי השימוש
               </a>{' '}
               ו
-              <a
-                href="/privacy"
-                className="text-accent hover:text-text transition-colors"
-              >
+              <a href="/privacy" className="login-link">
                 מדיניות הפרטיות
               </a>
             </label>
@@ -229,34 +244,20 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
             type="submit"
             disabled={loading}
             className="btn btn-primary justify-center ButtonSecondaryText"
-            aria-busy={loading ? 'true' : 'false'}
           >
-            {loading ? 'נרשמת...' : 'הירשמי'}
+            {loading ? 'נרשמים...' : 'הירשמו'}
           </button>
 
           {/* Login Link */}
-          <div className="text-center pt-4 border-t border-text/10">
-            <p className="text-sm text-text/70">
-              כבר יש לך חשבון?{' '}
-              <a
-                href="/login"
-                className="font-semibold text-accent hover:text-text transition-colors"
-              >
-                התחברי כאן
+          <div className="login-card-footer">
+            <p className="login-card-note">
+              כבר יש לכם חשבון?{' '}
+              <a href="/login" className="login-link">
+                התחברו כאן
               </a>
             </p>
           </div>
         </form>
-
-        {/* Back to Home */}
-        <div className="text-center mt-6">
-          <a
-            href="/"
-            className="text-sm text-text/70 hover:text-text transition-colors"
-          >
-            ← חזרה לדף הבית
-          </a>
-        </div>
       </div>
     </div>
   );
