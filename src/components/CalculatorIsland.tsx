@@ -158,7 +158,7 @@ export default function CalculatorIsland() {
           </div>
         )}
 
-        <div className="flex gap-4 pt-2">
+  <div className="flex justify-center gap-4 pt-2 flex-wrap">
           <button
             type="submit"
             className="btn btn-primary flex-1 ButtonSecondaryText"
