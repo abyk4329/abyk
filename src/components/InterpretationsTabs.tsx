@@ -101,7 +101,7 @@ export default function InterpretationsTabs({
 
   if (!isResolved) {
     return (
-      <div className="neu-raised-min rounded-lg card-mobile-padding text-center space-y-4">
+      <div className="card-surface text-center space-y-4">
         <p className="BodyText">טוען את הפירוש המלא...</p>
       </div>
     );
@@ -109,7 +109,7 @@ export default function InterpretationsTabs({
 
   if (!code || !/^\d{4}$/.test(code)) {
     return (
-      <div className="neu-raised-min rounded-lg card-mobile-padding text-center space-y-4">
+      <div className="card-surface text-center space-y-4">
         <h2 className="CardTitle">לא נמצא קוד תקין</h2>
         <p className="BodyText">חזרו לחשב את קוד העושר שלכם</p>
         <a
@@ -175,7 +175,7 @@ export default function InterpretationsTabs({
   return (
     <div className="space-y-6" dir="rtl">
       {/* Header with Code - styled like ResultCard */}
-      <div className="neu-raised-min rounded-lg card-mobile-padding max-w-2xl mx-auto">
+      <div className="card-surface max-w-2xl mx-auto">
         <div className="text-center">
           {/* Code Display - Each digit in separate card */}
           <div className="flex justify-center gap-3 mb-6">
@@ -203,7 +203,7 @@ export default function InterpretationsTabs({
       </div>
 
       {/* Tabs Navigation */}
-      <div className="neu-raised-min rounded-lg p-2 space-y-2">
+      <div className="card-surface p-2 space-y-2">
         {/* שורה ראשונה: כפתורי מספרים */}
         <div className="flex gap-2">
           {uniqueDigits.map((digit) => (
@@ -235,7 +235,7 @@ export default function InterpretationsTabs({
       </div>
 
       {/* Tab Content */}
-      <div className="neu-raised-min rounded-lg card-mobile-padding">
+      <div className="card-surface">
         {activeTab === null && (
           <div className="text-center py-8">
             <p className="BodyText">טוען...</p>
@@ -340,7 +340,7 @@ export default function InterpretationsTabs({
       <div className="grid md:grid-cols-3 gap-6">
         <button
           onClick={handleDownloadPDF}
-          className="neu-raised-min rounded-lg card-mobile-padding text-center hover:shadow-neu-inset transition-shadow"
+          className="card-surface text-center hover:shadow-neu-inset transition-shadow"
         >
           <svg
             className="w-8 h-8 mx-auto mb-2 stroke-current"
@@ -361,7 +361,7 @@ export default function InterpretationsTabs({
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="neu-raised-min rounded-lg card-mobile-padding text-center hover:shadow-neu-inset transition-shadow"
+          className="card-surface block text-center hover:shadow-neu-inset transition-shadow"
         >
           <svg
             className="w-8 h-8 mx-auto mb-2 stroke-current"
@@ -380,7 +380,7 @@ export default function InterpretationsTabs({
 
         <a
           href="/tools/wealth-code/calculator"
-          className="neu-raised-min rounded-lg card-mobile-padding text-center hover:shadow-neu-inset transition-shadow"
+          className="card-surface block text-center hover:shadow-neu-inset transition-shadow"
         >
           <svg
             className="w-8 h-8 mx-auto mb-2 stroke-current"

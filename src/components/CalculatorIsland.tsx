@@ -113,10 +113,7 @@ export default function CalculatorIsland() {
   }, [day, month, year]);
 
   return (
-    <div
-      className="neu-raised-min rounded-lg card-mobile-padding max-w-md mx-auto"
-      dir="rtl"
-    >
+    <div className="card-surface max-w-md mx-auto" dir="rtl">
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Calendar Button */}
         <button
@@ -158,7 +155,7 @@ export default function CalculatorIsland() {
           </div>
         )}
 
-  <div className="flex justify-center gap-4 pt-2 flex-wrap">
+        <div className="flex justify-center gap-4 pt-2 flex-wrap">
           <button
             type="submit"
             className="btn btn-primary flex-1 ButtonSecondaryText"

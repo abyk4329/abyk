@@ -49,10 +49,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         </div>
 
         {/* Login Form Card */}
-        <form
-          onSubmit={handleSubmit}
-          className="neu-raised-min rounded-xl card-mobile-padding space-y-6"
-        >
+        <form onSubmit={handleSubmit} className="card-surface space-y-6">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-semibold mb-2">התחברות</h2>
             <p className="text-sm text-text/70">התחברו לאזור האישי</p>

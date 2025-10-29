@@ -130,7 +130,7 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
   return (
     <div className="space-y-8" dir="rtl">
       {/* Main Pricing Card - Neumorphic Style */}
-      <div className="neu-raised-min rounded-xl card-mobile-padding text-center relative overflow-hidden transition-all duration-300">
+      <div className="card-surface text-center relative overflow-hidden transition-all duration-300">
         <h2 className="Title">הפירוש המלא של קוד העושר</h2>
 
         <p className="LeadText">
@@ -155,7 +155,7 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
       </div>
 
       {/* Main Content Section */}
-      <div className="neu-raised-min rounded-xl card-mobile-padding transition-all duration-300">
+      <div className="card-surface transition-all duration-300">
         <div className="text-center">
           <h2 className="LongTitle">
             להבין את הקוד
@@ -219,7 +219,7 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
       </div>
 
       {/* What's Included Section */}
-      <div className="neu-raised-min rounded-xl card-mobile-padding transition-all duration-300">
+      <div className="card-surface transition-all duration-300">
         <div className="text-center">
           <h2 className="LongTitle">
             הפירוש המלא
@@ -242,42 +242,42 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
           )}
 
           <ul className="text-center space-y-3 list-none">
-            <li className="neu-raised-min rounded-lg p-4">
+            <li className="card-surface">
               <span className="FocusTextLabel font-normal">
                 הסבר כיצד לשלב את הקוד בחיי היומיום
               </span>
             </li>
-            <li className="neu-raised-min rounded-lg p-4">
+            <li className="card-surface">
               <span className="FocusTextLabel font-normal">
                 תחומים מתאימים לקריירה ולשליחות
               </span>
             </li>
-            <li className="neu-raised-min rounded-lg p-4">
+            <li className="card-surface">
               <span className="FocusTextLabel font-normal">
                 המתנות והכישורים הייחודיים שלך
               </span>
             </li>
-            <li className="neu-raised-min rounded-lg p-4">
+            <li className="card-surface">
               <span className="FocusTextLabel font-normal">
                 החסמים והאתגרים שחשוב להכיר
               </span>
             </li>
-            <li className="neu-raised-min rounded-lg p-4">
+            <li className="card-surface">
               <span className="FocusTextLabel font-normal">
                 מהות כל ספרה והמשמעות שלה
               </span>
             </li>
-            <li className="neu-raised-min rounded-lg p-4">
+            <li className="card-surface">
               <span className="FocusTextLabel font-normal">
                 נורות אזהרה לזיהוי חוסר איזון
               </span>
             </li>
-            <li className="neu-raised-min rounded-lg p-4">
+            <li className="card-surface">
               <span className="FocusTextLabel font-normal">
                 דוגמה יומית לתרגול והטמעה
               </span>
             </li>
-            <li className="neu-raised-min rounded-lg p-4">
+            <li className="card-surface">
               <span className="FocusTextLabel font-normal">
                 מוקדי צמיחה והתפתחות
               </span>

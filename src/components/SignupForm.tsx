@@ -72,10 +72,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
         </div>
 
         {/* Signup Form Card */}
-        <form
-          onSubmit={handleSubmit}
-          className="neu-raised-min rounded-xl card-mobile-padding space-y-5"
-        >
+        <form onSubmit={handleSubmit} className="card-surface space-y-5">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-semibold mb-2">הרשמה</h2>
             <p className="text-sm text-text/70">

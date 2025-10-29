@@ -68,7 +68,7 @@ export default function ThankYouActions({
         }
       `}</style>
 
-      <div className="neu-raised-min rounded-lg card-mobile-padding text-center">
+      <div className="card-surface text-center">
         <h2 className="PageTitle page-title-compact">תודה על הרכישה!</h2>
 
         <p className="LeadText">הפירוש המלא נשלח אליך במייל</p>
@@ -91,7 +91,7 @@ export default function ThankYouActions({
         </div>
       </div>
 
-      <div className="neu-raised-min rounded-lg card-mobile-padding text-center">
+      <div className="card-surface text-center">
         <ShareButton
           title="גילינו את קוד העושר!"
           text={`גילינו את קוד העושר עם Awakening by Ksenia${
@@ -103,7 +103,7 @@ export default function ThankYouActions({
       <div className="grid md:grid-cols-2 gap-6">
         <a
           href="/tools/wealth-code/calculator"
-          className="neu-raised-min rounded-lg card-mobile-padding text-center hover:shadow-neu-inset transition-shadow"
+          className="card-surface block text-center hover:shadow-neu-inset transition-shadow"
         >
           <h3 className="CardTitle card-title-compact">חשבו קוד נוסף</h3>
           <p className="SmallNote">לחבר, בן/בת זוג או משפחה</p>
@@ -113,13 +113,13 @@ export default function ThankYouActions({
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="neu-raised-min rounded-lg card-mobile-padding text-center hover:shadow-neu-inset transition-shadow"
+          className="card-surface block text-center hover:shadow-neu-inset transition-shadow"
         >
           <h3 className="CardTitle card-title-compact">ייעוץ אישי</h3>
           <p className="SmallNote">מעבר לקביעת ייעוץ</p>
         </a>
 
-        <div className="neu-raised-min rounded-lg card-mobile-padding text-center">
+        <div className="card-surface text-center">
           <h3 className="CardTitle card-title-compact">הצטרפו אלי</h3>
           <div className="flex flex-wrap gap-4 justify-center mt-4">
             <a

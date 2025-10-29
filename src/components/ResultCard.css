@@ -3,8 +3,6 @@
    ============================================ */
 
 .result-card {
-  /* Mobile: 32px אנכי × 16px אופקי (מינימום) */
-  padding: var(--space-xl) var(--space-md);
   max-width: 42rem;
   margin: 0 auto;
 }
@@ -12,7 +10,7 @@
 /* Tablet & Desktop: padding גדול לאיכות */
 @media (min-width: 768px) {
   .result-card {
-    padding: var(--space-2xl) var(--space-xl); /* 48px × 32px */
+    max-width: 48rem;
   }
 }
 
@@ -79,8 +77,7 @@
 /* Responsive */
 @media (max-width: 480px) {
   .result-card {
-    /* Mobile קטן: שומר מינימום 16px אופקי */
-    padding: var(--space-lg) var(--space-md); /* 24px × 16px */
+    max-width: 100%;
   }
 
   .code-display {

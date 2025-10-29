@@ -34,7 +34,7 @@ export default function ResultCard({ code }: ResultCardProps) {
 
   if (!mounted) {
     return (
-      <div className="neu-raised-min rounded-lg card-mobile-padding max-w-2xl mx-auto">
+      <div className="card-surface result-card max-w-2xl mx-auto">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-surface/50 rounded"></div>
           <div className="h-32 bg-surface/50 rounded"></div>
@@ -44,7 +44,7 @@ export default function ResultCard({ code }: ResultCardProps) {
   }
 
   return (
-    <div className="neu-raised-min rounded-lg card-mobile-padding max-w-2xl mx-auto">
+    <div className="card-surface result-card max-w-2xl mx-auto">
       <div className="result-header">
         <h2 className="CardTitle">קוד העושר שלך</h2>
 
