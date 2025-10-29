@@ -1,0 +1,180 @@
+/* Elegant Theme Toggle Styles */
+
+.elegant-theme-toggle {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  display: inline-block;
+}
+
+.elegant-theme-toggle:hover {
+  transform: scale(1.05);
+}
+
+.elegant-theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Track Container */
+.elegant-theme-toggle__track {
+  position: relative;
+  width: 5rem;
+  height: 2.5rem;
+  border-radius: 2.5rem;
+  background: linear-gradient(
+    135deg,
+    rgb(var(--color-accent)) 0%,
+    rgb(var(--color-brand)) 100%
+  );
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1),
+    2px 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+[data-theme='dark'] .elegant-theme-toggle__track {
+  background: linear-gradient(135deg, #f5e2cc 0%, #e5d2b6 100%);
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2),
+    2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Sliding Thumb */
+.elegant-theme-toggle__thumb {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 8px rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+[data-theme='dark'] .elegant-theme-toggle__thumb {
+  transform: translateX(2.5rem);
+  background: rgb(var(--color-surface));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 0 12px rgba(245, 226, 204, 0.3);
+}
+
+/* Icon Styles */
+.elegant-theme-toggle__icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.elegant-theme-toggle__icon--sun {
+  color: rgb(var(--color-accent));
+}
+
+.elegant-theme-toggle__icon--moon {
+  color: rgb(var(--color-subheading-dark));
+}
+
+/* Stars Container */
+.elegant-theme-toggle__stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+[data-theme='dark'] .elegant-theme-toggle__stars {
+  opacity: 1;
+}
+
+/* Individual Star */
+.elegant-theme-toggle__star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+/* Star Positioning */
+.elegant-theme-toggle__star:nth-child(1) {
+  top: 20%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.elegant-theme-toggle__star:nth-child(2) {
+  top: 60%;
+  left: 25%;
+  animation-delay: 0.3s;
+}
+
+.elegant-theme-toggle__star:nth-child(3) {
+  top: 40%;
+  right: 20%;
+  animation-delay: 0.6s;
+}
+
+.elegant-theme-toggle__star:nth-child(4) {
+  top: 70%;
+  right: 30%;
+  animation-delay: 0.9s;
+}
+
+/* Twinkle Animation */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Accessibility: Focus State */
+.elegant-theme-toggle:focus-visible {
+  outline: 2px solid rgb(var(--color-accent));
+  outline-offset: 4px;
+  border-radius: 2.5rem;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .elegant-theme-toggle__track {
+    width: 4rem;
+    height: 2rem;
+  }
+
+  .elegant-theme-toggle__thumb {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  [data-theme='dark'] .elegant-theme-toggle__thumb {
+    transform: translateX(2rem);
+  }
+
+  .elegant-theme-toggle__icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+/* Reduce Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  .elegant-theme-toggle,
+  .elegant-theme-toggle__track,
+  .elegant-theme-toggle__thumb,
+  .elegant-theme-toggle__icon,
+  .elegant-theme-toggle__stars {
+    transition: none;
+    animation: none;
+  }
+}

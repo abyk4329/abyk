@@ -1,0 +1,165 @@
+/* ============================================
+   Design Tokens
+   ============================================ */
+
+:root {
+  /* ===== Colors ===== */
+  /* Light theme */
+  --color-bg-light: 245 245 245; /* #F5F5F5 clean light */
+  --color-surface-light: 245 245 245; /* #F5F5F5 surfaces */
+  --color-text-light: 34 40 51; /* #222833 dark surface - טקסט גוף רגיל */
+  --color-heading-light: 185 126 126; /* #B97E7E warm rose-brown - כותרות חזקות */
+  --color-subheading-light: 192 160 160; /* #C0A0A0 soft dusty rose - טקסט פתיחה רגשי */
+  --color-brand-gold: 123 83 56; /* #7B5338 unified warm brand - זהות מותגית */
+  --color-accent: 193 144 128; /* #C19080 warm highlight - הדגשות בתוך טקסט */
+  --color-support: 124 162 145; /* #7CA291 sage green - ספרות קוד עושר ומחירים במצב בהיר */
+  --color-error: 122 47 47; /* #7A2F2F deep red - הודעות שגיאה */
+  --color-primary-light: 124 162 145; /* #7CA291 sage green - כפתורים וטקסט פעולה */
+  --color-icon-light: 91 106 102; /* #5B6A66 subtle gray-green - אייקונים כלליים */
+  --color-english-light: 91 106 102; /* #5B6A66 subtle - טקסט אנגלי */
+
+  /* Dark theme */
+  --color-bg-dark: 34 40 51; /* #222833 dark surface */
+  --color-surface-dark: 34 40 51; /* #222833 surface */
+  --color-text-dark: 250 250 250; /* #FAFAFA bright light - טקסט גוף */
+  --color-heading-dark: 124 162 145; /* #7CA291 sage green - כותרות חזקות במצב כהה */
+  --color-subheading-dark: 192 160 160; /* #C0A0A0 soft dusty rose - טקסט פתיחה רגשי */
+  --color-brand-gold-dark: 198 171 150; /* #C6AB96 warm taupe - זהות מותגית */
+  --color-primary-dark: 246 226 203; /* #F6E2CB warm beige - כפתורים וטקסט פעולה */
+  --color-icon-dark: 168 132 105; /* #A88469 warm secondary - אייקונים */
+  --color-english-dark: 185 126 126; /* #B97E7E rose-brown (CTA color) - טקסט אנגלי */
+  --color-accent-dark: 193 144 128; /* #C19080 warm highlight - הדגשות */
+  --color-support-dark: 206 161 161; /* #CEA1A1 warm rose - ספרות קוד עושר במצב כהה */
+  --color-error-dark: 199 107 92; /* #C76B5C bright coral-red - שגיאות */
+
+  /* ===== Typography ===== */
+  /* Font family */
+  --font-sans: 'Assistant', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Fluid type scale */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); /* 12px → 14px */
+  --text-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem); /* 14px → 16px */
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); /* 16px → 18px */
+  --text-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem); /* 18px → 20px */
+  --text-lg-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem); /* 20px → 24px */
+  --text-xl: clamp(1.375rem, 1.225rem + 0.75vw, 2rem); /* 22px → 32px */
+  --text-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 2rem); /* 24px → 32px */
+  --text-3xl: clamp(2rem, 1.75rem + 1.25vw, 2.5rem); /* 32px → 40px */
+  --text-4xl: clamp(2.5rem, 2rem + 2.5vw, 3.5rem); /* 40px → 56px */
+
+  /* Line heights */
+  --leading-tight: 1.25; /* Headings */
+  --leading-normal: 1.55; /* Body */
+  --leading-loose: 1.75; /* Relaxed paragraphs */
+
+  /* Letter spacing */
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.02em;
+
+  /* ===== Spacing ===== */
+  --space-xs: 0.25rem; /* 4px */
+  --space-sm: 0.5rem; /* 8px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2rem; /* 32px */
+  --space-2xl: 3rem; /* 48px */
+  --space-3xl: 4rem; /* 64px */
+
+  /* ===== Layout Spacing - Unified Structure ===== */
+  /* מרווחים אחידים לכל העמודים */
+  --layout-section-gap: 1.5rem; /* 24px - מרווח בין כרטיסיות */
+  --layout-content-gap: 1rem; /* 16px - מרווח בין אלמנטים בתוך כרטיסייה */
+  --layout-text-gap: 1.5rem; /* 24px - מרווח בין פסקאות */
+  --layout-list-gap: 0.75rem; /* 12px - מרווח בין פריטים ברשימה */
+
+  /* ===== Card Section Spacing - מרווחים בין כרטיסיות ===== */
+  --card-section-gap-small: 1.5rem; /* 24px - מרווח קטן בין כרטיסיות */
+  --card-section-gap-large: 3rem; /* 48px - מרווח גדול בין כרטיסיות (פי 2) */
+
+  /* ===== Content Width - רוחב תוכן ===== */
+  --content-width-full: 100%; /* כותרות - מלוא הרוחב */
+  --content-width-narrow: 100%; /* פסקאות - רוחב מלא */
+  --content-width-max: 100%; /* רוחב מקסימלי */
+
+  /* ===== Button Spacing ===== */
+  /* מרווחים פנימיים של כפתורים */
+  --btn-padding-y: 0.75rem; /* 12px - padding עליון/תחתון */
+  --btn-padding-x: 1rem; /* 16px - padding שמאל/ימין */
+  --btn-gap: 0.5rem; /* 8px - מרווח בין אייקון לטקסט */
+
+  /* ===== Card Internal Spacing ===== */
+  /* מרווחים פנימיים של כרטיסיות */
+  --card-padding-mobile-y: 1.5rem; /* 24px - padding עליון/תחתון במובייל */
+  --card-padding-mobile-x: 1.125rem; /* 18px - padding שמאל/ימין במובייל */
+  --card-padding-desktop: 1.5rem; /* 24px - padding כל הצדדים בדסקטופ */
+  --card-content-gap: 1rem; /* 16px - מרווח בין אלמנטים בתוך כרטיסייה */
+  --card-element-gap: 0.5rem; /* 8px - מרווח קטן בין אלמנטים צמודים */
+
+  /* ===== Typography Spacing ===== */
+  /* מרווחים של טקסטים וכותרות */
+  --heading-margin-bottom: 1.5rem; /* 24px - margin תחתון לכותרת ראשית */
+  --subheading-margin-bottom: 1rem; /* 16px - margin תחתון לתת-כותרת */
+  --paragraph-margin-bottom: 1em; /* 1em - margin תחתון לפסקה */
+  --text-line-gap: 1.5rem; /* 24px - מרווח בין שורות טקסט נפרדות */
+
+  /* ===== Border Radius ===== */
+  --radius-sm: 0.375rem; /* 6px - icons */
+  --radius-md: 0.5rem; /* 8px - buttons */
+  --radius-lg: 0.75rem; /* 12px - cards */
+  --radius-xl: 1rem; /* 16px - modals */
+  --radius-full: 9999px; /* Circular */
+
+  /* ===== Neumorphic Shadows ===== */
+  /* Raised (outward) - Light */
+  --shadow-raised-min-light: 2px 2px 4px rgba(0, 0, 0, 0.1),
+    -2px -2px 4px rgba(255, 255, 255, 1);
+
+  /* Raised (outward) - Dark */
+  --shadow-raised-min-dark: 2px 2px 4px rgba(0, 0, 0, 0.3),
+    -2px -2px 4px rgba(255, 255, 255, 0.05);
+
+  /* Inset (pressed) - Light */
+  --shadow-inset-min-light: inset 2px 2px 4px rgba(0, 0, 0, 0.1),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+
+  /* Inset (pressed) - Dark */
+  --shadow-inset-min-dark: inset 2px 2px 4px rgba(0, 0, 0, 0.3),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   Theme Selection
+   ============================================ */
+
+:root,
+[data-theme='light'] {
+  --color-bg: var(--color-bg-light);
+  --color-surface: var(--color-surface-light);
+  --color-text: var(--color-text-light);
+  --color-heading: var(--color-heading-light);
+  --color-subheading: var(--color-subheading-light);
+  --color-brand: var(--color-brand-gold);
+  --color-primary: var(--color-primary-light);
+  --color-icon: var(--color-icon-light);
+  --color-english: var(--color-english-light);
+  --shadow-raised-min: var(--shadow-raised-min-light);
+  --shadow-inset-min: var(--shadow-inset-min-light);
+}
+
+[data-theme='dark'] {
+  --color-bg: var(--color-bg-dark);
+  --color-surface: var(--color-surface-dark);
+  --color-text: var(--color-text-dark);
+  --color-heading: var(--color-heading-dark);
+  --color-subheading: var(--color-subheading-dark);
+  --color-brand: var(--color-brand-gold-dark);
+  --color-primary: var(--color-primary-dark);
+  --color-icon: var(--color-icon-dark);
+  --color-english: var(--color-english-dark);
+  --color-accent: var(--color-accent-dark);
+  --color-support: var(--color-support-dark);
+  --color-error: var(--color-error-dark);
+  --shadow-raised-min: var(--shadow-raised-min-dark);
+  --shadow-inset-min: var(--shadow-inset-min-dark);
+}

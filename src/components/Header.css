@@ -1,0 +1,266 @@
+/* Header - Mobile First */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: transparent;
+  padding: 0.75rem 0;
+  /* PWA Safe Area Support */
+  padding-top: calc(0.75rem + env(safe-area-inset-top));
+}
+
+.header-container {
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: rgb(var(--color-surface));
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-raised-min);
+  cursor: pointer;
+  color: rgb(var(--color-heading));
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.header-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.header-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-inset-min);
+}
+
+.header-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Menu Overlay */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Side Menu - Mobile First */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  max-width: 85vw;
+  background: rgb(var(--color-surface));
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.3s ease;
+  overflow-y: auto;
+  /* PWA Safe Area Support */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.menu-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid rgb(var(--color-text) / 0.1);
+}
+
+.close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: rgb(var(--color-heading));
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.close-button:hover {
+  background: rgb(var(--color-text) / 0.1);
+}
+
+.close-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Menu Brand */
+.menu-brand {
+  /* Mobile: מינימום 16px אופקי */
+  padding: var(--space-lg) var(--space-md) var(--space-md); /* 24px × 16px × 16px */
+  text-align: center;
+  border-bottom: 1px solid rgb(var(--color-brand) / 0.3);
+}
+
+.menu-brand h1 {
+  font-size: var(--text-base);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: rgb(var(--color-brand));
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Menu Navigation */
+.menu-nav {
+  flex: 1;
+  padding: 0.5rem 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  min-height: 48px;
+  color: rgb(var(--color-brand));
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menu-item:hover {
+  background: rgb(var(--color-brand) / 0.12);
+  border-left-color: rgb(var(--color-brand));
+}
+
+.menu-item:active {
+  background: rgb(var(--color-brand) / 0.18);
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--color-brand));
+}
+
+.menu-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.menu-label {
+  font-size: var(--text-base);
+  font-weight: 500;
+  flex: 1;
+}
+
+/* Body padding for fixed header - Mobile First */
+body {
+  padding-top: calc(70px + env(safe-area-inset-top));
+}
+
+/* Desktop Styles */
+@media (min-width: 768px) {
+  .app-header {
+    padding: 1rem 0;
+    padding-top: calc(1rem + env(safe-area-inset-top));
+  }
+
+  .header-container {
+    max-width: 1400px;
+    padding: 0 1.5rem;
+  }
+
+  .header-button {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+  }
+
+  .header-button svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .side-menu {
+    width: 320px;
+  }
+
+  .menu-header {
+    padding: var(--space-lg); /* 24px */
+  }
+
+  .menu-brand {
+    /* Desktop: padding גדול יותר */
+    padding: var(--space-xl) var(--space-lg) var(--space-lg); /* 32px × 24px × 24px */
+  }
+
+  .menu-brand h1 {
+    font-size: var(--text-lg);
+  }
+
+  .menu-nav {
+    padding: 1rem 0;
+  }
+
+  .menu-item {
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .close-button {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  body {
+    padding-top: calc(80px + env(safe-area-inset-top));
+  }
+}

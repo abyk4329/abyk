@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="תנאים משפטיים - Awakening by Ksenia"
+  description="תנאי השימוש באתר abyk.online"
+>
+  
+  <div class="page-container" dir="rtl">
+    <!-- Header Card -->
+    <div class="neu-raised-min rounded-xl card-mobile-padding mb-8">
+      <h1 class="PageTitle">תנאי שימוש</h1>
+      <p class="SmallNote">עדכון אחרון: 23 באוקטובר 2025</p>
+    </div>
+    
+    <!-- Content Cards -->
+    <div class="legal-sections">
+      <section class="neu-raised-min rounded-xl card-mobile-padding">
+        <h2 class="SectionTitle">1. קבלת התנאים</h2>
+        <p class="BodyText">
+          בגישה ושימוש באתר abyk.online, אתם מסכימים ומקבלים את תנאי השימוש המפורטים כאן.
+        </p>
+      </section>
+      
+      <section class="neu-raised-min rounded-xl card-mobile-padding">
+        <h2 class="SectionTitle">2. רישיון שימוש</h2>
+        <p class="BodyText">
+          ניתנת הרשאה זמנית לשימוש בשירותים באתר abyk.online לצפייה אישית ולא מסחרית בלבד.
+        </p>
+      </section>
+      
+      <section class="neu-raised-min rounded-xl card-mobile-padding">
+        <h2 class="SectionTitle">3. הצהרת אחריות</h2>
+        <p class="BodyText">
+          החומרים באתר abyk.online מסופקים "כמות שהם". איננו מספקים אחריות כלשהי, מפורשת או משתמעת, 
+          וממילא מבטלים את כל האחריות האחרת לרבות, ללא הגבלה, אחריות משתמעת או תנאים של סחירות, 
+          התאמה למטרה מסוימת, או אי-הפרה של קניין רוחני או הפרה אחרת של זכויות.
+        </p>
+      </section>
+      
+      <section class="neu-raised-min rounded-xl card-mobile-padding">
+        <h2 class="SectionTitle">4. הגבלות</h2>
+        <p class="BodyText">
+          בשום מקרה לא יהיו abyk.online או ספקיו אחראים לכל נזק (כולל, ללא הגבלה, נזקים עקב אובדן 
+          נתונים או רווח, או עקב הפרעה לעסק) הנובעים מהשימוש או חוסר היכולת להשתמש בחומרים באתר abyk.online.
+        </p>
+      </section>
+      
+      <section class="neu-raised-min rounded-xl card-mobile-padding">
+        <h2 class="SectionTitle">5. יצירת קשר</h2>
+        <p class="BodyText">
+          אם יש לכם שאלות על תנאי השימוש, אנא צרו קשר באמצעות האתר.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-sections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg); /* 1.5rem / 24px */
+  }
+
+  section {
+    text-align: center;
+  }
+
+  section .SectionTitle {
+    margin-bottom: var(--space-md); /* 1rem / 16px */
+  }
+
+  section .BodyText {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+</style>

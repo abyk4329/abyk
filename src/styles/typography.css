@@ -1,0 +1,65 @@
+/* ============================================
+   Typography Base Styles
+   ============================================ */
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+  color: rgb(var(--color-text));
+  background-color: rgb(var(--color-bg));
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1;
+  font-weight: 600; /* Semi-bold instead of bold */
+  color: rgb(var(--color-heading));
+  text-align: center;
+}
+
+h1 {
+  font-size: var(--text-3xl);
+  letter-spacing: var(--tracking-tight);
+}
+
+h2 {
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-tight);
+}
+
+h3 {
+  font-size: var(--text-2xl);
+}
+
+h4 {
+  font-size: var(--text-xl);
+}
+
+h5 {
+  font-size: var(--text-lg);
+}
+
+h6 {
+  font-size: var(--text-base);
+}
+
+p {
+  font-weight: 500;
+  text-align: center;
+  /* אין margin - Container מנהל מרווחים */
+}
+
+[data-theme='dark'] body,
+[data-theme='dark'] p {
+  color: rgb(var(--color-text));
+}
+
+[data-theme='dark'] h2 {
+  color: rgb(var(--color-heading));
+}

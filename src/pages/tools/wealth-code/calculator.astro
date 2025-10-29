@@ -1,0 +1,39 @@
+---
+import CalculatorIsland from '../../../components/CalculatorIsland';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="מחשבון קוד עושר - Awakening by Ksenia"
+  description="חשב את קוד העושר האישי על פי תאריך הלידה"
+>
+  
+  <div class="page-container" dir="rtl">
+    <h1 class="PageTitle">
+      מחשבון קוד העושר
+    </h1>
+    
+    <p class="LeadText">
+      קוד העושר האישי הוא מפתח להבנה עמוקה של הפוטנציאל, המתנות והאתגרים. 
+      בחרו תאריך לידה ובואו נגלה אותו ביחד.
+    </p>
+    
+    <CalculatorIsland client:load />
+  </div>
+</BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4.5rem 1rem 1.5rem;
+    min-height: 60vh;
+  }
+
+  @media (min-width: 768px) {
+    .page-container {
+      padding: 5.5rem 1rem 2rem;
+      min-height: 70vh;
+    }
+  }
+</style>

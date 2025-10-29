@@ -1,0 +1,24 @@
+---
+import InterpretationsTabs from '../../../components/InterpretationsTabs';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+// Get code from query params (client-side component handles validation)
+const url = new URL(Astro.request.url);
+const rawCode = url.searchParams.get('code');
+const isValidCode = rawCode && /^\d{4}$/.test(rawCode);
+const displayCode = isValidCode ? rawCode : undefined;
+---
+
+<BaseLayout
+  title={
+    displayCode
+      ? `פירוש קוד ${displayCode} - Awakening by Ksenia`
+      : 'הפירוש המלא של קוד העושר - Awakening by Ksenia'
+  }
+  description="פירוש מעמיק של קוד העושר האישי"
+>
+  
+  <div class="page-container" dir="rtl">
+    <InterpretationsTabs code={displayCode} client:load />
+  </div>
+</BaseLayout>

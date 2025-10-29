@@ -1,0 +1,86 @@
+/* ============================================
+   Neumorphic Components
+   ============================================ */
+
+.neu-raised-min {
+  background: rgb(var(--color-surface));
+  box-shadow: var(--shadow-raised-min);
+}
+
+.neu-inset-min {
+  background: rgb(var(--color-surface));
+  box-shadow: var(--shadow-inset-min);
+}
+
+/* ──────────────────────────────────────────
+   Cards - Responsive Padding System
+   ────────────────────────────────────────── */
+
+/* Standard card mobile padding: 24px top/bottom, 18px sides */
+.card-mobile-padding {
+  padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x); /* 24px × 18px */
+}
+
+@media (min-width: 768px) {
+  .card-mobile-padding {
+    padding: var(--card-padding-desktop); /* 24px all sides */
+  }
+}
+
+.card {
+  background: rgb(var(--color-surface));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-raised-min);
+
+  /* Mobile: מינימום 16px אופקי */
+  padding: var(--space-xl) var(--space-md); /* 32px × 16px */
+
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-raised-min), 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Tablet & Desktop: padding גדול לאיכות */
+@media (min-width: 768px) {
+  .card {
+    padding: var(--space-2xl) var(--space-xl); /* 48px × 32px */
+  }
+}
+
+/* אופציה: כרטיס קומפקטי */
+.card--compact {
+  padding: var(--space-lg) var(--space-md); /* 24px × 16px */
+}
+
+@media (min-width: 768px) {
+  .card--compact {
+    padding: var(--space-xl) var(--space-lg); /* 32px × 24px */
+  }
+}
+
+/* ──────────────────────────────────────────
+   Button & Input States
+   ────────────────────────────────────────── */
+
+/* Button transitions */
+button.neu-raised-min {
+  transition: box-shadow 0.2s ease;
+}
+
+button.neu-raised-min:hover {
+  box-shadow: var(--shadow-inset-min);
+}
+
+button.neu-raised-min:active {
+  box-shadow: var(--shadow-inset-min);
+}
+
+/* Input focus states */
+input.neu-inset-min:focus,
+textarea.neu-inset-min:focus {
+  outline: none;
+  box-shadow: var(--shadow-inset-min), 0 0 0 2px rgb(var(--color-accent) / 0.5);
+}

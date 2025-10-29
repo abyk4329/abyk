@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy - abyk.online"
+  description="Privacy Policy for abyk.online"
+>
+  
+  <article class="page-container">
+    <h1 class="text-4xl font-bold tracking-tight mb-6">Privacy Policy</h1>
+    
+    <p class="text-sm text-text/70 mb-8">Last updated: October 23, 2025</p>
+    
+    <div class="space-y-4 text-base leading-normal text-text/90">
+      <h2 class="text-2xl font-semibold mt-8 mb-4">1. Information We Collect</h2>
+      <p>
+        We collect minimal information necessary to provide our services. This may include:
+      </p>
+      <ul class="list-disc list-inside space-y-2 ml-4">
+        <li>Usage data (pages visited, time spent)</li>
+        <li>Device information (browser type, operating system)</li>
+        <li>Cookies for theme preference storage</li>
+      </ul>
+      
+      <h2 class="text-2xl font-semibold mt-8 mb-4">2. How We Use Information</h2>
+      <p>
+        We use the collected information to:
+      </p>
+      <ul class="list-disc list-inside space-y-2 ml-4">
+        <li>Improve our website performance and user experience</li>
+        <li>Understand how visitors interact with our site</li>
+        <li>Remember your preferences (e.g., theme selection)</li>
+      </ul>
+      
+      <h2 class="text-2xl font-semibold mt-8 mb-4">3. Data Storage</h2>
+      <p>
+        Your preferences are stored locally in your browser using localStorage.
+        We do not maintain user accounts or databases in version 1 of this application.
+      </p>
+      
+      <h2 class="text-2xl font-semibold mt-8 mb-4">4. Analytics</h2>
+      <p>
+        We may use Vercel Analytics to collect anonymous usage statistics. This helps
+        us understand traffic patterns and improve our service.
+      </p>
+      
+      <h2 class="text-2xl font-semibold mt-8 mb-4">5. Third-Party Services</h2>
+      <p>
+        This site uses Google Fonts to load the Assistant typeface. Please refer to
+        Google's privacy policy for information about how they handle data.
+      </p>
+      
+      <h2 class="text-2xl font-semibold mt-8 mb-4">6. Your Rights</h2>
+      <p>
+        You have the right to:
+      </p>
+      <ul class="list-disc list-inside space-y-2 ml-4">
+        <li>Clear your browser data at any time</li>
+        <li>Disable cookies in your browser settings</li>
+        <li>Request information about data we collect</li>
+      </ul>
+      
+      <h2 class="text-2xl font-semibold mt-8 mb-4">7. Contact</h2>
+      <p>
+        If you have any questions about this Privacy Policy, please contact us through
+        our website.
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .page-container {
+      padding: 2rem 1rem;
+    }
+  }
+</style>

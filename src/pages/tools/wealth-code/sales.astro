@@ -1,0 +1,18 @@
+---
+import SalesPanels from '../../../components/SalesPanels';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+// Get code from query params (optional)
+const url = new URL(Astro.request.url);
+const code = url.searchParams.get('code') || undefined;
+---
+
+<BaseLayout
+  title="קבל את הפירוש המלא - Awakening by Ksenia"
+  description="פירוש מעמיק של קוד העושר האישי"
+>
+  
+  <div class="page-container" dir="rtl">
+    <SalesPanels code={code} client:load />
+  </div>
+</BaseLayout>

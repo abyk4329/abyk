@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ResultCard from '../../../components/ResultCard';
+
+export const prerender = false;
+
+// Get code from query params
+const url = new URL(Astro.request.url);
+const code = url.searchParams.get('code');
+
+// Validation
+if (!code || !/^\d{4}$/.test(code)) {
+  return Astro.redirect('/tools/wealth-code/calculator');
+}
+---
+
+<BaseLayout
+  title={`קוד העושר: ${code} - Awakening by Ksenia`}
+  description="גלו את המשמעות של קוד העושר האישי"
+>
+  
+  <div class="page-container" dir="rtl">
+    <ResultCard code={code} client:load />
+  </div>
+</BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .page-container {
+      padding: 2rem 1rem;
+    }
+  }
+</style>
