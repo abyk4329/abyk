@@ -398,6 +398,17 @@ button {
    Layout Spacing - Unified Structure
    ============================================ */
 
+/* Card padding class for components */
+.card-mobile-padding {
+  padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
+}
+
+@media (min-width: 768px) {
+  .card-mobile-padding {
+    padding: var(--card-padding-desktop);
+  }
+}
+
 /* מחלקות למרווחים אחידים בכל העמודים */
 .section-gap {
   gap: var(--layout-section-gap); /* 24px - בין כרטיסיות */
