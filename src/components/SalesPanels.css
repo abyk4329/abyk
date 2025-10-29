@@ -1,12 +1,2 @@
 /* SalesPanels Component Styles */
 /* All typography migrated to typography-system.css */
-
-.sales-card {
-  padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
-}
-
-@media (min-width: 768px) {
-  .sales-card {
-    padding: var(--card-padding-desktop);
-  }
-}
