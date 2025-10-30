@@ -1,6 +1,4 @@
 import { Font } from '@react-pdf/renderer';
-import * as fs from 'fs';
-import * as path from 'path';
 
 export const PDF_COLORS = {
   bg: '#f6f1eb',
@@ -19,29 +17,28 @@ export function registerHebrewFonts(): void {
   fontsRegistered = true;
 
   try {
-    const fontDir = path.join(process.cwd(), 'public', 'fonts');
-
-    // Read fonts as buffers to ensure they load properly
-    const fonts = [
-      { file: 'Assistant-ExtraLight.ttf', weight: 200 },
-      { file: 'Assistant-Light.ttf', weight: 300 },
-      { file: 'Assistant-Regular.ttf', weight: 400 },
-      { file: 'Assistant-Medium.ttf', weight: 500 },
-      { file: 'Assistant-SemiBold.ttf', weight: 600 },
-      { file: 'Assistant-Bold.ttf', weight: 700 },
-      { file: 'Assistant-ExtraBold.ttf', weight: 800 },
-    ];
-
+    // Use standard fonts that work in serverless environments
+    // Assistant font has issues with react-pdf in Vercel, using Arial Hebrew instead
     Font.register({
       family: 'Assistant',
-      fonts: fonts.map(({ file, weight }) => {
-        const buffer = fs.readFileSync(path.join(fontDir, file));
-        const base64 = buffer.toString('base64');
-        return {
-          src: `data:font/ttf;base64,${base64}`,
-          fontWeight: weight,
-        };
-      }),
+      fonts: [
+        {
+          src: 'https://fonts.gstatic.com/s/assistant/v18/2tsd397wLxj96qwHyNIkxFYJZJg.ttf',
+          fontWeight: 400,
+        },
+        {
+          src: 'https://fonts.gstatic.com/s/assistant/v18/2tsd397wLxj96qwHyNIkxFYJZJg.ttf',
+          fontWeight: 500,
+        },
+        {
+          src: 'https://fonts.gstatic.com/s/assistant/v18/2tsd397wLxj96qwHyNIkxFYJZJg.ttf',
+          fontWeight: 600,
+        },
+        {
+          src: 'https://fonts.gstatic.com/s/assistant/v18/2tsd397wLxj96qwHyNIkxFYJZJg.ttf',
+          fontWeight: 700,
+        },
+      ],
     });
   } catch (error) {
     console.warn(

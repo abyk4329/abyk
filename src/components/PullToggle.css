@@ -1,5 +1,5 @@
 /* ============================================
-   Elegant Eye Theme Toggle
+   Minimal Elegant Eye Theme Toggle
    ============================================ */
 
 .elegant-theme-toggle {
@@ -8,45 +8,26 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: opacity 0.2s ease;
   display: inline-block;
   width: 100%;
-  max-width: 60px;
+  max-width: 40px;
 }
 
 .elegant-theme-toggle:hover {
-  transform: scale(1.05);
+  opacity: 0.8;
 }
 
 .elegant-theme-toggle:active {
-  transform: scale(0.95);
+  opacity: 0.6;
 }
 
 /* Eye Container */
 .elegant-eye-container {
   position: relative;
   width: 100%;
-  height: 40px;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-raised-min);
+  height: 24px;
   transition: all 0.3s ease;
-}
-
-/* Eye Background */
-.eye-bg {
-  position: absolute;
-  inset: 0;
-  transition: all 0.4s ease;
-  background: linear-gradient(135deg, rgb(var(--color-bg)) 0%, rgb(var(--color-surface)) 100%);
-}
-
-.eye-bg.light {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-}
-
-.eye-bg.dark {
-  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
 }
 
 /* Eye Shape */
@@ -55,10 +36,10 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 24px;
-  height: 16px;
+  width: 18px;
+  height: 12px;
   background: rgb(var(--color-text));
-  border-radius: 12px 12px 8px 8px;
+  border-radius: 9px 9px 6px 6px;
   transition: all 0.4s ease;
   overflow: hidden;
   position: relative;
@@ -70,8 +51,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background: rgb(var(--color-accent));
   border-radius: 50%;
   transition: all 0.4s ease;
@@ -79,12 +60,12 @@
 
 .pupil.light {
   background: #ffd700;
-  box-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
+  box-shadow: 0 0 4px rgba(255, 215, 0, 0.4);
 }
 
 .pupil.dark {
   background: #e2e8f0;
-  box-shadow: 0 0 6px rgba(226, 232, 240, 0.6);
+  box-shadow: 0 0 4px rgba(226, 232, 240, 0.4);
 }
 
 /* Eyelid */
@@ -96,64 +77,40 @@
   height: 50%;
   background: rgb(var(--color-bg));
   transition: all 0.4s ease;
-  border-radius: 12px 12px 0 0;
+  border-radius: 9px 9px 0 0;
 }
 
 .eyelid.light {
-  height: 20%;
-  background: linear-gradient(to bottom, rgba(248, 249, 250, 0.9) 0%, rgba(248, 249, 250, 0.3) 100%);
+  height: 25%;
+  background: rgba(248, 249, 250, 0.8);
 }
 
 .eyelid.dark {
-  height: 80%;
-  background: linear-gradient(to bottom, rgba(45, 55, 72, 0.9) 0%, rgba(45, 55, 72, 0.3) 100%);
-}
-
-/* Eyebrow */
-.eyebrow {
-  position: absolute;
-  left: 50%;
-  top: -8px;
-  transform: translateX(-50%);
-  width: 16px;
-  height: 3px;
-  background: rgb(var(--color-text));
-  border-radius: 2px;
-  transition: all 0.4s ease;
-  opacity: 0.7;
-}
-
-.eyebrow.light {
-  background: #2d3748;
-  transform: translateX(-50%) rotate(-5deg);
-}
-
-.eyebrow.dark {
-  background: #f8f9fa;
-  transform: translateX(-50%) rotate(5deg);
+  height: 75%;
+  background: rgba(45, 55, 72, 0.8);
 }
 
 /* Accessibility: Focus State */
 .elegant-theme-toggle:focus-visible {
-  outline: 2px solid rgb(var(--color-accent));
-  outline-offset: 4px;
-  border-radius: var(--radius-xl);
+  outline: 1px solid rgb(var(--color-accent));
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
 }
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   .elegant-eye-container {
-    height: 36px;
+    height: 20px;
   }
 
   .eye-shape {
-    width: 20px;
-    height: 14px;
+    width: 16px;
+    height: 10px;
   }
 
   .pupil {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
 }
 
@@ -161,16 +118,9 @@
 @media (prefers-reduced-motion: reduce) {
   .elegant-theme-toggle,
   .elegant-eye-container,
-  .eye-bg,
   .eye-shape,
   .pupil,
-  .eyelid,
-  .eyebrow {
+  .eyelid {
     transition: opacity 0.3s ease !important;
   }
-}
-
-/* Dark theme specific adjustments */
-[data-theme='dark'] .elegant-eye-container {
-  box-shadow: var(--shadow-raised-min), inset 0 0 10px rgba(26, 32, 44, 0.2);
 }

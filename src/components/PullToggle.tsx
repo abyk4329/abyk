@@ -34,17 +34,12 @@ export default function PullToggle() {
       type="button"
     >
       <div className="elegant-eye-container">
-        {/* Eye Background */}
-        <div className={`eye-bg ${theme}`}>
-          {/* Eye Shape */}
-          <div className="eye-shape">
-            {/* Pupil */}
-            <div className={`pupil ${theme}`}></div>
-            {/* Eyelid */}
-            <div className={`eyelid ${theme}`}></div>
-          </div>
-          {/* Eyebrow */}
-          <div className={`eyebrow ${theme}`}></div>
+        {/* Eye Shape */}
+        <div className="eye-shape">
+          {/* Pupil */}
+          <div className={`pupil ${theme}`}></div>
+          {/* Eyelid */}
+          <div className={`eyelid ${theme}`}></div>
         </div>
       </div>
     </button>
