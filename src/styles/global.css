@@ -720,7 +720,8 @@ button {
 
 .interpretations-section {
   border-top: 1px solid rgb(var(--color-support) / 0.55);
-  padding: var(--space-2xl) 0;
+  padding-top: var(--space-2xl);
+  margin-top: var(--space-2xl);
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -730,6 +731,7 @@ button {
 .interpretations-section:first-of-type {
   border-top: none;
   padding-top: 0;
+  margin-top: 0;
 }
 
 .interpretations-list {
