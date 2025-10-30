@@ -417,7 +417,7 @@ button {
 
 .card-surface {
   width: 100%;
-  background: #ffffff;
+  background: #fcfcfc;
   border-radius: var(--radius-xl);
   padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
   text-align: center;
@@ -660,7 +660,7 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-lg);
-  background: #ffffff;
+  background: #fcfcfc;
   box-shadow: var(--shadow-raised-min);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
