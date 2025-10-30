@@ -5,8 +5,8 @@
 :root {
   /* ===== Colors ===== */
   /* Light Theme Colors (Default) */
-  --color-bg-light: 249 249 249; /* #F9F9F9 clean light */
-  --color-surface-light: 249 249 249; /* #F9F9F9 surfaces */
+  --color-bg-light: 250 250 250; /* #FAFAFA clean light */
+  --color-surface-light: 250 250 250; /* #FAFAFA surfaces */
   --color-text-light: 74 74 74; /* #4A4A4A warm charcoal */
   --color-heading-light: 185 126 126; /* #B97E7E warm rose-brown - כותרות חזקות */
   --color-subheading-light: 192 160 160; /* #C0A0A0 soft dusty rose - טקסט פתיחה רגשי */
