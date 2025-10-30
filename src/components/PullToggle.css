@@ -1,421 +1,140 @@
 /* ============================================
-   Day & Night Sky Toggle - Sunrise & Sunset
+   Elegant Eye Theme Toggle
    ============================================ */
 
-.mystical-theme-toggle {
+.elegant-theme-toggle {
   position: relative;
   background: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transition: transform 0.2s ease;
   display: inline-block;
   width: 100%;
-  max-width: 200px;
+  max-width: 60px;
 }
 
-.mystical-theme-toggle:hover {
-  transform: scale(1.02);
+.elegant-theme-toggle:hover {
+  transform: scale(1.05);
 }
 
-.mystical-theme-toggle:active {
-  transform: scale(0.98);
+.elegant-theme-toggle:active {
+  transform: scale(0.95);
 }
 
-/* Scene Container */
-.mystical-scene {
+/* Eye Container */
+.elegant-eye-container {
   position: relative;
   width: 100%;
-  height: 80px;
+  height: 40px;
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-raised-min);
-  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transition: all 0.3s ease;
 }
 
-/* Sky Background - Day (Sunrise) */
-.sky-bg {
+/* Eye Background */
+.eye-bg {
   position: absolute;
   inset: 0;
-  transition: all 0.8s ease;
+  transition: all 0.4s ease;
+  background: linear-gradient(135deg, rgb(var(--color-bg)) 0%, rgb(var(--color-surface)) 100%);
 }
 
-.sky-bg.light {
-  background: linear-gradient(
-    180deg,
-    #87ceeb 0%,
-    #b0e0e6 40%,
-    #ffd89b 80%,
-    #ffe5b4 100%
-  );
+.eye-bg.light {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
-.sky-bg.dark {
-  background: linear-gradient(
-    180deg,
-    #0b1929 0%,
-    #1a2332 40%,
-    #2c3e50 80%,
-    #34495e 100%
-  );
+.eye-bg.dark {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
 }
 
-/* Clouds - Day Mode Only */
-.clouds {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-.clouds.light {
-  opacity: 1;
-}
-
-.cloud {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 50px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  animation: cloudFloat 20s ease-in-out infinite;
-}
-
-.cloud::before,
-.cloud::after {
-  content: '';
-  position: absolute;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-}
-
-.cloud-1 {
-  width: 30px;
-  height: 10px;
-  top: 15%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.cloud-1::before {
-  width: 18px;
-  height: 18px;
-  top: -8px;
-  left: 5px;
-}
-
-.cloud-1::after {
-  width: 15px;
-  height: 15px;
-  top: -6px;
-  right: 5px;
-}
-
-.cloud-2 {
-  width: 35px;
-  height: 12px;
-  top: 45%;
-  right: 15%;
-  animation-delay: 3s;
-}
-
-.cloud-2::before {
-  width: 20px;
-  height: 20px;
-  top: -9px;
-  left: 6px;
-}
-
-.cloud-2::after {
-  width: 17px;
-  height: 17px;
-  top: -7px;
-  right: 6px;
-}
-
-.cloud-3 {
-  width: 25px;
-  height: 9px;
-  bottom: 20%;
-  left: 50%;
-  animation-delay: 6s;
-}
-
-.cloud-3::before {
-  width: 15px;
-  height: 15px;
-  top: -7px;
-  left: 4px;
-}
-
-.cloud-3::after {
-  width: 12px;
-  height: 12px;
-  top: -5px;
-  right: 4px;
-}
-
-/* Sun - Light Mode */
-.sun {
+/* Eye Shape */
+.eye-shape {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  opacity: 0;
-  transition: all 0.6s ease;
+  width: 24px;
+  height: 16px;
+  background: rgb(var(--color-text));
+  border-radius: 12px 12px 8px 8px;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  position: relative;
 }
 
-.sun.light {
-  opacity: 1;
-  animation: sunRise 2s ease-out;
-}
-
-.sun-core {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, #ffd700 0%, #ffa500 100%);
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.4);
-  animation: sunPulse 3s ease-in-out infinite;
-}
-
-.sun-rays {
-  position: absolute;
-  inset: -8px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 215, 0, 0.3) 0%,
-    rgba(255, 165, 0, 0.2) 50%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  animation: sunRaysPulse 3s ease-in-out infinite;
-}
-
-/* Moon - Dark Mode */
-.moon {
+/* Pupil */
+.pupil {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 35px;
-  height: 35px;
-  opacity: 0;
-  transition: all 0.6s ease;
-}
-
-.moon.dark {
-  opacity: 1;
-  animation: moonRise 2s ease-out;
-}
-
-.moon-shape {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, #f4f1de 0%, #e8dcc0 100%);
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(244, 241, 222, 0.4), 0 0 40px rgba(232, 220, 192, 0.2);
-  animation: moonGlow 4s ease-in-out infinite;
-}
-
-.crater {
-  position: absolute;
-  background: rgba(200, 190, 170, 0.4);
-  border-radius: 50%;
-}
-
-.crater-1 {
   width: 8px;
   height: 8px;
-  top: 25%;
-  left: 30%;
-}
-
-.crater-2 {
-  width: 5px;
-  height: 5px;
-  top: 50%;
-  right: 25%;
-}
-
-.crater-3 {
-  width: 6px;
-  height: 6px;
-  bottom: 28%;
-  left: 45%;
-}
-
-/* Stars - Dark Mode Only */
-.stars-container {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  z-index: 1;
-}
-
-.stars-container.dark {
-  opacity: 1;
-}
-
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgb(var(--color-accent));
   border-radius: 50%;
-  box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
-  animation: twinkle 3s ease-in-out infinite;
+  transition: all 0.4s ease;
 }
 
-/* Star Positioning */
-.star-1 {
-  top: 12%;
-  left: 8%;
-  animation-delay: 0s;
+.pupil.light {
+  background: #ffd700;
+  box-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
 }
 
-.star-2 {
-  top: 20%;
-  left: 85%;
-  animation-delay: 0.4s;
+.pupil.dark {
+  background: #e2e8f0;
+  box-shadow: 0 0 6px rgba(226, 232, 240, 0.6);
 }
 
-.star-3 {
-  top: 35%;
-  left: 18%;
-  animation-delay: 0.8s;
+/* Eyelid */
+.eyelid {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 50%;
+  background: rgb(var(--color-bg));
+  transition: all 0.4s ease;
+  border-radius: 12px 12px 0 0;
 }
 
-.star-4 {
-  top: 48%;
-  right: 12%;
-  animation-delay: 1.2s;
+.eyelid.light {
+  height: 20%;
+  background: linear-gradient(to bottom, rgba(248, 249, 250, 0.9) 0%, rgba(248, 249, 250, 0.3) 100%);
 }
 
-.star-5 {
-  top: 65%;
-  left: 25%;
-  animation-delay: 1.6s;
+.eyelid.dark {
+  height: 80%;
+  background: linear-gradient(to bottom, rgba(45, 55, 72, 0.9) 0%, rgba(45, 55, 72, 0.3) 100%);
 }
 
-.star-6 {
-  top: 28%;
-  right: 22%;
-  animation-delay: 2s;
-}
-
-.star-7 {
-  top: 75%;
-  left: 70%;
-  animation-delay: 2.4s;
-}
-
-.star-8 {
-  top: 18%;
+/* Eyebrow */
+.eyebrow {
+  position: absolute;
   left: 50%;
-  animation-delay: 2.8s;
+  top: -8px;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 3px;
+  background: rgb(var(--color-text));
+  border-radius: 2px;
+  transition: all 0.4s ease;
+  opacity: 0.7;
 }
 
-.star-9 {
-  top: 58%;
-  right: 35%;
-  animation-delay: 0.6s;
+.eyebrow.light {
+  background: #2d3748;
+  transform: translateX(-50%) rotate(-5deg);
 }
 
-.star-10 {
-  top: 82%;
-  left: 45%;
-  animation-delay: 1.4s;
-}
-
-/* Animations */
-@keyframes sunRise {
-  0% {
-    transform: translate(-50%, 100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
-}
-
-@keyframes moonRise {
-  0% {
-    transform: translate(-50%, -100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
-}
-
-@keyframes sunPulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-@keyframes sunRaysPulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.5;
-  }
-}
-
-@keyframes moonGlow {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(244, 241, 222, 0.4), 0 0 40px rgba(232, 220, 192, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(244, 241, 222, 0.6), 0 0 50px rgba(232, 220, 192, 0.3);
-  }
-}
-
-@keyframes cloudFloat {
-  0%,
-  100% {
-    transform: translateX(0) translateY(0);
-  }
-  25% {
-    transform: translateX(10px) translateY(-3px);
-  }
-  50% {
-    transform: translateX(0) translateY(-5px);
-  }
-  75% {
-    transform: translateX(-10px) translateY(-3px);
-  }
-}
-
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.4);
-  }
+.eyebrow.dark {
+  background: #f8f9fa;
+  transform: translateX(-50%) rotate(5deg);
 }
 
 /* Accessibility: Focus State */
-.mystical-theme-toggle:focus-visible {
+.elegant-theme-toggle:focus-visible {
   outline: 2px solid rgb(var(--color-accent));
   outline-offset: 4px;
   border-radius: var(--radius-xl);
@@ -423,40 +142,35 @@
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
-  .mystical-scene {
-    height: 70px;
+  .elegant-eye-container {
+    height: 36px;
   }
 
-  .sun,
-  .moon {
-    width: 32px;
-    height: 32px;
+  .eye-shape {
+    width: 20px;
+    height: 14px;
   }
 
-  .cloud {
-    transform: scale(0.9);
+  .pupil {
+    width: 6px;
+    height: 6px;
   }
 }
 
 /* Reduce Motion Preference */
 @media (prefers-reduced-motion: reduce) {
-  .mystical-theme-toggle,
-  .mystical-scene,
-  .sky-bg,
-  .clouds,
-  .sun,
-  .moon,
-  .stars-container,
-  .star,
-  .sun-core,
-  .sun-rays,
-  .moon-shape {
+  .elegant-theme-toggle,
+  .elegant-eye-container,
+  .eye-bg,
+  .eye-shape,
+  .pupil,
+  .eyelid,
+  .eyebrow {
     transition: opacity 0.3s ease !important;
-    animation: none !important;
   }
 }
 
 /* Dark theme specific adjustments */
-[data-theme='dark'] .mystical-scene {
-  box-shadow: var(--shadow-raised-min), inset 0 0 20px rgba(11, 25, 41, 0.3);
+[data-theme='dark'] .elegant-eye-container {
+  box-shadow: var(--shadow-raised-min), inset 0 0 10px rgba(26, 32, 44, 0.2);
 }
