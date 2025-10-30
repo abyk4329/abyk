@@ -249,8 +249,8 @@ export default function InterpretationsTabs({
               }
 
               return (
-                <>
-                  <div className="pb-6">
+                <div className="space-y-6">
+                  <div>
                     <h2 className="Title">{interpretation.title}</h2>
                     <p className="BodyText">{interpretation.essence}</p>
                   </div>
@@ -322,7 +322,7 @@ export default function InterpretationsTabs({
                     <h3 className="Subtitle">{hebrewFieldLabels.bottomLine}</h3>
                     <p className="BodyText">{interpretation.bottomLine}</p>
                   </div>
-                </>
+                </div>
               );
             })()}
           </div>
