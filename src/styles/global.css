@@ -657,7 +657,7 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-lg);
-  background: rgb(var(--color-surface));
+  background: #ffffff;
   box-shadow: var(--shadow-raised-min);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
