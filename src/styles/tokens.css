@@ -5,7 +5,7 @@
 :root {
   /* ===== Colors ===== */
   /* Light Theme Colors (Default) */
-  --color-bg-light: 249 249 249; /* #F9F9F9 clean light */
+  --color-bg-light: 252 252 252; /* #FCFCFC clean light */
   --color-surface-light: 252 252 252; /* #FCFCFC surfaces */
   --color-text-light: 74 74 74; /* #4A4A4A warm charcoal */
   --color-heading-light: 185 126 126; /* #B97E7E warm rose-brown - כותרות חזקות */
