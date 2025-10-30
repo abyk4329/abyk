@@ -34,46 +34,33 @@ export default function PullToggle() {
       type="button"
     >
       <div className="mystical-scene">
-        {/* Background gradient */}
-        <div className={`mystical-bg ${theme}`}></div>
+        {/* Sky Background */}
+        <div className={`sky-bg ${theme}`}>
+          {/* Clouds for day mode */}
+          <div className={`clouds ${theme}`}>
+            <div className="cloud cloud-1"></div>
+            <div className="cloud cloud-2"></div>
+            <div className="cloud cloud-3"></div>
+          </div>
+        </div>
         
-        {/* Animated light bulb */}
-        <div className={`mystical-bulb ${theme}`}>
-          <svg
-            className="bulb-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill={theme === 'dark' ? 'currentColor' : 'none'}
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M9 18h6"></path>
-            <path d="M10 22h4"></path>
-            <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1.36.5 2.6 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path>
-            {theme === 'dark' && (
-              <>
-                <line x1="12" y1="2" x2="12" y2="4"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </>
-            )}
-          </svg>
-          
-          {/* Glow effect for dark mode */}
-          {theme === 'dark' && (
-            <>
-              <div className="bulb-glow"></div>
-              <div className="bulb-glow-pulse"></div>
-            </>
-          )}
+        {/* Sun for light mode */}
+        <div className={`sun ${theme}`}>
+          <div className="sun-core"></div>
+          <div className="sun-rays"></div>
+        </div>
+
+        {/* Moon for dark mode */}
+        <div className={`moon ${theme}`}>
+          <div className="moon-shape">
+            <div className="crater crater-1"></div>
+            <div className="crater crater-2"></div>
+            <div className="crater crater-3"></div>
+          </div>
         </div>
 
         {/* Stars for dark mode */}
-        <div className={`mystical-stars ${theme}`}>
+        <div className={`stars-container ${theme}`}>
           <span className="star star-1"></span>
           <span className="star star-2"></span>
           <span className="star star-3"></span>
@@ -82,12 +69,9 @@ export default function PullToggle() {
           <span className="star star-6"></span>
           <span className="star star-7"></span>
           <span className="star star-8"></span>
+          <span className="star star-9"></span>
+          <span className="star star-10"></span>
         </div>
-
-        {/* Label text */}
-        <span className="mystical-label">
-          {theme === 'dark' ? 'מצב לילה' : 'מצב יום'}
-        </span>
       </div>
     </button>
   );
