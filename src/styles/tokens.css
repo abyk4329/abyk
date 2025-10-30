@@ -68,14 +68,14 @@
 
   /* ===== Layout Spacing - Unified Structure ===== */
   /* מרווחים אחידים לכל העמודים */
-  --layout-section-gap: 1.5rem; /* 24px - מרווח בין כרטיסיות */
-  --layout-content-gap: 1rem; /* 16px - מרווח בין אלמנטים בתוך כרטיסייה */
-  --layout-text-gap: 1.5rem; /* 24px - מרווח בין פסקאות */
-  --layout-list-gap: 0.75rem; /* 12px - מרווח בין פריטים ברשימה */
+  --layout-section-gap: 0.75rem; /* 12px - מרווח בין כרטיסיות */
+  --layout-content-gap: 0.75rem; /* 12px - מרווח בין אלמנטים בתוך כרטיסייה */
+  --layout-text-gap: 1rem; /* 16px - מרווח בין פסקאות */
+  --layout-list-gap: 0.5rem; /* 8px - מרווח בין פריטים ברשימה */
 
   /* ===== Card Section Spacing - מרווחים בין כרטיסיות ===== */
-  --card-section-gap-small: 1.5rem; /* 24px - מרווח קטן בין כרטיסיות */
-  --card-section-gap-large: 3rem; /* 48px - מרווח גדול בין כרטיסיות (פי 2) */
+  --card-section-gap-small: 0.75rem; /* 12px - מרווח קטן בין כרטיסיות */
+  --card-section-gap-large: 1.25rem; /* 20px - מרווח גדול בין כרטיסיות */
 
   /* ===== Content Width - רוחב תוכן ===== */
   --content-width-full: 100%; /* כותרות - מלוא הרוחב */

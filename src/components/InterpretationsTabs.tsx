@@ -101,7 +101,7 @@ export default function InterpretationsTabs({
 
   if (!isResolved) {
     return (
-      <div className="card-surface text-center space-y-4">
+      <div className="card-surface text-center space-y-2">
         <p className="BodyText">טוען את הפירוש המלא...</p>
       </div>
     );
@@ -109,7 +109,7 @@ export default function InterpretationsTabs({
 
   if (!code || !/^\d{4}$/.test(code)) {
     return (
-      <div className="card-surface text-center space-y-4">
+      <div className="card-surface text-center space-y-2">
         <h2 className="CardTitle">לא נמצא קוד תקין</h2>
         <p className="BodyText">חזרו לחשב את קוד העושר שלכם</p>
         <a
@@ -249,7 +249,7 @@ export default function InterpretationsTabs({
               }
 
               return (
-                <div className="space-y-6">
+                <div className="space-y-3">
                   <div>
                     <h2 className="Title">{interpretation.title}</h2>
                     <p className="BodyText">{interpretation.essence}</p>
@@ -329,7 +329,7 @@ export default function InterpretationsTabs({
         )}
 
         {activeTab === 'daily' && (
-          <div className="space-y-6">
+          <div className="space-y-3">
             <h2 className="Title">{dailyApplication.title}</h2>
             <p className="BodyText whitespace-pre-line">
               {dailyApplication.content}
