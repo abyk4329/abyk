@@ -417,7 +417,7 @@ button {
 
 .card-surface {
   width: 100%;
-  background: rgb(var(--color-surface));
+  background: #ffffff;
   border-radius: var(--radius-xl);
   padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
   text-align: center;
