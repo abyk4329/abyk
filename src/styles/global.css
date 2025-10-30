@@ -436,12 +436,12 @@ button {
 }
 
 .interpretations-content {
-  padding: var(--space-xl) var(--card-padding-mobile-x);
+  padding: var(--space-md) var(--card-padding-mobile-x);
 }
 
 @media (min-width: 768px) {
   .interpretations-content {
-    padding: var(--space-2xl) var(--card-padding-desktop);
+    padding: var(--space-lg) var(--card-padding-desktop);
   }
 }
 
@@ -769,11 +769,11 @@ button {
 
 .interpretations-section {
   border-top: 1px solid rgb(var(--color-support) / 0.55);
-  padding-top: var(--space-2xl);
-  margin-top: var(--space-2xl);
+  padding-top: var(--space-md);
+  margin-top: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
   text-align: center;
 }
 
@@ -790,7 +790,7 @@ button {
 }
 
 .interpretations-list-item {
-  padding: var(--space-sm) 0;
+  padding: var(--space-xs) 0;
 }
 
 .interpretations-list-item + .interpretations-list-item {
