@@ -8,6 +8,10 @@
 @import './theme-toggle.css';
 @import './cookie-consent.css';
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Reset */
 *,
 *::before,
@@ -422,6 +426,7 @@ button {
   padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
   text-align: center;
   box-shadow: var(--shadow-raised-min);
+  margin-bottom: var(--space-xl);
 }
 
 @media (min-width: 768px) {

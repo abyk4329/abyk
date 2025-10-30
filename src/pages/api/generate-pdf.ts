@@ -18,7 +18,11 @@ function validateCode(code: string | null): asserts code is string {
 export const GET: APIRoute = async ({ request }) => {
   try {
     const url = new URL(request.url);
+    console.log('Request URL:', request.url);
+    console.log('URL object:', url);
+    console.log('Search params:', url.searchParams);
     const code = url.searchParams.get('code');
+    console.log('Code from params:', code);
     const userName = url.searchParams.get('name') || undefined;
 
     validateCode(code);

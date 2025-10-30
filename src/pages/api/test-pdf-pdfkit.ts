@@ -62,10 +62,10 @@ export const GET: APIRoute = async () => {
     doc.end();
 
     // Wait for PDF to be generated
-  const pdfBuffer = await pdfPromise;
-  const pdfBytes = new Uint8Array(pdfBuffer);
+    const pdfBuffer = await pdfPromise;
+    const pdfBytes = new Uint8Array(pdfBuffer);
 
-  return new Response(pdfBytes, {
+    return new Response(pdfBytes, {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
