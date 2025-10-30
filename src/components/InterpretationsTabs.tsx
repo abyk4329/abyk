@@ -228,7 +228,7 @@ export default function InterpretationsTabs({
       </div>
 
       {/* Tab Content */}
-      <div className="card-surface">
+      <div className="card-surface interpretations-content">
         {activeTab === null && (
           <div className="text-center py-8">
             <p className="BodyText">טוען...</p>

@@ -430,6 +430,16 @@ button {
   }
 }
 
+.interpretations-content {
+  padding: var(--space-xl) var(--card-padding-mobile-x);
+}
+
+@media (min-width: 768px) {
+  .interpretations-content {
+    padding: var(--space-2xl) var(--card-padding-desktop);
+  }
+}
+
 .calculator-form {
   display: flex;
   flex-direction: column;
