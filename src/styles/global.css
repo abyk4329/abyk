@@ -421,7 +421,7 @@ button {
 
 .card-surface {
   width: 100%;
-  background: #f5f4f3;
+  background: rgb(var(--color-bg));
   border-radius: var(--radius-xl);
   padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
   text-align: center;
@@ -666,7 +666,7 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-lg);
-  background: #f5f4f3;
+  background: rgb(var(--color-bg));
   box-shadow: var(--shadow-raised-min);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -733,7 +733,7 @@ button {
   flex: 1;
   border: none;
   border-radius: var(--radius-lg);
-  background: rgb(var(--color-surface));
+  background: rgb(var(--color-bg));
   color: rgb(var(--color-text));
   padding: var(--space-md);
   font-weight: 600;
