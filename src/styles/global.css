@@ -634,14 +634,14 @@ button {
 
 .interpretations-actions {
   display: grid;
-  gap: var(--space-xl);
+  gap: var(--space-md);
   width: 100%;
 }
 
 @media (min-width: 768px) {
   .interpretations-actions {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-2xl);
+    gap: var(--space-lg);
   }
 }
 
@@ -720,13 +720,13 @@ button {
 .interpretations-tabs {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-sm);
+  gap: var(--space-xs);
+  padding: var(--space-xs);
 }
 
 .interpretations-tab-row {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
 }
 
 .interpretations-tab-button {

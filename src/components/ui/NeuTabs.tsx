@@ -14,7 +14,7 @@ export default function NeuTabs({ tabs }: NeuTabsProps) {
   return (
     <div className="w-full" dir="rtl">
       {/* Tab Headers */}
-      <div className="flex gap-2 mb-4 neu-inset-min rounded-lg p-2">
+      <div className="flex gap-1 mb-4 neu-inset-min rounded-lg p-2">
         {tabs.map((tab, index) => (
           <button
             key={index}
