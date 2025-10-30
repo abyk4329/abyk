@@ -23,41 +23,6 @@
   margin-bottom: var(--space-lg); /* 1.5rem / 24px - מרווח בין כותרת לקוד */
 }
 
-/* Code Display - Each digit in card */
-.code-display {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: var(--space-lg); /* 1.5rem / 24px */
-  direction: ltr;
-}
-
-.digit-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  width: clamp(70px, 18vw, 90px);
-  height: clamp(90px, 22vw, 110px);
-  background: #ffffff;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.06),
-    -1px -1px 3px rgba(255, 255, 255, 0.7);
-}
-
-[data-theme='dark'] .digit-card {
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
-    -1px -1px 3px rgba(255, 255, 255, 0.04);
-}
-
-.digit-number {
-  font-size: clamp(3rem, 10vw, 4.5rem);
-  font-weight: 200;
-  line-height: 1;
-  color: rgb(var(--color-support));
-  font-family: 'Assistant', sans-serif;
-}
-
 /* Description Section */
 .result-description {
   margin-bottom: var(--space-xl); /* 2rem / 32px */
@@ -78,18 +43,5 @@
 @media (max-width: 480px) {
   .result-card {
     max-width: 100%;
-  }
-
-  .code-display {
-    gap: 0.5rem;
-  }
-
-  .digit-card {
-    width: clamp(60px, 20vw, 70px);
-    height: clamp(80px, 24vw, 90px);
-  }
-
-  .digit-number {
-    font-size: clamp(2.5rem, 12vw, 3.5rem);
   }
 }

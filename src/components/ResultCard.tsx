@@ -49,10 +49,10 @@ export default function ResultCard({ code }: ResultCardProps) {
         <h2 className="CardTitle">קוד העושר שלך</h2>
 
         {/* Code Display - Each digit in separate card */}
-        <div className="code-display">
+        <div className="code-digit-list">
           {code.split('').map((digit, index) => (
-            <div key={index} className="digit-card neu-raised-min">
-              <span className="digit-number">{digit}</span>
+            <div key={index} className="code-digit-card">
+              <span>{digit}</span>
             </div>
           ))}
         </div>

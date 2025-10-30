@@ -646,13 +646,16 @@ button {
 .code-digit-list {
   display: flex;
   justify-content: center;
-  gap: var(--layout-content-gap);
-  flex-wrap: nowrap;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 0.75rem);
+  margin-bottom: var(--space-lg);
+  direction: ltr;
 }
 
 .code-digit-card {
-  flex: 0 1 clamp(2.75rem, 12vw, 4.25rem);
-  height: clamp(3.25rem, 18vw, 5rem);
+  flex: 0 0 auto;
+  width: clamp(60px, 16vw, 80px);
+  height: clamp(80px, 20vw, 100px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -663,20 +666,51 @@ button {
 }
 
 .code-digit-card span {
-  font-size: clamp(2.5rem, 2.1rem + 1.5vw, 3.25rem);
+  font-size: clamp(2.5rem, 9vw, 3.75rem);
   font-weight: 200;
   color: rgb(var(--color-support));
   line-height: 1;
+  font-family: 'Assistant', sans-serif;
 }
 
 .code-digit-card:hover {
   transform: translateY(-2px);
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.08),
+    -2px -2px 4px rgba(255, 255, 255, 0.8);
 }
 
 .code-digit-card:active {
   box-shadow: var(--shadow-inset-min);
   transform: translateY(0);
 }
+
+/* Dark theme support */
+[data-theme='dark'] .code-digit-card {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+    -1px -1px 3px rgba(255, 255, 255, 0.04);
+}
+
+[data-theme='dark'] .code-digit-card:hover {
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4),
+    -2px -2px 4px rgba(255, 255, 255, 0.05);
+}
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+  .code-digit-list {
+    gap: 0.5rem;
+  }
+  
+  .code-digit-card {
+    width: clamp(55px, 18vw, 70px);
+    height: clamp(75px, 22vw, 90px);
+  }
+  
+  .code-digit-card span {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+}
+
 
 .interpretations-tabs {
   display: flex;
