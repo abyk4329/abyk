@@ -765,16 +765,17 @@ button {
 .login-card {
   display: flex;
   flex-direction: column;
-  gap: var(--layout-content-gap);
-  padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
+  gap: var(--space-lg);
+  padding: var(--space-xl) var(--space-lg);
   background: rgb(var(--color-surface));
-  border-radius: 1.75rem;
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-raised-min);
 }
 
 @media (min-width: 768px) {
   .login-card {
-    padding: var(--card-padding-desktop);
+    gap: var(--space-xl);
+    padding: var(--space-2xl) var(--space-xl);
   }
 }
 
@@ -865,20 +866,29 @@ button {
 .login-field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   text-align: center;
 }
 
-.login-field input {
+.login-field input,
+.login-field textarea {
   background: rgb(var(--color-surface));
   border: none;
+  border-radius: var(--radius-lg);
+  padding: 0.875rem 1.25rem;
+  font-size: var(--text-base);
+  color: rgb(var(--color-text));
   box-shadow: var(--shadow-inset-min);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.25s ease, transform 0.15s ease;
+  text-align: center;
 }
 
-.login-field input:focus {
+.login-field input:focus,
+.login-field textarea:focus {
+  outline: none;
   box-shadow: var(--shadow-inset-min),
     0 0 0 2px rgb(var(--color-support) / 0.25);
+  transform: scale(1.005);
 }
 
 .login-link {
