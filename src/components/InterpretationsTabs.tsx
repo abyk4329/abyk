@@ -173,7 +173,7 @@ export default function InterpretationsTabs({
   )}`;
 
   return (
-    <div className="space-y-6" dir="rtl">
+    <div className="space-y-8 md:space-y-12" dir="rtl">
       {/* Header with Code - styled like ResultCard */}
       <div className="card-surface max-w-2xl mx-auto">
         <div className="text-center">
@@ -198,7 +198,7 @@ export default function InterpretationsTabs({
       </div>
 
       {/* Tabs Navigation */}
-      <div className="card-surface interpretations-tabs">
+  <div className="card-surface interpretations-tabs max-w-2xl mx-auto">
         {/* שורה ראשונה: כפתורי מספרים */}
         <div className="interpretations-tab-row">
           {uniqueDigits.map((digit) => (
@@ -228,7 +228,7 @@ export default function InterpretationsTabs({
       </div>
 
       {/* Tab Content */}
-      <div className="card-surface interpretations-content">
+  <div className="card-surface interpretations-content max-w-2xl mx-auto">
         {activeTab === null && (
           <div className="text-center py-8">
             <p className="BodyText">טוען...</p>
@@ -339,7 +339,7 @@ export default function InterpretationsTabs({
       </div>
 
       {/* Action Buttons */}
-      <div className="interpretations-actions">
+  <div className="interpretations-actions max-w-2xl mx-auto">
         <button
           onClick={handleDownloadPDF}
           className="btn btn-cta ButtonPrimaryText"

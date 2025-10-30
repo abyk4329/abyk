@@ -629,13 +629,14 @@ button {
 
 .interpretations-actions {
   display: grid;
-  gap: var(--layout-content-gap);
+  gap: var(--space-xl);
+  width: 100%;
 }
 
 @media (min-width: 768px) {
   .interpretations-actions {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--card-section-gap-small);
+    gap: var(--space-2xl);
   }
 }
 
