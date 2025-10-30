@@ -11,7 +11,7 @@ import React from 'react';
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: '#fcfcfc',
+    backgroundColor: '#f5f4f3',
     padding: 30,
   },
   title: {
