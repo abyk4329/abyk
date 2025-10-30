@@ -66,10 +66,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         {/* Login Form Card */}
         <form onSubmit={handleSubmit} className="login-card">
           <div className="login-card-header">
-            <h2 className="Subtitle">התחברות</h2>
-            <p className="BodyText">
-              התחברו לאזור האישי כדי להמשיך במסע ההתעוררות
-            </p>
+            <h2 className="Subtitle">התחברות לאזור האישי</h2>
           </div>
 
           {/* Error Message */}

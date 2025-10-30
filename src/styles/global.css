@@ -700,17 +700,16 @@ button {
   .code-digit-list {
     gap: 0.5rem;
   }
-  
+
   .code-digit-card {
     width: clamp(55px, 18vw, 70px);
     height: clamp(75px, 22vw, 90px);
   }
-  
+
   .code-digit-card span {
     font-size: clamp(2rem, 10vw, 3rem);
   }
 }
-
 
 .interpretations-tabs {
   display: flex;
