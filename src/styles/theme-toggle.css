@@ -125,7 +125,7 @@
 .theme-toggle--dark .theme-toggle__indicator {
   transform: translateX(calc(var(--toggle-width) - var(--toggle-height)));
   background: #31404d;
-  color: #f5f5f5;
+  color: #f9f9f9;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
 }
 
@@ -162,7 +162,7 @@
 .theme-toggle__lamp--off {
   opacity: 0;
   transform: translateY(10px) scale(0.9);
-  color: #f5f5f5;
+  color: #f9f9f9;
 }
 
 .theme-toggle--dark .theme-toggle__lamp--on {

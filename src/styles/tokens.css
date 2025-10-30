@@ -4,10 +4,10 @@
 
 :root {
   /* ===== Colors ===== */
-  /* Light theme */
-  --color-bg-light: 245 245 245; /* #F5F5F5 clean light */
-  --color-surface-light: 245 245 245; /* #F5F5F5 surfaces */
-  --color-text-light: 34 40 51; /* #222833 dark surface - טקסט גוף רגיל */
+  /* Light Theme Colors (Default) */
+  --color-bg-light: 249 249 249; /* #F9F9F9 clean light */
+  --color-surface-light: 249 249 249; /* #F9F9F9 surfaces */
+  --color-text-light: 74 74 74; /* #4A4A4A warm charcoal */
   --color-heading-light: 185 126 126; /* #B97E7E warm rose-brown - כותרות חזקות */
   --color-subheading-light: 192 160 160; /* #C0A0A0 soft dusty rose - טקסט פתיחה רגשי */
   --color-brand-gold: 123 83 56; /* #7B5338 unified warm brand - זהות מותגית */

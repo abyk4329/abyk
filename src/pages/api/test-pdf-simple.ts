@@ -11,8 +11,8 @@ import React from 'react';
 
 const styles = StyleSheet.create({
   page: {
-    padding: 40,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f9f9f9',
+    padding: 30,
   },
   title: {
     fontSize: 24,
