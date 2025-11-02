@@ -173,7 +173,10 @@ export const POST: APIRoute = async ({ request }) => {
 
   if (!buyerEmail) {
     console.error('[grow:webhook] Could not find buyer email in payload');
-    console.error('[grow:webhook] Full payload:', JSON.stringify(payload, null, 2));
+    console.error(
+      '[grow:webhook] Full payload:',
+      JSON.stringify(payload, null, 2)
+    );
     return new Response(
       JSON.stringify({ ok: false, error: 'Buyer email not found' }),
       {
@@ -241,7 +244,10 @@ export const POST: APIRoute = async ({ request }) => {
       body: JSON.stringify(resendPayload),
     });
 
-    console.log('[grow:webhook] Resend response status:', resendResponse.status);
+    console.log(
+      '[grow:webhook] Resend response status:',
+      resendResponse.status
+    );
 
     if (!resendResponse.ok) {
       const errorPayload = await resendResponse.json().catch(() => undefined);

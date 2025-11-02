@@ -19,7 +19,7 @@ export function registerHebrewFonts(): void {
   try {
     // Use full URLs to font files hosted on the site
     const baseUrl = 'https://abyk.online';
-    
+
     Font.register({
       family: 'Assistant',
       fonts: [
