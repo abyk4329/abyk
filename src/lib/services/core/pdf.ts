@@ -17,24 +17,24 @@ export function registerHebrewFonts(): void {
   fontsRegistered = true;
 
   try {
-    // Use local Assistant font files that support Hebrew
+    // Use local Assistant font files from public directory
     Font.register({
       family: 'Assistant',
       fonts: [
         {
-          src: '/AssistantFont/static/Assistant-Regular.ttf',
+          src: '/fonts/Assistant-Regular.ttf',
           fontWeight: 400,
         },
         {
-          src: '/AssistantFont/static/Assistant-Medium.ttf',
+          src: '/fonts/Assistant-Medium.ttf',
           fontWeight: 500,
         },
         {
-          src: '/AssistantFont/static/Assistant-SemiBold.ttf',
+          src: '/fonts/Assistant-SemiBold.ttf',
           fontWeight: 600,
         },
         {
-          src: '/AssistantFont/static/Assistant-Bold.ttf',
+          src: '/fonts/Assistant-Bold.ttf',
           fontWeight: 700,
         },
       ],
