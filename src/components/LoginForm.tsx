@@ -43,7 +43,12 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         return;
       }
 
-      setMessage('התחברות הושלמה בהצלחה.');
+      setMessage('התחברות הושלמה בהצלחה! מעביר אותך לאזור האישי...');
+      
+      // Redirect to dashboard after successful login
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 1500);
 
       if (onSuccess) {
         onSuccess();
