@@ -68,7 +68,7 @@ export default function ResultCard({ code }: ResultCardProps) {
           href={`/tools/wealth-code/sales?code=${code}`}
           className="btn btn-primary justify-center ButtonPrimaryText"
         >
-          לקבלת פירוש המלא
+          לקבלת הפירוש המלא
         </a>
         <a
           href="/tools/wealth-code/calculator"
