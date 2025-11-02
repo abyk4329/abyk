@@ -5,39 +5,38 @@
 :root {
   /* ===== Colors ===== */
   /* Light Theme Colors (Default) */
-  --color-bg-light: 245 244 243; /* #F5F4F3 clean light */
+  --color-bg-light: 245 244 243; /* #F5F4F3 bg and surface */
   --color-surface-light: 245 244 243; /* #F5F4F3 surfaces */
-  --color-text-light: 74 74 74; /* #4A4A4A warm charcoal */
-  --color-heading-light: 185 126 126; /* #B97E7E warm rose-brown - כותרות חזקות */
-  --color-subheading-light: 192 160 160; /* #C0A0A0 soft dusty rose - טקסט פתיחה רגשי */
-  --color-brand-gold: 123 83 56; /* #7B5338 unified warm brand - זהות מותגית */
-  --color-accent: 193 144 128; /* #C19080 warm highlight - הדגשות בתוך טקסט */
-  --color-support: 124 162 145; /* #7CA291 sage green - ספרות קוד עושר ומחירים במצב בהיר */
-  --color-error: 122 47 47; /* #7A2F2F deep red - הודעות שגיאה */
-  --color-primary-light: 124 162 145; /* #7CA291 sage green - כפתורים וטקסט פעולה */
-  --color-icon-light: 91 106 102; /* #5B6A66 subtle gray-green - אייקונים כלליים */
-  --color-english-light: 91 106 102; /* #5B6A66 subtle - טקסט אנגלי */
+  --color-text-light: 34 40 51; /* #222833 bodytext */
+  --color-heading-light: 184 122 122; /* #B87A7A title */
+  --color-subheading-light: 184 122 122; /* #B87A7A subtitle */
+  --color-lead-text-light: 196 145 145; /* #C49191 lead text - טקסט פתיחה */
+  --color-brand-gold: 114 163 148; /* #72A394 CTA color - brand identity */
+  --color-accent: 114 163 148; /* #72A394 CTA - highlights */
+  --color-support: 179 137 86; /* #B38956 icon and numbers - light */
+  --color-error: 133 71 71; /* #854747 deep red - הודעות שגיאה */
+  --color-primary-light: 114 163 148; /* #72A394 CTA - כפתורים וטקסט פעולה */
+  --color-icon-light: 179 137 86; /* #B38956 icon and numbers */
+  --color-english-light: 114 163 148; /* #72A394 CTA - טקסט אנגלי */
 
   /* Dark theme */
   --color-bg-dark: 34 40 51; /* #222833 dark surface */
   --color-surface-dark: 34 40 51; /* #222833 surface */
-  --color-text-dark: 250 250 250; /* #FAFAFA bright light - טקסט גוף */
-  --color-heading-dark: 124 162 145; /* #7CA291 sage green - כותרות חזקות במצב כהה */
-  --color-subheading-dark: 192 160 160; /* #C0A0A0 soft dusty rose - טקסט פתיחה רגשי */
-  --color-brand-gold-dark: 198 171 150; /* #C6AB96 warm taupe - זהות מותגית */
-  --color-primary-dark: 246 226 203; /* #F6E2CB warm beige - כפתורים וטקסט פעולה */
-  --color-icon-dark: 168 132 105; /* #A88469 warm secondary - אייקונים */
-  --color-english-dark: 185 126 126; /* #B97E7E rose-brown (CTA color) - טקסט אנגלי */
-  --color-accent-dark: 193 144 128; /* #C19080 warm highlight - הדגשות */
-  --color-support-dark: 206 161 161; /* #CEA1A1 warm rose - ספרות קוד עושר במצב כהה */
-  --color-error-dark: 199 107 92; /* #C76B5C bright coral-red - שגיאות */
+  --color-text-dark: 245 244 243; /* #F5F4F3 body text - לבן-בז' */
+  --color-heading-dark: 128 169 145; /* #80A991 title - ירוק רענן */
+  --color-subheading-dark: 128 169 145; /* #80A991 subtitle - ירוק רענן */
+  --color-lead-text-dark: 109 138 121; /* #6D8A79 lead text - פסקאות הקדמה */
+  --color-brand-gold-dark: 214 149 149; /* #D69595 brand accents - ורוד עמוק */
+  --color-primary-dark: 214 149 149; /* #D69595 CTA - ורוד עמוק */
+  --color-icon-dark: 255 230 199; /* #FFE6C7 icon and numbers */
+  --color-english-dark: 214 149 149; /* #D69595 CTA - טקסט אנגלי */
+  --color-accent-dark: 214 149 149; /* #D69595 CTA - הדגשות */
+  --color-support-dark: 255 230 199; /* #FFE6C7 icon and numbers */
+  --color-error-dark: 133 71 71; /* #854747 redwood - שגיאות */
 
   /* ===== Typography ===== */
   /* Font family */
   --font-sans: 'Assistant', -apple-system, BlinkMacSystemFont, sans-serif;
-
-  /* Fluid type scale */
-  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); /* 12px → 14px */
   --text-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem); /* 14px → 16px */
   --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); /* 16px → 18px */
   --text-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem); /* 18px → 20px */
@@ -50,11 +49,8 @@
   /* Line heights */
   --leading-tight: 1.25; /* Headings */
   --leading-normal: 1.55; /* Body */
-  --leading-loose: 1.75; /* Relaxed paragraphs */
-
   /* Letter spacing */
   --tracking-tight: -0.01em;
-  --tracking-normal: 0em;
   --tracking-wide: 0.02em;
 
   /* ===== Spacing ===== */
@@ -68,14 +64,14 @@
 
   /* ===== Layout Spacing - Unified Structure ===== */
   /* מרווחים אחידים לכל העמודים */
-  --layout-section-gap: 0.75rem; /* 12px - מרווח בין כרטיסיות */
-  --layout-content-gap: 0.75rem; /* 12px - מרווח בין אלמנטים בתוך כרטיסייה */
+  --layout-section-gap: 0.375rem; /* 6px - מרווח בין כרטיסיות */
+  --layout-content-gap: 1rem; /* 16px - מרווח בסיסי בתוך כרטיסייה */
   --layout-text-gap: 1rem; /* 16px - מרווח בין פסקאות */
   --layout-list-gap: 0.5rem; /* 8px - מרווח בין פריטים ברשימה */
 
   /* ===== Card Section Spacing - מרווחים בין כרטיסיות ===== */
-  --card-section-gap-small: 0.75rem; /* 12px - מרווח קטן בין כרטיסיות */
-  --card-section-gap-large: 1.25rem; /* 20px - מרווח גדול בין כרטיסיות */
+  --card-section-gap-small: 0.375rem; /* 6px - מרווח קטן בין כרטיסיות */
+  --card-section-gap-large: 0.625rem; /* 10px - מרווח גדול בין כרטיסיות */
 
   /* ===== Content Width - רוחב תוכן ===== */
   --content-width-full: 100%; /* כותרות - מלוא הרוחב */
@@ -139,6 +135,7 @@
   --color-text: var(--color-text-light);
   --color-heading: var(--color-heading-light);
   --color-subheading: var(--color-subheading-light);
+  --color-lead-text: var(--color-lead-text-light);
   --color-brand: var(--color-brand-gold);
   --color-primary: var(--color-primary-light);
   --color-icon: var(--color-icon-light);
@@ -153,6 +150,7 @@
   --color-text: var(--color-text-dark);
   --color-heading: var(--color-heading-dark);
   --color-subheading: var(--color-subheading-dark);
+  --color-lead-text: var(--color-lead-text-dark);
   --color-brand: var(--color-brand-gold-dark);
   --color-primary: var(--color-primary-dark);
   --color-icon: var(--color-icon-dark);

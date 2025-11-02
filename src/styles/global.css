@@ -5,7 +5,6 @@
 @import './tokens.css';
 @import './typography.css';
 @import './neumorphic.css';
-@import './theme-toggle.css';
 @import './cookie-consent.css';
 
 @tailwind base;
@@ -88,33 +87,33 @@ button {
 :root {
   /* CTA Button - Raised gradient style */
   /* Light theme CTA colors */
-  --btn-cta-bg: #7ca291;
-  --btn-cta-text: #ffffff;
+  --btn-cta-bg: #72a394;
+  --btn-cta-text: #f5f4f3;
   --btn-cta-shadow: 8px 8px 16px rgba(0, 0, 0, 0.18),
     -6px -6px 12px rgba(255, 255, 255, 0.8),
     inset 2px 2px 4px rgba(255, 255, 255, 0.25),
-    0 2px 4px rgba(124, 162, 145, 0.12);
+    0 2px 4px rgba(114, 163, 148, 0.12);
   --btn-cta-shadow-hover: 10px 10px 20px rgba(0, 0, 0, 0.25),
     -8px -8px 16px rgba(255, 255, 255, 0.9),
     inset 2px 2px 5px rgba(255, 255, 255, 0.35),
-    0 4px 8px rgba(124, 162, 145, 0.2);
+    0 4px 8px rgba(114, 163, 148, 0.2);
   --btn-cta-shadow-active: inset 4px 4px 8px rgba(0, 0, 0, 0.35),
     inset -2px -2px 6px rgba(0, 0, 0, 0.15);
 
   /* Primary Button - Transparent with border */
   --btn-primary-bg: transparent;
-  --btn-primary-text: #7ca291;
-  --btn-primary-border: 2px solid #7ca291;
+  --btn-primary-text: #72a394;
+  --btn-primary-border: 2px solid #72a394;
   --btn-primary-shadow: 6px 6px 12px rgba(0, 0, 0, 0.12),
-    -4px -4px 8px rgba(255, 255, 255, 0.95), 0 1px 3px rgba(124, 162, 145, 0.1);
+    -4px -4px 8px rgba(255, 255, 255, 0.95), 0 1px 3px rgba(114, 163, 148, 0.1);
   --btn-primary-shadow-hover: 8px 8px 16px rgba(0, 0, 0, 0.18),
-    -6px -6px 12px rgba(255, 255, 255, 1), 0 2px 6px rgba(124, 162, 145, 0.15);
+    -6px -6px 12px rgba(255, 255, 255, 1), 0 2px 6px rgba(114, 163, 148, 0.15);
   --btn-primary-shadow-active: inset 3px 3px 6px rgba(0, 0, 0, 0.25),
     inset -2px -2px 4px rgba(0, 0, 0, 0.1);
 
   /* Secondary Button - Transparent no border */
   --btn-secondary-bg: transparent;
-  --btn-secondary-text: #7ca291;
+  --btn-secondary-text: #72a394;
   --btn-secondary-shadow: 3px 3px 6px rgba(0, 0, 0, 0.08),
     -3px -3px 6px rgba(255, 255, 255, 0.8);
   --btn-secondary-shadow-hover: 4px 4px 8px rgba(0, 0, 0, 0.12),
@@ -125,21 +124,21 @@ button {
 
 [data-theme='dark'] {
   /* CTA Button - Dark theme */
-  --btn-cta-bg: #cea1a1;
-  --btn-cta-text: #1a1f28;
+  --btn-cta-bg: #d69595; /* ורוד עתיק */
+  --btn-cta-text: #222833;
   --btn-cta-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4),
     -6px -6px 12px rgba(255, 255, 255, 0.02),
-    inset 1px 1px 2px rgba(206, 161, 161, 0.18);
+    inset 1px 1px 2px rgba(214, 149, 149, 0.18);
   --btn-cta-shadow-hover: 8px 8px 16px rgba(0, 0, 0, 0.5),
     -8px -8px 16px rgba(255, 255, 255, 0.03),
-    inset 1px 1px 3px rgba(255, 255, 255, 0.15);
+    inset 1px 1px 3px rgba(214, 149, 149, 0.22);
   --btn-cta-shadow-active: inset 4px 4px 8px rgba(0, 0, 0, 0.3),
     inset -2px -2px 6px rgba(255, 255, 255, 0.02);
 
   /* Primary Button - Dark theme - Transparent with border */
   --btn-primary-bg: transparent;
-  --btn-primary-text: #cea1a1;
-  --btn-primary-border: 2px solid #cea1a1;
+  --btn-primary-text: #d69595; /* ורוד עתיק */
+  --btn-primary-border: 2px solid #d69595;
   --btn-primary-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3),
     -4px -4px 8px rgba(255, 255, 255, 0.02);
   --btn-primary-shadow-hover: 6px 6px 12px rgba(0, 0, 0, 0.4),
@@ -149,7 +148,7 @@ button {
 
   /* Secondary Button - Dark theme - Transparent no border */
   --btn-secondary-bg: transparent;
-  --btn-secondary-text: #cea1a1;
+  --btn-secondary-text: #d69595; /* ורוד עתיק - זהה ל-CTA */
   --btn-secondary-shadow: 3px 3px 6px rgba(0, 0, 0, 0.25),
     -3px -3px 6px rgba(255, 255, 255, 0.02);
   --btn-secondary-shadow-hover: 4px 4px 8px rgba(0, 0, 0, 0.3),
@@ -167,8 +166,11 @@ button {
   padding: var(--btn-padding-y) var(--btn-padding-x); /* 12px × 16px */
   border-radius: 50px;
   border: none;
-  font-weight: 600;
-  font-size: var(--text-base);
+  font-weight: 500;
+  font-size: var(
+    --text-lg
+  ); /* clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem) → 18-20px */
+  font-family: var(--font-sans);
   line-height: 1.2;
   cursor: pointer;
   text-decoration: none;
@@ -199,7 +201,6 @@ button {
   background: var(--btn-cta-bg);
   color: var(--btn-cta-text);
   box-shadow: var(--btn-cta-shadow);
-  font-weight: 600 !important;
   font-size: var(--text-lg);
   letter-spacing: 0.025em;
 }
@@ -237,7 +238,6 @@ button {
   color: var(--btn-primary-text);
   border: var(--btn-primary-border);
   box-shadow: var(--btn-primary-shadow);
-  font-weight: 600 !important;
 }
 
 .btn-primary:hover {
@@ -273,7 +273,6 @@ button {
   color: var(--btn-secondary-text);
   box-shadow: var(--btn-secondary-shadow);
   border: none;
-  font-weight: 600;
 }
 
 .btn-secondary:hover {
@@ -305,7 +304,6 @@ button {
   border: none;
   box-shadow: inset 2px 2px 5px rgb(var(--color-text) / 0.1),
     inset -2px -2px 5px rgb(255 255 255 / 0.7);
-  font-weight: 600;
 }
 
 .btn-inset:hover {
@@ -426,13 +424,23 @@ button {
   padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
   text-align: center;
   box-shadow: var(--shadow-raised-min);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--card-section-gap-small);
 }
 
 @media (min-width: 768px) {
   .card-surface {
     padding: var(--card-padding-desktop);
   }
+}
+
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-content-gap);
+}
+
+.card-stack > * {
+  margin: 0;
 }
 
 .interpretations-content {
@@ -448,7 +456,7 @@ button {
 .calculator-form {
   display: flex;
   flex-direction: column;
-  gap: var(--layout-section-gap);
+  gap: var(--card-content-gap);
 }
 
 .calculator-calendar-btn {
@@ -459,7 +467,8 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--layout-content-gap);
+  gap: var(--card-content-gap);
+  margin-top: var(--space-sm); /* 8px - מרווח נוסף לפני הכפתורים */
 }
 
 .calculator-actions .btn {
@@ -482,7 +491,7 @@ button {
 .sales-card {
   display: flex;
   flex-direction: column;
-  gap: var(--layout-content-gap);
+  gap: var(--card-content-gap);
   text-align: center;
 }
 
@@ -507,12 +516,12 @@ button {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: var(--layout-content-gap);
+  gap: var(--card-content-gap);
   text-align: center;
 }
 
 .sales-card-content--compact {
-  gap: var(--layout-list-gap);
+  gap: var(--card-element-gap);
 }
 
 .sales-list,
@@ -525,12 +534,23 @@ button {
 .sales-list {
   display: flex;
   flex-direction: column;
-  gap: var(--layout-list-gap);
+  gap: 6px; /* מרווח קטן בין כרטיסיות */
   text-align: center;
+  margin-bottom: var(--space-xl); /* מרווח גדול לפני הכפתור */
 }
 
+/* כרטיסיות קטנות בתוך כרטיסיות גדולות - padding מינימלי */
 .sales-list-item {
   text-align: center;
+  padding: 12px var(--space-xs) !important; /* 12px אנכי, 4px אופקי */
+  margin-bottom: 0 !important; /* ביטול margin */
+  border-radius: 10px !important; /* רדיוס בינוני */
+}
+
+@media (min-width: 768px) {
+  .sales-list-item {
+    padding: 12px var(--space-sm) !important; /* 12px אנכי, 8px אופקי */
+  }
 }
 
 .thankyou-sections {
@@ -548,7 +568,7 @@ button {
 .thankyou-card {
   display: flex;
   flex-direction: column;
-  gap: var(--layout-list-gap);
+  gap: var(--space-lg);
   align-items: center;
   text-align: center;
   padding: var(--space-lg) var(--space-md);
@@ -575,7 +595,7 @@ button {
 .thankyou-link-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-md);
   align-items: center;
   text-align: center;
   color: inherit;
@@ -611,25 +631,23 @@ button {
 }
 
 .thankyou-social-link svg {
-  color: currentColor;
+  color: rgb(var(--color-icon));
 }
 
 .thankyou-social-link:hover {
   color: rgb(var(--color-heading));
 }
 
-.thankyou-card .PageTitle,
-.thankyou-card .CardTitle {
-  margin-bottom: var(--space-sm);
+.thankyou-social-link:hover svg {
+  color: rgb(var(--color-heading));
 }
 
+.thankyou-card .PageTitle,
+.thankyou-card .CardTitle,
 .thankyou-card .LeadText,
+.thankyou-link-card .CardTitle,
 .thankyou-link-card .SmallNote {
   margin-bottom: 0;
-}
-
-.thankyou-link-card .CardTitle {
-  margin-bottom: var(--space-sm);
 }
 
 .interpretations-actions {
@@ -720,7 +738,7 @@ button {
 .interpretations-tabs {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   padding: var(--space-xs);
 }
 
@@ -737,6 +755,7 @@ button {
   color: rgb(var(--color-text));
   padding: var(--space-md);
   font-weight: 600;
+  font-size: var(--text-lg);
   font-family: var(--font-sans);
   cursor: pointer;
   box-shadow: var(--shadow-raised-min);
@@ -767,45 +786,68 @@ button {
   width: 100%;
 }
 
+/* ============================================
+   Interpretations Sections - מערכת מרווחים אחידה
+   ============================================
+   עקרונות:
+   1. Container (interpretations-section) מנהל את כל המרווחים
+   2. אלמנטים פנימיים (Subtitle, BodyText, ul, li) ללא margin
+   3. gap מנהל מרווחים בין אלמנטים
+   4. padding-top/margin-top קבועים לכל section
+   ============================================ */
+
 .interpretations-section {
-  border-top: 1px solid rgb(var(--color-support) / 0.55);
-  padding-top: var(--space-md);
-  margin-top: var(--space-md);
+  border-top: 1px solid rgb(var(--color-primary) / 0.55);
+  padding-top: var(--space-sm); /* 8px מהקו לכותרת */
+  margin-top: var(--card-section-gap-large); /* 10px בין sections */
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--card-content-gap); /* 16px בין כותרת לתוכן */
   text-align: center;
 }
 
 .interpretations-section:first-of-type {
-  border-top: none;
-  padding-top: 0;
-  margin-top: 0;
+  border-top: 1px solid rgb(var(--color-primary) / 0.55);
+  padding-top: var(--space-sm);
+  margin-top: var(--card-section-gap-large);
 }
 
+/* רשימות - ללא margin/padding עצמי */
 .interpretations-list {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-element-gap); /* 8px בין items */
 }
 
+/* פריטי רשימה - padding פנימי בלבד */
 .interpretations-list-item {
-  padding: var(--space-xs) 0;
+  padding: var(--space-xs) 0; /* 4px למעלה ולמטה */
+  margin: 0; /* אפס margin */
 }
 
 .interpretations-list-item + .interpretations-list-item {
-  border-top: 1px dashed rgb(var(--color-support) / 0.18);
+  border-top: 1px dashed rgb(var(--color-primary) / 0.2);
 }
 
+/* פסקאות בתוך sections - ללא margin */
 .interpretations-section p {
+  margin: 0;
+}
+
+/* כותרות בתוך sections - ללא margin */
+.interpretations-section .Subtitle,
+.interpretations-section h3 {
   margin: 0;
 }
 
 .login-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
-  padding: var(--space-xl) var(--space-lg);
+  gap: var(--card-content-gap);
+  padding: var(--card-padding-mobile-y) var(--card-padding-mobile-x);
   background: rgb(var(--color-surface));
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-raised-min);
@@ -813,15 +855,15 @@ button {
 
 @media (min-width: 768px) {
   .login-card {
-    gap: var(--space-xl);
-    padding: var(--space-2xl) var(--space-xl);
+    gap: var(--card-content-gap);
+    padding: var(--card-padding-desktop);
   }
 }
 
 .login-card-header {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--card-element-gap);
   text-align: center;
 }
 
@@ -829,7 +871,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
+  gap: var(--card-element-gap);
   color: rgb(var(--color-text) / 0.7);
   font-size: var(--text-sm);
 }
@@ -849,11 +891,11 @@ button {
 }
 
 .login-card-footer {
-  padding-top: var(--space-md);
+  padding-top: var(--card-content-gap);
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--card-element-gap);
 }
 
 .login-card-note {
@@ -876,7 +918,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
+  gap: var(--card-element-gap);
   text-align: center;
   flex-wrap: wrap;
   color: rgb(var(--color-text) / 0.7);
@@ -905,7 +947,7 @@ button {
 .login-field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--card-element-gap);
   text-align: center;
 }
 

@@ -28,7 +28,7 @@
   margin-bottom: var(--space-xl); /* 2rem / 32px */
 }
 
-.result-description .SectionTitle {
+.result-description .CardSubtitle {
   margin-bottom: var(--space-md); /* 1rem / 16px - מרווח בין כותרת לפסקה */
 }
 

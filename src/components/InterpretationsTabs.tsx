@@ -249,8 +249,8 @@ export default function InterpretationsTabs({
               }
 
               return (
-                <div className="space-y-2">
-                  <div>
+                <div className="space-y-6">
+                  <div className="space-y-3">
                     <h2 className="Title">{interpretation.title}</h2>
                     <p className="BodyText">{interpretation.essence}</p>
                   </div>
@@ -329,7 +329,7 @@ export default function InterpretationsTabs({
         )}
 
         {activeTab === 'daily' && (
-          <div className="space-y-2">
+          <div className="space-y-6">
             <h2 className="Title">{dailyApplication.title}</h2>
             <p className="BodyText whitespace-pre-line">
               {dailyApplication.content}

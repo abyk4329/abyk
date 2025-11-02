@@ -28,12 +28,24 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     margin: 0 auto;
     padding: 4.5rem 1rem 1.5rem;
     min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg); /* 24px - מרווח בין כותרת, טקסט וטופס */
+  }
+
+  .page-container h1 {
+    margin: 0;
+  }
+
+  .page-container .LeadText {
+    margin: 0;
   }
 
   @media (min-width: 768px) {
     .page-container {
       padding: 5.5rem 1rem 2rem;
       min-height: 70vh;
+      gap: var(--space-xl); /* 32px - מרווח גדול יותר בדסקטופ */
     }
   }
 </style>

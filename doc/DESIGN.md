@@ -931,7 +931,7 @@ font-size: 32px;
 | **CardTitle**           | 20px → 24px        | 600  | 0.95        | var(--space-md)  | center |
 | **CardTitleLong**       | 24px → 32px        | 700  | 0.95        | var(--space-md)  | center |
 | **NumberTitle**         | 40px → 56px        | 700  | 1.0         | var(--space-md)  | center |
-| **Price**               | 48px → 72px        | 700  | 0.9         | var(--space-sm)  | center |
+| **Price**               | 48px → 72px        | 400  | 1.0         | var(--space-sm)  | center |
 | **LongTitle**           | 22px → 28px        | 600  | 0.95        | var(--space-md)  | center |
 | **LongSubtitle**        | 18px → 22px        | 500  | 1.1         | var(--space-md)  | center |
 | **LeadText**            | 18px → 20px        | 500  | 1.4         | var(--space-2xl) | center |
@@ -1072,10 +1072,10 @@ font-size: 32px;
 ```css
 .Price {
   font-size: clamp(3rem, 10vw, 4.5rem); /* 48-72px - fluid aggressive */
-  font-weight: 700;
-  line-height: 0.9; /* הכי צפוף - דרמטי */
-  letter-spacing: -0.02em;
-  color: rgb(var(--color-heading));
+  font-weight: 400;
+  line-height: 1; /* מותאם למספרים גדולים */
+  letter-spacing: 0.05em;
+  color: rgb(var(--color-support));
   text-align: center;
   margin-bottom: var(--space-sm); /* 0.5rem / 8px */
 }
@@ -1436,7 +1436,7 @@ font-size: 32px;
 | CardTitle           | 20px → 24px      | 0.95        | var(--space-md) | כרטיסים קצרים      |
 | CardTitleLong       | 24px → 32px      | 0.95        | var(--space-md) | כרטיסים ארוכים     |
 | NumberTitle         | 40px → 56px      | 1.0         | var(--space-md) | מספרים מודגשים     |
-| Price               | 48px → 72px      | 0.9         | var(--space-sm) | מחירים             |
+| Price               | 48px → 72px      | 1.0         | var(--space-sm) | מחירים             |
 | ButtonPrimaryText   | 16px → 18px      | 1.1         | 0 (inline)      | כפתורי CTA/Primary |
 | ButtonSecondaryText | 16px → 18px      | 1.1         | 0 (inline)      | כפתורי Secondary   |
 
@@ -1481,7 +1481,8 @@ font-size: 32px;
 | טקסט רגיל, פסקאות   | `500`          | `<p>`, `<span>`, body |
 | כפתורים             | `600`          | `<button>`, `.btn`    |
 | כותרות H1-H6        | `600` או `700` | `<h1>` עד `<h6>`      |
-| מספרים, מחירים      | `700`          | NumberTitle, Price    |
+| מספרים מודגשים      | `700`          | NumberTitle           |
+| מחירים              | `400`          | Price                 |
 | Hero גדול           | `300` או `800` | תלוי בסגנון           |
 | AWAKENING BY KSENIA | `300`          | תפריט צד, ברנדינג     |
 

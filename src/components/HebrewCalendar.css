@@ -312,7 +312,7 @@
 
 .selected-date {
   font-size: var(--text-sm);
-  color: rgb(var(--color-text));
+  color: rgb(var(--color-support));
   margin: 0;
   font-weight: 600;
   flex: 1;

@@ -48,7 +48,7 @@
 }
 
 .cookie-consent__title {
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   font-weight: 700;
   color: rgb(var(--color-heading));
 }

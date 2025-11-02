@@ -9,28 +9,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   
   <div class="page-container" dir="rtl">
     <!-- Header Card -->
-    <div class="card-surface mb-4">
+  <div class="card-surface card-stack">
       <h1 class="PageTitle">תנאי שימוש</h1>
       <p class="SmallNote">עדכון אחרון: 23 באוקטובר 2025</p>
     </div>
     
     <!-- Content Cards -->
-    <div class="legal-sections">
-    <section class="card-surface">
+  <div class="legal-sections">
+  <section class="card-surface card-stack">
         <h2 class="SectionTitle">1. קבלת התנאים</h2>
         <p class="BodyText">
           בגישה ושימוש באתר abyk.online, אתם מסכימים ומקבלים את תנאי השימוש המפורטים כאן.
         </p>
       </section>
       
-    <section class="card-surface">
+  <section class="card-surface card-stack">
         <h2 class="SectionTitle">2. רישיון שימוש</h2>
         <p class="BodyText">
           ניתנת הרשאה זמנית לשימוש בשירותים באתר abyk.online לצפייה אישית ולא מסחרית בלבד.
         </p>
       </section>
       
-    <section class="card-surface">
+  <section class="card-surface card-stack">
         <h2 class="SectionTitle">3. הצהרת אחריות</h2>
         <p class="BodyText">
           החומרים באתר abyk.online מסופקים "כמות שהם". איננו מספקים אחריות כלשהי, מפורשת או משתמעת, 
@@ -39,7 +39,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </p>
       </section>
       
-    <section class="card-surface">
+  <section class="card-surface card-stack">
         <h2 class="SectionTitle">4. הגבלות</h2>
         <p class="BodyText">
           בשום מקרה לא יהיו abyk.online או ספקיו אחראים לכל נזק (כולל, ללא הגבלה, נזקים עקב אובדן 
@@ -47,7 +47,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </p>
       </section>
       
-    <section class="card-surface">
+  <section class="card-surface card-stack">
         <h2 class="SectionTitle">5. יצירת קשר</h2>
         <p class="BodyText">
           אם יש לכם שאלות על תנאי השימוש, אנא צרו קשר באמצעות האתר.
@@ -61,7 +61,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .legal-sections {
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg); /* 1.5rem / 24px */
+    gap: var(--card-section-gap-large);
   }
 
   section {
@@ -69,7 +69,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   section .SectionTitle {
-    margin-bottom: var(--space-md); /* 1rem / 16px */
+    margin-bottom: var(--card-content-gap);
   }
 
   section .BodyText {

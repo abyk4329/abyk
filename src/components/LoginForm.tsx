@@ -64,7 +64,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         </div>
 
         {/* Login Form Card */}
-        <form onSubmit={handleSubmit} className="login-card">
+        <form onSubmit={handleSubmit} className="login-card card-stack">
           <div className="login-card-header">
             <h2 className="Subtitle">התחברות לאזור האישי</h2>
           </div>

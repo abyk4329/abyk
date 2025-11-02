@@ -1,5 +1,7 @@
 # מבנה העמודים והטקסטים | SITE STRUCTURE
 
+<!-- markdownlint-disable MD024 MD036 MD040 -->
+
 מסמך מאוחד למבנה HTML, טקסטים מדויקים וארכיטקטורת קומפוננטות  
 **גרסה:** 2.0  
 **תאריך:** 26.10.2025
@@ -635,9 +637,9 @@
 
 ### מבנה ויזואלי
 
-```
+```text
 ┌────────────────────┐
-│ [X]                │ ← כפתור סגירה
+│ [X] [💡]           │ ← כפתורי פעולה עליונים (סגירה + מצב צבע)
 ├────────────────────┤
 │  AWAKENING BY      │
 │  KSENIA            │
@@ -648,9 +650,6 @@
 │  🔐 התחברות        │
 │  📄 תנאים משפטיים   │
 │  💾 שמירה למסך הבית│
-├────────────────────┤
-│  ───────────       │
-│  🌓 מתג נושאים    │
 └────────────────────┘
 ```
 
@@ -659,63 +658,68 @@
 ```tsx
 <>
   {/* Overlay */}
-  <div className="side-menu-overlay" onClick={onClose} />
+  <div className="menu-overlay" onClick={closeMenu} />
 
   {/* Side Menu */}
   <nav className="side-menu">
-    <button
-      className="side-menu-close"
-      onClick={onClose}
-      aria-label="סגור תפריט"
-    >
-      <svg><!-- X icon --></svg>
-    </button>
+    <div className="menu-header-actions">
+      <button
+        type="button"
+        className="menu-action-button close-button"
+        onClick={closeMenu}
+        aria-label="סגור תפריט"
+      >
+        <svg><!-- X icon --></svg>
+      </button>
 
-    <h2 className="side-menu-title">
-      AWAKENING BY KSENIA
-    </h2>
+      <button
+        type="button"
+        className="menu-action-button theme-toggle-button"
+        onClick={toggleThemeMode}
+        aria-label="החליפו למצב כהה"
+      >
+        <svg><!-- Lightbulb icon --></svg>
+      </button>
+    </div>
 
-    <ul className="side-menu-list">
-      <li>
-        <a href="/">
-          <svg><!-- Home icon --></svg>
-          <span>דף הבית</span>
-        </a>
-      </li>
-      <li>
-        <a href="/tools/wealth-code/calculator">
-          <svg><!-- Calculator icon --></svg>
-          <span>מחשבון קוד העושר</span>
-        </a>
-      </li>
-      <li>
-        <a href="mailto:awakening.by.ksenia@gmail.com">
-          <svg><!-- Mail icon --></svg>
-          <span>יצירת קשר</span>
-        </a>
-      </li>
-      <li>
-        <a href="/login">
-          <svg><!-- User icon --></svg>
-          <span>התחברות</span>
-        </a>
-      </li>
-      <li>
-        <a href="/legal">
-          <svg><!-- File icon --></svg>
-          <span>תנאים משפטיים</span>
-        </a>
-      </li>
-      <li>
-        <button onClick={handleInstallPWA}>
-          <svg><!-- Download icon --></svg>
-          <span>שמירה למסך הבית</span>
-        </button>
-      </li>
-    </ul>
+    <div className="menu-content">
+      <h2 className="menu-title">AWAKENING BY KSENIA</h2>
 
-    <div className="side-menu-theme">
-      <PullToggle client:load />
+      <ul className="menu-links">
+        <li>
+          <a href="/" onClick={closeMenu}>
+            <svg><!-- Home icon --></svg>
+            <span className="BigNote">דף הבית</span>
+          </a>
+        </li>
+        <li>
+          <a href="/tools/wealth-code/calculator" onClick={closeMenu}>
+            <svg><!-- Calculator icon --></svg>
+            <span className="BigNote">מחשבון קוד העושר</span>
+          </a>
+        </li>
+        <li>
+          <a href="/contact" onClick={closeMenu}>
+            <svg><!-- Mail icon --></svg>
+            <span className="BigNote">יצירת קשר</span>
+          </a>
+        </li>
+        <li>
+          <a href="/login" onClick={closeMenu}>
+            <svg><!-- Login icon --></svg>
+            <span className="BigNote">התחברות</span>
+          </a>
+        </li>
+        <li>
+          <a href="/legal" onClick={closeMenu}>
+            <svg><!-- File icon --></svg>
+            <span className="BigNote">תנאים משפטיים</span>
+          </a>
+        </li>
+        <li>
+          <InstallPWA />
+        </li>
+      </ul>
     </div>
   </nav>
 </>
@@ -723,16 +727,17 @@
 
 ### טקסטים מדויקים
 
-| אלמנט            | טקסט                     | הערות                      |
-| ---------------- | ------------------------ | -------------------------- |
-| **Close Button** | aria-label: "סגור תפריט" | אייקון X                   |
-| **Title**        | "AWAKENING BY KSENIA"    | אנגלית, `font-weight: 300` |
-| **דף הבית**      | "דף הבית"                |                            |
-| **מחשבון**       | "מחשבון קוד העושר"       |                            |
-| **קשר**          | "יצירת קשר"              |                            |
-| **התחברות**      | "התחברות"                |                            |
-| **משפטי**        | "תנאים משפטיים"          |                            |
-| **PWA**          | "שמירה למסך הבית"        |                            |
+| אלמנט            | טקסט                                               | הערות                      |
+| ---------------- | -------------------------------------------------- | -------------------------- |
+| **Close Button** | aria-label: "סגור תפריט"                           | אייקון X                   |
+| **Theme Toggle** | aria-label: "החליפו למצב כהה" / "החליפו למצב בהיר" | אייקון נורה, מחליף מצב צבע |
+| **Title**        | "AWAKENING BY KSENIA"                              | אנגלית, `font-weight: 300` |
+| **דף הבית**      | "דף הבית"                                          |                            |
+| **מחשבון**       | "מחשבון קוד העושר"                                 |                            |
+| **קשר**          | "יצירת קשר"                                        |                            |
+| **התחברות**      | "התחברות"                                          |                            |
+| **משפטי**        | "תנאים משפטיים"                                    |                            |
+| **PWA**          | "שמירה למסך הבית"                                  |                            |
 
 ### עיצוב CSS
 

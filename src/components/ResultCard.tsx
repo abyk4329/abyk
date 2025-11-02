@@ -59,7 +59,7 @@ export default function ResultCard({ code }: ResultCardProps) {
       </div>
 
       <div className="result-description">
-        <h3 className="SectionTitle">{typeNames[codeType]}</h3>
+        <h4 className="CardSubtitle">{typeNames[codeType]}</h4>
         <p className="BodyText">{typeDescriptions[codeType]}</p>
       </div>
 

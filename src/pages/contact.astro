@@ -13,7 +13,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     
     <!-- Share Button -->
     <section class="contact-share">
-      <div class="card-surface contact-card contact-card--share">
+  <div class="card-surface card-stack contact-card contact-card--share">
         <ShareButton client:load title="Awakening by Ksenia" text="הצטרפו אליי ברשתות החברתיות" />
       </div>
     </section>
@@ -25,7 +25,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           href="https://www.instagram.com/awakening.by.ksenia/" 
           target="_blank"
           rel="noopener noreferrer"
-          class="card-surface contact-card contact-card--link contact-card--instagram"
+          class="card-surface card-stack contact-card contact-card--link contact-card--instagram"
           aria-label="Instagram"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -41,7 +41,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           href="https://www.tiktok.com/@awakening.by.ksenia" 
           target="_blank"
           rel="noopener noreferrer"
-          class="card-surface contact-card contact-card--link contact-card--tiktok"
+          class="card-surface card-stack contact-card contact-card--link contact-card--tiktok"
           aria-label="TikTok"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -55,7 +55,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           href="https://wa.me/972524616121" 
           target="_blank"
           rel="noopener noreferrer"
-          class="card-surface contact-card contact-card--link contact-card--whatsapp"
+          class="card-surface card-stack contact-card contact-card--link contact-card--whatsapp"
           aria-label="WhatsApp"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -68,7 +68,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         
         <a 
           href="mailto:awakening.by.ksenia@gmail.com"
-          class="card-surface contact-card contact-card--link contact-card--email"
+          class="card-surface card-stack contact-card contact-card--link contact-card--email"
           aria-label="Email"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -97,11 +97,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .contact-card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--layout-content-gap);
     align-items: center;
     text-align: center;
+    gap: var(--card-content-gap);
   }
 
   .contact-card--share {
@@ -128,6 +126,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .contact-card--link svg {
+    color: rgb(var(--color-icon));
     stroke: currentColor;
   }
 

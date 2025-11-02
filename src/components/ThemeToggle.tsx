@@ -1,241 +1,104 @@
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useState } from 'react';
+import '../styles/theme-toggle.css';
 
-const STORAGE_KEY = 'theme';
-
-interface ThemeToggleProps {
-  className?: string;
-}
-
-export default function ThemeToggle({ className = '' }: ThemeToggleProps = {}) {
+export default function ThemeToggle() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
-  const toggleId = useId();
-  const statusId = `${toggleId}-status`;
 
   useEffect(() => {
-    const root = document.documentElement;
-    const saved = localStorage.getItem(STORAGE_KEY) as 'light' | 'dark' | null;
-    if (saved === 'light' || saved === 'dark') {
-      setTheme(saved);
-      root.setAttribute('data-theme', saved);
-    } else {
-      const prefersDark = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-      ).matches;
-      const initial = prefersDark ? 'dark' : 'light';
-      setTheme(initial);
-      root.setAttribute('data-theme', initial);
-    }
     setMounted(true);
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+    setTheme(initialTheme);
+    document.documentElement.setAttribute('data-theme', initialTheme);
   }, []);
 
-  useEffect(() => {
-    if (!mounted) {
-      return;
-    }
-    const root = document.documentElement;
-    root.setAttribute('data-theme', theme);
-    localStorage.setItem(STORAGE_KEY, theme);
-  }, [theme, mounted]);
-
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleSystemPreference = (event: MediaQueryListEvent) => {
-      const saved = localStorage.getItem(STORAGE_KEY) as
-        | 'light'
-        | 'dark'
-        | null;
-      if (saved === 'light' || saved === 'dark') {
-        return;
-      }
-      setTheme(event.matches ? 'dark' : 'light');
-    };
-    media.addEventListener('change', handleSystemPreference);
-    return () => media.removeEventListener('change', handleSystemPreference);
-  }, []);
-
-  const isDark = theme === 'dark';
-
-  if (!mounted) {
-    return <div className="h-[48px] w-[92px]"></div>;
-  }
-
-  const handleToggle = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
   };
 
-  const actionLabel = isDark ? 'הפעילו מצב בהיר' : 'הפעילו מצב כהה';
-  const statusMessage = isDark ? 'מצב כהה פעיל' : 'מצב בהיר פעיל';
-
-  const wrapperClass = className
-    ? `theme-toggle__wrapper ${className}`
-    : 'theme-toggle__wrapper';
+  if (!mounted) return null;
 
   return (
-    <div className={wrapperClass}>
-      <input
-        id={toggleId}
-        type="checkbox"
-        className="theme-toggle__input"
-        checked={isDark}
-        onChange={handleToggle}
-        aria-label={actionLabel}
-        aria-describedby={statusId}
-      />
-      <label
-        htmlFor={toggleId}
-        className={`theme-toggle ${
-          isDark ? 'theme-toggle--dark' : 'theme-toggle--light'
-        }`}
-      >
-        <span className="theme-toggle__track" aria-hidden="true">
-          <span className="theme-toggle__beam" />
-          <span className="theme-toggle__indicator">
-            <span className="theme-toggle__lamp theme-toggle__lamp--on">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                role="img"
-                aria-hidden="true"
-              >
-                <path
-                  className="theme-toggle__lamp-shade"
-                  d="M6.75 5.25h10.5l1.35 4.5a3.25 3.25 0 0 1-3.1 4.3H8.5a3.25 3.25 0 0 1-3.1-4.3Z"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M10 14.5h4v2.5h-4z"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M9 18h6"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M10.5 20h3"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-                <line
-                  x1="12"
-                  y1="3"
-                  x2="12"
-                  y2="5"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-                <line
-                  x1="14.5"
-                  y1="3.5"
-                  x2="13.5"
-                  y2="5"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-                <line
-                  x1="9.5"
-                  y1="3.5"
-                  x2="10.5"
-                  y2="5"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
-            <span className="theme-toggle__lamp theme-toggle__lamp--off">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                role="img"
-                aria-hidden="true"
-              >
-                <path
-                  className="theme-toggle__lamp-shade"
-                  d="M6.75 5.25h10.5l1.35 4.5a3.25 3.25 0 0 1-3.1 4.3H8.5a3.25 3.25 0 0 1-3.1-4.3Z"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M10 14.5h4v2.5h-4z"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M9 18h6"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M10.5 20h3"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-                <line
-                  x1="12"
-                  y1="3"
-                  x2="12"
-                  y2="5"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-                <line
-                  x1="14.5"
-                  y1="3.5"
-                  x2="13.5"
-                  y2="5"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-                <line
-                  x1="9.5"
-                  y1="3.5"
-                  x2="10.5"
-                  y2="5"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-                <line
-                  x1="16.5"
-                  y1="13"
-                  x2="19"
-                  y2="15"
-                  stroke="currentColor"
-                  strokeWidth="1.1"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
-          </span>
+    <button
+      className={`theme-switch ${theme === 'dark' ? 'is-dark' : 'is-light'}`}
+      onClick={toggleTheme}
+      aria-label={theme === 'light' ? 'עבור למצב כהה' : 'עבור למצב בהיר'}
+      aria-checked={theme === 'dark' ? 'true' : 'false'}
+      role="switch"
+      type="button"
+    >
+      <span className="theme-switch__track" aria-hidden="true">
+        <span className="theme-switch__spark theme-switch__spark--one"></span>
+        <span className="theme-switch__spark theme-switch__spark--two"></span>
+        <span className="theme-switch__spark theme-switch__spark--three"></span>
+
+        <span className="theme-switch__icon-slot theme-switch__icon-slot--sun">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <line x1="12" y1="3" x2="12" y2="1"></line>
+            <line x1="12" y1="23" x2="12" y2="21"></line>
+            <line x1="4.22" y1="4.22" x2="2.81" y2="2.81"></line>
+            <line x1="21.19" y1="21.19" x2="19.78" y2="19.78"></line>
+            <line x1="3" y1="12" x2="1" y2="12"></line>
+            <line x1="23" y1="12" x2="21" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="2.81" y2="21.19"></line>
+            <line x1="21.19" y1="2.81" x2="19.78" y2="4.22"></line>
+          </svg>
         </span>
-        <span
-          id={statusId}
-          className="theme-toggle__sr-only"
-          aria-live="polite"
-        >
-          {statusMessage}
+
+        <span className="theme-switch__icon-slot theme-switch__icon-slot--moon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79Z"></path>
+            <circle cx="17" cy="5" r="1"></circle>
+            <circle cx="19" cy="9" r="1"></circle>
+          </svg>
         </span>
-      </label>
-    </div>
+
+        <span className="theme-switch__thumb">
+          <span className="theme-switch__thumb-glow"></span>
+          <span className="theme-switch__thumb-inner"></span>
+          <svg
+            className="theme-switch__thumb-icon theme-switch__thumb-icon--sun"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <line x1="12" y1="5" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <svg
+            className="theme-switch__thumb-icon theme-switch__thumb-icon--moon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M20 14.5A6.5 6.5 0 0 1 9.5 4 5 5 0 1 0 20 14.5Z"></path>
+          </svg>
+        </span>
+      </span>
+    </button>
   );
 }

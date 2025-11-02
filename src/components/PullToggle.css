@@ -1,126 +1,154 @@
 /* ============================================
-   Minimal Elegant Eye Theme Toggle
+   Neumorphic Bulb Theme Toggle
    ============================================ */
 
 .elegant-theme-toggle {
   position: relative;
-  background: transparent;
+  background: rgb(var(--color-surface));
   border: none;
-  padding: 0;
+  padding: var(--space-sm);
   cursor: pointer;
-  transition: opacity 0.2s ease;
-  display: inline-block;
-  width: 100%;
-  max-width: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-raised-min);
+  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1),
+    box-shadow 0.3s ease, background 0.3s ease, opacity 0.25s ease;
 }
 
 .elegant-theme-toggle:hover {
-  opacity: 0.8;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgb(var(--color-icon) / 0.18),
+    -4px -4px 10px rgb(var(--color-bg) / 0.6),
+    inset 0 1px 0 rgb(var(--color-bg) / 0.4);
 }
 
 .elegant-theme-toggle:active {
-  opacity: 0.6;
+  transform: translateY(0);
+  box-shadow: var(--shadow-inset-min);
 }
 
-/* Eye Container */
-.elegant-eye-container {
-  position: relative;
-  width: 100%;
-  height: 24px;
-  transition: all 0.3s ease;
-}
-
-/* Eye Shape */
-.eye-shape {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 18px;
-  height: 12px;
-  background: rgb(var(--color-text));
-  border-radius: 9px 9px 6px 6px;
-  transition: all 0.4s ease;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Pupil */
-.pupil {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 6px;
-  height: 6px;
-  background: rgb(var(--color-accent));
-  border-radius: 50%;
-  transition: all 0.4s ease;
-}
-
-.pupil.light {
-  background: #ffd700;
-  box-shadow: 0 0 4px rgba(255, 215, 0, 0.4);
-}
-
-.pupil.dark {
-  background: #e2e8f0;
-  box-shadow: 0 0 4px rgba(226, 232, 240, 0.4);
-}
-
-/* Eyelid */
-.eyelid {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 50%;
-  background: rgb(var(--color-bg));
-  transition: all 0.4s ease;
-  border-radius: 9px 9px 0 0;
-}
-
-.eyelid.light {
-  height: 25%;
-  background: rgba(248, 249, 250, 0.8);
-}
-
-.eyelid.dark {
-  height: 75%;
-  background: rgba(45, 55, 72, 0.8);
-}
-
-/* Accessibility: Focus State */
 .elegant-theme-toggle:focus-visible {
-  outline: 1px solid rgb(var(--color-accent));
-  outline-offset: 2px;
+  outline: 2px solid rgb(var(--color-primary));
+  outline-offset: 4px;
   border-radius: var(--radius-md);
 }
 
-/* Mobile Adjustments */
+.elegant-theme-toggle::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: calc(var(--radius-md) - 6px);
+  background: radial-gradient(
+    circle at 50% 40%,
+    rgb(var(--color-primary) / 0.28) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.elegant-theme-toggle.theme-light::after {
+  opacity: 1;
+}
+
+.bulb-icon {
+  width: 28px;
+  height: 32px;
+  display: block;
+  color: rgb(var(--color-icon));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease,
+    color 0.4s ease;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.18));
+}
+
+.bulb-icon.theme-light {
+  filter: drop-shadow(0 0 12px rgb(var(--color-primary) / 0.4));
+  transform: translateY(-1px);
+}
+
+.bulb-icon.theme-dark {
+  filter: drop-shadow(0 3px 6px rgb(0 0 0 / 0.28));
+  transform: translateY(1px);
+}
+
+.bulb-icon .bulb-outline,
+.bulb-icon .bulb-base,
+.bulb-icon .bulb-thread,
+.bulb-icon .bulb-ray {
+  stroke: currentColor;
+  stroke-width: 1;
+  fill: none;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.4s ease,
+    fill 0.4s ease;
+}
+
+.bulb-icon .bulb-base {
+  fill: rgb(var(--color-icon) / 0.12);
+}
+
+.bulb-icon .bulb-core {
+  fill: rgb(var(--color-icon) / 0.18);
+  transition: fill 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+}
+
+.bulb-icon .bulb-ray {
+  opacity: 0;
+  transform: scale(0.6);
+  transform-origin: center;
+}
+
+.bulb-icon.theme-light .bulb-base {
+  fill: rgb(var(--color-icon) / 0.22);
+}
+
+.bulb-icon.theme-light .bulb-core {
+  fill: rgb(var(--color-primary) / 0.35);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.bulb-icon.theme-dark .bulb-core {
+  fill: rgb(var(--color-icon) / 0.18);
+  opacity: 0.65;
+  transform: scale(0.95);
+}
+
+.bulb-icon.theme-light .bulb-ray {
+  opacity: 1;
+  transform: scale(1);
+}
+
 @media (max-width: 768px) {
-  .elegant-eye-container {
-    height: 20px;
+  .elegant-theme-toggle {
+    width: 42px;
+    height: 42px;
+    padding: var(--space-xs);
   }
 
-  .eye-shape {
-    width: 16px;
-    height: 10px;
-  }
-
-  .pupil {
-    width: 5px;
-    height: 5px;
+  .bulb-icon {
+    width: 24px;
+    height: 28px;
   }
 }
 
-/* Reduce Motion Preference */
 @media (prefers-reduced-motion: reduce) {
   .elegant-theme-toggle,
-  .elegant-eye-container,
-  .eye-shape,
-  .pupil,
-  .eyelid {
-    transition: opacity 0.3s ease !important;
+  .bulb-icon,
+  .bulb-icon .bulb-outline,
+  .bulb-icon .bulb-base,
+  .bulb-icon .bulb-core,
+  .bulb-icon .bulb-thread,
+  .bulb-icon .bulb-ray {
+    transition: opacity 0.2s ease !important;
+    transform: none !important;
+    filter: none !important;
   }
 }

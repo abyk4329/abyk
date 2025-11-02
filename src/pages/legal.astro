@@ -5,17 +5,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="תנאי שימוש ומדיניות פרטיות | Awakening by Ksenia">
   <div class="page-container" dir="rtl">
     <!-- Header Card -->
-        <div class="card-surface mb-4">
-      <h1 class="PageTitle">מידע משפטי</h1>
-      <p class="LeadText">
-        דף זה כולל את תנאי השימוש ומדיניות הפרטיות של השירות
-      </p>
+  <div class="card-surface card-stack">
+      <h1 class="PageTitle">תנאים משפטיים</h1>
+      <p class="BrandName">AWAKENING BY KSENIA</p>
+      <div class="dates">
+        <p class="SmallNote">נכנסו לתוקף בתאריך: 26.09.2025</p>
+        <p class="SmallNote">תאריך עדכון אחרון: 30.10.2025</p>
+      </div>
     </div>
 
     <!-- Table of Contents -->
-    <section id="terms" class="card-surface mb-4">
+  <section id="terms" class="card-surface card-stack">
       
-      <div class="legal-content">
+  <div class="legal-content card-stack">
         <p class="BodyText">האתר Awakening by Ksenia ("האתר") מופעל על ידי צ׳ודנובסקי קסניה אוריה ("המפעילה"). שימוש באתר, לרבות רכישת מוצרים דיגיטליים, מהווה הסכמה מלאה ומפורשת לתנאי שימוש אלה.</p>
         <p class="BodyText">אם אין הסכמה לתנאים אלו, אין רשות להשתמש באתר.</p>
 
@@ -48,10 +50,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <!-- Privacy Section Card -->
-    <section id="privacy" class="card-surface mb-4">
+  <section id="privacy" class="card-surface card-stack">
       <h2 class="CardTitle">מדיניות פרטיות</h2>
 
-      <div class="legal-content">
+  <div class="legal-content card-stack">
         <h3 class="CardSubtitle">זהות האחראית על המידע</h3>
         <p class="BodyText">המפעילה: צ׳ודנובסקי קסניה אוריה.</p>
         <p class="BodyText">דוא"ל לפניות בנושא פרטיות: <a href="mailto:awakening.by.ksenia@gmail.com">awakening.by.ksenia@gmail.com</a></p>
@@ -102,7 +104,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <!-- Updates Section Card -->
-    <section id="updates" class="card-surface">
+  <section id="updates" class="card-surface card-stack">
       <h2 class="CardTitle">עדכוני מדיניות</h2>
       <p class="BodyText">מסמך זה עשוי להתעדכן מעת לעת. תאריך העדכון האחרון יופיע בראש העמוד.</p>
     </section>
@@ -111,18 +113,38 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+  /* ============================================
+     Legal Page Spacing - Container Pattern
+     ============================================ */
+
   .dates {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs);
-    margin-top: var(--space-md);
+    gap: var(--card-element-gap);
+    margin-top: var(--card-content-gap);
   }
 
   .legal-content {
     text-align: center;
-    /* מרווחים מנוהלים על ידי קלאסי הטיפוגרפיה */
+    gap: var(--card-content-gap);
   }
 
+  /* כותרות משניות בתוך legal-content */
+  .legal-content .CardSubtitle {
+    margin: 0; /* Container מנהל */
+    margin-top: var(--card-content-gap);
+  }
+
+  .legal-content .CardSubtitle:first-child {
+    margin-top: 0; /* כותרת ראשונה ללא מרווח */
+  }
+
+  /* פסקאות - ללא margin */
+  .legal-content .BodyText {
+    margin: 0; /* Container מנהל */
+  }
+
+  /* רשימות */
   .legal-list {
     list-style: none;
     padding: 0;
@@ -131,9 +153,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs); /* מרווח בין פריטי רשימה: 4px */
+    gap: var(--card-element-gap);
   }
 
+  .legal-list .BodyText {
+    margin: 0; /* Container מנהל */
+  }
+
+  /* קישורים */
   a {
     color: rgb(var(--color-brand));
     text-decoration: none;

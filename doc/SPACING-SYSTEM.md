@@ -1,25 +1,72 @@
 # מערכת מרווחים מאוחדת | UNIFIED SPACING SYSTEM
 
-**תאריך:** 27.10.2025  
-**גרסה:** 1.0
+**תאריך:** 31.10.2025  
+**גרסה:** 2.1
 
 ---
 
-## 🎯 עקרון יסוד
+## 🎯 עקרון יסוד - CONTAINER MANAGES SPACING
 
-**כל מרווח באתר חייב להימשך ממשתנה גלובלי בלבד.**
+**כלל מס' 1: Container מנהל את כל המרווחים, אלמנטים פנימיים ללא margin**
 
-❌ **אסור:**
+❌ **לעולם אל תעשי:**
 
-- `padding: 12px 16px` (מספרים ידניים)
-- `gap: 0.75rem` (ערך ישיר)
-- `margin-bottom: 24px` (מספר קבוע)
+- margin על קלאסים טיפוגרפיים (`.BodyText`, `.Subtitle`, `.Title`)
+- padding ישיר על אלמנטים פנימיים
+- מספרים ידניים (`12px`, `1.5rem`)
 
-✅ **נכון:**
+✅ **תמיד עשי:**
 
-- `padding: var(--btn-padding-y) var(--btn-padding-x)`
-- `gap: var(--card-content-gap)`
-- `margin-bottom: var(--heading-margin-bottom)`
+- Container (div/section) עם `display: flex; flex-direction: column; gap: var(--משתנה)`
+- אלמנטים פנימיים עם `margin: 0`
+- משתמש **רק** במשתנים גלובליים
+
+---
+
+## 📐 הכלל החדש - Container Pattern
+
+```css
+/* ❌ WRONG - Elements manage their own spacing */
+.BodyText {
+  margin-bottom: 16px;
+}
+
+.Subtitle {
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+/* ✅ CORRECT - Container manages spacing */
+.BodyText {
+  margin: 0; /* אפס מרווחים */
+}
+
+.Subtitle {
+  margin: 0; /* אפס מרווחים */
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-content-gap); /* 16px בין כל האלמנטים */
+}
+```
+
+## 🧱 Utility מוכן - `.card-stack`
+
+```css
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-content-gap); /* 16px ברירת מחדל לכל האלמנטים */
+}
+
+.card-stack > * {
+  margin: 0;
+}
+```
+
+**שימוש:** לעטוף תוכן של כרטיסייה או מודול ולוודא שהמרווחים הפנימיים זהים בכל העמודים.
 
 ---
 
@@ -39,14 +86,12 @@
 }
 ```
 
-### Layout Spacing (מרווחים בין אלמנטים)
+### Card Section Gaps (מרווחים בין sections)
 
 ```css
 :root {
-  --layout-section-gap: 1.5rem; /* 24px - מרווח בין כרטיסיות */
-  --layout-content-gap: 1rem; /* 16px - מרווח בין אלמנטים בתוך כרטיסייה */
-  --layout-text-gap: 1.5rem; /* 24px - מרווח בין פסקאות */
-  --layout-list-gap: 0.75rem; /* 12px - מרווח בין פריטים ברשימה */
+  --card-section-gap-small: 0.375rem; /* 6px - sections צמודים */
+  --card-section-gap-large: 0.625rem; /* 10px - sections מרווחים */
 }
 ```
 
@@ -89,7 +134,7 @@
 
 | סוג מרווח                   | משתנה CSS                    | Tailwind              | ערך  | מתי להשתמש               |
 | --------------------------- | ---------------------------- | --------------------- | ---- | ------------------------ |
-| **Layout - בין כרטיסיות**   | `--layout-section-gap`       | `space-y-6` / `gap-6` | 24px | מרווח בין cards בעמוד    |
+| **Layout - בין כרטיסיות**   | `--layout-section-gap`       | `space-y-1.5`         | 6px  | מרווח בין cards בעמוד    |
 | **Layout - בין אלמנטים**    | `--layout-content-gap`       | `space-y-4` / `gap-4` | 16px | מרווח בתוך card          |
 | **Layout - בין פסקאות**     | `--layout-text-gap`          | `space-y-6`           | 24px | מרווח בין פסקאות טקסט    |
 | **Layout - רשימה**          | `--layout-list-gap`          | `space-y-3` / `gap-3` | 12px | פריטי רשימה              |
@@ -110,7 +155,65 @@
 
 ## 💡 דוגמאות שימוש
 
-### 1. כפתור - Padding פנימי
+### 1. Interpretations Section - הדוגמה המושלמת
+
+```css
+/* ✅ Container מנהל הכל */
+.interpretations-section {
+  border-top: 1px solid rgb(var(--color-primary) / 0.55);
+  padding-top: var(--space-sm); /* 8px מהקו לכותרת */
+  margin-top: var(--card-section-gap-large); /* 10px בין sections */
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-content-gap); /* 16px בין כל האלמנטים */
+  text-align: center;
+}
+
+/* אלמנטים פנימיים ללא margin */
+.interpretations-section .Subtitle {
+  margin: 0; /* Container מנהל */
+}
+
+.interpretations-section .BodyText {
+  margin: 0; /* Container מנהל */
+}
+
+.interpretations-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-element-gap); /* 8px בין items */
+}
+
+.interpretations-list-item {
+  margin: 0; /* Container מנהל */
+  padding: var(--space-xs) 0; /* רק padding פנימי */
+}
+```
+
+```html
+<!-- דוגמה HTML -->
+<div class="interpretations-section">
+  <h3 class="Subtitle">מתנות מרכזיות</h3>
+  <ul class="interpretations-list">
+    <li class="BodyText interpretations-list-item">מנהיגות טבעית...</li>
+    <li class="BodyText interpretations-list-item">אומץ לפרוץ קדימה...</li>
+  </ul>
+</div>
+```
+
+**למה זה עובד:**
+
+- ✅ `gap: var(--card-content-gap)` מנהל מרווח אחיד בין כותרת לרשימה
+- ✅ כל האלמנטים עם `margin: 0` - אין התנגשויות
+- ✅ שינוי אחד ב-gap משפיע על הכל
+- ✅ עקבי ב-100% מהמקרים
+- ✅ קווי ההפרדה נמשכים מצבע ה-CTA (`--color-primary`) ולכן משתלבים עם כפתורי הפעולה
+
+---
+
+### 2. כפתור - Padding פנימי
 
 ```css
 /* ❌ לא נכון */

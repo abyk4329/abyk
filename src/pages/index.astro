@@ -10,7 +10,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="container">
     <!-- Hero Section -->
     <section class="hero">
-      <div class="card-surface hero-card">
+  <div class="card-surface card-stack hero-card">
         <h1 class="CardTitleLong">
           גלו את קוד העושר שלכם
         </h1>
@@ -27,7 +27,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <!-- Share Section -->
     <section class="share-section">
-      <div class="card-surface">
+  <div class="card-surface card-stack">
         <p class="LeadText">
           שלחו לחברים ולמשפחה הזמנה לגלות את עצמם בלחיצה אחת
         </p>
@@ -56,6 +56,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     padding: 1rem 0;
   }
 
+  .hero-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* מרכז את כל התוכן */
+    gap: var(--card-content-gap);
+  }
+
+  .hero-card h1 {
+    margin: 0;
+  }
+
+  .hero-card .LeadText {
+    margin: 0;
+  }
+
   .hero-cta {
     display: inline-flex;
     align-items: center;
@@ -65,18 +80,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
     font-weight: 600 !important;
+    margin-top: var(--space-sm); /* 8px - מרווח נוסף לפני הכפתור */
+    width: auto; /* לא להתרחב לכל הרוחב */
+    align-self: center; /* מרכז את הכפתור */
   }
 
   /* Share Section */
   .share-section {
-    margin-top: var(--card-section-gap-small);
-    padding: 1rem 0;
+    margin-top: var(--card-section-gap-large);
+    padding: 0;
+  }
+
+  .share-section .card-surface {
+    gap: var(--card-content-gap);
+  }
+
+  .share-section .LeadText {
+    margin: 0;
   }
 
   .share-button-wrapper {
     display: flex;
     justify-content: center;
-    margin-bottom: var(--space-md);
+    margin: 0;
   }
 
   /* Desktop Styles */
@@ -92,8 +118,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       padding: var(--space-xl) 0;
     }
 
+    .hero-card {
+      gap: var(--card-content-gap);
+    }
+
     .hero-cta {
       padding: var(--btn-padding-y) var(--space-3xl);
+      margin-top: var(--space-md); /* 16px */
     }
 
     .hero-cta:hover {
@@ -106,11 +137,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .share-section {
       margin-top: var(--card-section-gap-large);
-      padding: var(--space-xl) 0;
+      padding: 0;
     }
 
-    .share-button-wrapper {
-      margin-bottom: var(--space-lg);
+    .share-section .card-surface {
+      gap: var(--card-content-gap);
     }
   }
 </style>

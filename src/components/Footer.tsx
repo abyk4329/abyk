@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Footer.css';
 import InstallPWA from './InstallPWA';
-import PullToggle from './PullToggle';
 
 export default function Footer() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [themeReady, setThemeReady] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -14,32 +15,101 @@ export default function Footer() {
     setMenuOpen(false);
   };
 
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+
+    const initialTheme =
+      savedTheme === 'light' || savedTheme === 'dark'
+        ? savedTheme
+        : prefersDark
+        ? 'dark'
+        : 'light';
+
+    setTheme(initialTheme);
+    document.documentElement.setAttribute('data-theme', initialTheme);
+    setThemeReady(true);
+  }, []);
+
+  const toggleThemeMode = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', newTheme);
+    }
+  };
+
   return (
     <>
       {/* Side Menu Overlay */}
       {menuOpen && (
         <div className="menu-overlay" onClick={closeMenu}>
           <nav className="side-menu" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="close-button"
-              onClick={closeMenu}
-              aria-label="סגור תפריט"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            <div className="menu-header-actions">
+              <button
+                type="button"
+                className="menu-action-button close-button"
+                onClick={closeMenu}
+                aria-label="סגור תפריט"
               >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+
+              {themeReady && (
+                <button
+                  type="button"
+                  className={`menu-action-button theme-toggle-button ${
+                    theme === 'dark' ? 'is-dark' : 'is-light'
+                  }`}
+                  onClick={toggleThemeMode}
+                  aria-label={
+                    theme === 'light' ? 'החליפו למצב כהה' : 'החליפו למצב בהיר'
+                  }
+                  aria-pressed={theme === 'dark' ? 'true' : 'false'}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke={
+                      theme === 'dark'
+                        ? 'rgb(var(--color-icon))'
+                        : 'currentColor'
+                    }
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M9 18h6"></path>
+                    <path d="M10 22h4"></path>
+                    <path d="M12 2a7 7 0 0 0-4 12.74V16a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-1.26A7 7 0 0 0 12 2z"></path>
+                  </svg>
+                </button>
+              )}
+            </div>
 
             <div className="menu-content">
               <h2 className="menu-title">AWAKENING BY KSENIA</h2>
@@ -156,11 +226,6 @@ export default function Footer() {
                   <InstallPWA />
                 </li>
               </ul>
-
-              {/* Theme Toggle */}
-              <div className="menu-theme-toggle">
-                <PullToggle />
-              </div>
             </div>
           </nav>
         </div>

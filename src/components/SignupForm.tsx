@@ -109,7 +109,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
         </div>
 
         {/* Signup Form Card */}
-        <form onSubmit={handleSubmit} className="login-card">
+        <form onSubmit={handleSubmit} className="login-card card-stack">
           <div className="login-card-header">
             <h2 className="Subtitle">הרשמה</h2>
             <p className="BodyText">צרו חשבון חדש והתחילו את המסע</p>
