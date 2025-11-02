@@ -520,6 +520,7 @@ button {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: stretch; /* מאפשר לכפתורים להתרחב לרוחב מלא */
   gap: var(--card-content-gap);
   text-align: center;
 }
