@@ -75,10 +75,10 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
 
       if (data.user) {
         if (data.session) {
-          // אם יש session - המשתמש מחובר, נעביר אותו לעמוד הבית
-          setMessage('ההרשמה הושלמה בהצלחה! מעביר אותך...');
+          // אם יש session - המשתמש מחובר, נעביר אותו לאזור האישי
+          setMessage('ההרשמה הושלמה בהצלחה! מעביר אותך לאזור האישי...');
           setTimeout(() => {
-            window.location.href = '/';
+            window.location.href = '/dashboard';
           }, 1500);
         } else {
           // אם אין session - צריך לאשר במייל

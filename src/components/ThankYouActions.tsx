@@ -26,6 +26,21 @@ export default function ThankYouActions({
     if (resolvedCode) {
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('abyk:last-code', resolvedCode);
+        
+        // Save purchase to localStorage
+        const purchases = JSON.parse(localStorage.getItem('user-purchases') || '[]');
+        const newPurchase = {
+          code: resolvedCode,
+          date: new Date().toISOString(),
+          type: 'wealth-code-full'
+        };
+        
+        // Check if this code is already purchased
+        const exists = purchases.find((p: any) => p.code === resolvedCode);
+        if (!exists) {
+          purchases.push(newPurchase);
+          localStorage.setItem('user-purchases', JSON.stringify(purchases));
+        }
       }
       console.log('ThankYou: resolved code =', resolvedCode);
       setCode(resolvedCode);

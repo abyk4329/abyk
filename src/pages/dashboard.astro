@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="אזור אישי - Awakening by Ksenia"
+  description="האזור האישי שלך - גישה לכל הפירושים והרכישות"
+>
+  
+  <div class="page-container" dir="rtl">
+    <h1 class="PageTitle">האזור האישי שלי</h1>
+    
+    <div id="dashboard-content">
+      <!-- React component will mount here -->
+    </div>
+  </div>
+
+  <script>
+    import { supabase } from '../lib/supabase/client';
+    
+    async function checkAuth() {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        // Not logged in - redirect to login
+        window.location.href = '/login';
+        return;
+      }
+      
+      loadDashboard(session);
+    }
+    
+    async function loadDashboard(session: any) {
+      const container = document.getElementById('dashboard-content');
+      if (!container) return;
+      
+      const user = session.user;
+      
+      // Get user purchases from localStorage (temporary until we have DB)
+      const purchases = JSON.parse(localStorage.getItem('user-purchases') || '[]');
+      
+      container.innerHTML = `
+        <div class="dashboard-sections" dir="rtl">
+          <!-- User Info Card -->
+          <div class="card-surface dashboard-card">
+            <h2 class="CardTitle">שלום, ${user.user_metadata?.full_name || 'משתמש/ת'}</h2>
+            <p class="BodyText">${user.email}</p>
+            <button id="logout-btn" class="btn btn-secondary mt-4">התנתק/י</button>
+          </div>
+          
+          <!-- Purchases Card -->
+          <div class="card-surface dashboard-card">
+            <h2 class="LongTitle">הרכישות שלי</h2>
+            
+            ${purchases.length === 0 ? `
+              <p class="LeadText">עדיין לא ביצעת רכישות</p>
+              <a href="/tools/wealth-code/calculator" class="btn btn-primary mt-4">
+                חשב קוד עושר
+              </a>
+            ` : `
+              <div class="purchases-list">
+                ${purchases.map((purchase: any) => `
+                  <a href="/tools/wealth-code/interpretations?code=${purchase.code}" class="card-surface purchase-item">
+                    <div class="purchase-info">
+                      <h3 class="CardTitle">קוד עושר: ${purchase.code}</h3>
+                      <p class="SmallNote">${new Date(purchase.date).toLocaleDateString('he-IL')}</p>
+                    </div>
+                    <div class="purchase-action">
+                      <span class="BodyText">צפה בפירוש →</span>
+                    </div>
+                  </a>
+                `).join('')}
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+      
+      // Logout handler
+      document.getElementById('logout-btn')?.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = '/';
+      });
+    }
+    
+    checkAuth();
+  </script>
+
+  <style>
+    .page-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4.5rem 1rem 1.5rem;
+      min-height: 60vh;
+    }
+    
+    .dashboard-sections {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    
+    .dashboard-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      padding: var(--space-lg) var(--space-md);
+      text-align: center;
+    }
+    
+    .purchases-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    
+    .purchase-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-md);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .purchase-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-raised-min);
+    }
+    
+    .purchase-info {
+      text-align: right;
+    }
+    
+    .purchase-action {
+      color: rgb(var(--color-primary));
+    }
+    
+    @media (min-width: 768px) {
+      .page-container {
+        padding: 5.5rem 1rem 2rem;
+      }
+      
+      .dashboard-card {
+        padding: var(--space-xl);
+      }
+    }
+  </style>
+</BaseLayout>
