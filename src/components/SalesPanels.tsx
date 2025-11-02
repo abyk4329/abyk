@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { sendWealthEmail } from '../../wealth-code/utils/email';
-
 interface SalesPanelsProps {
   code?: string;
 }
+
+const GROW_CHECKOUT_URL =
+  'https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ';
 
 export default function SalesPanels({ code }: SalesPanelsProps) {
   const [currentCode, setCurrentCode] = useState(code || '');
@@ -84,47 +85,24 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
     );
   };
 
-  const handlePurchase = async () => {
-    const demoRecipient = 'kseniachud@gmail.com';
+  const handlePurchase = () => {
     const storedCode =
       typeof window !== 'undefined'
         ? sessionStorage.getItem('abyk:last-code')
         : null;
     const resolvedCode = currentCode || storedCode || '';
-    const thankYouUrl = `/tools/wealth-code/thank-you${
+    const callbackUrl = `${window.location.origin}/tools/wealth-code/thank-you${
       resolvedCode ? `?code=${resolvedCode}` : ''
     }`;
+    const checkoutUrl = `${GROW_CHECKOUT_URL}?callback=${encodeURIComponent(
+      callbackUrl
+    )}`;
 
-    if (/^\d{4}$/.test(resolvedCode)) {
-      try {
-        await sendWealthEmail({
-          to: demoRecipient,
-          code: resolvedCode,
-          test: true,
-        });
-      } catch (error) {
-        console.error('Failed to send demo wealth email:', error);
-      }
-    } else {
-      console.warn('Skipping demo email send: code missing or invalid');
+    try {
+      window.location.href = checkoutUrl;
+    } catch (err) {
+      window.open(checkoutUrl, '_blank');
     }
-
-    window.location.href = thankYouUrl;
-
-    // TODO: Restore payment flow when needed
-    // const baseUrl =
-    //   'https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ';
-    // const callbackUrl = `${window.location.origin}/tools/wealth-code/thank-you${
-    //   currentCode ? `?code=${currentCode}` : ''
-    // }`;
-    // const checkoutUrl = `${baseUrl}?callback=${encodeURIComponent(
-    //   callbackUrl
-    // )}`;
-    // try {
-    //   window.location.href = checkoutUrl;
-    // } catch (err) {
-    //   window.open(checkoutUrl, '_blank');
-    // }
   };
 
   return (

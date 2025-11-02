@@ -1,6 +1,9 @@
 import type { APIRoute } from 'astro';
 import { generateWealthReportPdfBase64 } from '../../../wealth-code/pdf/generate';
 
+export const prerender = false;
+export const runtime = 'node';
+
 const CODE_PATTERN = /^\d{4}$/;
 
 function validateCode(code: string | null): asserts code is string {

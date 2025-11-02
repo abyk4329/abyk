@@ -5,6 +5,9 @@ import {
   wealthEmailHtml,
 } from '../../../wealth-code/email';
 
+export const prerender = false;
+export const runtime = 'node';
+
 const CODE_PATTERN = /^\d{4}$/;
 
 type AttachmentPayload = {

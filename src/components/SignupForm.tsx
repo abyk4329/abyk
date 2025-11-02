@@ -77,7 +77,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
         setMessage(
           data.session
             ? 'ההרשמה הושלמה בהצלחה.'
-            : 'שלחנו אליכם מייל לאישור החשבון. אנא אשרו כדי להשלים את ההרשמה.'
+            : 'שלחתי אליך מייל לאישור החשבון. אנא אשר/י כדי להשלים את ההרשמה.'
         );
       }
 
@@ -227,9 +227,9 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
               className="auth-checkbox-input"
             />
             <label htmlFor="terms" className="BodyText">
-              אישור{' '}
+              אישור תנאים משפטיים{' '}
               <a href="/legal" className="login-link">
-                התנאים המשפטיים
+                (צפו במסמך)
               </a>
             </label>
           </div>
@@ -246,9 +246,9 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
           {/* Login Link */}
           <div className="login-card-footer">
             <p className="login-card-note">
-              כבר יש לכם חשבון?{' '}
+              כבר יש לך חשבון?{' '}
               <a href="/login" className="login-link">
-                התחברו כאן
+                התחבר/י כאן
               </a>
             </p>
           </div>
