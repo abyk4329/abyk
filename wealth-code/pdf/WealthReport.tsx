@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     padding: 40,
     backgroundColor: PDF_COLORS.bg,
     color: PDF_COLORS.text,
-    fontFamily: 'Assistant',
+    fontFamily: 'Helvetica',
     direction: 'rtl',
   },
   title: {
