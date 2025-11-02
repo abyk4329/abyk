@@ -13,10 +13,10 @@
   --color-lead-text-light: 196 145 145; /* #C49191 lead text - טקסט פתיחה */
   --color-brand-gold: 114 163 148; /* #72A394 CTA color - brand identity */
   --color-accent: 114 163 148; /* #72A394 CTA - highlights */
-  --color-support: 179 137 86; /* #B38956 icon and numbers - light */
+  --color-support: 163 104 56; /* #A36838 icon and numbers - light */
   --color-error: 133 71 71; /* #854747 deep red - הודעות שגיאה */
   --color-primary-light: 114 163 148; /* #72A394 CTA - כפתורים וטקסט פעולה */
-  --color-icon-light: 179 137 86; /* #B38956 icon and numbers */
+  --color-icon-light: 163 104 56; /* #A36838 icon and numbers */
   --color-english-light: 114 163 148; /* #72A394 CTA - טקסט אנגלי */
 
   /* Dark theme */

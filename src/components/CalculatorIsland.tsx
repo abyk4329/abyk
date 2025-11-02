@@ -141,7 +141,7 @@ export default function CalculatorIsland() {
         </button>
 
         {selectedDateText && (
-          <p className="text-base text-center text-[rgb(var(--color-text)/0.75)]">
+          <p className="text-base text-center text-[rgb(var(--color-support))]">
             {selectedDateText}
           </p>
         )}

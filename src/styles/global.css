@@ -906,7 +906,7 @@ button {
 .auth-brand {
   font-family: var(--font-sans);
   font-weight: 300;
-  color: rgb(var(--color-support));
+  color: rgb(var(--color-english));
   font-size: clamp(1.75rem, 5vw, 2.5rem);
   white-space: nowrap;
   overflow: hidden;

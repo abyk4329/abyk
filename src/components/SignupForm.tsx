@@ -43,7 +43,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
     }
 
     if (!agreedToTerms) {
-      setError('יש לאשר את תנאי השימוש');
+      setError('יש לאשר את התנאים המשפטיים');
       return;
     }
 
@@ -111,8 +111,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
         {/* Signup Form Card */}
         <form onSubmit={handleSubmit} className="login-card card-stack">
           <div className="login-card-header">
-            <h2 className="Subtitle">הרשמה</h2>
-            <p className="BodyText">צרו חשבון חדש והתחילו את המסע</p>
+            <h2 className="Title">הרשמה לאזור האישי</h2>
           </div>
 
           {/* Error Message */}
@@ -140,7 +139,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
               value={formData.name}
               onChange={handleChange}
               required
-              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus-visible:outline-none focus:ring-0 transition-all"
               placeholder="שם מלא"
               dir="rtl"
             />
@@ -158,7 +157,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
               value={formData.email}
               onChange={handleChange}
               required
-              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus-visible:outline-none focus:ring-0 transition-all"
               placeholder="your@email.com"
               dir="ltr"
             />
@@ -176,7 +175,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
               value={formData.phone}
               onChange={handleChange}
               required
-              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus-visible:outline-none focus:ring-0 transition-all"
               placeholder="050-1234567"
               dir="ltr"
             />
@@ -194,7 +193,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
               value={formData.password}
               onChange={handleChange}
               required
-              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus-visible:outline-none focus:ring-0 transition-all"
               placeholder="לפחות 6 תווים"
               dir="ltr"
             />
@@ -212,7 +211,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
               value={formData.confirmPassword}
               onChange={handleChange}
               required
-              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus-visible:outline-none focus:ring-0 transition-all"
               placeholder="הקלידו שוב את הסיסמה"
               dir="ltr"
             />
@@ -228,13 +227,9 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
               className="auth-checkbox-input"
             />
             <label htmlFor="terms" className="BodyText">
-              מאשרים את{' '}
-              <a href="/terms" className="login-link">
-                תנאי השימוש
-              </a>{' '}
-              ו
-              <a href="/privacy" className="login-link">
-                מדיניות הפרטיות
+              אישור{' '}
+              <a href="/legal" className="login-link">
+                התנאים המשפטיים
               </a>
             </label>
           </div>
@@ -245,7 +240,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
             disabled={loading}
             className="btn btn-primary justify-center ButtonSecondaryText"
           >
-            {loading ? 'נרשמים...' : 'הירשמו'}
+            {loading ? 'מתבצעת הרשמה...' : 'הרשמה'}
           </button>
 
           {/* Login Link */}

@@ -66,7 +66,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         {/* Login Form Card */}
         <form onSubmit={handleSubmit} className="login-card card-stack">
           <div className="login-card-header">
-            <h2 className="Subtitle">התחברות לאזור האישי</h2>
+            <h2 className="Title">התחברות לאזור האישי</h2>
           </div>
 
           {/* Error Message */}
@@ -93,7 +93,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus-visible:outline-none focus:ring-0 transition-all"
               placeholder="your@email.com"
               dir="ltr"
             />
@@ -110,17 +110,10 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+              className="neu-inset-min w-full px-4 py-3 rounded-lg text-base focus:outline-none focus-visible:outline-none focus:ring-0 transition-all"
               placeholder="••••••••"
               dir="ltr"
             />
-          </div>
-
-          {/* Forgot Password Link */}
-          <div className="text-center">
-            <a href="/forgot-password" className="login-link text-sm">
-              שחזור סיסמה
-            </a>
           </div>
 
           {/* Submit Button */}
@@ -129,25 +122,17 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             disabled={loading}
             className="btn btn-primary justify-center ButtonSecondaryText"
           >
-            {loading ? 'מתחברים...' : 'התחברו'}
-          </button>
-
-          {/* Divider */}
-          <div className="login-card-divider">
-            <span>או</span>
-          </div>
-
-          {/* Social Login Placeholder */}
-          <button
-            type="button"
-            className="btn btn-secondary justify-center ButtonSecondaryText"
-            onClick={() => alert('התחברות עם Facebook תהיה זמינה בקרוב')}
-          >
-            התחברו עם Facebook
+            {loading ? 'מתחברים...' : 'כניסה'}
           </button>
 
           {/* Sign Up Link */}
           <div className="login-card-footer">
+            <p className="login-card-note">
+              שכחתם סיסמה?{' '}
+              <a href="/forgot-password" className="login-link">
+                שחזור סיסמה
+              </a>
+            </p>
             <p className="login-card-note">
               עדיין אין לכם חשבון?{' '}
               <a href="/signup" className="login-link">

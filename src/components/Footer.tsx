@@ -147,18 +147,10 @@ export default function Footer() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
-                      <rect
-                        x="4"
-                        y="2"
-                        width="16"
-                        height="20"
-                        rx="2"
-                        ry="2"
-                      ></rect>
-                      <line x1="8" y1="6" x2="16" y2="6"></line>
-                      <line x1="8" y1="10" x2="16" y2="10"></line>
-                      <line x1="8" y1="14" x2="16" y2="14"></line>
-                      <line x1="8" y1="18" x2="16" y2="18"></line>
+                      <line x1="5" y1="9" x2="19" y2="9"></line>
+                      <line x1="5" y1="15" x2="19" y2="15"></line>
+                      <line x1="9" y1="5" x2="9" y2="19"></line>
+                      <line x1="15" y1="5" x2="15" y2="19"></line>
                     </svg>
                     <span className="BigNote">מחשבון קוד העושר</span>
                   </a>
@@ -199,7 +191,7 @@ export default function Footer() {
                       <polyline points="10 17 15 12 10 7"></polyline>
                       <line x1="15" y1="12" x2="3" y2="12"></line>
                     </svg>
-                    <span className="BigNote">התחברות</span>
+                    <span className="BigNote">כניסה לאיזור אישי</span>
                   </a>
                 </li>
                 <li>
