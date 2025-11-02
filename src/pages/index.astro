@@ -59,20 +59,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .hero-card {
     display: flex;
     flex-direction: column;
-    align-items: center; /* מרכז את כל התוכן */
+    align-items: stretch; /* מאפשר לכפתור להתרחב לרוחב מלא */
     gap: var(--card-content-gap);
   }
 
   .hero-card h1 {
     margin: 0;
+    text-align: center; /* שומר על כותרת ממורכזת */
   }
 
   .hero-card .LeadText {
     margin: 0;
+    text-align: center; /* שומר על טקסט ממורכז */
   }
 
   .hero-cta {
-    display: inline-flex;
+    display: flex; /* שינוי מ-inline-flex ל-flex */
     align-items: center;
     justify-content: center;
     padding: var(--btn-padding-y) var(--btn-padding-x);
