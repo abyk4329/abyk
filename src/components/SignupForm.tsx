@@ -74,11 +74,18 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
       }
 
       if (data.user) {
-        setMessage(
-          data.session
-            ? 'ההרשמה הושלמה בהצלחה.'
-            : 'שלחתי אליך מייל לאישור החשבון. אנא אשר/י כדי להשלים את ההרשמה.'
-        );
+        if (data.session) {
+          // אם יש session - המשתמש מחובר, נעביר אותו לעמוד הבית
+          setMessage('ההרשמה הושלמה בהצלחה! מעביר אותך...');
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 1500);
+        } else {
+          // אם אין session - צריך לאשר במייל
+          setMessage(
+            'שלחתי אליך מייל לאישור החשבון. אנא אשר/י כדי להשלים את ההרשמה.'
+          );
+        }
       }
 
       setFormData({
