@@ -99,13 +99,19 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   // Log all headers for debugging
-  console.log('[grow:webhook] All headers:', Object.fromEntries(request.headers.entries()));
+  console.log(
+    '[grow:webhook] All headers:',
+    Object.fromEntries(request.headers.entries())
+  );
 
   const signatureHeader = request.headers.get('x-grow-signature');
   const rawBody = await request.text();
 
   console.log('[grow:webhook] Signature header value:', signatureHeader);
-  console.log('[grow:webhook] Raw body (first 200 chars):', rawBody.substring(0, 200));
+  console.log(
+    '[grow:webhook] Raw body (first 200 chars):',
+    rawBody.substring(0, 200)
+  );
 
   if (!signatureHeader) {
     console.warn('[grow:webhook] Missing signature header');
