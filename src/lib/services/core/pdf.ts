@@ -17,25 +17,24 @@ export function registerHebrewFonts(): void {
   fontsRegistered = true;
 
   try {
-    // Use standard fonts that work in serverless environments
-    // Assistant font has issues with react-pdf in Vercel, using Arial Hebrew instead
+    // Use local Assistant font files that support Hebrew
     Font.register({
       family: 'Assistant',
       fonts: [
         {
-          src: 'https://fonts.gstatic.com/s/assistant/v18/2tsd397wLxj96qwHyNIkxFYJZJg.ttf',
+          src: '/AssistantFont/static/Assistant-Regular.ttf',
           fontWeight: 400,
         },
         {
-          src: 'https://fonts.gstatic.com/s/assistant/v18/2tsd397wLxj96qwHyNIkxFYJZJg.ttf',
+          src: '/AssistantFont/static/Assistant-Medium.ttf',
           fontWeight: 500,
         },
         {
-          src: 'https://fonts.gstatic.com/s/assistant/v18/2tsd397wLxj96qwHyNIkxFYJZJg.ttf',
+          src: '/AssistantFont/static/Assistant-SemiBold.ttf',
           fontWeight: 600,
         },
         {
-          src: 'https://fonts.gstatic.com/s/assistant/v18/2tsd397wLxj96qwHyNIkxFYJZJg.ttf',
+          src: '/AssistantFont/static/Assistant-Bold.ttf',
           fontWeight: 700,
         },
       ],
