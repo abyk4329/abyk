@@ -203,6 +203,7 @@ button {
   box-shadow: var(--btn-cta-shadow);
   font-size: var(--text-lg);
   letter-spacing: 0.025em;
+  width: 100%;
 }
 
 .btn-cta:hover {
@@ -238,6 +239,7 @@ button {
   color: var(--btn-primary-text);
   border: var(--btn-primary-border);
   box-shadow: var(--btn-primary-shadow);
+  width: 100%;
 }
 
 .btn-primary:hover {
@@ -273,6 +275,7 @@ button {
   color: var(--btn-secondary-text);
   box-shadow: var(--btn-secondary-shadow);
   border: none;
+  width: 100%;
 }
 
 .btn-secondary:hover {
