@@ -264,18 +264,16 @@ export default function SalesPanels({ code }: SalesPanelsProps) {
             </li>
           </ul>
 
-          <div className="sales-card-content">
-            <div className="sales-card-actions">
-              <button
-                type="button"
-                onClick={handlePurchase}
-                className="btn btn-cta ButtonPrimaryText"
-              >
-                קבלו את הפירוש המלא עכשיו
-              </button>
-            </div>
-            <p className="SmallNote">גישה מיידית לאחר התשלום</p>
+          <div className="sales-card-actions">
+            <button
+              type="button"
+              onClick={handlePurchase}
+              className="btn btn-cta ButtonPrimaryText"
+            >
+              קבלו את הפירוש המלא עכשיו
+            </button>
           </div>
+          <p className="SmallNote">גישה מיידית לאחר התשלום</p>
         </div>
       </div>
     </div>
