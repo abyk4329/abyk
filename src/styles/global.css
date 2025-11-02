@@ -501,10 +501,11 @@ button {
 .sales-card-actions {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .sales-card-actions .btn {
-  min-width: 200px;
+  /* min-width removed to allow full width */
 }
 
 .sales-price {
