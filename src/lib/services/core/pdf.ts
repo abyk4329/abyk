@@ -17,24 +17,26 @@ export function registerHebrewFonts(): void {
   fontsRegistered = true;
 
   try {
-    // Use local Assistant font files from public directory
+    // Use full URLs to font files hosted on the site
+    const baseUrl = 'https://abyk.online';
+    
     Font.register({
       family: 'Assistant',
       fonts: [
         {
-          src: '/fonts/Assistant-Regular.ttf',
+          src: `${baseUrl}/fonts/Assistant-Regular.ttf`,
           fontWeight: 400,
         },
         {
-          src: '/fonts/Assistant-Medium.ttf',
+          src: `${baseUrl}/fonts/Assistant-Medium.ttf`,
           fontWeight: 500,
         },
         {
-          src: '/fonts/Assistant-SemiBold.ttf',
+          src: `${baseUrl}/fonts/Assistant-SemiBold.ttf`,
           fontWeight: 600,
         },
         {
-          src: '/fonts/Assistant-Bold.ttf',
+          src: `${baseUrl}/fonts/Assistant-Bold.ttf`,
           fontWeight: 700,
         },
       ],
