@@ -5,7 +5,7 @@ interface SalesPanelsProps {
 }
 
 const GROW_CHECKOUT_URL =
-  'https://pay.grow.link/b937d8523ea981c0137af77445265809-MjUyNjAyMQ';
+  'https://pay.grow.link/7ec8e239e21b225640340c6821c3d7a5-MjQ2MDA0Nw';
 
 export default function SalesPanels({ code }: SalesPanelsProps) {
   const [currentCode, setCurrentCode] = useState(code || '');
