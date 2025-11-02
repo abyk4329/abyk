@@ -94,7 +94,7 @@ export default function ThankYouActions({
           className="card-surface thankyou-link-card"
         >
           <h3 className="CardTitle">חשבו קוד נוסף</h3>
-          <p className="SmallNote">לחבר, בן/בת זוג או משפחה</p>
+          <p className="BigNote">לחבר, בן/בת זוג או משפחה</p>
         </a>
 
         <a
@@ -104,7 +104,7 @@ export default function ThankYouActions({
           className="card-surface thankyou-link-card"
         >
           <h3 className="CardTitle">ייעוץ אישי</h3>
-          <p className="SmallNote">מעבר לקביעת ייעוץ</p>
+          <p className="BigNote">מעבר לקביעת ייעוץ</p>
         </a>
 
         <div className="card-surface thankyou-link-card">

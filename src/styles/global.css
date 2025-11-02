@@ -573,7 +573,7 @@ button {
 .thankyou-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-sm); /* צמצום המרווח בין כותרת לטקסט פתיח */
   align-items: center;
   text-align: center;
   padding: var(--space-lg) var(--space-md);
@@ -583,6 +583,7 @@ button {
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: var(--space-md); /* מרווח נוסף לפני הכפתור */
 }
 
 .thankyou-links {
@@ -651,7 +652,7 @@ button {
 .thankyou-card .CardTitle,
 .thankyou-card .LeadText,
 .thankyou-link-card .CardTitle,
-.thankyou-link-card .SmallNote {
+.thankyou-link-card .BigNote {
   margin-bottom: 0;
 }
 
