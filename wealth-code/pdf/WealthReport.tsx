@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     padding: 40,
     backgroundColor: PDF_COLORS.bg,
     color: PDF_COLORS.text,
-    fontFamily: 'Helvetica', // TODO: Assistant font has issues with react-pdf, using Helvetica for now
+    fontFamily: 'Assistant',
     direction: 'rtl',
   },
   title: {
