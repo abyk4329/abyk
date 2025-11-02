@@ -114,7 +114,9 @@ export const POST: APIRoute = async ({ request }) => {
   );
 
   if (!signatureHeader) {
-    console.warn('[grow:webhook] ⚠️ Missing signature header - proceeding anyway (TEMPORARY)');
+    console.warn(
+      '[grow:webhook] ⚠️ Missing signature header - proceeding anyway (TEMPORARY)'
+    );
     // return new Response(
     //   JSON.stringify({ ok: false, error: 'Signature header missing' }),
     //   {
@@ -162,8 +164,16 @@ export const POST: APIRoute = async ({ request }) => {
     CODE_REGEX.test(candidate)
   );
 
+  console.log('[grow:webhook] Extracted data:', {
+    buyerEmail,
+    buyerName,
+    code,
+    payloadKeys: Object.keys(payload),
+  });
+
   if (!buyerEmail) {
     console.error('[grow:webhook] Could not find buyer email in payload');
+    console.error('[grow:webhook] Full payload:', JSON.stringify(payload, null, 2));
     return new Response(
       JSON.stringify({ ok: false, error: 'Buyer email not found' }),
       {
@@ -231,6 +241,8 @@ export const POST: APIRoute = async ({ request }) => {
       body: JSON.stringify(resendPayload),
     });
 
+    console.log('[grow:webhook] Resend response status:', resendResponse.status);
+
     if (!resendResponse.ok) {
       const errorPayload = await resendResponse.json().catch(() => undefined);
       console.error('[grow:webhook] Resend API error', errorPayload);
@@ -242,6 +254,9 @@ export const POST: APIRoute = async ({ request }) => {
         }
       );
     }
+
+    const resendResult = await resendResponse.json();
+    console.log('[grow:webhook] ✅ Email sent successfully!', resendResult);
   } catch (error) {
     console.error('[grow:webhook] Failed to send email', error);
     return new Response(
