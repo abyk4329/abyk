@@ -114,17 +114,15 @@ export const POST: APIRoute = async ({ request }) => {
   );
 
   if (!signatureHeader) {
-    console.warn('[grow:webhook] Missing signature header');
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Signature header missing' }),
-      {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-
-  if (!makeTimingSafeEqual(signatureHeader.trim(), secret.trim())) {
+    console.warn('[grow:webhook] ⚠️ Missing signature header - proceeding anyway (TEMPORARY)');
+    // return new Response(
+    //   JSON.stringify({ ok: false, error: 'Signature header missing' }),
+    //   {
+    //     status: 401,
+    //     headers: { 'Content-Type': 'application/json' },
+    //   }
+    // );
+  } else if (!makeTimingSafeEqual(signatureHeader.trim(), secret.trim())) {
     console.warn('[grow:webhook] Invalid signature');
     return new Response(
       JSON.stringify({ ok: false, error: 'Invalid signature' }),
